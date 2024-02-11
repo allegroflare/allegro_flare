@@ -1445,7 +1445,7 @@ table td
 </tr>
 <tr>
   <td class="property">camera</td>
-  <td class="property">AllegroFlare::Placement2D*</td>
+  <td class="property">AllegroFlare::Camera2D*</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -1467,7 +1467,7 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36829,7 +36829,6 @@ table td
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
@@ -36979,6 +36978,13 @@ table td
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
+  ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/CameraControlStrategies2D/Base",
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
@@ -38439,12 +38445,6 @@ table td
   ],
   "CatDetective/Chronicle/Panes/CrimeSummaryPage": [
     "AllegroFlare/Elements/WorldMapViewer"
-  ],
-  "AllegroFlare/Camera2D": [
-    "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "AllegroFlare/Random": [
     "AllegroFlare/Elements/WorldMapViewer",

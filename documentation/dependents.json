@@ -582,7 +582,6 @@
   ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
-    "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
@@ -732,6 +731,13 @@
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
+  ],
+  "AllegroFlare/Camera2D": [
+    "AllegroFlare/CameraControlStrategies2D/Base",
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
@@ -2192,12 +2198,6 @@
   ],
   "CatDetective/Chronicle/Panes/CrimeSummaryPage": [
     "AllegroFlare/Elements/WorldMapViewer"
-  ],
-  "AllegroFlare/Camera2D": [
-    "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
   ],
   "AllegroFlare/Random": [
     "AllegroFlare/Elements/WorldMapViewer",

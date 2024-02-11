@@ -720,6 +720,40 @@ Placement2D Placement2D::operator*(float f)
 }
 
 
+Placement2D Placement2D::blend(Placement2D placement1, Placement2D placement2, float normal)
+{
+   //AllegroFlare::Placement2D result = *this;
+   if (normal <= 0.0f) return placement1;
+   if (normal >= 1.0f) return placement2;
+   // TODO: Test this
+   //AllegroFlare::Placement2D result = *this;
+   AllegroFlare::Placement2D result; // = *this;
+
+
+
+   //return placement1;
+
+   result.position = (placement2.position - placement1.position) * normal + placement1.position;
+   result.size = (placement2.size - placement1.size) * normal + placement1.size;
+   result.align = (placement2.align - placement1.align) * normal + placement1.align;
+   result.scale = (placement2.scale - placement1.scale) * normal + placement1.scale;
+   result.anchor = (placement2.anchor - placement1.anchor) * normal + placement1.anchor;
+   result.rotation = (placement2.rotation - placement1.rotation) * normal + placement1.rotation;
+
+
+
+   //result.
+   //position = (placement2.position - placement.position) * normal + position;
+   //size = other.size;
+   //align += other.align;
+   //scale += other.scale;
+   //anchor += other.anchor;
+   //rotation += other.rotation;
+   // flip.x and flip.y are ignored
+   // however, they should flip whatever value is currently present if other.flip.x == true, or otherwise
+   return result;
+}
+
 
 } // namespace AllegroFlare
 

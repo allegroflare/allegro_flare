@@ -83,6 +83,35 @@ TEST_F(AllegroFlare_Placement2DTest, scale_to_fill_width_or_height__will_modify_
 
 
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
+   CAPTURE__VISUAL__blend__will_interpolate_between_two_placements)
+{
+   AllegroFlare::Placement2D placement1;
+   placement1.position = {200, 1080/2};
+   placement1.size = {80, 80};
+   placement1.rotation = -0.1;
+   placement1.scale = { 1.0f, 1.0f };
+   placement1.align = { 0.0f, 0.5f };
+
+   AllegroFlare::Placement2D placement2;
+   placement2.position = {1920-200, 1080/2};
+   placement2.size = {100, 200};
+   placement2.rotation = 0.2;
+   placement2.scale = { 1.5f, 1.5f };
+   placement2.align = { 0.75f, 0.5f };
+
+   int num_blends = 5;
+   for(int i=0; i<=num_blends; i++)
+   {
+      float interpolation = (float)i / (float)num_blends;
+      AllegroFlare::Placement2D placement = AllegroFlare::Placement2D::blend(placement1, placement2, interpolation);
+      placement.draw_box(ALLEGRO_COLOR{1, 1, 1, 1}, true);
+   }
+   al_flip_display();
+   al_rest(1);
+}
+
+
+TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    // TODO: Make this TIMED_INTERACTIVE
    DISABLED__INTERACTIVE__collide_as_if__will_check_pixel_perfect_collision_as_if_the_subject_under_placement_is_a_bitmap)
 {
