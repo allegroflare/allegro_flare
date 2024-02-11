@@ -723,8 +723,8 @@ Placement2D Placement2D::operator*(float f)
 Placement2D Placement2D::blend(Placement2D placement1, Placement2D placement2, float normal)
 {
    //AllegroFlare::Placement2D result = *this;
-   if (normal <= 0.0f) return placement1;
-   if (normal >= 1.0f) return placement2;
+   if (normal <= 0.0f) return placement2;
+   if (normal >= 1.0f) return placement1;
    // TODO: Test this
    //AllegroFlare::Placement2D result = *this;
    AllegroFlare::Placement2D result; // = *this;
