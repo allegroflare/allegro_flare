@@ -47,7 +47,7 @@ documentation:
        that modifies/pulls from the scale property directly.
 
 
-functions:
+methods:
 
 
   - name: set_zoom
