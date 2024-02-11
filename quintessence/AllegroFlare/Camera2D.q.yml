@@ -133,16 +133,9 @@ functions:
         default_argument: 0.0f
     guards: [ camera_b ]
     body: |
-      // TODO: Test this
-      //camera_a::Placement2D =
-      //AllegroFlare::Placement2D result_placement = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
-      //*camera_a = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
+      // TODO: Improve tests on this
       blend(*camera_b, blend_factor);
       refresh_zoom_from_scale();
-      //*camera_a = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
-      
-      //blend((*camera_a)::Placement2D, (*camera_b)::Placement2D, 0.5);
-      //return *camera_a;
       return;
 
 

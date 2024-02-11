@@ -148,16 +148,9 @@ void Camera2D::blend_with_other_camera(AllegroFlare::Camera2D* camera_b, float b
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Camera2D::blend_with_other_camera: error: guard \"camera_b\" not met");
    }
-   // TODO: Test this
-   //camera_a::Placement2D =
-   //AllegroFlare::Placement2D result_placement = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
-   //*camera_a = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
+   // TODO: Improve tests on this
    blend(*camera_b, blend_factor);
    refresh_zoom_from_scale();
-   //*camera_a = AllegroFlare::Placement2D::blend(*camera_a, *camera_b, 0.5);
-
-   //blend((*camera_a)::Placement2D, (*camera_b)::Placement2D, 0.5);
-   //return *camera_a;
    return;
 }
 
