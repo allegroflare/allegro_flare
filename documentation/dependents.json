@@ -260,6 +260,12 @@
   "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
   ],
+  "std/runtime_error": [
+    "AllegroFlare/BacktracingException"
+  ],
+  "AllegroFlare/Stacktracer": [
+    "AllegroFlare/BacktracingException"
+  ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
     "AllegroFlare/ClubCatt/Logo",

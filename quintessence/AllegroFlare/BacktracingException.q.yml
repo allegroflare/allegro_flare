@@ -1,0 +1,45 @@
+parent_classes:
+
+
+  - class: std::runtime_error
+    init_with: 'message + "\n" + generate_stack_trace()'
+    scope: public
+
+
+properties:
+
+
+  - name: message
+    type: std::string
+    init_with: '"[unset-message]"'
+    constructor_arg: true
+
+
+documentation:
+
+
+  - todos:
+       - Remove "message" as a property and convert it to a passthrough
+
+
+methods:
+
+
+  - name: generate_stack_trace
+    type: std::string
+    body: |
+      return AllegroFlare::Stacktracer::generate_stack_trace();
+    body_dependency_symbols:
+      - AllegroFlare::Stacktracer
+
+
+dependencies:
+
+
+  - symbol: std::runtime_error
+    headers: [ stdexcept ]
+  - symbol: AllegroFlare::Stacktracer
+    headers: [ AllegroFlare/Stacktracer.hpp ]
+
+
+

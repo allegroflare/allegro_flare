@@ -59,6 +59,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/Filters/Delay.q.yml">quintessence/AllegroFlare/AudioProcessing/Filters/Delay.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/BackgroundFactory.q.yml">quintessence/AllegroFlare/BackgroundFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/BacktracingException.q.yml">quintessence/AllegroFlare/BacktracingException.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3D.q.yml">quintessence/AllegroFlare/Bone3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/CSVParser.q.yml">quintessence/AllegroFlare/CSVParser.q.yml</a></li>
@@ -1185,6 +1186,34 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Monoplex&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Monoplex.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/BacktracingException.q.yml">quintessence/AllegroFlare/BacktracingException.q.yml</h3>
+    <h4>Overview<h4>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">message</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">generate_stack_trace()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::runtime_error&quot;, &quot;headers&quot;=&gt;[&quot;stdexcept&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Stacktracer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Stacktracer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36515,6 +36544,12 @@ table td
   ],
   "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
+  ],
+  "std/runtime_error": [
+    "AllegroFlare/BacktracingException"
+  ],
+  "AllegroFlare/Stacktracer": [
+    "AllegroFlare/BacktracingException"
   ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
