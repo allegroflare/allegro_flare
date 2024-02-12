@@ -23,7 +23,7 @@ properties:
 documentation:
 
 
-  - body: |
+  - overview: |
       Formatting is relatively simple:
         - All "chunks" are consecutive lines of text. Chunks are separated by two newlines.
         - If there are two lines, the top line is the dialog speaker, and the bottom is their line of dialog
