@@ -25,9 +25,6 @@ std::string BuildInfo::compiler_name = "[unset]";
 std::string BuildInfo::compiler_version = "[unset]";
 
 
-std::string BuildInfo::cpp_language_version = "[unset]";
-
-
 std::string BuildInfo::allegro_version_num = "[unset]";
 
 
@@ -86,12 +83,6 @@ std::string BuildInfo::get_compiler_name()
 std::string BuildInfo::get_compiler_version()
 {
    return compiler_version;
-}
-
-
-std::string BuildInfo::get_cpp_language_version()
-{
-   return cpp_language_version;
 }
 
 

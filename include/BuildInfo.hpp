@@ -13,7 +13,6 @@ private:
    static std::string building_platform_chipset;
    static std::string compiler_name;
    static std::string compiler_version;
-   static std::string cpp_language_version;
    static std::string allegro_version_num;
    static std::string allegro_version_git_branch;
    static std::string allegro_version_git_hash;
@@ -33,7 +32,6 @@ public:
    static std::string get_building_platform_chipset();
    static std::string get_compiler_name();
    static std::string get_compiler_version();
-   static std::string get_cpp_language_version();
    static std::string get_allegro_version_num();
    static std::string get_allegro_version_git_branch();
    static std::string get_allegro_version_git_hash();

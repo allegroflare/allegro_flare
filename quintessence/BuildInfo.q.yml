@@ -46,12 +46,6 @@ properties:
     init_with: '"[unset]"'
     getter: true
 
-  - name: cpp_language_version
-    static: true
-    type: std::string
-    init_with: '"[unset]"'
-    getter: true
-
   - name: allegro_version_num
     static: true
     type: std::string
