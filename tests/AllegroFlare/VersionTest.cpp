@@ -26,3 +26,10 @@ TEST(AllegroFlare_VersionTest, get_allegro_flare_version_string__returns_the_exp
 }
 
 
+TEST(AllegroFlare_VersionTest, get_cpp_version_string__will_return_the_cpp_version)
+{
+   AllegroFlare::Version version;
+   EXPECT_EQ("C++17", version.get_cpp_version_string());
+}
+
+

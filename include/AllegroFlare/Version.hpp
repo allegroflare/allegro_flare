@@ -14,6 +14,7 @@ namespace AllegroFlare
    public:
       std::string get_allegro_version_string();
       std::string get_allegro_flare_version_string();
+      std::string get_cpp_version_string();
    };
 } // namespace AllegroFlare
 

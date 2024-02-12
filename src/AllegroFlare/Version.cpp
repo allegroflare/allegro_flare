@@ -42,6 +42,24 @@ std::string Version::get_allegro_flare_version_string()
 }
 
 
+std::string Version::get_cpp_version_string()
+{
+   std::string result = "unknown C++ version";
+   #if __cplusplus == 199711L
+       result = "C++98";
+   #elif __cplusplus == 201103L
+       result = "C++11";
+   #elif __cplusplus == 201402L
+       result ="C++14";
+   #elif __cplusplus == 201703L
+       result = "C++17";
+   #elif __cplusplus == 202002L
+       result = "C++20";
+   #endif
+   return result;
+}
+
+
 
 } // namespace AllegroFlare
 

@@ -46,6 +46,12 @@ properties:
     init_with: '"[unset]"'
     getter: true
 
+  - name: cpp_language_version
+    static: true
+    type: std::string
+    init_with: '"[unset]"'
+    getter: true
+
   - name: allegro_version_num
     static: true
     type: std::string
@@ -75,5 +81,16 @@ properties:
     type: int
     init_with: 0
     getter: true
+
+
+methods:
+
+
+  - name: get_cpp_version_string
+    type: std::string
+    static: true
+    body: |
+      return "not-implemented";
+
 
 

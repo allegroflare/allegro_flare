@@ -25,6 +25,9 @@ std::string BuildInfo::compiler_name = "[unset]";
 std::string BuildInfo::compiler_version = "[unset]";
 
 
+std::string BuildInfo::cpp_language_version = "[unset]";
+
+
 std::string BuildInfo::allegro_version_num = "[unset]";
 
 
@@ -86,6 +89,12 @@ std::string BuildInfo::get_compiler_version()
 }
 
 
+std::string BuildInfo::get_cpp_language_version()
+{
+   return cpp_language_version;
+}
+
+
 std::string BuildInfo::get_allegro_version_num()
 {
    return allegro_version_num;
@@ -116,6 +125,10 @@ int BuildInfo::get_allegro_version_git_num_commits()
 }
 
 
+std::string BuildInfo::get_cpp_version_string()
+{
+   return "not-implemented";
+}
 
 
 

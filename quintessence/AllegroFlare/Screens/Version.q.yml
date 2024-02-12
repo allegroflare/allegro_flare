@@ -187,6 +187,10 @@ functions:
                "Allegro 5",
                truncate_to_n_characters(build_info.get_allegro_version_git_hash())
             },
+            {
+               "C++ Version",
+               build_info.get_cpp_version_string()
+            },
          }),
       });
       cached_calculated_height = rolling_credits_component.calculate_height();
