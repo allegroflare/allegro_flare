@@ -749,6 +749,10 @@ void Screen::update_entities()
 
       collision_stepper.set_aabb2d(&aabb2d);
 
+      // Update the current collision mesh
+      // TODO: Update the collision from this map:
+      //collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
+
       // Perform the collision step and return the collision info
       std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_step_results =
          collision_stepper.step();
@@ -953,6 +957,46 @@ void Screen::position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platform
    return;
 }
 
+void Screen::on_enter_door(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door)
+{
+   if (!(door))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_enter_door]: error: guard \"door\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_enter_door: error: guard \"door\" not met");
+   }
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_enter_door]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_enter_door: error: guard \"player_controlled_entity\" not met");
+   }
+   //
+            std::string map_target_name = door->get_target_map_name();
+            float target_spawn_x = door->get_target_spawn_x();
+            float target_spawn_y = door->get_target_spawn_y();
+
+            // find the target map
+            // TODO: Is this step necessary?
+            AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* target_map =
+               find_map_by_name(map_target_name);
+
+            // reposition player in map
+            position_entity_bottom_most_edge(
+                  player_controlled_entity,
+                  map_target_name,
+                  target_spawn_x,
+                  target_spawn_y
+               );
+
+            // set current map
+            set_currently_active_map(map_target_name);
+   //
+   return;
+}
+
 void Screen::check_player_collisions_with_doors()
 {
    if (!(player_controlled_entity))
@@ -992,6 +1036,8 @@ void Screen::check_player_collisions_with_doors()
          }
          else // will door travel to another map or place on the current map
          {
+            on_enter_door(door);
+            /*
             std::string map_target_name = door->get_target_map_name();
             float target_spawn_x = door->get_target_spawn_x();
             float target_spawn_y = door->get_target_spawn_y();
@@ -1011,6 +1057,7 @@ void Screen::check_player_collisions_with_doors()
 
             // set current map
             set_currently_active_map(map_target_name);
+            */
          }
          
          return;

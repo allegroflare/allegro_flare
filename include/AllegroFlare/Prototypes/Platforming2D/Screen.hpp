@@ -10,6 +10,7 @@
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing.hpp>
@@ -126,6 +127,7 @@ namespace AllegroFlare
             void update_entities();
             void check_and_respond_if_player_death();
             static void position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, std::string map_name="[unset-map_name]", float x=0.0f, float y=0.0f, float y_offset=0.01f);
+            virtual void on_enter_door(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door=nullptr);
             void draw_entities();
             void update();
             virtual void draw_hud();

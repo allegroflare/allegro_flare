@@ -667,6 +667,10 @@ methods:
 
          collision_stepper.set_aabb2d(&aabb2d);
 
+         // Update the current collision mesh
+         // TODO: Update the collision from this map:
+         //collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
+
          // Perform the collision step and return the collision info
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_step_results =
             collision_stepper.step();
@@ -888,6 +892,38 @@ methods:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: on_enter_door
+    virtual: true
+    parameters:
+      - name: door
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*
+        default_argument: nullptr
+    guards: [ door, player_controlled_entity ]
+    body: |
+      //
+               std::string map_target_name = door->get_target_map_name();
+               float target_spawn_x = door->get_target_spawn_x();
+               float target_spawn_y = door->get_target_spawn_y();
+
+               // find the target map
+               // TODO: Is this step necessary?
+               AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* target_map =
+                  find_map_by_name(map_target_name);
+
+               // reposition player in map
+               position_entity_bottom_most_edge(
+                     player_controlled_entity,
+                     map_target_name,
+                     target_spawn_x,
+                     target_spawn_y
+                  );
+
+               // set current map
+               set_currently_active_map(map_target_name);
+      //
+      return;
+
+
   - name: check_player_collisions_with_doors
     private: true
     guards: [ player_controlled_entity, event_emitter ]
@@ -915,6 +951,8 @@ methods:
             }
             else // will door travel to another map or place on the current map
             {
+               on_enter_door(door);
+               /*
                std::string map_target_name = door->get_target_map_name();
                float target_spawn_x = door->get_target_spawn_x();
                float target_spawn_y = door->get_target_spawn_y();
@@ -934,6 +972,7 @@ methods:
 
                // set current map
                set_currently_active_map(map_target_name);
+               */
             }
             
             return;
