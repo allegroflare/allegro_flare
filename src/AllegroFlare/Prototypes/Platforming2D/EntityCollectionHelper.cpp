@@ -58,6 +58,28 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    return result;
 }
 
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityCollectionHelper::select_collectable_by_player_on_map(std::string on_map_name)
+{
+   if (!(entities))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityCollectionHelper::select_collectable_by_player_on_map]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityCollectionHelper::select_collectable_by_player_on_map: error: guard \"entities\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+   for (auto &entity : (*entities))
+   {
+      if (
+           entity->exists(COLLECTABLE_BY_PLAYER)
+         && entity->exists(ON_MAP_NAME, on_map_name)
+      ) result.push_back(entity);
+   }
+   return result;
+}
+
 std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityCollectionHelper::select_collides_with_player()
 {
    if (!(entities))

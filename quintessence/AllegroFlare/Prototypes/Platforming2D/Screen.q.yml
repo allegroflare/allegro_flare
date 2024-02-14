@@ -1015,6 +1015,7 @@ methods:
 
 
   - name: update_player_collisions_with_collectables
+    virtual: true
     private: true
     guards: [ player_controlled_entity ]
     body: |

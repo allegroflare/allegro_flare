@@ -28,6 +28,29 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: select_collectable_by_player_on_map
+    type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
+    parameters:
+      - name: on_map_name
+        type: std::string
+        default_argument: '"[on-map-name-not-set]"'
+    guards: [ entities ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+      for (auto &entity : (*entities))
+      {
+         if (
+              entity->exists(COLLECTABLE_BY_PLAYER)
+            && entity->exists(ON_MAP_NAME, on_map_name)
+         ) result.push_back(entity);
+      }
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
   - name: select_collides_with_player
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     guards: [ entities ]
