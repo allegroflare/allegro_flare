@@ -866,6 +866,9 @@ void Screen::update_entities()
       else entity->remove(ADJACENT_TO_RIGHT_WALL);
    }
 
+   // Evaluate entity collisions
+   //update_entity_collisions_with_damage_zones();
+
    // Evaluate player collisions on collectables
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_collectables();
@@ -881,6 +884,9 @@ void Screen::update_entities()
    // Evaluate player collisions on entities tagged with COLLIDES_WITH_PLAYER
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_COLLIDES_WITH_PLAYER();
+
+   // Evaluate damage zones on player
+   //if (player_controlled_entity) update_player_collisions_with_damage_zones();
 
 
    // update the player colliding on the doors
