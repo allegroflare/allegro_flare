@@ -1020,6 +1020,44 @@ methods:
       - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
 
 
+  - name: spawn_player_emitted_damage_zone
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[unset-map_name]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 16.0f
+      - name: height
+        type: float
+        default_argument: 16.0f
+    body: |
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
+      factory.set_init_entities_drawing_debug(true);
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* damage_zone =
+            factory.create_player_emitted_damage_zone(
+               map_name,
+               x, //player_pos.x,
+               y, //player_pos.y,
+               width, //8-1,
+               height //8-1
+            );
+      entity_pool.push_back(damage_zone);
+
+      //std::string on_map_name = player_controlled_entity->get(ON_MAP_NAME);
+
+      //AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
+      //factory.set_init_entities_drawing_debug(true);
+
+      return;
+
+
   - name: update_player_collisions_with_collectables
     virtual: true
     private: true

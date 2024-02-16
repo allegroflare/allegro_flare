@@ -174,6 +174,25 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::create_player_emitted_damage_zone(std::string map_name, float x, float y, float width, float height, AllegroFlare::vec2d align) const
+{
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *entity =
+     new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+   entity->get_place_ref().position.x = x;
+   entity->get_place_ref().position.y = y;
+   entity->get_place_ref().size.x = width;
+   entity->get_place_ref().size.y = height;
+   entity->set(ON_MAP_NAME, map_name);
+
+   entity->set(NOT_AFFECTED_BY_GRAVITY);
+   entity->get(DOES_NOT_COLLIDE_WITH_WORLD);
+
+   if (init_entities_drawing_debug) entity->set_draw_debug(true);
+   return entity;
+}
+
 AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory::create_enemy(std::string map_name, float x, float y, float width, float height) const
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;

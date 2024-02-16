@@ -128,6 +128,7 @@ namespace AllegroFlare
             void check_and_respond_if_player_death();
             static void position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, std::string map_name="[unset-map_name]", float x=0.0f, float y=0.0f, float y_offset=0.01f);
             virtual void on_enter_door(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door=nullptr);
+            void spawn_player_emitted_damage_zone(std::string map_name="[unset-map_name]", float x=0.0f, float y=0.0f, float width=16.0f, float height=16.0f);
             void draw_entities();
             void update();
             virtual void draw_hud();

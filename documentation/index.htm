@@ -25657,6 +25657,10 @@ table td
   <td class="method"><b>create_player_projectile</b>(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=(8.0f-1.0f), float height=(8.0f-1.0f), AllegroFlare::vec2d vector=AllegroFlare::vec2d(0.0f, 1.0f), float magnitude=1.0f)</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*</td>
+  <td class="method"><b>create_player_emitted_damage_zone</b>(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=16.0f, float height=16.0f, AllegroFlare::vec2d align=AllegroFlare::vec2d(0.5f, 0.5f))</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base*</td>
   <td class="method"><b>create_enemy</b>(std::string map_name=&quot;[map-name-not-set]&quot;, float x=0.0f, float y=0.0f, float width=(16.0f-1.0f), float height=(16.0f-1.0f))</td>
 </tr>
@@ -26871,6 +26875,10 @@ table td
 <tr>
   <td class="private_method">void</td>
   <td class="private_method"><b>update_player_collisions_with_COLLIDES_WITH_PLAYER</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>spawn_player_emitted_damage_zone</b>(std::string map_name=&quot;[unset-map_name]&quot;, float x=0.0f, float y=0.0f, float width=16.0f, float height=16.0f)</td>
 </tr>
 <tr>
   <td class="private_method">void</td>

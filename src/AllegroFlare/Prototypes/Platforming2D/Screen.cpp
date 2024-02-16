@@ -1102,6 +1102,28 @@ void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
    return;
 }
 
+void Screen::spawn_player_emitted_damage_zone(std::string map_name, float x, float y, float width, float height)
+{
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
+   factory.set_init_entities_drawing_debug(true);
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* damage_zone =
+         factory.create_player_emitted_damage_zone(
+            map_name,
+            x, //player_pos.x,
+            y, //player_pos.y,
+            width, //8-1,
+            height //8-1
+         );
+   entity_pool.push_back(damage_zone);
+
+   //std::string on_map_name = player_controlled_entity->get(ON_MAP_NAME);
+
+   //AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
+   //factory.set_init_entities_drawing_debug(true);
+
+   return;
+}
+
 void Screen::update_player_collisions_with_collectables()
 {
    if (!(player_controlled_entity))

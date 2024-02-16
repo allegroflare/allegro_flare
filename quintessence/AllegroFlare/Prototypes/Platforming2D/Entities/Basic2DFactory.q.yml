@@ -194,6 +194,49 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: create_player_emitted_damage_zone
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    const: true
+    parameters:
+      - name: map_name
+        type: std::string
+        default_argument: '"[map-name-not-set]"'
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 16.0f
+      - name: height
+        type: float
+        default_argument: 16.0f
+      - name: align
+        type: AllegroFlare::vec2d
+        default_argument: AllegroFlare::vec2d(0.5f, 0.5f)
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *entity =
+        new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
+      entity->get_place_ref().position.x = x;
+      entity->get_place_ref().position.y = y;
+      entity->get_place_ref().size.x = width;
+      entity->get_place_ref().size.y = height;
+      entity->set(ON_MAP_NAME, map_name);
+
+      entity->set(NOT_AFFECTED_BY_GRAVITY);
+      entity->get(DOES_NOT_COLLIDE_WITH_WORLD);
+
+      if (init_entities_drawing_debug) entity->set_draw_debug(true);
+      return entity;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::MoveInDirection
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
   - name: create_enemy
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base*
     const: true
