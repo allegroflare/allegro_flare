@@ -777,17 +777,20 @@ methods:
 
          bool was_adjacent_to_ceiling_prior = entity->exists(ADJACENT_TO_CEILING);
          bool is_currently_adjacent_to_ceiling = collision_stepper.adjacent_to_top_edge(tile_width, tile_height);
-         if (collision_stepper.adjacent_to_top_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_CEILING);
+         if (is_currently_adjacent_to_ceiling) entity->set(ADJACENT_TO_CEILING);
+         //if (collision_stepper.adjacent_to_top_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_CEILING);
          else entity->remove(ADJACENT_TO_CEILING);
 
          bool was_adjacent_to_left_wall_prior = entity->exists(ADJACENT_TO_LEFT_WALL);
          bool is_currently_adjacent_to_left_wall = collision_stepper.adjacent_to_left_edge(tile_width, tile_height);
-         if (collision_stepper.adjacent_to_left_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_LEFT_WALL);
+         if (is_currently_adjacent_to_left_wall) entity->set(ADJACENT_TO_LEFT_WALL);
+         //if (collision_stepper.adjacent_to_left_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_LEFT_WALL);
          else entity->remove(ADJACENT_TO_LEFT_WALL);
 
          bool was_adjacent_to_right_wall_prior = entity->exists(ADJACENT_TO_RIGHT_WALL);
          bool is_currently_adjacent_to_right_wall = collision_stepper.adjacent_to_right_edge(tile_width, tile_height);
-         if (collision_stepper.adjacent_to_right_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_RIGHT_WALL);
+         if (is_currently_adjacent_to_right_wall) entity->set(ADJACENT_TO_RIGHT_WALL);
+         //if (collision_stepper.adjacent_to_right_edge(tile_width, tile_height)) entity->set(ADJACENT_TO_RIGHT_WALL);
          else entity->remove(ADJACENT_TO_RIGHT_WALL);
       }
 
