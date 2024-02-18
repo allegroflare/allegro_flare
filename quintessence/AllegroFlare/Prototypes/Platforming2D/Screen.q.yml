@@ -591,10 +591,16 @@ methods:
          velocity.position.y += (gravity_reversed ? -gravity : gravity);
       }
 
+      // Update the player_controlled_entity first and in isolation
+      if (player_controlled_entity) player_controlled_entity->update();
+
       // Update the entities (typically includes movement strategies, velocity updates based on state, etc)
-      // TODO: Consider how to update the player first so that the tracking can be updated more accurately.
+      // NOTE: This stage does not include the player_controlled_character, which is udpated before the rest
+      // of the entities
       for (auto &entity : get_current_map_entities())
       {
+         if (entity == player_controlled_entity) continue;
+
          //std::cout << "updating ... " << std::endl;
          // Could this be a bad type conversion?
          if (entity->exists(TRACKS_PLAYER_CHARACTER_XY))
