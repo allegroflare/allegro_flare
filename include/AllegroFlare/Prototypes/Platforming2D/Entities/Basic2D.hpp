@@ -94,7 +94,7 @@ namespace AllegroFlare
                virtual void update() override;
                void refresh_bitmap_to_current_animation_frame();
                virtual void on_collides_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr);
-               virtual void on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result={});
+               virtual void on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result={}, bool top_edge_is_currently_adjacent_to_wall=false, bool right_edge_is_currently_adjacent_to_wall=false, bool bottom_edge_is_currently_adjacent_to_wall=false, bool left_edge_is_currently_adjacent_to_wall=false);
                virtual void draw() override;
                void fit_to_bitmap();
                void disable_bitmap_alignment_strategy();

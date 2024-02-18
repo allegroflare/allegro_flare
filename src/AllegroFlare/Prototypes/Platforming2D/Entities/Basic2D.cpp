@@ -260,7 +260,7 @@ void Basic2D::on_collides_with_player(AllegroFlare::Prototypes::Platforming2D::E
    return;
 }
 
-void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, AllegroFlare::Vec2D previous_velocity_position, AllegroFlare::Vec2D new_place_position, AllegroFlare::Vec2D new_velocity_position, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result)
+void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, AllegroFlare::Vec2D previous_velocity_position, AllegroFlare::Vec2D new_place_position, AllegroFlare::Vec2D new_velocity_position, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result, bool top_edge_is_currently_adjacent_to_wall, bool right_edge_is_currently_adjacent_to_wall, bool bottom_edge_is_currently_adjacent_to_wall, bool left_edge_is_currently_adjacent_to_wall)
 {
    if (!(collision_step_result))
    {
@@ -277,7 +277,11 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, A
          previous_velocity_position,
          new_place_position,
          new_velocity_position,
-         collision_step_result
+         collision_step_result,
+         top_edge_is_currently_adjacent_to_wall,
+         right_edge_is_currently_adjacent_to_wall,
+         bottom_edge_is_currently_adjacent_to_wall,
+         left_edge_is_currently_adjacent_to_wall
       );
    }
    return;

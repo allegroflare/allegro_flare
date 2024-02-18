@@ -234,6 +234,18 @@ functions:
       - name: collision_step_result
         type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>*
         default_argument: '{}'
+      - name: top_edge_is_currently_adjacent_to_wall
+        type: bool
+        default_argument: false
+      - name: right_edge_is_currently_adjacent_to_wall
+        type: bool
+        default_argument: false
+      - name: bottom_edge_is_currently_adjacent_to_wall
+        type: bool
+        default_argument: false
+      - name: left_edge_is_currently_adjacent_to_wall
+        type: bool
+        default_argument: false
     guards: [ collision_step_result ]
     body: |
       if (movement_strategy)
@@ -244,7 +256,11 @@ functions:
             previous_velocity_position,
             new_place_position,
             new_velocity_position,
-            collision_step_result
+            collision_step_result,
+            top_edge_is_currently_adjacent_to_wall,
+            right_edge_is_currently_adjacent_to_wall,
+            bottom_edge_is_currently_adjacent_to_wall,
+            left_edge_is_currently_adjacent_to_wall
          );
       }
       return;

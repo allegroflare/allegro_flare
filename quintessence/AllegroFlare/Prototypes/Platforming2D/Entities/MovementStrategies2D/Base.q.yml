@@ -31,6 +31,18 @@ functions:
       - name: collision_step_result
         type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>*
         default_argument: '{}'
+      - name: top_edge_is_currently_adjacent_to_wall
+        type: bool
+        default_argument: false
+      - name: right_edge_is_currently_adjacent_to_wall
+        type: bool
+        default_argument: false
+      - name: bottom_edge_is_currently_adjacent_to_wall
+        type: bool
+        default_argument: false
+      - name: left_edge_is_currently_adjacent_to_wall
+        type: bool
+        default_argument: false
     guards: [ collision_step_result ]
     body: |
       return;

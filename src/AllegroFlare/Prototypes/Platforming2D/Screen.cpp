@@ -834,7 +834,11 @@ void Screen::update_entities()
          previous_velocity_position,
          now_place_position,
          now_velocity_position,
-         &collision_step_results
+         &collision_step_results,
+         is_currently_adjacent_to_ceiling, // TODO: Confirm these
+         is_currently_adjacent_to_right_wall, // TODO: Confirm these
+         is_currently_adjacent_to_floor,
+         is_currently_adjacent_to_left_wall // TODO: Confirm these
       );
 
       // Possibly up to the Entity:
