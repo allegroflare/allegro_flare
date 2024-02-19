@@ -80,7 +80,11 @@ namespace AllegroFlare
             Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+            void set_font_bin(AllegroFlare::FontBin* font_bin);
+            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool);
+            void set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary);
             void set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom);
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
@@ -104,13 +108,10 @@ namespace AllegroFlare
             std::function<void( std::string, float, float, float, float, int, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > get_create_entities_from_map_callback() const;
             void* get_create_entities_from_map_callback_user_data() const;
             bool get_show_debugging_info() const;
+            bool get_initialized() const;
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> &get_entity_pool_ref();
             AllegroFlare::Camera2D &get_camera_ref();
             AllegroFlare::Physics::TileMapCollisionStepper &get_collision_stepper_ref();
-            void set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary={});
-            void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
-            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
-            void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
             void set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, bool also_set_as_camera_tracked_object=true, bool also_setup_a_basic2d_entity_control_connector=true);
             void set_camera_control_strategy(AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy=nullptr);

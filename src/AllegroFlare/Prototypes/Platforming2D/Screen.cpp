@@ -67,9 +67,37 @@ Screen::~Screen()
 }
 
 
+void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   if (get_initialized()) throw std::runtime_error("[Screen::set_bitmap_bin]: error: guard \"get_initialized()\" not met.");
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
+{
+   if (get_initialized()) throw std::runtime_error("[Screen::set_font_bin]: error: guard \"get_initialized()\" not met.");
+   this->font_bin = font_bin;
+}
+
+
+void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+{
+   if (get_initialized()) throw std::runtime_error("[Screen::set_event_emitter]: error: guard \"get_initialized()\" not met.");
+   this->event_emitter = event_emitter;
+}
+
+
 void Screen::set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool)
 {
    this->entity_pool = entity_pool;
+}
+
+
+void Screen::set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary)
+{
+   if (get_initialized()) throw std::runtime_error("[Screen::set_map_dictionary]: error: guard \"get_initialized()\" not met.");
+   this->map_dictionary = map_dictionary;
 }
 
 
@@ -211,6 +239,12 @@ bool Screen::get_show_debugging_info() const
 }
 
 
+bool Screen::get_initialized() const
+{
+   return initialized;
+}
+
+
 std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> &Screen::get_entity_pool_ref()
 {
    return entity_pool;
@@ -228,60 +262,6 @@ AllegroFlare::Physics::TileMapCollisionStepper &Screen::get_collision_stepper_re
    return collision_stepper;
 }
 
-
-void Screen::set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::set_map_dictionary]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_map_dictionary: error: guard \"(!initialized)\" not met");
-   }
-
-   this->map_dictionary = map_dictionary;
-   // TODO: allow this to be set after initialization
-   return;
-}
-
-void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_event_emitter: error: guard \"(!initialized)\" not met");
-   }
-   this->event_emitter = event_emitter;
-   return;
-}
-
-void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
-   }
-   this->bitmap_bin = bitmap_bin;
-   return;
-}
-
-void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_font_bin: error: guard \"(!initialized)\" not met");
-   }
-   this->font_bin = font_bin;
-   return;
-}
 
 void Screen::set_currently_active_map(std::string name)
 {
