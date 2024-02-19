@@ -90,6 +90,7 @@ namespace AllegroFlare
                AllegroFlare::Placement2D &get_place_ref();
                AllegroFlare::Placement2D &get_velocity_ref();
                AllegroFlare::Placement2D &get_bitmap_placement_ref();
+               AllegroFlare::FrameAnimation::Book* &get_animation_book_ref();
                void set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy="[unset-bitmap_alignment_strategy]");
                virtual void update() override;
                void refresh_bitmap_to_current_animation_frame();

@@ -194,6 +194,12 @@ AllegroFlare::Placement2D &Basic2D::get_bitmap_placement_ref()
 }
 
 
+AllegroFlare::FrameAnimation::Book* &Basic2D::get_animation_book_ref()
+{
+   return animation_book;
+}
+
+
 void Basic2D::set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy)
 {
    static std::set<std::string> valid_bitmap_alignment_strategies = {

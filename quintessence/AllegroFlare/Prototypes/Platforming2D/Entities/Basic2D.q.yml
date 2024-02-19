@@ -65,6 +65,7 @@ properties:
     init_with: nullptr
     constructor_arg: true
     getter: true
+    getter_ref: true
     setter: true
 
   - name: animation
