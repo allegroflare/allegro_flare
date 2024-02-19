@@ -49,26 +49,6 @@ functions:
       return;
 
 
-  - name: on_attribute_added
-    virtual: true
-    parameters:
-      - name: attribute
-        type: std::string
-        default_argument: '"[unset-attribute]"'
-    body: |
-      return;
-
-
-  - name: on_attribute_removed
-    virtual: true
-    parameters:
-      - name: attribute
-        type: std::string
-        default_argument: '"[unset-attribute]"'
-    body: |
-      return;
-
-
   - name: is_type
     type: bool
     parameters:

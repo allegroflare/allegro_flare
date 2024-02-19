@@ -301,12 +301,12 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, A
       else if (!was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) // on enter
       {
          set(ADJACENT_TO_FLOOR);
-         on_attribute_added(ADJACENT_TO_FLOOR);
+         //on_attribute_added(ADJACENT_TO_FLOOR);
       }
       else if (was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) // on exit
       {
          remove(ADJACENT_TO_FLOOR);
-         on_attribute_removed(ADJACENT_TO_FLOOR);
+         //on_attribute_removed(ADJACENT_TO_FLOOR);
       }
       else if (!was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) {} // while off
 
