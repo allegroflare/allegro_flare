@@ -849,31 +849,33 @@ void Screen::update_entities()
       //}
 
       // Update flags and perform callbacks on entity (TODO: Consider moving this into the entity's class)
-      bool was_adjacent_to_floor_prior = entity->exists(ADJACENT_TO_FLOOR);
-      if (was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) {} // on stay
-      else if (!was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) // on enter
-      {
-         entity->set(ADJACENT_TO_FLOOR);
-         entity->on_attribute_added(ADJACENT_TO_FLOOR);
-      }
-      else if (was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) // on exit
-      {
-         entity->remove(ADJACENT_TO_FLOOR);
-         entity->on_attribute_removed(ADJACENT_TO_FLOOR);
-      }
-      else if (!was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) {} // while off
 
-      bool was_adjacent_to_ceiling_prior = entity->exists(ADJACENT_TO_CEILING);
-      if (is_currently_adjacent_to_ceiling) entity->set(ADJACENT_TO_CEILING);
-      else entity->remove(ADJACENT_TO_CEILING);
 
-      bool was_adjacent_to_left_wall_prior = entity->exists(ADJACENT_TO_LEFT_WALL);
-      if (is_currently_adjacent_to_left_wall) entity->set(ADJACENT_TO_LEFT_WALL);
-      else entity->remove(ADJACENT_TO_LEFT_WALL);
+      //bool was_adjacent_to_floor_prior = entity->exists(ADJACENT_TO_FLOOR);
+      //if (was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) {} // on stay
+      //else if (!was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) // on enter
+      //{
+         //entity->set(ADJACENT_TO_FLOOR);
+         //entity->on_attribute_added(ADJACENT_TO_FLOOR);
+      //}
+      //else if (was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) // on exit
+      //{
+         //entity->remove(ADJACENT_TO_FLOOR);
+         //entity->on_attribute_removed(ADJACENT_TO_FLOOR);
+      //}
+      //else if (!was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) {} // while off
 
-      bool was_adjacent_to_right_wall_prior = entity->exists(ADJACENT_TO_RIGHT_WALL);
-      if (is_currently_adjacent_to_right_wall) entity->set(ADJACENT_TO_RIGHT_WALL);
-      else entity->remove(ADJACENT_TO_RIGHT_WALL);
+      //bool was_adjacent_to_ceiling_prior = entity->exists(ADJACENT_TO_CEILING);
+      //if (is_currently_adjacent_to_ceiling) entity->set(ADJACENT_TO_CEILING);
+      //else entity->remove(ADJACENT_TO_CEILING);
+
+      //bool was_adjacent_to_left_wall_prior = entity->exists(ADJACENT_TO_LEFT_WALL);
+      //if (is_currently_adjacent_to_left_wall) entity->set(ADJACENT_TO_LEFT_WALL);
+      //else entity->remove(ADJACENT_TO_LEFT_WALL);
+
+      //bool was_adjacent_to_right_wall_prior = entity->exists(ADJACENT_TO_RIGHT_WALL);
+      //if (is_currently_adjacent_to_right_wall) entity->set(ADJACENT_TO_RIGHT_WALL);
+      //else entity->remove(ADJACENT_TO_RIGHT_WALL);
    }
 
    // Evaluate entity collisions

@@ -269,6 +269,8 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, A
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2D::on_collision_update: error: guard \"collision_step_result\" not met");
    }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
    if (movement_strategy)
    {
       //std::cout << "  Basic2D::movement_strategy->update().." << std::endl;
@@ -284,6 +286,43 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, A
          left_edge_is_currently_adjacent_to_wall
       );
    }
+
+   // TODO: Test this behavior
+   // TODO: See if this behavior can be extracted out:
+
+   {
+      bool is_currently_adjacent_to_floor = bottom_edge_is_currently_adjacent_to_wall;
+      bool is_currently_adjacent_to_ceiling = top_edge_is_currently_adjacent_to_wall;
+      bool is_currently_adjacent_to_left_wall = left_edge_is_currently_adjacent_to_wall;
+      bool is_currently_adjacent_to_right_wall = right_edge_is_currently_adjacent_to_wall;
+
+      bool was_adjacent_to_floor_prior = exists(ADJACENT_TO_FLOOR);
+      if (was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) {} // on stay
+      else if (!was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) // on enter
+      {
+         set(ADJACENT_TO_FLOOR);
+         on_attribute_added(ADJACENT_TO_FLOOR);
+      }
+      else if (was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) // on exit
+      {
+         remove(ADJACENT_TO_FLOOR);
+         on_attribute_removed(ADJACENT_TO_FLOOR);
+      }
+      else if (!was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) {} // while off
+
+      bool was_adjacent_to_ceiling_prior = exists(ADJACENT_TO_CEILING);
+      if (is_currently_adjacent_to_ceiling) set(ADJACENT_TO_CEILING);
+      else remove(ADJACENT_TO_CEILING);
+
+      bool was_adjacent_to_left_wall_prior = exists(ADJACENT_TO_LEFT_WALL);
+      if (is_currently_adjacent_to_left_wall) set(ADJACENT_TO_LEFT_WALL);
+      else remove(ADJACENT_TO_LEFT_WALL);
+
+      bool was_adjacent_to_right_wall_prior = exists(ADJACENT_TO_RIGHT_WALL);
+      if (is_currently_adjacent_to_right_wall) set(ADJACENT_TO_RIGHT_WALL);
+      else remove(ADJACENT_TO_RIGHT_WALL);
+   }
+
    return;
 }
 
