@@ -216,14 +216,28 @@ void AudioController::destruct_all()
 void AudioController::destruct_all_sound_effects()
 {
    stop_all_sound_effects();
-   for (auto &sound_effect : sound_effects) delete sound_effect.second;
+   for (auto &sound_effect : sound_effects)
+   {
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::AudioController::destruct_all_sound_effects",
+         "Destructing sound_effect with identifier \"" + sound_effect.first + "\"."
+      );
+      delete sound_effect.second;
+   }
    return;
 }
 
 void AudioController::destruct_all_music_tracks()
 {
    stop_all_music_tracks();
-   for (auto &music_track : music_tracks) delete music_track.second;
+   for (auto &music_track : music_tracks)
+   {
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::AudioController::destruct_all_music_tracks",
+         "Destructing music_track with identifier \"" + music_track.first + "\"."
+      );
+      delete music_track.second;
+   }
    return;
 }
 
