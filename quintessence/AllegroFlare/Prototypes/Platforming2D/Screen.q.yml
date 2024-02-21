@@ -442,6 +442,7 @@ methods:
 
 
   - name: initialize
+    virtual: true
     type: void
     guards:
       - bitmap_bin

@@ -121,7 +121,7 @@ namespace AllegroFlare
             void initialize_maps();
             virtual void post_process_loaded_maps(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool=nullptr);
             void initialize_camera_control();
-            void initialize();
+            virtual void initialize();
             void add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
             void player_emit_projectile(float magnitude=3.0f);
             void reverse_gravity();
