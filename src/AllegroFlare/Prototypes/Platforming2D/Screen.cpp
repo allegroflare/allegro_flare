@@ -550,7 +550,7 @@ void Screen::initialize()
    initialize_camera();
 
    // Initialize the collision stepper
-   collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
+   //collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
    collision_stepper.set_tile_width(16.0f);
    collision_stepper.set_tile_height(16.0f);
    collision_stepper.set_reposition_offset(
@@ -691,6 +691,11 @@ void Screen::update_entities()
    AllegroFlare::Vec2D previous_velocity_position;
    AllegroFlare::Vec2D now_place_position;
    AllegroFlare::Vec2D now_velocity_position;
+
+   // Set the collision stepper to use the "currently_active_map"
+   collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
+
+   // Loop through each entity that is in the current map
    for (auto &entity : get_current_map_entities())
    {
       //
@@ -735,6 +740,8 @@ void Screen::update_entities()
       //);
 
       collision_stepper.set_aabb2d(&aabb2d);
+
+      //collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
 
       // Update the current collision mesh
       // TODO: Update the collision from this map:
