@@ -1186,6 +1186,7 @@ void Screen::update_player_collisions_with_goalposts()
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
 
+   // TODO: Change this collision to the player_controlled_entity's center, OR, make it configurable
    float player_x = player_controlled_entity->get_place_ref().position.x;
    float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
@@ -1193,8 +1194,7 @@ void Screen::update_player_collisions_with_goalposts()
    {
       if (entity->get_place_ref().collide(player_x, player_y, 8, 8, 8, 8))
       {
-         // TODO: this logic requires injection of the event emitter
-         //framework->shutdown_program = true;
+         // TODO: Consider what default behavior would be good here
       }
    }
    return;
