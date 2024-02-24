@@ -364,6 +364,20 @@ functions:
       return;
 
 
+  - name: activate_shader
+    virtual: true
+    body: |
+      if (shader) shader->activate();
+      return;
+
+
+  - name: deactivate_shader
+    virtual: true
+    body: |
+      if (shader) shader->deactivate();
+      return;
+
+
   - name: draw
     virtual: true
     override: true
@@ -402,7 +416,7 @@ functions:
 
          // Activate custom shader (if there is one)
          // TODO: Consider alternatives to this, particularly how the previous shader would be restored
-         if (shader) shader->activate();
+         activate_shader();
 
          // Set the blending mode
          set_blending_mode_if_not_normal();
@@ -415,7 +429,7 @@ functions:
 
          // Deactivate the shader to the default
          // TODO: Consider alternatives to this, particularly how the previous shader would be restored
-         if (shader) shader->deactivate();
+         deactivate_shader();
 
          // draw the boundary rectangle for the bitmap
 

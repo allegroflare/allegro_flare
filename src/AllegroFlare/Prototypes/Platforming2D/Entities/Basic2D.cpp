@@ -395,6 +395,18 @@ void Basic2D::restore_blending_mode()
    return;
 }
 
+void Basic2D::activate_shader()
+{
+   if (shader) shader->activate();
+   return;
+}
+
+void Basic2D::deactivate_shader()
+{
+   if (shader) shader->deactivate();
+   return;
+}
+
 void Basic2D::draw()
 {
    if (!(al_is_primitives_addon_initialized()))
@@ -437,7 +449,7 @@ void Basic2D::draw()
 
       // Activate custom shader (if there is one)
       // TODO: Consider alternatives to this, particularly how the previous shader would be restored
-      if (shader) shader->activate();
+      activate_shader();
 
       // Set the blending mode
       set_blending_mode_if_not_normal();
@@ -450,7 +462,7 @@ void Basic2D::draw()
 
       // Deactivate the shader to the default
       // TODO: Consider alternatives to this, particularly how the previous shader would be restored
-      if (shader) shader->deactivate();
+      deactivate_shader();
 
       // draw the boundary rectangle for the bitmap
 
