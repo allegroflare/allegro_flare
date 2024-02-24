@@ -1,0 +1,172 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Shaders::Base
+    scope: public
+    init_with: "AllegroFlare::Shaders::FlatColor::TYPE, obtain_vertex_source(), obtain_fragment_source()"
+
+
+properties:
+
+
+  - name: tint
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: tint_intensity
+    type: float
+    init_with: 1.0f
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Shaders/FlatColor"'
+    static: true
+    constexpr: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+functions:
+
+
+  - name: initialize
+    type: void
+    body: |
+      if (!initialized) AllegroFlare::Shaders::Base::initialize();
+      initialized = true;
+
+
+  - name: activate
+    type: void
+    guards: [ initialized ]
+    body: |
+      AllegroFlare::Shaders::Base::activate();
+      set_values_to_activated_shader();
+      //AllegroFlare::Shaders::Base::activate();
+
+
+  - name: set_values_to_activated_shader
+    private: true
+    body: |
+      set_vec3("tint", tint.r, tint.g, tint.b);
+      set_float("tint_intensity", tint_intensity);
+      return;
+    body_dependency_symbols:
+      - std::cout
+
+
+  - name: obtain_vertex_source
+    type: std::string
+    static: true
+    private: true
+    body: |
+      static const std::string source = R"DELIM(
+        attribute vec4 al_pos;
+        attribute vec4 al_color;
+        attribute vec2 al_texcoord;
+        uniform mat4 al_projview_matrix;
+        uniform bool al_use_tex_matrix;
+        uniform mat4 al_tex_matrix;
+        varying vec4 varying_color;
+        varying vec2 varying_texcoord;
+        void main()
+        {
+          varying_color = al_color;
+          if (al_use_tex_matrix) {
+            vec4 uv = al_tex_matrix * vec4(al_texcoord, 0, 1);
+            varying_texcoord = vec2(uv.x, uv.y);
+          }
+          else
+            varying_texcoord = al_texcoord;
+          gl_Position = al_projview_matrix * al_pos;
+        }
+      )DELIM";
+      return source;
+
+
+  - name: obtain_fragment_source
+    type: std::string
+    static: true
+    private: true
+    body: |
+      static const std::string source = R"DELIM(
+        #ifdef GL_ES
+        precision lowp float;
+        #endif
+        uniform sampler2D al_tex;
+        uniform bool al_use_tex;
+        uniform bool al_alpha_test;
+        uniform int al_alpha_func;
+        uniform float al_alpha_test_val;
+        varying vec4 varying_color;
+        varying vec2 varying_texcoord;
+
+        //bool alpha_test_func(float x, int op, float compare);
+        uniform vec3 tint;
+        uniform float tint_intensity;
+
+
+        vec4 tint_it_plz(vec4 tmp)
+        {
+           float inverse_tint_intensity = 1.0 - tint_intensity;
+           tmp.r = (tmp.r * inverse_tint_intensity + tint.r * tint_intensity) * tmp.a;
+           tmp.g = (tmp.g * inverse_tint_intensity + tint.g * tint_intensity) * tmp.a;
+           tmp.b = (tmp.b * inverse_tint_intensity + tint.b * tint_intensity) * tmp.a;
+           tmp.a = tmp.a;
+           return tmp;
+        }
+
+        void main()
+        {
+          vec4 c;
+
+          if (al_use_tex)
+          {
+            c = varying_color * texture2D(al_tex, varying_texcoord);
+          }
+          else
+          {
+            c = varying_color;
+          }
+
+          if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
+          {
+            gl_FragColor = tint_it_plz(c);
+          }
+          else
+          {
+            discard;
+          }
+        }
+
+        bool alpha_test_func(float x, int op, float compare)
+        {
+          if (op == 0) return false;
+          else if (op == 1) return true;
+          else if (op == 2) return x < compare;
+          else if (op == 3) return x == compare;
+          else if (op == 4) return x <= compare;
+          else if (op == 5) return x > compare;
+          else if (op == 6) return x != compare;
+          else if (op == 7) return x >= compare;
+          return false;
+        }
+      )DELIM";
+      return source;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Shaders::Base
+    headers: [ AllegroFlare/Shaders/Base.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+

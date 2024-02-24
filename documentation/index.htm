@@ -439,6 +439,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml">quintessence/AllegroFlare/Shaders/AllegroDefault.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Base.q.yml">quintessence/AllegroFlare/Shaders/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Cubemap.q.yml">quintessence/AllegroFlare/Shaders/Cubemap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Shaders/FlatColor.q.yml">quintessence/AllegroFlare/Shaders/FlatColor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/Multitexture.q.yml">quintessence/AllegroFlare/Shaders/Multitexture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/Blinds.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/Blinds.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/DipToBlack.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/DipToBlack.q.yml</a></li>
@@ -32898,6 +32899,65 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Shaders/FlatColor.q.yml">quintessence/AllegroFlare/Shaders/FlatColor.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tint</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">tint_intensity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>activate</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>set_values_to_activated_shader</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">std::string</td>
+  <td class="private_method"><b>obtain_vertex_source</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">std::string</td>
+  <td class="private_method"><b>obtain_fragment_source</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Shaders/Multitexture.q.yml">quintessence/AllegroFlare/Shaders/Multitexture.q.yml</h3>
     <h3>Overview</h3>
     <p>{"todos"=>["Add explit setters (which will set the property on the shader if active) for properties."]}</p>    <h3>Properties</h3>
@@ -41290,6 +41350,7 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Shaders/AllegroDefault",
+    "AllegroFlare/Shaders/FlatColor",
     "AllegroFlare/Shaders/Multitexture",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
@@ -42701,6 +42762,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/Cubemap",
+    "AllegroFlare/Shaders/FlatColor",
     "AllegroFlare/Shaders/Multitexture",
     "AllegroFlare/Shaders/PostProcessing/Blinds",
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
