@@ -773,6 +773,10 @@ methods:
       // TODO: allow this function to run without being coupled with a "player_controlled_entity"
       if (player_controlled_entity) update_player_collisions_with_save_points();
 
+      // Evaluate player collisions on boss_zones
+      // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+      if (player_controlled_entity) update_player_collisions_with_boss_zones();
+
       // Evaluate player collisions on entities tagged with COLLIDES_WITH_PLAYER
       // TODO: allow this function to run without being coupled with a "player_controlled_entity"
       if (player_controlled_entity) update_player_collisions_with_COLLIDES_WITH_PLAYER();
@@ -1079,6 +1083,35 @@ methods:
             //entity->set(PLEASE_DELETE);
             // NOTE: typically will do something here as a result of picking up the item
          }
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+      - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
+
+
+  - name: update_player_collisions_with_boss_zones
+    private: true
+    guards: [ player_controlled_entity ]
+    body: |
+      // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+      AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+      float player_x = player_controlled_entity->get_place_ref().position.x;
+      float player_y = player_controlled_entity->get_place_ref().position.y + 16;
+
+      for (auto &entity : collection_helper.select_boss_zones())
+      {
+         // TODO: Determine what a good default action would be here, consider "entering" and "exiting" the zone
+         // as well
+
+         //if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
+         //{
+            //last_activated_save_point = entity;
+            // NOTE: typically will do something here as a result of picking up the item
+         //}
       }
       return;
     body_dependency_symbols:

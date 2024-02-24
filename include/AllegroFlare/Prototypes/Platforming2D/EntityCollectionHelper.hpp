@@ -33,6 +33,7 @@ namespace AllegroFlare
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_collides_with_player();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_goalposts();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_save_points();
+            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_boss_zones();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> select_doors();
             AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* find_door_by_tmj_object_id(int tmj_object_id=0);
             AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* find_door_by_target_door_name(std::string target_door_name="[unset-target_door_name]");

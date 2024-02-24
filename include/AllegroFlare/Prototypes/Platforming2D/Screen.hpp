@@ -71,6 +71,7 @@ namespace AllegroFlare
             void update_player_collisions_with_COLLIDES_WITH_PLAYER();
             virtual void update_player_collisions_with_collectables();
             void update_player_collisions_with_save_points();
+            void update_player_collisions_with_boss_zones();
 
          protected:
 

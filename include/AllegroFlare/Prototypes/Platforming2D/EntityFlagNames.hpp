@@ -32,6 +32,7 @@ namespace AllegroFlare
             std::string const TYPE = "type";
             std::string const GOALPOST = "goalpost";
             std::string const DOOR = "door";
+            std::string const BOSS_ZONE = "boss_zone";
             std::string const SAVE_POINT = "save_point";
             std::string const TRACKS_PLAYER_CHARACTER_XY = "tracks_player_character_xy";
 
