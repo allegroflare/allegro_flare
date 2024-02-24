@@ -118,7 +118,8 @@ std::string FlatColor::obtain_fragment_source()
      varying vec4 varying_color;
      varying vec2 varying_texcoord;
 
-     //bool alpha_test_func(float x, int op, float compare);
+     bool alpha_test_func(float x, int op, float compare);
+
      uniform vec3 tint;
      uniform float tint_intensity;
 
