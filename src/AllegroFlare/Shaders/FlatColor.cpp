@@ -15,8 +15,8 @@ namespace Shaders
 
 FlatColor::FlatColor()
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::FlatColor::TYPE, obtain_vertex_source(), obtain_fragment_source())
-   , tint(ALLEGRO_COLOR{1, 1, 1, 1})
-   , tint_intensity(1.0f)
+   , color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , color_intensity(1.0f)
    , initialized(false)
 {
 }
@@ -27,27 +27,27 @@ FlatColor::~FlatColor()
 }
 
 
-void FlatColor::set_tint(ALLEGRO_COLOR tint)
+void FlatColor::set_color(ALLEGRO_COLOR color)
 {
-   this->tint = tint;
+   this->color = color;
 }
 
 
-void FlatColor::set_tint_intensity(float tint_intensity)
+void FlatColor::set_color_intensity(float color_intensity)
 {
-   this->tint_intensity = tint_intensity;
+   this->color_intensity = color_intensity;
 }
 
 
-ALLEGRO_COLOR FlatColor::get_tint() const
+ALLEGRO_COLOR FlatColor::get_color() const
 {
-   return tint;
+   return color;
 }
 
 
-float FlatColor::get_tint_intensity() const
+float FlatColor::get_color_intensity() const
 {
-   return tint_intensity;
+   return color_intensity;
 }
 
 
@@ -73,8 +73,8 @@ void FlatColor::activate()
 
 void FlatColor::set_values_to_activated_shader()
 {
-   set_vec3("tint", tint.r, tint.g, tint.b);
-   set_float("tint_intensity", tint_intensity);
+   set_vec3("color", color.r, color.g, color.b);
+   set_float("color_intensity", color_intensity);
    return;
 }
 
@@ -120,16 +120,16 @@ std::string FlatColor::obtain_fragment_source()
 
      bool alpha_test_func(float x, int op, float compare);
 
-     uniform vec3 tint;
-     uniform float tint_intensity;
+     uniform vec3 color;
+     uniform float color_intensity;
 
 
-     vec4 tint_it_plz(vec4 tmp)
+     vec4 color_it_plz(vec4 tmp)
      {
-        float inverse_tint_intensity = 1.0 - tint_intensity;
-        tmp.r = (tmp.r * inverse_tint_intensity + tint.r * tint_intensity) * tmp.a;
-        tmp.g = (tmp.g * inverse_tint_intensity + tint.g * tint_intensity) * tmp.a;
-        tmp.b = (tmp.b * inverse_tint_intensity + tint.b * tint_intensity) * tmp.a;
+        float inverse_color_intensity = 1.0 - color_intensity;
+        tmp.r = (tmp.r * inverse_color_intensity + color.r * color_intensity) * tmp.a;
+        tmp.g = (tmp.g * inverse_color_intensity + color.g * color_intensity) * tmp.a;
+        tmp.b = (tmp.b * inverse_color_intensity + color.b * color_intensity) * tmp.a;
         tmp.a = tmp.a;
         return tmp;
      }
@@ -149,7 +149,7 @@ std::string FlatColor::obtain_fragment_source()
 
        if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
        {
-         gl_FragColor = tint_it_plz(c);
+         gl_FragColor = color_it_plz(c);
        }
        else
        {

@@ -9,13 +9,13 @@ parent_classes:
 properties:
 
 
-  - name: tint
+  - name: color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{1, 1, 1, 1}
     getter: true
     setter: true
 
-  - name: tint_intensity
+  - name: color_intensity
     type: float
     init_with: 1.0f
     getter: true
@@ -54,8 +54,8 @@ functions:
   - name: set_values_to_activated_shader
     private: true
     body: |
-      set_vec3("tint", tint.r, tint.g, tint.b);
-      set_float("tint_intensity", tint_intensity);
+      set_vec3("color", color.r, color.g, color.b);
+      set_float("color_intensity", color_intensity);
       return;
     body_dependency_symbols:
       - std::cout
@@ -109,16 +109,16 @@ functions:
 
         bool alpha_test_func(float x, int op, float compare);
 
-        uniform vec3 tint;
-        uniform float tint_intensity;
+        uniform vec3 color;
+        uniform float color_intensity;
 
 
-        vec4 tint_it_plz(vec4 tmp)
+        vec4 color_it_plz(vec4 tmp)
         {
-           float inverse_tint_intensity = 1.0 - tint_intensity;
-           tmp.r = (tmp.r * inverse_tint_intensity + tint.r * tint_intensity) * tmp.a;
-           tmp.g = (tmp.g * inverse_tint_intensity + tint.g * tint_intensity) * tmp.a;
-           tmp.b = (tmp.b * inverse_tint_intensity + tint.b * tint_intensity) * tmp.a;
+           float inverse_color_intensity = 1.0 - color_intensity;
+           tmp.r = (tmp.r * inverse_color_intensity + color.r * color_intensity) * tmp.a;
+           tmp.g = (tmp.g * inverse_color_intensity + color.g * color_intensity) * tmp.a;
+           tmp.b = (tmp.b * inverse_color_intensity + color.b * color_intensity) * tmp.a;
            tmp.a = tmp.a;
            return tmp;
         }
@@ -138,7 +138,7 @@ functions:
 
           if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
           {
-            gl_FragColor = tint_it_plz(c);
+            gl_FragColor = color_it_plz(c);
           }
           else
           {

@@ -6,8 +6,7 @@
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/CustomComparison.hpp>
-
-
+#include <AllegroFlare/Shaders/FlatColor.hpp>
 #include <allegro5/allegro_color.h> // for al_color_html
 #include <allegro5/allegro_primitives.h> // for al_draw_line
 
@@ -36,8 +35,6 @@ public:
       return bitmap_bin[filename];
    }
 };
-
-
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DTest, can_be_created_without_blowing_up)
@@ -360,10 +357,11 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
-   DISABLED__CAPTURE__draw__with_a_custom_shader__will_work_as_expected)
+   CAPTURE__draw__with_a_custom_shader__will_work_as_expected)
 {
-   // TODO: Add and use a flat_color_shader for this test
-/*
+   AllegroFlare::Shaders::FlatColor flat_color_shader;
+   flat_color_shader.initialize();
+
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
    basic2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
    basic2d_entity.set_draw_debug(true);
@@ -379,16 +377,16 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
    basic2d_entity.get_bitmap_placement_ref().scale = { 1.5, 1.5 };
    basic2d_entity.get_bitmap_placement_ref().rotation = 0.1;
 
-   al_clear_to_color(ALLEGRO_COLOR{0.4, 0.42, 0.46, 1.0});
+   al_clear_to_color(ALLEGRO_COLOR{0.1, 0.102, 0.11, 1.0});
 
-   basic2d_entity.set_shader(flat_color_shader);
+   basic2d_entity.set_shader(&flat_color_shader);
+   flat_color_shader.set_color(ALLEGRO_COLOR{0.1, 0.8, 0.6, 1.0});
+   flat_color_shader.set_color_intensity(0.8);
    basic2d_entity.draw();
 
    al_flip_display();
-   sleep(4);
 
    SUCCEED(); // TODO: pick pixel
-*/
 }
 
 

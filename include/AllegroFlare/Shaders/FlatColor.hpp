@@ -16,8 +16,8 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/Shaders/FlatColor";
 
       private:
-         ALLEGRO_COLOR tint;
-         float tint_intensity;
+         ALLEGRO_COLOR color;
+         float color_intensity;
          bool initialized;
          void set_values_to_activated_shader();
          static std::string obtain_vertex_source();
@@ -30,10 +30,10 @@ namespace AllegroFlare
          FlatColor();
          ~FlatColor();
 
-         void set_tint(ALLEGRO_COLOR tint);
-         void set_tint_intensity(float tint_intensity);
-         ALLEGRO_COLOR get_tint() const;
-         float get_tint_intensity() const;
+         void set_color(ALLEGRO_COLOR color);
+         void set_color_intensity(float color_intensity);
+         ALLEGRO_COLOR get_color() const;
+         float get_color_intensity() const;
          void initialize();
          void activate();
       };
