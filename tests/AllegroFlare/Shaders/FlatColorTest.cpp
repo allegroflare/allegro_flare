@@ -42,3 +42,6 @@ TEST_F(AllegroFlare_Shaders_FlatColorWithAllegroRenderingFixtureTest, activate__
 }
 
 
+// TODO: Add a render test with a bitmap render subject
+
+
