@@ -30,6 +30,7 @@ Basic2D::Basic2D(AllegroFlare::FrameAnimation::Book* animation_book)
    , bitmap_alignment_strategy("top_left")
    , bitmap_flip_h(false)
    , bitmap_blend_mode(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode::NORMAL)
+   , shader(nullptr)
    , movement_strategy(nullptr)
    , animation_book(animation_book)
    , animation({})
@@ -83,6 +84,12 @@ void Basic2D::set_bitmap_flip_h(bool bitmap_flip_h)
 void Basic2D::set_bitmap_blend_mode(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode bitmap_blend_mode)
 {
    this->bitmap_blend_mode = bitmap_blend_mode;
+}
+
+
+void Basic2D::set_shader(AllegroFlare::Shaders::Base* shader)
+{
+   this->shader = shader;
 }
 
 
@@ -149,6 +156,12 @@ bool Basic2D::get_bitmap_flip_h() const
 AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode Basic2D::get_bitmap_blend_mode() const
 {
    return bitmap_blend_mode;
+}
+
+
+AllegroFlare::Shaders::Base* Basic2D::get_shader() const
+{
+   return shader;
 }
 
 
@@ -422,6 +435,10 @@ void Basic2D::draw()
 
       bitmap_placement.start_transform();
 
+      // Activate custom shader (if there is one)
+      // TODO: Consider alternatives to this, particularly how the previous shader would be restored
+      if (shader) shader->activate();
+
       // Set the blending mode
       set_blending_mode_if_not_normal();
 
@@ -430,6 +447,10 @@ void Basic2D::draw()
 
       // Restore the blending mode
       restore_blending_mode();
+
+      // Deactivate the shader to the default
+      // TODO: Consider alternatives to this, particularly how the previous shader would be restored
+      if (shader) shader->deactivate();
 
       // draw the boundary rectangle for the bitmap
 

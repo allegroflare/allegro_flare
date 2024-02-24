@@ -54,6 +54,12 @@ properties:
     getter: true
     setter: true
 
+  - name: shader
+    type: AllegroFlare::Shaders::Base*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: movement_strategy
     type: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base*
     init_with: nullptr
@@ -394,6 +400,10 @@ functions:
 
          bitmap_placement.start_transform();
 
+         // Activate custom shader (if there is one)
+         // TODO: Consider alternatives to this, particularly how the previous shader would be restored
+         if (shader) shader->activate();
+
          // Set the blending mode
          set_blending_mode_if_not_normal();
 
@@ -402,6 +412,10 @@ functions:
 
          // Restore the blending mode
          restore_blending_mode();
+
+         // Deactivate the shader to the default
+         // TODO: Consider alternatives to this, particularly how the previous shader would be restored
+         if (shader) shader->deactivate();
 
          // draw the boundary rectangle for the bitmap
 
@@ -632,5 +646,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::Shaders::Base
+    headers: [ AllegroFlare/Shaders/Base.hpp ]
 
 

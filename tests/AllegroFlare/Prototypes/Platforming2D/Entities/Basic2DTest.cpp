@@ -359,4 +359,36 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderin
 }
 
 
+TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DWithAllegroRenderingFixtureTest,
+   DISABLED__CAPTURE__draw__with_a_custom_shader__will_work_as_expected)
+{
+   // TODO: Add and use a flat_color_shader for this test
+/*
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D basic2d_entity;
+   basic2d_entity.set_bitmap(FIXTURE_get_bitmap("golden_dragon.png"));
+   basic2d_entity.set_draw_debug(true);
+   basic2d_entity.fit_to_bitmap();
+   basic2d_entity.get_place_ref().position = {1920/8, 1080/2};
+   basic2d_entity.get_place_ref().align = {0.5, 0.5};
+   basic2d_entity.get_place_ref().size.x *= 0.75;
+   basic2d_entity.get_place_ref().size.y *= 0.75;
+   basic2d_entity.get_place_ref().scale = {3.0, 3.0};
+   basic2d_entity.get_place_ref().position.x = 1920/8*4;
+
+   basic2d_entity.set_bitmap_alignment_strategy("centered");
+   basic2d_entity.get_bitmap_placement_ref().scale = { 1.5, 1.5 };
+   basic2d_entity.get_bitmap_placement_ref().rotation = 0.1;
+
+   al_clear_to_color(ALLEGRO_COLOR{0.4, 0.42, 0.46, 1.0});
+
+   basic2d_entity.set_shader(flat_color_shader);
+   basic2d_entity.draw();
+
+   al_flip_display();
+   sleep(4);
+
+   SUCCEED(); // TODO: pick pixel
+*/
+}
+
 
