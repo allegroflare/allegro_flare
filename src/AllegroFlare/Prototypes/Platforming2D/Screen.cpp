@@ -1142,7 +1142,8 @@ void Screen::update_player_collisions_with_collectables()
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
    float player_x = player_controlled_entity->get_place_ref().position.x;
-   float player_y = player_controlled_entity->get_place_ref().position.y + 16;
+   float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
+                                                                               // player center position
 
    for (auto &entity : collection_helper.select_collectable_by_player())
    {
@@ -1170,7 +1171,8 @@ void Screen::update_player_collisions_with_save_points()
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
    float player_x = player_controlled_entity->get_place_ref().position.x;
-   float player_y = player_controlled_entity->get_place_ref().position.y + 16;
+   float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
+                                                                               // player center position
 
    for (auto &entity : collection_helper.select_save_points())
    {
@@ -1199,7 +1201,8 @@ void Screen::update_player_collisions_with_boss_zones()
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
    float player_x = player_controlled_entity->get_place_ref().position.x;
-   float player_y = player_controlled_entity->get_place_ref().position.y + 16;
+   float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
+                                                                               // player center position
 
    for (auto &entity : collection_helper.select_boss_zones())
    {
@@ -1230,7 +1233,8 @@ void Screen::update_player_collisions_with_goalposts()
 
    // TODO: Change this collision to the player_controlled_entity's center, OR, make it configurable
    float player_x = player_controlled_entity->get_place_ref().position.x;
-   float player_y = player_controlled_entity->get_place_ref().position.y + 16;
+   float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
+                                                                               // player center position
 
    for (auto &entity : collection_helper.select_goalposts())
    {
