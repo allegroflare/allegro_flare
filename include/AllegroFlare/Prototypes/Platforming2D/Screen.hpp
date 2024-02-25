@@ -64,7 +64,7 @@ namespace AllegroFlare
             void* create_entities_from_map_callback_user_data;
             bool show_debugging_info;
             bool initialized;
-            bool maps_initialized;
+            bool maps_loaded;
             void initialize_camera();
             void cleanup_entities_flagged_for_deletion();
             void check_player_collisions_with_doors();

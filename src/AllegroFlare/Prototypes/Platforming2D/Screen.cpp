@@ -57,7 +57,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , create_entities_from_map_callback_user_data(nullptr)
    , show_debugging_info(false)
    , initialized(false)
-   , maps_initialized(false)
+   , maps_loaded(false)
 {
 }
 
@@ -378,19 +378,19 @@ void Screen::on_deactivate()
 void Screen::set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary)
 {
    this->map_dictionary = map_dictionary;
-   maps_initialized = false;
+   maps_loaded = false;
    // TODO: The maps need to be loaded
    return;
 }
 
 void Screen::initialize_maps()
 {
-   if (!((!maps_initialized)))
+   if (!((!maps_loaded)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize_maps]: error: guard \"(!maps_initialized)\" not met.";
+      error_message << "[Screen::initialize_maps]: error: guard \"(!maps_loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize_maps: error: guard \"(!maps_initialized)\" not met");
+      throw std::runtime_error("Screen::initialize_maps: error: guard \"(!maps_loaded)\" not met");
    }
    if (!((!map_dictionary.empty())))
    {
@@ -455,7 +455,7 @@ void Screen::initialize_maps()
       //}
    //}
 
-   maps_initialized = true;
+   maps_loaded = true;
 
    return;
 }

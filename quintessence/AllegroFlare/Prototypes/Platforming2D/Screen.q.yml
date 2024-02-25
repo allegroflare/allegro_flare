@@ -152,7 +152,7 @@ properties:
     init_with: false
     getter: true
 
-  - name: maps_initialized
+  - name: maps_loaded
     type: bool 
     init_with: false
 
@@ -314,13 +314,13 @@ methods:
         default_argument: '{}'
     body: |
       this->map_dictionary = map_dictionary;
-      maps_initialized = false;
+      maps_loaded = false;
       // TODO: The maps need to be loaded
       return;
 
 
   - name: initialize_maps
-    guards: [ (!maps_initialized), (!map_dictionary.empty()) ]
+    guards: [ (!maps_loaded), (!map_dictionary.empty()) ]
     body: |
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
 
@@ -378,7 +378,7 @@ methods:
          //}
       //}
 
-      maps_initialized = true;
+      maps_loaded = true;
 
       return;
 
