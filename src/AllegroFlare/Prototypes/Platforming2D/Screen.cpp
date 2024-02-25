@@ -94,13 +94,6 @@ void Screen::set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D
 }
 
 
-void Screen::set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary)
-{
-   if (get_initialized()) throw std::runtime_error("[Screen::set_map_dictionary]: error: guard \"get_initialized()\" not met.");
-   this->map_dictionary = map_dictionary;
-}
-
-
 void Screen::set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom)
 {
    this->camera_baseline_zoom = camera_baseline_zoom;
@@ -382,6 +375,14 @@ void Screen::on_deactivate()
    return;
 }
 
+void Screen::set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary)
+{
+   this->map_dictionary = map_dictionary;
+   maps_initialized = false;
+   // TODO: The maps need to be loaded
+   return;
+}
+
 void Screen::initialize_maps()
 {
    if (!((!maps_initialized)))
@@ -400,7 +401,10 @@ void Screen::initialize_maps()
    }
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
 
+   // TODO: Unload the current map if any
    // TODO: Consider clearing the entity pool
+   // TODO: Consider tile "room_size" may be altered for the camera. Check out "initialize_camera" to see how
+   // tile_width and tile_height are used to calculate the room size.
 
    for (auto &map_dictionary_entry : map_dictionary)
    {
@@ -490,27 +494,6 @@ void Screen::initialize_camera_control()
 
 void Screen::initialize_camera()
 {
-   if (!(currently_active_map))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::initialize_camera]: error: guard \"currently_active_map\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize_camera: error: guard \"currently_active_map\" not met");
-   }
-   if (!(currently_active_map->get_tile_atlas()))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::initialize_camera]: error: guard \"currently_active_map->get_tile_atlas()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize_camera: error: guard \"currently_active_map->get_tile_atlas()\" not met");
-   }
-   if (!(currently_active_map->get_tile_mesh()))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::initialize_camera]: error: guard \"currently_active_map->get_tile_mesh()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize_camera: error: guard \"currently_active_map->get_tile_mesh()\" not met");
-   }
    //camera.size = { 1920.0f, 1080.0f };
    camera.size = AllegroFlare::vec2d(1920.0f, 1080.0f);
    camera.align = AllegroFlare::vec2d(0.5, 0.5);
@@ -518,8 +501,18 @@ void Screen::initialize_camera()
    //float width = tile_mesh->get_real_width();
    //float height = tile_mesh->get_real_height();
 
-   float room_width = currently_active_map->get_tile_mesh()->get_tile_width() * 25; // tile_mesh->get_real_width();
-   float room_height = currently_active_map->get_tile_mesh()->get_tile_height() * 15; //tile_mesh->get_real_height();
+   int tile_width = 16; // TODO: Note that this tile_width could change based on the map, for now, we're going
+                        // to set a standard of 16x16 as the tile size. Note that this might need to be changed
+                        // when the currently_active_map is changed
+   int tile_height = 16; // TODO: Note that this tile_width could change based on the map, for now, we're going
+                        // to set a standard of 16x16 as the tile size. Note that this might need to be changed
+                        // when the currently_active_map is changed
+
+   //float room_width = currently_active_map->get_tile_mesh()->get_tile_width() * 25; // tile_mesh->get_real_width();
+   //float room_height = currently_active_map->get_tile_mesh()->get_tile_height() * 15; //tile_mesh->get_real_height();
+
+   float room_width = tile_width * 25;
+   float room_height = tile_height * 15;
 
    // note that Shovel Knight has 4.5x4.5 sized pixels (actually 4.8 x 4.5)
       // this means:

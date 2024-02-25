@@ -50,7 +50,7 @@ properties:
     type: std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing>
     init_with: '{}'
     getter: true
-    setter: before_initialized
+    setter: explicit
 
   - name: gravity
     type: float
@@ -307,12 +307,27 @@ methods:
       return;
 
 
+  - name: set_map_dictionary
+    parameters:
+      - name: map_dictionary
+        type: std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing>
+        default_argument: '{}'
+    body: |
+      this->map_dictionary = map_dictionary;
+      maps_initialized = false;
+      // TODO: The maps need to be loaded
+      return;
+
+
   - name: initialize_maps
     guards: [ (!maps_initialized), (!map_dictionary.empty()) ]
     body: |
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
 
+      // TODO: Unload the current map if any
       // TODO: Consider clearing the entity pool
+      // TODO: Consider tile "room_size" may be altered for the camera. Check out "initialize_camera" to see how
+      // tile_width and tile_height are used to calculate the room size.
 
       for (auto &map_dictionary_entry : map_dictionary)
       {
@@ -413,7 +428,6 @@ methods:
 
   - name: initialize_camera
     private: true
-    guards: [ currently_active_map, currently_active_map->get_tile_atlas(), currently_active_map->get_tile_mesh() ]
     body: |
       //camera.size = { 1920.0f, 1080.0f };
       camera.size = AllegroFlare::vec2d(1920.0f, 1080.0f);
@@ -422,8 +436,18 @@ methods:
       //float width = tile_mesh->get_real_width();
       //float height = tile_mesh->get_real_height();
 
-      float room_width = currently_active_map->get_tile_mesh()->get_tile_width() * 25; // tile_mesh->get_real_width();
-      float room_height = currently_active_map->get_tile_mesh()->get_tile_height() * 15; //tile_mesh->get_real_height();
+      int tile_width = 16; // TODO: Note that this tile_width could change based on the map, for now, we're going
+                           // to set a standard of 16x16 as the tile size. Note that this might need to be changed
+                           // when the currently_active_map is changed
+      int tile_height = 16; // TODO: Note that this tile_width could change based on the map, for now, we're going
+                           // to set a standard of 16x16 as the tile size. Note that this might need to be changed
+                           // when the currently_active_map is changed
+
+      //float room_width = currently_active_map->get_tile_mesh()->get_tile_width() * 25; // tile_mesh->get_real_width();
+      //float room_height = currently_active_map->get_tile_mesh()->get_tile_height() * 15; //tile_mesh->get_real_height();
+
+      float room_width = tile_width * 25;
+      float room_height = tile_height * 15;
 
       // note that Shovel Knight has 4.5x4.5 sized pixels (actually 4.8 x 4.5)
          // this means:

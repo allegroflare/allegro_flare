@@ -84,7 +84,6 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool);
-            void set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary);
             void set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom);
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
@@ -118,6 +117,7 @@ namespace AllegroFlare
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* find_map_by_name(std::string name="[unset-map-name]");
             virtual void on_activate() override;
             virtual void on_deactivate() override;
+            void set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary={});
             void initialize_maps();
             virtual void post_process_loaded_maps(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool=nullptr);
             void initialize_camera_control();
