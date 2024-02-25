@@ -132,7 +132,7 @@ namespace AllegroFlare
             void spawn_player_emitted_damage_zone(std::string map_name="[unset-map_name]", float x=0.0f, float y=0.0f, float width=16.0f, float height=16.0f);
             virtual void update_player_collisions_with_goalposts();
             void draw_entities();
-            void update();
+            virtual void update();
             virtual void draw_hud();
             void draw();
             void draw_debugging();

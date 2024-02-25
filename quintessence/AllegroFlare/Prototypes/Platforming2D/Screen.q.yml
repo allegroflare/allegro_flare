@@ -1162,6 +1162,7 @@ methods:
 
 
   - name: update
+    virtual: true
     guards: [ initialized ]
     body: |
       if (!get_gameplay_suspended())
