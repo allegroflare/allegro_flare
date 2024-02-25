@@ -118,7 +118,7 @@ namespace AllegroFlare
             virtual void on_activate() override;
             virtual void on_deactivate() override;
             void set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary={});
-            void initialize_maps();
+            void load_maps_in_dictionary();
             virtual void post_process_loaded_maps(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool=nullptr);
             void initialize_camera_control();
             virtual void initialize();

@@ -383,21 +383,21 @@ void Screen::set_map_dictionary(std::map<std::string, AllegroFlare::Prototypes::
    return;
 }
 
-void Screen::initialize_maps()
+void Screen::load_maps_in_dictionary()
 {
    if (!((!maps_loaded)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize_maps]: error: guard \"(!maps_loaded)\" not met.";
+      error_message << "[Screen::load_maps_in_dictionary]: error: guard \"(!maps_loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize_maps: error: guard \"(!maps_loaded)\" not met");
+      throw std::runtime_error("Screen::load_maps_in_dictionary: error: guard \"(!maps_loaded)\" not met");
    }
    if (!((!map_dictionary.empty())))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize_maps]: error: guard \"(!map_dictionary.empty())\" not met.";
+      error_message << "[Screen::load_maps_in_dictionary]: error: guard \"(!map_dictionary.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize_maps: error: guard \"(!map_dictionary.empty())\" not met");
+      throw std::runtime_error("Screen::load_maps_in_dictionary: error: guard \"(!map_dictionary.empty())\" not met");
    }
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
 

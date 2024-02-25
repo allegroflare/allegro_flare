@@ -319,7 +319,8 @@ methods:
       return;
 
 
-  - name: initialize_maps
+  - name: load_maps_in_dictionary
+    note__name_was_previously: initialize_maps
     guards: [ (!maps_loaded), (!map_dictionary.empty()) ]
     body: |
       AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);

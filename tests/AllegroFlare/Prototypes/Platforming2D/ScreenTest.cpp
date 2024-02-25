@@ -47,7 +47,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
       { "map_a", { data_folder_path + "maps/map_with_objects-x.tmj", "tiles_dungeon_v1.1.png" } },
       { "map_b", { data_folder_path + "maps/map1b-0x.tmj", "tiles_dungeon_v1.1.png" } },
    });
-   platforming_2d.initialize_maps();
+   platforming_2d.load_maps_in_dictionary();
    platforming_2d.set_currently_active_map("map_a");
 
 
