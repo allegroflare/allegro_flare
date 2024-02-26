@@ -978,7 +978,9 @@ void Screen::on_enter_door(AllegroFlare::Prototypes::Platforming2D::Entities::Do
    }
    if (door->get_is_locked())
    {
-      // Consider emitting an event, message, or sounde effect to indicate the door is locked
+      // TODO: Consider emitting an event, message, or sounde effect to indicate the door is locked
+      std::cout << "AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_door: "
+                "info: door is locked." << std::endl;
    }
    else
    {
