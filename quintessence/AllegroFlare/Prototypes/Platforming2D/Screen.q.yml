@@ -275,6 +275,7 @@ methods:
       - name: name
         type: std::string
         default_argument: '"[unset-map-name]"'
+    guards: [ maps_loaded ]
     body: |
       AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
       AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* found_map =

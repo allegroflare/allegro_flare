@@ -336,6 +336,13 @@ void Screen::set_camera_control_strategy(AllegroFlare::CameraControlStrategies2D
 
 AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Screen::find_map_by_name(std::string name)
 {
+   if (!(maps_loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::find_map_by_name]: error: guard \"maps_loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::find_map_by_name: error: guard \"maps_loaded\" not met");
+   }
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
    AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* found_map =
       collection_helper.find_map_by_name(name);
