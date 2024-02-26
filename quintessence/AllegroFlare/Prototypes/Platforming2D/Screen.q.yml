@@ -208,6 +208,7 @@ methods:
         default_argument: true
     guards: [ '(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)' ]
     body: |
+      // Consider that player_controlled_entity could be nullptr
       // Set the player controlled entity
       this->player_controlled_entity = entity;
 
