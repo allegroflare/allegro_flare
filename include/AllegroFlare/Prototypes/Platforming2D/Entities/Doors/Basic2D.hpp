@@ -22,6 +22,7 @@ namespace AllegroFlare
                   std::string target_map_name;
                   float target_spawn_x;
                   float target_spawn_y;
+                  bool is_locked;
 
                protected:
 
@@ -34,10 +35,12 @@ namespace AllegroFlare
                   void set_target_map_name(std::string target_map_name);
                   void set_target_spawn_x(float target_spawn_x);
                   void set_target_spawn_y(float target_spawn_y);
+                  void set_is_locked(bool is_locked);
                   std::string get_game_event_name_to_emit() const;
                   std::string get_target_map_name() const;
                   float get_target_spawn_x() const;
                   float get_target_spawn_y() const;
+                  bool get_is_locked() const;
                };
             }
          }

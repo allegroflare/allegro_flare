@@ -23,6 +23,7 @@ Basic2D::Basic2D(std::string game_event_name_to_emit, std::string target_map_nam
    , target_map_name(target_map_name)
    , target_spawn_x(target_spawn_x)
    , target_spawn_y(target_spawn_y)
+   , is_locked(false)
 {
 }
 
@@ -56,6 +57,12 @@ void Basic2D::set_target_spawn_y(float target_spawn_y)
 }
 
 
+void Basic2D::set_is_locked(bool is_locked)
+{
+   this->is_locked = is_locked;
+}
+
+
 std::string Basic2D::get_game_event_name_to_emit() const
 {
    return game_event_name_to_emit;
@@ -77,6 +84,12 @@ float Basic2D::get_target_spawn_x() const
 float Basic2D::get_target_spawn_y() const
 {
    return target_spawn_y;
+}
+
+
+bool Basic2D::get_is_locked() const
+{
+   return is_locked;
 }
 
 

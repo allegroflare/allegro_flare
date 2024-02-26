@@ -273,6 +273,7 @@ void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::set_player_controlled_entity: error: guard \"(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)\" not met");
    }
+   // Consider that player_controlled_entity could be nullptr
    // Set the player controlled entity
    this->player_controlled_entity = entity;
 
@@ -975,27 +976,52 @@ void Screen::on_enter_door(AllegroFlare::Prototypes::Platforming2D::Entities::Do
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::on_enter_door: error: guard \"player_controlled_entity\" not met");
    }
-   //
-            std::string map_target_name = door->get_target_map_name();
-            float target_spawn_x = door->get_target_spawn_x();
-            float target_spawn_y = door->get_target_spawn_y();
+   if (door->get_is_locked())
+   {
+      // Consider emitting an event, message, or sounde effect to indicate the door is locked
+   }
+   else
+   {
+      reposition_player_controlled_entity_to_door_destination(door);
+   }
+   return;
+}
 
-            // find the target map
-            // TODO: Is this step necessary?
-            AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* target_map =
-               find_map_by_name(map_target_name);
+void Screen::reposition_player_controlled_entity_to_door_destination(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door)
+{
+   if (!(door))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::reposition_player_controlled_entity_to_door_destination]: error: guard \"door\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::reposition_player_controlled_entity_to_door_destination: error: guard \"door\" not met");
+   }
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::reposition_player_controlled_entity_to_door_destination]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::reposition_player_controlled_entity_to_door_destination: error: guard \"player_controlled_entity\" not met");
+   }
+   std::string map_target_name = door->get_target_map_name();
+   float target_spawn_x = door->get_target_spawn_x();
+   float target_spawn_y = door->get_target_spawn_y();
 
-            // reposition player in map
-            position_entity_bottom_most_edge(
-                  player_controlled_entity,
-                  map_target_name,
-                  target_spawn_x,
-                  target_spawn_y
-               );
+   // find the target map
+   // TODO: Is this step necessary?
+   AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* target_map =
+      find_map_by_name(map_target_name);
 
-            // set current map
-            set_currently_active_map(map_target_name);
-   //
+   // reposition player in map
+   position_entity_bottom_most_edge(
+         player_controlled_entity,
+         map_target_name,
+         target_spawn_x,
+         target_spawn_y
+      );
+
+   // set current map
+   set_currently_active_map(map_target_name);
    return;
 }
 
@@ -1030,36 +1056,27 @@ void Screen::check_player_collisions_with_doors()
          AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *door =
             static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*>(entity);
 
-         std::string game_event_name_to_emit = door->get_game_event_name_to_emit();
-         bool this_door_emits_game_event = !game_event_name_to_emit.empty();
-         if (this_door_emits_game_event)
+         if (door->get_is_locked())
          {
-            event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit));
-         }
-         else // will door travel to another map or place on the current map
-         {
+            // Cannot open this door, it's locked
+            // Call the callback
             on_enter_door(door);
-            /*
-            std::string map_target_name = door->get_target_map_name();
-            float target_spawn_x = door->get_target_spawn_x();
-            float target_spawn_y = door->get_target_spawn_y();
-
-            // find the target map
-            // TODO: Is this step necessary?
-            AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* target_map =
-               find_map_by_name(map_target_name);
-
-            // reposition player in map
-            position_entity_bottom_most_edge(
-                  player_controlled_entity,
-                  map_target_name,
-                  target_spawn_x,
-                  target_spawn_y
-               );
-
-            // set current map
-            set_currently_active_map(map_target_name);
-            */
+         }
+         else
+         {
+            // TODO: Consider removing an emitted event as a door option. This should be included in the callback
+            // if anything
+            std::string game_event_name_to_emit = door->get_game_event_name_to_emit();
+            bool this_door_emits_game_event = !game_event_name_to_emit.empty();
+            if (this_door_emits_game_event)
+            {
+               event_emitter->emit_game_event(AllegroFlare::GameEvent(game_event_name_to_emit));
+            }
+            else
+            {
+               // Will door travel to another map
+               on_enter_door(door);
+            }
          }
          
          return;

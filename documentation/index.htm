@@ -25830,6 +25830,10 @@ table td
   <td class="property">target_spawn_y</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">is_locked</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -26818,7 +26822,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>initialize_maps</b>()</td>
+  <td class="method"><b>load_maps_in_dictionary</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -26867,6 +26871,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>on_enter_door</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>reposition_player_controlled_entity_to_door_destination</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door=nullptr)</td>
 </tr>
 <tr>
   <td class="private_method">void</td>

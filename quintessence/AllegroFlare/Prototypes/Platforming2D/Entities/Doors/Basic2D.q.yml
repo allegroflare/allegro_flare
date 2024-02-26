@@ -37,6 +37,12 @@ properties:
     getter: true
     setter: true
 
+  - name: is_locked
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
 
 dependencies:
 
