@@ -1451,7 +1451,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
    switch (event->keyboard.keycode)
    {
    case ALLEGRO_KEY_1:
-      //toggle_show_collision_tile_mesh();
+      toggle_show_collision_tile_mesh();
       break;
    case ALLEGRO_KEY_2:
       //toggle_show_tile_mesh();
