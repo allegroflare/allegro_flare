@@ -45,3 +45,7 @@ TEST_F(AllegroFlare_Shaders_FlatColorWithAllegroRenderingFixtureTest, activate__
 // TODO: Add a render test with a bitmap render subject
 
 
+// TODO: Add a render test where the "set_color()" and "set_color_intensity()" is checked to ensure it is assigned
+// to the shader, and to the class's member
+
+

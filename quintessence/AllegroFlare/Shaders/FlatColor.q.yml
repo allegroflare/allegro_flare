@@ -13,13 +13,13 @@ properties:
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{1, 1, 1, 1}
     getter: true
-    setter: true
+    setter: explicit
 
   - name: color_intensity
     type: float
     init_with: 1.0f
     getter: true
-    setter: true
+    setter: explicit
 
   - name: TYPE
     type: char*
@@ -32,7 +32,7 @@ properties:
     init_with: false
 
 
-functions:
+methods:
 
 
   - name: initialize
@@ -40,6 +40,28 @@ functions:
     body: |
       if (!initialized) AllegroFlare::Shaders::Base::initialize();
       initialized = true;
+
+
+  - name: set_color
+    parameters:
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+    body: |
+      this->color = color;
+      if (is_active()) set_vec3("color", color.r, color.g, color.b);
+      return;
+
+
+  - name: set_color_intensity
+    parameters:
+      - name: color_intensity
+        type: float
+        default_argument: 1.0f
+    body: |
+      this->color_intensity = color_intensity;
+      if (is_active()) set_float("color_intensity", color_intensity);
+      return;
 
 
   - name: activate

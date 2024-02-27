@@ -27,18 +27,6 @@ FlatColor::~FlatColor()
 }
 
 
-void FlatColor::set_color(ALLEGRO_COLOR color)
-{
-   this->color = color;
-}
-
-
-void FlatColor::set_color_intensity(float color_intensity)
-{
-   this->color_intensity = color_intensity;
-}
-
-
 ALLEGRO_COLOR FlatColor::get_color() const
 {
    return color;
@@ -55,6 +43,20 @@ void FlatColor::initialize()
 {
    if (!initialized) AllegroFlare::Shaders::Base::initialize();
    initialized = true;
+}
+
+void FlatColor::set_color(ALLEGRO_COLOR color)
+{
+   this->color = color;
+   if (is_active()) set_vec3("color", color.r, color.g, color.b);
+   return;
+}
+
+void FlatColor::set_color_intensity(float color_intensity)
+{
+   this->color_intensity = color_intensity;
+   if (is_active()) set_float("color_intensity", color_intensity);
+   return;
 }
 
 void FlatColor::activate()

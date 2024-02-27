@@ -30,11 +30,11 @@ namespace AllegroFlare
          FlatColor();
          ~FlatColor();
 
-         void set_color(ALLEGRO_COLOR color);
-         void set_color_intensity(float color_intensity);
          ALLEGRO_COLOR get_color() const;
          float get_color_intensity() const;
          void initialize();
+         void set_color(ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1});
+         void set_color_intensity(float color_intensity=1.0f);
          void activate();
       };
    }
