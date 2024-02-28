@@ -175,6 +175,27 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    return result;
 }
 
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* EntityCollectionHelper::find_first_entity_by_tmj_object_name(std::string tmj_object_name)
+{
+   if (!(entities))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityCollectionHelper::find_first_entity_by_tmj_object_name]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityCollectionHelper::find_first_entity_by_tmj_object_name: error: guard \"entities\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   for (auto &entity : (*entities))
+   {
+      if (entity->exists(TMJ_OBJECT_NAME, tmj_object_name))
+      {
+         return entity;
+      }
+   }
+   return nullptr;
+}
+
 AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* EntityCollectionHelper::find_door_by_tmj_object_id(int tmj_object_id)
 {
    if (!(entities))

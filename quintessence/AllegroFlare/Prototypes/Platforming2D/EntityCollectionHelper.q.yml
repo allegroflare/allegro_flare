@@ -131,6 +131,28 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: find_first_entity_by_tmj_object_name
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: tmj_object_name
+        type: std::string
+        default_argument: '"[unset-tmj_object_name]"'
+    guards: [ entities ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(TMJ_OBJECT_NAME, tmj_object_name))
+         {
+            return entity;
+         }
+      }
+      return nullptr;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
   - name: find_door_by_tmj_object_id
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*
     parameters:
