@@ -124,7 +124,7 @@ void Screen::set_entity_control_connector(AllegroFlare::Prototypes::Platforming2
 }
 
 
-void Screen::set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, int, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback)
+void Screen::set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, int, std::string, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback)
 {
    this->create_entities_from_map_callback = create_entities_from_map_callback;
 }
@@ -214,7 +214,7 @@ AllegroFlare::CameraControlStrategies2D::Base* Screen::get_camera_control_strate
 }
 
 
-std::function<void( std::string, float, float, float, float, int, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > Screen::get_create_entities_from_map_callback() const
+std::function<void( std::string, float, float, float, float, int, std::string, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > Screen::get_create_entities_from_map_callback() const
 {
    return create_entities_from_map_callback;
 }
@@ -470,6 +470,8 @@ void Screen::load_maps_in_dictionary()
 
 void Screen::post_process_loaded_maps(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool)
 {
+   // TODO: Add a default behavior here in this method
+
    //AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
    //for (auto &primary_door : collection_helper.select_doors())
    //{

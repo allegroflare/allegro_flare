@@ -27,6 +27,7 @@ static void my_tmj_loader_callback(
    int id,
    std::string name,
    std::string object_layer_name,
+   std::string map_name,
    AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties, 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>* entity_pool,
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory* basic2dfactory,

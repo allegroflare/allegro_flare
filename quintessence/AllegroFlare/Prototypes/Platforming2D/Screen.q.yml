@@ -127,6 +127,7 @@ properties:
            int,
            std::string,
            std::string,
+           std::string,
            AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, 
            std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*,
            AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*)
@@ -393,6 +394,8 @@ methods:
         type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*
         default_argument: nullptr
     body: |
+      // TODO: Add a default behavior here in this method
+
       //AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
       //for (auto &primary_door : collection_helper.select_doors())
       //{
