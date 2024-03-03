@@ -153,6 +153,28 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
 
 
+  - name: find_entity_by_tmj_object_id
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    parameters:
+      - name: tmj_object_id
+        type: int
+        default_argument: -1
+    guards: [ entities ]
+    body: |
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      for (auto &entity : (*entities))
+      {
+         if (entity->exists(TMJ_OBJECT_ID) && (entity->get_as_int(TMJ_OBJECT_ID) == tmj_object_id))
+         {
+            return entity;
+         }
+      }
+      return nullptr;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+
+
   - name: find_door_by_tmj_object_id
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*
     parameters:
