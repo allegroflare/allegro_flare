@@ -106,6 +106,12 @@ void Screen::set_show_tile_mesh(bool show_tile_mesh)
 }
 
 
+void Screen::set_last_activated_save_point(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* last_activated_save_point)
+{
+   this->last_activated_save_point = last_activated_save_point;
+}
+
+
 void Screen::set_show_collision_tile_mesh(bool show_collision_tile_mesh)
 {
    this->show_collision_tile_mesh = show_collision_tile_mesh;

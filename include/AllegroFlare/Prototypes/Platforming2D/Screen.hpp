@@ -86,6 +86,7 @@ namespace AllegroFlare
             void set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool);
             void set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom);
             void set_show_tile_mesh(bool show_tile_mesh);
+            void set_last_activated_save_point(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* last_activated_save_point);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
             void set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on_suspended_gameplay);
             void set_entity_control_connector(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector);

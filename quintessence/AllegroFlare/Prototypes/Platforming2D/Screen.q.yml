@@ -87,6 +87,7 @@ properties:
     type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
     init_with: nullptr
     getter: true
+    setter: true
 
   - name: show_collision_tile_mesh
     type: bool
