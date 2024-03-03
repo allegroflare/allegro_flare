@@ -300,7 +300,7 @@ methods:
       - name: game_session
         type: AllegroFlare::GameSession*
         default_argument: nullptr
-    guards: [ game_session ]
+    guards: [ game_session, game_session->is_active(), game_session->get_game_progress_and_state_info() ]
     body: |
       // NOTE: Not sure if this is an appropriate design to put this method here
       AllegroFlare::Logger::throw_error(
@@ -308,6 +308,23 @@ methods:
          "Not implemented in the base class. This method must be implemented in the derived class"
       );
       return;
+
+
+  - name: load_game_progress_and_state_info
+    virtual: true
+    parameters:
+      - name: game_session
+        type: AllegroFlare::GameSession*
+        default_argument: nullptr
+    guards: [ game_session, game_session->get_game_progress_and_state_info() ]
+    body: |
+      // NOTE: Not sure if this is an appropriate design to put this method here
+      // TODO: Should "game_session->is_active" be a guard here?
+      //std::string save_file_content = AllegroFlare::php::file_get_contents(save_state_filename);
+      //game_session->get_game_progress_and_state_info()->import_from_string(save_file_content);
+      return;
+#    body_dependency_symbols:
+#      - AllegroFlare::UsefulPHP
 
 
   - name: setup_new_game_progress_and_state_info

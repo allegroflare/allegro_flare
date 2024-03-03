@@ -251,11 +251,48 @@ void Complete::save_game_progress_and_state_info(AllegroFlare::GameSession* game
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Complete::save_game_progress_and_state_info: error: guard \"game_session\" not met");
    }
+   if (!(game_session->is_active()))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::save_game_progress_and_state_info]: error: guard \"game_session->is_active()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::save_game_progress_and_state_info: error: guard \"game_session->is_active()\" not met");
+   }
+   if (!(game_session->get_game_progress_and_state_info()))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::save_game_progress_and_state_info]: error: guard \"game_session->get_game_progress_and_state_info()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::save_game_progress_and_state_info: error: guard \"game_session->get_game_progress_and_state_info()\" not met");
+   }
    // NOTE: Not sure if this is an appropriate design to put this method here
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::GameConfigurations::Base::save_game_progress_and_state_info",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
+   return;
+}
+
+void Complete::load_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
+{
+   if (!(game_session))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::load_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::load_game_progress_and_state_info: error: guard \"game_session\" not met");
+   }
+   if (!(game_session->get_game_progress_and_state_info()))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::load_game_progress_and_state_info]: error: guard \"game_session->get_game_progress_and_state_info()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::load_game_progress_and_state_info: error: guard \"game_session->get_game_progress_and_state_info()\" not met");
+   }
+   // NOTE: Not sure if this is an appropriate design to put this method here
+   // TODO: Should "game_session->is_active" be a guard here?
+   //std::string save_file_content = AllegroFlare::php::file_get_contents(save_state_filename);
+   //game_session->get_game_progress_and_state_info()->import_from_string(save_file_content);
    return;
 }
 

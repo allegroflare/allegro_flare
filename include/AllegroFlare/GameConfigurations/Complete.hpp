@@ -59,6 +59,7 @@ namespace AllegroFlare
          virtual std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> build_save_slots_for_load_a_saved_game_screen();
          virtual void continue_from_last_save();
          virtual void save_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
+         virtual void load_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr);
