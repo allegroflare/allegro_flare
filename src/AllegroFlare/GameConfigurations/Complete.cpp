@@ -77,7 +77,8 @@ void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
          // TODO: Handle saving progress of achievements. Something like below.
          // See this guide:
          // https://docs.google.com/document/d/1QdDVa6giZOmGbF61dgom1ZJ_Ev5OFvZEM2Bc453RjGw/edit
-         //mark_achievement_as_unlocked_and_save_progress(as->get_achievement_identifier());
+         //mark_achievement_as_unlocked(as->get_achievement_identifier());
+         //save_game_progress_and_state_info();
       }
       else
       {
@@ -238,6 +239,23 @@ std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Complete::build_save
 void Complete::continue_from_last_save()
 {
    // TODO: This method
+   return;
+}
+
+void Complete::save_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
+{
+   if (!(game_session))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::save_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::save_game_progress_and_state_info: error: guard \"game_session\" not met");
+   }
+   // NOTE: Not sure if this is an appropriate design to put this method here
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::save_game_progress_and_state_info",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
    return;
 }
 

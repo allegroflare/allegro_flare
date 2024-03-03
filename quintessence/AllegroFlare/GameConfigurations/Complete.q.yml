@@ -71,7 +71,8 @@ methods:
             // TODO: Handle saving progress of achievements. Something like below.
             // See this guide:
             // https://docs.google.com/document/d/1QdDVa6giZOmGbF61dgom1ZJ_Ev5OFvZEM2Bc453RjGw/edit
-            //mark_achievement_as_unlocked_and_save_progress(as->get_achievement_identifier());
+            //mark_achievement_as_unlocked(as->get_achievement_identifier());
+            //save_game_progress_and_state_info();
          }
          else
          {
@@ -290,6 +291,22 @@ methods:
     virtual: true
     body: |
       // TODO: This method
+      return;
+
+
+  - name: save_game_progress_and_state_info
+    virtual: true
+    parameters:
+      - name: game_session
+        type: AllegroFlare::GameSession*
+        default_argument: nullptr
+    guards: [ game_session ]
+    body: |
+      // NOTE: Not sure if this is an appropriate design to put this method here
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::save_game_progress_and_state_info",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
       return;
 
 
