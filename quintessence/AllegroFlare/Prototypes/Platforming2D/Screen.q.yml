@@ -1104,6 +1104,7 @@ methods:
 
 
   - name: update_player_collisions_with_save_points
+    virtual: true
     private: true
     guards: [ player_controlled_entity ]
     body: |
