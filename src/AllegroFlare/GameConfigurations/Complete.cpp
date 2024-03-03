@@ -236,7 +236,7 @@ std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Complete::build_save
    return {};
 }
 
-void Complete::continue_from_last_save()
+void Complete::load_game_progress_and_state_info_into_universe()
 {
    // TODO: This method
    return;

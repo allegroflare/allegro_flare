@@ -101,7 +101,7 @@ std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> SimpleConfiguration:
    return {};
 }
 
-void SimpleConfiguration::continue_from_last_save()
+void SimpleConfiguration::load_game_progress_and_state_info_into_universe()
 {
    // Nothing to do
    return;

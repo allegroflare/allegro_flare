@@ -52,7 +52,7 @@ namespace AllegroFlare
                virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_new_game_intro_storyboard_pages() override;
                virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages() override;
                virtual std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> build_save_slots_for_load_a_saved_game_screen() override;
-               virtual void continue_from_last_save() override;
+               virtual void load_game_progress_and_state_info_into_universe() override;
                virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr) override;
                virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr) override;
                virtual void load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr) override;

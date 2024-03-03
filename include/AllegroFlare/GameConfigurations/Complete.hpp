@@ -57,7 +57,7 @@ namespace AllegroFlare
          virtual AllegroFlare::Screens::Gameplay* create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner=nullptr);
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages();
          virtual std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> build_save_slots_for_load_a_saved_game_screen();
-         virtual void continue_from_last_save();
+         virtual void load_game_progress_and_state_info_into_universe();
          virtual void save_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);

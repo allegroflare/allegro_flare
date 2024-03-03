@@ -151,7 +151,7 @@ methods:
       return {};
 
 
-  - name: continue_from_last_save
+  - name: load_game_progress_and_state_info_into_universe
     virtual: true
     override: true
     body: |

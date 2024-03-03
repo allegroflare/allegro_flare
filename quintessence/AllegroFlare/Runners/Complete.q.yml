@@ -661,7 +661,13 @@ methods:
             }
             else if (menu_choice == "continue_from_last_save")
             {
-               this->game_configuration->continue_from_last_save();
+               // TODO: Consider this implementation is unclear and my not be ideal (it's a license to change it)
+               this->game_configuration->load_game_progress_and_state_info_into_universe(); // was "continue_from_last_save"
+               this->router.emit_route_event(
+                  AllegroFlare::Routers::Standard::EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN,
+                  nullptr,
+                  al_get_time()
+               );
             }
             else if (menu_choice == "quit")
             {
