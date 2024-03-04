@@ -1010,6 +1010,21 @@ methods:
       - std::find
 
 
+  - name: on_player_controlled_entity_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
   - name: update_player_collisions_with_COLLIDES_WITH_PLAYER
     private: true
     guards: [ player_controlled_entity ]
@@ -1030,6 +1045,7 @@ methods:
          if (entity->get_place_ref().collide(player_placement)) //player_x, player_y, 0, 0, 0, 0))
          {
             entity->on_collides_with_player(player_controlled_entity);
+            on_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
          }
       }
       return;
