@@ -63,6 +63,7 @@ namespace AllegroFlare
          bool is_event(int event=EVENT_UNDEFINED);
          bool infer_is_a_ground_land();
          bool infer_is_a_horizontal_wall_collide();
+         bool infer_is_a_vertical_wall_collide();
          static std::string build_event_name(int event=0);
          bool collided_block_edge_is_left_edge();
          bool collided_block_edge_is_right_edge();

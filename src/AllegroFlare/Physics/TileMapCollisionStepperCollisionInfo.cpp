@@ -129,9 +129,19 @@ bool TileMapCollisionStepperCollisionInfo::infer_is_a_ground_land()
 
 bool TileMapCollisionStepperCollisionInfo::infer_is_a_horizontal_wall_collide()
 {
+   // TODO: Test this inference
    return (stopped_by_this_collision
          && event == EVENT_COLLIDED_AGAINST
          && ((collided_against_block_edge == EDGE_RIGHT) || (collided_against_block_edge == EDGE_LEFT))
+      );
+}
+
+bool TileMapCollisionStepperCollisionInfo::infer_is_a_vertical_wall_collide()
+{
+   // TODO: Test this inference
+   return (stopped_by_this_collision
+         && event == EVENT_COLLIDED_AGAINST
+         && ((collided_against_block_edge == EDGE_TOP) || (collided_against_block_edge == EDGE_BOTTOM))
       );
 }
 
