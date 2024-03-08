@@ -1,6 +1,5 @@
 
 
-
 function myCustomFunction()
 {
   // Get the currently active map
@@ -8,70 +7,44 @@ function myCustomFunction()
 
   // Check if a map is open
   if (map !== null && map.isTileMap) {
-      var properties = map.properties();
-      // Display map custom properties
-      //tiled.log("=== Map Custom Properties " + properties.length + " ===");
-      //for (var propName in map.properties) {
-          //tiled.log(propName + ": " + map.property(propName));
-      //}
+      var properties = map.resolvedProperties();
 
+      // Interate through the properties and locate "AutomappingStyle"
       for (var propName in properties) {
-          tiled.log(propName + ": " + properties[propName]);
+         var enum_value = properties[propName].value;
+         tiled.log(propName + ": " + enum_value);
+
+         if (propName == "AutomappingStyle")
+         {
+            //tiled.log("value: " + properties[propName].value);
+            if (enum_value === 0)
+            {
+               tiled.log("Applying forest tilemap rules");
+               var rules_file = "/Users/markoates/Repos/SomePlatformer/bin/data/maps/fantasy_forest_rules/rules.txt"
+               map.autoMap(rules_file);
+            }
+            if (enum_value === 1)
+            {
+               tiled.log("Applying caves tilemap rules");
+               var rules_file = "/Users/markoates/Repos/SomePlatformer/bin/data/maps/fantasy_caves_rules/rules.txt"
+               map.autoMap(rules_file);
+            }
+         }
       }
 
-      //// Specify the path to your custom rules map file
-      //var rulesMapPath = "path/to/your/custom_rules_map.tmx";
-
-      //// Check if the custom rules map file exists
-      //var rulesMap = new TiledMap(rulesMapPath);
-      //if (rulesMap !== null) {
-          //// Perform autoMap using the custom rules map
-          //map.autoMap(rulesMap);
-
-          //// Output a message indicating success
-          //console.log("AutoMap successfully applied using custom rules map.");
-      //} else {
-          //// Output an error message if the custom rules map file doesn't exist
-          //console.error("Error: Custom rules map not found at " + rulesMapPath);
-      //}
   } else {
       // Output an error message if no map is open
       tiled.log("Error: No tile map is currently open in Tiled.");
   }
-
-
-      tiled.alert("Foobar", "boobaz");
-
 }
 
 
-
-
-var tool = tiled.registerTool("PlaceRectangles", {
-    name: "Place Rectangles",
+var tool = tiled.registerTool("ApplyAutomappingStyle", {
+    name: "ApplyAutomappingStyle",
 
     mousePressed: function(button, x, y, modifiers) {
       myCustomFunction();
     },
 })
-
-
-
-
-/*
-// Create a new action (button) with a unique ID
-var action = tiled.createQAction({
-    text: "Custom Button",
-    icon: "path/to/your/icon.png", // Replace with the path to your icon
-    onTriggered: myCustomFunction // Call the explicitly defined function
-});
-
-// Add the action to the toolbar
-tiled.addMenuAction(action);
-
-// Output a message indicating success
-console.log("Custom button added to the toolbar.");
-*/
-
 
 
