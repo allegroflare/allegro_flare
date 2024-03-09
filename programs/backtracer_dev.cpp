@@ -2,6 +2,7 @@
 
 
 #include <stdexcept>
+#include <iostream>
 
 class CustomException : public std::runtime_error {
 public:
@@ -23,7 +24,6 @@ CustomException::CustomException(const std::string& message)
 
 #include <execinfo.h>
 #include <cxxabi.h>
-#include <iostream>
 
 
 std::string generateStackTrace() {
