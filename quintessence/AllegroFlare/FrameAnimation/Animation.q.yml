@@ -79,7 +79,8 @@ documentation:
   - todos:
       - Currently, frame 0 id is a "dead" frame, and is skipped over when. This should be updated to have a better
         mechanism, including an option to display the dead frame.  Also, some animations will intermittently flash the
-        0 frame. I'm not sure what the cause is but it needs to be looked into.
+        0 frame. I'm not sure what the cause is but it needs to be looked into. Probably "empty" frame ids shoudl be
+        returned as -1 and checked accordingly.
 
 
   - body_markdown: |-
