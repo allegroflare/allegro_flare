@@ -172,8 +172,8 @@ functions:
         default_argument: 0.0f
     guards: [ initialized ]
     body: |
-      uint32_t cell_id = get_frame_id_at(time);
-      if (cell_id == 0) return nullptr;
+      int cell_id = get_frame_id_at(time);
+      if (cell_id == -1) return nullptr;
       return sprite_sheet->get_cell(cell_id);
 
 
@@ -185,7 +185,7 @@ functions:
 
 
   - name: get_frame_id_now
-    type: uint32_t
+    type: int
     guards: [ initialized ]
     body: |
       return get_frame_id_at(playhead);
@@ -206,12 +206,12 @@ functions:
         default_argument: 0
     guards: [ initialized, (frame_num < 0), (frame_num >= frames.size()) ]
     body: |
-      uint32_t cell_id = frames[frame_num].get_index();
+      int cell_id = frames[frame_num].get_index();
       return sprite_sheet->get_cell(cell_id);
 
 
   - name: get_frame_id_at
-    type: uint32_t
+    type: int
     parameters:
       - name: time
         type: float
@@ -233,7 +233,7 @@ functions:
 
 
   - name: get_frame_info_at
-    type: std::pair<int, uint32_t>
+    type: std::pair<int, int>
     private: true
     parameters:
       - name: time
@@ -241,6 +241,8 @@ functions:
         default_argument: 0.0f
     guards: [ initialized ]
     body: |
+      // Note the return value is std::pair<current_animations_frame_number, sprite_sheet_frame_index>
+
       float duration = calculate_duration();
       if (duration < 0.0001) return { 0, 0 }; // TODO: have a value other than 0 representing the frame_count when not
                                               // present
@@ -283,7 +285,7 @@ functions:
             }
          } break;
       }
-      return { current_frame_count, 0 };
+      return { current_frame_count, -1 };
     body_dependency_symbols:
       - fmod
 

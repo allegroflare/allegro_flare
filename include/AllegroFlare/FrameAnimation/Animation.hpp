@@ -31,7 +31,7 @@ namespace AllegroFlare
          float playhead;
          bool finished;
          bool initialized;
-         std::pair<int, uint32_t> get_frame_info_at(float time=0.0f);
+         std::pair<int, int> get_frame_info_at(float time=0.0f);
 
       protected:
 
@@ -54,10 +54,10 @@ namespace AllegroFlare
          int get_num_frames();
          ALLEGRO_BITMAP* get_frame_at(float time=0.0f);
          ALLEGRO_BITMAP* get_frame_now();
-         uint32_t get_frame_id_now();
+         int get_frame_id_now();
          int get_frame_num_now();
          ALLEGRO_BITMAP* get_bitmap_at_frame_num(int frame_num=0);
-         uint32_t get_frame_id_at(float time=0.0f);
+         int get_frame_id_at(float time=0.0f);
          int get_frame_num_at(float time=0.0f);
          float calculate_duration();
       };

@@ -174,8 +174,8 @@ ALLEGRO_BITMAP* Animation::get_frame_at(float time)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_frame_at: error: guard \"initialized\" not met");
    }
-   uint32_t cell_id = get_frame_id_at(time);
-   if (cell_id == 0) return nullptr;
+   int cell_id = get_frame_id_at(time);
+   if (cell_id == -1) return nullptr;
    return sprite_sheet->get_cell(cell_id);
 }
 
@@ -191,7 +191,7 @@ ALLEGRO_BITMAP* Animation::get_frame_now()
    return get_frame_at(playhead);
 }
 
-uint32_t Animation::get_frame_id_now()
+int Animation::get_frame_id_now()
 {
    if (!(initialized))
    {
@@ -238,11 +238,11 @@ ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num >= frames.size())\" not met");
    }
-   uint32_t cell_id = frames[frame_num].get_index();
+   int cell_id = frames[frame_num].get_index();
    return sprite_sheet->get_cell(cell_id);
 }
 
-uint32_t Animation::get_frame_id_at(float time)
+int Animation::get_frame_id_at(float time)
 {
    if (!(initialized))
    {
@@ -266,7 +266,7 @@ int Animation::get_frame_num_at(float time)
    return get_frame_info_at(time).first;
 }
 
-std::pair<int, uint32_t> Animation::get_frame_info_at(float time)
+std::pair<int, int> Animation::get_frame_info_at(float time)
 {
    if (!(initialized))
    {
@@ -275,6 +275,8 @@ std::pair<int, uint32_t> Animation::get_frame_info_at(float time)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_frame_info_at: error: guard \"initialized\" not met");
    }
+   // Note the return value is std::pair<current_animations_frame_number, sprite_sheet_frame_index>
+
    float duration = calculate_duration();
    if (duration < 0.0001) return { 0, 0 }; // TODO: have a value other than 0 representing the frame_count when not
                                            // present
@@ -317,7 +319,7 @@ std::pair<int, uint32_t> Animation::get_frame_info_at(float time)
          }
       } break;
    }
-   return { current_frame_count, 0 };
+   return { current_frame_count, -1 };
 }
 
 float Animation::calculate_duration()
