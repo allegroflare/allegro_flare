@@ -76,6 +76,12 @@ properties:
 documentation:
 
 
+  - todos:
+      - Currently, frame 0 id is a "dead" frame, and is skipped over when. This should be updated to have a better
+        mechanism, including an option to display the dead frame.  Also, some animations will intermittently flash the
+        0 frame. I'm not sure what the cause is but it needs to be looked into.
+
+
   - body_markdown: |-
       ## Terminology
       - cell:         an image in the sprite_sheet
@@ -84,6 +90,7 @@ documentation:
       - frame_id:     the index of the frame in the sprite_sheet (kinda. this has the potential to change)
       - frame_num:    the sequential number of a frame in an animation, starting with 0 (excluding any looping or ping-ponging)
       - num_frames:   the number of frames in the animation (excluding any looping or ping-ponging)
+      ## Notes
 
 
 functions:
@@ -165,6 +172,7 @@ functions:
     guards: [ initialized ]
     body: |
       uint32_t cell_id = get_frame_id_at(time);
+      if (cell_id == 0) return nullptr;
       return sprite_sheet->get_cell(cell_id);
 
 

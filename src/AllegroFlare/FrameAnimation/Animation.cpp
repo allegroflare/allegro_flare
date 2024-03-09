@@ -175,6 +175,7 @@ ALLEGRO_BITMAP* Animation::get_frame_at(float time)
       throw std::runtime_error("Animation::get_frame_at: error: guard \"initialized\" not met");
    }
    uint32_t cell_id = get_frame_id_at(time);
+   if (cell_id == 0) return nullptr;
    return sprite_sheet->get_cell(cell_id);
 }
 
