@@ -66,7 +66,12 @@ std::string Complete::primary_display_icon_filename()
 
 void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
 {
-   //// TODO: Handle top-level game events here
+   // NOTE: Handle top-level game events here.
+   // Some examples:
+
+   // Handling a screen Activation
+   // This (Change from one screen to another). You might do a foreground show or hide
+   // event
    //if (game_event->is_type(AllegroFlare::GameEventDatas::ScreenActivated::NAME))
    //{
       //AllegroFlare::GameEventDatas::ScreenActivated* as =
@@ -74,6 +79,10 @@ void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
 
       //// TODO: Handle game-specific logic for a after a screen switch
    //}
+
+   // Handling an Achievement
+   // Achievement notification are handled by the framework, but you might trigger an auto-save if your game
+   // has a save system setup.
    if (game_event->get_type() == AllegroFlare::GameEventDatas::AchievementUnlocked::NAME)
    {
       if (game_event->get_data()->is_type(AllegroFlare::GameEventDatas::AchievementUnlocked::TYPE))
