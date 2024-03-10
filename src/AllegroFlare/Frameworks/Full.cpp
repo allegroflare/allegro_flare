@@ -500,6 +500,7 @@ bool Full::initialize_display_and_render_pipeline()
    //bool resizable = true;
 
 
+   // Setup the display
    primary_display = new Display(
       display_width,
       display_height,
@@ -511,7 +512,6 @@ bool Full::initialize_display_and_render_pipeline()
       resizable_with_mouse
    );
 
-
    if (!primary_display)
    {
       throw std::runtime_error("[Frameworks::Full::initialize_display_and_render_pipeline]: FAILURE: unable to create "
@@ -519,13 +519,6 @@ bool Full::initialize_display_and_render_pipeline()
    }
 
    primary_display->initialize();
-   //refresh_display_icon();
-
-
-   //AllegroFlare::DisplaySettingsInterfaces::Base
-   //display_settings_interface = new AllegroFlare::DisplaySettingsInterfaces::Live;
-   //display_settings_interface.set_display(display);
-
 
    if (!primary_display->al_display)
    {
@@ -534,23 +527,28 @@ bool Full::initialize_display_and_render_pipeline()
    }
 
 
-   // Refrsh the display icon
+   // Refresh the display icon
    refresh_display_icon();
 
 
    // Setup the display settings interface
    display_settings_interface = new AllegroFlare::DisplaySettingsInterfaces::Live(primary_display->al_display);
-   //display_settings_interface->set_display(primary_display);
 
+   // NOTE: Fullscreen may have failed. At this point in the initialization, the "fulscreen" member variable only
+   // represents the preferred option at startup, not the actual fullscreen state.
 
+   // Initialized the preferred settings with the display and display_settings_interface
    // Hide the mouse cursor by default (when in fullscreen)
-   // NOTE: Fullscreen may have failed, this "fulscreen" flag is only the option being set, not the actual
-   // fullscreen being active.
-   // TODO: Double check the fullscreen status before setting the mouse cursor.
    if (fullscreen)
    {
+      // Hide the mouse cursor
       al_hide_mouse_cursor(primary_display->al_display);
    }
+
+   // Inhibit the screensaver by default
+   // TODO: Consider disabling this option as a config
+   bool screensaver_inhibited = al_inhibit_screensaver(true);
+   if (screensaver_inhibited) display_settings_interface->manually_mark_screensaver_as_inhibited();
 
   
 
