@@ -542,13 +542,12 @@ bool Full::initialize_display_and_render_pipeline()
    if (fullscreen)
    {
       // Hide the mouse cursor
-      al_hide_mouse_cursor(primary_display->al_display);
+      display_settings_interface->hide_mouse_cursor();
    }
 
    // Inhibit the screensaver by default
    // TODO: Consider disabling this option as a config
-   bool screensaver_inhibited = al_inhibit_screensaver(true);
-   if (screensaver_inhibited) display_settings_interface->manually_mark_screensaver_as_inhibited();
+   display_settings_interface->enable_inhibit_screensaver();
 
   
 
