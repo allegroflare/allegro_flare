@@ -180,13 +180,13 @@ methods:
       shared_background = game_configuration->create_shared_background();
       shared_foreground = game_configuration->create_shared_foreground();
 
-      // Create the primary_gameplay_screen
+      // Create the primary_gameplay_screen.
       primary_gameplay_screen = game_configuration->create_primary_gameplay_screen(this);
 
       // Setup our router
       setup_router();
 
-      // Set the framework to use our router
+      // Set the framework to use the router we've created here
       framework->set_router(&router);
 
       // Fill our dialog bank
@@ -322,21 +322,8 @@ methods:
       rolling_credits_screen.set_sections(game_configuration->build_rolling_credits_sections());
       rolling_credits_screen.initialize();
 
-      // TODO: Setup our main gameplay screen
-      //primary_gameplay_screen-
-      /* TODO: Setup a gameplay screen
-      primary_gameplay_screen.set_event_emitter(event_emitter);
-      primary_gameplay_screen.set_bitmap_bin(bitmap_bin);
-      primary_gameplay_screen.set_font_bin(font_bin);
-      primary_gameplay_screen.set_model_bin(model_bin);
-      primary_gameplay_screen.set_game_configuration(game_configuration); // TODO: Consider how to remove this dependency
-      primary_gameplay_screen.initialize();
-      */
-
-      // TODO: Load up our sound effects and music tracks
+      // Load up our sound effects and music tracks
       game_configuration->load_audio_controller(&framework->get_audio_controller_ref());
-
-      //primary_gameplay_screen = game_configuration->create_primary_gameplay_screen();
 
       return;
     body_dependency_symbols:
