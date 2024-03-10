@@ -37,7 +37,15 @@ methods:
     type: std::string
     virtual: true
     body: |
-      return "Return of the Wanderer";
+      //return "Return of the Wanderer";
+      return "Untitled Game";
+
+
+  - name: title_screen_title
+    type: std::string
+    virtual: true
+    body: |
+      return "Untitled Game";
 
 
   - name: primary_display_icon_filename

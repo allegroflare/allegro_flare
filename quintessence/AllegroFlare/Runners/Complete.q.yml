@@ -219,6 +219,7 @@ methods:
 
       // Setup title screen
       title_screen.set_event_emitter(event_emitter);
+      title_screen.set_title_text(game_configuration->title_screen_title());
       title_screen.set_menu_options(game_configuration->build_title_screen_menu_options());
       title_screen.set_font_bin(font_bin);
       title_screen.set_copyright_text(game_configuration->build_copyright_text(&release_info));

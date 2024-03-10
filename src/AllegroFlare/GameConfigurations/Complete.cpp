@@ -50,7 +50,13 @@ std::string Complete::app_icon_1024_filename()
 
 std::string Complete::app_title()
 {
-   return "Return of the Wanderer";
+   //return "Return of the Wanderer";
+   return "Untitled Game";
+}
+
+std::string Complete::title_screen_title()
+{
+   return "Untitled Game";
 }
 
 std::string Complete::primary_display_icon_filename()
