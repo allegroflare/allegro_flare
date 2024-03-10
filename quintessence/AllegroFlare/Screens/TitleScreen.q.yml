@@ -64,7 +64,7 @@ properties:
 
   - name: title_font_name
     type: std::string
-    init_with: '"Inter-Regular.ttf"'
+    init_with: '"Oswald-Medium.ttf"'
     constructor_arg: true
     getter: true
     setter: true
@@ -134,7 +134,7 @@ properties:
 
   - name: title_font_size
     type: int
-    init_with: -80
+    init_with: -120
     constructor_arg: true
     getter: true
     setter: true
