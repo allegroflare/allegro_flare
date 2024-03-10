@@ -549,7 +549,7 @@ bool Full::initialize_display_and_render_pipeline()
    // TODO: Double check the fullscreen status before setting the mouse cursor.
    if (fullscreen)
    {
-      //al_hide_mouse_cursor(primary_display->al_display);
+      al_hide_mouse_cursor(primary_display->al_display);
    }
 
   
