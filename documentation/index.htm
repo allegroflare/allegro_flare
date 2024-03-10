@@ -34736,6 +34736,10 @@ table td
   <td class="method"><b>build_achievements</b>()</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Screens::Gameplay*</td>
+  <td class="method"><b>create_primary_gameplay_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;AllegroFlare::Elements::StoryboardPages::Base *&gt;</td>
   <td class="method"><b>create_intro_logos_storyboard_pages</b>()</td>
 </tr>
@@ -34845,6 +34849,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Runners::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Runners/Complete.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -42947,10 +42957,12 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Gameplay"
+    "AllegroFlare/Screens/Gameplay",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Runners/Complete": [
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/AudioController": [
     "AllegroFlare/GameConfigurations/Complete",

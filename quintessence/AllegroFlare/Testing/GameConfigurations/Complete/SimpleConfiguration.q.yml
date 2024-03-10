@@ -109,6 +109,23 @@ methods:
       - AllegroFlare::Achievement
 
 
+  - name: create_primary_gameplay_screen
+    virtual: true
+    override: true
+    type: AllegroFlare::Screens::Gameplay*
+    parameters:
+      - name: runner
+        type: AllegroFlare::Runners::Complete*
+        default_argument: nullptr
+    body: |
+      // 
+        //default_argument_dependency_symbols:
+          //- AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+          //- AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
+      // TODO: Find a better alternative to creating a raw Screens::Gameplay
+      return new AllegroFlare::Screens::Gameplay;
+
+
   - name: create_intro_logos_storyboard_pages
     virtual: true
     override: true
@@ -284,5 +301,9 @@ dependencies:
     headers: [ AllegroFlare/UnicodeCharacters.hpp ]
   - symbol: AllegroFlare::AudioController
     headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: AllegroFlare::Screens::Gameplay
+    headers: [ AllegroFlare/Screens/Gameplay.hpp ]
+  - symbol: AllegroFlare::Runners::Complete
+    headers: [ AllegroFlare/Runners/Complete.hpp ]
 
 

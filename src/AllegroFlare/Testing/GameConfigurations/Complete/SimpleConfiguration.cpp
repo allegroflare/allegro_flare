@@ -76,6 +76,16 @@ std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> Sim
    return {};
 }
 
+AllegroFlare::Screens::Gameplay* SimpleConfiguration::create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner)
+{
+   // 
+     //default_argument_dependency_symbols:
+       //- AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+       //- AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
+   // TODO: Find a better alternative to creating a raw Screens::Gameplay
+   return new AllegroFlare::Screens::Gameplay;
+}
+
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> SimpleConfiguration::create_intro_logos_storyboard_pages()
 {
    return {};

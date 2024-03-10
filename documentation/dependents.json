@@ -2445,10 +2445,12 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Gameplay"
+    "AllegroFlare/Screens/Gameplay",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/Runners/Complete": [
-    "AllegroFlare/GameConfigurations/Complete"
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/AudioController": [
     "AllegroFlare/GameConfigurations/Complete",
