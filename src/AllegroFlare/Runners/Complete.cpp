@@ -212,6 +212,7 @@ void Complete::initialize()
    display_settings_screen.set_font_bin(font_bin);
    display_settings_screen.set_model_bin(model_bin);
    display_settings_screen.set_display_settings_interface(framework->get_display_settings_interface());
+   display_settings_screen.set_label_for_menu_option_to_exit_screen("Return to Title Screen");
    display_settings_screen.initialize();
 
    // Setup achievements screen

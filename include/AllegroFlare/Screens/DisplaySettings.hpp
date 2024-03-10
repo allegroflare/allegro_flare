@@ -24,6 +24,7 @@ namespace AllegroFlare
       {
       public:
          static constexpr char* TYPE = (char*)"AllegroFlare/Screens/DisplaySettings";
+         static constexpr char* DEFAULT_LABEL_FOR_EXIT_SCREEN_MENU_OPTION = (char*)"Exit";
 
       private:
          AllegroFlare::EventEmitter* event_emitter;
@@ -31,6 +32,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::ModelBin* model_bin;
          AllegroFlare::DisplaySettingsInterfaces::Base* display_settings_interface;
+         std::string label_for_menu_option_to_exit_screen;
          std::function<void(AllegroFlare::Screens::DisplaySettings*, void*)> on_exit_callback_func;
          void* on_exit_callback_func_user_data;
          int surface_width;
@@ -53,11 +55,13 @@ namespace AllegroFlare
          DisplaySettings(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, AllegroFlare::DisplaySettingsInterfaces::Base* display_settings_interface=nullptr, int base_font_size=-34);
          virtual ~DisplaySettings();
 
+         void set_label_for_menu_option_to_exit_screen(std::string label_for_menu_option_to_exit_screen);
          void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::DisplaySettings*, void*)> on_exit_callback_func);
          void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          void set_surface_height(int surface_height);
          void set_base_font_size(int base_font_size);
          AllegroFlare::DisplaySettingsInterfaces::Base* get_display_settings_interface() const;
+         std::string get_label_for_menu_option_to_exit_screen() const;
          std::function<void(AllegroFlare::Screens::DisplaySettings*, void*)> get_on_exit_callback_func() const;
          void* get_on_exit_callback_func_user_data() const;
          int get_surface_width() const;

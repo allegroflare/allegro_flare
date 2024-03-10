@@ -36,6 +36,12 @@ properties:
     getter: true
     setter: explicit
 
+  - name: label_for_menu_option_to_exit_screen
+    type: std::string
+    init_with: DEFAULT_LABEL_FOR_EXIT_SCREEN_MENU_OPTION
+    getter: true
+    setter: true
+
   - name: on_exit_callback_func
     type: std::function<void(AllegroFlare::Screens::DisplaySettings*, void*)>
     init_with: ''
@@ -98,6 +104,12 @@ properties:
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Screens/DisplaySettings"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_LABEL_FOR_EXIT_SCREEN_MENU_OPTION
+    type: char*
+    init_with: '(char*)"Exit"'
     static: true
     constexpr: true
 
@@ -514,7 +526,7 @@ methods:
 
 
       {
-         draw_label("Exit", column1_x, row_y);
+         draw_label(label_for_menu_option_to_exit_screen, column1_x, row_y);
       }
 
 

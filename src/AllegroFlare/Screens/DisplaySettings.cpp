@@ -26,6 +26,7 @@ DisplaySettings::DisplaySettings(AllegroFlare::EventEmitter* event_emitter, Alle
    , font_bin(font_bin)
    , model_bin(model_bin)
    , display_settings_interface(display_settings_interface)
+   , label_for_menu_option_to_exit_screen(DEFAULT_LABEL_FOR_EXIT_SCREEN_MENU_OPTION)
    , on_exit_callback_func()
    , on_exit_callback_func_user_data(nullptr)
    , surface_width(1920)
@@ -44,6 +45,12 @@ DisplaySettings::DisplaySettings(AllegroFlare::EventEmitter* event_emitter, Alle
 
 DisplaySettings::~DisplaySettings()
 {
+}
+
+
+void DisplaySettings::set_label_for_menu_option_to_exit_screen(std::string label_for_menu_option_to_exit_screen)
+{
+   this->label_for_menu_option_to_exit_screen = label_for_menu_option_to_exit_screen;
 }
 
 
@@ -74,6 +81,12 @@ void DisplaySettings::set_base_font_size(int base_font_size)
 AllegroFlare::DisplaySettingsInterfaces::Base* DisplaySettings::get_display_settings_interface() const
 {
    return display_settings_interface;
+}
+
+
+std::string DisplaySettings::get_label_for_menu_option_to_exit_screen() const
+{
+   return label_for_menu_option_to_exit_screen;
 }
 
 
@@ -573,7 +586,7 @@ void DisplaySettings::render()
 
 
    {
-      draw_label("Exit", column1_x, row_y);
+      draw_label(label_for_menu_option_to_exit_screen, column1_x, row_y);
    }
 
 
