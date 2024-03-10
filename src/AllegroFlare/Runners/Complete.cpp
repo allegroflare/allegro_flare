@@ -207,7 +207,6 @@ void Complete::initialize()
    //title_screen.initialize(); // NOTE: Initialization is not necessary for this screen
 
    // Setup the display settings screen
-   AllegroFlare::Screens::DisplaySettings display_settings_screen;
    display_settings_screen.set_event_emitter(event_emitter);
    display_settings_screen.set_bitmap_bin(bitmap_bin);
    display_settings_screen.set_font_bin(font_bin);
@@ -726,7 +725,11 @@ void Complete::setup_router()
          }
          else
          {
-            AllegroFlare::Logger::throw_error("Foobar", "baz");
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Runners::Complete::setup_router",
+               "Within the definition for title_screen.on_menu_choice_callback_func, there is no case to handle the "
+                  "menu_choice \"" + menu_choice + "\"."
+            );
          }
       }
    );

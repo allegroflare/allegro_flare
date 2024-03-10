@@ -41,6 +41,7 @@ std::vector<std::pair<std::string, std::string>> SimpleConfiguration::build_titl
 {
    std::vector<std::pair<std::string, std::string>> options = {
       { "Start New Game",    "start_new_game" },
+      { "Display Settings",  "goto_display_settings_screen" },
       { "Quit",              "quit" },
    };
    return options;
