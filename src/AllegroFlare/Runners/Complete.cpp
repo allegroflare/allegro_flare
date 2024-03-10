@@ -33,6 +33,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , intro_logos_screen()
    , intro_storyboard_screen()
    , title_screen()
+   , display_settings_screen()
    , achievements_screen()
    , version_screen()
    , load_a_saved_game_screen()
@@ -204,6 +205,19 @@ void Complete::initialize()
    title_screen.set_background(shared_background);
    title_screen.set_foreground(shared_foreground);
    //title_screen.initialize(); // NOTE: Initialization is not necessary for this screen
+
+   // Setup the display settings screen
+   //bool inhibited = al_inhibit_screensaver(true);
+   //if (inhibited) display_settings_interface.manually_mark_screensaver_as_inhibited();
+   AllegroFlare::Screens::DisplaySettings display_settings_screen;
+   display_settings_screen.set_event_emitter(event_emitter);
+   display_settings_screen.set_bitmap_bin(bitmap_bin);
+   display_settings_screen.set_font_bin(font_bin);
+   display_settings_screen.set_model_bin(model_bin);
+   // AllegroFlare::Testing::AllegroFlare::DisplaySettingsInterfaces::DisplayMock display_settings_interface;
+   //display_settings_screen.set_display_settings_interface(&display_settings_interface);
+   //display_settings_screen.set_on_exit_callback_func(my_on_exit_callback_func);
+   display_settings_screen.initialize();
 
    // Setup achievements screen
    achievements_screen.set_achievements(&achievements);
@@ -424,6 +438,10 @@ void Complete::setup_router()
    router.register_screen(
       AllegroFlare::Routers::Standard::ACHIEVEMENTS_SCREEN_IDENTIFIER,
       &achievements_screen
+   );
+   router.register_screen(
+      AllegroFlare::Routers::Standard::DISPLAY_SETTINGS_SCREEN_IDENTIFIER,
+      &display_settings_screen
    );
    router.register_screen(
       AllegroFlare::Routers::Standard::VERSION_SCREEN_IDENTIFIER,
@@ -678,6 +696,14 @@ void Complete::setup_router()
                al_get_time()
             );
          }
+         else if (menu_choice == "goto_display_settings_screen")
+         {
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_ACTIVATE_DISPLAY_SETTINGS_SCREEN,
+               nullptr,
+               al_get_time()
+            );
+         }
          else if (menu_choice == "goto_version_screen")
          {
             this->router.emit_route_event(
@@ -710,6 +736,16 @@ void Complete::setup_router()
    );
    achievements_screen.set_on_exit_callback_func(
       [this](AllegroFlare::Screens::Achievements* screen, void* data) {
+         // TODO: This should be a push/pop'd screen
+         this->router.emit_route_event(
+            AllegroFlare::Routers::Standard::EVENT_ACTIVATE_TITLE_SCREEN,
+            nullptr,
+            al_get_time()
+         );
+      }
+   );
+   display_settings_screen.set_on_exit_callback_func(
+      [this](AllegroFlare::Screens::DisplaySettings* screen, void* data) {
          // TODO: This should be a push/pop'd screen
          this->router.emit_route_event(
             AllegroFlare::Routers::Standard::EVENT_ACTIVATE_TITLE_SCREEN,

@@ -15,6 +15,7 @@
 #include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/Screens/Achievements.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Screens/DisplaySettings.hpp>
 #include <AllegroFlare/Screens/GameOverScreen.hpp>
 #include <AllegroFlare/Screens/GameWonScreen.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
@@ -51,6 +52,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::Storyboard intro_logos_screen;
          AllegroFlare::Screens::Storyboard intro_storyboard_screen;
          AllegroFlare::Screens::TitleScreen title_screen;
+         AllegroFlare::Screens::DisplaySettings display_settings_screen;
          AllegroFlare::Screens::Achievements achievements_screen;
          AllegroFlare::Screens::Version version_screen;
          AllegroFlare::LoadASavedGame::Screen load_a_saved_game_screen;

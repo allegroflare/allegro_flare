@@ -3458,6 +3458,10 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
+  "AllegroFlare/Screens/DisplaySettings": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/DisplaySettings"
+  ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],
@@ -3467,9 +3471,6 @@
   ],
   "AllegroFlare/Screens/CharacterNameInput": [
     "AllegroFlare/Screens/CharacterNameInput"
-  ],
-  "AllegroFlare/Screens/DisplaySettings": [
-    "AllegroFlare/Screens/DisplaySettings"
   ],
   "AllegroFlare/Elements/UI/SliderToggle": [
     "AllegroFlare/Screens/DisplaySettings"
