@@ -1,18 +1,8 @@
 properties:
 
 
-  - name: primary
-    type: AllegroFlare::DesignSystems::DesignPillar
-    init_with: '{}'
-    exposed: true
-
-  - name: secondary
-    type: AllegroFlare::DesignSystems::DesignPillar
-    init_with: '{}'
-    exposed: true
-
-  - name: tertiary
-    type: AllegroFlare::DesignSystems::DesignPillar
+  - name: levels
+    type: AllegroFlare::DesignSystems::DesignFocus
     init_with: '{}'
     exposed: true
 
@@ -20,7 +10,7 @@ properties:
 dependencies:
 
 
-  - symbol: AllegroFlare::DesignSystems::DesignPillar
-    headers: [ AllegroFlare/DesignSystems/DesignPillar.hpp ]
+  - symbol: AllegroFlare::DesignSystems::DesignFocus
+    headers: [ AllegroFlare/DesignSystems/DesignFocus.hpp ]
 
 

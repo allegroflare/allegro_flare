@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/DesignSystems/DesignPillar.hpp>
 #include <AllegroFlare/DesignSystems/DesignPillarDistribution.hpp>
+#include <string>
 #include <vector>
 
 
@@ -23,6 +24,7 @@ namespace AllegroFlare
          ~DesignPillarDistributor();
 
          std::vector<AllegroFlare::DesignSystems::DesignPillarDistribution> build_distributions();
+         std::vector<std::string> build_source_list();
       };
    }
 }

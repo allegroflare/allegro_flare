@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <AllegroFlare/DesignSystems/DesignPillar.hpp>
+#include <AllegroFlare/DesignSystems/DesignFocus.hpp>
 
 
 namespace AllegroFlare
@@ -16,9 +16,7 @@ namespace AllegroFlare
 
 
       public:
-         AllegroFlare::DesignSystems::DesignPillar primary;
-         AllegroFlare::DesignSystems::DesignPillar secondary;
-         AllegroFlare::DesignSystems::DesignPillar tertiary;
+         AllegroFlare::DesignSystems::DesignFocus levels;
          DesignPillarDistribution();
          ~DesignPillarDistribution();
 

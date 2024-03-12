@@ -12,9 +12,7 @@ namespace DesignSystems
 
 
 DesignPillarDistribution::DesignPillarDistribution()
-   : primary({})
-   , secondary({})
-   , tertiary({})
+   : levels({})
 {
 }
 
