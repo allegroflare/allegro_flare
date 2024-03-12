@@ -1,0 +1,29 @@
+properties:
+
+
+  - name: design_pillars
+    type: std::vector<AllegroFlare::DesignSystems::DesignPillar>
+    init_with: '{}'
+
+
+methods:
+
+
+  - name: build_distributions
+    type: std::vector<AllegroFlare::DesignSystems::DesignPillarDistribution>
+    body: |
+      std::vector<AllegroFlare::DesignSystems::DesignPillarDistribution> result;
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Random
+    headers: [ AllegroFlare/Random.hpp ]
+  - symbol: AllegroFlare::DesignSystems::DesignPillarDistribution
+    headers: [ AllegroFlare/DesignSystems/DesignPillarDistribution.hpp ]
+  - symbol: AllegroFlare::DesignSystems::DesignPillar
+    headers: [ AllegroFlare/DesignSystems/DesignPillar.hpp ]
+
+

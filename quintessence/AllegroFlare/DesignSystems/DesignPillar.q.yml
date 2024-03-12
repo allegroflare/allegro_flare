@@ -1,0 +1,16 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    exposed: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DesignSystems::DesignPillar
+    headers: [ AllegroFlare/DesignSystems/DesignPillar.hpp ]
+
+
