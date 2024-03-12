@@ -3,6 +3,7 @@
 #include <AllegroFlare/DesignSystems/DesignPillarDistributor.hpp>
 
 #include <AllegroFlare/Random.hpp>
+#include <iostream>
 
 
 namespace AllegroFlare
@@ -22,13 +23,17 @@ DesignPillarDistributor::~DesignPillarDistributor()
 }
 
 
-std::vector<AllegroFlare::DesignSystems::DesignPillarDistribution> DesignPillarDistributor::build_distributions()
+std::vector<AllegroFlare::DesignSystems::DesignFocus> DesignPillarDistributor::build_distribution()
 {
-   std::vector<AllegroFlare::DesignSystems::DesignPillarDistribution> result;
+   std::vector<AllegroFlare::DesignSystems::DesignFocus> result;
 
-   std::vector<std::string> primary_source_list = build_source_list();
-   std::vector<std::string> secondary_source_list = build_source_list();
-   std::vector<std::string> tertiary_source_list = build_source_list();
+   std::vector<std::string> source_list = build_source_list();
+   int num_elements = source_list.size();
+
+   // Build our containers
+   std::vector<std::string> primary_source_list = source_list;
+   std::vector<std::string> secondary_source_list = source_list;
+   std::vector<std::string> tertiary_source_list = source_list;
 
    // 1) Shuffle all lists
    AllegroFlare::Random random;
@@ -38,19 +43,28 @@ std::vector<AllegroFlare::DesignSystems::DesignPillarDistribution> DesignPillarD
    random.shuffle_elements(tertiary_source_list);
 
    // 2) Pop from first
+   std::string primary_element = primary_source_list.back();
+   primary_source_list.pop_back();
+
    // 3a) Select from second
+   std::string secondary_element = select_not_of(secondary_source_list, { primary_element });
    // 3b) Remove selected element from second
    // 3a) Select from third
+   std::string tertiary_element = select_not_of(tertiary_source_list, { primary_element, secondary_element });
    // 3b) Remove selected element from third
 
    // NOTE: Number of levels is source_list.size() / 3
+
+   // Output a little report
+   std::cout << "Primary: " << primary_element << std::endl;
+   std::cout << "Secondary: " << secondary_element << std::endl;
+   std::cout << "Tertiary: " << tertiary_element << std::endl;
 
    return result;
 }
 
 std::string DesignPillarDistributor::select_not_of(std::vector<std::string> existing_elements, std::vector<std::string> elements_not_to_select)
 {
-   //std::string getRandomElement(const std::vector<std::string>& shuffledList, const std::vector<std::string>& elementsNotToSelect) {
    for (const std::string& element : existing_elements)
    {
       if (std::find(elements_not_to_select.begin(), elements_not_to_select.end(), element) == elements_not_to_select.end())

@@ -1,8 +1,8 @@
 #pragma once
 
 
+#include <AllegroFlare/DesignSystems/DesignFocus.hpp>
 #include <AllegroFlare/DesignSystems/DesignPillar.hpp>
-#include <AllegroFlare/DesignSystems/DesignPillarDistribution.hpp>
 #include <string>
 #include <vector>
 
@@ -23,7 +23,7 @@ namespace AllegroFlare
          DesignPillarDistributor();
          ~DesignPillarDistributor();
 
-         std::vector<AllegroFlare::DesignSystems::DesignPillarDistribution> build_distributions();
+         std::vector<AllegroFlare::DesignSystems::DesignFocus> build_distribution();
          std::string select_not_of(std::vector<std::string> existing_elements={}, std::vector<std::string> elements_not_to_select={});
          std::vector<std::string> build_source_list();
       };

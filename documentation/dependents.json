@@ -936,7 +936,8 @@
     "AllegroFlare/DesignSystems/DesignPillarDistributor"
   ],
   "AllegroFlare/DesignSystems/DesignFocus": [
-    "AllegroFlare/DesignSystems/DesignPillarDistribution"
+    "AllegroFlare/DesignSystems/DesignPillarDistribution",
+    "AllegroFlare/DesignSystems/DesignPillarDistributor"
   ],
   "AllegroFlare/Random": [
     "AllegroFlare/DesignSystems/DesignPillarDistributor",
@@ -950,9 +951,6 @@
     "AllegroFlare/Story/Characters/PersonalityProfileFactory",
     "AllegroFlare/TileMaps/Basic2D",
     "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
-  ],
-  "AllegroFlare/DesignSystems/DesignPillarDistribution": [
-    "AllegroFlare/DesignSystems/DesignPillarDistributor"
   ],
   "AllegroFlare/DialogSystem/Chapters/Base": [
     "AllegroFlare/DialogSystem/ChapterIndex",

@@ -10,3 +10,13 @@ TEST(AllegroFlare_DesignSystems_DesignPillarDistributorTest, can_be_created_with
 }
 
 
+TEST(AllegroFlare_DesignSystems_DesignPillarDistributorTest,
+   build_distribution__will_distribute_the_design_pillars_in_the_expected_way)
+{
+   AllegroFlare::DesignSystems::DesignPillarDistributor design_pillar_distributor;
+
+   std::vector<AllegroFlare::DesignSystems::DesignFocus> distribution =
+      design_pillar_distributor.build_distribution();
+}
+
+
