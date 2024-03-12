@@ -930,6 +930,30 @@
     "AllegroFlare/DeploymentEnvironment",
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/DesignSystems/DesignPillar": [
+    "AllegroFlare/DesignSystems/DesignFocus",
+    "AllegroFlare/DesignSystems/DesignPillar",
+    "AllegroFlare/DesignSystems/DesignPillarDistributor"
+  ],
+  "AllegroFlare/DesignSystems/DesignFocus": [
+    "AllegroFlare/DesignSystems/DesignPillarDistribution"
+  ],
+  "AllegroFlare/Random": [
+    "AllegroFlare/DesignSystems/DesignPillarDistributor",
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Generators/PersonNameGenerator",
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
+    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
+    "AllegroFlare/TileMaps/Basic2D",
+    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
+  ],
+  "AllegroFlare/DesignSystems/DesignPillarDistribution": [
+    "AllegroFlare/DesignSystems/DesignPillarDistributor"
+  ],
   "AllegroFlare/DialogSystem/Chapters/Base": [
     "AllegroFlare/DialogSystem/ChapterIndex",
     "AllegroFlare/DialogSystem/Chapters/Basic"
@@ -2206,18 +2230,6 @@
   ],
   "CatDetective/Chronicle/Panes/CrimeSummaryPage": [
     "AllegroFlare/Elements/WorldMapViewer"
-  ],
-  "AllegroFlare/Random": [
-    "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/Generators/PersonNameGenerator",
-    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
-    "AllegroFlare/Story/Characters/PersonalityProfileFactory",
-    "AllegroFlare/TileMaps/Basic2D",
-    "Wicked/Entities/MovementStrategies2D/FlappingWithRandomness"
   ],
   "std/minmax_element": [
     "AllegroFlare/Elements/WorldMapViewer"

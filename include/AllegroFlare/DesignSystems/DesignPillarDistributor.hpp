@@ -24,6 +24,7 @@ namespace AllegroFlare
          ~DesignPillarDistributor();
 
          std::vector<AllegroFlare::DesignSystems::DesignPillarDistribution> build_distributions();
+         std::string select_not_of(std::vector<std::string> existing_elements={}, std::vector<std::string> elements_not_to_select={});
          std::vector<std::string> build_source_list();
       };
    }
