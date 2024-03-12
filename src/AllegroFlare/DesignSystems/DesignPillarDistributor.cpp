@@ -42,23 +42,31 @@ std::vector<AllegroFlare::DesignSystems::DesignFocus> DesignPillarDistributor::b
    random.shuffle_elements(secondary_source_list);
    random.shuffle_elements(tertiary_source_list);
 
-   // 2) Pop from first
-   std::string primary_element = primary_source_list.back();
-   primary_source_list.pop_back();
+   int i = 0;
+   while (!primary_source_list.empty())
+   {
+      // 2) Pop from first
+      std::string primary_element = primary_source_list.back();
+      primary_source_list.pop_back();
+      i++;
 
-   // 3a) Select from second
-   std::string secondary_element = select_not_of(secondary_source_list, { primary_element });
-   // 3b) Remove selected element from second
-   // 3a) Select from third
-   std::string tertiary_element = select_not_of(tertiary_source_list, { primary_element, secondary_element });
-   // 3b) Remove selected element from third
+      // 3a) Select from second
+      std::string secondary_element = select_not_of(secondary_source_list, { primary_element });
+      // 3b) Remove selected element from second
+      secondary_source_list = remove_element(secondary_source_list, secondary_element);
+      // 3a) Select from third
+      std::string tertiary_element = select_not_of(tertiary_source_list, { primary_element, secondary_element });
+      // 3b) Remove selected element from third
+      tertiary_source_list = remove_element(tertiary_source_list, tertiary_element);
 
-   // NOTE: Number of levels is source_list.size() / 3
+      // NOTE: Number of levels is source_list.size() / 3
 
-   // Output a little report
-   std::cout << "Primary: " << primary_element << std::endl;
-   std::cout << "Secondary: " << secondary_element << std::endl;
-   std::cout << "Tertiary: " << tertiary_element << std::endl;
+      // Output a little report
+      std::cout << "- Selection " << i << std::endl;
+      std::cout << "  - primary: " << primary_element << std::endl;
+      std::cout << "    secondary: " << secondary_element << std::endl;
+      std::cout << "    tertiary: " << tertiary_element << std::endl;
+   }
 
    return result;
 }
@@ -76,6 +84,14 @@ std::string DesignPillarDistributor::select_not_of(std::vector<std::string> exis
    throw std::runtime_error("select_not_of couldn't locate an element");
    // Handle the case when all elements are in elements_not_to_select
    return ""; // or throw an exception, depending on your requirements
+}
+
+std::vector<std::string> DesignPillarDistributor::remove_element(std::vector<std::string> elements, std::string element_to_remove)
+{
+   elements.erase(
+         std::remove(elements.begin(), elements.end(), element_to_remove), elements.end()
+      );
+   return elements;
 }
 
 std::vector<std::string> DesignPillarDistributor::build_source_list()
