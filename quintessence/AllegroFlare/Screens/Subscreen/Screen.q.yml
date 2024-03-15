@@ -1,0 +1,405 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Base
+    scope: public
+    init_with: '"AllegroFlare::Screens::Subscreen::Panes::Base"'
+
+
+documentation:
+
+
+  - notes:
+     - This class is the screen used to coordinate the subscreen with the system.  It contains a subscreen element.
+     - You might create a derived of this class, override the input hints bar setup, override the keyboard/user inputs
+       handling and mapping.
+
+
+properties:
+
+
+  - name: event_emitter
+    type: AllegroFlare::EventEmitter*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: before_initialized
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: before_initialized
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: before_initialized
+
+  - name: subscreen_element
+    type: AllegroFlare::Screens::Subscreen::Element*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: before_initialized
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+
+methods:
+
+
+  - name: initialize
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - bitmap_bin
+      - font_bin
+      - subscreen_element
+    body: |
+      set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+
+
+  - name: refresh
+    guards: [ event_emitter ]
+    body: |
+      subscreen_element->refresh();
+      return;
+
+
+  - name: on_activate
+    virtual: true
+    override: true
+    guards: [ event_emitter ]
+    body: |
+      emit_event_to_update_input_hints_bar();
+      emit_show_and_size_input_hints_bar_event();
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    override: true
+    guards: [ event_emitter ]
+    body: |
+      // TODO: this should be a push/pop style to restore the previous input hints bar state, rather than
+      // turning it off. This might be an option to add to the framework
+      emit_hide_and_restore_size_input_hints_bar_event();
+      return;
+
+
+  - name: set_background_bitmap
+    parameters:
+      - name: background_bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      subscreen_element->set_background_bitmap(background_bitmap); // Not sure what this method is needed for, I might
+                                                                   // assume the background is controlled as a part of
+                                                                   // this screen. However, the element may want to
+                                                                   // control the background so I'm not sure how that
+                                                                   // might work out.
+      return;
+
+
+  - name: emit_event_to_update_input_hints_bar
+    private: true
+    virtual: true
+    guards: [ initialized ]
+    body: |
+      // TODO: Figure out how to handle subscreen-related control hints here.
+
+      // NOTE: Some examples of how hints were previously handled:
+
+      //if (subscreen_element.infer_currently_active_pane_is_rap_sheets_pane())
+      //{
+         //event_emitter->emit_set_input_hints_bar_event({{
+              //"SHIFT", "%SPACE", "%PLUS", "%SPACE", "RIGHT", "%SPACE", "%SLASH", "%SPACE", "LEFT",
+                 //"%SPACER", "LABEL>>", "Next / Previous tab",
+              //"%SEPARATOR",
+              //"UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move cursor",
+              //"%SEPARATOR",
+              //"X", "%SPACER", "LABEL>>", "Close Chronicle",
+         //}});
+      //}
+      //else if (subscreen_element.infer_currently_active_pane_is_crime_summary_pane())
+      //{
+         // TODO: add case where crime summary is empty state
+         //event_emitter->emit_set_input_hints_bar_event({{
+              //"SHIFT", "%SPACE", "%PLUS", "%SPACE", "RIGHT", "%SPACE", "%SLASH", "%SPACE", "LEFT",
+                 //"%SPACER", "LABEL>>", "Next / Previous tab",
+              //"%SEPARATOR",
+              //"UP", "%SPACE", "DOWN", "%SPACE", "LEFT", "%SPACE", "RIGHT", "%SPACER", "LABEL>>", "Move camera",
+              //"%SEPARATOR",
+              //"+", "%SPACE", "%SLASH", "%SPACE", "-", "%SPACER", "LABEL>>", "Zoom",
+              //"%SEPARATOR",
+              //"N", "%SPACE", "%SLASH", "%SPACE", "P", "%SPACER", "LABEL>>", "Next / Previous page",
+              //"%SEPARATOR",
+              //"R", "%SPACER", "LABEL>>", "Reset camera",
+              //"%SEPARATOR",
+              //"X", "%SPACER", "LABEL>>", "Close Chronicle",
+         //}});
+      //}
+      //else if (subscreen_element.infer_currently_active_pane_is_evidence_sheet_pane())
+      //{
+         //event_emitter->emit_set_input_hints_bar_event({{
+              //"SHIFT", "%SPACE", "%PLUS", "%SPACE", "RIGHT", "%SPACE", "%SLASH", "%SPACE", "LEFT",
+                 //"%SPACER", "LABEL>>", "Next / Previous tab",
+              //"%SEPARATOR",
+              //"UP", "%SPACE", "DOWN", "%SPACER", "LABEL>>", "Move cursor",
+              //"%SEPARATOR",
+              //"X", "%SPACER", "LABEL>>", "Close Chronicle",
+         //}});
+      //}
+
+      return;
+
+
+  - name: emit_show_and_size_input_hints_bar_event
+    body: |
+      event_emitter->emit_show_input_hints_bar_event();
+      event_emitter->emit_set_input_hints_bar_backfill_opacity_event(0.0f);
+      //event_emitter->emit_set_input_hints_bar_height_event(CatDetective::Chronicle::Chronicle::BLACK_BARS_HEIGHT);
+      return;
+
+
+  - name: emit_hide_and_restore_size_input_hints_bar_event
+    body: |
+      event_emitter->emit_hide_input_hints_bar_event();
+      event_emitter->emit_set_input_hints_bar_backfill_opacity_event(); // default argument is the system default, 60.0f
+      event_emitter->emit_set_input_hints_bar_height_event(); // default argument is the system default, 60.0f
+      return;
+
+
+  - name: move_pane_left
+    body: |
+      bool move_pane_was_successful = subscreen_element->move_pane_left();
+      if (move_pane_was_successful) emit_event_to_update_input_hints_bar();
+      return;
+
+
+  - name: move_pane_right
+    body: |
+      bool move_pane_was_successful = subscreen_element->move_pane_right();
+      if (move_pane_was_successful) emit_event_to_update_input_hints_bar();
+      return;
+
+
+  - name: primary_update_func
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: double
+        default_argument: 0.0f
+      - name: delta_time
+        type: double
+        default_argument: 1.0f
+    guards: [ initialized ]
+    body: |
+      // Update stuff here (take into account delta_time)
+      subscreen_element->update();
+      return;
+
+
+  - name: primary_render_func
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      // Render stuff here
+      al_clear_to_color(al_color_html("16161d")); // TODO: Not sure if should clear here, probably rely on screen's
+                                                  // background
+      //subscreen_element->update();
+      subscreen_element->render();
+      //render();
+      return;
+    body_dependency_symbols:
+      - al_clear_to_color
+
+
+
+  - name: xprimary_timer_func
+    xvirtual: true
+    xoverride: true
+    guards: [ initialized ]
+    body: |
+      // NOTE: this color clear may be redundant if the framework is clearing prior to rendering screens
+      // NOTE: Enable configuring this background color, disabling it, relying on the screen's owned background, or
+      // using a background technique handled by the pane.
+      al_clear_to_color(al_color_html("16161d"));
+
+      // TODO: Note that this screen is using the AllegroFlare::Screens::Base::LEGACY_SINGLE_PRIMARY_TIMER_FUNC by
+      // default and should probably be updated to use AllegroFlare::Screens::Base::SEPARATE_UPDATE_AND_RENDER_FUNCS
+      subscreen_element->update();
+      subscreen_element->render();
+      return;
+    body_dependency_symbols:
+      - al_clear_to_color
+
+
+  - name: key_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event ]
+    body: |
+      bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+      switch(event->keyboard.keycode)
+      {
+        case ALLEGRO_KEY_UP:
+          //if (!shift) chronicle_element->cursor_up_unpressed();
+          break;
+
+        case ALLEGRO_KEY_DOWN:
+          //if (!shift) chronicle_element.cursor_down_unpressed();
+          break;
+
+        case ALLEGRO_KEY_LEFT:
+          //if (!shift) chronicle_element.cursor_left_unpressed();
+          break;
+
+        case ALLEGRO_KEY_RIGHT:
+          //if (!shift) chronicle_element.cursor_right_unpressed();
+          break;
+      }
+      return;
+
+
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event, event_emitter ]
+    body: |
+      bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+      switch(event->keyboard.keycode)
+      {
+        case ALLEGRO_KEY_UP:
+           //if (!shift) chronicle_element.cursor_up_pressed();
+        break;
+
+        case ALLEGRO_KEY_DOWN:
+           //if (!shift) chronicle_element.cursor_down_pressed();
+        break;
+
+        case ALLEGRO_KEY_LEFT:
+           //if (!shift) chronicle_element.cursor_left_pressed();
+        break;
+
+        case ALLEGRO_KEY_RIGHT:
+           //if (!shift) chronicle_element.cursor_right_pressed();
+        break;
+
+        case ALLEGRO_KEY_X:
+           // TODO: assess if this is the correct location for emitting this event
+           // TODO: ensure missing event_emitter throws error
+           event_emitter->emit_game_event(AllegroFlare::GameEvent("close_chronicle_screen"));
+        break;
+      }
+      return;
+
+
+  - name: key_char_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ initialized, event ]
+    body: |
+      bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+      switch(event->keyboard.keycode)
+      {
+        case ALLEGRO_KEY_UP:
+          //chronicle_element.move_cursor_up();
+          break;
+
+        case ALLEGRO_KEY_DOWN:
+          //chronicle_element.move_cursor_down();
+          break;
+
+        case ALLEGRO_KEY_N:
+          //chronicle_element.current_pane_page_next();
+          break;
+
+        case ALLEGRO_KEY_P:
+          //chronicle_element.current_pane_page_previous();
+          break;
+
+        case ALLEGRO_KEY_R:
+          //chronicle_element.reset_document_camera();
+          break;
+
+        case ALLEGRO_KEY_LEFT:
+          //shift ? move_pane_left() : chronicle_element.move_cursor_left();
+          break;
+
+        case ALLEGRO_KEY_RIGHT:
+          //shift ? move_pane_right() : chronicle_element.move_cursor_right();
+          break;
+
+        case ALLEGRO_KEY_PAD_MINUS:
+          case ALLEGRO_KEY_MINUS: // (minus)
+          //chronicle_element.pane_camera_zoom_out();
+          break;
+
+        case ALLEGRO_KEY_PAD_PLUS:
+          case ALLEGRO_KEY_EQUALS: // (plus)
+          //chronicle_element.pane_camera_zoom_in();
+          break;
+
+        // TODO: handle this case
+        //case ALLEGRO_KEY_ESCAPE:
+          //abort = true;
+          //break;
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_clear_to_color
+    headers: [ allegro5/allegro_color.h ]
+  - symbol: AllegroFlare::Screens::Base
+    headers: [ AllegroFlare/Screens/Base.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::EventEmitter
+    headers: [ AllegroFlare/EventEmitter.hpp ]
+  - symbol: AllegroFlare::Inventory
+    headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::InventoryDictionary
+    headers: [ AllegroFlare/InventoryDictionary.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Screens::Subscreen::Element
+    headers: [ AllegroFlare/Screens/Subscreen/Element.hpp ]
+
+

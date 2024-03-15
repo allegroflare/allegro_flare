@@ -1,0 +1,485 @@
+properties:
+
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: before_initialized
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: before_initialized
+
+  - name: panes
+    type: std::vector<AllegroFlare::Screens::Subscreen::Panes::Base*>
+    init_with: ''
+    getter: true
+    setter: before_initialized
+    getter_ref: true
+
+  - name: background_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: current_pane_cursor_pos
+    type: int
+    init_with: 0
+
+  - name: pane_camera
+    type: AllegroFlare::Camera2D
+    init_with: ''
+
+  - name: pane_camera_edge_bonk_depth
+    type: float
+    init_with: 30.0f
+
+  - name: pane_camera_dest_x_pos
+    type: float
+    init_with: 0
+
+  - name: hud_camera
+    type: AllegroFlare::Camera2D
+    init_with: ''
+
+  - name: black_bar_opacity
+    type: float
+    init_with: 0.7
+    getter: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: BLACK_BARS_HEIGHT
+    type: int
+    init_with: 100
+    constexpr: true
+    static: true
+
+
+documentation:
+
+
+  - notes:
+      - This element should act as a parent class for your game's final subscreen, and is thus used by the 
+        AllegroFlare/Screens/Subscreen/Screen as the "subscreen_element" member.
+      - The "pane_camera" is the viewing camera that moves between the tabs (aka panes).
+  - todos:
+      - Create a typical subscreen Element class, for example like a AllegroFlare/Screens/Subscreens/Complete
+         - There is now a AllegroFlare/Screens/SubscreenFactory that might be useful, Subscreens/Complete still sounds
+           good, too
+      - Might consider renaming to AllegroFlare/Screens/SubscreenPanes/Base rather than having it in Subscreen/, you
+        got some options there.
+      - Some examples of panes:
+         - Inventory
+         - World Map
+         - Display Settings
+         - Controller Settings
+         - Audio Settings
+         - Save/Load
+      - Will need to decide how to dispatch user controls to the panes. Right now there are "move_cursor_up",
+        "move_cursor_down", etc. style functions.
+
+
+methods:
+
+
+  - name: initialize
+    virtual: true
+    guards:
+      - (!initialized)
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - al_is_ttf_addon_initialized()
+      - bitmap_bin
+      - font_bin
+    body: |
+      //rap_sheets_pane = new CatDetective::Chronicle::Panes::RapSheets();
+      //rap_sheets_pane->set_bitmap_bin(bitmap_bin);
+      //rap_sheets_pane->set_font_bin(font_bin);
+      //rap_sheets_pane->set_rap_sheets_inventory(rap_sheets_inventory);
+      //rap_sheets_pane->set_rap_sheets_inventory_dictionary(rap_sheets_inventory_dictionary);
+      //rap_sheets_pane->initialize();
+
+      //evidence_sheet_pane = new CatDetective::Chronicle::Panes::EvidenceSheet();
+      //evidence_sheet_pane->set_bitmap_bin(bitmap_bin);
+      //evidence_sheet_pane->set_font_bin(font_bin);
+      //evidence_sheet_pane->set_evidence_sheet_inventory(evidence_sheet_inventory);
+      //evidence_sheet_pane->set_evidence_sheet_inventory_dictionary(evidence_sheet_inventory_dictionary);
+      //evidence_sheet_pane->initialize();
+
+      //crime_summary_pane = new CatDetective::Chronicle::Panes::CrimeSummary();
+      //crime_summary_pane->set_bitmap_bin(bitmap_bin);
+      //crime_summary_pane->set_font_bin(font_bin);
+      //crime_summary_pane->initialize();
+
+      //panes = { rap_sheets_pane, evidence_sheet_pane, crime_summary_pane };
+
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+      - AllegroFlare::Screens::Subscreen::Panes::Base
+
+
+  - name: refresh
+    guards: [ initialized ]
+    body: |
+      // TODO: Refresh all panes. This might be used for example when inventory count changes during gameplay, but the
+      // UI does not refresh in real-time in the subscreen as a consequence. UI may become stale if its not live-synced.
+
+      //rap_sheets_pane->refresh();
+      //evidence_sheet_pane->refresh();
+      //crime_summary_pane->reset();
+      return;
+
+
+  - name: move_pane_right
+    type: bool
+    body: |
+      if (current_pane_cursor_pos >= (panes.size() - 1))
+      {
+         // do nothing
+         // TODO: maybe play a bonk sound or something
+         // Have the camera do a "edge bonk" motion
+         pane_camera_dest_x_pos = 1920 * (panes.size() - 1);
+         pane_camera.position.x = pane_camera_dest_x_pos + pane_camera_edge_bonk_depth;
+         return false;
+      }
+
+      //CatDetective::Chronicle::Panes::Base* currently_active_pane = nullptr;
+      AllegroFlare::Screens::Subscreen::Panes::Base* currently_active_pane = nullptr;
+      currently_active_pane = infer_currently_active_pane();
+      if (currently_active_pane) currently_active_pane->on_switch_out();
+      current_pane_cursor_pos++;
+      currently_active_pane = infer_currently_active_pane();
+      if (currently_active_pane) currently_active_pane->on_switch_in();
+
+      pane_camera_dest_x_pos += 1920;
+      return true;
+
+
+  - name: move_pane_left
+    type: bool
+    body: |
+      if (current_pane_cursor_pos <= 0)
+      {
+         // do nothing
+         // TODO: maybe play a bonk sound or something
+         // Have the camera do a "edge bonk" motion
+         pane_camera_dest_x_pos = 0;
+         pane_camera.position.x = pane_camera_dest_x_pos - pane_camera_edge_bonk_depth;
+         return false;
+      }
+
+      //CatDetective::Chronicle::Panes::Base* currently_active_pane = nullptr;
+      AllegroFlare::Screens::Subscreen::Panes::Base* currently_active_pane = nullptr;
+      currently_active_pane = infer_currently_active_pane();
+      if (currently_active_pane) currently_active_pane->on_switch_out();
+      current_pane_cursor_pos--;
+      currently_active_pane = infer_currently_active_pane();
+      if (currently_active_pane) currently_active_pane->on_switch_in();
+
+      pane_camera_dest_x_pos -= 1920;
+      return true;
+
+
+  - name: move_cursor_up
+    body: |
+      //CatDetective::Chronicle::Panes::Base* currently_active_pane = infer_currently_active_pane();
+      AllegroFlare::Screens::Subscreen::Panes::Base* currently_active_pane = nullptr;
+      if (!currently_active_pane) return;
+
+      //if (currently_active_pane->is_type(CatDetective::Chronicle::Panes::RapSheets::TYPE))
+      //{
+         //CatDetective::Chronicle::Panes::RapSheets *as_rap_sheets_pane = 
+            //static_cast<CatDetective::Chronicle::Panes::RapSheets*>(currently_active_pane);
+         //as_rap_sheets_pane->move_cursor_up();
+      //}
+      //else if (currently_active_pane->is_type(CatDetective::Chronicle::Panes::EvidenceSheet::TYPE))
+      //{
+         //CatDetective::Chronicle::Panes::EvidenceSheet *as_evidence_sheet_pane =
+            //static_cast<CatDetective::Chronicle::Panes::EvidenceSheet*>(currently_active_pane);
+         //as_evidence_sheet_pane->move_cursor_up();
+      //}
+
+      return;
+
+
+  - name: move_cursor_down
+    body: |
+      //CatDetective::Chronicle::Panes::Base* currently_active_pane = infer_currently_active_pane();
+      AllegroFlare::Screens::Subscreen::Panes::Base* currently_active_pane = nullptr;
+      if (!currently_active_pane) return;
+
+      //if (currently_active_pane->is_type(CatDetective::Chronicle::Panes::RapSheets::TYPE))
+      //{
+         //CatDetective::Chronicle::Panes::RapSheets *as_rap_sheets_pane =
+            //static_cast<CatDetective::Chronicle::Panes::RapSheets*>(currently_active_pane);
+         //as_rap_sheets_pane->move_cursor_down();
+      //}
+      //else if (currently_active_pane->is_type(CatDetective::Chronicle::Panes::EvidenceSheet::TYPE))
+      //{
+         //CatDetective::Chronicle::Panes::EvidenceSheet *as_evidence_sheet_pane =
+            //static_cast<CatDetective::Chronicle::Panes::EvidenceSheet*>(currently_active_pane);
+         //as_evidence_sheet_pane->move_cursor_down();
+      //}
+
+      return;
+
+
+  - name: move_cursor_right
+    body: |
+      //CatDetective::Chronicle::Panes::Base* currently_active_pane = infer_currently_active_pane();
+      AllegroFlare::Screens::Subscreen::Panes::Base* currently_active_pane = nullptr;
+      if (!currently_active_pane) return;
+
+      //if (currently_active_pane->is_type(CatDetective::Chronicle::Panes::RapSheets::TYPE))
+      //{
+         //CatDetective::Chronicle::Panes::RapSheets *as_rap_sheets_pane =
+            //static_cast<CatDetective::Chronicle::Panes::RapSheets*>(currently_active_pane);
+         //as_rap_sheets_pane->move_cursor_right();
+      //}
+
+      return;
+
+
+  - name: move_cursor_left
+    body: |
+      //CatDetective::Chronicle::Panes::Base* currently_active_pane = infer_currently_active_pane();
+      AllegroFlare::Screens::Subscreen::Panes::Base* currently_active_pane = nullptr;
+      if (!currently_active_pane) return;
+
+      //if (currently_active_pane->is_type(CatDetective::Chronicle::Panes::RapSheets::TYPE))
+      //{
+         //CatDetective::Chronicle::Panes::RapSheets *as_rap_sheets_pane =
+            //static_cast<CatDetective::Chronicle::Panes::RapSheets*>(currently_active_pane);
+         //as_rap_sheets_pane->move_cursor_left();
+      //}
+
+      return;
+
+
+  - name: pane_camera_zoom_in
+    body: |
+      //CatDetective::Chronicle::Panes::Base* currently_active_pane = infer_currently_active_pane();
+      AllegroFlare::Screens::Subscreen::Panes::Base* currently_active_pane = nullptr;
+      if (!currently_active_pane) return;
+
+      //if (currently_active_pane->is_type(CatDetective::Chronicle::Panes::CrimeSummary::TYPE))
+      //{
+         //CatDetective::Chronicle::Panes::CrimeSummary *as_crime_summary_pane =
+            //static_cast<CatDetective::Chronicle::Panes::CrimeSummary*>(currently_active_pane);
+         //as_crime_summary_pane->step_zoom_in();
+      //}
+
+      return;
+
+
+  - name: pane_camera_zoom_out
+    body: |
+      //CatDetective::Chronicle::Panes::Base* currently_active_pane = infer_currently_active_pane();
+      AllegroFlare::Screens::Subscreen::Panes::Base* currently_active_pane = nullptr;
+      if (!currently_active_pane) return;
+
+      //if (currently_active_pane->is_type(CatDetective::Chronicle::Panes::CrimeSummary::TYPE))
+      //{
+         //CatDetective::Chronicle::Panes::CrimeSummary *as_crime_summary_pane =
+            //static_cast<CatDetective::Chronicle::Panes::CrimeSummary*>(currently_active_pane);
+         //as_crime_summary_pane->step_zoom_out();
+      //}
+
+      return;
+
+
+  - name: update
+    guards: [ initialized ]
+    body: |
+      // update the camera position
+      pane_camera.position.x = (pane_camera_dest_x_pos - pane_camera.position.x) * 0.16 + pane_camera.position.x;
+
+      for (auto &pane : panes)
+      {
+         pane->update();
+      }
+      return;
+
+
+  - name: render
+    guards: [ initialized ]
+    body: |
+      ALLEGRO_STATE previous_render_state;
+      al_store_state(&previous_render_state, ALLEGRO_STATE_TARGET_BITMAP);
+
+      render_background();
+      render_panes();
+      render_hud();
+
+      al_restore_state(&previous_render_state);
+      return;
+
+
+  - name: render_background
+    private: true
+    guards: [ al_get_current_display() ]
+    body: |
+      if (!background_bitmap) return;
+      al_draw_scaled_bitmap(
+         background_bitmap,
+         0,
+         0,
+         al_get_bitmap_width(background_bitmap),
+         al_get_bitmap_height(background_bitmap),
+         0,
+         0,
+         1920, //al_get_display_width(al_get_current_display()),
+         1080, //al_get_bitmap_height(al_get_current_display()),
+         0
+      );
+      return;
+
+
+  - name: render_panes
+    private: true
+    guards: [ al_get_current_display() ]
+    body: |
+      // TODO: Obtain and use a render surface rather than a direct access to the backbuffer
+
+      pane_camera.setup_dimensional_projection(al_get_backbuffer(al_get_current_display()));
+      pane_camera.start_reverse_transform();
+      AllegroFlare::Placement2D pane_transform;
+      for (auto &pane : panes)
+      {
+         pane_transform.start_transform();
+         //pane.second->render();
+         pane->render();
+         pane_transform.restore_transform();
+         pane_transform.position.x += 1920;
+      }
+      pane_camera.restore_transform();
+      return;
+
+
+  - name: render_black_bars
+    private: true
+    body: |
+      ALLEGRO_COLOR black_bar_color = ALLEGRO_COLOR{0, 0, 0, black_bar_opacity};
+      al_draw_filled_rectangle(0, 0,        1920, BLACK_BARS_HEIGHT,  black_bar_color);
+      al_draw_filled_rectangle(0, 1080-BLACK_BARS_HEIGHT, 1920, 1080, black_bar_color);
+      return;
+
+
+  - name: render_hud
+    body: |
+      // TODO: Obtain and use a render surface rather than a direct access to the backbuffer
+      // Setup the projection
+      hud_camera.setup_dimensional_projection(al_get_backbuffer(al_get_current_display()));
+
+      render_black_bars();
+      render_tabs();
+
+      return;
+
+
+  - name: render_tabs
+    private: true
+    guards: [ al_get_current_display() ]
+    body: |
+      int num_tabs = infer_num_panes();
+      if (num_tabs <= 0) return;
+ 
+      // render each tab
+      ALLEGRO_FONT *tabs_font = obtain_tabs_font();
+      int tab_window_padding = 400;
+      int text_anchor_x = 1920 / 2 - tab_window_padding;
+      int text_anchor_y = 1080 / 32;
+      int tab_spacing = (1920 - tab_window_padding * 2) / num_tabs;
+      bool pane_is_focused = false;
+      static ALLEGRO_COLOR unfocused_tab_text_color = ALLEGRO_COLOR{0.6, 0.6, 0.6, 0.6};
+      static ALLEGRO_COLOR focused_tab_text_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      ALLEGRO_COLOR tab_text_color; // no initial assignment necessary
+      int tab_num = 0;
+      for (auto &pane : panes)
+      {
+         int this_pane_index = tab_num;
+         std::string pane_label = pane->get_name();
+         pane_is_focused = (this_pane_index == current_pane_cursor_pos);
+         tab_text_color = pane_is_focused ? focused_tab_text_color : unfocused_tab_text_color;
+         al_draw_text(
+            tabs_font,
+            tab_text_color,
+            text_anchor_x + tab_spacing * tab_num,
+            text_anchor_y,
+            ALLEGRO_ALIGN_CENTER,
+            pane_label.c_str()
+         );
+         tab_num++;
+      }
+      return;
+
+
+  - name: infer_currently_active_pane
+    type: AllegroFlare::Screens::Subscreen::Panes::Base*
+    body: |
+      if (current_pane_cursor_pos < 0) return nullptr;
+      if (current_pane_cursor_pos >= panes.size()) return nullptr;
+      return panes[current_pane_cursor_pos];
+
+
+  - name: infer_num_panes
+    type: int
+    private: true
+    body: |
+      return panes.size();
+
+
+  - name: clear_panes
+    body: |
+      return panes.clear();
+
+
+  - name: obtain_tabs_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
+    body: |
+      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
+      ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
+      return result_font;
+
+
+dependencies:
+
+
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Screens::Subscreen::Panes::Base
+    headers: [ AllegroFlare/Screens/Subscreen/Panes/Base.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Camera2D
+    headers: [ AllegroFlare/Camera2D.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Inventory
+    headers: [ AllegroFlare/Inventory.hpp ]
+  - symbol: AllegroFlare::InventoryDictionary
+    headers: [ AllegroFlare/InventoryDictionary.hpp ]
+  - symbol: AllegroFlare::InventoryDictionaryItems::WithAttributes
+    headers: [ AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp ]
+
+

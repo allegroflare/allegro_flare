@@ -1,0 +1,110 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::Screens::Subscreen::Panes::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '"AllegroFlare/Screens/Subscreen/Panes/Base"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: on_switch_in
+    virtual: true
+    body: |
+      return;
+
+
+  - name: on_switch_out
+    virtual: true
+    body: |
+      return;
+
+
+  - name: update
+    virtual: true
+    body: |
+      return;
+
+
+  - name: render
+    virtual: true
+    body: |
+      return;
+
+
+  - name: draw_empty_state
+    parameters:
+      - name: font_bin
+        type: AllegroFlare::FontBin*
+        default_argument: nullptr
+      - name: placeholder_text
+        type: std::string
+        default_argument: '"Empty"'
+    guards: [ font_bin, al_is_primitives_addon_initialized() ]
+    body: |
+      static constexpr float frame_width = 1920;
+      static constexpr float frame_height = 1080;
+      static constexpr float width = frame_width - 100 * 2;
+      static constexpr float height = frame_height - 142 * 2;
+      static constexpr float cx = frame_width / 2;
+      static constexpr float cy = frame_height / 2;
+
+      static constexpr float x1 = cx - width * 0.5;;
+      static constexpr float y1 = cy - height * 0.5;
+      static constexpr float x2 = cx + width * 0.5;
+      static constexpr float y2 = cy + height * 0.5;
+
+      al_draw_rectangle(x1, y1, x2, y2, ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2}, 2.0f);
+
+      // draw the text
+      static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
+      ALLEGRO_FONT* font = font_bin->operator[](FONT_IDENTIFIER);
+
+      al_draw_text(
+            font,
+            ALLEGRO_COLOR{0.2, 0.2, 0.2, 0.2},
+            1920 * 0.5,
+            1080 * 0.5,
+            ALLEGRO_ALIGN_CENTER,
+            placeholder_text.c_str()
+         );
+
+      return;
+    body_dependency_symbols:
+      - al_draw_rectangle
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: al_draw_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+

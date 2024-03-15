@@ -1,0 +1,44 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Subscreen::Panes::Base
+    scope: public
+    init_with: AllegroFlare::Screens::Subscreen::Panes::Airwing::TYPE
+
+
+properties:
+
+
+  - name: property
+    type: std::string
+    init_with: '"[unset-property]"'
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Screens/Subscreen/Panes/Airwing"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: property_is
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_property());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Subscreen::Panes::Base
+    headers: [ AllegroFlare/Screens/Subscreen/Panes/Base.hpp ]
+
+

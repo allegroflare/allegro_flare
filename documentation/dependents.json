@@ -240,6 +240,8 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/SettingsScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -413,6 +415,9 @@
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Panes/Base",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -514,6 +519,7 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/SettingsScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
@@ -557,6 +563,8 @@
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/SettingsScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -692,6 +700,8 @@
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Shaders/Base",
@@ -744,7 +754,8 @@
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Screens/Subscreen/Element"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
@@ -1035,6 +1046,7 @@
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -1138,7 +1150,8 @@
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Screens/Subscreen/Element"
   ],
   "AllegroFlare/Elements/DialogBoxFactory": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1200,6 +1213,7 @@
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
@@ -1543,6 +1557,7 @@
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
@@ -1747,6 +1762,7 @@
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Screens/Subscreen/Panes/Base",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Entities/Basic2D"
@@ -2037,7 +2053,9 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen"
   ],
   "AllegroFlare/InventoryIndex": [
     "AllegroFlare/Elements/Inventory",
@@ -2048,7 +2066,9 @@
   ],
   "AllegroFlare/InventoryDictionary": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/InventoryDictionary"
+    "AllegroFlare/InventoryDictionary",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen"
   ],
   "AllegroFlare/Elements/Inventory": [
     "AllegroFlare/Elements/Inventory",
@@ -3522,6 +3542,26 @@
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "AllegroFlare/Screens/Subscreen/Panes/Base": [
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Panes/Airwing",
+    "AllegroFlare/Screens/Subscreen/Panes/Inventory"
+  ],
+  "AllegroFlare/Screens/Subscreen/Panes/Inventory": [
+    "AllegroFlare/Screens/Subscreen/PaneFactory"
+  ],
+  "al_clear_to_color": [
+    "AllegroFlare/Screens/Subscreen/Screen"
+  ],
+  "AllegroFlare/Screens/Subscreen/Element": [
+    "AllegroFlare/Screens/Subscreen/Screen"
+  ],
+  "AllegroFlare/Screens/Subscreen/Screen": [
+    "AllegroFlare/Screens/SubscreenFactory"
+  ],
+  "AllegroFlare/Screens/Subscreen/PaneFactory": [
+    "AllegroFlare/Screens/SubscreenFactory"
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"

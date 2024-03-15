@@ -1,0 +1,19 @@
+methods:
+
+
+  - name: create_inventory_pane
+    type: AllegroFlare::Screens::Subscreen::Panes::Inventory*
+    body: |
+      AllegroFlare::Screens::Subscreen::Panes::Inventory *result =
+         new AllegroFlare::Screens::Subscreen::Panes::Inventory;
+      // TODO: Setup the result
+      return result;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Subscreen::Panes::Inventory
+    headers: [ AllegroFlare/Screens/Subscreen/Panes/Inventory.hpp ]
+
+

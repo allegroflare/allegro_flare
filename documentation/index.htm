@@ -435,6 +435,13 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/RollingCredits.q.yml">quintessence/AllegroFlare/Screens/RollingCredits.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/SettingsScreen.q.yml">quintessence/AllegroFlare/Screens/SettingsScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Element.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Element.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/PaneFactory.q.yml">quintessence/AllegroFlare/Screens/Subscreen/PaneFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Panes/Airwing.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Airwing.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Panes/Base.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Panes/Inventory.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Inventory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Screen.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Screen.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Screens/SubscreenFactory.q.yml">quintessence/AllegroFlare/Screens/SubscreenFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Transition.q.yml">quintessence/AllegroFlare/Screens/Transition.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Version.q.yml">quintessence/AllegroFlare/Screens/Version.q.yml</a></li>
@@ -31841,6 +31848,489 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Element.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Element.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This element should act as a parent class for your game's final subscreen, and is thus used by the AllegroFlare/Screens/Subscreen/Screen as the \"subscreen_element\" member.", "The \"pane_camera\" is the viewing camera that moves between the tabs (aka panes)."]}</p>    <p>{"todos"=>["Create a typical subscreen Element class, for example like a AllegroFlare/Screens/Subscreens/Complete - There is now a AllegroFlare/Screens/SubscreenFactory that might be useful, Subscreens/Complete still sounds good, too", "Might consider renaming to AllegroFlare/Screens/SubscreenPanes/Base rather than having it in Subscreen/, you got some options there.", {"Some examples of panes"=>["Inventory", "World Map", "Display Settings", "Controller Settings", "Audio Settings", "Save/Load"]}, "Will need to decide how to dispatch user controls to the panes. Right now there are \"move_cursor_up\", \"move_cursor_down\", etc. style functions."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">panes</td>
+  <td class="property">std::vector&lt;AllegroFlare::Screens::Subscreen::Panes::Base*&gt;</td>
+</tr>
+<tr>
+  <td class="property">background_bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">current_pane_cursor_pos</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">pane_camera</td>
+  <td class="property">AllegroFlare::Camera2D</td>
+</tr>
+<tr>
+  <td class="property">pane_camera_edge_bonk_depth</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">pane_camera_dest_x_pos</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">hud_camera</td>
+  <td class="property">AllegroFlare::Camera2D</td>
+</tr>
+<tr>
+  <td class="property">black_bar_opacity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">BLACK_BARS_HEIGHT</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>refresh</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>move_pane_right</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>move_pane_left</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_up</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_down</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_right</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_left</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>pane_camera_zoom_in</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>pane_camera_zoom_out</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>render_background</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>render_panes</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>render_black_bars</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_hud</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>render_tabs</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Screens::Subscreen::Panes::Base*</td>
+  <td class="method"><b>infer_currently_active_pane</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">int</td>
+  <td class="private_method"><b>infer_num_panes</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>clear_panes</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_tabs_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Panes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Panes/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionary&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionary.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::WithAttributes&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Subscreen/PaneFactory.q.yml">quintessence/AllegroFlare/Screens/Subscreen/PaneFactory.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">AllegroFlare::Screens::Subscreen::Panes::Inventory*</td>
+  <td class="method"><b>create_inventory_pane</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Panes::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Panes/Inventory.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Panes/Airwing.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Airwing.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>property_is</b>(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Panes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Panes/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Panes/Base.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Base.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_switch_in</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_switch_out</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_empty_state</b>(AllegroFlare::FontBin* font_bin=nullptr, std::string placeholder_text=&quot;Empty&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_type</b>(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Panes/Inventory.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Inventory.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">property</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>property_is</b>(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Panes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Panes/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Screen.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Screen.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This class is the screen used to coordinate the subscreen with the system.  It contains a subscreen element.", "You might create a derived of this class, override the input hints bar setup, override the keyboard/user inputs handling and mapping."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">subscreen_element</td>
+  <td class="property">AllegroFlare::Screens::Subscreen::Element*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>refresh</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_activate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_deactivate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_background_bitmap</b>(ALLEGRO_BITMAP* background_bitmap=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>emit_event_to_update_input_hints_bar</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>emit_show_and_size_input_hints_bar_event</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>emit_hide_and_restore_size_input_hints_bar_event</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_pane_left</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_pane_right</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_update_func</b>(double time_now=0.0f, double delta_time=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_render_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>xprimary_timer_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_up_func</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_down_func</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_char_func</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_clear_to_color&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Inventory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionary&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionary.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Element&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Element.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Screens/SubscreenFactory.q.yml">quintessence/AllegroFlare/Screens/SubscreenFactory.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">AllegroFlare::Screens::Subscreen::Screen*</td>
+  <td class="method"><b>create_basic_subscreen</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::PaneFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/PaneFactory.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -40894,6 +41384,8 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/SettingsScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -41067,6 +41559,9 @@ table td
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Panes/Base",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -41168,6 +41663,7 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/SettingsScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
@@ -41211,6 +41707,8 @@ table td
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/SettingsScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -41346,6 +41844,8 @@ table td
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Shaders/Base",
@@ -41398,7 +41898,8 @@ table td
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud"
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Screens/Subscreen/Element"
   ],
   "AllegroFlare/CameraControlStrategies2D/Base": [
     "AllegroFlare/CameraControlStrategies2D/HorizontalRail",
@@ -41689,6 +42190,7 @@ table td
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -41792,7 +42294,8 @@ table td
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
-    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D"
+    "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Screens/Subscreen/Element"
   ],
   "AllegroFlare/Elements/DialogBoxFactory": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -41854,6 +42357,7 @@ table td
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
@@ -42197,6 +42701,7 @@ table td
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
@@ -42401,6 +42906,7 @@ table td
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Screens/Subscreen/Panes/Base",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Entities/Basic2D"
@@ -42691,7 +43197,9 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Configuration",
     "AllegroFlare/Prototypes/FixedRoom2D/ConfigurationLoader",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen"
   ],
   "AllegroFlare/InventoryIndex": [
     "AllegroFlare/Elements/Inventory",
@@ -42702,7 +43210,9 @@ table td
   ],
   "AllegroFlare/InventoryDictionary": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/InventoryDictionary"
+    "AllegroFlare/InventoryDictionary",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen"
   ],
   "AllegroFlare/Elements/Inventory": [
     "AllegroFlare/Elements/Inventory",
@@ -44176,6 +44686,26 @@ table td
   ],
   "AllegroFlare/Elements/Storyboard": [
     "AllegroFlare/Screens/Storyboard"
+  ],
+  "AllegroFlare/Screens/Subscreen/Panes/Base": [
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Panes/Airwing",
+    "AllegroFlare/Screens/Subscreen/Panes/Inventory"
+  ],
+  "AllegroFlare/Screens/Subscreen/Panes/Inventory": [
+    "AllegroFlare/Screens/Subscreen/PaneFactory"
+  ],
+  "al_clear_to_color": [
+    "AllegroFlare/Screens/Subscreen/Screen"
+  ],
+  "AllegroFlare/Screens/Subscreen/Element": [
+    "AllegroFlare/Screens/Subscreen/Screen"
+  ],
+  "AllegroFlare/Screens/Subscreen/Screen": [
+    "AllegroFlare/Screens/SubscreenFactory"
+  ],
+  "AllegroFlare/Screens/Subscreen/PaneFactory": [
+    "AllegroFlare/Screens/SubscreenFactory"
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
