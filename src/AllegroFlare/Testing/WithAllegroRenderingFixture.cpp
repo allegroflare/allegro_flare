@@ -174,8 +174,8 @@ void WithAllegroRenderingFixture::SetUp()
 
    test_snapshots_folder = "./tmp/test_snapshots/";
 
-   font_bin.set_full_path(deployment_environment.get_data_folder_path() + "fonts/");
-   bitmap_bin.set_full_path(deployment_environment.get_data_folder_path() + "bitmaps/");
+   font_bin.set_full_path(get_fixtures_path() + "fonts/");
+   bitmap_bin.set_full_path(get_fixtures_path() + "bitmaps/");
 
    if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
    al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
