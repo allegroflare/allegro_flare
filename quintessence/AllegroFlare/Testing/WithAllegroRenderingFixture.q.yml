@@ -312,7 +312,7 @@ methods:
         default_argument: 30.0f
       - name: size_h
         type: float
-        default_argument: 500.0f
+        default_argument: 600.0f
     body: |
       float h_size_h = size_h * 0.5;
       float h_size_v = size_v * 0.5;
@@ -338,7 +338,7 @@ methods:
         default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
       - name: size_v
         type: float
-        default_argument: 500.0f
+        default_argument: 600.0f
       - name: size_h
         type: float
         default_argument: 30.0f
