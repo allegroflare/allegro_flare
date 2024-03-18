@@ -346,6 +346,18 @@ void WithAllegroRenderingFixture::draw_horizontal_crosshair(float x, float y, AL
    al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
 }
 
+void WithAllegroRenderingFixture::draw_rectangle(float x, float y, float width, float height, ALLEGRO_COLOR color)
+{
+   if (!(al_get_target_bitmap()))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::draw_rectangle]: error: guard \"al_get_target_bitmap()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::draw_rectangle: error: guard \"al_get_target_bitmap()\" not met");
+   }
+   al_draw_rectangle(x, y, x+width, y+height, color, 1.0);
+}
+
 bool WithAllegroRenderingFixture::test_name_indicates_it_wants_a_screenshot()
 {
    return test_name_has_prefix_token("CAPTURE");
