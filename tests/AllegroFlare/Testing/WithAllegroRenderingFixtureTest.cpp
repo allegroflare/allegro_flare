@@ -87,3 +87,16 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 }
 
 
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   CAPTURE__draw_rectangle__will_appear_as_expected)
+{
+   float width = 600;
+   float height = 300;
+   float x = 1920/2 - width/2;
+   float y = 1080/2 - height/2;
+
+   draw_rectangle(x, y, width, height);
+   al_flip_display();
+}
+
+

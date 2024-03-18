@@ -342,8 +342,15 @@ methods:
       - name: color
         type: ALLEGRO_COLOR
         default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
+      - name: size
+        type: float
+        default_argument: 100.0f
     body: |
-      al_draw_rectangle(x, y, x+width, y+height, color, 1.0);
+      float h_size = size * 0.5;
+      al_draw_line(x-h_size, y,        x+width+h_size, y,               color, 1.0); // Top line
+      al_draw_line(x-h_size, y+height, x+width+h_size, y+height,        color, 1.0); // Bottom line
+      al_draw_line(x,        y-h_size, x,              y+height+h_size, color, 1.0); // Left line
+      al_draw_line(x+width,  y-h_size, x+width,        y+height+h_size, color, 1.0); // Right line
     body_dependency_symbols:
       - al_color_name
 
