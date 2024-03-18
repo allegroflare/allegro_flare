@@ -306,13 +306,42 @@ methods:
         default_argument: 0.0f
       - name: color
         type: ALLEGRO_COLOR
-        default_argument: ALLEGRO_COLOR{1, 1, 0, 1}
+        default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
       - name: size_v
         type: float
         default_argument: 30.0f
       - name: size_h
         type: float
         default_argument: 500.0f
+    body: |
+      float h_size_h = size_h * 0.5;
+      float h_size_v = size_v * 0.5;
+      // draw horizontal line
+      al_draw_line(x-h_size_h, y, x+h_size_h, y, color, 1.0);
+      // draw vertical line
+      al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
+    body_dependency_symbols:
+      - al_color_name
+
+
+  - name: draw_vertical_crosshair
+    guards: [ al_get_target_bitmap() ]
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
+      - name: size_v
+        type: float
+        default_argument: 500.0f
+      - name: size_h
+        type: float
+        default_argument: 30.0f
     body: |
       float h_size_h = size_h * 0.5;
       float h_size_v = size_v * 0.5;

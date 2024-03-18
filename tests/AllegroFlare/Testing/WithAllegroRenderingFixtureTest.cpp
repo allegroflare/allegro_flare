@@ -100,3 +100,25 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 }
 
 
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   CAPTURE__draw_horizontal_crosshair__will_appear_as_expected)
+{
+   float x = 1920/2;
+   float y = 1080/2;
+
+   draw_horizontal_crosshair(x, y);
+   al_flip_display();
+}
+
+
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   CAPTURE__draw_vertical_crosshair__will_appear_as_expected)
+{
+   float x = 1920/2;
+   float y = 1080/2;
+
+   draw_vertical_crosshair(x, y);
+   al_flip_display();
+}
+
+

@@ -346,6 +346,23 @@ void WithAllegroRenderingFixture::draw_horizontal_crosshair(float x, float y, AL
    al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
 }
 
+void WithAllegroRenderingFixture::draw_vertical_crosshair(float x, float y, ALLEGRO_COLOR color, float size_v, float size_h)
+{
+   if (!(al_get_target_bitmap()))
+   {
+      std::stringstream error_message;
+      error_message << "[WithAllegroRenderingFixture::draw_vertical_crosshair]: error: guard \"al_get_target_bitmap()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("WithAllegroRenderingFixture::draw_vertical_crosshair: error: guard \"al_get_target_bitmap()\" not met");
+   }
+   float h_size_h = size_h * 0.5;
+   float h_size_v = size_v * 0.5;
+   // draw horizontal line
+   al_draw_line(x-h_size_h, y, x+h_size_h, y, color, 1.0);
+   // draw vertical line
+   al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
+}
+
 void WithAllegroRenderingFixture::draw_rectangle(float x, float y, float width, float height, ALLEGRO_COLOR color, float size)
 {
    if (!(al_get_target_bitmap()))
