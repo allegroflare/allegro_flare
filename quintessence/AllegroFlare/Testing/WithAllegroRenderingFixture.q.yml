@@ -309,7 +309,7 @@ methods:
         default_argument: ALLEGRO_COLOR{0, 0, 1, 1}
       - name: size
         type: float
-        default_argument: 50.0f
+        default_argument: 100.0f
     body: |
       float h_size = size * 0.5;
       // draw horizontal line
