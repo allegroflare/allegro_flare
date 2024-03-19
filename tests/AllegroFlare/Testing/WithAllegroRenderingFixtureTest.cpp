@@ -122,3 +122,14 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 }
 
 
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   CAPTURE__draw_crosshair_blue__will_appear_as_expected)
+{
+   float x = 1920/2;
+   float y = 1080/2;
+
+   draw_crosshair_blue(x, y);
+   al_flip_display();
+}
+
+

@@ -295,6 +295,31 @@ methods:
       - al_color_name
 
 
+  - name: draw_crosshair_blue
+    guards: [ al_get_target_bitmap() ]
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{0, 0, 1, 1}
+      - name: size
+        type: float
+        default_argument: 50.0f
+    body: |
+      float h_size = size * 0.5;
+      // draw horizontal line
+      al_draw_line(x-h_size, y, x+h_size, y, color, 1.0);
+      // draw vertical line
+      al_draw_line(x, y-h_size, x, y+h_size, color, 1.0);
+    body_dependency_symbols:
+      - al_color_name
+
+
   - name: draw_horizontal_crosshair
     guards: [ al_get_target_bitmap() ]
     parameters:
