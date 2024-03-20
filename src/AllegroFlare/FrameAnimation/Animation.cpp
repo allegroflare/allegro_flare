@@ -118,6 +118,8 @@ void Animation::reset()
       throw std::runtime_error("Animation::reset: error: guard \"initialized\" not met");
    }
    // NOTE: Internally, this is functionally the same as start()
+   playhead = 0.0f;
+   finished = false;
    return;
 }
 
