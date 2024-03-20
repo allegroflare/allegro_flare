@@ -32,6 +32,12 @@ Animation::~Animation()
 }
 
 
+AllegroFlare::FrameAnimation::SpriteSheet* Animation::get_sprite_sheet() const
+{
+   return sprite_sheet;
+}
+
+
 std::vector<AllegroFlare::FrameAnimation::Frame> Animation::get_frames() const
 {
    return frames;
@@ -99,6 +105,19 @@ void Animation::start()
    }
    playhead = 0.0f;
    finished = false;
+   return;
+}
+
+void Animation::reset()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::reset]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::reset: error: guard \"initialized\" not met");
+   }
+   // NOTE: Internally, this is functionally the same as start()
    return;
 }
 

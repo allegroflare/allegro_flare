@@ -40,6 +40,7 @@ namespace AllegroFlare
          Animation(AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet=nullptr, std::string name="[unset-name]", std::vector<AllegroFlare::FrameAnimation::Frame> frames={}, uint32_t playmode=PLAYMODE_UNDEF);
          ~Animation();
 
+         AllegroFlare::FrameAnimation::SpriteSheet* get_sprite_sheet() const;
          std::vector<AllegroFlare::FrameAnimation::Frame> get_frames() const;
          uint32_t get_playmode() const;
          float get_playspeed_multiplier() const;
@@ -48,6 +49,7 @@ namespace AllegroFlare
          bool get_initialized() const;
          void initialize();
          void start();
+         void reset();
          void set_playspeed_multiplier(float playspeed_multiplier=1.0);
          void update();
          void draw();

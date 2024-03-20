@@ -5,6 +5,7 @@ properties:
     type: AllegroFlare::FrameAnimation::SpriteSheet*
     init_with: nullptr
     constructor_arg: true
+    getter: true
 
   - name: name
     type: std::string
@@ -109,6 +110,15 @@ functions:
   - name: start
     guards: [ initialized ]
     body: |
+      playhead = 0.0f;
+      finished = false;
+      return;
+
+
+  - name: reset
+    guards: [ initialized ]
+    body: |
+      // NOTE: Internally, this is functionally the same as start()
       playhead = 0.0f;
       finished = false;
       return;

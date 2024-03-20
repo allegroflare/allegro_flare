@@ -149,6 +149,13 @@ ALLEGRO_BITMAP *SpriteSheet::get_cell(int index)
 
 
 
+ALLEGRO_BITMAP *SpriteSheet::get_atlas()
+{
+   // TODO: Prevent calling this method before init
+   return atlas;
+}
+
+
 
 int SpriteSheet::get_num_sprites()
 {
