@@ -23,7 +23,7 @@ Animation::Animation(AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet, st
    , playspeed_multiplier(1.0f)
    , playhead(0.0f)
    , finished(false)
-   , finished_at(0)
+   , finished_at(0.0f)
    , initialized(false)
 {
 }
@@ -162,6 +162,7 @@ void Animation::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::update: error: guard \"initialized\" not met");
    }
+   if (finished) return;
    // TODO: Pass in a time-now, use a non-fixed FRAME_INCREMENT, or commit to a fixed time-step (possibly higher res)
    const float FRAME_INCREMENT = 1.0f/60.0f;
    playhead += (FRAME_INCREMENT * playspeed_multiplier);
@@ -173,7 +174,7 @@ void Animation::update()
          if (playhead > calculate_duration())
          {
             finished = true;
-            finished_at = al_get_time(); // NOTE: This will crash if al_init is not
+            finished_at = al_get_time(); // NOTE: This will crash if al_init has not been called
          }
       break;
 

@@ -42,7 +42,7 @@ properties:
 
   - name: finished_at
     type: float
-    init_with: 0
+    init_with: 0.0f
     getter: true
 
   - name: PLAYMODE_UNDEF
@@ -148,6 +148,7 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
+      if (finished) return;
       // TODO: Pass in a time-now, use a non-fixed FRAME_INCREMENT, or commit to a fixed time-step (possibly higher res)
       const float FRAME_INCREMENT = 1.0f/60.0f;
       playhead += (FRAME_INCREMENT * playspeed_multiplier);
@@ -159,7 +160,7 @@ functions:
             if (playhead > calculate_duration())
             {
                finished = true;
-               finished_at = al_get_time(); // NOTE: This will crash if al_init is not
+               finished_at = al_get_time(); // NOTE: This will crash if al_init has not been called
             }
          break;
 
