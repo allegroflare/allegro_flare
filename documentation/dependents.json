@@ -142,6 +142,7 @@
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/FlipSync",
+    "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",

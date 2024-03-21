@@ -30,6 +30,7 @@ namespace AllegroFlare
          float playspeed_multiplier;
          float playhead;
          bool finished;
+         float finished_at;
          bool initialized;
          std::pair<int, int> get_frame_info_at(float time=0.0f);
 
@@ -46,6 +47,7 @@ namespace AllegroFlare
          float get_playspeed_multiplier() const;
          float get_playhead() const;
          bool get_finished() const;
+         float get_finished_at() const;
          bool get_initialized() const;
          void initialize();
          void start();

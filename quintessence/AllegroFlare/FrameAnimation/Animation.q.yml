@@ -40,6 +40,11 @@ properties:
     init_with: false
     getter: true
 
+  - name: finished_at
+    type: float
+    init_with: 0
+    getter: true
+
   - name: PLAYMODE_UNDEF
     type: uint32_t
     const: true
@@ -102,9 +107,12 @@ functions:
     guards:
       - (!initialized)
       - sprite_sheet
+      - al_is_system_installed()
     body: |
       initialized = true;
       return;
+    body_dependency_symbols:
+      - al_is_system_installed
 
 
   - name: start
@@ -112,6 +120,7 @@ functions:
     body: |
       playhead = 0.0f;
       finished = false;
+      finished_at = 0.0f;
       return;
 
 
@@ -121,6 +130,7 @@ functions:
       // NOTE: Internally, this is functionally the same as start()
       playhead = 0.0f;
       finished = false;
+      finished_at = 0.0f;
       return;
 
 
@@ -138,6 +148,7 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
+      // TODO: Pass in a time-now, use a non-fixed FRAME_INCREMENT, or commit to a fixed time-step (possibly higher res)
       const float FRAME_INCREMENT = 1.0f/60.0f;
       playhead += (FRAME_INCREMENT * playspeed_multiplier);
 
@@ -145,7 +156,11 @@ functions:
       switch(playmode)
       {
          case PLAYMODE_FORWARD_ONCE:
-           if (playhead > calculate_duration()) finished = true;
+            if (playhead > calculate_duration())
+            {
+               finished = true;
+               finished_at = al_get_time(); // NOTE: This will crash if al_init is not
+            }
          break;
 
          case PLAYMODE_FORWARD_LOOP:
@@ -320,6 +335,8 @@ dependencies:
   - symbol: AllegroFlare::FrameAnimation::SpriteSheet
     headers: [ AllegroFlare/FrameAnimation/SpriteSheet.hpp ]
   - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_system_installed
     headers: [ allegro5/allegro.h ]
   - symbol: fmod
     headers: [ cmath ]

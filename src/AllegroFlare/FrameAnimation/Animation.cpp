@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/FrameAnimation/Animation.hpp>
 
+#include <allegro5/allegro.h>
 #include <cmath>
 #include <iostream>
 #include <sstream>
@@ -22,6 +23,7 @@ Animation::Animation(AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet, st
    , playspeed_multiplier(1.0f)
    , playhead(0.0f)
    , finished(false)
+   , finished_at(0)
    , initialized(false)
 {
 }
@@ -68,6 +70,12 @@ bool Animation::get_finished() const
 }
 
 
+float Animation::get_finished_at() const
+{
+   return finished_at;
+}
+
+
 bool Animation::get_initialized() const
 {
    return initialized;
@@ -90,6 +98,13 @@ void Animation::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::initialize: error: guard \"sprite_sheet\" not met");
    }
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::initialize: error: guard \"al_is_system_installed()\" not met");
+   }
    initialized = true;
    return;
 }
@@ -105,6 +120,7 @@ void Animation::start()
    }
    playhead = 0.0f;
    finished = false;
+   finished_at = 0.0f;
    return;
 }
 
@@ -120,6 +136,7 @@ void Animation::reset()
    // NOTE: Internally, this is functionally the same as start()
    playhead = 0.0f;
    finished = false;
+   finished_at = 0.0f;
    return;
 }
 
@@ -145,6 +162,7 @@ void Animation::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::update: error: guard \"initialized\" not met");
    }
+   // TODO: Pass in a time-now, use a non-fixed FRAME_INCREMENT, or commit to a fixed time-step (possibly higher res)
    const float FRAME_INCREMENT = 1.0f/60.0f;
    playhead += (FRAME_INCREMENT * playspeed_multiplier);
 
@@ -152,7 +170,11 @@ void Animation::update()
    switch(playmode)
    {
       case PLAYMODE_FORWARD_ONCE:
-        if (playhead > calculate_duration()) finished = true;
+         if (playhead > calculate_duration())
+         {
+            finished = true;
+            finished_at = al_get_time(); // NOTE: This will crash if al_init is not
+         }
       break;
 
       case PLAYMODE_FORWARD_LOOP:
