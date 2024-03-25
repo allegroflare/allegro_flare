@@ -210,6 +210,7 @@ ALLEGRO_BITMAP* Book::get_still_frame(std::string tag_name)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Book::get_still_frame: error: guard \"initialized\" not met");
    }
+   // Is this depreciated?
    return find_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
 }
 

@@ -56,7 +56,7 @@ documentation:
      - move "sprite_sheet_scale" property to be listed after "sprite_sheet_cell_width" and "sprite_sheet_cell_height"
 
 
-functions:
+methods:
 
 
   - name: set_png_source_filename
@@ -164,6 +164,7 @@ functions:
         default_argument: '"[unset-tag_name]"'
     guards: [ initialized ]
     body: |
+      // Is this depreciated?
       return find_animation_by_name(tag_name).get_bitmap_at_frame_num(0);
 
 
