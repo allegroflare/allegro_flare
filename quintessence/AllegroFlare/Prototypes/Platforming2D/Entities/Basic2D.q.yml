@@ -66,6 +66,13 @@ properties:
     getter: true
     setter: true
 
+  - name: asset_studio_database
+    type: AllegroFlare::AssetStudio::Database*
+    init_with: nullptr
+    getter: true
+    getter_ref: true
+    setter: true
+
   - name: animation_book
     type: AllegroFlare::FrameAnimation::Book*
     init_with: nullptr
@@ -619,13 +626,42 @@ functions:
       - name: animation_name
         type: std::string
         default_argument: '"[unset-animation_name]"'
-    guards: [ animation_book, animation_book->animation_exists(animation_name) ]
+    guards: [ (animation_book || asset_studio_database) ]
     body: |
-      animation = animation_book->find_animation_by_name(animation_name);
-      animation.initialize();
-      animation.start(); // NOTE: consider if automatic "start" is needed here
-      refresh_bitmap_to_current_animation_frame();
+      if (animation_book && asset_studio_database)
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
+               "This entity contains pointers to both an \"animation_book\" and an \"asset_studio_database\", but "
+                  "only one should be present."
+            );
+      }
+
+      if (animation_book)
+      {
+         if (!animation_book->animation_exists(animation_name))
+         {
+            AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
+                  "The animation \"" + animation_name + "\" does not exist in the \"animation_book\"."
+               );
+         }
+
+         animation = animation_book->find_animation_by_name(animation_name);
+         animation.initialize();
+         animation.start(); // NOTE: consider if automatic "start" is needed here
+         refresh_bitmap_to_current_animation_frame();
+      }
+      else if (asset_studio_database)
+      {
+         animation = *asset_studio_database->find_animation_by_identifier(animation_name);
+         animation.initialize();
+         animation.start(); // NOTE: consider if automatic "start" is needed here
+         refresh_bitmap_to_current_animation_frame();
+      }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
 dependencies:
@@ -661,5 +697,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
   - symbol: AllegroFlare::Shaders::Base
     headers: [ AllegroFlare/Shaders/Base.hpp ]
+  - symbol: AllegroFlare::AssetStudio::Database
+    headers: [ AllegroFlare/AssetStudio/Database.hpp ]
 
 

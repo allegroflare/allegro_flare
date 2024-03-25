@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/AssetStudio/Database.hpp>
 #include <AllegroFlare/FrameAnimation/Animation.hpp>
 #include <AllegroFlare/FrameAnimation/Book.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
@@ -47,6 +48,7 @@ namespace AllegroFlare
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode bitmap_blend_mode;
                AllegroFlare::Shaders::Base* shader;
                AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy;
+               AllegroFlare::AssetStudio::Database* asset_studio_database;
                AllegroFlare::FrameAnimation::Book* animation_book;
                AllegroFlare::FrameAnimation::Animation animation;
                bool draw_debug;
@@ -76,6 +78,7 @@ namespace AllegroFlare
                void set_bitmap_blend_mode(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode bitmap_blend_mode);
                void set_shader(AllegroFlare::Shaders::Base* shader);
                void set_movement_strategy(AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy);
+               void set_asset_studio_database(AllegroFlare::AssetStudio::Database* asset_studio_database);
                void set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book);
                void set_draw_debug(bool draw_debug);
                void set_debug_box_color(ALLEGRO_COLOR debug_box_color);
@@ -88,12 +91,14 @@ namespace AllegroFlare
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode get_bitmap_blend_mode() const;
                AllegroFlare::Shaders::Base* get_shader() const;
                AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* get_movement_strategy() const;
+               AllegroFlare::AssetStudio::Database* get_asset_studio_database() const;
                AllegroFlare::FrameAnimation::Book* get_animation_book() const;
                bool get_draw_debug() const;
                ALLEGRO_COLOR get_debug_box_color() const;
                AllegroFlare::Placement2D &get_place_ref();
                AllegroFlare::Placement2D &get_velocity_ref();
                AllegroFlare::Placement2D &get_bitmap_placement_ref();
+               AllegroFlare::AssetStudio::Database* &get_asset_studio_database_ref();
                AllegroFlare::FrameAnimation::Book* &get_animation_book_ref();
                void set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy="[unset-bitmap_alignment_strategy]");
                virtual void update() override;

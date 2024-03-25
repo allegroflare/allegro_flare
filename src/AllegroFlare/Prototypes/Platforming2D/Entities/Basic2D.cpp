@@ -32,6 +32,7 @@ Basic2D::Basic2D()
    , bitmap_blend_mode(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode::NORMAL)
    , shader(nullptr)
    , movement_strategy(nullptr)
+   , asset_studio_database(nullptr)
    , animation_book(nullptr)
    , animation({})
    , draw_debug(false)
@@ -96,6 +97,12 @@ void Basic2D::set_shader(AllegroFlare::Shaders::Base* shader)
 void Basic2D::set_movement_strategy(AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* movement_strategy)
 {
    this->movement_strategy = movement_strategy;
+}
+
+
+void Basic2D::set_asset_studio_database(AllegroFlare::AssetStudio::Database* asset_studio_database)
+{
+   this->asset_studio_database = asset_studio_database;
 }
 
 
@@ -171,6 +178,12 @@ AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base* B
 }
 
 
+AllegroFlare::AssetStudio::Database* Basic2D::get_asset_studio_database() const
+{
+   return asset_studio_database;
+}
+
+
 AllegroFlare::FrameAnimation::Book* Basic2D::get_animation_book() const
 {
    return animation_book;
@@ -204,6 +217,12 @@ AllegroFlare::Placement2D &Basic2D::get_velocity_ref()
 AllegroFlare::Placement2D &Basic2D::get_bitmap_placement_ref()
 {
    return bitmap_placement;
+}
+
+
+AllegroFlare::AssetStudio::Database* &Basic2D::get_asset_studio_database_ref()
+{
+   return asset_studio_database;
 }
 
 
@@ -664,24 +683,44 @@ int Basic2D::get_current_animation_frame_num()
 
 void Basic2D::set_animation(std::string animation_name)
 {
-   if (!(animation_book))
+   if (!((animation_book || asset_studio_database)))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::set_animation]: error: guard \"animation_book\" not met.";
+      error_message << "[Basic2D::set_animation]: error: guard \"(animation_book || asset_studio_database)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::set_animation: error: guard \"animation_book\" not met");
+      throw std::runtime_error("Basic2D::set_animation: error: guard \"(animation_book || asset_studio_database)\" not met");
    }
-   if (!(animation_book->animation_exists(animation_name)))
+   if (animation_book && asset_studio_database)
    {
-      std::stringstream error_message;
-      error_message << "[Basic2D::set_animation]: error: guard \"animation_book->animation_exists(animation_name)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::set_animation: error: guard \"animation_book->animation_exists(animation_name)\" not met");
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
+            "This entity contains pointers to both an \"animation_book\" and an \"asset_studio_database\", but "
+               "only one should be present."
+         );
    }
-   animation = animation_book->find_animation_by_name(animation_name);
-   animation.initialize();
-   animation.start(); // NOTE: consider if automatic "start" is needed here
-   refresh_bitmap_to_current_animation_frame();
+
+   if (animation_book)
+   {
+      if (!animation_book->animation_exists(animation_name))
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
+               "The animation \"" + animation_name + "\" does not exist in the \"animation_book\"."
+            );
+      }
+
+      animation = animation_book->find_animation_by_name(animation_name);
+      animation.initialize();
+      animation.start(); // NOTE: consider if automatic "start" is needed here
+      refresh_bitmap_to_current_animation_frame();
+   }
+   else if (asset_studio_database)
+   {
+      animation = *asset_studio_database->find_animation_by_identifier(animation_name);
+      animation.initialize();
+      animation.start(); // NOTE: consider if automatic "start" is needed here
+      refresh_bitmap_to_current_animation_frame();
+   }
    return;
 }
 
