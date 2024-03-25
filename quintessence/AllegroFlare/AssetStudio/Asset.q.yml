@@ -1,0 +1,109 @@
+properties:
+
+
+  - name: id
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+  - name: identifier
+    type: std::string
+    init_with: '"[unset-identifier]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: type
+    type: std::string
+    init_with: '"[unset-type]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: description
+    type: std::string
+    init_with: '"[unset-description]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: animation
+    type: AllegroFlare::FrameAnimation::Animation*
+    init_with: nullptr
+    constructor_arg: true
+    exposed: true
+
+  - name: cell_width
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+  - name: cell_height
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+  - name: align_x
+    type: int
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: align_y
+    type: int
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: anchor_x
+    type: int
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: anchor_y
+    type: int
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    exposed: true
+
+  - name: asset_pack_identifier
+    type: std::string
+    init_with: '"[unset-asset_pack_identifier]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: intra_pack_identifier
+    type: std::string
+    init_with: '"[unset-intra_pack_identifier]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: categories
+    type: std::vector<std::string>
+    init_with: ''
+    exposed: true
+
+  - name: tags
+    type: std::vector<std::string>
+    init_with: ''
+    exposed: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FrameAnimation::Animation
+    headers: [ AllegroFlare/FrameAnimation/Animation.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::Book
+    headers: [ AllegroFlare/FrameAnimation/Book.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+
+

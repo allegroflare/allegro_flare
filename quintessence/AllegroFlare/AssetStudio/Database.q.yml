@@ -1,0 +1,80 @@
+properties:
+
+
+  - name: assets
+    type: std::map<std::string, AllegroFlare::AssetStudio::Asset*>
+    init_with: ''
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: asset_exists
+    type: bool
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      return (assets.count(identifier) > 0);
+
+
+  - name: find_asset_by_identifier
+    type: AllegroFlare::AssetStudio::Asset*
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      if (assets.count(identifier) == 0)
+      {
+         AllegroFlare::Errors::throw_error(
+               "AllegroFlare::AssetStudio::Database::find_asset_by_identifier",
+               "No asset exists with the identifier \"" + identifier+ "\""
+            );
+      }
+      return assets[identifier];
+    body_dependency_symbols:
+      - AllegroFlare::Errors
+
+
+  - name: find_animation_by_identifier
+    type: AllegroFlare::FrameAnimation::Animation*
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      if (!asset_exists(identifier))
+      {
+         AllegroFlare::Errors::throw_error(
+               "AllegroFlare::AssetStudio::Database::find_animation_by_identifier",
+               "No asset exists for identifier \"" + identifier+ "\" to evaluate for an animation."
+            );
+      }
+      AllegroFlare::AssetStudio::Asset* asset = find_asset_by_identifier(identifier);
+      if (!asset->animation)
+      {
+         AllegroFlare::Errors::throw_error(
+               "AllegroFlare::AssetStudio::Database::find_animation_by_identifier",
+               "The asset \"" + identifier+ "\" exists but does not contain an animation."
+            );
+      }
+      return asset->animation;
+    body_dependency_symbols:
+      - AllegroFlare::Errors
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Errors
+    headers: [ AllegroFlare/Errors.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::Animation
+    headers: [ AllegroFlare/FrameAnimation/Animation.hpp ]
+  - symbol: AllegroFlare::AssetStudio::Asset
+    headers: [ AllegroFlare/AssetStudio/Asset.hpp ]
+
+

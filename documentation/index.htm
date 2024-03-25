@@ -57,6 +57,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/AI/PromptTemplate.q.yml">quintessence/AllegroFlare/AI/PromptTemplate.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml">quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AllegroContributorsList.q.yml">quintessence/AllegroFlare/AllegroContributorsList.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AssetStudio/Asset.q.yml">quintessence/AllegroFlare/AssetStudio/Asset.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AssetStudio/Database.q.yml">quintessence/AllegroFlare/AssetStudio/Database.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml">quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml</a></li>
@@ -232,6 +235,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml">quintessence/AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Book.q.yml">quintessence/AllegroFlare/FrameAnimation/Book.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/FrameAnimation/Frame.q.yml">quintessence/AllegroFlare/FrameAnimation/Frame.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/FrameAnimation/SpriteStripAssembler.q.yml">quintessence/AllegroFlare/FrameAnimation/SpriteStripAssembler.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameConfigurations/Base.q.yml">quintessence/AllegroFlare/GameConfigurations/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameConfigurations/Complete.q.yml">quintessence/AllegroFlare/GameConfigurations/Complete.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameEvent.q.yml">quintessence/AllegroFlare/GameEvent.q.yml</a></li>
@@ -658,6 +662,279 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AssetStudio/Asset.q.yml">quintessence/AllegroFlare/AssetStudio/Asset.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">description</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">animation</td>
+  <td class="property">AllegroFlare::FrameAnimation::Animation*</td>
+</tr>
+<tr>
+  <td class="property">cell_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cell_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">align_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">align_y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">anchor_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">anchor_y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">asset_pack_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">intra_pack_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">categories</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">tags</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Animation&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Animation.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Book&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Book.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AssetStudio/Database.q.yml">quintessence/AllegroFlare/AssetStudio/Database.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">assets</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>asset_exists</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::AssetStudio::Asset*</td>
+  <td class="method"><b>find_asset_by_identifier</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::FrameAnimation::Animation*</td>
+  <td class="method"><b>find_animation_by_identifier</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Errors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Errors.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Animation&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Animation.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Asset&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Asset.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml">quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">assets_bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">csv_full_path</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">assets</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
+</tr>
+<tr>
+  <td class="property">sprite_sheets</td>
+  <td class="property">std::map&lt;std::tuple&lt;std::string, int, int, int&gt;, AllegroFlare::FrameAnimation::SpriteSheet*&gt;</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
+  <td class="method"><b>get_assets</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>level_exists</b>(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>toi</b>(std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>tof</b>(std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;std::string&gt;</td>
+  <td class="method"><b>comma_separated_quoted_strings_to_vector_of_strings</b>(std::string comma_separated_quoted_strings=&quot;[unset-comma_separated_quoted_strings]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;std::string&gt;</td>
+  <td class="method"><b>comma_separated_strings_to_vector_of_strings</b>(std::string comma_separated_strings=&quot;[unset-comma_separated_strings]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::pair&lt;bool, uint32_t&gt;</td>
+  <td class="method"><b>str_to_playmode</b>(std::string playmode_string=&quot;[unset-playmode_string]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::AssetStudio::Asset*</td>
+  <td class="method"><b>find_level</b>(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>validate_key_and_return</b>(std::map&lt;std::string, std::string&gt;* extracted_row=nullptr, std::string key=&quot;[unset-key]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">AllegroFlare::FrameAnimation::SpriteSheet*</td>
+  <td class="private_method"><b>create_sprite_sheet_from_individual_images</b>(std::vector&lt;std::string&gt; individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int sprite_sheet_scale=2)</td>
+</tr>
+<tr>
+  <td class="private_method">AllegroFlare::FrameAnimation::SpriteSheet*</td>
+  <td class="private_method"><b>obtain_sprite_sheet</b>(std::string filename=&quot;[unset-filename]&quot;, int cell_width=16, int cell_height=16, int sprite_sheet_scale=2)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
+  <td class="method"><b>build_n_frames</b>(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
+  <td class="method"><b>build_frames_from_hash</b>(std::string frame_data_hash=&quot;[unset-frame_data_hash]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">std::vector&lt;std::string&gt;</td>
+  <td class="private_method"><b>split</b>(std::string string=&quot;&quot;, char delimiter=&#39; &#39;)</td>
+</tr>
+<tr>
+  <td class="private_method">std::vector&lt;std::string&gt;</td>
+  <td class="private_method"><b>tokenize</b>(std::string str=&quot;&quot;, char delim=&#39;|&#39;)</td>
+</tr>
+<tr>
+  <td class="private_method">std::string</td>
+  <td class="private_method"><b>trim</b>(std::string s=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::CSVParser&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/CSVParser.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;SurviveTheCity::CSVParser&quot;, &quot;headers&quot;=&gt;[&quot;SurviveTheCity/CSVParser.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Asset&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Asset.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::atoi&quot;, &quot;headers&quot;=&gt;[&quot;cstdlib&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::stof&quot;, &quot;headers&quot;=&gt;[&quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteSheet&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteSheet.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Frame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Frame.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::find_if&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteStripAssembler&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteStripAssembler.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -15721,6 +15998,72 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/FrameAnimation/SpriteStripAssembler.q.yml">quintessence/AllegroFlare/FrameAnimation/SpriteStripAssembler.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmaps</td>
+  <td class="property">std::vector&lt;ALLEGRO_BITMAP*&gt;</td>
+</tr>
+<tr>
+  <td class="property">sprite_strip</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">cell_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cell_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">assembled</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>get_initialized</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_BITMAP*</td>
+  <td class="method"><b>get_sprite_strip</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_cell_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_cell_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>assemble</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -41182,7 +41525,113 @@ table td
     "AllegroFlare/AI/PromptTemplateYAMLLoader",
     "AllegroFlare/YAMLValidator"
   ],
+  "AllegroFlare/FrameAnimation/Animation": [
+    "AllegroFlare/AssetStudio/Asset",
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
+  ],
+  "AllegroFlare/FrameAnimation/Book": [
+    "AllegroFlare/AssetStudio/Asset",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
+  ],
+  "ALLEGRO_BITMAP": [
+    "AllegroFlare/AssetStudio/Asset",
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystem/StagedCharacter/Dynamic",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/Elements/Backgrounds/Basic3D",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ScreenCapture",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
+    "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/FrameAnimation/SpriteStripAssembler",
+    "AllegroFlare/GameSession",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Entity",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/RenderSurfaces/Base",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/ScreenCapture",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Multitexture",
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TileMaps/MultiMesh",
+    "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
+    "AllegroFlare/TransitionFX/Base",
+    "AllegroFlare/WorldMapRenderers/Basic",
+    "Tileo/Shaders/MeshWithNormals",
+    "Wicked/Entities/Basic2D"
+  ],
+  "AllegroFlare/Errors": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
+  "AllegroFlare/AssetStudio/Asset": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/CSVParser": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/UsefulPHP": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "SurviveTheCity/CSVParser": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
   "AllegroFlare/Logger": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/CSVParser",
@@ -41204,6 +41653,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/FrameAnimation/SpriteStripAssembler",
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/GameProgressAndStateInfos/Base",
@@ -41232,113 +41682,14 @@ table td
     "AllegroFlare/WorldMaps/Maps/Basic",
     "AllegroFlare/YAMLValidator"
   ],
-  "AllegroFlare/TerminalColors": [
-    "AllegroFlare/AudioController",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  "std/atoi": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
-  "AllegroFlare/SampleBin": [
-    "AllegroFlare/AudioController",
-    "AllegroFlare/AudioController",
-    "AllegroFlare/Prototypes/CubeShooter/Runner",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
-  ],
-  "AllegroFlare/AudioRepositoryElement": [
-    "AllegroFlare/AudioController"
-  ],
-  "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
-    "AllegroFlare/AudioController"
-  ],
-  "std/map<std/string, AllegroFlare/Sound>": [
-    "AllegroFlare/AudioController"
-  ],
-  "AllegroFlare/Sound": [
-    "AllegroFlare/AudioController",
-    "AllegroFlare/AudioController",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "al_is_audio_initialized": [
-    "AllegroFlare/AudioController"
-  ],
-  "al_is_acodec_addon_initialized": [
-    "AllegroFlare/AudioController",
-    "AllegroFlare/Prototypes/MindDive/Hypersync",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "ALLEGRO_MIXER": [
-    "AllegroFlare/AudioProcessing/AudioDataBlock",
-    "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/AudioProcessing/Filters/AllPass",
-    "AllegroFlare/AudioProcessing/Filters/Delay",
-    "AllegroFlare/Prototypes/MindDive/Hypersync"
-  ],
-  "ALLEGRO_AUDIO_DEPTH": [
-    "AllegroFlare/AudioProcessing/AudioDataBlock",
-    "AllegroFlare/AudioProcessing/AudioMixer"
-  ],
-  "ALLEGRO_CHANNEL_CONF": [
-    "AllegroFlare/AudioProcessing/AudioDataBlock",
-    "AllegroFlare/AudioProcessing/AudioMixer"
-  ],
-  "std/size_t": [
-    "AllegroFlare/AudioProcessing/AudioDataBlock",
-    "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/EncoderDecoders/Base62",
-    "AllegroFlare/Network2/Message",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/TileMaps/MultiMesh"
-  ],
-  "al_is_system_installed": [
-    "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/Bone3DGraphRenderer",
-    "AllegroFlare/Clock",
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/DialogBoxFrame",
-    "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/Elements/NinePatch",
-    "AllegroFlare/Elements/Scrollbar",
-    "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/FlipSync",
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/InputDevicesList",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/NotificationsFactory",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/SyncOracle",
-    "AllegroFlare/Testing/Rulers",
-    "AllegroFlare/Time",
-    "Tileo/TileoTileVertexAllegroVertexDeclaration"
-  ],
-  "al_is_audio_installed": [
-    "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "callback": [
-    "AllegroFlare/AudioProcessing/AudioMixer"
-  ],
-  "AllegroFlare/AudioProcessing/AudioDataBlock": [
-    "AllegroFlare/AudioProcessing/Filters/AllPass",
-    "AllegroFlare/AudioProcessing/Filters/Delay"
-  ],
-  "AllegroFlare/AudioProcessing/AudioMixer": [
-    "AllegroFlare/AudioProcessing/Filters/AllPass",
-    "AllegroFlare/AudioProcessing/Filters/Delay"
+  "std/stof": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "AllegroFlare/BitmapBin": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
@@ -41423,6 +41774,132 @@ table td
     "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
+  ],
+  "AllegroFlare/FrameAnimation/SpriteSheet": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/FrameAnimation/Frame": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
+  ],
+  "std/find_if": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/Network2/URLTokenizer",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/TerminalColors": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/SampleBin": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
+  ],
+  "AllegroFlare/AudioRepositoryElement": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/Sound>": [
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/Sound": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "al_is_audio_initialized": [
+    "AllegroFlare/AudioController"
+  ],
+  "al_is_acodec_addon_initialized": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "ALLEGRO_MIXER": [
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioMixer",
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay",
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_AUDIO_DEPTH": [
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioMixer"
+  ],
+  "ALLEGRO_CHANNEL_CONF": [
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioMixer"
+  ],
+  "std/size_t": [
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioMixer",
+    "AllegroFlare/EncoderDecoders/Base62",
+    "AllegroFlare/Network2/Message",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/TileMaps/MultiMesh"
+  ],
+  "al_is_system_installed": [
+    "AllegroFlare/AudioProcessing/AudioMixer",
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Clock",
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogBoxFrame",
+    "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/FlipSync",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/SpriteStripAssembler",
+    "AllegroFlare/InputDevicesList",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/Rulers",
+    "AllegroFlare/Time",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
+  ],
+  "al_is_audio_installed": [
+    "AllegroFlare/AudioProcessing/AudioMixer",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "callback": [
+    "AllegroFlare/AudioProcessing/AudioMixer"
+  ],
+  "AllegroFlare/AudioProcessing/AudioDataBlock": [
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay"
+  ],
+  "AllegroFlare/AudioProcessing/AudioMixer": [
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay"
   ],
   "AllegroFlare/Elements/Backgrounds/Image": [
     "AllegroFlare/BackgroundFactory"
@@ -41754,14 +42231,6 @@ table td
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
-  "AllegroFlare/UsefulPHP": [
-    "AllegroFlare/CSVParser",
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
-  ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
@@ -41819,71 +42288,6 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
-  ],
-  "ALLEGRO_BITMAP": [
-    "AllegroFlare/Camera2D",
-    "AllegroFlare/ClubCatt/Logo",
-    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base",
-    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
-    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
-    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystem/StagedCharacter/Dynamic",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/Elements/Backgrounds/Basic3D",
-    "AllegroFlare/Elements/Backgrounds/Image",
-    "AllegroFlare/Elements/Backgrounds/Parallax",
-    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
-    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
-    "AllegroFlare/Elements/Backgrounds/ScreenCapture",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
-    "AllegroFlare/Elements/NinePatch",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/GameSession",
-    "AllegroFlare/GraphicsPipelines/Basic3D/Entity",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-    "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
-    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
-    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/RenderSurfaces/Base",
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
-    "AllegroFlare/ScreenCapture",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Subscreen/Element",
-    "AllegroFlare/Screens/Subscreen/Screen",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Transition",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Multitexture",
-    "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/TileMaps/MultiMesh",
-    "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
-    "AllegroFlare/TransitionFX/Base",
-    "AllegroFlare/WorldMapRenderers/Basic",
-    "Tileo/Shaders/MeshWithNormals",
-    "Wicked/Entities/Basic2D"
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
@@ -43541,15 +43945,6 @@ table td
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameConfigurations/Complete"
   ],
-  "AllegroFlare/FrameAnimation/Frame": [
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
-  ],
-  "AllegroFlare/FrameAnimation/SpriteSheet": [
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
-  ],
   "nlohmann/json": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/MotionComposer/MessageFactory",
@@ -43561,17 +43956,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
-  ],
-  "AllegroFlare/Errors": [
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "AllegroFlare/FrameAnimation/Animation": [
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/FrameAnimation/Errors": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
@@ -44045,10 +44429,6 @@ table td
   "std/invalid_argument": [
     "AllegroFlare/Network2/URLTokenizer"
   ],
-  "std/find_if": [
-    "AllegroFlare/Network2/URLTokenizer",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
     "AllegroFlare/Notifications"
   ],
@@ -44410,10 +44790,6 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
-  ],
-  "AllegroFlare/FrameAnimation/Book": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D/BlendMode": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"

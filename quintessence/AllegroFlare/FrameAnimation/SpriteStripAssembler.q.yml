@@ -1,0 +1,136 @@
+properties:
+
+
+  - name: bitmaps
+    type: std::vector<ALLEGRO_BITMAP*>
+    init_with: '{}'
+    getter: true
+    setter: before_initialized
+
+  - name: sprite_strip
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    getter: explicit
+    setter: false
+
+  - name: cell_width
+    type: int
+    init_with: 0
+    getter: explicit
+    setter: false
+
+  - name: cell_height
+    type: int
+    init_with: 0
+    getter: explicit
+    setter: false
+
+  - name: assembled
+    type: bool
+    init_with: false
+
+
+methods:
+
+
+  - name: get_initialized
+    type: bool
+    body: |
+      return assembled;
+
+
+  - name: get_sprite_strip
+    type: ALLEGRO_BITMAP*
+    guards: [ assembled ]
+    body: |
+      return sprite_strip;
+
+
+  - name: get_cell_width
+    type: int
+    guards: [ assembled ]
+    body: |
+      return cell_width;
+
+
+  - name: get_cell_height
+    type: int
+    guards: [ assembled ]
+    body: |
+      return cell_height;
+
+
+  - name: assemble
+    guards: [ al_is_system_installed(), (!assembled), (!bitmaps.empty()) ]
+    body: |
+      // Validate all bitmaps are not nullptr
+      for (auto &bitmap : bitmaps)
+      {
+         if (bitmap == nullptr)
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble"
+               "One of the bitmaps cannot be a nullptr."
+            );
+         }
+      }
+
+      // Validate all bitmaps have the same dimension (based on the inital images dimension)
+      cell_width = al_get_bitmap_width(bitmaps[0]);
+      cell_height = al_get_bitmap_height(bitmaps[0]);
+      for (auto &bitmap : bitmaps)
+      {
+         if (al_get_bitmap_width(bitmap) != cell_width)
+         {
+            // TODO: Test this validation
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble"
+               "All bitmaps must be the same size. There is at least one image that is not the same width."
+            );
+         }
+         if (al_get_bitmap_height(bitmap) != cell_height)
+         {
+            // TODO: Test this validation
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble"
+               "All bitmaps must be the same size. There is at least one image that is not the same height."
+            );
+         }
+      }
+
+      // Create the bitmap
+      ALLEGRO_STATE previous_bitmap_state;
+      // TODO: Consider adding things like bitmap filtering, multisampling and such here, you may need to pass them
+      // as options
+      al_store_state(&previous_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
+      sprite_strip = al_create_bitmap(cell_width * bitmaps.size(), cell_height);
+
+      // Draw each bitmap onto the target
+      al_set_target_bitmap(sprite_strip);
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      int i=0;
+      for (auto &bitmap : bitmaps)
+      {
+         al_draw_bitmap(bitmap, i * cell_width, 0, 0);
+         i++;
+      }
+      al_restore_state(&previous_bitmap_state);
+      
+      assembled = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+      - al_is_system_installed
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+
+

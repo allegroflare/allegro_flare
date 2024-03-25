@@ -15,7 +15,113 @@
     "AllegroFlare/AI/PromptTemplateYAMLLoader",
     "AllegroFlare/YAMLValidator"
   ],
+  "AllegroFlare/FrameAnimation/Animation": [
+    "AllegroFlare/AssetStudio/Asset",
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
+  ],
+  "AllegroFlare/FrameAnimation/Book": [
+    "AllegroFlare/AssetStudio/Asset",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
+  ],
+  "ALLEGRO_BITMAP": [
+    "AllegroFlare/AssetStudio/Asset",
+    "AllegroFlare/Camera2D",
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
+    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystem/StagedCharacter/Dynamic",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/Elements/Backgrounds/Basic3D",
+    "AllegroFlare/Elements/Backgrounds/Image",
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ScreenCapture",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
+    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
+    "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/Elements/StoryboardPages/Image",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/FrameAnimation/SpriteStripAssembler",
+    "AllegroFlare/GameSession",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Entity",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MotionFX/Sparkles2",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
+    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
+    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/RenderSurfaces/Base",
+    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
+    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/ScreenCapture",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/Subscreen/Screen",
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/Transition",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Multitexture",
+    "AllegroFlare/StoryboardFactory",
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/StoryboardPageFactory",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TileMaps/MultiMesh",
+    "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
+    "AllegroFlare/TransitionFX/Base",
+    "AllegroFlare/WorldMapRenderers/Basic",
+    "Tileo/Shaders/MeshWithNormals",
+    "Wicked/Entities/Basic2D"
+  ],
+  "AllegroFlare/Errors": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
+  "AllegroFlare/AssetStudio/Asset": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/CSVParser": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/UsefulPHP": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "SurviveTheCity/CSVParser": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
   "AllegroFlare/Logger": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
     "AllegroFlare/CSVParser",
@@ -37,6 +143,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/FrameAnimation/SpriteStripAssembler",
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/GameProgressAndStateInfos/Base",
@@ -65,113 +172,14 @@
     "AllegroFlare/WorldMaps/Maps/Basic",
     "AllegroFlare/YAMLValidator"
   ],
-  "AllegroFlare/TerminalColors": [
-    "AllegroFlare/AudioController",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  "std/atoi": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
-  "AllegroFlare/SampleBin": [
-    "AllegroFlare/AudioController",
-    "AllegroFlare/AudioController",
-    "AllegroFlare/Prototypes/CubeShooter/Runner",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Screens/InputDeviceConfiguration",
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
-  ],
-  "AllegroFlare/AudioRepositoryElement": [
-    "AllegroFlare/AudioController"
-  ],
-  "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
-    "AllegroFlare/AudioController"
-  ],
-  "std/map<std/string, AllegroFlare/Sound>": [
-    "AllegroFlare/AudioController"
-  ],
-  "AllegroFlare/Sound": [
-    "AllegroFlare/AudioController",
-    "AllegroFlare/AudioController",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "al_is_audio_initialized": [
-    "AllegroFlare/AudioController"
-  ],
-  "al_is_acodec_addon_initialized": [
-    "AllegroFlare/AudioController",
-    "AllegroFlare/Prototypes/MindDive/Hypersync",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "ALLEGRO_MIXER": [
-    "AllegroFlare/AudioProcessing/AudioDataBlock",
-    "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/AudioProcessing/Filters/AllPass",
-    "AllegroFlare/AudioProcessing/Filters/Delay",
-    "AllegroFlare/Prototypes/MindDive/Hypersync"
-  ],
-  "ALLEGRO_AUDIO_DEPTH": [
-    "AllegroFlare/AudioProcessing/AudioDataBlock",
-    "AllegroFlare/AudioProcessing/AudioMixer"
-  ],
-  "ALLEGRO_CHANNEL_CONF": [
-    "AllegroFlare/AudioProcessing/AudioDataBlock",
-    "AllegroFlare/AudioProcessing/AudioMixer"
-  ],
-  "std/size_t": [
-    "AllegroFlare/AudioProcessing/AudioDataBlock",
-    "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/EncoderDecoders/Base62",
-    "AllegroFlare/Network2/Message",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/TileMaps/MultiMesh"
-  ],
-  "al_is_system_installed": [
-    "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/Bone3DGraphRenderer",
-    "AllegroFlare/Clock",
-    "AllegroFlare/Elements/AdvancingText",
-    "AllegroFlare/Elements/DialogBoxFrame",
-    "AllegroFlare/Elements/DialogBoxNameTag",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/Elements/NinePatch",
-    "AllegroFlare/Elements/Scrollbar",
-    "AllegroFlare/Elements/WorldMapViewer",
-    "AllegroFlare/FlipSync",
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/InputDevicesList",
-    "AllegroFlare/InputDiagrams/KeyboardKey",
-    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
-    "AllegroFlare/InputHints",
-    "AllegroFlare/NotificationsFactory",
-    "AllegroFlare/Prototypes/FixedRoom2D/Room",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/SyncOracle",
-    "AllegroFlare/Testing/Rulers",
-    "AllegroFlare/Time",
-    "Tileo/TileoTileVertexAllegroVertexDeclaration"
-  ],
-  "al_is_audio_installed": [
-    "AllegroFlare/AudioProcessing/AudioMixer",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "callback": [
-    "AllegroFlare/AudioProcessing/AudioMixer"
-  ],
-  "AllegroFlare/AudioProcessing/AudioDataBlock": [
-    "AllegroFlare/AudioProcessing/Filters/AllPass",
-    "AllegroFlare/AudioProcessing/Filters/Delay"
-  ],
-  "AllegroFlare/AudioProcessing/AudioMixer": [
-    "AllegroFlare/AudioProcessing/Filters/AllPass",
-    "AllegroFlare/AudioProcessing/Filters/Delay"
+  "std/stof": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "AllegroFlare/BitmapBin": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
@@ -256,6 +264,132 @@
     "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
+  ],
+  "AllegroFlare/FrameAnimation/SpriteSheet": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "AllegroFlare/FrameAnimation/Frame": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
+  ],
+  "std/find_if": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/Network2/URLTokenizer",
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+  ],
+  "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/TerminalColors": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/SampleBin": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/CubeShooter/Runner",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Screens/InputDeviceConfiguration",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
+  ],
+  "AllegroFlare/AudioRepositoryElement": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/AudioRepositoryElement>": [
+    "AllegroFlare/AudioController"
+  ],
+  "std/map<std/string, AllegroFlare/Sound>": [
+    "AllegroFlare/AudioController"
+  ],
+  "AllegroFlare/Sound": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "al_is_audio_initialized": [
+    "AllegroFlare/AudioController"
+  ],
+  "al_is_acodec_addon_initialized": [
+    "AllegroFlare/AudioController",
+    "AllegroFlare/Prototypes/MindDive/Hypersync",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "ALLEGRO_MIXER": [
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioMixer",
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay",
+    "AllegroFlare/Prototypes/MindDive/Hypersync"
+  ],
+  "ALLEGRO_AUDIO_DEPTH": [
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioMixer"
+  ],
+  "ALLEGRO_CHANNEL_CONF": [
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioMixer"
+  ],
+  "std/size_t": [
+    "AllegroFlare/AudioProcessing/AudioDataBlock",
+    "AllegroFlare/AudioProcessing/AudioMixer",
+    "AllegroFlare/EncoderDecoders/Base62",
+    "AllegroFlare/Network2/Message",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/TileMaps/MultiMesh"
+  ],
+  "al_is_system_installed": [
+    "AllegroFlare/AudioProcessing/AudioMixer",
+    "AllegroFlare/Bone3DGraphRenderer",
+    "AllegroFlare/Clock",
+    "AllegroFlare/Elements/AdvancingText",
+    "AllegroFlare/Elements/DialogBoxFrame",
+    "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Elements/Scrollbar",
+    "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/FlipSync",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/SpriteStripAssembler",
+    "AllegroFlare/InputDevicesList",
+    "AllegroFlare/InputDiagrams/KeyboardKey",
+    "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/InputHints",
+    "AllegroFlare/NotificationsFactory",
+    "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/Rulers",
+    "AllegroFlare/Time",
+    "Tileo/TileoTileVertexAllegroVertexDeclaration"
+  ],
+  "al_is_audio_installed": [
+    "AllegroFlare/AudioProcessing/AudioMixer",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "callback": [
+    "AllegroFlare/AudioProcessing/AudioMixer"
+  ],
+  "AllegroFlare/AudioProcessing/AudioDataBlock": [
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay"
+  ],
+  "AllegroFlare/AudioProcessing/AudioMixer": [
+    "AllegroFlare/AudioProcessing/Filters/AllPass",
+    "AllegroFlare/AudioProcessing/Filters/Delay"
   ],
   "AllegroFlare/Elements/Backgrounds/Image": [
     "AllegroFlare/BackgroundFactory"
@@ -587,14 +721,6 @@
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
-  "AllegroFlare/UsefulPHP": [
-    "AllegroFlare/CSVParser",
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
-  ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
@@ -652,71 +778,6 @@
     "AllegroFlare/Camera2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "WickedDemos/TileDemo"
-  ],
-  "ALLEGRO_BITMAP": [
-    "AllegroFlare/Camera2D",
-    "AllegroFlare/ClubCatt/Logo",
-    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base",
-    "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
-    "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
-    "AllegroFlare/DialogSystem/CharacterStagingLayouts/MultiModal",
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystem/StagedCharacter/Dynamic",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/Elements/Backgrounds/Basic3D",
-    "AllegroFlare/Elements/Backgrounds/Image",
-    "AllegroFlare/Elements/Backgrounds/Parallax",
-    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
-    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
-    "AllegroFlare/Elements/Backgrounds/ScreenCapture",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
-    "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
-    "AllegroFlare/Elements/NinePatch",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/Elements/StoryboardPages/Image",
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/GameSession",
-    "AllegroFlare/GraphicsPipelines/Basic3D/Entity",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-    "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MotionFX/Sparkles2",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
-    "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
-    "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
-    "AllegroFlare/Prototypes/MindDive/Hud/Hud",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/RenderSurfaces/Base",
-    "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
-    "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
-    "AllegroFlare/ScreenCapture",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/Subscreen/Element",
-    "AllegroFlare/Screens/Subscreen/Screen",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Screens/Transition",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Multitexture",
-    "AllegroFlare/StoryboardFactory",
-    "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/StoryboardPageFactory",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/TileMaps/MultiMesh",
-    "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
-    "AllegroFlare/TransitionFX/Base",
-    "AllegroFlare/WorldMapRenderers/Basic",
-    "Tileo/Shaders/MeshWithNormals",
-    "Wicked/Entities/Basic2D"
   ],
   "AllegroFlare/Vec2D": [
     "AllegroFlare/Camera2D",
@@ -2374,15 +2435,6 @@
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameConfigurations/Complete"
   ],
-  "AllegroFlare/FrameAnimation/Frame": [
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
-  ],
-  "AllegroFlare/FrameAnimation/SpriteSheet": [
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
-  ],
   "nlohmann/json": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/MotionComposer/MessageFactory",
@@ -2394,17 +2446,6 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
-  ],
-  "AllegroFlare/Errors": [
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "AllegroFlare/FrameAnimation/Animation": [
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/FrameAnimation/Errors": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
@@ -2878,10 +2919,6 @@
   "std/invalid_argument": [
     "AllegroFlare/Network2/URLTokenizer"
   ],
-  "std/find_if": [
-    "AllegroFlare/Network2/URLTokenizer",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
-  ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
     "AllegroFlare/Notifications"
   ],
@@ -3243,10 +3280,6 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/ReflectOffWalls",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/StayStill",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
-  ],
-  "AllegroFlare/FrameAnimation/Book": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D/BlendMode": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
