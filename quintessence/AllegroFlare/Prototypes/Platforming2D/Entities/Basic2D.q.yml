@@ -69,7 +69,6 @@ properties:
   - name: animation_book
     type: AllegroFlare::FrameAnimation::Book*
     init_with: nullptr
-    constructor_arg: true
     getter: true
     getter_ref: true
     setter: true

@@ -65,7 +65,7 @@ namespace AllegroFlare
                float& height;
                float& vx;
                float& vy;
-               Basic2D(AllegroFlare::FrameAnimation::Book* animation_book=nullptr);
+               Basic2D();
                virtual ~Basic2D();
 
                void set_place(AllegroFlare::Placement2D place);

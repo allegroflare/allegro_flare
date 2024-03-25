@@ -21,7 +21,7 @@ namespace Entities
 {
 
 
-Basic2D::Basic2D(AllegroFlare::FrameAnimation::Book* animation_book)
+Basic2D::Basic2D()
    : AllegroFlare::Prototypes::Platforming2D::Entities::Base(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::TYPE)
    , place({})
    , velocity({})
@@ -32,7 +32,7 @@ Basic2D::Basic2D(AllegroFlare::FrameAnimation::Book* animation_book)
    , bitmap_blend_mode(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::BlendMode::NORMAL)
    , shader(nullptr)
    , movement_strategy(nullptr)
-   , animation_book(animation_book)
+   , animation_book(nullptr)
    , animation({})
    , draw_debug(false)
    , debug_box_color(ALLEGRO_COLOR{0, 0.375, 0.75, 0.75})
