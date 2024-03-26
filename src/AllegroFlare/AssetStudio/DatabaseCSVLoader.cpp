@@ -9,6 +9,7 @@
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <algorithm>
 #include <cstdlib>
+#include <filesystem>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -349,8 +350,21 @@ void DatabaseCSVLoader::load()
       throw std::runtime_error("DatabaseCSVLoader::load: error: guard \"assets_bitmap_bin\" not met");
    }
    // Obtain the content from the file and parse it to extractable data
+   if (!std::filesystem::exists(csv_full_path))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         "The file \"" + csv_full_path + "\" does not exist."
+      );
+   }
    std::string content = AllegroFlare::php::file_get_contents(csv_full_path);
-   if (content.empty()) throw std::runtime_error("empty file content");
+   if (content.empty())
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         "The file \"" + csv_full_path + "\" appears to be empty."
+      );
+   }
    AllegroFlare::CSVParser csv_parser;
    csv_parser.set_raw_csv_content(content);
    csv_parser.parse();

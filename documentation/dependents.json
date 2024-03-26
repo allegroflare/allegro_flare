@@ -284,6 +284,15 @@
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
+  "std/filesystem/exists": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
@@ -1420,14 +1429,6 @@
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
-  ],
-  "std/filesystem/exists": [
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
-    "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/DialogSystem/SceneIndex": [
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver"
