@@ -686,16 +686,16 @@ functions:
          {
             AllegroFlare::Logger::throw_error(
                   "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
-                  "The animation \"" + animation_name + "\" was not found in the \"animation_book\" (There \""
-                     "was no \"asset_studio_database\" present to look for the asset in, either.)"
+                  "The animation \"" + animation_name + "\" was not found in the \"animation_book\". (There "
+                     "was no \"asset_studio_database\" present to look in, either.)"
                );
          }
          else if (!animation_book && asset_studio_database)
          {
             AllegroFlare::Logger::throw_error(
                   "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
-                  "The animation \"" + animation_name + "\" was not found in the \"asset_studio_database\" (There \""
-                     "was no \"animation_book\" present to look for the asset in, either.)"
+                  "The animation \"" + animation_name + "\" was not found in the \"asset_studio_database\". (There "
+                     "was no \"animation_book\" present to look in, either.)"
                );
          }
          else if (animation_book && asset_studio_database)
