@@ -628,37 +628,78 @@ functions:
         default_argument: '"[unset-animation_name]"'
     guards: [ (animation_book || asset_studio_database) ]
     body: |
-      if (animation_book && asset_studio_database)
-      {
-         AllegroFlare::Logger::throw_error(
-               "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
-               "This entity contains pointers to both an \"animation_book\" and an \"asset_studio_database\", but "
-                  "only one should be present."
-            );
-      }
+      //if (animation_book && asset_studio_database)
+      //{
+         //AllegroFlare::Logger::throw_error(
+               //"AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
+               //"This entity contains pointers to both an \"animation_book\" and an \"asset_studio_database\", but "
+                  //"only one should be present."
+            //);
+      //}
+
+      //AllegroFlare::Animation *found_animation_book_animation = nullptr;
+      //AllegroFlare::Animation *found_asset_studio_animation = nullptr;
+
+      // Find the asset in the animation_book
+      bool animation_book_animation_found = false;
+      bool asset_studio_database_animation_found = false;
 
       if (animation_book)
       {
          if (!animation_book->animation_exists(animation_name))
          {
-            AllegroFlare::Logger::throw_error(
-                  "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
-                  "The animation \"" + animation_name + "\" does not exist in the \"animation_book\"."
-               );
+            //AllegroFlare::Logger::throw_error(
+                  //"AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
+                  //"The animation \"" + animation_name + "\" does not exist in the \"animation_book\"."
+               //);
          }
+         else
+         {
+            animation = animation_book->find_animation_by_name(animation_name);
+            animation.initialize();
+            animation.start(); // NOTE: consider if automatic "start" is needed here
+            refresh_bitmap_to_current_animation_frame();
+            animation_book_animation_found = true;
+         }
+      }
 
-         animation = animation_book->find_animation_by_name(animation_name);
-         animation.initialize();
-         animation.start(); // NOTE: consider if automatic "start" is needed here
-         refresh_bitmap_to_current_animation_frame();
-      }
-      else if (asset_studio_database)
+      // Find the asset in the asset_studio_database
+      if (asset_studio_database)
       {
-         animation = *asset_studio_database->find_animation_by_identifier(animation_name);
-         animation.initialize();
-         animation.start(); // NOTE: consider if automatic "start" is needed here
-         refresh_bitmap_to_current_animation_frame();
+         if (!animation_book->animation_exists(animation_name))
+         {
+            // Nothing to do
+         }
+         else
+         {
+            animation = *asset_studio_database->find_animation_by_identifier(animation_name);
+            animation.initialize();
+            animation.start(); // NOTE: consider if automatic "start" is needed here
+            refresh_bitmap_to_current_animation_frame();
+            asset_studio_database_animation_found = true;
+         }
       }
+
+      if (!animation_book_animation_found && !asset_studio_database_animation_found)
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
+               "The animation \"" + animation_name + "\" was not found in either the \"animation_book\" or the "
+                  "\"asset_studio_database\"."
+            );
+      }
+
+      if (animation_book_animation_found && asset_studio_database_animation_found)
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation",
+               "The animation \"" + animation_name + "\" was found in both the \"animation_book\" and the "
+                  "\"asset_studio_database\". It is only expected to be in one or the other."
+            );
+      }
+
+      //animation = *found_animation_book_animation;
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
