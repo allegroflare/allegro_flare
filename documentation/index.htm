@@ -824,12 +824,20 @@ table td
   <td class="property">std::map&lt;std::tuple&lt;std::string, int, int, int&gt;, AllegroFlare::FrameAnimation::SpriteSheet*&gt;</td>
 </tr>
 <tr>
+  <td class="property">sprite_sheet_scale</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">loaded</td>
   <td class="property">bool</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>get_initialized</b>()</td>
+</tr>
 <tr>
   <td class="method">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
   <td class="method"><b>get_assets</b>()</td>
@@ -868,11 +876,11 @@ table td
 </tr>
 <tr>
   <td class="private_method">AllegroFlare::FrameAnimation::SpriteSheet*</td>
-  <td class="private_method"><b>create_sprite_sheet_from_individual_images</b>(std::vector&lt;std::string&gt; individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int sprite_sheet_scale=2)</td>
+  <td class="private_method"><b>create_sprite_sheet_from_individual_images</b>(std::vector&lt;std::string&gt; individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2)</td>
 </tr>
 <tr>
   <td class="private_method">AllegroFlare::FrameAnimation::SpriteSheet*</td>
-  <td class="private_method"><b>obtain_sprite_sheet</b>(std::string filename=&quot;[unset-filename]&quot;, int cell_width=16, int cell_height=16, int sprite_sheet_scale=2)</td>
+  <td class="private_method"><b>obtain_sprite_sheet</b>(std::string filename=&quot;[unset-filename]&quot;, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2)</td>
 </tr>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
