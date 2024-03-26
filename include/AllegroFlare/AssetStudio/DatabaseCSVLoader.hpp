@@ -25,9 +25,10 @@ namespace AllegroFlare
          std::string csv_full_path;
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets;
          std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> sprite_sheets;
+         int sprite_sheet_scale;
          bool loaded;
-         AllegroFlare::FrameAnimation::SpriteSheet* create_sprite_sheet_from_individual_images(std::vector<std::string> individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int sprite_sheet_scale=2);
-         AllegroFlare::FrameAnimation::SpriteSheet* obtain_sprite_sheet(std::string filename="[unset-filename]", int cell_width=16, int cell_height=16, int sprite_sheet_scale=2);
+         AllegroFlare::FrameAnimation::SpriteSheet* create_sprite_sheet_from_individual_images(std::vector<std::string> individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
+         AllegroFlare::FrameAnimation::SpriteSheet* obtain_sprite_sheet(std::string filename="[unset-filename]", int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
          static std::vector<std::string> split(std::string string="", char delimiter=' ');
          static std::vector<std::string> tokenize(std::string str="", char delim='|');
          static std::string trim(std::string s="");
@@ -41,8 +42,11 @@ namespace AllegroFlare
 
          void set_assets_bitmap_bin(AllegroFlare::BitmapBin* assets_bitmap_bin);
          void set_csv_full_path(std::string csv_full_path);
+         void set_sprite_sheet_scale(int sprite_sheet_scale);
          AllegroFlare::BitmapBin* get_assets_bitmap_bin() const;
          std::string get_csv_full_path() const;
+         int get_sprite_sheet_scale() const;
+         bool get_initialized();
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_assets();
          bool level_exists(std::string level_identifier="[unset-level_identifier]");
          static int toi(std::string value="[unset-value]");

@@ -31,12 +31,24 @@ properties:
     type: std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*>
     init_with: '{}'
 
+  - name: sprite_sheet_scale
+    type: int
+    init_with: 3
+    getter: true
+    setter: before_initialized
+
   - name: loaded
     type: bool
     init_with: false
     
 
 methods:
+
+
+  - name: get_initialized
+    type: bool
+    body: |
+      return loaded;
 
 
   - name: get_assets
@@ -222,7 +234,7 @@ methods:
       - name: cell_height
         type: int
         default_argument: 16
-      - name: sprite_sheet_scale
+      - name: _sprite_sheet_scale
         type: int
         default_argument: 2
     guards: [ assets_bitmap_bin, (!individual_frame_image_filenames.empty()) ]
@@ -242,7 +254,7 @@ methods:
 
       // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
       AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, sprite_sheet_scale);
+         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
 
       // Cleanup
       al_destroy_bitmap(sprite_strip);
@@ -272,7 +284,7 @@ methods:
       - name: cell_height
         type: int
         default_argument: 16
-      - name: sprite_sheet_scale
+      - name: _sprite_sheet_scale
         type: int
         default_argument: 2
     guards: [ assets_bitmap_bin ]
@@ -280,7 +292,7 @@ methods:
       // TODO: Guard after assets_bitmap_bin is initialized
 
       //std::map<std::tuple<filename, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> cache;
-      std::tuple<std::string, int, int, int> sprite_sheet_key(filename, cell_width, cell_height, sprite_sheet_scale);
+      std::tuple<std::string, int, int, int> sprite_sheet_key(filename, cell_width, cell_height, _sprite_sheet_scale);
       if (sprite_sheets.find(sprite_sheet_key) == sprite_sheets.end())
       {
          // Create sprite sheet
@@ -288,7 +300,7 @@ methods:
                assets_bitmap_bin->auto_get(filename)
             );
          AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-            new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, sprite_sheet_scale);
+            new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
 
          al_destroy_bitmap(sprite_sheet_atlas);
 
@@ -303,7 +315,7 @@ methods:
             ////assets_bitmap_bin.auto_get("grotto_escape_pack/Base pack/graphics/player.png")
          //);
       //AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-         //new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, sprite_sheet_scale);
+         //new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
 
       //al_destroy_bitmap(sprite_sheet_atlas);
 
@@ -478,7 +490,7 @@ methods:
          std::string full_path_to_image_file = "[unprocessed]";
          AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet = nullptr;
          bool using_single_image_file = false;
-         int sprite_sheet_scale = 2;
+         //int sprite_sheet_scale = 2;
 
          if (image_filename.empty() && images_list_raw.empty())
          {
