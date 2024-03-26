@@ -728,7 +728,7 @@ void Basic2D::set_animation(std::string animation_name)
    // Find the asset in the asset_studio_database
    if (asset_studio_database)
    {
-      if (!animation_book->animation_exists(animation_name))
+      if (!asset_studio_database->asset_exists_as_animation(animation_name))
       {
          // Nothing to do
       }

@@ -51,6 +51,14 @@ AllegroFlare::AssetStudio::Asset* Database::find_asset_by_identifier(std::string
    return assets[identifier];
 }
 
+bool Database::asset_exists_as_animation(std::string identifier)
+{
+   if (!(assets.count(identifier) > 0)) return false;
+   AllegroFlare::AssetStudio::Asset* asset = find_asset_by_identifier(identifier);
+   if (asset->animation) return true;
+   return false;
+}
+
 AllegroFlare::FrameAnimation::Animation* Database::find_animation_by_identifier(std::string identifier)
 {
    if (!asset_exists(identifier))

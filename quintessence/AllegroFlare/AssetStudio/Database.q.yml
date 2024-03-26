@@ -40,6 +40,19 @@ methods:
       - AllegroFlare::Errors
 
 
+  - name: asset_exists_as_animation
+    type: bool
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      if (!(assets.count(identifier) > 0)) return false;
+      AllegroFlare::AssetStudio::Asset* asset = find_asset_by_identifier(identifier);
+      if (asset->animation) return true;
+      return false;
+
+
   - name: find_animation_by_identifier
     type: AllegroFlare::FrameAnimation::Animation*
     parameters:

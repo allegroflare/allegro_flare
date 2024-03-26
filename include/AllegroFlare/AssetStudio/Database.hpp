@@ -27,6 +27,7 @@ namespace AllegroFlare
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_assets() const;
          bool asset_exists(std::string identifier="[unset-identifier]");
          AllegroFlare::AssetStudio::Asset* find_asset_by_identifier(std::string identifier="[unset-identifier]");
+         bool asset_exists_as_animation(std::string identifier="[unset-identifier]");
          AllegroFlare::FrameAnimation::Animation* find_animation_by_identifier(std::string identifier="[unset-identifier]");
       };
    }
