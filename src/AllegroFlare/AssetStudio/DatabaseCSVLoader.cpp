@@ -547,8 +547,8 @@ void DatabaseCSVLoader::load()
       }
       //else
       //{
-         std::cout << "- identifier: \"" << identifier << "\"" << std::endl;
-         std::cout << "    playmode: \"" << playmode << "\" -> " << playmode_parsed_data.second << std::endl;
+         //std::cout << "- identifier: \"" << identifier << "\"" << std::endl;
+         //std::cout << "    playmode: \"" << playmode << "\" -> " << playmode_parsed_data.second << std::endl;
       //}
 
       if (playmode_parsed_data.first == false)
@@ -589,6 +589,11 @@ void DatabaseCSVLoader::load()
       asset->type = type;
 
       assets.insert({ asset->identifier, asset });
+
+      // Showing loaded asset
+      std::cout << "Asset \"" << asset->identifier << "\" loaded. "
+                << "Dimensions: (" << asset->cell_width << ", " << asset->cell_height << "), "
+                << "Frames: " << animation->get_num_frames() << std::endl;
 
       // If it's an "icon_set", then also build unique assets for each icon
       int icon_id = 1;
