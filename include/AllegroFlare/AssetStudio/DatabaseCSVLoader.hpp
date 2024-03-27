@@ -26,8 +26,6 @@ namespace AllegroFlare
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets;
          std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> sprite_sheets;
          int sprite_sheet_scale;
-         std::string global_identifier_prefix;
-         bool using_global_identifier_prefix;
          bool loaded;
          AllegroFlare::FrameAnimation::SpriteSheet* create_sprite_sheet_from_individual_images(std::vector<std::string> individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
          AllegroFlare::FrameAnimation::SpriteSheet* obtain_sprite_sheet(std::string filename="[unset-filename]", int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
@@ -48,11 +46,8 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* get_assets_bitmap_bin() const;
          std::string get_csv_full_path() const;
          int get_sprite_sheet_scale() const;
-         std::string get_global_identifier_prefix() const;
-         bool get_using_global_identifier_prefix() const;
          bool get_initialized();
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_assets();
-         void set_global_identifier_prefix(std::string global_identifier_prefix="[unset-global_identifier_prefix]");
          bool level_exists(std::string level_identifier="[unset-level_identifier]");
          static int toi(std::string value="[unset-value]");
          static float tof(std::string value="[unset-value]");

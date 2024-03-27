@@ -30,8 +30,6 @@ DatabaseCSVLoader::DatabaseCSVLoader(AllegroFlare::BitmapBin* assets_bitmap_bin)
    , assets({})
    , sprite_sheets({})
    , sprite_sheet_scale(3)
-   , global_identifier_prefix("[unset-global_identifier_prefix]")
-   , using_global_identifier_prefix(false)
    , loaded(false)
 {
 }
@@ -79,18 +77,6 @@ int DatabaseCSVLoader::get_sprite_sheet_scale() const
 }
 
 
-std::string DatabaseCSVLoader::get_global_identifier_prefix() const
-{
-   return global_identifier_prefix;
-}
-
-
-bool DatabaseCSVLoader::get_using_global_identifier_prefix() const
-{
-   return using_global_identifier_prefix;
-}
-
-
 bool DatabaseCSVLoader::get_initialized()
 {
    return loaded;
@@ -106,20 +92,6 @@ std::map<std::string, AllegroFlare::AssetStudio::Asset*> DatabaseCSVLoader::get_
       throw std::runtime_error("DatabaseCSVLoader::get_assets: error: guard \"loaded\" not met");
    }
    return assets;
-}
-
-void DatabaseCSVLoader::set_global_identifier_prefix(std::string global_identifier_prefix)
-{
-   if (!((!loaded)))
-   {
-      std::stringstream error_message;
-      error_message << "[DatabaseCSVLoader::set_global_identifier_prefix]: error: guard \"(!loaded)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DatabaseCSVLoader::set_global_identifier_prefix: error: guard \"(!loaded)\" not met");
-   }
-   this->global_identifier_prefix = global_identifier_prefix;
-   using_global_identifier_prefix = true;
-   return;
 }
 
 bool DatabaseCSVLoader::level_exists(std::string level_identifier)
@@ -426,8 +398,6 @@ void DatabaseCSVLoader::load()
    {
       std::string visibility = validate_key_and_return(&extracted_row, "visibility");
       std::string identifier = validate_key_and_return(&extracted_row, "identifier");
-
-      if (using_global_identifier_prefix) identifier = global_identifier_prefix + identifier;
 
       // Skip over "hidden" assets
       if (visibility == "hidden")
