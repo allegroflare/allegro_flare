@@ -33,3 +33,16 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
 }
 
 
+TEST(AllegroFlare_AssetStudio_DatabaseTest,
+   prefix_global_identifier_prefix_to_identifier__will_set_using_global_identifier_prefix_to_true)
+{
+   AllegroFlare::AssetStudio::Database database;
+   std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets = { { "foobar", nullptr }, };
+   database.set_assets(assets);
+
+   database.prefix_global_identifier_prefix_to_identifiers("asset_studio::");
+
+   EXPECT_EQ(true, database.get_using_global_identifier_prefix());
+}
+
+
