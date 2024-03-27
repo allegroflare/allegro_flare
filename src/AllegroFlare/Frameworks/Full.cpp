@@ -205,7 +205,7 @@ VideoBin &Full::get_video_bin_ref()
 }
 
 
-AllegroFlare::AssetStudio::Database &Full::get_asset_studio_database()
+AllegroFlare::AssetStudio::Database &Full::get_asset_studio_database_ref()
 {
    return asset_studio_database;
 }
