@@ -31,6 +31,7 @@
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp>
 #include <AllegroFlare/DisplaySettingsInterfaces/Live.hpp>
+#include <AllegroFlare/AssetStudio/DatabaseCSVLoader.hpp>
 
 
 
@@ -56,6 +57,8 @@ Full::Full()
    , icon_bin()
    , models()
    , video_bin()
+   , asset_studio_database()
+   , asset_studio_bitmap_bin()
    , motions(200)
    , audio_controller(&samples)
    , event_emitter()
@@ -199,6 +202,12 @@ ModelBin &Full::get_model_bin_ref()
 VideoBin &Full::get_video_bin_ref()
 {
    return video_bin;
+}
+
+
+AllegroFlare::AssetStudio::Database &Full::get_asset_studio_database()
+{
+   return asset_studio_database;
 }
 
 
@@ -395,6 +404,31 @@ bool Full::initialize_core_system()
    icon_bin.set_path(data_folder_path + "icons");
    models.set_path(data_folder_path + "models");
    video_bin.set_path(data_folder_path + "videos");
+
+   // Set the path for the asset_studio. If not in production, use the global resource. Assets should be copied out
+   // of the global resource at production-time. SourceReleaser should validate there are no global resource-referenced
+   // assets.
+   std::string assets_full_path = "[unset-assets_full_path]";
+   std::string ASSETS_DB_CSV_FILENAME = "assets_db.csv";
+   if (deployment_environment.is_production())
+   {
+      assets_full_path = data_folder_path + "asset";
+      asset_studio_bitmap_bin.set_path(assets_full_path);
+   }
+   else
+   {
+      assets_full_path = "/Users/markoates/Assets/";
+      asset_studio_bitmap_bin.set_full_path(assets_full_path);
+   }
+
+   // Load in the "assets_db.csv" file
+   // TODO: Have the DatabaseCSVLoader *not* build the assets. This should probably be done in some "load" and
+   // "unload" steps within the game's system.  The database's content should be fixed, however.
+   AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+   loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+   loader.set_sprite_sheet_scale(3);
+   loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
+   loader.load();
 
    // Add our config (which is currently unused)
    config.load_or_create_empty(output_auto_created_config_warning);
@@ -986,6 +1020,7 @@ bool Full::shutdown()
    fonts.clear();
    models.clear();
    video_bin.clear();
+   asset_studio_bitmap_bin.clear();
 
    event_callbacks.clear();
 
