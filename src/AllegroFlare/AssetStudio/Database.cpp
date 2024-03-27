@@ -16,7 +16,7 @@ namespace AssetStudio
 
 Database::Database()
    : assets()
-   , global_identifier_prefix("[unset-global_identifier_prefix]")
+   , global_identifier_prefix(DEFAULT_GLOBAL_IDENTIFIER_PREFIX)
    , using_global_identifier_prefix(false)
 {
 }
@@ -53,6 +53,28 @@ bool Database::get_using_global_identifier_prefix() const
 
 void Database::set_global_identifier_prefix(std::string global_identifier_prefix)
 {
+   if (!((!using_global_identifier_prefix)))
+   {
+      std::stringstream error_message;
+      error_message << "[Database::set_global_identifier_prefix]: error: guard \"(!using_global_identifier_prefix)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Database::set_global_identifier_prefix: error: guard \"(!using_global_identifier_prefix)\" not met");
+   }
+   if (using_global_identifier_prefix) remove_global_identifier_prefixes();
+   this->global_identifier_prefix = global_identifier_prefix;
+   prefix_global_identifier_prefix_to_identifiers(this->global_identifier_prefix);
+   return;
+}
+
+void Database::remove_global_identifier_prefix()
+{
+   if (!(using_global_identifier_prefix))
+   {
+      std::stringstream error_message;
+      error_message << "[Database::remove_global_identifier_prefix]: error: guard \"using_global_identifier_prefix\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Database::remove_global_identifier_prefix: error: guard \"using_global_identifier_prefix\" not met");
+   }
    if (using_global_identifier_prefix) remove_global_identifier_prefixes();
    return;
 }
@@ -60,15 +82,11 @@ void Database::set_global_identifier_prefix(std::string global_identifier_prefix
 std::set<std::string> Database::asset_identifiers()
 {
    std::set<std::string> result;
-   //if (using_global_identifier_prefix) remove_global_identifier_prefixes();
-   for (auto &asset : assets)
-   {
-      result.insert(asset.first);
-   }
+   for (auto &asset : assets) result.insert(asset.first);
    return result;
 }
 
-void Database::remove_global_identifier_prefixes(std::string identifier)
+void Database::remove_global_identifier_prefixes()
 {
    if (!(using_global_identifier_prefix))
    {
@@ -77,7 +95,24 @@ void Database::remove_global_identifier_prefixes(std::string identifier)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Database::remove_global_identifier_prefixes: error: guard \"using_global_identifier_prefix\" not met");
    }
-   // TODO: This method
+   int prefix_length = global_identifier_prefix.length();
+
+   // Pull out the keys first
+   std::vector<std::string> asset_keys;
+   for (auto &asset : assets)
+   {
+      asset_keys.push_back(asset.first);
+   }
+
+   // Go through each key, and remove n characters from the front of each key
+   for (auto &asset_key : asset_keys)
+   {
+      auto extracted_asset_element = assets.extract(asset_key);
+      extracted_asset_element.key() = extracted_asset_element.key().substr(prefix_length);
+      // TODO: Validate new key does not already exist
+      assets.insert(std::move(extracted_asset_element));
+   }
+
    using_global_identifier_prefix = false;
    return;
 }
@@ -101,12 +136,13 @@ void Database::prefix_global_identifier_prefix_to_identifiers(std::string prefix
    // Go through each key, and rename
    for (auto &asset_key : asset_keys)
    {
-      auto extracted_asset_record = assets.extract(asset_key);
-      extracted_asset_record.key() = prefix + asset_key;
+      auto extracted_asset_element = assets.extract(asset_key);
+      extracted_asset_element.key() = prefix + asset_key;
       // TODO: Validate new key does not already exist
-      assets.insert(std::move(extracted_asset_record));
+      assets.insert(std::move(extracted_asset_element));
    }
 
+   global_identifier_prefix = prefix; // TODO: Test this assignment
    using_global_identifier_prefix = true;
    return;
 }

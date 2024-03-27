@@ -9,7 +9,7 @@ properties:
 
   - name: global_identifier_prefix
     type: std::string
-    init_with: '"[unset-global_identifier_prefix]"'
+    init_with: DEFAULT_GLOBAL_IDENTIFIER_PREFIX
     getter: true
     setter: explicit
 
@@ -17,6 +17,12 @@ properties:
     type: bool
     init_with: false
     getter: true
+
+  - name: DEFAULT_GLOBAL_IDENTIFIER_PREFIX
+    type: char*
+    init_with: '(char*)"asset_studio::"'
+    static: true
+    constexpr: true
 
 
 methods:
@@ -26,7 +32,17 @@ methods:
     parameters:
       - name: global_identifier_prefix
         type: std::string
-        default_argument: '"[unset-global_identifier_prefix]"'
+        default_argument: DEFAULT_GLOBAL_IDENTIFIER_PREFIX
+    guards: [ (!using_global_identifier_prefix) ]
+    body: |
+      if (using_global_identifier_prefix) remove_global_identifier_prefixes();
+      this->global_identifier_prefix = global_identifier_prefix;
+      prefix_global_identifier_prefix_to_identifiers(this->global_identifier_prefix);
+      return;
+
+
+  - name: remove_global_identifier_prefix
+    guards: [ using_global_identifier_prefix ]
     body: |
       if (using_global_identifier_prefix) remove_global_identifier_prefixes();
       return;
@@ -36,29 +52,38 @@ methods:
     type: std::set<std::string>
     body: |
       std::set<std::string> result;
-      //if (using_global_identifier_prefix) remove_global_identifier_prefixes();
-      for (auto &asset : assets)
-      {
-         result.insert(asset.first);
-      }
+      for (auto &asset : assets) result.insert(asset.first);
       return result;
 
 
   - name: remove_global_identifier_prefixes
     private: true
-    parameters:
-      - name: identifier
-        type: std::string
-        default_argument: '"[unset-identifier]"'
     guards: [ using_global_identifier_prefix ]
     body: |
-      // TODO: This method
+      int prefix_length = global_identifier_prefix.length();
+
+      // Pull out the keys first
+      std::vector<std::string> asset_keys;
+      for (auto &asset : assets)
+      {
+         asset_keys.push_back(asset.first);
+      }
+    
+      // Go through each key, and remove n characters from the front of each key
+      for (auto &asset_key : asset_keys)
+      {
+         auto extracted_asset_element = assets.extract(asset_key);
+         extracted_asset_element.key() = extracted_asset_element.key().substr(prefix_length);
+         // TODO: Validate new key does not already exist
+         assets.insert(std::move(extracted_asset_element));
+      }
+
       using_global_identifier_prefix = false;
       return;
 
 
   - name: prefix_global_identifier_prefix_to_identifiers
-    xprivate: true
+    private: true
     parameters:
       - name: prefix
         type: std::string
@@ -81,6 +106,7 @@ methods:
          assets.insert(std::move(extracted_asset_element));
       }
 
+      global_identifier_prefix = prefix; // TODO: Test this assignment
       using_global_identifier_prefix = true;
       return;
 
