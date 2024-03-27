@@ -37,6 +37,17 @@ properties:
     getter: true
     setter: before_initialized
 
+  - name: global_identifier_prefix
+    type: std::string
+    init_with: '"[unset-global_identifier_prefix]"'
+    getter: true
+    setter: explicit
+
+  - name: using_global_identifier_prefix
+    type: bool
+    init_with: false
+    getter: true
+
   - name: loaded
     type: bool
     init_with: false
@@ -56,6 +67,18 @@ methods:
     guards: [ loaded ]
     body: |
       return assets;
+
+
+  - name: set_global_identifier_prefix
+    guards: [ (!loaded) ]
+    parameters:
+      - name: global_identifier_prefix
+        type: std::string
+        default_argument: '"[unset-global_identifier_prefix]"'
+    body: |
+      this->global_identifier_prefix = global_identifier_prefix;
+      using_global_identifier_prefix = true;
+      return;
 
 
   - name: level_exists
@@ -395,6 +418,8 @@ methods:
       {
          std::string visibility = validate_key_and_return(&extracted_row, "visibility");
          std::string identifier = validate_key_and_return(&extracted_row, "identifier");
+
+         if (using_global_identifier_prefix) identifier = global_identifier_prefix + identifier;
 
          // Skip over "hidden" assets
          if (visibility == "hidden")
