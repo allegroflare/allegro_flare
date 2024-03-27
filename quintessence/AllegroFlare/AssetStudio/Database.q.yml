@@ -7,8 +7,85 @@ properties:
     getter: true
     setter: true
 
+  - name: global_identifier_prefix
+    type: std::string
+    init_with: '"[unset-global_identifier_prefix]"'
+    getter: true
+    setter: explicit
+
+  - name: using_global_identifier_prefix
+    type: bool
+    init_with: false
+    getter: true
+
 
 methods:
+
+
+  - name: set_global_identifier_prefix
+    parameters:
+      - name: global_identifier_prefix
+        type: std::string
+        default_argument: '"[unset-global_identifier_prefix]"'
+    body: |
+      if (using_global_identifier_prefix) remove_global_identifier_prefixes();
+      return;
+
+
+  - name: asset_identifiers
+    type: std::set<std::string>
+    body: |
+      std::set<std::string> result;
+      //if (using_global_identifier_prefix) remove_global_identifier_prefixes();
+      for (auto &asset : assets)
+      {
+         result.insert(asset.first);
+      }
+      return result;
+
+
+  - name: remove_global_identifier_prefixes
+    private: true
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    guards: [ using_global_identifier_prefix ]
+    body: |
+      // TODO: This method
+      using_global_identifier_prefix = false;
+      return;
+
+
+  - name: prefix_global_identifier_prefix_to_identifiers
+    xprivate: true
+    parameters:
+      - name: prefix
+        type: std::string
+        default_argument: '"[unset-prefix]"'
+    guards: [ (!using_global_identifier_prefix) ]
+    body: |
+      // TODO: This method
+      std::vector<std::string> asset_keys;
+      for (auto &asset : assets)
+      {
+         asset_keys.push_back(asset.first);
+         //std::map<int, std::string> m{ {10, "potato"}, {1, "banana"} };
+         //auto nodeHandler = asset.extract(10);
+         //nodeHandler.key() = 2;
+         //asset.insert(std::move(nodeHandler)); // { { 1, "banana" }, { 2, "potato" } }
+      }
+
+      for (auto &asset_key : asset_keys)
+      {
+         auto nodeHandler = assets.extract(asset_key);
+         nodeHandler.key() = prefix + asset_key;
+         // TODO: Validate new key does not already exist
+         assets.insert(std::move(nodeHandler)); // { { 1, "banana" }, { 2, "potato" } }
+      }
+
+      using_global_identifier_prefix = true;
+      return;
 
 
   - name: asset_exists

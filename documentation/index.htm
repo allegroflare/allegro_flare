@@ -765,9 +765,33 @@ table td
   <td class="property">assets</td>
   <td class="property">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
 </tr>
+<tr>
+  <td class="property">global_identifier_prefix</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">using_global_identifier_prefix</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_global_identifier_prefix</b>(std::string global_identifier_prefix=&quot;[unset-global_identifier_prefix]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::set&lt;std::string&gt;</td>
+  <td class="method"><b>asset_identifiers</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>remove_global_identifier_prefixes</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>prefix_global_identifier_prefix_to_identifiers</b>(std::string prefix=&quot;[unset-prefix]&quot;)</td>
+</tr>
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>asset_exists</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
