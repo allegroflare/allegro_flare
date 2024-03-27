@@ -91,23 +91,20 @@ void Database::prefix_global_identifier_prefix_to_identifiers(std::string prefix
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Database::prefix_global_identifier_prefix_to_identifiers: error: guard \"(!using_global_identifier_prefix)\" not met");
    }
-   // TODO: This method
+   // Pull out the keys first
    std::vector<std::string> asset_keys;
    for (auto &asset : assets)
    {
       asset_keys.push_back(asset.first);
-      //std::map<int, std::string> m{ {10, "potato"}, {1, "banana"} };
-      //auto nodeHandler = asset.extract(10);
-      //nodeHandler.key() = 2;
-      //asset.insert(std::move(nodeHandler)); // { { 1, "banana" }, { 2, "potato" } }
    }
 
+   // Go through each key, and rename
    for (auto &asset_key : asset_keys)
    {
-      auto nodeHandler = assets.extract(asset_key);
-      nodeHandler.key() = prefix + asset_key;
+      auto extracted_asset_record = assets.extract(asset_key);
+      extracted_asset_record.key() = prefix + asset_key;
       // TODO: Validate new key does not already exist
-      assets.insert(std::move(nodeHandler)); // { { 1, "banana" }, { 2, "potato" } }
+      assets.insert(std::move(extracted_asset_record));
    }
 
    using_global_identifier_prefix = true;
