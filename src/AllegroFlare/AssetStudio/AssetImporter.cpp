@@ -145,7 +145,7 @@ void AssetImporter::import()
       // Handle multiple image sources
       for (auto &image_list_item : asset->images_list)
       {
-         std::string path_to_asset = asset->asset_pack_identifier + "/extracted/" + image_list_item;
+         std::string path_to_asset = image_list_item; // TODO: Figure out why "/extracted/" is needed above 
          images_to_copy.push_back(path_to_asset);
       }
    }
