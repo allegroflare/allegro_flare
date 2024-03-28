@@ -87,6 +87,10 @@ void AssetImporter::import()
       throw std::runtime_error("AssetImporter::import: error: guard \"asset_studio_database\" not met");
    }
    // Check the presence of the source_directory
+   // Postfis '/' for certainty
+   //source_directory = source_directory + "/";
+   //destination_directory = destination_directory + "/"
+
    if (!std::filesystem::exists(source_directory))
    {
       AllegroFlare::Logger::throw_error(
@@ -134,11 +138,19 @@ void AssetImporter::import()
    std::vector<std::string> images_to_copy;
    if (asset->has_single_source_image())
    {
-      images_to_copy.push_back(asset->image_filename);
+      images_to_copy.push_back(
+                            asset->asset_pack_identifier
+                            + "/extracted/"
+                            //+ asset->intra_pack_identifier
+                            //+ "/"
+                            + asset->image_filename
+         );
    }
    else if (asset->has_single_source_image())
    {
-      images_to_copy = asset->images_list;
+      // TODO: Append multiple images
+      images_to_copy =
+                                           asset->images_list;
    }
    else
    {
@@ -156,8 +168,28 @@ void AssetImporter::import()
          );
    }
 
-   // TODO: Get files from asset and copy into the game's directory
    // HERE
+   // TODO: Create the directories if they do not exist (assuming the ./bin/data/assets/ directory exists)
+   //     use std::filesystem::create_directories(...)
+
+   for (auto &image_to_copy : images_to_copy)
+   {
+      std::cout << "Copying \"" << image_to_copy << "\"..." << std::endl;
+      //std::cout << "   from: \"" << << "\"" << std::endl;
+      //std::cout << "     to: \"" << << "\"" << std::endl;
+      std::string full_path_to_source_file = source_directory
+                                           + "/"
+                                           + image_to_copy;
+      std::string full_path_to_destination_file = destination_directory
+                                                + "/"
+                                                + image_to_copy;
+      std::cout << "   from: \"" << full_path_to_source_file << "\"" << std::endl;
+      std::cout << "     to: \"" << full_path_to_destination_file << "\"" << std::endl;
+      std::filesystem::copy_file(full_path_to_source_file, full_path_to_destination_file);
+      std::cout << "...copy successful." << std::endl;
+      //std::cout << "Copying
+      //std::filesystem::copy_file(images
+   }
 
    return;
 }
