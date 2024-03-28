@@ -408,41 +408,73 @@ bool Full::initialize_core_system()
    // Set the path for the asset_studio. If not in production, use the global resource. Assets should be copied out
    // of the global resource at production-time. SourceReleaser should validate there are no global resource-referenced
    // assets.
+   bool using_global_assets = true;
    std::string assets_full_path = "[unset-assets_full_path]";
    std::string ASSETS_DB_CSV_FILENAME = "assets_db.csv";
-   if (deployment_environment.is_production())
+   //if (deployment_environment.is_production())
+   //{
+      // Set the local assets
+      //bool using_global_assets = false;
+
+   int sprite_sheet_scale = 3;
+
+   // Set the local assets
    {
-      assets_full_path = data_folder_path + "asset";
+      assets_full_path = data_folder_path + "assets/";
       asset_studio_bitmap_bin.set_path(assets_full_path);
+      AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+      loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+      loader.set_sprite_sheet_scale(sprite_sheet_scale);
+      loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
+      loader.load();
+      asset_studio_database.set_local_assets(loader.get_assets());
+
+      // Can the bitmap_bin be cleared here?
    }
-   else
+   //}
+
+   //else
+   // Load global assets
+   if (!deployment_environment.is_production())
    {
-      assets_full_path = "/Users/markoates/Assets/";
+      //bool using_global_assets = false;
+      assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
       asset_studio_bitmap_bin.set_full_path(assets_full_path);
+      AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+      loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+      loader.set_sprite_sheet_scale(sprite_sheet_scale);
+      loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
+      loader.load();
+
+      asset_studio_database.set_global_assets(loader.get_assets());
+      //assets_full_path = "/Users/markoates/Assets/";
+      asset_studio_bitmap_bin.set_full_path(assets_full_path);
+      asset_studio_database.set_global_identifier_prefix(
+            AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
+         );
+
+      // Can the bitmap_bin be cleared here?
    }
 
    // Load in the "assets_db.csv" file
    // TODO: Have the DatabaseCSVLoader *not* build the assets. This should probably be done in some "load" and
-   // "unload" steps within the game's system.  The database's content should be fixed, however.
-   AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
-   loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
-   loader.set_sprite_sheet_scale(3);
-   loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
-   loader.load();
-   asset_studio_database.set_global_assets(loader.get_assets());
-   if (deployment_environment.is_production())
-   {
-      //asset_studio_database.set_assets(loader.get_assets());
+   // "unload" steps within the game's system.  The database's content should be static, however.
+   //AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+   //loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+   //loader.set_sprite_sheet_scale(3);
+   //loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
+   //loader.load();
+   //asset_studio_database.set_global_assets(loader.get_assets());
+   //if (deployment_environment.is_production())
+   //{
+      //// Do nothing
+   //}
+   //else
+   //{
       //asset_studio_database.set_global_identifier_prefix(
             //AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
          //);
-   }
-   else
-   {
-      asset_studio_database.set_global_identifier_prefix(
-            AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
-         );
-   }
+   //}
 
    // Add our config (which is currently unused)
    config.load_or_create_empty(output_auto_created_config_warning);

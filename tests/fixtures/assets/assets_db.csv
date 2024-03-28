@@ -1,0 +1,3 @@
+id,status,visibility,identifier,asset_pack_identifier,intra_pack_identifier,cell_width,cell_height,align_x,align_y,anchor_x,anchor_y,image_filename,images_list,full_path_to_initial_image,type,frame_data,,,,playmode,extracted_palette_data,notes
+,,,,,,,,,,,,,,,,build_n_frames,build_n_frames,build_n_frames,in_hash,,,
+,,,,,,,,,,,,,,,,num_frames,start_from_frame,each_frame_duration,,,,
