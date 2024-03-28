@@ -1,0 +1,45 @@
+properties:
+
+
+  - name: asset_identifier
+    type: std::string
+    init_with: '"[unset-asset_identifier]"'
+    getter: true
+    setter: true
+
+  - name: asset_studio_database
+    type: AllegroFlare::AssetStudio::Database*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: import
+    guards: [ asset_studio_database ]
+    body: |
+      if (!asset_studio_database->asset_exists(asset_identifier))
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::AssetStudio::AssetImporter::import",
+               "The asset \"" + asset_identifier + "\" does not exist."
+            );
+      }
+      // TODO: Get files from asset and copy into the game's directory
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::AssetStudio::Database
+    headers: [ AllegroFlare/AssetStudio/Database.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+
+
