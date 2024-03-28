@@ -175,8 +175,6 @@ void AssetImporter::import()
    for (auto &image_to_copy : images_to_copy)
    {
       std::cout << "Copying \"" << image_to_copy << "\"..." << std::endl;
-      //std::cout << "   from: \"" << << "\"" << std::endl;
-      //std::cout << "     to: \"" << << "\"" << std::endl;
       std::string full_path_to_source_file = source_directory
                                            + "/"
                                            + image_to_copy;
@@ -187,8 +185,6 @@ void AssetImporter::import()
       std::cout << "     to: \"" << full_path_to_destination_file << "\"" << std::endl;
       std::filesystem::copy_file(full_path_to_source_file, full_path_to_destination_file);
       std::cout << "...copy successful." << std::endl;
-      //std::cout << "Copying
-      //std::filesystem::copy_file(images
    }
 
    return;
