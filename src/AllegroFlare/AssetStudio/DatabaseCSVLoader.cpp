@@ -488,6 +488,8 @@ void DatabaseCSVLoader::load()
 
 
 
+      std::vector<std::string> images_list = {};
+
       // Load the image (or images) data
 
       std::string full_path_to_image_file = "[unprocessed]";
@@ -521,7 +523,7 @@ void DatabaseCSVLoader::load()
          // TODO: Handle this case:
          // TODO: Split
          //std::string full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
-         std::vector<std::string> images_list = comma_separated_strings_to_vector_of_strings(images_list_raw);
+         images_list = comma_separated_strings_to_vector_of_strings(images_list_raw);
 
          //std::cout << "*** images_list detected ***" << std::endl;
          //std::cout << "  - images_list.size(): " << images_list.size() << std::endl;
@@ -620,6 +622,8 @@ void DatabaseCSVLoader::load()
       asset->asset_pack_identifier= asset_pack_identifier;
       asset->intra_pack_identifier= intra_pack_identifier;
       asset->type = type;
+      asset->image_filename = image_filename;
+      asset->images_list = images_list;
 
       assets.insert({ asset->identifier, asset });
 

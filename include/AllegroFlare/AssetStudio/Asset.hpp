@@ -24,6 +24,8 @@ namespace AllegroFlare
          std::string type;
          std::string description;
          AllegroFlare::FrameAnimation::Animation* animation;
+         std::string image_filename;
+         std::vector<std::string> images_list;
          int cell_width;
          int cell_height;
          int align_x;
@@ -35,7 +37,7 @@ namespace AllegroFlare
          std::string intra_pack_identifier;
          std::vector<std::string> categories;
          std::vector<std::string> tags;
-         Asset(int id=0, std::string identifier="[unset-identifier]", std::string type="[unset-type]", std::string description="[unset-description]", AllegroFlare::FrameAnimation::Animation* animation=nullptr, int cell_width=0, int cell_height=0, int align_x=0.0f, int align_y=0.0f, int anchor_x=0.0f, int anchor_y=0.0f, ALLEGRO_BITMAP* bitmap=nullptr, std::string asset_pack_identifier="[unset-asset_pack_identifier]", std::string intra_pack_identifier="[unset-intra_pack_identifier]");
+         Asset(int id=0, std::string identifier="[unset-identifier]", std::string type="[unset-type]", std::string description="[unset-description]", AllegroFlare::FrameAnimation::Animation* animation=nullptr, std::string image_filename="[unset-image_filename]", std::vector<std::string> images_list={}, int cell_width=0, int cell_height=0, int align_x=0.0f, int align_y=0.0f, int anchor_x=0.0f, int anchor_y=0.0f, ALLEGRO_BITMAP* bitmap=nullptr, std::string asset_pack_identifier="[unset-asset_pack_identifier]", std::string intra_pack_identifier="[unset-intra_pack_identifier]");
          ~Asset();
 
       };

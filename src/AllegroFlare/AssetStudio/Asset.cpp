@@ -11,12 +11,14 @@ namespace AssetStudio
 {
 
 
-Asset::Asset(int id, std::string identifier, std::string type, std::string description, AllegroFlare::FrameAnimation::Animation* animation, int cell_width, int cell_height, int align_x, int align_y, int anchor_x, int anchor_y, ALLEGRO_BITMAP* bitmap, std::string asset_pack_identifier, std::string intra_pack_identifier)
+Asset::Asset(int id, std::string identifier, std::string type, std::string description, AllegroFlare::FrameAnimation::Animation* animation, std::string image_filename, std::vector<std::string> images_list, int cell_width, int cell_height, int align_x, int align_y, int anchor_x, int anchor_y, ALLEGRO_BITMAP* bitmap, std::string asset_pack_identifier, std::string intra_pack_identifier)
    : id(id)
    , identifier(identifier)
    , type(type)
    , description(description)
    , animation(animation)
+   , image_filename(image_filename)
+   , images_list(images_list)
    , cell_width(cell_width)
    , cell_height(cell_height)
    , align_x(align_x)

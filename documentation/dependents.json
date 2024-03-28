@@ -95,32 +95,12 @@
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
-  "AllegroFlare/Errors": [
-    "AllegroFlare/AssetStudio/Database",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "AllegroFlare/AssetStudio/Asset": [
-    "AllegroFlare/AssetStudio/Database",
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
-  ],
-  "AllegroFlare/CSVParser": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
-  ],
-  "AllegroFlare/UsefulPHP": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
-    "AllegroFlare/CSVParser",
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
-  ],
-  "SurviveTheCity/CSVParser": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  "AllegroFlare/AssetStudio/Database": [
+    "AllegroFlare/AssetStudio/AssetImporter",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/Logger": [
+    "AllegroFlare/AssetStudio/AssetImporter",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
@@ -171,6 +151,31 @@
     "AllegroFlare/WorldMaps/Maps/Base",
     "AllegroFlare/WorldMaps/Maps/Basic",
     "AllegroFlare/YAMLValidator"
+  ],
+  "AllegroFlare/Errors": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
+  "AllegroFlare/AssetStudio/Asset": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/CSVParser": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/UsefulPHP": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "SurviveTheCity/CSVParser": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "std/atoi": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
@@ -3283,9 +3288,6 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D/BlendMode": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
-  ],
-  "AllegroFlare/AssetStudio/Database": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/vec2d": [

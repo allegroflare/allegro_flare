@@ -31,6 +31,18 @@ properties:
     constructor_arg: true
     exposed: true
 
+  - name: image_filename
+    type: std::string
+    init_with: '"[unset-image_filename]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: images_list
+    type: std::vector<std::string>
+    init_with: '{}'
+    constructor_arg: true
+    exposed: true
+
   - name: cell_width
     type: int
     init_with: 0

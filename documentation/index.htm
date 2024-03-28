@@ -58,6 +58,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml">quintessence/AllegroFlare/AI/PromptTemplateYAMLLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AllegroContributorsList.q.yml">quintessence/AllegroFlare/AllegroContributorsList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AssetStudio/Asset.q.yml">quintessence/AllegroFlare/AssetStudio/Asset.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AssetStudio/AssetImporter.q.yml">quintessence/AllegroFlare/AssetStudio/AssetImporter.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AssetStudio/Database.q.yml">quintessence/AllegroFlare/AssetStudio/Database.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml">quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
@@ -692,6 +693,14 @@ table td
   <td class="property">AllegroFlare::FrameAnimation::Animation*</td>
 </tr>
 <tr>
+  <td class="property">image_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">images_list</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
   <td class="property">cell_width</td>
   <td class="property">int</td>
 </tr>
@@ -749,6 +758,41 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AssetStudio/AssetImporter.q.yml">quintessence/AllegroFlare/AssetStudio/AssetImporter.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">asset_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">asset_studio_database</td>
+  <td class="property">AllegroFlare::AssetStudio::Database*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>import</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Database&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Database.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -41659,32 +41703,12 @@ table td
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
-  "AllegroFlare/Errors": [
-    "AllegroFlare/AssetStudio/Database",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "AllegroFlare/AssetStudio/Asset": [
-    "AllegroFlare/AssetStudio/Database",
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
-  ],
-  "AllegroFlare/CSVParser": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
-  ],
-  "AllegroFlare/UsefulPHP": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
-    "AllegroFlare/CSVParser",
-    "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
-  ],
-  "SurviveTheCity/CSVParser": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  "AllegroFlare/AssetStudio/Database": [
+    "AllegroFlare/AssetStudio/AssetImporter",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/Logger": [
+    "AllegroFlare/AssetStudio/AssetImporter",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/AudioController",
     "AllegroFlare/AudioController",
@@ -41735,6 +41759,31 @@ table td
     "AllegroFlare/WorldMaps/Maps/Base",
     "AllegroFlare/WorldMaps/Maps/Basic",
     "AllegroFlare/YAMLValidator"
+  ],
+  "AllegroFlare/Errors": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
+  ],
+  "AllegroFlare/AssetStudio/Asset": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/CSVParser": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/UsefulPHP": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/DialogTree/BasicScreenplayTextLoader",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
+  "SurviveTheCity/CSVParser": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "std/atoi": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
@@ -44847,9 +44896,6 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D/BlendMode": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
-  ],
-  "AllegroFlare/AssetStudio/Database": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
   ],
   "AllegroFlare/vec2d": [
