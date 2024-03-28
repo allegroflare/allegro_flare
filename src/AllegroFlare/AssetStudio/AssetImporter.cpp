@@ -169,21 +169,22 @@ void AssetImporter::import()
    // Copy the files
    for (auto &image_to_copy : images_to_copy)
    {
-      // TODO: Create the directories for this file if they do not exist (assuming the "./bin/data/assets/"
-      // directory exists as was checked earlier)
-      std::cout << "Creating the directories for \"" << image_to_copy << "\"..." << std::endl;
+      std::string full_destination_file = destination_directory + "/" + image_to_copy;
+      std::string full_path_to_source_file = source_directory + "/" + image_to_copy;
+      std::string full_path_to_destination_file = full_destination_file;
 
-      std::cout << "Copying \"" << image_to_copy << "\"..." << std::endl;
-      std::string full_path_to_source_file = source_directory
-                                           + "/"
-                                           + image_to_copy;
-      std::string full_path_to_destination_file = destination_directory
-                                                + "/"
-                                                + image_to_copy;
-      std::cout << "   from: \"" << full_path_to_source_file << "\"" << std::endl;
-      std::cout << "     to: \"" << full_path_to_destination_file << "\"" << std::endl;
+      // Create the directories for this file if they do not exist (assuming the "./bin/data/assets/"
+      // directory exists as was checked earlier)
+      std::cout << "  - Creating the directories for \"" << full_destination_file << "\"..." << std::endl;
+      create_directories_to_filename(full_destination_file);
+      std::cout << "    ...directories created successfully." << std::endl;
+
+      // Copy the actual file
+      std::cout << "  - Copying \"" << image_to_copy << "\"..." << std::endl;
+      std::cout << "       from: \"" << full_path_to_source_file << "\"" << std::endl;
+      std::cout << "         to: \"" << full_path_to_destination_file << "\"" << std::endl;
       std::filesystem::copy_file(full_path_to_source_file, full_path_to_destination_file);
-      std::cout << "...copy successful." << std::endl;
+      std::cout << "    ...copy successful." << std::endl;
    }
 
    return;
@@ -197,7 +198,7 @@ void AssetImporter::create_directories_to_filename(std::string filename_with_pat
    try
    {
        std::filesystem::create_directories(path); // Recursively create directories
-       std::cout << "...directories for \"" << path << "\" created successfully." << std::endl;
+       //std::cout << "...directories for \"" << path << "\" created successfully." << std::endl;
    }
    catch (const std::exception& e)
    {
