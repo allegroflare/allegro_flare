@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 
    // Create the asset_studio_database
    AllegroFlare::AssetStudio::Database asset_studio_database;
-   asset_studio_database.set_assets(loader.get_assets());
+   asset_studio_database.set_global_assets(loader.get_assets());
 
    // Create the AssetImporter
    AllegroFlare::AssetStudio::AssetImporter asset_importer;

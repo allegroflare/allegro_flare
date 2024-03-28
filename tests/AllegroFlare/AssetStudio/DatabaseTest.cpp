@@ -14,12 +14,12 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
    set_global_identifier_prefix__will_add_the_prefix_to_all_the_identifiers)
 {
    AllegroFlare::AssetStudio::Database database;
-   std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets = {
+   std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets = {
       { "foobar", nullptr },
       { "boobaz", nullptr },
       { "blabla", nullptr },
    };
-   database.set_assets(assets);
+   database.set_global_assets(global_assets);
    database.set_global_identifier_prefix("asset_studio::");
 
    std::set<std::string> expected_asset_identifiers = {
@@ -34,12 +34,12 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
    remove_global_identifier_prefix__will_remove_the_prefix_that_is_currently_in_place_from_all_identifiers)
 {
    AllegroFlare::AssetStudio::Database database;
-   std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets = {
+   std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets = {
       { "foobar", nullptr },
       { "boobaz", nullptr },
       { "blabla", nullptr },
    };
-   database.set_assets(assets);
+   database.set_global_assets(global_assets);
    database.set_global_identifier_prefix("asset_studio::");
    //database.prefix_global_identifier_prefix_to_identifiers("asset_studio::");
 
@@ -60,13 +60,13 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
 {
    AllegroFlare::AssetStudio::Database database;
 
-   std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets = {
+   std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets = {
       { "foobar", nullptr },
       { "boobaz", nullptr },
       { "blabla", nullptr },
    };
 
-   database.set_assets(assets);
+   database.set_global_assets(global_assets);
    database.prefix_global_identifier_prefix_to_identifiers("asset_studio::");
 
    std::set<std::string> expected_asset_identifiers = {
@@ -83,8 +83,8 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
    DISABLED__prefix_global_identifier_prefix_to_identifier__will_set_using_global_identifier_prefix_to_true)
 {
    AllegroFlare::AssetStudio::Database database;
-   std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets = { { "foobar", nullptr }, };
-   database.set_assets(assets);
+   std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets = { { "foobar", nullptr }, };
+   database.set_global_assets(global_assets);
 
    database.prefix_global_identifier_prefix_to_identifiers("asset_studio::");
 
@@ -97,12 +97,12 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
    DISABLED__remove_global_identifier_prefixes__will_remove_the_prefix_that_is_currently_in_place_from_all_identifiers)
 {
    AllegroFlare::AssetStudio::Database database;
-   std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets = {
+   std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets = {
       { "foobar", nullptr },
       { "boobaz", nullptr },
       { "blabla", nullptr },
    };
-   database.set_assets(assets);
+   database.set_global_assets(global_assets);
    database.prefix_global_identifier_prefix_to_identifiers("asset_studio::");
 
    database.remove_global_identifier_prefixes();

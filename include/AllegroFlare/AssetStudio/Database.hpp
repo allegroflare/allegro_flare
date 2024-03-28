@@ -18,7 +18,8 @@ namespace AllegroFlare
          static constexpr char* DEFAULT_GLOBAL_IDENTIFIER_PREFIX = (char*)"asset_studio::";
 
       private:
-         std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets;
+         std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets;
+         std::map<std::string, AllegroFlare::AssetStudio::Asset*> local_assets;
          std::string global_identifier_prefix;
          bool using_global_identifier_prefix;
          void remove_global_identifier_prefixes();
@@ -31,8 +32,10 @@ namespace AllegroFlare
          Database();
          ~Database();
 
-         void set_assets(std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets);
-         std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_assets() const;
+         void set_global_assets(std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets);
+         void set_local_assets(std::map<std::string, AllegroFlare::AssetStudio::Asset*> local_assets);
+         std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_global_assets() const;
+         std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_local_assets() const;
          std::string get_global_identifier_prefix() const;
          bool get_using_global_identifier_prefix() const;
          void set_global_identifier_prefix(std::string global_identifier_prefix=DEFAULT_GLOBAL_IDENTIFIER_PREFIX);

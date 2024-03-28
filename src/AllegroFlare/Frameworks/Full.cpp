@@ -429,7 +429,7 @@ bool Full::initialize_core_system()
    loader.set_sprite_sheet_scale(3);
    loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
    loader.load();
-   asset_studio_database.set_assets(loader.get_assets());
+   asset_studio_database.set_global_assets(loader.get_assets());
    if (deployment_environment.is_production())
    {
       //asset_studio_database.set_assets(loader.get_assets());

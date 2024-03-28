@@ -15,7 +15,8 @@ namespace AssetStudio
 
 
 Database::Database()
-   : assets()
+   : global_assets()
+   , local_assets()
    , global_identifier_prefix(DEFAULT_GLOBAL_IDENTIFIER_PREFIX)
    , using_global_identifier_prefix(false)
 {
@@ -27,15 +28,27 @@ Database::~Database()
 }
 
 
-void Database::set_assets(std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets)
+void Database::set_global_assets(std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets)
 {
-   this->assets = assets;
+   this->global_assets = global_assets;
 }
 
 
-std::map<std::string, AllegroFlare::AssetStudio::Asset*> Database::get_assets() const
+void Database::set_local_assets(std::map<std::string, AllegroFlare::AssetStudio::Asset*> local_assets)
 {
-   return assets;
+   this->local_assets = local_assets;
+}
+
+
+std::map<std::string, AllegroFlare::AssetStudio::Asset*> Database::get_global_assets() const
+{
+   return global_assets;
+}
+
+
+std::map<std::string, AllegroFlare::AssetStudio::Asset*> Database::get_local_assets() const
+{
+   return local_assets;
 }
 
 
@@ -82,7 +95,8 @@ void Database::remove_global_identifier_prefix()
 std::set<std::string> Database::asset_identifiers()
 {
    std::set<std::string> result;
-   for (auto &asset : assets) result.insert(asset.first);
+   for (auto &asset : global_assets) result.insert(asset.first);
+   for (auto &asset : local_assets) result.insert(asset.first);
    return result;
 }
 
@@ -99,7 +113,7 @@ void Database::remove_global_identifier_prefixes()
 
    // Pull out the keys first
    std::vector<std::string> asset_keys;
-   for (auto &asset : assets)
+   for (auto &asset : global_assets)
    {
       asset_keys.push_back(asset.first);
    }
@@ -107,10 +121,10 @@ void Database::remove_global_identifier_prefixes()
    // Go through each key, and remove n characters from the front of each key
    for (auto &asset_key : asset_keys)
    {
-      auto extracted_asset_element = assets.extract(asset_key);
+      auto extracted_asset_element = global_assets.extract(asset_key);
       extracted_asset_element.key() = extracted_asset_element.key().substr(prefix_length);
       // TODO: Validate new key does not already exist
-      assets.insert(std::move(extracted_asset_element));
+      global_assets.insert(std::move(extracted_asset_element));
    }
 
    using_global_identifier_prefix = false;
@@ -128,7 +142,7 @@ void Database::prefix_global_identifier_prefix_to_identifiers(std::string prefix
    }
    // Pull out the keys first
    std::vector<std::string> asset_keys;
-   for (auto &asset : assets)
+   for (auto &asset : global_assets)
    {
       asset_keys.push_back(asset.first);
    }
@@ -136,10 +150,10 @@ void Database::prefix_global_identifier_prefix_to_identifiers(std::string prefix
    // Go through each key, and rename
    for (auto &asset_key : asset_keys)
    {
-      auto extracted_asset_element = assets.extract(asset_key);
+      auto extracted_asset_element = global_assets.extract(asset_key);
       extracted_asset_element.key() = prefix + asset_key;
       // TODO: Validate new key does not already exist
-      assets.insert(std::move(extracted_asset_element));
+      global_assets.insert(std::move(extracted_asset_element));
    }
 
    global_identifier_prefix = prefix; // TODO: Test this assignment
@@ -149,24 +163,26 @@ void Database::prefix_global_identifier_prefix_to_identifiers(std::string prefix
 
 bool Database::asset_exists(std::string identifier)
 {
-   return (assets.count(identifier) > 0);
+   return (local_assets.count(identifier) > 0) || (global_assets.count(identifier) > 0);
 }
 
 AllegroFlare::AssetStudio::Asset* Database::find_asset_by_identifier(std::string identifier)
 {
-   if (assets.count(identifier) == 0)
-   {
-      AllegroFlare::Errors::throw_error(
-            "AllegroFlare::AssetStudio::Database::find_asset_by_identifier",
-            "No asset exists with the identifier \"" + identifier+ "\""
-         );
-   }
-   return assets[identifier];
+   if (local_assets.count(identifier) != 0) return local_assets[identifier];
+   if (global_assets.count(identifier) != 0) return global_assets[identifier];
+
+   AllegroFlare::Errors::throw_error(
+         "AllegroFlare::AssetStudio::Database::find_asset_by_identifier",
+         "No asset exists with the identifier \"" + identifier+ "\""
+      );
+
+   return nullptr;
 }
 
 bool Database::asset_exists_as_animation(std::string identifier)
 {
-   if (!(assets.count(identifier) > 0)) return false;
+   if (!(local_assets.count(identifier) > 0)) return false;
+   if (!(global_assets.count(identifier) > 0)) return false;
    AllegroFlare::AssetStudio::Asset* asset = find_asset_by_identifier(identifier);
    if (asset->animation) return true;
    return false;
