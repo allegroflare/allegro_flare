@@ -87,10 +87,6 @@ void AssetImporter::import()
       throw std::runtime_error("AssetImporter::import: error: guard \"asset_studio_database\" not met");
    }
    // Check the presence of the source_directory
-   // Postfis '/' for certainty
-   //source_directory = source_directory + "/";
-   //destination_directory = destination_directory + "/"
-
    if (!std::filesystem::exists(source_directory))
    {
       AllegroFlare::Logger::throw_error(
@@ -138,19 +134,20 @@ void AssetImporter::import()
    std::vector<std::string> images_to_copy;
    if (asset->has_single_source_image())
    {
-      images_to_copy.push_back(
-                            asset->asset_pack_identifier
-                            + "/extracted/"
-                            //+ asset->intra_pack_identifier
-                            //+ "/"
-                            + asset->image_filename
-         );
+      // TODO: Test this case
+      // Handle single image source
+      std::string path_to_asset = asset->asset_pack_identifier + "/extracted/" + asset->image_filename;
+      images_to_copy.push_back(path_to_asset);
    }
-   else if (asset->has_single_source_image())
+   else if (asset->has_multiple_source_images())
    {
-      // TODO: Append multiple images
-      images_to_copy =
-                                           asset->images_list;
+      // TODO: Test this case
+      // Handle multiple image sources
+      for (auto &image_list_item : asset->images_list)
+      {
+         std::string path_to_asset = asset->asset_pack_identifier + "/extracted/" + image_list_item;
+         images_to_copy.push_back(path_to_asset);
+      }
    }
    else
    {
@@ -160,6 +157,7 @@ void AssetImporter::import()
          );
    }
 
+   // Check that any images were actually provided up to this point
    if (images_to_copy.empty())
    {
       AllegroFlare::Logger::throw_error(
@@ -168,12 +166,13 @@ void AssetImporter::import()
          );
    }
 
-   // HERE
-   // TODO: Create the directories if they do not exist (assuming the ./bin/data/assets/ directory exists)
-   //     use std::filesystem::create_directories(...)
-
+   // Copy the files
    for (auto &image_to_copy : images_to_copy)
    {
+      // TODO: Create the directories for this file if they do not exist (assuming the "./bin/data/assets/"
+      // directory exists as was checked earlier)
+      std::cout << "Creating the directories for \"" << image_to_copy << "\"..." << std::endl;
+
       std::cout << "Copying \"" << image_to_copy << "\"..." << std::endl;
       std::string full_path_to_source_file = source_directory
                                            + "/"
@@ -187,6 +186,23 @@ void AssetImporter::import()
       std::cout << "...copy successful." << std::endl;
    }
 
+   return;
+}
+
+void AssetImporter::create_directories_to_filename(std::string filename_with_path)
+{
+   std::filesystem::path path(filename_with_path);
+   path.remove_filename();
+
+   try
+   {
+       std::filesystem::create_directories(path); // Recursively create directories
+       std::cout << "...directories for \"" << path << "\" created successfully." << std::endl;
+   }
+   catch (const std::exception& e)
+   {
+       std::cerr << "...failed to create directories. The following error was raised: " << e.what() << std::endl;
+   }
    return;
 }
 

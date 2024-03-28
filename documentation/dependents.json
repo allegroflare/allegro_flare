@@ -95,6 +95,11 @@
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
+  "std/filesystem": [
+    "AllegroFlare/AssetStudio/AssetImporter",
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Logger"
+  ],
   "std/filesystem/exists": [
     "AllegroFlare/AssetStudio/AssetImporter",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
@@ -1013,10 +1018,6 @@
   ],
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
-  ],
-  "std/filesystem": [
-    "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Logger"
   ],
   "AllegroFlare/DesignSystems/DesignPillar": [
     "AllegroFlare/DesignSystems/DesignFocus",

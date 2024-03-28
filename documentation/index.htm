@@ -809,9 +809,16 @@ table td
   <td class="method">void</td>
   <td class="method"><b>import</b>()</td>
 </tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>create_directories_to_filename</b>(std::string filename_with_path=&quot;[unset-create_directories]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
 </tr>
@@ -41734,6 +41741,11 @@ table td
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
+  "std/filesystem": [
+    "AllegroFlare/AssetStudio/AssetImporter",
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Logger"
+  ],
   "std/filesystem/exists": [
     "AllegroFlare/AssetStudio/AssetImporter",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
@@ -42652,10 +42664,6 @@ table td
   ],
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
-  ],
-  "std/filesystem": [
-    "AllegroFlare/DeploymentEnvironment",
-    "AllegroFlare/Logger"
   ],
   "AllegroFlare/DesignSystems/DesignPillar": [
     "AllegroFlare/DesignSystems/DesignFocus",

@@ -37,6 +37,7 @@ namespace AllegroFlare
          std::string get_source_directory() const;
          std::string get_destination_directory() const;
          void import();
+         static void create_directories_to_filename(std::string filename_with_path="[unset-create_directories]");
       };
    }
 }
