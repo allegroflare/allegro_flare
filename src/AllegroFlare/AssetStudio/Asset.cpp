@@ -39,6 +39,15 @@ Asset::~Asset()
 }
 
 
+bool Asset::has_single_source_image()
+{
+   return !image_filename.empty() && images_list.empty();
+}
+
+bool Asset::has_multiple_source_images()
+{
+   return image_filename.empty() && (!images_list.empty());
+}
 
 
 } // namespace AssetStudio

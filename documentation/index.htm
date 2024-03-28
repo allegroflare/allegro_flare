@@ -747,6 +747,14 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>has_single_source_image</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>has_multiple_source_images</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -771,12 +779,28 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">asset_studio_database</td>
+  <td class="property">AllegroFlare::AssetStudio::Database*</td>
+</tr>
+<tr>
   <td class="property">asset_identifier</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">asset_studio_database</td>
-  <td class="property">AllegroFlare::AssetStudio::Database*</td>
+  <td class="property">source_directory</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">destination_directory</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_SOURCE_DIRECTORY</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_DESTINATION_DIRECTORY</td>
+  <td class="property">char*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -788,6 +812,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Database&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Database.hpp&quot;]}</td>
 </tr>
@@ -41703,6 +41730,16 @@ table td
     "Tileo/Shaders/MeshWithNormals",
     "Wicked/Entities/Basic2D"
   ],
+  "std/filesystem/exists": [
+    "AllegroFlare/AssetStudio/AssetImporter",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "Tileo/TMJDataLoader"
+  ],
   "AllegroFlare/AssetStudio/Database": [
     "AllegroFlare/AssetStudio/AssetImporter",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D"
@@ -41896,15 +41933,6 @@ table td
   ],
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
-  ],
-  "std/filesystem/exists": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
-    "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
-    "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",

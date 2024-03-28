@@ -108,6 +108,21 @@ properties:
     exposed: true
 
 
+methods:
+
+
+  - name: has_single_source_image
+    type: bool
+    body: |
+      return !image_filename.empty() && images_list.empty();
+
+
+  - name: has_multiple_source_images
+    type: bool
+    body: |
+      return image_filename.empty() && (!images_list.empty());
+
+
 dependencies:
 
 

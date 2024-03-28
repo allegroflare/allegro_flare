@@ -1,18 +1,43 @@
 properties:
 
 
-  - name: asset_identifier
-    type: std::string
-    init_with: '"[unset-asset_identifier]"'
-    getter: true
-    setter: true
-
   - name: asset_studio_database
     type: AllegroFlare::AssetStudio::Database*
     constructor_arg: true
     init_with: nullptr
     getter: true
     setter: true
+
+  - name: asset_identifier
+    type: std::string
+    constructor_arg: true
+    init_with: '"[unset-asset_identifier]"'
+    getter: true
+    setter: true
+
+  - name: source_directory
+    type: std::string
+    init_with: DEFAULT_SOURCE_DIRECTORY
+    getter: true
+    setter: true
+
+  - name: destination_directory
+    type: std::string
+    init_with: DEFAULT_DESTINATION_DIRECTORY
+    getter: true
+    setter: true
+
+  - name: DEFAULT_SOURCE_DIRECTORY
+    type: char*
+    init_with: '(char*)"/Users/markoates/Assets/"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_DESTINATION_DIRECTORY
+    type: char*
+    init_with: '(char*)"./bin/data/assets/"'
+    static: true
+    constexpr: true
 
 
 methods:
@@ -21,6 +46,39 @@ methods:
   - name: import
     guards: [ asset_studio_database ]
     body: |
+      // Check the presence of the source_directory
+      if (!std::filesystem::exists(source_directory))
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::AssetStudio::AssetImporter::import",
+               "The source asset directory \"" + source_directory + "\" does not exist."
+            );
+      }
+      if (!std::filesystem::is_directory(source_directory))
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::AssetStudio::AssetImporter::import",
+               "The source asset directory \"" + source_directory + "\" exists but is not a folder."
+            );
+      }
+
+      // Check the presence of the destination_directory
+      if (!std::filesystem::exists(destination_directory))
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::AssetStudio::AssetImporter::import",
+               "The asset destination directory \"" + destination_directory + "\" does not exist."
+            );
+      }
+      if (!std::filesystem::is_directory(destination_directory))
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::AssetStudio::AssetImporter::import",
+               "The asset destination directory \"" + destination_directory + "\" exists but is not a folder."
+            );
+      }
+
+      // Check that the asset exists in the database
       if (!asset_studio_database->asset_exists(asset_identifier))
       {
          AllegroFlare::Logger::throw_error(
@@ -28,15 +86,50 @@ methods:
                "The asset \"" + asset_identifier + "\" does not exist."
             );
       }
+
+      // Grab the asset
+      AllegroFlare::AssetStudio::Asset *asset = asset_studio_database->find_asset_by_identifier(asset_identifier);
+
+      // Obtain the image filenames that need to be copied
+      std::vector<std::string> images_to_copy;
+      if (asset->has_single_source_image())
+      {
+         images_to_copy.push_back(asset->image_filename);
+      }
+      else if (asset->has_single_source_image())
+      {
+         images_to_copy = asset->images_list;
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::AssetStudio::AssetImporter::import",
+               "Weird error. Could not infer if asset uses a single source image or multiple source images."
+            );
+      }
+
+      if (images_to_copy.empty())
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::AssetStudio::AssetImporter::import",
+               "Weird error. When retrieving images to import, no images were present witin the asset's listing."
+            );
+      }
+
       // TODO: Get files from asset and copy into the game's directory
+      // HERE
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
+      - std::filesystem::exists
 
 
 dependencies:
 
 
+  - symbol: std::filesystem::exists
+    headers: [ filesystem ]
   - symbol: AllegroFlare::AssetStudio::Database
     headers: [ AllegroFlare/AssetStudio/Database.hpp ]
   - symbol: AllegroFlare::Logger
