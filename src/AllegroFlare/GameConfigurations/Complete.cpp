@@ -464,7 +464,27 @@ std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> Complete::b
    rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
    return result;
    */
-   return {};
+
+   AllegroFlare::Elements::RollingCredits::SectionFactory section_factory;
+   std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> result = {
+      section_factory.create_spacer(),
+
+      section_factory.create_text(
+         "A game by Mark Oates"
+      ),
+
+      section_factory.create_spacer(),
+
+      section_factory.create_text(
+         "Thank you for playing."
+      ),
+
+   };
+   //rolling_credits_screen.append_sections(section_factory.create_standard_disclaimers_text());
+   return result;
+
+
+   //return {};
 }
 
 bool Complete::is_type(std::string possible_type)
