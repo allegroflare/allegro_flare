@@ -264,6 +264,8 @@ AllegroFlare::Physics::TileMapCollisionStepper &Screen::get_collision_stepper_re
 
 void Screen::clear()
 {
+   // TODO: Be sure to call AllegroFlare::Prototypes::Platforming2D::Screen::clear in your class's override
+
    AllegroFlare::Logger::info_from(
       "AllegroFlare::Prototypes::Platforming2D::Screen::clear",
       "Deleting all entities in entity_pool."
