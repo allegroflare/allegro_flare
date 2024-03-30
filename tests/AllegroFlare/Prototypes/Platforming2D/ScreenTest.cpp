@@ -160,6 +160,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
    framework.run_loop(16);
    //framework.run_loop(3);
+   platforming_2d.clear();
    framework.shutdown();
 }
 

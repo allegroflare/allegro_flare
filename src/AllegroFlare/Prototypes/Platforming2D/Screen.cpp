@@ -262,6 +262,39 @@ AllegroFlare::Physics::TileMapCollisionStepper &Screen::get_collision_stepper_re
 }
 
 
+void Screen::clear()
+{
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::Prototypes::Platforming2D::Screen::clear",
+      "Deleting all entities in entity_pool."
+   );
+
+   for (auto &entity : entity_pool)
+   {
+      delete entity;
+   }
+   entity_pool.clear();
+
+   // Clear our caches
+   currently_active_map = nullptr;
+   currently_active_map_name = "[unset-currently_active_map_name]";
+   if (entity_control_connector) delete entity_control_connector;
+   entity_control_connector = nullptr;
+   player_controlled_entity = nullptr;
+   last_activated_save_point = nullptr;
+
+   // Empty the map dictionary
+   map_dictionary.clear();
+   maps_loaded = false;
+
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::Prototypes::Platforming2D::Screen::clear",
+      "Clear process concluded successfully."
+   );
+
+   return;
+}
+
 void Screen::set_currently_active_map(std::string name)
 {
    currently_active_map = find_map_by_name(name);

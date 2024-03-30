@@ -113,6 +113,7 @@ namespace AllegroFlare
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> &get_entity_pool_ref();
             AllegroFlare::Camera2D &get_camera_ref();
             AllegroFlare::Physics::TileMapCollisionStepper &get_collision_stepper_ref();
+            void clear();
             void set_currently_active_map(std::string name="[unset-current-map-name-to-use]");
             void set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, bool also_set_as_camera_tracked_object=true, bool also_setup_a_basic2d_entity_control_connector=true);
             void set_camera_control_strategy(AllegroFlare::CameraControlStrategies2D::Base* camera_control_strategy=nullptr);
