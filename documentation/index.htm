@@ -16326,6 +16326,10 @@ table td
   <td class="method"><b>create_primary_gameplay_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>handle_primary_gameplay_screen_finished</b>()</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;AllegroFlare::Elements::StoryboardPages::Base *&gt;</td>
   <td class="method"><b>create_intro_storyboard_pages</b>()</td>
 </tr>
@@ -29649,11 +29653,11 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
-  <td class="property">on_gameplay_screen_finished_func</td>
+  <td class="property">on_primary_gameplay_screen_finished_func</td>
   <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, void*)&gt;</td>
 </tr>
 <tr>
-  <td class="property">on_gameplay_screen_finished_func_user_data</td>
+  <td class="property">on_primary_gameplay_screen_finished_func_user_data</td>
   <td class="property">void*</td>
 </tr>
 <tr>
@@ -29943,7 +29947,7 @@ table td
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>on_gameplay_screen_finished_func</b>(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
+  <td class="method"><b>on_primary_gameplay_screen_finished_func</b>(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">void</td>

@@ -367,6 +367,7 @@ methods:
 
   - name: on_primary_gameplay_screen_finished_func
     type: bool
+    static: true
     parameters:
       - name: router
         type: AllegroFlare::Routers::Standard*
