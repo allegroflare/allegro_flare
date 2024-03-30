@@ -365,9 +365,8 @@ methods:
       return handled;
 
 
-  - name: on_gameplay_screen_finished_func
+  - name: on_primary_gameplay_screen_finished_func
     type: bool
-    static: true
     parameters:
       - name: router
         type: AllegroFlare::Routers::Standard*
@@ -377,14 +376,8 @@ methods:
         default_argument: nullptr
     guards: [ router, user_data ]
     body: |
-      // TODO: Change this body here to have the configuration handle the logic
-
-      router->emit_route_event(
-         AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LEVEL_SELECT_SCREEN,
-         nullptr,
-         al_get_time()
-      );
-
+      AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
+      this_runner->game_configuration->handle_primary_gameplay_screen_finished();
       return true;
 
 
@@ -448,8 +441,9 @@ methods:
       //router.set_on_load_last_played_session_or_start_new_func_user_data(this); // NOTE: user_data is not necessary
 
       // Set handlers for when the primary gameplay screen is finished
-      router.set_on_gameplay_screen_finished_func(on_gameplay_screen_finished_func);
-      router.set_on_gameplay_screen_finished_func_user_data(this);
+      // TODO: Rename these methods to "on_primary_gameplay_screen_finished"
+      router.set_on_primary_gameplay_screen_finished_func(on_primary_gameplay_screen_finished_func);
+      router.set_on_primary_gameplay_screen_finished_func_user_data(this);
 
 
       // Set the routes

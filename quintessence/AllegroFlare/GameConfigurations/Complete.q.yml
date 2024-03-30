@@ -18,7 +18,7 @@ documentation:
 
 
   - notes:
-     - this Complete class actually acts as a base class, but it's not clear and might appear to be derived from
+     - this Complete class actually acts as a base class, but it's not clear and might appear to be final derived from
        GameConfigurations/Base. I'm not sure how to resolve this if it will require a renaming or what.
      - This Complete class is intended to be paired with the Runners/Complete class
 
@@ -255,6 +255,22 @@ methods:
       //primary_gameplay_screen.set_game_configuration(game_configuration); // TODO: Consider how to remove this dependency
       //primary_gameplay_screen.initialize();
       return nullptr;
+
+
+  - name: handle_primary_gameplay_screen_finished
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_finished"
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      // NOTE: Typically:
+      //router->emit_route_event(
+         //AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LEVEL_SELECT_SCREEN,
+         //nullptr,
+         //al_get_time()
+      //);
+      return;
 
 
   - name: create_intro_storyboard_pages

@@ -208,6 +208,21 @@ AllegroFlare::Screens::Gameplay* Complete::create_primary_gameplay_screen(Allegr
    return nullptr;
 }
 
+void Complete::handle_primary_gameplay_screen_finished()
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_finished"
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   // NOTE: Typically:
+   //router->emit_route_event(
+      //AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LEVEL_SELECT_SCREEN,
+      //nullptr,
+      //al_get_time()
+   //);
+   return;
+}
+
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_intro_storyboard_pages()
 {
    AllegroFlare::Logger::throw_error(

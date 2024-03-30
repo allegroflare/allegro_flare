@@ -30,8 +30,8 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , on_create_new_session_func_user_data(nullptr)
    , on_continue_from_last_save_func({})
    , on_continue_from_last_save_func_user_data(nullptr)
-   , on_gameplay_screen_finished_func({})
-   , on_gameplay_screen_finished_func_user_data(nullptr)
+   , on_primary_gameplay_screen_finished_func({})
+   , on_primary_gameplay_screen_finished_func_user_data(nullptr)
 {
 }
 
@@ -107,15 +107,15 @@ void Standard::set_on_continue_from_last_save_func_user_data(void* on_continue_f
 }
 
 
-void Standard::set_on_gameplay_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_screen_finished_func)
+void Standard::set_on_primary_gameplay_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_primary_gameplay_screen_finished_func)
 {
-   this->on_gameplay_screen_finished_func = on_gameplay_screen_finished_func;
+   this->on_primary_gameplay_screen_finished_func = on_primary_gameplay_screen_finished_func;
 }
 
 
-void Standard::set_on_gameplay_screen_finished_func_user_data(void* on_gameplay_screen_finished_func_user_data)
+void Standard::set_on_primary_gameplay_screen_finished_func_user_data(void* on_primary_gameplay_screen_finished_func_user_data)
 {
-   this->on_gameplay_screen_finished_func_user_data = on_gameplay_screen_finished_func_user_data;
+   this->on_primary_gameplay_screen_finished_func_user_data = on_primary_gameplay_screen_finished_func_user_data;
 }
 
 
@@ -185,15 +185,15 @@ void* Standard::get_on_continue_from_last_save_func_user_data() const
 }
 
 
-std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_screen_finished_func() const
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_primary_gameplay_screen_finished_func() const
 {
-   return on_gameplay_screen_finished_func;
+   return on_primary_gameplay_screen_finished_func;
 }
 
 
-void* Standard::get_on_gameplay_screen_finished_func_user_data() const
+void* Standard::get_on_primary_gameplay_screen_finished_func_user_data() const
 {
-   return on_gameplay_screen_finished_func_user_data;
+   return on_primary_gameplay_screen_finished_func_user_data;
 }
 
 
@@ -517,17 +517,17 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
       }},
       { EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, [this](){
-         if (on_gameplay_screen_finished_func)
+         if (on_primary_gameplay_screen_finished_func)
          {
             // TODO: Consider if this should return a boolean on success
-            on_gameplay_screen_finished_func(this, on_gameplay_screen_finished_func_user_data);
+            on_primary_gameplay_screen_finished_func(this, on_primary_gameplay_screen_finished_func_user_data);
          }
          else
          {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::Routers::Standard::on_route_event",
-               "on EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, expecting an \"on_gameplay_screen_finished_func\" "
-                  "to be present, but it is not."
+               "on EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, expecting an "
+                  "\"on_primary_gameplay_screen_finished_func\" to be present, but it is not."
             );
          }
       }},
