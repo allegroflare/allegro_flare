@@ -1448,15 +1448,41 @@ void Screen::toggle_show_tile_mesh()
 
 void Screen::primary_update_func(double time_now, double delta_time)
 {
-   update();
+   // TODO: Consider if there is a more elegant way to prevent logic from being performed than inferring against
+   // currently_active_map. Consider a "unloaded" state or flag possibly.
+   // TODO: Test this logic
+   if (!currently_active_map)
+   {
+      AllegroFlare::Logger::warn_from_once(
+         "AllegroFlare::Prototypes::Platforming2D::Screen::primary_update_func",
+         "There is no currently_active_map. Skipping update methods."
+      );
+   }
+   else
+   {
+      update();
+   }
    return;
 }
 
 void Screen::primary_render_func()
 {
-   draw();
-   draw_hud();
-   draw_debugging();
+   // TODO: Consider if there is a more elegant way to prevent logic from being performed than inferring against
+   // currently_active_map. Consider a "unloaded" state or flag possibly.
+   // TODO: Test this logic
+   if (!currently_active_map)
+   {
+      AllegroFlare::Logger::warn_from_once(
+         "AllegroFlare::Prototypes::Platforming2D::Screen::primary_render_func",
+         "There is no currently_active_map. Skipping drawing methods."
+      );
+   }
+   else
+   {
+      draw();
+      draw_hud();
+      draw_debugging();
+   }
    return;
 }
 
