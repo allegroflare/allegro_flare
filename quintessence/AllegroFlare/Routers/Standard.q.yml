@@ -82,6 +82,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_gameplay_screen_finished_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_gameplay_screen_finished_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: INTRO_LOGOS_SCREEN_IDENTIFIER
     type: char*
     init_with: '(char*)"intro_logos_screen"'
@@ -597,9 +609,19 @@ methods:
             emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
          }},
          { EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, [this](){
-            // TODO: Consider querying if game is won. If so, emit EVENT_WIN_GAME. As an alternative, consider that
-            // that the level select screen could emit an EMIT_WIN_GAME event when all levels are finished.
-            emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
+            if (on_gameplay_screen_finished_func)
+            {
+               // TODO: Consider if this should return a boolean on success
+               on_gameplay_screen_finished_func(this, on_gameplay_screen_finished_func_user_data);
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "on EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, expecting an \"on_gameplay_screen_finished_func\" "
+                     "to be present, but it is not."
+               );
+            }
          }},
          { EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, [this](){
             emit_route_event(EVENT_ACTIVATE_CREDITS_SCREEN);
@@ -608,7 +630,7 @@ methods:
             emit_route_event(EVENT_ACTIVATE_GAME_WON_SCREEN);
          }},
          { EVENT_TITLE_SCREEN_FINISHED, [this](){
-            // This is a loop to restart the intro(s) so the game is not stuck on title screen
+            // NOTE: This is a loop to restart the intro(s) so the game is not stuck on title screen
             emit_route_event(EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
          }},
 

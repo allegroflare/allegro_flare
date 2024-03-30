@@ -341,6 +341,33 @@ bool Complete::on_route_event_unhandled_func(uint32_t unhandled_event, AllegroFl
    return handled;
 }
 
+bool Complete::on_gameplay_screen_finished_func(AllegroFlare::Routers::Standard* router, void* user_data)
+{
+   if (!(router))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_gameplay_screen_finished_func]: error: guard \"router\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_gameplay_screen_finished_func: error: guard \"router\" not met");
+   }
+   if (!(user_data))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_gameplay_screen_finished_func]: error: guard \"user_data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_gameplay_screen_finished_func: error: guard \"user_data\" not met");
+   }
+   // TODO: Change this body here to have the configuration handle the logic
+
+   router->emit_route_event(
+      AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LEVEL_SELECT_SCREEN,
+      nullptr,
+      al_get_time()
+   );
+
+   return true;
+}
+
 void Complete::setup_router()
 {
    if (!(primary_gameplay_screen))
@@ -405,6 +432,11 @@ void Complete::setup_router()
       }
    );
    //router.set_on_load_last_played_session_or_start_new_func_user_data(this); // NOTE: user_data is not necessary
+
+   // Set handlers for when the primary gameplay screen is finished
+   router.set_on_gameplay_screen_finished_func(on_gameplay_screen_finished_func);
+   router.set_on_gameplay_screen_finished_func_user_data(this);
+
 
    // Set the routes
    router.register_screen(

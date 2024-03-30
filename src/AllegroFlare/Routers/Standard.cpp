@@ -30,6 +30,8 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , on_create_new_session_func_user_data(nullptr)
    , on_continue_from_last_save_func({})
    , on_continue_from_last_save_func_user_data(nullptr)
+   , on_gameplay_screen_finished_func({})
+   , on_gameplay_screen_finished_func_user_data(nullptr)
 {
 }
 
@@ -105,6 +107,18 @@ void Standard::set_on_continue_from_last_save_func_user_data(void* on_continue_f
 }
 
 
+void Standard::set_on_gameplay_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_screen_finished_func)
+{
+   this->on_gameplay_screen_finished_func = on_gameplay_screen_finished_func;
+}
+
+
+void Standard::set_on_gameplay_screen_finished_func_user_data(void* on_gameplay_screen_finished_func_user_data)
+{
+   this->on_gameplay_screen_finished_func_user_data = on_gameplay_screen_finished_func_user_data;
+}
+
+
 AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 {
    return event_emitter;
@@ -168,6 +182,18 @@ std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_co
 void* Standard::get_on_continue_from_last_save_func_user_data() const
 {
    return on_continue_from_last_save_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_screen_finished_func() const
+{
+   return on_gameplay_screen_finished_func;
+}
+
+
+void* Standard::get_on_gameplay_screen_finished_func_user_data() const
+{
+   return on_gameplay_screen_finished_func_user_data;
 }
 
 
@@ -491,9 +517,19 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
       }},
       { EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, [this](){
-         // TODO: Consider querying if game is won. If so, emit EVENT_WIN_GAME. As an alternative, consider that
-         // that the level select screen could emit an EMIT_WIN_GAME event when all levels are finished.
-         emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
+         if (on_gameplay_screen_finished_func)
+         {
+            // TODO: Consider if this should return a boolean on success
+            on_gameplay_screen_finished_func(this, on_gameplay_screen_finished_func_user_data);
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "on EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, expecting an \"on_gameplay_screen_finished_func\" "
+                  "to be present, but it is not."
+            );
+         }
       }},
       { EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, [this](){
          emit_route_event(EVENT_ACTIVATE_CREDITS_SCREEN);
@@ -502,7 +538,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          emit_route_event(EVENT_ACTIVATE_GAME_WON_SCREEN);
       }},
       { EVENT_TITLE_SCREEN_FINISHED, [this](){
-         // This is a loop to restart the intro(s) so the game is not stuck on title screen
+         // NOTE: This is a loop to restart the intro(s) so the game is not stuck on title screen
          emit_route_event(EVENT_ACTIVATE_INTRO_LOGOS_SCREEN);
       }},
 

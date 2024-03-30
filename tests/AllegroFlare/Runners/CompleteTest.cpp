@@ -33,6 +33,7 @@ TEST(AllegroFlare_Runners_CompleteTest,
    // TODO: This need to be a timed interactive test
    //DISABLED__INTERACTIVE__run__will_work_as_expected)
 {
+   // TODO: Update this test to not crash when specific menu options are picked (like start game)
    AllegroFlare::GameConfigurations::Complete *configuration =
       new AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration();
    // TODO: HERE: Make this run:

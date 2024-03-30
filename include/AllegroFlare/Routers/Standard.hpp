@@ -91,6 +91,8 @@ namespace AllegroFlare
          void* on_create_new_session_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func;
          void* on_continue_from_last_save_func_user_data;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_screen_finished_func;
+         void* on_gameplay_screen_finished_func_user_data;
 
       protected:
 
@@ -110,6 +112,8 @@ namespace AllegroFlare
          void set_on_create_new_session_func_user_data(void* on_create_new_session_func_user_data);
          void set_on_continue_from_last_save_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func);
          void set_on_continue_from_last_save_func_user_data(void* on_continue_from_last_save_func_user_data);
+         void set_on_gameplay_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_screen_finished_func);
+         void set_on_gameplay_screen_finished_func_user_data(void* on_gameplay_screen_finished_func_user_data);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          std::function<bool(AllegroFlare::RouteEventDatas::Base*)> get_load_level_handler() const;
          AllegroFlare::Screens::Gameplay* get_pause_managed_gameplay_screen() const;
@@ -121,6 +125,8 @@ namespace AllegroFlare
          void* get_on_create_new_session_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_continue_from_last_save_func() const;
          void* get_on_continue_from_last_save_func_user_data() const;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_gameplay_screen_finished_func() const;
+         void* get_on_gameplay_screen_finished_func_user_data() const;
          AllegroFlare::GameSession &get_game_session_ref();
          void emit_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
          static std::string name_for_route_event(uint32_t route_event=0);

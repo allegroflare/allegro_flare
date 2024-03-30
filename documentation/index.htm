@@ -29649,6 +29649,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_gameplay_screen_finished_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_gameplay_screen_finished_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">INTRO_LOGOS_SCREEN_IDENTIFIER</td>
   <td class="property">char*</td>
 </tr>
@@ -29932,6 +29940,10 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>on_route_event_unhandled_func</b>(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>on_gameplay_screen_finished_func</b>(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">void</td>
