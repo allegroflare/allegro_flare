@@ -378,11 +378,8 @@ void Complete::setup_router()
          );
       }
 
+      // TODO: Consider adding a begin_gameplay() after this step
       primary_gameplay_screen->load_level_by_identifier(level_identifier_to_load);
-
-      /* // TODO: Consider uncommenting this
-      primary_gameplay_screen.load_level_by_identifier(level_identifier_to_load);
-      */
 
       // TODO: Improve design and address a "return false" if the level did not load or does not exist
       // TODO: Address concern that return type of lambda may not be the same signature of the load_level_handler
