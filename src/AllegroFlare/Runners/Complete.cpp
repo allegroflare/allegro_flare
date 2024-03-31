@@ -160,7 +160,7 @@ void Complete::initialize()
    shared_background = game_configuration->create_shared_background();
    shared_foreground = game_configuration->create_shared_foreground();
 
-   // Create the primary_gameplay_screen.
+   // Create the primary_gameplay_screen
    primary_gameplay_screen = game_configuration->create_primary_gameplay_screen(this);
 
    // Setup our router
@@ -305,6 +305,10 @@ void Complete::initialize()
 
    // Load up our sound effects and music tracks
    game_configuration->load_audio_controller(&framework->get_audio_controller_ref());
+
+   // TODO: Consider adding a free-for-all, "post-initialization" method to the configuration. Would be useful
+   // for example, for setting up and configuring the settings on the dialog system or anything else left
+   // un specified.
 
    return;
 }
