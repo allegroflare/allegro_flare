@@ -148,6 +148,7 @@ documentation:
      - Consider this class mostly frozen for extending features, except in the following cases:
        - New standard dialog types and logic to handle them and/or spawn them
        - Additional "on_thing_that_happend" callbacks to the driver.
+       - Some additional "standard_dialog_box_*" methods, for example to set the dialog box colors, frames, etc
      - Any additional features (emitting some consequential event, etc) would be handled in the driver
   - todo:
      - Having different drivers would move us closer to switching dialogs in and out (maybe a push/pop mechanism)
