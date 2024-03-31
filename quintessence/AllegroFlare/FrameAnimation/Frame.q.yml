@@ -13,4 +13,28 @@ properties:
     init_with: 0.2f
     getter: true
 
+  - name: align_x
+    type: float
+    constructor_arg: true
+    init_with: 0.5f
+    getter: true
+
+  - name: align_y
+    type: float
+    constructor_arg: true
+    init_with: 0.5f
+    getter: true
+
+  - name: anchor_x
+    type: float
+    constructor_arg: true
+    init_with: 0.0f
+    getter: true
+
+  - name: anchor_y
+    type: float
+    constructor_arg: true
+    init_with: 0.0f
+    getter: true
+
 
