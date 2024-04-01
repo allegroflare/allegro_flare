@@ -87,16 +87,18 @@ documentation:
         mechanism, including an option to display the dead frame.  Also, some animations will intermittently flash the
         0 frame. I'm not sure what the cause is but it needs to be looked into. Probably "empty" frame ids shoudl be
         returned as -1 and checked accordingly.
+      - Add PLAYMODE_FORWARD_ONCE_AND_HOLD
 
 
   - body_markdown: |-
       ## Terminology
       - cell:         an image in the sprite_sheet
       - cell_id:      the index of the cell in the sprite_sheet
-      - frame:        an image in the animation
-      - sprite_sheet_cell_index_num:   the index of the bitmap in the sprite_sheet (kinda. this has the potential to
-                                       change) was previously "frame_id"
-      - frame_num:    the sequential number of a frame in an animation, starting with 0 (excluding any looping or ping-ponging)
+      - frame_bitmap:        the bitmap image from the frame. A combination of the sprite sheet index num from the frame
+                             and a lookup on the sprite sheet.
+      - sprite_sheet_cell_index_num:   the index of the bitmap in the sprite_sheet (was previously named "frame_id")
+      - frame_num:                     the sequential number of a frame in an animation, starting with 0
+                                       (excluding any looping or ping-ponging)
       - num_frames:   the number of frames in the animation (excluding any looping or ping-ponging)
       ## Notes
 
@@ -149,9 +151,11 @@ functions:
   - name: update
     guards: [ initialized ]
     body: |
-      //if (finished) return;
-      // TODO: Pass in a time-now, use a non-fixed FRAME_INCREMENT, or commit to a fixed time-step (possibly higher res)
-      const float FRAME_INCREMENT = 1.0f/60.0f;
+      // TODO: Pass in time_now (for capturing "finished_at")
+
+      const float FRAME_INCREMENT = 1.0f/60.0f; // TODO: Move FRAME_INCREMENT to member.
+                                                // TODO: Make sure FRAME_INCREMENT is guarded. Consider interesting
+                                                // things that could happen with negative increment (reverse loop?)
       playhead += (FRAME_INCREMENT * playspeed_multiplier);
 
       // update "finished"
@@ -182,7 +186,7 @@ functions:
   - name: draw
     guards: [ initialized ]
     body: |
-      ALLEGRO_BITMAP *bitmap = get_frame_at(playhead);
+      ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
       if (!bitmap) return;
       al_draw_bitmap(bitmap, 0, 0, 0);
       return;
@@ -194,7 +198,7 @@ functions:
       return frames.size();
 
 
-  - name: get_frame_at
+  - name: get_frame_bitmap_at_time
     type: ALLEGRO_BITMAP*
     parameters:
       - name: time
@@ -207,11 +211,11 @@ functions:
       return sprite_sheet->get_cell(cell_id);
 
 
-  - name: get_frame_now
+  - name: get_frame_bitmap_now
     type: ALLEGRO_BITMAP*
     guards: [ initialized ]
     body: |
-      return get_frame_at(playhead);
+      return get_frame_bitmap_at_time(playhead);
 
 
   - name: get_sprite_sheet_cell_index_num_now

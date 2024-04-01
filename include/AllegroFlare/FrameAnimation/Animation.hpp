@@ -57,8 +57,8 @@ namespace AllegroFlare
          void update();
          void draw();
          int get_num_frames();
-         ALLEGRO_BITMAP* get_frame_at(float time=0.0f);
-         ALLEGRO_BITMAP* get_frame_now();
+         ALLEGRO_BITMAP* get_frame_bitmap_at_time(float time=0.0f);
+         ALLEGRO_BITMAP* get_frame_bitmap_now();
          int get_sprite_sheet_cell_index_num_now();
          int get_frame_num_now();
          ALLEGRO_BITMAP* get_bitmap_at_frame_num(int frame_num=0);

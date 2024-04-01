@@ -212,7 +212,7 @@ functions:
     body: |
       if (animation.get_initialized())
       {
-         set_bitmap(animation.get_frame_now());
+         set_bitmap(animation.get_frame_bitmap_now());
       }
       return;
 

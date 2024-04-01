@@ -162,9 +162,11 @@ void Animation::update()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::update: error: guard \"initialized\" not met");
    }
-   //if (finished) return;
-   // TODO: Pass in a time-now, use a non-fixed FRAME_INCREMENT, or commit to a fixed time-step (possibly higher res)
-   const float FRAME_INCREMENT = 1.0f/60.0f;
+   // TODO: Pass in time_now (for capturing "finished_at")
+
+   const float FRAME_INCREMENT = 1.0f/60.0f; // TODO: Move FRAME_INCREMENT to member.
+                                             // TODO: Make sure FRAME_INCREMENT is guarded. Consider interesting
+                                             // things that could happen with negative increment (reverse loop?)
    playhead += (FRAME_INCREMENT * playspeed_multiplier);
 
    // update "finished"
@@ -201,7 +203,7 @@ void Animation::draw()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::draw: error: guard \"initialized\" not met");
    }
-   ALLEGRO_BITMAP *bitmap = get_frame_at(playhead);
+   ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
    if (!bitmap) return;
    al_draw_bitmap(bitmap, 0, 0, 0);
    return;
@@ -212,30 +214,30 @@ int Animation::get_num_frames()
    return frames.size();
 }
 
-ALLEGRO_BITMAP* Animation::get_frame_at(float time)
+ALLEGRO_BITMAP* Animation::get_frame_bitmap_at_time(float time)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_at]: error: guard \"initialized\" not met.";
+      error_message << "[Animation::get_frame_bitmap_at_time]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_at: error: guard \"initialized\" not met");
+      throw std::runtime_error("Animation::get_frame_bitmap_at_time: error: guard \"initialized\" not met");
    }
    int cell_id = get_sprite_sheet_cell_index_num_at(time);
    if (cell_id == -1) return nullptr;
    return sprite_sheet->get_cell(cell_id);
 }
 
-ALLEGRO_BITMAP* Animation::get_frame_now()
+ALLEGRO_BITMAP* Animation::get_frame_bitmap_now()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_now]: error: guard \"initialized\" not met.";
+      error_message << "[Animation::get_frame_bitmap_now]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_now: error: guard \"initialized\" not met");
+      throw std::runtime_error("Animation::get_frame_bitmap_now: error: guard \"initialized\" not met");
    }
-   return get_frame_at(playhead);
+   return get_frame_bitmap_at_time(playhead);
 }
 
 int Animation::get_sprite_sheet_cell_index_num_now()

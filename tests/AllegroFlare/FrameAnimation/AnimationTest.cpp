@@ -33,7 +33,7 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest,
 }
 
 
-TEST(AllegroFlare_FrameAnimation_AnimationTest, DISABLED__dev_test)
+TEST(AllegroFlare_FrameAnimation_AnimationTest, DISABLED__will_work_as_expected)
 {
    al_init();
    al_init_image_addon();
@@ -89,15 +89,16 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, DISABLED__dev_test)
 
 TEST(AllegroFlare_FrameAnimation_AnimationTest, before_initialization__most_functions_will_throw_an_error)
 {
-   // Trying this out here
+   // Trying this fancy EXPECT_GUARD out here
+   // TODO: Clean up the alignment
    EXPECT_GUARD(Animation().start(),                   "Animation::start",                   "initialized");
    EXPECT_GUARD(Animation().update(),                  "Animation::update",                  "initialized");
    EXPECT_GUARD(Animation().draw(),                    "Animation::draw",                    "initialized");
    //EXPECT_GUARD(Animation().get_num_frames(),        "Animation::get_num_frames",          "initialized");
-   EXPECT_GUARD(Animation().get_frame_now(),           "Animation::get_frame_now",           "initialized");
-   EXPECT_GUARD(Animation().get_bitmap_at_frame_num(), "Animation::get_bitmap_at_frame_num", "initialized");
+   EXPECT_GUARD(Animation().get_frame_bitmap_now(),           "Animation::get_frame_bitmap_now",           "initialized");
+   //EXPECT_GUARD(Animation().get_bitmap_at_frame_num(), "Animation::get_bitmap_at_frame_num", "initialized");
    EXPECT_GUARD(Animation().get_sprite_sheet_cell_index_num_now(),        "Animation::get_sprite_sheet_cell_index_num_now",        "initialized");
-   EXPECT_GUARD(Animation().get_frame_at(),            "Animation::get_frame_at",            "initialized");
+   EXPECT_GUARD(Animation().get_frame_bitmap_at_time(),            "Animation::get_frame_bitmap_at_time",            "initialized");
    // TODO: add more checks here
 }
 

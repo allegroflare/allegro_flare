@@ -286,7 +286,7 @@ void Basic2D::refresh_bitmap_to_current_animation_frame()
 {
    if (animation.get_initialized())
    {
-      set_bitmap(animation.get_frame_now());
+      set_bitmap(animation.get_frame_bitmap_now());
    }
    return;
 }
