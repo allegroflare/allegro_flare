@@ -92,13 +92,14 @@ documentation:
 
   - body_markdown: |-
       ## Terminology
-      - cell:         an image in the sprite_sheet
-      - frame_bitmap:        the bitmap image from the frame. A combination of the sprite sheet index num from the frame
-                             and a lookup on the sprite sheet.
+      - cell:          an individual image from the sprite_sheet
+      - frame:         an individual AllegroFlare::FrameAnimation::Frame* from the frames in this animation
+      - frame_num:     the sequential number of a frame in an animation, starting with 0
+                       (excluding any looping or ping-ponging)
+      - frame_bitmap:  the bitmap image from the frame. A combination of the sprite sheet index num from the frame
+                       and a lookup on the sprite sheet.
+      - num_frames:    the number of frames in the animation (excluding any looping or ping-ponging)
       - sprite_sheet_cell_index_num:   the index of the bitmap in the sprite_sheet (was previously named "frame_id")
-      - frame_num:                     the sequential number of a frame in an animation, starting with 0
-                                       (excluding any looping or ping-ponging)
-      - num_frames:   the number of frames in the animation (excluding any looping or ping-ponging)
       ## Notes
 
 
@@ -217,6 +218,20 @@ functions:
       return get_frame_bitmap_at_time(playhead);
 
 
+  - name: get_frame_alignment_and_anchors_at_time
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: time
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      // HERE
+      int sprite_sheet_cell_index_num = get_sprite_sheet_cell_index_num_at(time);
+      if (sprite_sheet_cell_index_num == -1) return nullptr;
+      return sprite_sheet->get_cell(sprite_sheet_cell_index_num);
+
+
   - name: get_sprite_sheet_cell_index_num_now
     type: int
     guards: [ initialized ]
@@ -251,6 +266,7 @@ functions:
         default_argument: 0
     guards: [ initialized, (frame_num < 0), (frame_num >= frames.size()) ]
     body: |
+      // TODO: Never tested
       std::tuple<float, float, float, float> result;
 
       auto &frame = frames[frame_num];
@@ -265,15 +281,15 @@ functions:
       return result;
 
 
-  - name: get_sprite_sheet_cell_index_num_at
-    type: int
+  - name: get_frame_at
+    type: AllegroFlare::FrameAnimation::Frame*
     parameters:
       - name: time
         type: float
         default_argument: 0.0f
     guards: [ initialized ]
     body: |
-      return get_frame_info_at(time).second;
+      return std::get<0>(get_frame_info_at(time));
 
 
   - name: get_frame_num_at
@@ -284,11 +300,22 @@ functions:
         default_argument: 0.0f
     guards: [ initialized ]
     body: |
-      return get_frame_info_at(time).first;
+      return std::get<1>(get_frame_info_at(time));
+
+
+  - name: get_sprite_sheet_cell_index_num_at
+    type: int
+    parameters:
+      - name: time
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      return std::get<2>(get_frame_info_at(time));
 
 
   - name: get_frame_info_at
-    type: std::pair<int, int>
+    type: std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int>
     private: true
     parameters:
       - name: time
@@ -296,11 +323,11 @@ functions:
         default_argument: 0.0f
     guards: [ initialized ]
     body: |
-      // Note the return value is std::pair<current_animations_frame_number, sprite_sheet_frame_index>
+      // Note the return value is std::pair<frame, current_animations_frame_number, sprite_sheet_frame_index>
 
       float duration = calculate_duration();
-      if (duration < 0.0001) return { 0, 0 }; // TODO: have a value other than 0 representing the frame_count when not
-                                              // present
+      if (duration < 0.0001) return { nullptr, 0, 0 }; // TODO: have a value other than 0 representing the frame_count
+                                                       // when not present
       int current_frame_count = 0;
 
       switch(playmode)
@@ -310,7 +337,12 @@ functions:
             for (auto &frame : frames)
             {
                duration_so_far += frame.get_duration();
-               if (time < duration_so_far) return { current_frame_count, frame.get_index() };
+               if (time < duration_so_far)
+               {
+                  AllegroFlare::FrameAnimation::Frame* result_frame = nullptr;
+                  if (current_frame_count < frames.size()) result_frame = &frames[current_frame_count];
+                  return { result_frame, current_frame_count, frame.get_index() };
+               }
                current_frame_count++;
             }
          } break;
@@ -322,7 +354,12 @@ functions:
             for (auto &frame : frames)
             {
                duration_so_far += frame.get_duration();
-               if (looped_playhead < duration_so_far) return { current_frame_count, frame.get_index() };
+               if (looped_playhead < duration_so_far)
+               {
+                  AllegroFlare::FrameAnimation::Frame* result_frame = nullptr;
+                  if (current_frame_count < frames.size()) result_frame = &frames[current_frame_count];
+                  return { result_frame, current_frame_count, frame.get_index() };
+               }
                current_frame_count++;
             }
          } break;
@@ -335,12 +372,18 @@ functions:
             for (auto &frame : frames)
             {
                duration_so_far += frame.get_duration();
-               if (ping_pong_playhead < duration_so_far) return { current_frame_count, frame.get_index() };
+               if (ping_pong_playhead < duration_so_far)
+               {
+                  AllegroFlare::FrameAnimation::Frame* result_frame = nullptr;
+                  if (current_frame_count < frames.size()) result_frame = &frames[current_frame_count];
+                  return { result_frame, current_frame_count, frame.get_index() };
+               }
                current_frame_count++;
             }
          } break;
       }
-      return { current_frame_count, -1 };
+
+      return { nullptr, current_frame_count, -1 };
     body_dependency_symbols:
       - fmod
 

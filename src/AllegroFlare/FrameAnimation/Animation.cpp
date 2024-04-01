@@ -240,6 +240,21 @@ ALLEGRO_BITMAP* Animation::get_frame_bitmap_now()
    return get_frame_bitmap_at_time(playhead);
 }
 
+ALLEGRO_BITMAP* Animation::get_frame_alignment_and_anchors_at_time(float time)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_frame_alignment_and_anchors_at_time]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_frame_alignment_and_anchors_at_time: error: guard \"initialized\" not met");
+   }
+   // HERE
+   int sprite_sheet_cell_index_num = get_sprite_sheet_cell_index_num_at(time);
+   if (sprite_sheet_cell_index_num == -1) return nullptr;
+   return sprite_sheet->get_cell(sprite_sheet_cell_index_num);
+}
+
 int Animation::get_sprite_sheet_cell_index_num_now()
 {
    if (!(initialized))
@@ -314,6 +329,7 @@ std::tuple<float, float, float, float> Animation::get_alignment_and_anchors_at_f
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num >= frames.size())\" not met");
    }
+   // TODO: Never tested
    std::tuple<float, float, float, float> result;
 
    auto &frame = frames[frame_num];
@@ -328,16 +344,16 @@ std::tuple<float, float, float, float> Animation::get_alignment_and_anchors_at_f
    return result;
 }
 
-int Animation::get_sprite_sheet_cell_index_num_at(float time)
+AllegroFlare::FrameAnimation::Frame* Animation::get_frame_at(float time)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_sprite_sheet_cell_index_num_at]: error: guard \"initialized\" not met.";
+      error_message << "[Animation::get_frame_at]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_sprite_sheet_cell_index_num_at: error: guard \"initialized\" not met");
+      throw std::runtime_error("Animation::get_frame_at: error: guard \"initialized\" not met");
    }
-   return get_frame_info_at(time).second;
+   return std::get<0>(get_frame_info_at(time));
 }
 
 int Animation::get_frame_num_at(float time)
@@ -349,10 +365,22 @@ int Animation::get_frame_num_at(float time)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_frame_num_at: error: guard \"initialized\" not met");
    }
-   return get_frame_info_at(time).first;
+   return std::get<1>(get_frame_info_at(time));
 }
 
-std::pair<int, int> Animation::get_frame_info_at(float time)
+int Animation::get_sprite_sheet_cell_index_num_at(float time)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_sprite_sheet_cell_index_num_at]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_sprite_sheet_cell_index_num_at: error: guard \"initialized\" not met");
+   }
+   return std::get<2>(get_frame_info_at(time));
+}
+
+std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_info_at(float time)
 {
    if (!(initialized))
    {
@@ -361,11 +389,11 @@ std::pair<int, int> Animation::get_frame_info_at(float time)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_frame_info_at: error: guard \"initialized\" not met");
    }
-   // Note the return value is std::pair<current_animations_frame_number, sprite_sheet_frame_index>
+   // Note the return value is std::pair<frame, current_animations_frame_number, sprite_sheet_frame_index>
 
    float duration = calculate_duration();
-   if (duration < 0.0001) return { 0, 0 }; // TODO: have a value other than 0 representing the frame_count when not
-                                           // present
+   if (duration < 0.0001) return { nullptr, 0, 0 }; // TODO: have a value other than 0 representing the frame_count
+                                                    // when not present
    int current_frame_count = 0;
 
    switch(playmode)
@@ -375,7 +403,12 @@ std::pair<int, int> Animation::get_frame_info_at(float time)
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
-            if (time < duration_so_far) return { current_frame_count, frame.get_index() };
+            if (time < duration_so_far)
+            {
+               AllegroFlare::FrameAnimation::Frame* result_frame = nullptr;
+               if (current_frame_count < frames.size()) result_frame = &frames[current_frame_count];
+               return { result_frame, current_frame_count, frame.get_index() };
+            }
             current_frame_count++;
          }
       } break;
@@ -387,7 +420,12 @@ std::pair<int, int> Animation::get_frame_info_at(float time)
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
-            if (looped_playhead < duration_so_far) return { current_frame_count, frame.get_index() };
+            if (looped_playhead < duration_so_far)
+            {
+               AllegroFlare::FrameAnimation::Frame* result_frame = nullptr;
+               if (current_frame_count < frames.size()) result_frame = &frames[current_frame_count];
+               return { result_frame, current_frame_count, frame.get_index() };
+            }
             current_frame_count++;
          }
       } break;
@@ -400,12 +438,18 @@ std::pair<int, int> Animation::get_frame_info_at(float time)
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
-            if (ping_pong_playhead < duration_so_far) return { current_frame_count, frame.get_index() };
+            if (ping_pong_playhead < duration_so_far)
+            {
+               AllegroFlare::FrameAnimation::Frame* result_frame = nullptr;
+               if (current_frame_count < frames.size()) result_frame = &frames[current_frame_count];
+               return { result_frame, current_frame_count, frame.get_index() };
+            }
             current_frame_count++;
          }
       } break;
    }
-   return { current_frame_count, -1 };
+
+   return { nullptr, current_frame_count, -1 };
 }
 
 float Animation::calculate_duration()

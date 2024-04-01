@@ -5,6 +5,7 @@
 #include <AllegroFlare/ImageProcessing.hpp>
 #include <sstream>
 #include <iostream>
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare::TileMaps
@@ -410,13 +411,24 @@ ALLEGRO_BITMAP *PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(
 //ALLEGRO_BITMAP build_scaled_and_extruded(ALLEGRO_BITMAP *bitmap, int scale, AllegroFlare::TileMaps::Atlas &atlas)
 ALLEGRO_BITMAP *PrimMeshAtlas::TileAtlasBuilder::create_pixel_perfect_scaled_render(ALLEGRO_BITMAP *bitmap, int scale)
 {
+   int min_valid_scale_value = 1;
+   int max_valid_scale_value = 6;
+
    if (!bitmap)
    {
-      throw std::runtime_error("PrimMeshAtlas::TileAtlasBuilder::create_pixel_perfect_scaled_render error: needs valid bitmap");
+      AllegroFlare::Logger::throw_error(
+            "PrimMeshAtlas::TileAtlasBuilder::create_pixel_perfect_scaled_render",
+            "bitmap cannot be a nullptr."
+         );
    }
-   if (scale <= 0 || scale > 6)
+   if (scale <= 1 || scale >= max_valid_scale_value)
    {
-     throw std::runtime_error("PrimMeshAtlas::TileAtlasBuilder::create_pixel_perfect_scaled_render error: needs valid scale value");
+      AllegroFlare::Logger::throw_error(
+            "PrimMeshAtlas::TileAtlasBuilder::create_pixel_perfect_scaled_render",
+            "The scale value provided \"" + std::to_string(scale) + "\" cannot be less than \""
+               + std::to_string(min_valid_scale_value) + "\" or greater than \""
+               + std::to_string(max_valid_scale_value) + "\"."
+         );
    }
 
 

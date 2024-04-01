@@ -4,10 +4,9 @@
 #include <AllegroFlare/FrameAnimation/SpriteSheet.hpp>
 
 
-TEST(AllegroFlare_FrameAnimation_SpriteSheetTest, DISABLED__can_be_created_without_blowing_up)
-   // TODO: fix this test
+TEST(AllegroFlare_FrameAnimation_SpriteSheetTest, can_be_created_without_blowing_up)
 {
-   //AllegroFlare::FrameAnimation::SpriteSheet sprite_sheet;
+   AllegroFlare::FrameAnimation::SpriteSheet sprite_sheet;
 }
 
 

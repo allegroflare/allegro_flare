@@ -16,58 +16,71 @@ namespace FrameAnimation
 
 
 
-SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width, int sprite_height, int scale)
-   : atlas(_atlas)
-   , sprites()
+SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *atlas, int sprite_width, int sprite_height, int scale)
+   : atlas(atlas)
    , sprite_width(sprite_width)
    , sprite_height(sprite_height)
-   , num_rows(atlas ? al_get_bitmap_height(atlas) / sprite_height : 0)
-   , num_columns(atlas ? al_get_bitmap_width(atlas) / sprite_width : 0)
+   , num_rows(0)
+   , num_columns(0)
    , scale(scale)
    , initialized(false)
    , destroyed(false)
    , new_atlas()
    , new_tile_index()
 {
-   AllegroFlare::Errors::warn_from("AllegroFlare::FrameAnimation::SpriteSheet::SpriteSheet()",
-                                   "SpriteSheet is auto-initializing on construction. This should be fixed");
-
-   // TODO: prevent auto-initialization
-   init();
 }
 
 
 
-void SpriteSheet::init()
+void SpriteSheet::initialize()
 {
-   //new_atlas.duplicate_bitmap_and_load(atlas, sprite_width, sprite_height, 0);
-   //new_tile_index = new_atlas.get_tile_index();
+   if (!atlas)
+   {
+      AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::initialize",
+                                        "\"atlas\" cannot be an nullptr.");
+   }
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::initialize", 
+                                        "guard \"!initialized\" not met.");
+   }
+   if (destroyed)
+   {
+      AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::initialize", 
+                                        "Cannot call initialize when object is destroyed (\"destroyed\" is \"true\").");
+   }
+   if (sprite_width < 1)
+   {
+      AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::initialize", 
+                                        "\"sprite_width\" must be greater than 1");
+   }
+   if (sprite_height < 1)
+   {
+      AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::initialize", 
+                                        "\"sprite_height\" must be greater than 1");
+   }
 
+   num_rows = al_get_bitmap_height(atlas) / sprite_height;
+   num_columns = al_get_bitmap_width(atlas) / sprite_width;
 
-
-   ///*
-         //int scale = 3;
-         // TODO: factor out this step
-         ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-            //AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
-            AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(
-                  atlas,
-                  scale,
-                  sprite_width,
-                  sprite_height
-               );
-         //created_tile_atlas->duplicate_bitmap_and_load(
-            //scaled_extruded_tile_map_bitmap, tile_atlas_tile_width*scale, tile_atlas_tile_height*scale, 1
-         //);
-         new_atlas.duplicate_bitmap_and_load(
-            scaled_extruded_tile_map_bitmap, sprite_width*scale, sprite_height*scale, 1
+   ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
+      AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(
+            atlas,
+            scale,
+            sprite_width,
+            sprite_height
          );
-         new_tile_index = new_atlas.get_tile_index();
-   //*/
 
+   // At this point, we're done with "atlas". It can be deleted by the end user after having called this "initialize()"
 
-   //_create_atlas_copy();
-   //_create_sub_sprites();
+   // Duplicate the scaled_and_extruded_bitamp
+   new_atlas.duplicate_bitmap_and_load(
+      scaled_extruded_tile_map_bitmap, sprite_width*scale, sprite_height*scale, 1
+   );
+
+   // Set the new tile index
+   new_tile_index = new_atlas.get_tile_index();
+
    initialized = true;
 }
 
@@ -78,10 +91,18 @@ void SpriteSheet::destroy()
 {
    // TODO: Destroy the new_atlas and/or new_tile_index
 
+   if (!initialized)
+   {
+      // TODO: Do not throw in the destructor here
+      AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::destroy()", 
+                                        "Cannot destroy becasue the object was never initialized.");
+   }
    if (destroyed)
    {
-      // TODO: output warning
-      return;
+      // TODO: Do not throw in the destructor here
+      AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::destroy()", 
+                                        "Cannot call destroy when object is already destroyed (\"destroyed\" is "
+                                           "\"true\").");
    }
    if (!al_is_system_installed())
    {
@@ -89,54 +110,44 @@ void SpriteSheet::destroy()
       throw std::runtime_error("dungeon/models/sprite_sheet::SpriteSheet dtor error: "
                                "allegro has already been shutdown");
    }
-   for (auto &sprite : sprites) al_destroy_bitmap(sprite);
-   if (atlas) al_destroy_bitmap(atlas);
+
+   //for (auto &sprite : sprites) al_destroy_bitmap(sprite);
+
+   //AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::destroy()", 
+                                     //"Cannot call destroy when object is already destroyed (\"destroyed\" is "
+                                        //"\"true\").");
+   //if (atlas) al_destroy_bitmap(atlas);
+   //AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::SpriteSheet::destroy()", 
+                                     //"Cannot call destroy when object is already destroyed (\"destroyed\" is "
+                                        //"\"true\").");
+
    destroyed = true;
-}
-
-
-
-void SpriteSheet::_create_atlas_copy()
-{
-   AllegroFlare::ImageProcessing image_processing(atlas);
-   atlas = image_processing.create_pixel_perfect_scaled_render(scale);
-}
-
-
-
-bool SpriteSheet::_create_sub_sprites()
-{
-   if (!atlas) return false;
-
-   for (unsigned cursor_y=0; cursor_y<num_rows; cursor_y++)
-      for (unsigned cursor_x=0; cursor_x<num_columns; cursor_x++)
-      {
-         ALLEGRO_BITMAP *sub_bitmap = al_create_sub_bitmap(atlas,
-               cursor_x * sprite_width * scale,
-               cursor_y * sprite_height * scale,
-               sprite_width * scale,
-               sprite_height * scale);
-
-         sprites.push_back(sub_bitmap);
-      }
-
-   return true;
 }
 
 
 
 SpriteSheet::~SpriteSheet()
 {
-   destroy();
+   // Do nothing (previously called destroy())
 }
 
 
 
 ALLEGRO_BITMAP *SpriteSheet::get_sprite(int index)
 {
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::FrameAnimation::SpriteSheet::get_sprite",
+            "guard \"initialized\" not met."
+         );
+   }
+
    // NOTE: "get_sprite" depreciated, use "get_cell" instead
-   AllegroFlare::Logger::warn_from_once("AllegroFlare::FrameAnimation::SpriteSheet::get_sprite()", 
-                                        "\"get_sprite\" is depreciated. Use \"get_cell\" instead.");
+   AllegroFlare::Logger::warn_from_once(
+         "AllegroFlare::FrameAnimation::SpriteSheet::get_sprite()", 
+         "\"get_sprite\" is depreciated. Use \"get_cell\" instead."
+      );
    return get_cell(index);
 }
 
@@ -144,8 +155,14 @@ ALLEGRO_BITMAP *SpriteSheet::get_sprite(int index)
 
 ALLEGRO_BITMAP *SpriteSheet::get_cell(int index)
 {
-   //if (index < 0 || index >= sprites.size()) return nullptr;
-   //return sprites[index];
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::FrameAnimation::SpriteSheet::get_cell",
+            "guard \"initialized\" not met."
+         );
+   }
+
    if (index < 0 || index >= new_tile_index.size()) return nullptr;
    return new_tile_index[index].get_sub_bitmap();
 }
@@ -154,16 +171,31 @@ ALLEGRO_BITMAP *SpriteSheet::get_cell(int index)
 
 ALLEGRO_BITMAP *SpriteSheet::get_atlas()
 {
+   //if (!initialized)
+   //{
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::FrameAnimation::SpriteSheet::get_atlas",
+            "This method is depreciated."
+         );
+   //}
    // TODO: Prevent calling this method before init
-   return atlas;
+   // "atlas" is required before initialize, not after
+   //return atlas;
+   return nullptr;
 }
 
 
 
 int SpriteSheet::get_num_sprites()
 {
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::FrameAnimation::SpriteSheet::get_num_sprites",
+            "guard \"initialized\" not met."
+         );
+   }
    return new_tile_index.size();
-   //return sprites.size();
 }
 
 
