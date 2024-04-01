@@ -189,7 +189,8 @@ void Book::initialize()
       sprite_sheet_cell_width,
       sprite_sheet_cell_height,
       sprite_sheet_scale
-   ); // WARNING: auto-inits
+   );
+   sprite_sheet->initialize();
    al_destroy_bitmap(sprite_sheet_bitmap);
 
    // load the data

@@ -70,7 +70,7 @@ TEST_F(AllegroFlare_FrameAnimation_BookTestWithAllegroRenderingFixture, VISUAL__
       float playhead_time = animation.get_playhead();
 
       // draw info text
-      uint32_t frame_id = animation.get_frame_id_at(playhead_time);
+      uint32_t frame_id = animation.get_sprite_sheet_cell_index_num_at(playhead_time);
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", frame_id);
 
       al_flip_display(); // assumes a rest of 1/60.0f

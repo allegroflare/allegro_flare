@@ -133,6 +133,13 @@ SpriteSheet::~SpriteSheet()
 
 
 
+bool SpriteSheet::get_initialized()
+{
+   return initialized;
+}
+
+
+
 ALLEGRO_BITMAP *SpriteSheet::get_sprite(int index)
 {
    if (!initialized)

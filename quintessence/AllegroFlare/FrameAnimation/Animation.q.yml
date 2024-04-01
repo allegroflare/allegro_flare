@@ -110,6 +110,7 @@ functions:
     guards:
       - (!initialized)
       - sprite_sheet
+      - sprite_sheet->get_initialized()
       - al_is_system_installed()
     body: |
       initialized = true;
@@ -194,6 +195,7 @@ functions:
 
   - name: get_num_frames
     type: int
+    guards: [ initialized ]
     body: |
       return frames.size();
 

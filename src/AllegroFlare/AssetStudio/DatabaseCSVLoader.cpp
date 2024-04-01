@@ -609,6 +609,7 @@ void DatabaseCSVLoader::load()
             frame_data,
             playmode_parsed_data.second
          );
+      animation->initialize(); // ?
 
       // Load the data into the asset
       AllegroFlare::AssetStudio::Asset *asset = new AllegroFlare::AssetStudio::Asset;

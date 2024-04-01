@@ -98,6 +98,13 @@ void Animation::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::initialize: error: guard \"sprite_sheet\" not met");
    }
+   if (!(sprite_sheet->get_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::initialize]: error: guard \"sprite_sheet->get_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::initialize: error: guard \"sprite_sheet->get_initialized()\" not met");
+   }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
@@ -211,6 +218,13 @@ void Animation::draw()
 
 int Animation::get_num_frames()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_num_frames]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_num_frames: error: guard \"initialized\" not met");
+   }
    return frames.size();
 }
 

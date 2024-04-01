@@ -30,6 +30,8 @@ namespace AllegroFlare
          SpriteSheet(ALLEGRO_BITMAP *atlas=nullptr, int sprite_width=48, int sprite_height=48, int scale=1);
          ~SpriteSheet();
 
+         bool get_initialized();
+
          ALLEGRO_BITMAP *get_sprite(int index);
          ALLEGRO_BITMAP *get_cell(int index);
          ALLEGRO_BITMAP *get_atlas();
