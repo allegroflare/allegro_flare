@@ -255,6 +255,7 @@ methods:
       // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
       AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
          new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
+      result_sprite_sheet->initialize();
 
       // Cleanup
       al_destroy_bitmap(sprite_strip);
@@ -301,6 +302,7 @@ methods:
             );
          AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
             new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
+         result_sprite_sheet->initialize();
 
          al_destroy_bitmap(sprite_sheet_atlas);
 
@@ -634,9 +636,6 @@ methods:
          if (type == "icon_set")
          {
             std::cout << "Building \"icon_set\" for \"" << identifier << "\"" << std::endl;
-            //ALLEGRO_BITMAP *get_cell(int index);
-            //ALLEGRO_BITMAP *get_atlas();
-            //int get_num_sprites();
 
             for (int i=0; i<sprite_sheet->get_num_sprites(); i++)
             {
@@ -646,7 +645,6 @@ methods:
                AllegroFlare::AssetStudio::Asset *icon_asset = new AllegroFlare::AssetStudio::Asset;
                icon_asset->id = id + i + 10000; // TODO: Figure out some way to create unique names and ids from icons
                icon_asset->identifier = icon_identifier;
-               //icon_asset->animation = animation;
                icon_asset->bitmap = sprite_sheet->get_cell(i);
                icon_asset->cell_width = cell_width;
                icon_asset->cell_height = cell_height;
