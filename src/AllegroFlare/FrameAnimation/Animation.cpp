@@ -223,9 +223,9 @@ ALLEGRO_BITMAP* Animation::get_frame_bitmap_at_time(float time)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_frame_bitmap_at_time: error: guard \"initialized\" not met");
    }
-   int cell_id = get_sprite_sheet_cell_index_num_at(time);
-   if (cell_id == -1) return nullptr;
-   return sprite_sheet->get_cell(cell_id);
+   int sprite_sheet_cell_index_num = get_sprite_sheet_cell_index_num_at(time);
+   if (sprite_sheet_cell_index_num == -1) return nullptr;
+   return sprite_sheet->get_cell(sprite_sheet_cell_index_num);
 }
 
 ALLEGRO_BITMAP* Animation::get_frame_bitmap_now()
@@ -287,8 +287,8 @@ ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num >= frames.size())\" not met");
    }
-   int cell_id = frames[frame_num].get_index();
-   return sprite_sheet->get_cell(cell_id);
+   int sprite_sheet_cell_index_num = frames[frame_num].get_index();
+   return sprite_sheet->get_cell(sprite_sheet_cell_index_num);
 }
 
 std::tuple<float, float, float, float> Animation::get_alignment_and_anchors_at_frame_num(int frame_num)
