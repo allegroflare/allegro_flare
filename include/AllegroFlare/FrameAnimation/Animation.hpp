@@ -6,6 +6,7 @@
 #include <allegro5/allegro.h>
 #include <cstdint>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -58,10 +59,11 @@ namespace AllegroFlare
          int get_num_frames();
          ALLEGRO_BITMAP* get_frame_at(float time=0.0f);
          ALLEGRO_BITMAP* get_frame_now();
-         int get_frame_id_now();
+         int get_sprite_sheet_cell_index_num_now();
          int get_frame_num_now();
          ALLEGRO_BITMAP* get_bitmap_at_frame_num(int frame_num=0);
-         int get_frame_id_at(float time=0.0f);
+         std::tuple<float, float, float, float> get_alignment_and_anchors_at_frame_num(int frame_num=0);
+         int get_sprite_sheet_cell_index_num_at(float time=0.0f);
          int get_frame_num_at(float time=0.0f);
          float calculate_duration();
       };

@@ -85,6 +85,7 @@ namespace AllegroFlare
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
             void set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool);
+            void set_gravity(float gravity);
             void set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom);
             void set_show_tile_mesh(bool show_tile_mesh);
             void set_last_activated_save_point(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* last_activated_save_point);
@@ -98,6 +99,7 @@ namespace AllegroFlare
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::EventEmitter* get_event_emitter() const;
             std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> get_map_dictionary() const;
+            float get_gravity() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_player_controlled_entity() const;
             bool get_show_tile_mesh() const;

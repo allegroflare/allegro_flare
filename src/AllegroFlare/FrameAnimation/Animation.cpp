@@ -221,7 +221,7 @@ ALLEGRO_BITMAP* Animation::get_frame_at(float time)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_frame_at: error: guard \"initialized\" not met");
    }
-   int cell_id = get_frame_id_at(time);
+   int cell_id = get_sprite_sheet_cell_index_num_at(time);
    if (cell_id == -1) return nullptr;
    return sprite_sheet->get_cell(cell_id);
 }
@@ -238,16 +238,16 @@ ALLEGRO_BITMAP* Animation::get_frame_now()
    return get_frame_at(playhead);
 }
 
-int Animation::get_frame_id_now()
+int Animation::get_sprite_sheet_cell_index_num_now()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_id_now]: error: guard \"initialized\" not met.";
+      error_message << "[Animation::get_sprite_sheet_cell_index_num_now]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_id_now: error: guard \"initialized\" not met");
+      throw std::runtime_error("Animation::get_sprite_sheet_cell_index_num_now: error: guard \"initialized\" not met");
    }
-   return get_frame_id_at(playhead);
+   return get_sprite_sheet_cell_index_num_at(playhead);
 }
 
 int Animation::get_frame_num_now()
@@ -289,14 +289,51 @@ ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
    return sprite_sheet->get_cell(cell_id);
 }
 
-int Animation::get_frame_id_at(float time)
+std::tuple<float, float, float, float> Animation::get_alignment_and_anchors_at_frame_num(int frame_num)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_id_at]: error: guard \"initialized\" not met.";
+      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_id_at: error: guard \"initialized\" not met");
+      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"initialized\" not met");
+   }
+   if (!((frame_num < 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num < 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num < 0)\" not met");
+   }
+   if (!((frame_num >= frames.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num >= frames.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num >= frames.size())\" not met");
+   }
+   std::tuple<float, float, float, float> result;
+
+   auto &frame = frames[frame_num];
+
+   result = {
+      frame.get_align_x(),
+      frame.get_align_y(),
+      frame.get_anchor_x(),
+      frame.get_anchor_y(),
+   };
+
+   return result;
+}
+
+int Animation::get_sprite_sheet_cell_index_num_at(float time)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[Animation::get_sprite_sheet_cell_index_num_at]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Animation::get_sprite_sheet_cell_index_num_at: error: guard \"initialized\" not met");
    }
    return get_frame_info_at(time).second;
 }

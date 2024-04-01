@@ -94,6 +94,12 @@ void Screen::set_entity_pool(std::vector<AllegroFlare::Prototypes::Platforming2D
 }
 
 
+void Screen::set_gravity(float gravity)
+{
+   this->gravity = gravity;
+}
+
+
 void Screen::set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom)
 {
    this->camera_baseline_zoom = camera_baseline_zoom;
@@ -169,6 +175,12 @@ AllegroFlare::EventEmitter* Screen::get_event_emitter() const
 std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> Screen::get_map_dictionary() const
 {
    return map_dictionary;
+}
+
+
+float Screen::get_gravity() const
+{
+   return gravity;
 }
 
 

@@ -67,8 +67,8 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, DISABLED__dev_test)
       animation.draw();
 
       // draw info text
-      int frame_id = animation.get_frame_id_at(0.21);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", frame_id);
+      int sprite_sheet_cell_index_num = animation.get_sprite_sheet_cell_index_num_at(0.21);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", sprite_sheet_cell_index_num);
 
       al_flip_display(); // assumes a rest of 1/60.0f
    }
@@ -96,7 +96,7 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, before_initialization__most_func
    //EXPECT_GUARD(Animation().get_num_frames(),        "Animation::get_num_frames",          "initialized");
    EXPECT_GUARD(Animation().get_frame_now(),           "Animation::get_frame_now",           "initialized");
    EXPECT_GUARD(Animation().get_bitmap_at_frame_num(), "Animation::get_bitmap_at_frame_num", "initialized");
-   EXPECT_GUARD(Animation().get_frame_id_now(),        "Animation::get_frame_id_now",        "initialized");
+   EXPECT_GUARD(Animation().get_sprite_sheet_cell_index_num_now(),        "Animation::get_sprite_sheet_cell_index_num_now",        "initialized");
    EXPECT_GUARD(Animation().get_frame_at(),            "Animation::get_frame_at",            "initialized");
    // TODO: add more checks here
 }
@@ -130,8 +130,8 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, DISABLED__dev_test2)
       animation.draw();
 
       // draw info text
-      int frame_id = animation.get_frame_id_at(0.21);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", frame_id);
+      int sprite_sheet_cell_index_num = animation.get_sprite_sheet_cell_index_num_at(0.21);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", sprite_sheet_cell_index_num);
 
       al_flip_display(); // assumes a rest of 1/60.0f
    }

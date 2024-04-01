@@ -55,6 +55,8 @@ properties:
   - name: gravity
     type: float
     init_with: 0.25f
+    getter: true
+    setter: true
 
   - name: gravity_reversed
     type: bool

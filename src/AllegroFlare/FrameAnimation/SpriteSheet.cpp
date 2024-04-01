@@ -5,6 +5,7 @@
 #include <AllegroFlare/ImageProcessing.hpp>
 #include <AllegroFlare/Errors.hpp>
 #include <sstream> // for error message
+#include <AllegroFlare/Logger.hpp>
 
 
 
@@ -28,7 +29,7 @@ SpriteSheet::SpriteSheet(ALLEGRO_BITMAP *_atlas, int sprite_width, int sprite_he
    , new_atlas()
    , new_tile_index()
 {
-   AllegroFlare::Errors::warn_from("AllegroFlare::FrameAnimation::SpriteSheet::SpriteSheet()", 
+   AllegroFlare::Errors::warn_from("AllegroFlare::FrameAnimation::SpriteSheet::SpriteSheet()",
                                    "SpriteSheet is auto-initializing on construction. This should be fixed");
 
    // TODO: prevent auto-initialization
@@ -134,6 +135,8 @@ SpriteSheet::~SpriteSheet()
 ALLEGRO_BITMAP *SpriteSheet::get_sprite(int index)
 {
    // NOTE: "get_sprite" depreciated, use "get_cell" instead
+   AllegroFlare::Logger::warn_from_once("AllegroFlare::FrameAnimation::SpriteSheet::get_sprite()", 
+                                        "\"get_sprite\" is depreciated. Use \"get_cell\" instead.");
    return get_cell(index);
 }
 

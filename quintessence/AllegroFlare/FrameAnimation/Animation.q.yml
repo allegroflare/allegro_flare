@@ -94,7 +94,8 @@ documentation:
       - cell:         an image in the sprite_sheet
       - cell_id:      the index of the cell in the sprite_sheet
       - frame:        an image in the animation
-      - frame_id:     the index of the frame in the sprite_sheet (kinda. this has the potential to change)
+      - sprite_sheet_cell_index_num:   the index of the bitmap in the sprite_sheet (kinda. this has the potential to
+                                       change) was previously "frame_id"
       - frame_num:    the sequential number of a frame in an animation, starting with 0 (excluding any looping or ping-ponging)
       - num_frames:   the number of frames in the animation (excluding any looping or ping-ponging)
       ## Notes
@@ -201,7 +202,7 @@ functions:
         default_argument: 0.0f
     guards: [ initialized ]
     body: |
-      int cell_id = get_frame_id_at(time);
+      int cell_id = get_sprite_sheet_cell_index_num_at(time);
       if (cell_id == -1) return nullptr;
       return sprite_sheet->get_cell(cell_id);
 
@@ -213,11 +214,11 @@ functions:
       return get_frame_at(playhead);
 
 
-  - name: get_frame_id_now
+  - name: get_sprite_sheet_cell_index_num_now
     type: int
     guards: [ initialized ]
     body: |
-      return get_frame_id_at(playhead);
+      return get_sprite_sheet_cell_index_num_at(playhead);
 
 
   - name: get_frame_num_now
@@ -239,7 +240,29 @@ functions:
       return sprite_sheet->get_cell(cell_id);
 
 
-  - name: get_frame_id_at
+  - name: get_alignment_and_anchors_at_frame_num
+    type: std::tuple<float, float, float, float>
+    parameters:
+      - name: frame_num
+        type: int
+        default_argument: 0
+    guards: [ initialized, (frame_num < 0), (frame_num >= frames.size()) ]
+    body: |
+      std::tuple<float, float, float, float> result;
+
+      auto &frame = frames[frame_num];
+
+      result = {
+         frame.get_align_x(),
+         frame.get_align_y(),
+         frame.get_anchor_x(),
+         frame.get_anchor_y(),
+      };
+
+      return result;
+
+
+  - name: get_sprite_sheet_cell_index_num_at
     type: int
     parameters:
       - name: time
