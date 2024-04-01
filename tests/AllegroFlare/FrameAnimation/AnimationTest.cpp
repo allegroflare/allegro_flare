@@ -45,12 +45,10 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, will_work_as_expected)
    ALLEGRO_BITMAP *sprite_sheet_bitmap = al_load_bitmap("./bin/data/bitmaps/sprites_grid-x.png");
    EXPECT_NE(nullptr, sprite_sheet_bitmap);
    AllegroFlare::FrameAnimation::SpriteSheet sprite_sheet(sprite_sheet_bitmap, 48, 48, 5);
+   sprite_sheet.initialize();
 
-   // HERE:
-/*
    al_destroy_bitmap(sprite_sheet_bitmap);
 
-///*
    Animation animation(&sprite_sheet, "my_animation", std::vector<Frame>{
          { 1, 0.200f },
          { 2, 0.100f },
@@ -80,7 +78,6 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, will_work_as_expected)
    }
 
    sprite_sheet.destroy();
-*/
    al_destroy_font(font);
    al_destroy_display(display);
    al_shutdown_font_addon();
