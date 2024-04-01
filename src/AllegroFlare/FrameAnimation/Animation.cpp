@@ -218,13 +218,6 @@ void Animation::draw()
 
 int Animation::get_num_frames()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[Animation::get_num_frames]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_num_frames: error: guard \"initialized\" not met");
-   }
    return frames.size();
 }
 

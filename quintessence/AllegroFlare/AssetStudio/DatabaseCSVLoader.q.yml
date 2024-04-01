@@ -606,7 +606,8 @@ methods:
                frame_data,
                playmode_parsed_data.second
             );
-         animation->initialize(); // ?
+         // NOTE: The animation is not initialized. This is because at *use* time, the animation is copied from the
+         // database into the using object's posession, at which point that animation is then initialized.
 
          // Load the data into the asset
          AllegroFlare::AssetStudio::Asset *asset = new AllegroFlare::AssetStudio::Asset;
@@ -619,8 +620,8 @@ methods:
          asset->align_y = align_y;
          asset->anchor_x = anchor_x;
          asset->anchor_y = anchor_y;
-         asset->asset_pack_identifier= asset_pack_identifier;
-         asset->intra_pack_identifier= intra_pack_identifier;
+         asset->asset_pack_identifier = asset_pack_identifier;
+         asset->intra_pack_identifier = intra_pack_identifier;
          asset->type = type;
          asset->image_filename = image_filename;
          asset->images_list = images_list;

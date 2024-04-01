@@ -94,7 +94,6 @@ TEST(AllegroFlare_FrameAnimation_AnimationTest, before_initialization__most_func
    EXPECT_THROW_GUARD_ERROR(Animation().start(), "Animation::start", "initialized");
    EXPECT_THROW_GUARD_ERROR(Animation().update(), "Animation::update", "initialized");
    EXPECT_THROW_GUARD_ERROR(Animation().draw(), "Animation::draw", "initialized");
-   EXPECT_THROW_GUARD_ERROR(Animation().get_num_frames(), "Animation::get_num_frames", "initialized");
    EXPECT_THROW_GUARD_ERROR(Animation().get_frame_bitmap_now(), "Animation::get_frame_bitmap_now", "initialized");
    EXPECT_THROW_GUARD_ERROR(Animation().get_bitmap_at_frame_num(), "Animation::get_bitmap_at_frame_num", "initialized");
    EXPECT_THROW_GUARD_ERROR(
