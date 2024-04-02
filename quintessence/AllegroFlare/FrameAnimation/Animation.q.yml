@@ -219,6 +219,21 @@ functions:
       return get_frame_bitmap_at_time(playhead);
 
 
+  - name: get_frame_alignment_and_anchors_now
+    type: std::pair<bool, std::tuple<float, float, float, float, float, float>>
+    body: |
+      AllegroFlare::FrameAnimation::Frame *frame = get_frame_at(playhead);
+      if (!frame) return { false, { 0, 0, 0, 0, 0, 0 } };
+      return { true, {
+         frame->get_align_x(),
+         frame->get_align_y(),
+         frame->get_align_in_container_x(),
+         frame->get_align_in_container_y(),
+         frame->get_anchor_x(),
+         frame->get_anchor_y(),
+      }};
+
+
   - name: get_frame_alignment_and_anchors_at_time
     type: ALLEGRO_BITMAP*
     parameters:
@@ -267,7 +282,7 @@ functions:
         default_argument: 0
     guards: [ initialized, (frame_num < 0), (frame_num >= frames.size()) ]
     body: |
-      // TODO: Never tested
+      // TODO: Never tested, never used
       std::tuple<float, float, float, float> result;
 
       auto &frame = frames[frame_num];

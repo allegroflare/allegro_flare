@@ -40,8 +40,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, load__will_not_blow_up)
 
 
 TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
-   // TODO: Re-enable this test
-   DISABLED__load__when_loading_from_the_source_data__will_create_the_expected_records)
+   load__when_loading_from_the_source_data__will_create_the_expected_records)
 {
    al_init();
    al_init_image_addon();
@@ -53,7 +52,39 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
    loader.load();
 
-   EXPECT_EQ(true, loader.level_exists("grotto_walk"));
+   EXPECT_EQ(true, loader.level_exists("seethingswarm/catset/cat01_walk_strip8"));
+
+   assets_bitmap_bin.clear();
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
+   //load__when_loading_from_the_source_data__will_create_the_expected_records)
+   FOCUS__load__when_loading_from_the_source_data__will_load_records_with_the_expected_data)
+{
+   al_init();
+   al_init_image_addon();
+
+   AllegroFlare::BitmapBin assets_bitmap_bin;
+   assets_bitmap_bin.set_full_path(ASSETS_FULL_PATH);
+   AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+   loader.set_assets_bitmap_bin(&assets_bitmap_bin);
+   loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
+   loader.load();
+
+   ASSERT_EQ(true, loader.level_exists("seethingswarm/catset/cat01_walk_strip8"));
+   AllegroFlare::AssetStudio::Asset *actual_asset = loader.find_level("seethingswarm/catset/cat01_walk_strip8");
+   ASSERT_NE(nullptr, actual_asset);
+   ASSERT_NE(nullptr, actual_asset->animation);
+
+   AllegroFlare::FrameAnimation::Animation animation = *actual_asset->animation;
+   animation.initialize();
+   EXPECT_EQ(8, animation.get_num_frames());
+   for (auto &frame : animation.get_frames())
+   {
+      EXPECT_EQ(0.425f, frame.get_align_in_container_y());
+   }
 
    assets_bitmap_bin.clear();
    al_uninstall_system();
@@ -62,7 +93,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
 
 TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    // TODO: Re-enable this test
-   DISABLED__load__when_loading_from_the_source_data__will_load_records_with_the_expected_data)
+   DISABLED__load__when_loading_from_the_source_data__will_load_records_with_the_expected_data_2)
 {
    al_init();
    al_init_image_addon();

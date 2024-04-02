@@ -710,19 +710,27 @@ table td
 </tr>
 <tr>
   <td class="property">align_x</td>
-  <td class="property">int</td>
+  <td class="property">float</td>
 </tr>
 <tr>
   <td class="property">align_y</td>
-  <td class="property">int</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_in_container_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_in_container_y</td>
+  <td class="property">float</td>
 </tr>
 <tr>
   <td class="property">anchor_x</td>
-  <td class="property">int</td>
+  <td class="property">float</td>
 </tr>
 <tr>
   <td class="property">anchor_y</td>
-  <td class="property">int</td>
+  <td class="property">float</td>
 </tr>
 <tr>
   <td class="property">bitmap</td>
@@ -998,7 +1006,7 @@ table td
 </tr>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
-  <td class="method"><b>build_n_frames</b>(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f)</td>
+  <td class="method"><b>build_n_frames</b>(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f)</td>
 </tr>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
@@ -15865,6 +15873,10 @@ table td
   <td class="method"><b>get_frame_bitmap_now</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::pair&lt;bool, std::tuple&lt;float, float, float, float, float, float&gt;&gt;</td>
+  <td class="method"><b>get_frame_alignment_and_anchors_now</b>()</td>
+</tr>
+<tr>
   <td class="method">ALLEGRO_BITMAP*</td>
   <td class="method"><b>get_frame_alignment_and_anchors_at_time</b>(float time=0.0f)</td>
 </tr>
@@ -16139,6 +16151,14 @@ table td
 </tr>
 <tr>
   <td class="property">align_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_in_container_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_in_container_y</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -26177,6 +26197,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>refresh_bitmap_to_current_animation_frame</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>refresh_bitmap_alignment_and_anchors_to_animation_frame</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>

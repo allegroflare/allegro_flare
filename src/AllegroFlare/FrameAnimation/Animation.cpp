@@ -247,6 +247,20 @@ ALLEGRO_BITMAP* Animation::get_frame_bitmap_now()
    return get_frame_bitmap_at_time(playhead);
 }
 
+std::pair<bool, std::tuple<float, float, float, float, float, float>> Animation::get_frame_alignment_and_anchors_now()
+{
+   AllegroFlare::FrameAnimation::Frame *frame = get_frame_at(playhead);
+   if (!frame) return { false, { 0, 0, 0, 0, 0, 0 } };
+   return { true, {
+      frame->get_align_x(),
+      frame->get_align_y(),
+      frame->get_align_in_container_x(),
+      frame->get_align_in_container_y(),
+      frame->get_anchor_x(),
+      frame->get_anchor_y(),
+   }};
+}
+
 ALLEGRO_BITMAP* Animation::get_frame_alignment_and_anchors_at_time(float time)
 {
    if (!(initialized))
@@ -336,7 +350,7 @@ std::tuple<float, float, float, float> Animation::get_alignment_and_anchors_at_f
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num >= frames.size())\" not met");
    }
-   // TODO: Never tested
+   // TODO: Never tested, never used
    std::tuple<float, float, float, float> result;
 
    auto &frame = frames[frame_num];

@@ -312,7 +312,7 @@ AllegroFlare::FrameAnimation::SpriteSheet* DatabaseCSVLoader::obtain_sprite_shee
    //return result_sprite_sheet;
 }
 
-std::vector<AllegroFlare::FrameAnimation::Frame> DatabaseCSVLoader::build_n_frames(uint32_t num_frames, uint32_t start_frame_num, float each_frame_duration)
+std::vector<AllegroFlare::FrameAnimation::Frame> DatabaseCSVLoader::build_n_frames(uint32_t num_frames, uint32_t start_frame_num, float each_frame_duration, float each_frame_align_x, float each_frame_align_y, float each_frame_align_in_container_x, float each_frame_align_in_container_y, float each_frame_anchor_x, float each_frame_anchor_y)
 {
    if (!((num_frames >= 1)))
    {
@@ -338,7 +338,16 @@ std::vector<AllegroFlare::FrameAnimation::Frame> DatabaseCSVLoader::build_n_fram
    std::vector<AllegroFlare::FrameAnimation::Frame> result;
    for (uint32_t i=0; i<num_frames; i++)
    {
-      result.push_back({ start_frame_num + i, each_frame_duration });
+      AllegroFlare::FrameAnimation::Frame result_frame(start_frame_num + i, each_frame_duration);
+      result_frame.set_align_x(each_frame_align_x);
+      result_frame.set_align_y(each_frame_align_y);
+      result_frame.set_align_in_container_x(each_frame_align_in_container_x);
+      result_frame.set_align_in_container_y(each_frame_align_in_container_y);
+      result_frame.set_anchor_x(each_frame_anchor_x);
+      result_frame.set_anchor_y(each_frame_anchor_y);
+      
+      //result.push_back({ start_frame_num + i, each_frame_duration });
+      result.push_back(result_frame);
    }
    return result;
 }
@@ -351,6 +360,7 @@ std::vector<AllegroFlare::FrameAnimation::Frame> DatabaseCSVLoader::build_frames
    );
 
    std::vector<AllegroFlare::FrameAnimation::Frame> result;
+   // TODO: If frame animation and alignment data is incuded in the hash, parse and use it here
    return result;
 }
 
@@ -420,14 +430,15 @@ void DatabaseCSVLoader::load()
       //std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
       std::string playmode = validate_key_and_return(&extracted_row, "playmode");
       std::string type = validate_key_and_return(&extracted_row, "type");
-      float align_x = toi(validate_key_and_return(&extracted_row, "align_x"));
-      float align_y = toi(validate_key_and_return(&extracted_row, "align_y"));
-      float anchor_x = toi(validate_key_and_return(&extracted_row, "anchor_x"));
-      float anchor_y = toi(validate_key_and_return(&extracted_row, "anchor_y"));
+      float align_x = tof(validate_key_and_return(&extracted_row, "align_x"));
+      float align_y = tof(validate_key_and_return(&extracted_row, "align_y"));
+      float align_in_container_x = tof(validate_key_and_return(&extracted_row, "align_in_container_x"));
+      float align_in_container_y = tof(validate_key_and_return(&extracted_row, "align_in_container_y"));
+      float anchor_x = tof(validate_key_and_return(&extracted_row, "anchor_x"));
+      float anchor_y = tof(validate_key_and_return(&extracted_row, "anchor_y"));
 
       std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
       std::string images_list_raw = validate_key_and_return(&extracted_row, "images_list");
-
 
 
       // Load the frame data
@@ -473,7 +484,13 @@ void DatabaseCSVLoader::load()
          frame_data = build_n_frames(
                toi(frame_data__build_n_frames__num_frames), // TODO: Test this int
                toi(frame_data__build_n_frames__start_from_frame), // TODO: Test this int
-               tof(frame_data__build_n_frames__each_frame_duration) // TODO: Test this float
+               tof(frame_data__build_n_frames__each_frame_duration), // TODO: Test this float
+               align_x, // TODO: Test this float
+               align_y, // TODO: Test this float
+               align_in_container_x, // TODO: Test this float
+               align_in_container_y, // TODO: Test this float
+               anchor_x, // TODO: Test this float
+               anchor_y  // TODO: Test this float
             );
       }
       else if (using_in_hash_frame_data)
@@ -609,6 +626,7 @@ void DatabaseCSVLoader::load()
             frame_data,
             playmode_parsed_data.second
          );
+      
       // NOTE: The animation is not initialized. This is because at *use* time, the animation is copied from the
       // database into the using object's posession, at which point that animation is then initialized.
 
@@ -619,10 +637,15 @@ void DatabaseCSVLoader::load()
       asset->animation = animation;
       asset->cell_width = cell_width;
       asset->cell_height = cell_height;
-      asset->align_x = align_x;
-      asset->align_y = align_y;
-      asset->anchor_x = anchor_x;
-      asset->anchor_y = anchor_y;
+      // TODO: Look into if these properties should only exist in the animation's frame_data (and not the asset)
+      {
+         asset->align_x = align_x;
+         asset->align_y = align_y;
+         asset->align_in_container_x = align_in_container_x;
+         asset->align_in_container_y = align_in_container_y;
+         asset->anchor_x = anchor_x;
+         asset->anchor_y = anchor_y;
+      }
       asset->asset_pack_identifier = asset_pack_identifier;
       asset->intra_pack_identifier = intra_pack_identifier;
       asset->type = type;

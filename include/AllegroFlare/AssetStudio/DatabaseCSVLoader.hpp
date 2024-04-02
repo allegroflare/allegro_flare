@@ -56,7 +56,7 @@ namespace AllegroFlare
          std::pair<bool, uint32_t> str_to_playmode(std::string playmode_string="[unset-playmode_string]");
          AllegroFlare::AssetStudio::Asset* find_level(std::string level_identifier="[unset-level_identifier]");
          static std::string validate_key_and_return(std::map<std::string, std::string>* extracted_row=nullptr, std::string key="[unset-key]");
-         std::vector<AllegroFlare::FrameAnimation::Frame> build_n_frames(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f);
+         std::vector<AllegroFlare::FrameAnimation::Frame> build_n_frames(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f);
          std::vector<AllegroFlare::FrameAnimation::Frame> build_frames_from_hash(std::string frame_data_hash="[unset-frame_data_hash]");
          void load();
       };

@@ -56,25 +56,37 @@ properties:
     exposed: true
 
   - name: align_x
-    type: int
+    type: float
     init_with: 0.0f
     constructor_arg: true
     exposed: true
 
   - name: align_y
-    type: int
+    type: float
     init_with: 0.0f
     constructor_arg: true
     exposed: true
 
+  - name: align_in_container_x
+    type: float
+    init_with: 0.5f
+    constructor_arg: true
+    exposed: true
+
+  - name: align_in_container_y
+    type: float
+    init_with: 0.5f
+    constructor_arg: true
+    exposed: true
+
   - name: anchor_x
-    type: int
+    type: float
     init_with: 0.0f
     constructor_arg: true
     exposed: true
 
   - name: anchor_y
-    type: int
+    type: float
     init_with: 0.0f
     constructor_arg: true
     exposed: true

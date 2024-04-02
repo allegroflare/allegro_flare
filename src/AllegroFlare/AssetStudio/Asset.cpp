@@ -11,7 +11,7 @@ namespace AssetStudio
 {
 
 
-Asset::Asset(int id, std::string identifier, std::string type, std::string description, AllegroFlare::FrameAnimation::Animation* animation, std::string image_filename, std::vector<std::string> images_list, int cell_width, int cell_height, int align_x, int align_y, int anchor_x, int anchor_y, ALLEGRO_BITMAP* bitmap, std::string asset_pack_identifier, std::string intra_pack_identifier)
+Asset::Asset(int id, std::string identifier, std::string type, std::string description, AllegroFlare::FrameAnimation::Animation* animation, std::string image_filename, std::vector<std::string> images_list, int cell_width, int cell_height, float align_x, float align_y, float align_in_container_x, float align_in_container_y, float anchor_x, float anchor_y, ALLEGRO_BITMAP* bitmap, std::string asset_pack_identifier, std::string intra_pack_identifier)
    : id(id)
    , identifier(identifier)
    , type(type)
@@ -23,6 +23,8 @@ Asset::Asset(int id, std::string identifier, std::string type, std::string descr
    , cell_height(cell_height)
    , align_x(align_x)
    , align_y(align_y)
+   , align_in_container_x(align_in_container_x)
+   , align_in_container_y(align_in_container_y)
    , anchor_x(anchor_x)
    , anchor_y(anchor_y)
    , bitmap(bitmap)

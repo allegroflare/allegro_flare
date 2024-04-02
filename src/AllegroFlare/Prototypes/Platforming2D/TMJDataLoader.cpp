@@ -239,7 +239,7 @@ bool TMJDataLoader::load()
 
 
    bool tilelayer_type_found = false;
-   nlohmann::json tilelayer;
+   nlohmann::json tilelayer; // TODO: Rename this "terrain_tilelayer"
 
    // First, look for a tilelayer type named "terrain"
    // TODO: Test this behavior
@@ -307,15 +307,110 @@ bool TMJDataLoader::load()
       }
    }
 
+
    // Throw if an appropriate tilelayer was never found
    if (!tilelayer_type_found)
    {
       throw std::runtime_error("TMJMeshLoader: error: tilelayer for visual tiles was not found.");
    }
 
+
+   // Look for the "terrain_manual_override" tilelayer
+   bool terrain_manual_override_tilelayer_type_found = false;
+   nlohmann::json terrain_manual_override_tilelayer;
+   // First, look for a tilelayer type named "terrain"
+   // TODO: Test this behavior
+   for (auto &layer : j["layers"].items())
+   {
+      std::string layer_name = layer.value()["name"];
+
+      if (layer_name != "terrain_manual_override") continue;
+
+      if (layer.value()["type"] != "tilelayer")
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "Found a layer named \"terrain_manual_override\" but it was expected to be a \"tilelayer\" type "
+               "layer and was not."
+         );
+      }
+
+      terrain_manual_override_tilelayer = layer.value();
+      terrain_manual_override_tilelayer_type_found = true;
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Found layer \"" + layer_name + "\" to use as override when compositing the visual tile layer."
+      );
+      break;
+   }
+
+
+   // If the "terrain_manual_override" tilelayer exists, override the tiles in the "terrain"
+   // TODO: Test this feature
    layer_num_columns = tilelayer["width"];
    layer_num_rows = tilelayer["height"];
    layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+
+   if (terrain_manual_override_tilelayer_type_found)
+   {
+      int override_num_columns = terrain_manual_override_tilelayer["width"];
+      int override_num_rows = terrain_manual_override_tilelayer["height"];
+
+      std::vector<int> override_tile_data = terrain_manual_override_tilelayer["data"].get<std::vector<int>>();
+
+      if (override_num_columns != layer_num_columns)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "asdfasdfasdfas45783"
+         );
+      }
+      if (override_num_rows != layer_num_rows)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "983479jsaopdfjiaodf"
+         );
+      }
+      if (override_tile_data.size() != layer_tile_data.size())
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "aa7agy0ayg0ad0a"
+         );
+      }
+
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Overriding \"terrain\" layer with non-zero tiles of \"terrain_manual_override\" layer."
+      );
+      int override_count = 0;
+      for (int i=0; i<override_tile_data.size(); i++)
+      {
+         if (override_tile_data[i] != 0)
+         {
+            std::cout << ".";
+            override_count++;
+            layer_tile_data[i] = override_tile_data[i];
+         }
+      }
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         std::to_string(override_count) + " tiles overrided."
+      );
+   }
+
+
+
+   // Throw if an appropriate tilelayer was never found
+   //if (!tilelayer_type_found)
+   //{
+      //throw std::runtime_error("TMJMeshLoader: error: tilelayer for visual tiles was not found.");
+   //}
+
+   //layer_num_columns = tilelayer["width"];
+   //layer_num_rows = tilelayer["height"];
+   //layer_tile_data = tilelayer["data"].get<std::vector<int>>();
    if (normalize_tile_data_from_tilesets)
    {
       // TODO: Test this normalization is correct with multiple tilesets

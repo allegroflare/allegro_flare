@@ -240,7 +240,8 @@ void Basic2D::set_bitmap_alignment_strategy(std::string bitmap_alignment_strateg
       "centered",
       "bottom_centered",
       "bottom_centered_edge",
-      "disabled"
+      "disabled",
+      "provided_by_animation_frame"
    };
 
    if (valid_bitmap_alignment_strategies.find(bitmap_alignment_strategy) == valid_bitmap_alignment_strategies.end())
@@ -270,6 +271,10 @@ void Basic2D::update()
    {
       animation.update();
       refresh_bitmap_to_current_animation_frame();
+      if (bitmap_alignment_strategy == "provided_by_animation_frame")
+      {
+         refresh_bitmap_alignment_and_anchors_to_animation_frame();
+      }
    }
    //refresh_bitmap();
 
@@ -287,6 +292,63 @@ void Basic2D::refresh_bitmap_to_current_animation_frame()
    if (animation.get_initialized())
    {
       set_bitmap(animation.get_frame_bitmap_now());
+   }
+   return;
+}
+
+void Basic2D::refresh_bitmap_alignment_and_anchors_to_animation_frame()
+{
+   if (animation.get_initialized())
+   {
+      // Obtain anchors from frame in animation
+      std::pair<bool, std::tuple<float, float, float, float, float, float>> frame_alignment_and_anchors =
+         animation.get_frame_alignment_and_anchors_now();
+
+      bool frame_alignment_and_anchors_data_is_present = frame_alignment_and_anchors.first;
+      std::tuple<float, float, float, float, float, float> frame_alignment_and_anchors_data =
+         frame_alignment_and_anchors.second;
+
+      if (frame_alignment_and_anchors_data_is_present)
+      {
+         // Collect the alignment and anchor data
+         float &frame_align_x = std::get<0>(frame_alignment_and_anchors_data);
+         float &frame_align_y = std::get<1>(frame_alignment_and_anchors_data);
+         float &frame_alignment_in_container_x = std::get<2>(frame_alignment_and_anchors_data);
+         float &frame_alignment_in_container_y = std::get<3>(frame_alignment_and_anchors_data);
+         float &frame_anchor_x = std::get<4>(frame_alignment_and_anchors_data);
+         float &frame_anchor_y = std::get<5>(frame_alignment_and_anchors_data);
+
+         // TODO: Assign the alignment and anchor values to the bitmap_placement
+         float *bitmap_x = &bitmap_placement.position.x;
+         float *bitmap_y = &bitmap_placement.position.y;
+         float *bitmap_align_x = &bitmap_placement.align.x;
+         float *bitmap_align_y = &bitmap_placement.align.y;
+         float *bitmap_anchor_x = &bitmap_placement.anchor.x;
+         float *bitmap_anchor_y = &bitmap_placement.anchor.y;
+
+         // TODO: Consider that the anchor does not take into consideration the sprite_sheet_scale and if it should
+         // be included in this calculation.
+         // TODO: Consider that place->size may not be updated at this time, which could vary depending on if the
+         // animation frame changes size.
+         *bitmap_x = place.size.x * frame_alignment_in_container_x;
+         *bitmap_y = place.size.y * frame_alignment_in_container_y;
+         *bitmap_align_x = frame_align_x;
+         *bitmap_align_y = frame_align_y;
+         *bitmap_anchor_x = frame_anchor_x;
+         *bitmap_anchor_y = frame_anchor_y;
+      }
+      else
+      {
+         // Consider throwing, resetting/clearing the alignments on 0.0f, 0.0f, or leaving them alone
+      }
+
+      // TODO: Assign the alignment and anchor values to the bitmap_placement
+
+
+      //bitmap_x = parent_placement->size.x * frame_align_x;
+      //bitmap_y = parent_placement->size.y * frame_align_y;
+      //bitmap_align_x = 0.5;
+      //bitmap_align_y = 1.0;
    }
    return;
 }
@@ -652,6 +714,16 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
       *bitmap_y = parent_placement->size.y;
       *bitmap_align_x = 0.5;
       *bitmap_align_y = 1.0;
+   }
+   else if (bitmap_alignment_strategy == "provided_by_animation_frame") // The animation frame provides alignment
+   {
+      // TODO: Here
+      //std::tuple<float, float, float, float> frame_alignment_and_anchors =
+         //animation.get_frame_alignment_and_anchors_now();
+      //float &frame_align_x = std::get<0>(frame_alignment_and_anchors);
+      //float &frame_align_y = std::get<1>(frame_alignment_and_anchors);
+      //float &frame_anchor_x = std::get<2>(frame_alignment_and_anchors);
+      //float &frame_anchor_y = std::get<3>(frame_alignment_and_anchors);
    }
    else if (bitmap_alignment_strategy == "disabled") // You can assign your own custom values and they are retained
    {
