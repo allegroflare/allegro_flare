@@ -205,27 +205,23 @@ functions:
       }
 
 
-      // Get first layer that is of type "tilelayer" (and not named "collision", and not postfixed with "_buffer")
-
       bool tilelayer_type_found = false;
       nlohmann::json tilelayer;
+
+      // First, look for a tilelayer type named "terrain"
+      // TODO: Test this behavior
       for (auto &layer : j["layers"].items())
       {
-         if (layer.value()["type"] != "tilelayer") continue;
-         if (layer.value()["name"] == "collision") continue;
-         //if (layer.value()["name"] == "collision") continue;
-
-         // If the layer name is postfixed with "_buffer", skip
          std::string layer_name = layer.value()["name"];
-         AllegroFlare::StringFormatValidator validator(layer_name);
-          
-         if (validator.ends_with("_buffer") || validator.ends_with("_prototype"))
+
+         if (layer_name != "terrain") continue;
+
+         if (layer.value()["type"] != "tilelayer")
          {
-            AllegroFlare::Logger::info_from(
+            AllegroFlare::Logger::throw_error(
                "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
-               "Skipping over layer named \"" + layer_name+ "\" as possible candidate for visual tile layer loading."
+               "Found a layer named \"terrain\" but it was expected to be a \"tilelayer\" type layer and was not."
             );
-            continue;
          }
 
          tilelayer = layer.value();
@@ -237,10 +233,51 @@ functions:
          break;
       }
 
+      // If no "terrain" layer was found of type "tilelayer", look for the first "tilelayer" that does not have
+      // excluding features.
+      if (!tilelayer_type_found)
+      {
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "Looking for \"tilelayer\" named \"terrain\" but it was not found. As a backup, now looking for the first "
+               "of type \"tilelayer\" that does not have any excluding traits."
+         );
+         // Get first layer that is of type "tilelayer" (and not named "collision", and not postfixed with "_buffer")
+
+         for (auto &layer : j["layers"].items())
+         {
+            if (layer.value()["type"] != "tilelayer") continue;
+            if (layer.value()["name"] == "collision") continue;
+            //if (layer.value()["name"] == "collision") continue;
+
+            // If the layer name is postfixed with "_buffer", skip
+            std::string layer_name = layer.value()["name"];
+            AllegroFlare::StringFormatValidator validator(layer_name);
+
+            if (validator.ends_with("_buffer") || validator.ends_with("_prototype"))
+            {
+               AllegroFlare::Logger::info_from(
+                  "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+                  "Skipping over layer named \"" + layer_name + "\" as possible candidate for visual tile "
+                     "layer loading."
+               );
+               continue;
+            }
+
+            tilelayer = layer.value();
+            tilelayer_type_found = true;
+            AllegroFlare::Logger::info_from(
+               "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+               "Found layer \"" + layer_name + "\" to use as visual tile layer."
+            );
+            break;
+         }
+      }
+
       // Throw if an appropriate tilelayer was never found
       if (!tilelayer_type_found)
       {
-         throw std::runtime_error("TMJMeshLoader: error: tilelayer type not found.");
+         throw std::runtime_error("TMJMeshLoader: error: tilelayer for visual tiles was not found.");
       }
 
       layer_num_columns = tilelayer["width"];
