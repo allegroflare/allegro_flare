@@ -41,7 +41,7 @@ properties:
     init_with: '{}'
     getter: explicit
 
-  - name: background_tilelayer_found
+  - name: background_tilelayer_exists
     type: bool
     init_with: false
     getter: explicit
@@ -144,10 +144,10 @@ functions:
     body: return layer_tile_data;
 
 
-  - name: get_background_tilelayer_found
+  - name: get_background_tilelayer_exists
     type: bool
     guards: [ loaded ]
-    body: return background_tilelayer_found;
+    body: return background_tilelayer_exists;
 
 
   - name: get_background_tilelayer_num_columns
@@ -433,7 +433,7 @@ functions:
          }
 
          background_tilelayer = layer.value();
-         background_tilelayer_found = true;
+         background_tilelayer_exists = true;
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
             "Found layer \"" + layer_name + "\" to use as background tile layer."
@@ -441,7 +441,7 @@ functions:
          break;
       }
 
-      if (!background_tilelayer_found)
+      if (!background_tilelayer_exists)
       {
          AllegroFlare::Logger::warn_from( // Consider if this should be info, warn, or throw, depending on the user
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",

@@ -23,7 +23,7 @@ namespace AllegroFlare
             int layer_num_columns;
             int layer_num_rows;
             std::vector<int> layer_tile_data;
-            bool background_tilelayer_found;
+            bool background_tilelayer_exists;
             int background_tilelayer_num_columns;
             int background_tilelayer_num_rows;
             std::vector<int> background_tilelayer_tile_data;
@@ -50,7 +50,7 @@ namespace AllegroFlare
             int get_layer_num_columns();
             int get_layer_num_rows();
             std::vector<int> get_layer_tile_data();
-            bool get_background_tilelayer_found();
+            bool get_background_tilelayer_exists();
             int get_background_tilelayer_num_columns();
             int get_background_tilelayer_num_rows();
             std::vector<int> get_background_tilelayer_tile_data();

@@ -29,7 +29,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , layer_num_columns(0)
    , layer_num_rows(0)
    , layer_tile_data({})
-   , background_tilelayer_found(false)
+   , background_tilelayer_exists(false)
    , background_tilelayer_num_columns(0)
    , background_tilelayer_num_rows(0)
    , background_tilelayer_tile_data({})
@@ -138,16 +138,16 @@ std::vector<int> TMJDataLoader::get_layer_tile_data()
    return layer_tile_data;
 }
 
-bool TMJDataLoader::get_background_tilelayer_found()
+bool TMJDataLoader::get_background_tilelayer_exists()
 {
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJDataLoader::get_background_tilelayer_found]: error: guard \"loaded\" not met.";
+      error_message << "[TMJDataLoader::get_background_tilelayer_exists]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJDataLoader::get_background_tilelayer_found: error: guard \"loaded\" not met");
+      throw std::runtime_error("TMJDataLoader::get_background_tilelayer_exists: error: guard \"loaded\" not met");
    }
-   return background_tilelayer_found;
+   return background_tilelayer_exists;
 }
 
 int TMJDataLoader::get_background_tilelayer_num_columns()
@@ -474,7 +474,7 @@ bool TMJDataLoader::load()
       }
 
       background_tilelayer = layer.value();
-      background_tilelayer_found = true;
+      background_tilelayer_exists = true;
       AllegroFlare::Logger::info_from(
          "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
          "Found layer \"" + layer_name + "\" to use as background tile layer."
@@ -482,7 +482,7 @@ bool TMJDataLoader::load()
       break;
    }
 
-   if (!background_tilelayer_found)
+   if (!background_tilelayer_exists)
    {
       AllegroFlare::Logger::warn_from( // Consider if this should be info, warn, or throw, depending on the user
          "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
