@@ -16,6 +16,7 @@
 #define TMJ_FIXTURE_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/"
 #endif
 #define TMJ_FIXTURE_FILENAME "map1-02.tmj"
+#define TMJ_FIXTURE_WITH_BACKGROUND_FILENAME "map1-with_background-02.tmj"
 //#define TILE_ATLAS_FILENAME "tiles_dungeon_v1.1.png"
 
 class AllegroFlare_Prototypes_Platforming2D_TMJMeshLoaderTest : public ::testing::Test{};
@@ -108,6 +109,28 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJMeshLoaderTestWithAllegroRenderi
    //sleep(2.0);
 
    delete mesh;
+}
+
+
+TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJMeshLoaderTestWithAllegroRenderingFixture,
+   load__when_a_background_tilelayer_is_present__creates_the_background_tile_map_filled_with_the_expected_data)
+{
+   AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
+   bitmap_bin.set_full_path(TMJ_FIXTURE_PATH);
+   AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmjmesh_loader(
+         &bitmap_bin,
+         std::string(TMJ_FIXTURE_PATH) + TMJ_FIXTURE_WITH_BACKGROUND_FILENAME
+      );
+
+   tmjmesh_loader.load();
+
+   AllegroFlare::TileMaps::PrimMesh *background_mesh = tmjmesh_loader.get_background_mesh();
+
+   ASSERT_NE(nullptr, background_mesh);
+   EXPECT_EQ(15, background_mesh->get_num_rows());
+   EXPECT_EQ(25, background_mesh->get_num_columns());
+
+   delete background_mesh;
 }
 
 
