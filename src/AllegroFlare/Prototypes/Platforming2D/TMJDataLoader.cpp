@@ -515,6 +515,11 @@ bool TMJDataLoader::load()
             layer_tile_data,
             tilesets_gids
          );
+
+      background_tilelayer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+            background_tilelayer_tile_data,
+            tilesets_gids
+         );
    }
 
 

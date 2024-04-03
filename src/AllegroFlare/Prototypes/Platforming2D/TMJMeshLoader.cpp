@@ -187,6 +187,11 @@ bool TMJMeshLoader::load()
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
       }
+      if (background_tiles.size() != tmx_width * tmx_height)
+      {
+         // TODO: Improve this error message
+         throw std::runtime_error("TMJMeshLoader: error: aqwoyzhawehopaso");
+      }
    }
    if (collision_layer_tiles.size() != tmx_width * tmx_height)
    {
@@ -217,6 +222,15 @@ bool TMJMeshLoader::load()
       }
 
       for (auto &tile : collision_layer_tiles)
+      {
+         bool horizontalFlip = tile & 0x80000000;
+         bool verticalFlip = tile & 0x40000000;
+         bool diagonalFlip = tile & 0x20000000;
+         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
+         tile = filtered_tile_id;
+      }
+
+      for (auto &tile : background_tiles)
       {
          bool horizontalFlip = tile & 0x80000000;
          bool verticalFlip = tile & 0x40000000;
@@ -313,7 +327,7 @@ bool TMJMeshLoader::load()
       {
          for (int x=0; x<num_columns; x++)
          {
-            int tile_id = tiles[y * num_columns + x];
+            int tile_id = background_tiles[y * num_columns + x];
             if (tile_id == 0) created_background_mesh->set_tile_id(x, y, 72);
                               // ^^ TODO: this is a hack to have 0 be transparent
                               // ^^ TODO: CRITICAL Modify this to make more sense. Consider *removing* the tile from

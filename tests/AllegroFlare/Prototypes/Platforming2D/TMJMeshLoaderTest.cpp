@@ -129,6 +129,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJMeshLoaderTestWithAllegroRenderi
    ASSERT_NE(nullptr, background_mesh);
    EXPECT_EQ(15, background_mesh->get_num_rows());
    EXPECT_EQ(25, background_mesh->get_num_columns());
+   EXPECT_EQ(174, background_mesh->get_tile_id(20, 3));
 
    delete background_mesh;
 }

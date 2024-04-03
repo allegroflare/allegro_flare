@@ -1434,13 +1434,13 @@ void Screen::draw()
                                                                            // "traditional" drawing functions
    //draw_entities(); // entities are drawn before the tilemap so there is not collision with the
                       // zbuffer
-   if (show_tile_mesh)
-   {
-      get_tile_mesh()->render();
-   }
    if (show_background_tile_mesh && background_tile_mesh_exists())
    {
       get_background_tile_mesh()->render();
+   }
+   if (show_tile_mesh)
+   {
+      get_tile_mesh()->render();
    }
    draw_entities();
    if (show_collision_tile_mesh) render_collision_tile_mesh();
