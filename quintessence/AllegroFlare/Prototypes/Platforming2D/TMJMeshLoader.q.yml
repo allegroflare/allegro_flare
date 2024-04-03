@@ -56,6 +56,8 @@ documentation:
 
   - todos:
      - Resolve hard-coded hack to fix tiled tile 0 to be transparent
+     - Move more of the logic for building the mesh from the TMJDataLoader into this class, for example the
+       "terrain_override" layer could be composited here instead.
 
 
 functions:
