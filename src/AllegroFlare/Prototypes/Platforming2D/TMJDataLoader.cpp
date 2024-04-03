@@ -29,6 +29,10 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , layer_num_columns(0)
    , layer_num_rows(0)
    , layer_tile_data({})
+   , background_tilelayer_found(false)
+   , background_tilelayer_num_columns(0)
+   , background_tilelayer_num_rows(0)
+   , background_tilelayer_tile_data({})
    , collision_layer_num_columns(0)
    , collision_layer_num_rows(0)
    , collision_layer_tile_data({})
@@ -132,6 +136,54 @@ std::vector<int> TMJDataLoader::get_layer_tile_data()
       throw std::runtime_error("TMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met");
    }
    return layer_tile_data;
+}
+
+bool TMJDataLoader::get_background_tilelayer_found()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJDataLoader::get_background_tilelayer_found]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJDataLoader::get_background_tilelayer_found: error: guard \"loaded\" not met");
+   }
+   return background_tilelayer_found;
+}
+
+int TMJDataLoader::get_background_tilelayer_num_columns()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJDataLoader::get_background_tilelayer_num_columns]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJDataLoader::get_background_tilelayer_num_columns: error: guard \"loaded\" not met");
+   }
+   return background_tilelayer_num_columns;
+}
+
+int TMJDataLoader::get_background_tilelayer_num_rows()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJDataLoader::get_background_tilelayer_num_rows]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJDataLoader::get_background_tilelayer_num_rows: error: guard \"loaded\" not met");
+   }
+   return background_tilelayer_num_rows;
+}
+
+std::vector<int> TMJDataLoader::get_background_tilelayer_tile_data()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJDataLoader::get_background_tilelayer_tile_data]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJDataLoader::get_background_tilelayer_tile_data: error: guard \"loaded\" not met");
+   }
+   return background_tilelayer_tile_data;
 }
 
 int TMJDataLoader::get_collision_layer_num_columns()
@@ -399,6 +451,51 @@ bool TMJDataLoader::load()
          std::to_string(override_count) + " tiles overrided."
       );
    }
+
+
+
+
+   //background_tilelayer_found = false;
+   nlohmann::json background_tilelayer;
+
+   // TODO: Test this behavior
+   for (auto &layer : j["layers"].items())
+   {
+      std::string layer_name = layer.value()["name"];
+
+      if (layer_name != "background") continue;
+
+      if (layer.value()["type"] != "tilelayer")
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "Found a layer named \"background\" but it was expected to be a \"tilelayer\" type layer and was not."
+         );
+      }
+
+      background_tilelayer = layer.value();
+      background_tilelayer_found = true;
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Found layer \"" + layer_name + "\" to use as background tile layer."
+      );
+      break;
+   }
+
+   if (!background_tilelayer_found)
+   {
+      AllegroFlare::Logger::warn_from( // Consider if this should be info, warn, or throw, depending on the user
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Layer named \"background\" was not found. Skipping."
+      );
+   }
+   else
+   {
+      background_tilelayer_num_columns = background_tilelayer["width"];
+      background_tilelayer_num_rows = background_tilelayer["height"];
+      background_tilelayer_tile_data = background_tilelayer["data"].get<std::vector<int>>();
+   }
+
 
 
 
