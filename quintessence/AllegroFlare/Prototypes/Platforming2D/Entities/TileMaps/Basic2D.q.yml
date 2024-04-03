@@ -21,6 +21,12 @@ properties:
     getter: true
     setter: true
 
+  - name: background_tile_mesh
+    type: AllegroFlare::TileMaps::PrimMesh*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: collision_tile_mesh
     type: AllegroFlare::TileMaps::TileMap<int>*
     init_with: nullptr
@@ -50,12 +56,17 @@ methods:
       if (tile_mesh)
       {
          delete tile_mesh;
-         tile_atlas = nullptr;
+         tile_mesh = nullptr;
+      }
+      if (background_tile_mesh)
+      {
+         delete background_tile_mesh;
+         background_tile_mesh = nullptr;
       }
       if (collision_tile_mesh)
       {
          delete collision_tile_mesh;
-         tile_atlas = nullptr;
+         collision_tile_mesh = nullptr;
       }
       return;
 

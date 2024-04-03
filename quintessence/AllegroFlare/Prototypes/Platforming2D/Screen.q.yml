@@ -79,15 +79,21 @@ properties:
     getter: true
     setter: explicit
 
+  - name: last_activated_save_point
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: show_tile_mesh
     type: bool
     init_with: true
     getter: true
     setter: true
 
-  - name: last_activated_save_point
-    type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
-    init_with: nullptr
+  - name: show_background_tile_mesh
+    type: bool
+    init_with: true
     getter: true
     setter: true
 
@@ -1303,7 +1309,14 @@ methods:
                                                                               // "traditional" drawing functions
       //draw_entities(); // entities are drawn before the tilemap so there is not collision with the
                          // zbuffer
-      if (show_tile_mesh) get_tile_mesh()->render();
+      if (show_tile_mesh)
+      {
+         get_tile_mesh()->render();
+      }
+      if (show_background_tile_mesh && background_tile_mesh_exists())
+      {
+         get_background_tile_mesh()->render();
+      }
       draw_entities();
       if (show_collision_tile_mesh) render_collision_tile_mesh();
 
@@ -1766,6 +1779,20 @@ methods:
     type: AllegroFlare::TileMaps::PrimMesh*
     body: |
       return currently_active_map->get_tile_mesh();
+
+
+  - name: get_background_tile_mesh
+    guards: [ currently_active_map ]
+    type: AllegroFlare::TileMaps::PrimMesh*
+    body: |
+      return currently_active_map->get_background_tile_mesh();
+
+
+  - name: background_tile_mesh_exists
+    guards: [ currently_active_map ]
+    type: bool
+    body: |
+      return (currently_active_map->get_background_tile_mesh() != nullptr);
 
 
   - name: get_collision_tile_mesh

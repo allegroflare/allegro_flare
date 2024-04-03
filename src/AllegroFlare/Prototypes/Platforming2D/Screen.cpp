@@ -46,8 +46,9 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , camera()
    , camera_baseline_zoom({4.8f, 4.5f})
    , player_controlled_entity(nullptr)
-   , show_tile_mesh(true)
    , last_activated_save_point(nullptr)
+   , show_tile_mesh(true)
+   , show_background_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , show_visual_hint_on_suspended_gameplay(false)
    , entity_control_connector(nullptr)
@@ -106,15 +107,21 @@ void Screen::set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom)
 }
 
 
+void Screen::set_last_activated_save_point(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* last_activated_save_point)
+{
+   this->last_activated_save_point = last_activated_save_point;
+}
+
+
 void Screen::set_show_tile_mesh(bool show_tile_mesh)
 {
    this->show_tile_mesh = show_tile_mesh;
 }
 
 
-void Screen::set_last_activated_save_point(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* last_activated_save_point)
+void Screen::set_show_background_tile_mesh(bool show_background_tile_mesh)
 {
-   this->last_activated_save_point = last_activated_save_point;
+   this->show_background_tile_mesh = show_background_tile_mesh;
 }
 
 
@@ -196,15 +203,21 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Screen::get_player_c
 }
 
 
+AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Screen::get_last_activated_save_point() const
+{
+   return last_activated_save_point;
+}
+
+
 bool Screen::get_show_tile_mesh() const
 {
    return show_tile_mesh;
 }
 
 
-AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Screen::get_last_activated_save_point() const
+bool Screen::get_show_background_tile_mesh() const
 {
-   return last_activated_save_point;
+   return show_background_tile_mesh;
 }
 
 
@@ -1421,7 +1434,14 @@ void Screen::draw()
                                                                            // "traditional" drawing functions
    //draw_entities(); // entities are drawn before the tilemap so there is not collision with the
                       // zbuffer
-   if (show_tile_mesh) get_tile_mesh()->render();
+   if (show_tile_mesh)
+   {
+      get_tile_mesh()->render();
+   }
+   if (show_background_tile_mesh && background_tile_mesh_exists())
+   {
+      get_background_tile_mesh()->render();
+   }
    draw_entities();
    if (show_collision_tile_mesh) render_collision_tile_mesh();
 
@@ -1872,6 +1892,30 @@ AllegroFlare::TileMaps::PrimMesh* Screen::get_tile_mesh()
       throw std::runtime_error("Screen::get_tile_mesh: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_tile_mesh();
+}
+
+AllegroFlare::TileMaps::PrimMesh* Screen::get_background_tile_mesh()
+{
+   if (!(currently_active_map))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::get_background_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::get_background_tile_mesh: error: guard \"currently_active_map\" not met");
+   }
+   return currently_active_map->get_background_tile_mesh();
+}
+
+bool Screen::background_tile_mesh_exists()
+{
+   if (!(currently_active_map))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::background_tile_mesh_exists]: error: guard \"currently_active_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::background_tile_mesh_exists: error: guard \"currently_active_map\" not met");
+   }
+   return (currently_active_map->get_background_tile_mesh() != nullptr);
 }
 
 AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_mesh()
