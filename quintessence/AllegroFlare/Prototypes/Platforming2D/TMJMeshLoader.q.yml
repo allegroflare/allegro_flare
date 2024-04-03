@@ -162,15 +162,18 @@ functions:
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: quopiwequworeueo");
       }
-      if (tilelayer_width != background_tilelayer_width)
+      if (background_tilelayer_exists)
       {
-         // TODO: Improve this error message
-         throw std::runtime_error("TMJMeshLoader: error: zxnyzvnyzvxcnr");
-      }
-      if (tilelayer_height != background_tilelayer_height)
-      {
-         // TODO: Improve this error message
-         throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
+         if (tilelayer_width != background_tilelayer_width)
+         {
+            // TODO: Improve this error message
+            throw std::runtime_error("TMJMeshLoader: error: zxnyzvnyzvxcnr");
+         }
+         if (tilelayer_height != background_tilelayer_height)
+         {
+            // TODO: Improve this error message
+            throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
+         }
       }
       if (collision_layer_tiles.size() != tmx_width * tmx_height)
       {
