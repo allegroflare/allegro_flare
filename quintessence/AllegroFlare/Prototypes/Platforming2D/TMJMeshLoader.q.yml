@@ -54,7 +54,7 @@ properties:
 documentation:
 
 
-  - todos: 
+  - todos:
      - Resolve hard-coded hack to fix tiled tile 0 to be transparent
 
 
