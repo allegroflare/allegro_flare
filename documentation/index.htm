@@ -16378,6 +16378,14 @@ table td
   <td class="method"><b>handle_primary_gameplay_screen_finished</b>()</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>handle_arbitrary_storyboard_screen_finished</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Elements::StoryboardPages::Base *&gt;</td>
+  <td class="method"><b>create_arbitrary_storyboard_pages_by_identifier</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;AllegroFlare::Elements::StoryboardPages::Base *&gt;</td>
   <td class="method"><b>create_intro_storyboard_pages</b>()</td>
 </tr>
@@ -29769,6 +29777,22 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_arbitrary_storyboard_screen_finished_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_arbitrary_storyboard_screen_finished_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">on_arbitrary_storyboard_screen_activated_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_arbitrary_storyboard_screen_activated_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">INTRO_LOGOS_SCREEN_IDENTIFIER</td>
   <td class="property">char*</td>
 </tr>
@@ -29806,6 +29830,10 @@ table td
 </tr>
 <tr>
   <td class="property">LEVEL_SELECT_SCREEN_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">ARBITRARY_STORYBOARD_SCREEN_IDENTIFIER</td>
   <td class="property">char*</td>
 </tr>
 <tr>
@@ -29987,6 +30015,10 @@ table td
   <td class="property">AllegroFlare::Screens::LevelSelectScreen</td>
 </tr>
 <tr>
+  <td class="property">arbitrary_storyboard_screen</td>
+  <td class="property">AllegroFlare::Screens::Storyboard</td>
+</tr>
+<tr>
   <td class="property">game_over_screen</td>
   <td class="property">AllegroFlare::Screens::GameOverScreen</td>
 </tr>
@@ -30056,6 +30088,14 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>on_primary_gameplay_screen_finished_func</b>(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>on_arbitrary_storyboard_screen_finished_func</b>(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>on_arbitrary_storyboard_screen_activated_func</b>(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">void</td>

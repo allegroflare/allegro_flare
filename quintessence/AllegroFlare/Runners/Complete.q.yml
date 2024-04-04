@@ -84,6 +84,10 @@ properties:
     type: AllegroFlare::Screens::LevelSelectScreen
     init_with: ''
 
+  - name: arbitrary_storyboard_screen
+    type: AllegroFlare::Screens::Storyboard
+    init_with: ''
+
   - name: game_over_screen
     type: AllegroFlare::Screens::GameOverScreen
     init_with: ''
@@ -265,6 +269,17 @@ methods:
          game_configuration->create_new_game_intro_storyboard_pages()
       );
 
+      // Setup arbitrary storyboard screen
+      arbitrary_storyboard_screen.set_event_emitter(event_emitter);
+      arbitrary_storyboard_screen.set_font_bin(font_bin);
+      arbitrary_storyboard_screen.set_auto_advance(true);
+      arbitrary_storyboard_screen.set_foreground(shared_foreground);
+      arbitrary_storyboard_screen.set_background(shared_background);
+      arbitrary_storyboard_screen.initialize();
+      //arbitrary_storyboard_screen.get_storyboard_element_ref().set_pages(
+         //game_configuration->create_intro_storyboard_pages()
+      //);
+
       // Setup load a saved game screen
       load_a_saved_game_screen.set_event_emitter(event_emitter);
       load_a_saved_game_screen.set_bitmap_bin(bitmap_bin);
@@ -386,6 +401,48 @@ methods:
       return true;
 
 
+  - name: on_arbitrary_storyboard_screen_finished_func
+    type: bool
+    static: true
+    parameters:
+      - name: router
+        type: AllegroFlare::Routers::Standard*
+        default_argument: nullptr
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ router, user_data ]
+    body: |
+      AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
+      this_runner->game_configuration->handle_arbitrary_storyboard_screen_finished();
+      return true;
+
+
+  - name: on_arbitrary_storyboard_screen_activated_func
+    type: bool
+    static: true
+    parameters:
+      - name: router
+        type: AllegroFlare::Routers::Standard*
+        default_argument: nullptr
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ router, user_data ]
+    body: |
+      AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
+      //this_runner->game_configuration->handle_arbitrary_storyboard_screen_activated(); // TODO: Is this necessary?
+
+      // TODO: Consider how to pass along a storyboard identifier that should be loaded
+      std::string storyboard_identifier = "[unset-storyboard_identifier]";
+      // Set the pages of the storyboard to this storyboard
+      // TODO: Consider if the arbitrary_storyboard_screen should be a pointer and created new here
+      this_runner->arbitrary_storyboard_screen.get_storyboard_element_ref().set_pages(
+         this_runner->game_configuration->create_arbitrary_storyboard_pages_by_identifier(storyboard_identifier)
+      );
+      return true;
+
+
   - name: setup_router
     guards: [ primary_gameplay_screen ]
     body: |
@@ -450,6 +507,12 @@ methods:
       router.set_on_primary_gameplay_screen_finished_func(on_primary_gameplay_screen_finished_func);
       router.set_on_primary_gameplay_screen_finished_func_user_data(this);
 
+      router.set_on_arbitrary_storyboard_screen_finished_func(on_arbitrary_storyboard_screen_finished_func);
+      router.set_on_arbitrary_storyboard_screen_finished_func_user_data(this);
+
+      router.set_on_arbitrary_storyboard_screen_activated_func(on_arbitrary_storyboard_screen_activated_func);
+      router.set_on_arbitrary_storyboard_screen_activated_func_user_data(this);
+
 
       // Set the routes
       router.register_screen(
@@ -483,6 +546,10 @@ methods:
       router.register_screen(
          AllegroFlare::Routers::Standard::LEVEL_SELECT_SCREEN_IDENTIFIER,
          &level_select_screen
+      );
+      router.register_screen(
+         AllegroFlare::Routers::Standard::ARBITRARY_STORYBOARD_SCREEN_IDENTIFIER,
+         &arbitrary_storyboard_screen
       );
       router.register_screen(
          AllegroFlare::Routers::Standard::GAME_OVER_SCREEN_IDENTIFIER,
@@ -584,10 +651,17 @@ methods:
             );
          }
       );
-      ///* // TODO: Consider uncommented this
+      arbitrary_storyboard_screen.set_on_finished_callback_func(
+         [this](AllegroFlare::Screens::Storyboard* screen, void* data) {
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED,
+               nullptr,
+               al_get_time()
+            );
+         }
+      );
       primary_gameplay_screen->set_on_finished_callback_func(
          [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
-         //[this]([[COMPONENT_NAME_FIRST_FRAGMENT]]::Gameplay::Screen* screen, void* data) {
             this->router.emit_route_event(
                AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
                nullptr,
@@ -595,7 +669,6 @@ methods:
             );
          }
       );
-      //*/
       settings_screen.set_on_exit_callback_func(
          [this](AllegroFlare::Screens::SettingsScreen* screen, void* data) {
             this->router.emit_route_event(

@@ -94,6 +94,30 @@ properties:
     getter: true
     setter: true
 
+  - name: on_arbitrary_storyboard_screen_finished_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_arbitrary_storyboard_screen_finished_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: on_arbitrary_storyboard_screen_activated_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_arbitrary_storyboard_screen_activated_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: INTRO_LOGOS_SCREEN_IDENTIFIER
     type: char*
     init_with: '(char*)"intro_logos_screen"'
@@ -160,6 +184,13 @@ properties:
   - name: LEVEL_SELECT_SCREEN_IDENTIFIER
     type: char*
     init_with: '(char*)"level_select_screen"'
+    static: true
+    const: true
+    constexpr: true
+
+  - name: ARBITRARY_STORYBOARD_SCREEN_IDENTIFIER
+    type: char*
+    init_with: '(char*)"arbitrary_storyboard_screen"'
     static: true
     const: true
     constexpr: true
@@ -256,6 +287,7 @@ enums:
       - EVENT_INTRO_STORYBOARD_SCREEN_FINISHED
       - EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED
       - EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED
+      - EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED
       - EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED
       - EVENT_CREDITS_SCREEN_FINISHED
       - EVENT_TITLE_SCREEN_FINISHED
@@ -271,6 +303,7 @@ enums:
       - EVENT_ACTIVATE_LOAD_A_SAVED_GAME_SCREEN
       - EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN
       - EVENT_ACTIVATE_LEVEL_SELECT_SCREEN
+      - EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN
       - EVENT_ACTIVATE_GAME_OVER_SCREEN
       - EVENT_ACTIVATE_GAME_WON_SCREEN
       - EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN
@@ -325,6 +358,7 @@ methods:
          {EVENT_INTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_INTRO_STORYBOARD_SCREEN_FINISHED"},
          {EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED"},
          {EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, "EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED"},
+         {EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED, "EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED"},
          {EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED"},
          {EVENT_CREDITS_SCREEN_FINISHED, "EVENT_CREDITS_SCREEN_FINISHED"},
          {EVENT_TITLE_SCREEN_FINISHED, "EVENT_TITLE_SCREEN_FINISHED"},
@@ -338,6 +372,7 @@ methods:
          {EVENT_ACTIVATE_VERSION_SCREEN, "EVENT_ACTIVATE_VERSION_SCREEN"},
          {EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN, "EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN"},
          {EVENT_ACTIVATE_LEVEL_SELECT_SCREEN, "EVENT_ACTIVATE_LEVEL_SELECT_SCREEN"},
+         {EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN, "EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN"},
          {EVENT_ACTIVATE_GAME_OVER_SCREEN, "EVENT_ACTIVATE_GAME_OVER_SCREEN"},
          {EVENT_ACTIVATE_GAME_WON_SCREEN, "EVENT_ACTIVATE_GAME_WON_SCREEN"},
          {EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN, "EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN"},
@@ -623,6 +658,24 @@ methods:
                );
             }
          }},
+         { EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED, [this](){
+            if (on_arbitrary_storyboard_screen_finished_func)
+            {
+               // TODO: Consider if this should return a boolean on success
+               on_arbitrary_storyboard_screen_finished_func(
+                     this,
+                     on_arbitrary_storyboard_screen_finished_func_user_data
+                  );
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "on EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED, expecting an "
+                     "\"on_arbitrary_storyboard_screen_finished_func\" to be present, but it is not."
+               );
+            }
+         }},
          { EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED, [this](){
             emit_route_event(EVENT_ACTIVATE_CREDITS_SCREEN);
          }},
@@ -679,6 +732,28 @@ methods:
          }},
          { EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN, [this](){
             activate_screen(GAME_WON_OUTRO_STORYBOARD_SCREEN_IDENTIFIER);
+         }},
+         { EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN, [this, route_event_data](){
+            if (on_arbitrary_storyboard_screen_activated_func)
+            {
+               // TODO: Consider if this should return a boolean on success
+               // NOTE: Note this callback occurs *before* the screen is activated
+               // NOTE: Typically this callback is used to load the storyboard (given data passed in through user_data).
+               on_arbitrary_storyboard_screen_activated_func(
+                     this,
+                     on_arbitrary_storyboard_screen_activated_func_user_data
+                  );
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "on EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN, expecting an "
+                     "\"on_arbitrary_storyboard_screen_activated_func\" to be present, but it is not."
+               );
+            }
+
+            activate_screen(ARBITRARY_STORYBOARD_SCREEN_IDENTIFIER);
          }},
          { EVENT_ACTIVATE_CREDITS_SCREEN, [this](){
             activate_screen(CREDITS_SCREEN_IDENTIFIER);

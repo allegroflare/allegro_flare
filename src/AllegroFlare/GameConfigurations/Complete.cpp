@@ -223,6 +223,51 @@ void Complete::handle_primary_gameplay_screen_finished()
    return;
 }
 
+void Complete::handle_arbitrary_storyboard_screen_finished()
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::handle_arbitrary_storyboard_screen_finished"
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   // NOTE: Typically:
+   //router->emit_route_event(
+      //AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LEVEL_SELECT_SCREEN,
+      //nullptr,
+      //al_get_time()
+   //);
+   return;
+}
+
+std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_arbitrary_storyboard_pages_by_identifier(std::string identifier)
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::create_arbitrary_storyboard_pages_by_identifier",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   //AllegroFlare::StoryboardPageFactory page_factory;
+   //page_factory.set_font_bin(font_bin);
+   //page_factory.set_bitmap_bin(bitmap_bin);
+   //page_factory.set_model_bin(model_bin);
+
+   //std::vector<AllegroFlare::Elements::StoryboardPages::Base *> result =
+   //{
+      //page_factory.create_image_with_advancing_text_page(
+         //"storyboard-1-01-1165x500.png",
+         //"Once upon a time, in a magical kingdom ruled by a wise and just queen, a young hero sets out on a "
+            //"journey to prove himself and save his people from a terrible curse."
+      //),
+      //page_factory.create_image_with_advancing_text_page(
+         //"storyboard-2-01-1165x500.png",
+         //"With the help of his trusty sidekick and a band of unlikely allies, he must navigate treacherous "
+            //"terrain and battle fierce foes."
+      //),
+      //page_factory.create_advancing_text_page(
+        //"And achieve his goal to save the kingdom."
+      //),
+   //};
+   return {};
+}
+
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_intro_storyboard_pages()
 {
    AllegroFlare::Logger::throw_error(

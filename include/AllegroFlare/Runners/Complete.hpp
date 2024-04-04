@@ -58,6 +58,7 @@ namespace AllegroFlare
          AllegroFlare::LoadASavedGame::Screen load_a_saved_game_screen;
          AllegroFlare::Screens::Storyboard new_game_intro_storyboard_screen;
          AllegroFlare::Screens::LevelSelectScreen level_select_screen;
+         AllegroFlare::Screens::Storyboard arbitrary_storyboard_screen;
          AllegroFlare::Screens::GameOverScreen game_over_screen;
          AllegroFlare::Screens::GameWonScreen game_won_screen;
          AllegroFlare::Screens::Storyboard game_won_outro_storyboard_screen;
@@ -85,6 +86,8 @@ namespace AllegroFlare
          void initialize();
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_primary_gameplay_screen_finished_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
+         static bool on_arbitrary_storyboard_screen_finished_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
+         static bool on_arbitrary_storyboard_screen_activated_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          void setup_router();
          static void run(AllegroFlare::GameConfigurations::Complete* game_configuration=nullptr, std::string deployment_environment_mode="[unset-deployment_environment_mode]");
       };

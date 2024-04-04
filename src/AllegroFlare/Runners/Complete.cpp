@@ -39,6 +39,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , load_a_saved_game_screen()
    , new_game_intro_storyboard_screen()
    , level_select_screen()
+   , arbitrary_storyboard_screen()
    , game_over_screen()
    , game_won_screen()
    , game_won_outro_storyboard_screen()
@@ -245,6 +246,17 @@ void Complete::initialize()
       game_configuration->create_new_game_intro_storyboard_pages()
    );
 
+   // Setup arbitrary storyboard screen
+   arbitrary_storyboard_screen.set_event_emitter(event_emitter);
+   arbitrary_storyboard_screen.set_font_bin(font_bin);
+   arbitrary_storyboard_screen.set_auto_advance(true);
+   arbitrary_storyboard_screen.set_foreground(shared_foreground);
+   arbitrary_storyboard_screen.set_background(shared_background);
+   arbitrary_storyboard_screen.initialize();
+   //arbitrary_storyboard_screen.get_storyboard_element_ref().set_pages(
+      //game_configuration->create_intro_storyboard_pages()
+   //);
+
    // Setup load a saved game screen
    load_a_saved_game_screen.set_event_emitter(event_emitter);
    load_a_saved_game_screen.set_bitmap_bin(bitmap_bin);
@@ -366,6 +378,56 @@ bool Complete::on_primary_gameplay_screen_finished_func(AllegroFlare::Routers::S
    return true;
 }
 
+bool Complete::on_arbitrary_storyboard_screen_finished_func(AllegroFlare::Routers::Standard* router, void* user_data)
+{
+   if (!(router))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_arbitrary_storyboard_screen_finished_func]: error: guard \"router\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_arbitrary_storyboard_screen_finished_func: error: guard \"router\" not met");
+   }
+   if (!(user_data))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_arbitrary_storyboard_screen_finished_func]: error: guard \"user_data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_arbitrary_storyboard_screen_finished_func: error: guard \"user_data\" not met");
+   }
+   AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
+   this_runner->game_configuration->handle_arbitrary_storyboard_screen_finished();
+   return true;
+}
+
+bool Complete::on_arbitrary_storyboard_screen_activated_func(AllegroFlare::Routers::Standard* router, void* user_data)
+{
+   if (!(router))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_arbitrary_storyboard_screen_activated_func]: error: guard \"router\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_arbitrary_storyboard_screen_activated_func: error: guard \"router\" not met");
+   }
+   if (!(user_data))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_arbitrary_storyboard_screen_activated_func]: error: guard \"user_data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_arbitrary_storyboard_screen_activated_func: error: guard \"user_data\" not met");
+   }
+   AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
+   //this_runner->game_configuration->handle_arbitrary_storyboard_screen_activated(); // TODO: Is this necessary?
+
+   // TODO: Consider how to pass along a storyboard identifier that should be loaded
+   std::string storyboard_identifier = "[unset-storyboard_identifier]";
+   // Set the pages of the storyboard to this storyboard
+   // TODO: Consider if the arbitrary_storyboard_screen should be a pointer and created new here
+   this_runner->arbitrary_storyboard_screen.get_storyboard_element_ref().set_pages(
+      this_runner->game_configuration->create_arbitrary_storyboard_pages_by_identifier(storyboard_identifier)
+   );
+   return true;
+}
+
 void Complete::setup_router()
 {
    if (!(primary_gameplay_screen))
@@ -436,6 +498,12 @@ void Complete::setup_router()
    router.set_on_primary_gameplay_screen_finished_func(on_primary_gameplay_screen_finished_func);
    router.set_on_primary_gameplay_screen_finished_func_user_data(this);
 
+   router.set_on_arbitrary_storyboard_screen_finished_func(on_arbitrary_storyboard_screen_finished_func);
+   router.set_on_arbitrary_storyboard_screen_finished_func_user_data(this);
+
+   router.set_on_arbitrary_storyboard_screen_activated_func(on_arbitrary_storyboard_screen_activated_func);
+   router.set_on_arbitrary_storyboard_screen_activated_func_user_data(this);
+
 
    // Set the routes
    router.register_screen(
@@ -469,6 +537,10 @@ void Complete::setup_router()
    router.register_screen(
       AllegroFlare::Routers::Standard::LEVEL_SELECT_SCREEN_IDENTIFIER,
       &level_select_screen
+   );
+   router.register_screen(
+      AllegroFlare::Routers::Standard::ARBITRARY_STORYBOARD_SCREEN_IDENTIFIER,
+      &arbitrary_storyboard_screen
    );
    router.register_screen(
       AllegroFlare::Routers::Standard::GAME_OVER_SCREEN_IDENTIFIER,
@@ -570,10 +642,17 @@ void Complete::setup_router()
          );
       }
    );
-   ///* // TODO: Consider uncommented this
+   arbitrary_storyboard_screen.set_on_finished_callback_func(
+      [this](AllegroFlare::Screens::Storyboard* screen, void* data) {
+         this->router.emit_route_event(
+            AllegroFlare::Routers::Standard::EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED,
+            nullptr,
+            al_get_time()
+         );
+      }
+   );
    primary_gameplay_screen->set_on_finished_callback_func(
       [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
-      //[this]([[COMPONENT_NAME_FIRST_FRAGMENT]]::Gameplay::Screen* screen, void* data) {
          this->router.emit_route_event(
             AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
             nullptr,
@@ -581,7 +660,6 @@ void Complete::setup_router()
          );
       }
    );
-   //*/
    settings_screen.set_on_exit_callback_func(
       [this](AllegroFlare::Screens::SettingsScreen* screen, void* data) {
          this->router.emit_route_event(

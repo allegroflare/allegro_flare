@@ -29,6 +29,7 @@ namespace AllegroFlare
          static constexpr char* LOAD_A_SAVED_GAME_SCREEN_IDENTIFIER = (char*)"load_a_saved_game_screen";
          static constexpr char* NEW_GAME_INTRO_STORYBOARD_SCREEN_IDENTIFIER = (char*)"new_game_intro_storyboard_screen";
          static constexpr char* LEVEL_SELECT_SCREEN_IDENTIFIER = (char*)"level_select_screen";
+         static constexpr char* ARBITRARY_STORYBOARD_SCREEN_IDENTIFIER = (char*)"arbitrary_storyboard_screen";
          static constexpr char* GAME_OVER_SCREEN_IDENTIFIER = (char*)"game_over_screen";
          static constexpr char* GAME_WON_SCREEN_IDENTIFIER = (char*)"game_won_screen";
          static constexpr char* GAME_WON_OUTRO_STORYBOARD_SCREEN_IDENTIFIER = (char*)"game_won_outro_storyboard_screen";
@@ -56,6 +57,7 @@ namespace AllegroFlare
             EVENT_INTRO_STORYBOARD_SCREEN_FINISHED,
             EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED,
             EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
+            EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED,
             EVENT_GAME_WON_OUTRO_STORYBOARD_SCREEN_FINISHED,
             EVENT_CREDITS_SCREEN_FINISHED,
             EVENT_TITLE_SCREEN_FINISHED,
@@ -70,6 +72,7 @@ namespace AllegroFlare
             EVENT_ACTIVATE_LOAD_A_SAVED_GAME_SCREEN,
             EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN,
             EVENT_ACTIVATE_LEVEL_SELECT_SCREEN,
+            EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN,
             EVENT_ACTIVATE_GAME_OVER_SCREEN,
             EVENT_ACTIVATE_GAME_WON_SCREEN,
             EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN,
@@ -93,6 +96,10 @@ namespace AllegroFlare
          void* on_continue_from_last_save_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_primary_gameplay_screen_finished_func;
          void* on_primary_gameplay_screen_finished_func_user_data;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> on_arbitrary_storyboard_screen_finished_func;
+         void* on_arbitrary_storyboard_screen_finished_func_user_data;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> on_arbitrary_storyboard_screen_activated_func;
+         void* on_arbitrary_storyboard_screen_activated_func_user_data;
 
       protected:
 
@@ -114,6 +121,10 @@ namespace AllegroFlare
          void set_on_continue_from_last_save_func_user_data(void* on_continue_from_last_save_func_user_data);
          void set_on_primary_gameplay_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_primary_gameplay_screen_finished_func);
          void set_on_primary_gameplay_screen_finished_func_user_data(void* on_primary_gameplay_screen_finished_func_user_data);
+         void set_on_arbitrary_storyboard_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_arbitrary_storyboard_screen_finished_func);
+         void set_on_arbitrary_storyboard_screen_finished_func_user_data(void* on_arbitrary_storyboard_screen_finished_func_user_data);
+         void set_on_arbitrary_storyboard_screen_activated_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_arbitrary_storyboard_screen_activated_func);
+         void set_on_arbitrary_storyboard_screen_activated_func_user_data(void* on_arbitrary_storyboard_screen_activated_func_user_data);
          AllegroFlare::EventEmitter* get_event_emitter() const;
          std::function<bool(AllegroFlare::RouteEventDatas::Base*)> get_load_level_handler() const;
          AllegroFlare::Screens::Gameplay* get_pause_managed_gameplay_screen() const;
@@ -127,6 +138,10 @@ namespace AllegroFlare
          void* get_on_continue_from_last_save_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_primary_gameplay_screen_finished_func() const;
          void* get_on_primary_gameplay_screen_finished_func_user_data() const;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_arbitrary_storyboard_screen_finished_func() const;
+         void* get_on_arbitrary_storyboard_screen_finished_func_user_data() const;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_arbitrary_storyboard_screen_activated_func() const;
+         void* get_on_arbitrary_storyboard_screen_activated_func_user_data() const;
          AllegroFlare::GameSession &get_game_session_ref();
          void emit_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
          static std::string name_for_route_event(uint32_t route_event=0);
