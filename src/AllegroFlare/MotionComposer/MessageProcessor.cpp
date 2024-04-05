@@ -167,7 +167,6 @@ AllegroFlare::MotionComposer::Messages::Base* MessageProcessor::build_message_fr
             result = typed_result;
          }
          else if (type == AllegroFlare::MotionComposer::Messages::RunBuildProcess::TYPE)
-         //^^ maybe eventually: if (type == "AllegroFlare::MotionComposer::Messages::SetPlayheadPosition")
          {
             AllegroFlare::MotionComposer::Messages::RunBuildProcess *typed_result =
                new AllegroFlare::MotionComposer::Messages::RunBuildProcess();
