@@ -179,6 +179,18 @@ AllegroFlare::EventEmitter* Screen::get_event_emitter() const
 }
 
 
+AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Screen::get_currently_active_map() const
+{
+   return currently_active_map;
+}
+
+
+std::string Screen::get_currently_active_map_name() const
+{
+   return currently_active_map_name;
+}
+
+
 std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> Screen::get_map_dictionary() const
 {
    return map_dictionary;

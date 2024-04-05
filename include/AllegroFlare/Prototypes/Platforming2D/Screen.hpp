@@ -100,6 +100,8 @@ namespace AllegroFlare
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::EventEmitter* get_event_emitter() const;
+            AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* get_currently_active_map() const;
+            std::string get_currently_active_map_name() const;
             std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> get_map_dictionary() const;
             float get_gravity() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;

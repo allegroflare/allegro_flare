@@ -35,10 +35,12 @@ properties:
   - name: currently_active_map
     type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
     init_with: nullptr
+    getter: true
 
   - name: currently_active_map_name
     type: std::string
     init_with: '"[currently-active-map-name-unset]"'
+    getter: true
 
   - name: entity_pool
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
