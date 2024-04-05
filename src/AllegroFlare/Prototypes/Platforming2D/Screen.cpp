@@ -947,7 +947,7 @@ void Screen::update_entities()
    }
 
    // Evaluate entity collisions
-   //update_entity_collisions_with_damage_zones();
+   update_entity_collisions_with_damage_zones();
 
    // Evaluate player collisions on collectables
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
@@ -1272,6 +1272,33 @@ void Screen::update_player_collisions_with_collectables()
          // NOTE: typically will do something here as a result of picking up the item
       }
    }
+   return;
+}
+
+void Screen::update_entity_collisions_with_damage_zones()
+{
+   // TODO: Consider adding some default behavior for this method. Note that at the time of this writing, a
+   // PlayerDamageZone is in JourneyOfTheCat (and is scoped in AllegroFlare). This class should probably be moved
+   // into AllegroFlare and handled in an expected way. Also, consider that a damage zone might damage enemies,
+   // a player, both, have some kind of black/white list. This method may not be exclusive to PlayerDamageZone
+
+   // NOTE: Previous usage looked like:
+   //using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+   //AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+   //float player_x = player_controlled_entity->get_place_ref().position.x;
+   //float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
+                                                                               // player center position
+
+   //for (auto &entity : collection_helper.select_collectable_by_player())
+   //{
+      //if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
+      //{
+         //entity->set(PLEASE_DELETE);
+         //// NOTE: typically will do something here as a result of picking up the item
+      //}
+   //}
    return;
 }
 
