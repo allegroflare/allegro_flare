@@ -44,6 +44,26 @@ documentation:
 methods:
 
 
+  - name: dialog_system_switch_in_func
+    virtual: true
+    override: true
+    body: |
+      // Function that is called on ALLEGRO_FLARE_DIALOG_SWITCHED_IN
+      // TODO: Consider disabling automatic suspend and unsuspend with an option on this class
+      suspend_gameplay();
+      return;
+
+
+  - name: dialog_system_switch_out_func
+    virtual: true
+    override: true
+    body: |
+      // Function that is called on ALLEGRO_FLARE_DIALOG_SWITCHED_OUT
+      // TODO: Consider disabling automatic suspend and unsuspend with an option on this class
+      resume_suspended_gameplay();
+      return;
+
+
   - name: gameplay_suspend_func
     virtual: true
     body: |

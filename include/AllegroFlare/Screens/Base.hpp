@@ -61,6 +61,8 @@ namespace AllegroFlare
          virtual void timer_func();
          virtual void display_switch_in_func();
          virtual void display_switch_out_func();
+         virtual void dialog_system_switch_in_func();
+         virtual void dialog_system_switch_out_func();
          virtual void mouse_axes_func(ALLEGRO_EVENT *ev);
          virtual void mouse_warp_func(ALLEGRO_EVENT *ev);
          virtual void mouse_down_func(ALLEGRO_EVENT *ev);

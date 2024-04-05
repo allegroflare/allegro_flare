@@ -416,6 +416,22 @@ void Dictionary::display_switch_out_funcs()
 }
 
 
+void Dictionary::dialog_system_switch_in_funcs()
+{
+   for (auto &screen : screens)
+      if (disabled_screens_receive_events || screen.second.active)
+         screen.second.screen->dialog_system_switch_in_func();
+}
+
+
+void Dictionary::dialog_system_switch_out_funcs()
+{
+   for (auto &screen : screens)
+      if (disabled_screens_receive_events || screen.second.active)
+         screen.second.screen->dialog_system_switch_out_func();
+}
+
+
 void Dictionary::key_down_funcs(ALLEGRO_EVENT *ev)
 {
    for (auto &screen : screens)

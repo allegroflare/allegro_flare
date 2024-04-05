@@ -55,6 +55,22 @@ bool Gameplay::get_gameplay_suspended() const
 }
 
 
+void Gameplay::dialog_system_switch_in_func()
+{
+   // Function that is called on ALLEGRO_FLARE_DIALOG_SWITCHED_IN
+   // TODO: Consider disabling automatic suspend and unsuspend with an option on this class
+   suspend_gameplay();
+   return;
+}
+
+void Gameplay::dialog_system_switch_out_func()
+{
+   // Function that is called on ALLEGRO_FLARE_DIALOG_SWITCHED_OUT
+   // TODO: Consider disabling automatic suspend and unsuspend with an option on this class
+   resume_suspended_gameplay();
+   return;
+}
+
 void Gameplay::gameplay_suspend_func()
 {
    // Function that is called immediately after the gameplay is suspended.

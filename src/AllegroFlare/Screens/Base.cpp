@@ -167,6 +167,8 @@ void Base::mouse_axes_func(ALLEGRO_EVENT *ev) {}
 void Base::mouse_warp_func(ALLEGRO_EVENT *ev) {}
 void Base::display_switch_in_func() {}
 void Base::display_switch_out_func() {}
+void Base::dialog_system_switch_in_func() {}
+void Base::dialog_system_switch_out_func() {}
 void Base::mouse_down_func(ALLEGRO_EVENT *ev) {}
 void Base::mouse_up_func(ALLEGRO_EVENT *ev) {}
 void Base::key_down_func(ALLEGRO_EVENT *ev) {}

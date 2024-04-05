@@ -33,6 +33,8 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
          bool get_gameplay_suspended() const;
+         virtual void dialog_system_switch_in_func() override;
+         virtual void dialog_system_switch_out_func() override;
          virtual void gameplay_suspend_func();
          virtual void gameplay_resume_func();
          void suspend_gameplay();
