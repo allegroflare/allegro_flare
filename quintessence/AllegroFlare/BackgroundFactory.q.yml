@@ -32,6 +32,25 @@ functions:
       return image_background;
 
 
+  - name: create_parallax
+    type: AllegroFlare::Elements::Backgrounds::Parallax*
+    guards: [ bitmap_bin ]
+    parameters:
+      - name: layers
+        type: std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
+        default_argument: '{}'
+      - name: offset_x
+        type: float
+        default_argument: 0
+      - name: offset_y
+        type: float
+        default_argument: 0
+    body: |
+      AllegroFlare::Elements::Backgrounds::Parallax* background =
+         new AllegroFlare::Elements::Backgrounds::Parallax(layers, offset_x, offset_y);
+      return background;
+
+
 dependencies:
 
 
@@ -41,5 +60,9 @@ dependencies:
     headers: [ AllegroFlare/Elements/Backgrounds/Image.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::Monoplex
     headers: [ AllegroFlare/Elements/Backgrounds/Monoplex.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::Parallax
+    headers: [ AllegroFlare/Elements/Backgrounds/Parallax.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::ParallaxLayer
+    headers: [ AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
 
 

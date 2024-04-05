@@ -1683,6 +1683,10 @@ table td
   <td class="method">AllegroFlare::Elements::Backgrounds::Image*</td>
   <td class="method"><b>create_image</b>(std::string image_identifier=&quot;[unset-default-image-identifer-for-background-factory]&quot;)</td>
 </tr>
+<tr>
+  <td class="method">AllegroFlare::Elements::Backgrounds::Parallax*</td>
+  <td class="method"><b>create_parallax</b>(std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt; layers={}, float offset_x=0, float offset_y=0)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -1694,6 +1698,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Monoplex&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Monoplex.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Parallax&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Parallax.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -6243,8 +6253,8 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Consider if it would be a better design to pass in a bitmap_bin and reference the images by identifier."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">layers</td>
@@ -42231,6 +42241,14 @@ table td
   "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
   ],
+  "AllegroFlare/Elements/Backgrounds/Parallax": [
+    "AllegroFlare/BackgroundFactory",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
+    "AllegroFlare/BackgroundFactory",
+    "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"
   ],
@@ -43563,9 +43581,6 @@ table td
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "std/vector<AllegroFlare/Elements/Backgrounds/ParallaxLayer>": [
-    "AllegroFlare/Elements/Backgrounds/Parallax"
-  ],
-  "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "AllegroFlare/ScreenCapture": [
@@ -45272,9 +45287,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/RenderSurfaces/Base": [

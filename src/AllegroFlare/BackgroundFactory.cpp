@@ -50,6 +50,20 @@ AllegroFlare::Elements::Backgrounds::Image* BackgroundFactory::create_image(std:
    return image_background;
 }
 
+AllegroFlare::Elements::Backgrounds::Parallax* BackgroundFactory::create_parallax(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> layers, float offset_x, float offset_y)
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[BackgroundFactory::create_parallax]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("BackgroundFactory::create_parallax: error: guard \"bitmap_bin\" not met");
+   }
+   AllegroFlare::Elements::Backgrounds::Parallax* background =
+      new AllegroFlare::Elements::Backgrounds::Parallax(layers, offset_x, offset_y);
+   return background;
+}
+
 
 } // namespace AllegroFlare
 

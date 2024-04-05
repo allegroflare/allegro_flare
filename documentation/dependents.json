@@ -417,6 +417,14 @@
   "AllegroFlare/Elements/Backgrounds/Monoplex": [
     "AllegroFlare/BackgroundFactory"
   ],
+  "AllegroFlare/Elements/Backgrounds/Parallax": [
+    "AllegroFlare/BackgroundFactory",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
+    "AllegroFlare/BackgroundFactory",
+    "AllegroFlare/Elements/Backgrounds/Parallax"
+  ],
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"
   ],
@@ -1749,9 +1757,6 @@
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "std/vector<AllegroFlare/Elements/Backgrounds/ParallaxLayer>": [
-    "AllegroFlare/Elements/Backgrounds/Parallax"
-  ],
-  "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
     "AllegroFlare/Elements/Backgrounds/Parallax"
   ],
   "AllegroFlare/ScreenCapture": [
@@ -3458,9 +3463,6 @@
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
-  ],
-  "AllegroFlare/Elements/Backgrounds/Parallax": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/RenderSurfaces/Base": [

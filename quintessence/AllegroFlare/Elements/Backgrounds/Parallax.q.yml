@@ -6,6 +6,13 @@ parent_classes:
     init_with: AllegroFlare::Elements::Backgrounds::Parallax::TYPE
 
 
+documentation:
+
+
+  - todos:
+      - Consider if it would be a better design to pass in a bitmap_bin and reference the images by identifier.
+
+
 properties:
 
 
