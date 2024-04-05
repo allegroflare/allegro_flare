@@ -2004,12 +2004,12 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          // currently ignored
       break;
 
-      case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
-         screens.display_switch_out_funcs();
-      break;
-
       case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
          screens.display_switch_in_funcs();
+      break;
+
+      case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
+         screens.display_switch_out_funcs();
       break;
 
       case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
@@ -2438,12 +2438,14 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                      // Nothing do do here. But consider adding "dialog_switched_in" to screens
                      // NOTE: This event is fired by the dialog_system, and is a notification to the rest of the system
                      // that the dialog_system is now intercepting the inputs
+                     screens.dialog_system_switch_in_funcs();
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT: {
                      // Nothing do do here. But consider adding "dialog_switched_in" to screens
                      // NOTE: This event is fired by the dialog_system, and is a notification to the rest of the system
                      // that the dialog_system is not intercepting the inputs anymore
+                     screens.dialog_system_switch_out_funcs();
                   } break;
 
                   case ALLEGRO_FLARE_EVENT_DIALOG: {
