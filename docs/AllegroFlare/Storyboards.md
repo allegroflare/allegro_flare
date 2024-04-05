@@ -53,6 +53,11 @@ emit an event when it's time to go to the storyboard:
             );
 ```
 
+## Passing storyboard identifier to use
+
+In JourneyOfTheCat, the Configurations/Main holds a variable `arbitrary_storyboard_identifier_to_play_next`. Since the activation and 
+finished callbacks are handled in the same class, the variable is assigned and referenced.
+
 
 ## TODOS:
 
