@@ -33,15 +33,18 @@ namespace AllegroFlare
 
       private:
          std::string type;
+         AllegroFlare::Runners::Complete* runner;
 
       protected:
 
 
       public:
-         Complete(std::string type=AllegroFlare::GameConfigurations::Complete::TYPE);
+         Complete(std::string type=AllegroFlare::GameConfigurations::Complete::TYPE, AllegroFlare::Runners::Complete* runner=nullptr);
          virtual ~Complete();
 
+         void set_runner(AllegroFlare::Runners::Complete* runner);
          std::string get_type() const;
+         AllegroFlare::Runners::Complete* get_runner() const;
          virtual std::string app_icon_1024_filename();
          virtual std::string app_title();
          virtual std::string title_screen_title();

@@ -60,6 +60,11 @@ void Base::hide()
    return;
 }
 
+bool Base::is_type(std::string possible_type)
+{
+   return (possible_type == get_type());
+}
+
 
 } // namespace Backgrounds
 } // namespace Elements

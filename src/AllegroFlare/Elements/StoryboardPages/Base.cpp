@@ -63,6 +63,11 @@ void Base::advance()
    return;
 }
 
+bool Base::is_type(std::string possible_type)
+{
+   return (possible_type == get_type());
+}
+
 
 } // namespace StoryboardPages
 } // namespace Elements

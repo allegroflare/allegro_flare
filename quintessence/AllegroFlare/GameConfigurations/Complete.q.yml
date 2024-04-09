@@ -7,6 +7,13 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: runner
+    type: AllegroFlare::Runners::Complete*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/GameConfigurations/Complete"'
@@ -244,6 +251,8 @@ methods:
           - AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
     body: |
       // TODO: Consider alternatives to get "runner" dependency out of this class
+      // TODO: Consider that "runner" is now a member of GameConfigurations/Complex and the runner assigns it
+      // during initialization
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::GameConfigurations::Complete::create_primary_gameplay_screen",
          "Not implemented in the base class. This method must be implemented in the derived class"

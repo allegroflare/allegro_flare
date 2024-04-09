@@ -26,8 +26,9 @@ namespace GameConfigurations
 {
 
 
-Complete::Complete(std::string type)
+Complete::Complete(std::string type, AllegroFlare::Runners::Complete* runner)
    : type(type)
+   , runner(runner)
 {
 }
 
@@ -37,9 +38,21 @@ Complete::~Complete()
 }
 
 
+void Complete::set_runner(AllegroFlare::Runners::Complete* runner)
+{
+   this->runner = runner;
+}
+
+
 std::string Complete::get_type() const
 {
    return type;
+}
+
+
+AllegroFlare::Runners::Complete* Complete::get_runner() const
+{
+   return runner;
 }
 
 
@@ -195,6 +208,8 @@ std::vector<AllegroFlare::Elements::StoryboardPages::Base *> Complete::create_ne
 AllegroFlare::Screens::Gameplay* Complete::create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner)
 {
    // TODO: Consider alternatives to get "runner" dependency out of this class
+   // TODO: Consider that "runner" is now a member of GameConfigurations/Complex and the runner assigns it
+   // during initialization
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::GameConfigurations::Complete::create_primary_gameplay_screen",
       "Not implemented in the base class. This method must be implemented in the derived class"

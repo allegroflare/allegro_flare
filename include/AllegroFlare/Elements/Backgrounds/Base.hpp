@@ -32,6 +32,7 @@ namespace AllegroFlare
             virtual void render();
             virtual void show();
             virtual void hide();
+            bool is_type(std::string possible_type="");
          };
       }
    }

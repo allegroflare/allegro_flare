@@ -33,6 +33,7 @@ namespace AllegroFlare
             virtual void update();
             virtual void render();
             virtual void advance();
+            bool is_type(std::string possible_type="");
          };
       }
    }

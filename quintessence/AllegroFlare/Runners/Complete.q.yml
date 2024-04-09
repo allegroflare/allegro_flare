@@ -180,6 +180,10 @@ methods:
       AllegroFlare::Achievements &achievements = framework->get_achievements_ref();
       AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
 
+      // Pass along the runner into the configuration (for convenience)
+      // TODO: Review this as a design concept, should the dependencies in game_configuration be more explicit
+      game_configuration->set_runner(this);
+
       // Create the shared background
       shared_background = game_configuration->create_shared_background();
       shared_foreground = game_configuration->create_shared_foreground();
