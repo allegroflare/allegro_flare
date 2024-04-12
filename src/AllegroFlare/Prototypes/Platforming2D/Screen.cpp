@@ -726,7 +726,7 @@ void Screen::update_entities()
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-   // apply gravity
+   // Apply gravity
    for (auto &entity : get_current_map_entities())
    {
       if (entity->exists(NOT_AFFECTED_BY_GRAVITY)) continue;
@@ -734,7 +734,7 @@ void Screen::update_entities()
       velocity.position.y += (gravity_reversed ? -gravity : gravity);
    }
 
-   // Update the player_controlled_entity first and in isolation
+   // Update the player_controlled_entity first and in isolation.
    if (player_controlled_entity) player_controlled_entity->update();
 
    // Update the entities (typically includes movement strategies, velocity updates based on state, etc)
@@ -744,11 +744,10 @@ void Screen::update_entities()
    {
       if (entity == player_controlled_entity) continue;
 
-      //std::cout << "updating ... " << std::endl;
-      // Could this be a bad type conversion?
+      // If the entity is tracking the player_controlled_entity, update the tracking position on the entity.
       if (entity->exists(TRACKS_PLAYER_CHARACTER_XY))
       {
-         if (!player_controlled_entity)
+         if (!player_controlled_entity) // There is no player_controlled_entity to track
          {
             entity->remove("player_character_x");
             entity->remove("player_character_y");
@@ -812,21 +811,8 @@ void Screen::update_entities()
          velocity.position.y
       );
 
-      //AllegroFlare::Physics::TileMapCollisionStepper collision_stepper(
-         //currently_active_map->get_collision_tile_mesh(),
-         //&aabb2d,
-         //tile_width,
-         //tile_height,
-         //0.0001f
-      //);
-
+      // Use the aabb2d for this entity
       collision_stepper.set_aabb2d(&aabb2d);
-
-      //collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
-
-      // Update the current collision mesh
-      // TODO: Update the collision from this map:
-      //collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
 
       // Perform the collision step and return the collision info
       std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_step_results =
@@ -846,15 +832,24 @@ void Screen::update_entities()
 
       //
       // Assign the result calculations to the entity
-      // TODO: Consider having collision results and outcomes handled at the entity class's level
       //
 
-      //previous_place_position = place.position;
-      //previous_velocity_position = velocity.position;
-
-      // Supplant our entity's position and velocity values with the "simulated aabb2d"'s values
+      // Set our actual entity's position and velocity values to the ones used by the "simulated aabb2d"
       place.position = now_place_position;
       velocity.position = now_velocity_position;
+
+      // Call the collision update function on the entity
+      entity->on_collision_update(
+         previous_place_position,
+         previous_velocity_position,
+         now_place_position,
+         now_velocity_position,
+         &collision_step_results,
+         is_currently_adjacent_to_ceiling, // TODO: Confirm these
+         is_currently_adjacent_to_right_wall, // TODO: Confirm these
+         is_currently_adjacent_to_floor,
+         is_currently_adjacent_to_left_wall // TODO: Confirm these
+      );
 
       // debugging:
       bool cout_collision_debugging = false;
@@ -895,55 +890,6 @@ void Screen::update_entities()
             }
          }
       }
-
-      // Call the collision update function on the entity
-      entity->on_collision_update(
-         previous_place_position,
-         previous_velocity_position,
-         now_place_position,
-         now_velocity_position,
-         &collision_step_results,
-         is_currently_adjacent_to_ceiling, // TODO: Confirm these
-         is_currently_adjacent_to_right_wall, // TODO: Confirm these
-         is_currently_adjacent_to_floor,
-         is_currently_adjacent_to_left_wall // TODO: Confirm these
-      );
-
-      // Possibly up to the Entity:
-      //bool ground_land_occurred = false;
-      //for (auto &collision_step_result : collision_step_results)
-      //{
-         //if (collision_step_result.infer_is_a_ground_land()) ground_land_occurred = true;
-      //}
-
-      // Update flags and perform callbacks on entity (TODO: Consider moving this into the entity's class)
-
-
-      //bool was_adjacent_to_floor_prior = entity->exists(ADJACENT_TO_FLOOR);
-      //if (was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) {} // on stay
-      //else if (!was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) // on enter
-      //{
-         //entity->set(ADJACENT_TO_FLOOR);
-         //entity->on_attribute_added(ADJACENT_TO_FLOOR);
-      //}
-      //else if (was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) // on exit
-      //{
-         //entity->remove(ADJACENT_TO_FLOOR);
-         //entity->on_attribute_removed(ADJACENT_TO_FLOOR);
-      //}
-      //else if (!was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) {} // while off
-
-      //bool was_adjacent_to_ceiling_prior = entity->exists(ADJACENT_TO_CEILING);
-      //if (is_currently_adjacent_to_ceiling) entity->set(ADJACENT_TO_CEILING);
-      //else entity->remove(ADJACENT_TO_CEILING);
-
-      //bool was_adjacent_to_left_wall_prior = entity->exists(ADJACENT_TO_LEFT_WALL);
-      //if (is_currently_adjacent_to_left_wall) entity->set(ADJACENT_TO_LEFT_WALL);
-      //else entity->remove(ADJACENT_TO_LEFT_WALL);
-
-      //bool was_adjacent_to_right_wall_prior = entity->exists(ADJACENT_TO_RIGHT_WALL);
-      //if (is_currently_adjacent_to_right_wall) entity->set(ADJACENT_TO_RIGHT_WALL);
-      //else entity->remove(ADJACENT_TO_RIGHT_WALL);
    }
 
    // Evaluate entity collisions
@@ -971,10 +917,6 @@ void Screen::update_entities()
 
    // Evaluate damage zones on player
    //if (player_controlled_entity) update_player_collisions_with_damage_zones();
-
-
-   // update the player colliding on the doors
-   //check_player_collisions_with_doors(); // this is now done by pressing 'UP' when over a door
 
    // Delete entities flagged to be deleted
    cleanup_entities_flagged_for_deletion();
