@@ -892,7 +892,7 @@ void Screen::update_entities()
       }
    }
 
-   // Evaluate entity collisions
+   // Evaluate entity collisions. This applies for player and non-player.
    update_entity_collisions_with_damage_zones();
 
    // Evaluate player collisions on collectables
