@@ -360,6 +360,34 @@ void Basic2D::on_collides_with_player(AllegroFlare::Prototypes::Platforming2D::E
    return;
 }
 
+void Basic2D::on_enter_collision_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity)
+{
+   // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+   // collision that occurs during the physics step
+   return;
+}
+
+void Basic2D::on_hold_collision_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, float duration)
+{
+   // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+   // collision that occurs during the physics step
+   return;
+}
+
+void Basic2D::on_exit_collision_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity)
+{
+   // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+   // collision that occurs during the physics step
+   return;
+}
+
+void Basic2D::on_hold_non_collision_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, float duration)
+{
+   // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+   // collision that occurs during the physics step
+   return;
+}
+
 void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, AllegroFlare::Vec2D previous_velocity_position, AllegroFlare::Vec2D new_place_position, AllegroFlare::Vec2D new_velocity_position, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result, bool top_edge_is_currently_adjacent_to_wall, bool right_edge_is_currently_adjacent_to_wall, bool bottom_edge_is_currently_adjacent_to_wall, bool left_edge_is_currently_adjacent_to_wall)
 {
    if (!(collision_step_result))

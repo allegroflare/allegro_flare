@@ -1136,6 +1136,44 @@ void Screen::on_player_controlled_entity_collision_with_entity(AllegroFlare::Pro
    return;
 }
 
+void Screen::on_enter_player_controlled_entity_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_enter_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_enter_player_controlled_entity_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_enter_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_enter_player_controlled_entity_collision_with_entity: error: guard \"entity\" not met");
+   }
+   return;
+}
+
+void Screen::on_exit_player_controlled_entity_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_exit_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_exit_player_controlled_entity_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_exit_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_exit_player_controlled_entity_collision_with_entity: error: guard \"entity\" not met");
+   }
+   return;
+}
+
 void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
 {
    if (!(player_controlled_entity))
@@ -1153,6 +1191,10 @@ void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
    float player_y = player_controlled_entity->y;
    AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
 
+   // NOTE: This technique only accounts for *one* player controled entity. If the player controlled entity is
+   // swapped with another entity, or, if there are multiple player_controlled_entities, this technique will require
+   // review and possibly revision.
+
    for (auto &entity : collection_helper.select_collides_with_player())
    {
       // TODO: Be alert that multiple collisions could cause multiple callbacks and some potentially undefined
@@ -1162,6 +1204,10 @@ void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
       {
          entity->on_collides_with_player(player_controlled_entity);
          on_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
+      }
+      else
+      {
+         // Non-collision
       }
    }
    return;

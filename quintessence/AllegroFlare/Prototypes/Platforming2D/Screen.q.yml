@@ -1015,6 +1015,36 @@ methods:
       return;
 
 
+  - name: on_enter_player_controlled_entity_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_exit_player_controlled_entity_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
   - name: update_player_collisions_with_COLLIDES_WITH_PLAYER
     private: true
     virtual: true
@@ -1028,6 +1058,10 @@ methods:
       float player_y = player_controlled_entity->y;
       AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
 
+      // NOTE: This technique only accounts for *one* player controled entity. If the player controlled entity is
+      // swapped with another entity, or, if there are multiple player_controlled_entities, this technique will require
+      // review and possibly revision.
+
       for (auto &entity : collection_helper.select_collides_with_player())
       {
          // TODO: Be alert that multiple collisions could cause multiple callbacks and some potentially undefined
@@ -1037,6 +1071,10 @@ methods:
          {
             entity->on_collides_with_player(player_controlled_entity);
             on_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
+         }
+         else
+         {
+            // Non-collision
          }
       }
       return;

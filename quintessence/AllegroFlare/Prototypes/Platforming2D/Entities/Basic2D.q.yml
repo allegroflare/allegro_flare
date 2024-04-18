@@ -291,6 +291,60 @@ functions:
       return;
 
 
+  - name: on_enter_collision_with_player
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    body: |
+      // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+      // collision that occurs during the physics step
+      return;
+
+
+  - name: on_hold_collision_with_player
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: duration
+        type: float
+        default_argument: 0.0f
+    body: |
+      // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+      // collision that occurs during the physics step
+      return;
+
+
+  - name: on_exit_collision_with_player
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    body: |
+      // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+      // collision that occurs during the physics step
+      return;
+
+
+  - name: on_hold_non_collision_with_player
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: duration
+        type: float
+        default_argument: 0.0f
+    body: |
+      // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+      // collision that occurs during the physics step
+      return;
+
+
   - name: on_collision_update
     virtual: true
     parameters:

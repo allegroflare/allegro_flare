@@ -26238,6 +26238,22 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>on_enter_collision_with_player</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_hold_collision_with_player</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, float duration=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_exit_collision_with_player</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_hold_non_collision_with_player</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, float duration=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>on_collision_update</b>(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;* collision_step_result={}, bool top_edge_is_currently_adjacent_to_wall=false, bool right_edge_is_currently_adjacent_to_wall=false, bool bottom_edge_is_currently_adjacent_to_wall=false, bool left_edge_is_currently_adjacent_to_wall=false)</td>
 </tr>
 <tr>
@@ -27636,6 +27652,14 @@ table td
 <tr>
   <td class="private_method">void</td>
   <td class="private_method"><b>on_player_controlled_entity_collision_with_entity</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>on_enter_player_controlled_entity_collision_with_entity</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>on_exit_player_controlled_entity_collision_with_entity</b>(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr)</td>
 </tr>
 <tr>
   <td class="private_method">void</td>
