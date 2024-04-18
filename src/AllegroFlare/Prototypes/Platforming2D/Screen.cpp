@@ -1174,6 +1174,44 @@ void Screen::on_exit_player_controlled_entity_collision_with_entity(AllegroFlare
    return;
 }
 
+void Screen::on_hold_player_controlled_entity_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_hold_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_hold_player_controlled_entity_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_hold_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_hold_player_controlled_entity_collision_with_entity: error: guard \"entity\" not met");
+   }
+   return;
+}
+
+void Screen::on_hold_player_controlled_entity_non_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_hold_player_controlled_entity_non_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_hold_player_controlled_entity_non_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_hold_player_controlled_entity_non_collision_with_entity]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_hold_player_controlled_entity_non_collision_with_entity: error: guard \"entity\" not met");
+   }
+   return;
+}
+
 void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
 {
    if (!(player_controlled_entity))

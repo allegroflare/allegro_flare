@@ -1045,6 +1045,36 @@ methods:
       return;
 
 
+  - name: on_hold_player_controlled_entity_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_hold_player_controlled_entity_non_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
   - name: update_player_collisions_with_COLLIDES_WITH_PLAYER
     private: true
     virtual: true
