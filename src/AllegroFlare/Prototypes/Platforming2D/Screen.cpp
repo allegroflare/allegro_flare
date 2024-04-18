@@ -1174,7 +1174,7 @@ void Screen::on_exit_player_controlled_entity_collision_with_entity(AllegroFlare
    return;
 }
 
-void Screen::on_hold_player_controlled_entity_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+void Screen::on_hold_player_controlled_entity_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, float duration)
 {
    if (!(player_controlled_entity))
    {
@@ -1193,7 +1193,7 @@ void Screen::on_hold_player_controlled_entity_collision_with_entity(AllegroFlare
    return;
 }
 
-void Screen::on_hold_player_controlled_entity_non_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+void Screen::on_hold_player_controlled_entity_non_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, float duration)
 {
    if (!(player_controlled_entity))
    {
@@ -1242,12 +1242,33 @@ void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
       {
          entity->on_collides_with_player(player_controlled_entity);
          on_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
+
+         if (!entity->exists(CURRENTLY_COLLIDING_WITH_PLAYER))
+         {
+            // Set colliding with player
+            entity->set(CURRENTLY_COLLIDING_WITH_PLAYER, al_get_time());
+
+            // On-enter collision
+            entity->on_enter_collision_with_player(player_controlled_entity);
+            on_enter_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
+         }
+         else
+         {
+            float duration = al_get_time() - entity->get_as_float(CURRENTLY_COLLIDING_WITH_PLAYER);
+
+            // On-holding collision with player
+            entity->on_hold_collision_with_player(player_controlled_entity, duration);
+            on_hold_player_controlled_entity_collision_with_entity(player_controlled_entity, entity, duration);
+         }
       }
       else
       {
          // Non-collision
       }
    }
+
+
+
    return;
 }
 

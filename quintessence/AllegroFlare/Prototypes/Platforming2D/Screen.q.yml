@@ -1055,6 +1055,9 @@ methods:
       - name: entity
         type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
         default_argument: nullptr
+      - name: duration
+        type: float
+        default_argument: 0.0f
     guards: [ player_controlled_entity, entity ]
     body: |
       return;
@@ -1070,6 +1073,9 @@ methods:
       - name: entity
         type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
         default_argument: nullptr
+      - name: duration
+        type: float
+        default_argument: 0.0f
     guards: [ player_controlled_entity, entity ]
     body: |
       return;
@@ -1101,12 +1107,33 @@ methods:
          {
             entity->on_collides_with_player(player_controlled_entity);
             on_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
+
+            if (!entity->exists(CURRENTLY_COLLIDING_WITH_PLAYER))
+            {
+               // Set colliding with player
+               entity->set(CURRENTLY_COLLIDING_WITH_PLAYER, al_get_time());
+
+               // On-enter collision
+               entity->on_enter_collision_with_player(player_controlled_entity);
+               on_enter_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
+            }
+            else
+            {
+               float duration = al_get_time() - entity->get_as_float(CURRENTLY_COLLIDING_WITH_PLAYER);
+
+               // On-holding collision with player
+               entity->on_hold_collision_with_player(player_controlled_entity, duration);
+               on_hold_player_controlled_entity_collision_with_entity(player_controlled_entity, entity, duration);
+            }
          }
          else
          {
             // Non-collision
          }
       }
+
+      
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
