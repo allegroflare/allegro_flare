@@ -70,7 +70,7 @@ namespace AllegroFlare
             void cleanup_entities_flagged_for_deletion();
             void check_player_collisions_with_doors();
             virtual void on_player_controlled_entity_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
-            void update_player_collisions_with_COLLIDES_WITH_PLAYER();
+            virtual void update_player_collisions_with_COLLIDES_WITH_PLAYER();
             virtual void update_player_collisions_with_collectables();
             virtual void update_entity_collisions_with_damage_zones();
             virtual void update_player_collisions_with_save_points();

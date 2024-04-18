@@ -1016,6 +1016,7 @@ methods:
 
   - name: update_player_collisions_with_COLLIDES_WITH_PLAYER
     private: true
+    virtual: true
     guards: [ player_controlled_entity ]
     body: |
       using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
