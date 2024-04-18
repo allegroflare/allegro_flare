@@ -1261,9 +1261,33 @@ void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
             on_hold_player_controlled_entity_collision_with_entity(player_controlled_entity, entity, duration);
          }
       }
-      else
+      else // Non-collision
       {
-         // Non-collision
+         //entity->on_collides_with_player(player_controlled_entity);
+         //on_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
+
+         if (entity->exists(CURRENTLY_COLLIDING_WITH_PLAYER))
+         {
+            // Set colliding with player
+            entity->remove(CURRENTLY_COLLIDING_WITH_PLAYER); //, al_get_time());
+
+            // On-exit collision
+            entity->on_exit_collision_with_player(player_controlled_entity);
+            on_exit_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
+         }
+         else
+         {
+            // On-holding non collision with player
+
+            //float duration = al_get_time() - entity->get_as_float(CURRENTLY_COLLIDING_WITH_PLAYER);
+
+            // TODO: Find a way to store non-collision duration, which there currently isn't
+            float duration = 0.0f;
+
+            // On-holding non-collision with player
+            entity->on_hold_non_collision_with_player(player_controlled_entity, duration);
+            on_hold_player_controlled_entity_non_collision_with_entity(player_controlled_entity, entity, duration);
+         }
       }
    }
 
