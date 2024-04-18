@@ -1076,13 +1076,14 @@ void Screen::check_player_collisions_with_doors()
 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
 
-   float player_x = player_controlled_entity->get_place_ref().position.x;
-   float player_y = player_controlled_entity->get_place_ref().position.y + 16;
+   //float player_x = player_controlled_entity->get_place_ref().position.x;
+   //float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
    for (auto &entity : collection_helper.select_doors())
    {
-      if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
+      if (entity->get_place_ref().collide(player_placement)) //player_x, player_y, 4, 4, 4, 4))
       {
          AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *door =
             static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*>(entity);
