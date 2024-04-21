@@ -181,4 +181,65 @@ in your Gameplay/Screen:
  have a case that handles "on_player_controlled_entity_collision_with_entity"
 
 
+In the entity, you also have these methods (below), but they should be avoided
+generally for complex interactions (emitting events, modifying other classes).
+The general design approach is to avoid complex iteractions in the classes themselves and handle
+those types of interactions in the Gameplay/Screen, using the methods above.
+
+```
+  - name: on_enter_collision_with_player
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    body: |
+      // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+      // collision that occurs during the physics step
+      return;
+
+
+  - name: on_hold_collision_with_player
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: duration
+        type: float
+        default_argument: 0.0f
+    body: |
+      // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+      // collision that occurs during the physics step
+      return;
+
+
+  - name: on_exit_collision_with_player
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    body: |
+      // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+      // collision that occurs during the physics step
+      return;
+
+
+  - name: on_hold_non_collision_with_player
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: duration
+        type: float
+        default_argument: 0.0f
+    body: |
+      // NOTE: This method will only be called if this entity is tagged with COLLIDES_WITH_PLAYER and there is a
+      // collision that occurs during the physics step
+      return;
+```
+
+
 
