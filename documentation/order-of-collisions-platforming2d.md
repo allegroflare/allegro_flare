@@ -97,10 +97,88 @@
         default_argument: nullptr
     guards: [ player_controlled_entity, entity ]
     body: |
+      // This is for blut collisions on every pass
+      return;
+
+
+  - name: on_player_controlled_entity_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_enter_player_controlled_entity_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_exit_player_controlled_entity_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_hold_player_controlled_entity_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_hold_player_controlled_entity_non_collision_with_entity
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
       return;
 ```
 
 in your Gameplay/Screen:
 
  have a case that handles "on_player_controlled_entity_collision_with_entity"
+
+
 
