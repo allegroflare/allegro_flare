@@ -124,6 +124,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/RawScriptLine.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/RawScriptLine.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/Wait.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Wait.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/YAMLLoader.q.yml">quintessence/AllegroFlare/DialogTree/YAMLLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DisplaySettingsInterfaces/Base.q.yml">quintessence/AllegroFlare/DisplaySettingsInterfaces/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DisplaySettingsInterfaces/Live.q.yml">quintessence/AllegroFlare/DisplaySettingsInterfaces/Live.q.yml</a></li>
@@ -3726,6 +3727,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>activate_YouGotAnItemDialog_dialog_node</b>(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog* node=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>activate_MultipageWithOptions_dialog_node</b>(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, std::string node_identifier=&quot;[unset-node_identifier-for-MultipageWithOptions]&quot;)</td>
 </tr>
 <tr>
@@ -3767,6 +3772,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>spawn_chapter_title_dialog</b>(std::string title_text=&quot;[unset-title_text]&quot;, float duration_seconds=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>spawn_you_got_an_item_dialog</b>(std::string item_name=&quot;[unset-item_name]&quot;, std::string item_bitmap_identifier=&quot;[unset-item_bitmap_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -3894,6 +3903,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::MultipageWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
@@ -5153,6 +5165,38 @@ table td
 </tr>
 <tr>
   <td class="property">next_node_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">item_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">item_bitmap_identifier</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
@@ -7835,7 +7879,7 @@ table td
 </tr>
 <tr>
   <td class="method">AllegroFlare::Elements::DialogBoxes::YouGotAnItem*</td>
-  <td class="method"><b>create_you_got_an_item_dialog</b>(std::string item_name=&quot;[unset-item-name]&quot;, std::string item_bitmap_identifier=&quot;[unset-item-bitmap-identifier]&quot;)</td>
+  <td class="method"><b>create_you_got_an_item_dialog</b>(std::string item_name=&quot;[unset-item_name]&quot;, std::string item_bitmap_identifier=&quot;[unset-item-bitmap_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::Elements::DialogBoxes::YouGotEvidence*</td>
@@ -43228,6 +43272,7 @@ table td
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/Nodes/RawScriptLine",
     "AllegroFlare/DialogTree/Nodes/Wait",
+    "AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
@@ -43250,6 +43295,9 @@ table td
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog": [
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/DialogSystem/DialogSystem",

@@ -171,10 +171,10 @@ functions:
     parameters:
       - name: item_name
         type: std::string
-        default_argument: '"[unset-item-name]"'
+        default_argument: '"[unset-item_name]"'
       - name: item_bitmap_identifier
         type: std::string
-        default_argument: '"[unset-item-bitmap-identifier]"'
+        default_argument: '"[unset-item-bitmap_identifier]"'
     guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::YouGotAnItem* you_got_an_item_dialog_box =

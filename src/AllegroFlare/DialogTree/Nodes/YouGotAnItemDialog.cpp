@@ -13,9 +13,9 @@ namespace Nodes
 {
 
 
-YouGotAnItemDialog::YouGotAnItemDialog(std::string item_title, std::string item_bitmap_identifier)
+YouGotAnItemDialog::YouGotAnItemDialog(std::string item_name, std::string item_bitmap_identifier)
    : AllegroFlare::DialogTree::Nodes::Base(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog::TYPE)
-   , item_title(item_title)
+   , item_name(item_name)
    , item_bitmap_identifier(item_bitmap_identifier)
 {
 }
@@ -26,9 +26,9 @@ YouGotAnItemDialog::~YouGotAnItemDialog()
 }
 
 
-void YouGotAnItemDialog::set_item_title(std::string item_title)
+void YouGotAnItemDialog::set_item_name(std::string item_name)
 {
-   this->item_title = item_title;
+   this->item_name = item_name;
 }
 
 
@@ -38,9 +38,9 @@ void YouGotAnItemDialog::set_item_bitmap_identifier(std::string item_bitmap_iden
 }
 
 
-std::string YouGotAnItemDialog::get_item_title() const
+std::string YouGotAnItemDialog::get_item_name() const
 {
-   return item_title;
+   return item_name;
 }
 
 

@@ -1337,6 +1337,7 @@
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/Nodes/RawScriptLine",
     "AllegroFlare/DialogTree/Nodes/Wait",
+    "AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/DialogTree/NodeOptions/GoToNode": [
@@ -1359,6 +1360,9 @@
     "AllegroFlare/DialogTree/NodeBankFactory",
     "AllegroFlare/DialogTree/NodeBankInferencer",
     "AllegroFlare/DialogTree/YAMLLoader"
+  ],
+  "AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog": [
+    "AllegroFlare/DialogSystem/DialogSystem"
   ],
   "AllegroFlare/Elements/SelectionCursorBox": [
     "AllegroFlare/DialogSystem/DialogSystem",

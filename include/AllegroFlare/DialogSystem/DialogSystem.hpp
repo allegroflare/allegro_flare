@@ -12,6 +12,7 @@
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
+#include <AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
@@ -103,6 +104,7 @@ namespace AllegroFlare
          void activate_ChapterTitle_dialog_node(AllegroFlare::DialogTree::Nodes::ChapterTitle* node=nullptr);
          void activate_ExitDialog_dialog_node(AllegroFlare::DialogTree::Nodes::ExitDialog* node=nullptr);
          void activate_ExitProgram_dialog_node(AllegroFlare::DialogTree::Nodes::ExitProgram* node=nullptr);
+         void activate_YouGotAnItemDialog_dialog_node(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog* node=nullptr);
          void activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, std::string node_identifier="[unset-node_identifier-for-MultipageWithOptions]");
          void activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* dialog_node=nullptr);
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
@@ -113,6 +115,7 @@ namespace AllegroFlare
          void spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
          void spawn_wait_dialog(float duration_seconds=1.0f);
          void spawn_chapter_title_dialog(std::string title_text="[unset-title_text]", float duration_seconds=1.0f);
+         void spawn_you_got_an_item_dialog(std::string item_name="[unset-item_name]", std::string item_bitmap_identifier="[unset-item_bitmap_identifier]");
          void spawn_character_feature_dialog(std::string character_name="[unset-character_name]", std::string character_description="[unset-character_description]", std::string character_image_identifier="[unset-character_image_identifier]", float duration_seconds=6.0f);
          void spawn_choice_dialog(std::string speaking_character="[unset-speaking_character]", std::string prompt="[unset-prompt]", std::vector<std::string> options={}, int cursor_position_on_spawn=0);
          void update(float time_now=0);

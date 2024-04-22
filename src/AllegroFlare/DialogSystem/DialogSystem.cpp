@@ -14,6 +14,7 @@
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
+#include <AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.hpp>
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
@@ -513,6 +514,23 @@ void DialogSystem::activate_ExitProgram_dialog_node(AllegroFlare::DialogTree::No
    return;
 }
 
+void DialogSystem::activate_YouGotAnItemDialog_dialog_node(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog* node)
+{
+   if (!(node))
+   {
+      std::stringstream error_message;
+      error_message << "[DialogSystem::activate_YouGotAnItemDialog_dialog_node]: error: guard \"node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("DialogSystem::activate_YouGotAnItemDialog_dialog_node: error: guard \"node\" not met");
+   }
+   // HERE
+   // Will emit an event to activate you got an item
+   std::string item_name = node->get_item_name();
+   std::string item_bitmap_identifier = node->get_item_bitmap_identifier();
+   spawn_you_got_an_item_dialog(item_name, item_bitmap_identifier);
+   return;
+}
+
 void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node, std::string node_identifier)
 {
    if (!(node))
@@ -620,6 +638,12 @@ void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* d
       AllegroFlare::DialogTree::Nodes::MultipageWithOptions *as =
          static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(dialog_node);
       activate_MultipageWithOptions_dialog_node(as);
+   }
+   else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog*>(dialog_node);
+      activate_YouGotAnItemDialog_dialog_node(as);
    }
    else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
    {
@@ -1018,6 +1042,23 @@ void DialogSystem::spawn_chapter_title_dialog(std::string title_text, float dura
    //{
       //switch_in();
    //}
+   return;
+}
+
+void DialogSystem::spawn_you_got_an_item_dialog(std::string item_name, std::string item_bitmap_identifier)
+{
+   switch_in_if_not();
+
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
+                                                    // And/or address concerns that derived dialog be deleted proper
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog_box = dialog_box_factory.create_you_got_an_item_dialog(
+      item_name,
+      item_bitmap_identifier
+   );
+
    return;
 }
 

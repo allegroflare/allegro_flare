@@ -427,6 +427,21 @@ methods:
       return;
 
 
+  - name: activate_YouGotAnItemDialog_dialog_node
+    parameters:
+      - name: node
+        type: AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog*
+        default_argument: nullptr
+    guards: [ node ]
+    body: |
+      // HERE
+      // Will emit an event to activate you got an item
+      std::string item_name = node->get_item_name();
+      std::string item_bitmap_identifier = node->get_item_bitmap_identifier();
+      spawn_you_got_an_item_dialog(item_name, item_bitmap_identifier);
+      return;
+
+
   - name: activate_MultipageWithOptions_dialog_node
     parameters:
       - name: node
@@ -534,6 +549,12 @@ methods:
             static_cast<AllegroFlare::DialogTree::Nodes::MultipageWithOptions*>(dialog_node);
          activate_MultipageWithOptions_dialog_node(as);
       }
+      else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog::TYPE))
+      {
+         AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog *as =
+            static_cast<AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog*>(dialog_node);
+         activate_YouGotAnItemDialog_dialog_node(as);
+      }
       else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Wait::TYPE))
       {
          AllegroFlare::DialogTree::Nodes::Wait *as =
@@ -581,6 +602,7 @@ methods:
       return;
     body_dependency_symbols:
      - AllegroFlare::DialogTree::Nodes::MultipageWithOptions
+     - AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog
      - AllegroFlare::DialogTree::Nodes::RawScriptLine
      - AllegroFlare::DialogTree::Nodes::EmitGameEvent
      - AllegroFlare::DialogTree::Nodes::ExitDialog
@@ -957,6 +979,32 @@ methods:
       - AllegroFlare::Elements::DialogBoxFactory
 
 
+  - name: spawn_you_got_an_item_dialog
+    parameters:
+      - name: item_name
+        type: std::string
+        default_argument: '"[unset-item_name]"'
+      - name: item_bitmap_identifier
+        type: std::string
+        default_argument: '"[unset-item_bitmap_identifier]"'
+    body: |
+      switch_in_if_not();
+
+      bool a_dialog_existed_before = a_dialog_is_active();
+      if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
+                                                       // And/or address concerns that derived dialog be deleted proper
+
+      AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+      active_dialog_box = dialog_box_factory.create_you_got_an_item_dialog(
+         item_name,
+         item_bitmap_identifier
+      );
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxFactory
+
+
   - name: spawn_character_feature_dialog
     parameters:
       - name: character_name
@@ -1283,6 +1331,8 @@ dependencies:
     headers: [ AllegroFlare/DialogTree/NodeOptions/ExitDialog.hpp ]
   - symbol: AllegroFlare::DialogTree::Nodes::MultipageWithOptions
     headers: [ AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog
+    headers: [ AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.hpp ]
   - symbol: AllegroFlare::Elements::SelectionCursorBox
     headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
