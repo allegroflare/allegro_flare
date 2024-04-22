@@ -611,6 +611,22 @@ methods:
     body: gravity_reversed = !gravity_reversed;
 
 
+  - name: on_entity_environment_collision_step
+    virtual: true
+    parameters:
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: collision_step_results
+        type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>*
+        default_argument: nullptr
+    guards: [ entity, collision_step_results ]
+    body: |
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
+
+
   - name: update_entities
     guards: [ initialized, currently_active_map ]
     body: |
@@ -739,6 +755,15 @@ methods:
             is_currently_adjacent_to_right_wall, // TODO: Confirm these
             is_currently_adjacent_to_floor,
             is_currently_adjacent_to_left_wall // TODO: Confirm these
+         );
+
+         // Call the screens' collision callback function on the entity
+         // TODO: Consider performance implications of this callback (is it excessive, should it be called only on
+         // entities that are flagged for this callback?)
+         // TODO: Consider adding more arguments to this callback
+         on_entity_environment_collision_step(
+            entity,
+            &collision_step_results
          );
 
          // debugging:
@@ -2013,5 +2038,7 @@ dependencies:
     headers: [ allegro5/allegro_font.h ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
 
 

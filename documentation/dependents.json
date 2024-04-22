@@ -2997,7 +2997,8 @@
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base"
+    "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo/CollidingBlockEdge": [
     "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"

@@ -7,6 +7,7 @@
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
+#include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
@@ -140,6 +141,7 @@ namespace AllegroFlare
             void add_entity_to_pool(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
             void player_emit_projectile(float magnitude=3.0f);
             void reverse_gravity();
+            virtual void on_entity_environment_collision_step(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_results=nullptr);
             void update_entities();
             void check_and_respond_if_player_death();
             static void position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, std::string map_name="[unset-map_name]", float x=0.0f, float y=0.0f, float y_offset=0.01f);

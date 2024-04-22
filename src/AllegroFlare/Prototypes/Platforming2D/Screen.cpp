@@ -9,6 +9,7 @@
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Physics/AABB2D.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
+#include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp>
@@ -708,6 +709,25 @@ void Screen::reverse_gravity()
    gravity_reversed = !gravity_reversed;
 }
 
+void Screen::on_entity_environment_collision_step(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_results)
+{
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_entity_environment_collision_step]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_entity_environment_collision_step: error: guard \"entity\" not met");
+   }
+   if (!(collision_step_results))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_entity_environment_collision_step]: error: guard \"collision_step_results\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_entity_environment_collision_step: error: guard \"collision_step_results\" not met");
+   }
+   return;
+}
+
 void Screen::update_entities()
 {
    if (!(initialized))
@@ -849,6 +869,15 @@ void Screen::update_entities()
          is_currently_adjacent_to_right_wall, // TODO: Confirm these
          is_currently_adjacent_to_floor,
          is_currently_adjacent_to_left_wall // TODO: Confirm these
+      );
+
+      // Call the screens' collision callback function on the entity
+      // TODO: Consider performance implications of this callback (is it excessive, should it be called only on
+      // entities that are flagged for this callback?)
+      // TODO: Consider adding more arguments to this callback
+      on_entity_environment_collision_step(
+         entity,
+         &collision_step_results
       );
 
       // debugging:
