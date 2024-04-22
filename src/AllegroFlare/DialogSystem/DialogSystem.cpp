@@ -772,6 +772,7 @@ void DialogSystem::dialog_advance()
          "When advancing the dialog box, the dialog indicated it was finished. However, there was no corresponding "
             "active_dialog_node. This may be expected behavior in your case."
       );
+      return;
    }
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
