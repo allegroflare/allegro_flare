@@ -523,8 +523,7 @@ void DialogSystem::activate_YouGotAnItemDialog_dialog_node(AllegroFlare::DialogT
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_YouGotAnItemDialog_dialog_node: error: guard \"node\" not met");
    }
-   // HERE
-   // Will emit an event to activate you got an item
+   active_dialog_node = node;
    std::string item_name = node->get_item_name();
    std::string item_bitmap_identifier = node->get_item_bitmap_identifier();
    spawn_you_got_an_item_dialog(item_name, item_bitmap_identifier);
@@ -621,6 +620,12 @@ void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* d
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::activate_dialog_node: error: guard \"dialog_node\" not met");
    }
+   // TODO: Conaider that "active_dialog_node" is assigned inside each of the activate_TypeOfNode... methods and
+   // this seems like a lot of duplicate logic (and also a bit brittle for refactoring and modification). Possibly
+   // a better pattern is to set "active_dialog_node" here at the top (or at the bottom). I don't think any of
+   // the methods in question have any specific behavior for assignment. I also think they are probably internal.
+   // Also note that there is an assinment to "active_dialog_node" in the last else statement in this method.
+
    if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::EmitGameEvent::TYPE))
    {
       AllegroFlare::DialogTree::Nodes::EmitGameEvent *as =
@@ -758,9 +763,15 @@ void DialogSystem::dialog_advance()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"active_dialog_box\" not met");
    }
+   std::cout << "Advancing Dialog... " << std::endl;
    active_dialog_box->advance();
+   std::cout << "    AAAAAAAAAAA" << std::endl;
+
    if (!active_dialog_box->get_finished()) return;
+   std::cout << "    BBBBBBBBB" << std::endl;
    if (!active_dialog_node) return; // TODO: Consider a throw in this case
+
+   std::cout << "   .... entered dialog advancing." << std::endl;
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
@@ -826,6 +837,10 @@ void DialogSystem::dialog_advance()
       if (driver) driver->on_raw_script_line_finished(this, active_dialog_box, active_dialog_node);
    }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::ExitDialog::TYPE))
+   {
+      shutdown(); // TODO: Verify if this is a correct complete action for this event
+   }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog::TYPE))
    {
       shutdown(); // TODO: Verify if this is a correct complete action for this event
    }
