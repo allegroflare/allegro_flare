@@ -1,0 +1,39 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogTree::Nodes::Base
+    scope: public
+    init_with: AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog::TYPE
+
+
+properties:
+
+
+  - name: item_name
+    type: std::string
+    init_with: '"[unset-item_name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: item_bitmap_identifier
+    type: std::string
+    init_with: '"[unset-item_bitmap_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
+
+
