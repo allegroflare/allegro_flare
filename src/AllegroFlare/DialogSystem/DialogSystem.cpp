@@ -763,15 +763,16 @@ void DialogSystem::dialog_advance()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"active_dialog_box\" not met");
    }
-   std::cout << "Advancing Dialog... " << std::endl;
    active_dialog_box->advance();
-   std::cout << "    AAAAAAAAAAA" << std::endl;
-
    if (!active_dialog_box->get_finished()) return;
-   std::cout << "    BBBBBBBBB" << std::endl;
-   if (!active_dialog_node) return; // TODO: Consider a throw in this case
-
-   std::cout << "   .... entered dialog advancing." << std::endl;
+   if (!active_dialog_node)
+   {
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::DialogSystem::DialogSystem::dialog_advance",
+         "When advancing the dialog box, the dialog indicated it was finished. However, there was no corresponding "
+            "active_dialog_node. This may be expected behavior in your case."
+      );
+   }
 
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
