@@ -833,7 +833,7 @@ void DialogSystem::dialog_advance()
          static_cast<AllegroFlare::DialogTree::Nodes::ChapterTitle*>(active_dialog_node);
       activate_dialog_node_by_name(as->get_next_node_identifier());
    }
-   else if (AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE)
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::RawScriptLine::TYPE))
    {
       // TODO: Throw when no driver is present
       if (driver) driver->on_raw_script_line_finished(this, active_dialog_box, active_dialog_node);
