@@ -395,7 +395,7 @@ methods:
 
          std::cout << "Loading map named \"" << map_name << "\" from file \"" << map_filename << "\"." << std::endl;
 
-         // Create the tile map
+         // Create the tile map, add it to the entity pool
          AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map =
             factory.create_tile_map(
                map_name,
@@ -404,7 +404,7 @@ methods:
             );
          entity_pool.push_back(created_map);
 
-         // Parse the map and load entities
+         // Parse the tmj file and load entities
          std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> map_loaded_entity_pool =
             factory.create_entities_from_map(
                map_filename,
@@ -1426,16 +1426,14 @@ methods:
                                                                               // z-level to overwrite. This 
                                                                               // mimics the rendering of typical
                                                                               // "traditional" drawing functions
-      //draw_entities(); // entities are drawn before the tilemap so there is not collision with the
-                         // zbuffer
-      if (show_background_tile_mesh && background_tile_mesh_exists())
-      {
-         get_background_tile_mesh()->render();
-      }
-      if (show_tile_mesh)
-      {
-         get_tile_mesh()->render();
-      }
+      //if (show_background_tile_mesh && background_tile_mesh_exists())
+      //{
+         //get_background_tile_mesh()->render();
+      //}
+      //if (show_tile_mesh)
+      //{
+         //get_tile_mesh()->render();
+      //}
       draw_entities();
       if (show_collision_tile_mesh) render_collision_tile_mesh();
 

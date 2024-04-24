@@ -24,6 +24,8 @@ namespace Entities
 Basic2D::Basic2D()
    : AllegroFlare::Prototypes::Platforming2D::Entities::Base(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::TYPE)
    , place({})
+   , render_order_group(0)
+   , render_order_z(0.0f)
    , velocity({})
    , bitmap(nullptr)
    , bitmap_placement({})
@@ -55,6 +57,18 @@ Basic2D::~Basic2D()
 void Basic2D::set_place(AllegroFlare::Placement2D place)
 {
    this->place = place;
+}
+
+
+void Basic2D::set_render_order_group(int render_order_group)
+{
+   this->render_order_group = render_order_group;
+}
+
+
+void Basic2D::set_render_order_z(float render_order_z)
+{
+   this->render_order_z = render_order_z;
 }
 
 
@@ -127,6 +141,18 @@ void Basic2D::set_debug_box_color(ALLEGRO_COLOR debug_box_color)
 AllegroFlare::Placement2D Basic2D::get_place() const
 {
    return place;
+}
+
+
+int Basic2D::get_render_order_group() const
+{
+   return render_order_group;
+}
+
+
+float Basic2D::get_render_order_z() const
+{
+   return render_order_z;
 }
 
 
@@ -205,6 +231,18 @@ ALLEGRO_COLOR Basic2D::get_debug_box_color() const
 AllegroFlare::Placement2D &Basic2D::get_place_ref()
 {
    return place;
+}
+
+
+int &Basic2D::get_render_order_group_ref()
+{
+   return render_order_group;
+}
+
+
+float &Basic2D::get_render_order_z_ref()
+{
+   return render_order_z;
 }
 
 

@@ -18,7 +18,7 @@ namespace Subscreen
 
 
 Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::Screens::Subscreen::Element* subscreen_element)
-   : AllegroFlare::Screens::Base("AllegroFlare::Screens::Subscreen::Panes::Base")
+   : AllegroFlare::Screens::Base("AllegroFlare/Screens/Subscreen/Screen")
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)

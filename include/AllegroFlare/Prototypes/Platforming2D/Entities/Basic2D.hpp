@@ -40,6 +40,8 @@ namespace AllegroFlare
                };
             private:
                AllegroFlare::Placement2D place;
+               int render_order_group;
+               float render_order_z;
                AllegroFlare::Placement2D velocity;
                ALLEGRO_BITMAP* bitmap;
                AllegroFlare::Placement2D bitmap_placement;
@@ -71,6 +73,8 @@ namespace AllegroFlare
                virtual ~Basic2D();
 
                void set_place(AllegroFlare::Placement2D place);
+               void set_render_order_group(int render_order_group);
+               void set_render_order_z(float render_order_z);
                void set_velocity(AllegroFlare::Placement2D velocity);
                void set_bitmap(ALLEGRO_BITMAP* bitmap);
                void set_bitmap_placement(AllegroFlare::Placement2D bitmap_placement);
@@ -83,6 +87,8 @@ namespace AllegroFlare
                void set_draw_debug(bool draw_debug);
                void set_debug_box_color(ALLEGRO_COLOR debug_box_color);
                AllegroFlare::Placement2D get_place() const;
+               int get_render_order_group() const;
+               float get_render_order_z() const;
                AllegroFlare::Placement2D get_velocity() const;
                ALLEGRO_BITMAP* get_bitmap() const;
                AllegroFlare::Placement2D get_bitmap_placement() const;
@@ -96,6 +102,8 @@ namespace AllegroFlare
                bool get_draw_debug() const;
                ALLEGRO_COLOR get_debug_box_color() const;
                AllegroFlare::Placement2D &get_place_ref();
+               int &get_render_order_group_ref();
+               float &get_render_order_z_ref();
                AllegroFlare::Placement2D &get_velocity_ref();
                AllegroFlare::Placement2D &get_bitmap_placement_ref();
                AllegroFlare::AssetStudio::Database* &get_asset_studio_database_ref();

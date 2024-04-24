@@ -16,6 +16,20 @@ properties:
     getter_ref: true
     setter: true
 
+  - name: render_order_group
+    type: int
+    init_with: 0
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: render_order_z
+    type: float
+    init_with: 0.0f
+    getter: true
+    getter_ref: true
+    setter: true
+
   - name: velocity
     type: AllegroFlare::Placement2D
     init_with: '{}'
@@ -132,6 +146,14 @@ properties:
     init_with: '(char*)"Entities/Basic2D"'
     static: true
     constexpr: true
+
+
+documentation:
+
+
+  - todos:
+      - Rename "place" to "placement". Add a placeholder getter and getter ref with depreciation warning.
+      - Consider if "render_order_group", or "render_order_z" should be outside of the object, held in the container
 
 
 enums:
