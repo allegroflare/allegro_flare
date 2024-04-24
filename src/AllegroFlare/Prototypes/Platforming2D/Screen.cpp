@@ -1493,14 +1493,27 @@ void Screen::update_player_collisions_with_goalposts()
    return;
 }
 
-void Screen::draw_entities()
+void Screen::draw_entities_sorted_by_render_order()
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
+   //std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+
+   // Build list sorted by render order
+   std::multimap<std::pair<int, float>, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
+      entities_in_render_order;
+
    for (auto &entity : get_current_map_entities())
    {
-      if (!entity->exists(INVISIBLE)) entity->draw();
+      if (entity->exists(INVISIBLE)) continue;
+
+      std::pair<int, float> key = std::make_pair(entity->get_render_order_group(), entity->get_render_order_z());
+      entities_in_render_order.insert(std::make_pair(key, entity));
    }
+
+   // Draw the entities in render order
+   for (auto &entity : entities_in_render_order) entity.second->draw();
+
    return;
 }
 
@@ -1572,15 +1585,16 @@ void Screen::draw()
                                                                            // z-level to overwrite. This 
                                                                            // mimics the rendering of typical
                                                                            // "traditional" drawing functions
-   //if (show_background_tile_mesh && background_tile_mesh_exists())
-   //{
-      //get_background_tile_mesh()->render();
-   //}
-   //if (show_tile_mesh)
-   //{
-      //get_tile_mesh()->render();
-   //}
-   draw_entities();
+   // TODO: Figure out how to include tile mesh with entities, including "draw_order_z" and "draw_order_group"
+   if (show_background_tile_mesh && background_tile_mesh_exists())
+   {
+      get_background_tile_mesh()->render();
+   }
+   if (show_tile_mesh)
+   {
+      get_tile_mesh()->render();
+   }
+   draw_entities_sorted_by_render_order();
    if (show_collision_tile_mesh) render_collision_tile_mesh();
 
    camera.restore_transform();

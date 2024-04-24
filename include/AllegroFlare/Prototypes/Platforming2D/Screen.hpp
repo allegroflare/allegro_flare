@@ -149,7 +149,7 @@ namespace AllegroFlare
             void reposition_player_controlled_entity_to_door_destination(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door=nullptr);
             void spawn_player_emitted_damage_zone(std::string map_name="[unset-map_name]", float x=0.0f, float y=0.0f, float width=16.0f, float height=16.0f);
             virtual void update_player_collisions_with_goalposts();
-            void draw_entities();
+            void draw_entities_sorted_by_render_order();
             virtual void update();
             virtual void draw_hud();
             void draw();
