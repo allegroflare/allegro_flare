@@ -290,6 +290,12 @@ bool TMJDataLoader::load()
    }
 
 
+
+
+   //
+   // Terrain tile layer
+   //
+
    bool tilelayer_type_found = false;
    nlohmann::json tilelayer; // TODO: Rename this "terrain_tilelayer"
 
@@ -454,6 +460,9 @@ bool TMJDataLoader::load()
 
 
 
+   //
+   // Background tile layer
+   //
 
    //background_tilelayer_found = false;
    nlohmann::json background_tilelayer;
@@ -523,6 +532,10 @@ bool TMJDataLoader::load()
    }
 
 
+
+   //
+   // Collision tile layer
+   //
 
    // Get the first layer named "collision"
 
