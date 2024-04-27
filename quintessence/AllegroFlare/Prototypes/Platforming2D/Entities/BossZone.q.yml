@@ -16,6 +16,12 @@ properties:
     getter: true
     setter: true
 
+  - name: boss_is_defeated
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"'

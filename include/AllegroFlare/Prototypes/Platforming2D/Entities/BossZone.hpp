@@ -20,6 +20,7 @@ namespace AllegroFlare
 
             private:
                AllegroFlare::Prototypes::Platforming2D::Entities::Boss* boss;
+               bool boss_is_defeated;
 
             protected:
 
@@ -29,7 +30,9 @@ namespace AllegroFlare
                ~BossZone();
 
                void set_boss(AllegroFlare::Prototypes::Platforming2D::Entities::Boss* boss);
+               void set_boss_is_defeated(bool boss_is_defeated);
                AllegroFlare::Prototypes::Platforming2D::Entities::Boss* get_boss() const;
+               bool get_boss_is_defeated() const;
             };
          }
       }
