@@ -26611,7 +26611,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Boss.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Boss.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"notes"=>["When the bosses death sequence is finished, call \"call_on_death_end_callback\", when the boss is beginning its death sequence, call \"call_on_death_begin_callback\"."]}</p>    <p>{"todos"=>["Rather than having \"health\" and \"max_health\" be properties, consider having them be methods that require an override. Some bosses may note require health as floats for example."]}</p>    <h3>Properties</h3>
+    <p>{"notes"=>["Your game's bosses should each derive from this class. - Typically, you keep track of your boss's health. - Provide overrides for \"get_health_bar_value\" and \"get_health_bar_max_value\" - Use the \"get_health_bar_value\" and \"get_health_bar_max_value\" in your hud", "When the boss is beginning its death sequence, you should call \"call_on_death_begin_callback\". You might have a callback remove the visibility of the health bar. Be sure \"on_death_begin_callback\" is present.", "When the bosses death sequence is finished, you should call \"call_on_death_end_callback\". You might use this as the callback to remove a barrier blocking the exit, or trigger a cutscene, etc. Be sure that you have an \"on_death_end_callback\" present."]}</p>    <p>{"todos"=>["Rather than having \"health\" and \"max_health\" be properties, consider having them be methods that require an override. Some bosses may note require health as floats for example."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">on_death_begin_callback</td>

@@ -3,9 +3,6 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Boss.hpp>
 
 #include <AllegroFlare/Logger.hpp>
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -125,13 +122,8 @@ float Boss::get_health_bar_max_value()
 
 void Boss::call_on_death_begin_callback()
 {
-   if (!(on_death_begin_callback))
-   {
-      std::stringstream error_message;
-      error_message << "[Boss::call_on_death_begin_callback]: error: guard \"on_death_begin_callback\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Boss::call_on_death_begin_callback: error: guard \"on_death_begin_callback\" not met");
-   }
+   // TODO: Consider guarding for on_death_begin_callback, consider that a user may simply not want to have a
+   // callback
    // TODO: Test this
    on_death_end_callback(this, on_death_begin_callback_user_data);
    return;
@@ -139,13 +131,7 @@ void Boss::call_on_death_begin_callback()
 
 void Boss::call_on_death_end_callback()
 {
-   if (!(on_death_end_callback))
-   {
-      std::stringstream error_message;
-      error_message << "[Boss::call_on_death_end_callback]: error: guard \"on_death_end_callback\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Boss::call_on_death_end_callback: error: guard \"on_death_end_callback\" not met");
-   }
+   // TODO: Consider guarding with on_death_end_callback, consider that a user may simply not want to have a callback
    // TODO: Test this
    on_death_end_callback(this, on_death_end_callback_user_data);
    return;

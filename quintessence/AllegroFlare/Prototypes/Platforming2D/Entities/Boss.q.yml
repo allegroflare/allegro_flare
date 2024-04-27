@@ -92,16 +92,17 @@ methods:
 
 
   - name: call_on_death_begin_callback
-    guards: [ on_death_begin_callback ]
     body: |
+      // TODO: Consider guarding for on_death_begin_callback, consider that a user may simply not want to have a
+      // callback
       // TODO: Test this
       on_death_end_callback(this, on_death_begin_callback_user_data);
       return;
 
 
   - name: call_on_death_end_callback
-    guards: [ on_death_end_callback ]
     body: |
+      // TODO: Consider guarding with on_death_end_callback, consider that a user may simply not want to have a callback
       // TODO: Test this
       on_death_end_callback(this, on_death_end_callback_user_data);
       return;
