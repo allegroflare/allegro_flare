@@ -123,17 +123,18 @@ float Boss::get_health_bar_max_value()
 void Boss::call_on_death_begin_callback()
 {
    // TODO: Consider guarding for on_death_begin_callback, consider that a user may simply not want to have a
-   // callback
+   // callback, consider adding a warning and/or disabling the warning with a flag
    // TODO: Test this
-   on_death_end_callback(this, on_death_begin_callback_user_data);
+   if (on_death_begin_callback) on_death_begin_callback(this, on_death_begin_callback_user_data);
    return;
 }
 
 void Boss::call_on_death_end_callback()
 {
-   // TODO: Consider guarding with on_death_end_callback, consider that a user may simply not want to have a callback
+   // TODO: Consider guarding with on_death_end_callback, consider that a user may simply not want to have a
+   // callback, consider adding a warning and/or disabling the warning with a flag
    // TODO: Test this
-   on_death_end_callback(this, on_death_end_callback_user_data);
+   if (on_death_end_callback) on_death_end_callback(this, on_death_end_callback_user_data);
    return;
 }
 
