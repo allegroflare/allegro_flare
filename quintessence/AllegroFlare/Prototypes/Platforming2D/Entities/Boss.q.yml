@@ -1,0 +1,37 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: health
+    type: float
+    init_with: 16.0f
+    getter: true
+    setter: true
+
+  - name: max_health
+    type: float
+    init_with: 16.0f
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Prototypes/Platforming2D/Entities/Boss"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+
+
