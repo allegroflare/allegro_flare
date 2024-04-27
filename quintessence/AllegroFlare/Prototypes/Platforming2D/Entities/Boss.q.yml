@@ -9,16 +9,32 @@ parent_classes:
 properties:
 
 
-  - name: health
-    type: float
-    init_with: 16.0f
+  - name: on_death_begin_callback
+    type: std::function<void(AllegroFlare::Prototypes::Platforming2D::Entities::Boss*, void*)>
+    init_with: ''
     getter: true
+    getter_ref: true
     setter: true
 
-  - name: max_health
-    type: float
-    init_with: 16.0f
+  - name: on_death_begin_callback_user_data
+    type: void*
+    init_with: nullptr
     getter: true
+    getter_ref: true
+    setter: true
+
+  - name: on_death_end_callback
+    type: std::function<void(AllegroFlare::Prototypes::Platforming2D::Entities::Boss*, void*)>
+    init_with: ''
+    getter: true
+    getter_ref: true
+    setter: true
+
+  - name: on_death_end_callback_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    getter_ref: true
     setter: true
 
   - name: TYPE
@@ -28,10 +44,77 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - notes:
+      - Your game's bosses should each derive from this class.
+         - Typically, you keep track of your boss's health.
+         - Provide overrides for "get_health_bar_value" and "get_health_bar_max_value"
+         - Use the "get_health_bar_value" and "get_health_bar_max_value" in your hud
+      - When the boss is beginning its death sequence, you should call "call_on_death_begin_callback". You might
+        have a callback remove the visibility of the health bar. Be sure "on_death_begin_callback" is present.
+      - When the bosses death sequence is finished, you should call "call_on_death_end_callback". You might use this
+        as the callback to remove a barrier blocking the exit, or trigger a cutscene, etc. Be sure that you have
+        an "on_death_end_callback" present.
+  - todos:
+      - Rather than having "health" and "max_health" be properties, consider having them be methods that require
+        an override. Some bosses may note require health as floats for example.
+
+
+methods:
+
+
+  - name: get_health_bar_value
+    virtual: true
+    type: float
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Prototypes::Platforming2D::Entities::Boss::get_health_bar_value",
+         "This is expected to be an override in the base class."
+      );
+      return 0.0f;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: get_health_bar_max_value
+    virtual: true
+    type: float
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Prototypes::Platforming2D::Entities::Boss::get_health_bar_max_value",
+         "This is expected to be an override in the base class."
+      );
+      return 0.0f;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: call_on_death_begin_callback
+    guards: [ on_death_begin_callback ]
+    body: |
+      // TODO: Test this
+      on_death_end_callback(this, on_death_begin_callback_user_data);
+      return;
+
+
+  - name: call_on_death_end_callback
+    guards: [ on_death_end_callback ]
+    body: |
+      // TODO: Test this
+      on_death_end_callback(this, on_death_end_callback_user_data);
+      return;
+
+
 dependencies:
 
 
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Boss
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Boss.hpp ]
 
 

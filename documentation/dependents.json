@@ -148,6 +148,7 @@
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
@@ -3382,6 +3383,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [

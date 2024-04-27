@@ -26610,16 +26610,24 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Boss.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Boss.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["When the bosses death sequence is finished, call \"call_on_death_end_callback\", when the boss is beginning its death sequence, call \"call_on_death_begin_callback\"."]}</p>    <p>{"todos"=>["Rather than having \"health\" and \"max_health\" be properties, consider having them be methods that require an override. Some bosses may note require health as floats for example."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">health</td>
-  <td class="property">float</td>
+  <td class="property">on_death_begin_callback</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Prototypes::Platforming2D::Entities::Boss*, void*)&gt;</td>
 </tr>
 <tr>
-  <td class="property">max_health</td>
-  <td class="property">float</td>
+  <td class="property">on_death_begin_callback_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">on_death_end_callback</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Prototypes::Platforming2D::Entities::Boss*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_death_end_callback_user_data</td>
+  <td class="property">void*</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -26628,11 +26636,33 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_health_bar_value</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_health_bar_max_value</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>call_on_death_begin_callback</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>call_on_death_end_callback</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Boss&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Boss.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -42175,6 +42205,7 @@ table td
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
@@ -45409,6 +45440,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
