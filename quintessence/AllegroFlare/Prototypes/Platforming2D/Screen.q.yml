@@ -1249,13 +1249,16 @@ methods:
 
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
       AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
-      float player_x = player_controlled_entity->get_place_ref().position.x;
-      float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
+      AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+         //if (entity->get_place_ref().collide(player_placement))
+      //float player_x = player_controlled_entity->get_place_ref().position.x;
+      //float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
                                                                                   // player center position
 
       for (auto &entity : collection_helper.select_collectable_by_player())
       {
-         if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
+         if (entity->get_place_ref().collide(player_placement))
+         //if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
          {
             entity->set(PLEASE_DELETE);
             // NOTE: typically will do something here as a result of picking up the item
@@ -1306,14 +1309,17 @@ methods:
 
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
       AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
-      float player_x = player_controlled_entity->get_place_ref().position.x;
-      float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
+      AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+         //if (entity->get_place_ref().collide(player_placement))
+      //float player_x = player_controlled_entity->get_place_ref().position.x;
+      //float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
                                                                                   // player center position
       //AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
 
       for (auto &entity : collection_helper.select_save_points())
       {
-         if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
+         if (entity->get_place_ref().collide(player_placement))
+         //if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
          {
             last_activated_save_point = entity;
             //entity->set(PLEASE_DELETE);
@@ -1423,14 +1429,16 @@ methods:
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
       AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
 
+      AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
       // TODO: Change this collision to the player_controlled_entity's center, OR, make it configurable
-      float player_x = player_controlled_entity->get_place_ref().position.x;
-      float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
+      //float player_x = player_controlled_entity->get_place_ref().position.x;
+      //float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
                                                                                   // player center position
 
       for (auto &entity : collection_helper.select_goalposts())
       {
-         if (entity->get_place_ref().collide(player_x, player_y, 8, 8, 8, 8))
+         if (entity->get_place_ref().collide(player_placement))
+         //if (entity->get_place_ref().collide(player_x, player_y, 8, 8, 8, 8))
          {
             // TODO: Consider what default behavior would be good here
          }
