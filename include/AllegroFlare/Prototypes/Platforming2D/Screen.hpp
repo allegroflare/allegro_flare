@@ -11,6 +11,7 @@
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.hpp>
@@ -47,6 +48,8 @@ namespace AllegroFlare
             AllegroFlare::EventEmitter* event_emitter;
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
+            AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* current_boss_zone;
+            bool in_boss_zone;
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool;
             std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> map_dictionary;
             float gravity;
@@ -108,6 +111,8 @@ namespace AllegroFlare
             AllegroFlare::EventEmitter* get_event_emitter() const;
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* get_currently_active_map() const;
             std::string get_currently_active_map_name() const;
+            AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* get_current_boss_zone() const;
+            bool get_in_boss_zone() const;
             std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> get_map_dictionary() const;
             float get_gravity() const;
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
@@ -148,6 +153,8 @@ namespace AllegroFlare
             virtual void on_enter_door(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door=nullptr);
             void reposition_player_controlled_entity_to_door_destination(AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* door=nullptr);
             void spawn_player_emitted_damage_zone(std::string map_name="[unset-map_name]", float x=0.0f, float y=0.0f, float width=16.0f, float height=16.0f);
+            virtual void on_enter_boss_zone(AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* boss_zone=nullptr);
+            virtual void on_exit_boss_zone(AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* boss_zone=nullptr);
             virtual void update_player_collisions_with_goalposts();
             void draw_entities_sorted_by_render_order();
             virtual void update();

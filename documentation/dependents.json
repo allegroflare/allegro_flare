@@ -861,6 +861,8 @@
     "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal",
@@ -3379,6 +3381,9 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
+  ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
@@ -3431,6 +3436,9 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "ifstream": [

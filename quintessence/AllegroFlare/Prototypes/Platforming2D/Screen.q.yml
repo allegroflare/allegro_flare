@@ -42,6 +42,16 @@ properties:
     init_with: '"[currently-active-map-name-unset]"'
     getter: true
 
+  - name: current_boss_zone
+    type: AllegroFlare::Prototypes::Platforming2D::Entities::BossZone*
+    init_with: nullptr
+    getter: true
+
+  - name: in_boss_zone
+    type: bool
+    init_with: false
+    getter: true
+
   - name: entity_pool
     type: std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>
     init_with: '{}'
@@ -219,6 +229,8 @@ methods:
       entity_control_connector = nullptr;
       player_controlled_entity = nullptr;
       last_activated_save_point = nullptr;
+      current_boss_zone = nullptr;
+      in_boss_zone = false;
 
       // Empty the map dictionary
       map_dictionary.clear();
@@ -1297,6 +1309,7 @@ methods:
       float player_x = player_controlled_entity->get_place_ref().position.x;
       float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
                                                                                   // player center position
+      //AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
 
       for (auto &entity : collection_helper.select_save_points())
       {
@@ -1313,6 +1326,26 @@ methods:
       - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
 
 
+  - name: on_enter_boss_zone
+    virtual: true
+    parameters:
+      - name: boss_zone
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::BossZone*
+        default_argument: nullptr
+    body: |
+      return;
+
+
+  - name: on_exit_boss_zone
+    virtual: true
+    parameters:
+      - name: boss_zone
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::BossZone*
+        default_argument: nullptr
+    body: |
+      return;
+
+
   - name: update_player_collisions_with_boss_zones
     virtual: true
     private: true
@@ -1323,12 +1356,13 @@ methods:
 
       std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
       AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
-      float player_x = player_controlled_entity->get_place_ref().position.x;
-      float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
-                                                                                  // player center position
+      //float player_x = player_controlled_entity->get_place_ref().position.x;
+      //float player_y = player_controlled_entity->get_place_ref().position.y; // TODO: Replace this with
+                                                                             // player center position
 
-      for (auto &entity : collection_helper.select_boss_zones())
-      {
+      AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+      //for (auto &entity : collection_helper.select_boss_zones())
+      //{
          // TODO: Determine what a good default action would be here, consider "entering" and "exiting" the zone
          // as well
 
@@ -1337,9 +1371,46 @@ methods:
             //last_activated_save_point = entity;
             // NOTE: typically will do something here as a result of picking up the item
          //}
+      //}
+
+      AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* first_collided_boss_zone = nullptr;
+
+      for (auto &entity : collection_helper.select_boss_zones())
+      {
+         if (entity->get_place_ref().collide(player_placement)) // Consider an alternative to this collision
+         //if (entity->get_place_ref().collide(player_x, player_y)) // Consider an alternative to this collision
+         {
+            first_collided_boss_zone =
+                  static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::BossZone*>(entity);
+            break;
+         }
       }
+
+      if (first_collided_boss_zone != current_boss_zone) // There was a change to the boss_zone
+      {
+         // TODO: Consider *exiting* current_boss_zone (if it is not a nullptr)
+
+         if (current_boss_zone != nullptr) on_exit_boss_zone(current_boss_zone);
+         current_boss_zone = first_collided_boss_zone;
+
+         if (current_boss_zone == nullptr)
+         {
+            in_boss_zone = false;
+            //on_enter_boss_zone();
+            // Exited a boss mode
+         }
+         else // (current_boss_zone != nullptr)
+         {
+            on_enter_boss_zone(current_boss_zone);
+            in_boss_zone = true;
+            // Entered a boss mode
+         }
+      }
+
+
       return;
     body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::Entities::BossZone
       - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
       - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
 
@@ -2052,5 +2123,7 @@ dependencies:
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
     headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::BossZone
+    headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.hpp ]
 
 

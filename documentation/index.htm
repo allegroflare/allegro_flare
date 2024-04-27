@@ -383,6 +383,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Boss.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Boss.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal.q.yml</a></li>
@@ -26607,6 +26609,69 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Boss.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Boss.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">health</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">max_health</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["consider renaming to BossArea"]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">boss</td>
+  <td class="property">AllegroFlare::Prototypes::Platforming2D::Entities::Boss*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Boss&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Boss.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -27523,6 +27588,14 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">current_boss_zone</td>
+  <td class="property">AllegroFlare::Prototypes::Platforming2D::Entities::BossZone*</td>
+</tr>
+<tr>
+  <td class="property">in_boss_zone</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">entity_pool</td>
   <td class="property">std::vector&lt;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*&gt;</td>
 </tr>
@@ -27744,6 +27817,14 @@ table td
 <tr>
   <td class="private_method">void</td>
   <td class="private_method"><b>update_player_collisions_with_save_points</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_enter_boss_zone</b>(AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* boss_zone=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_exit_boss_zone</b>(AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* boss_zone=nullptr)</td>
 </tr>
 <tr>
   <td class="private_method">void</td>
@@ -27998,6 +28079,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::BossZone&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -42804,6 +42888,8 @@ table td
     "AllegroFlare/CameraControlStrategies2D/Snap",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Anchored",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal",
@@ -45322,6 +45408,9 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
+  ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
@@ -45374,6 +45463,9 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "ifstream": [

@@ -11,6 +11,7 @@
 #include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp>
@@ -40,6 +41,8 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , event_emitter(event_emitter)
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
+   , current_boss_zone(nullptr)
+   , in_boss_zone(false)
    , entity_pool({})
    , map_dictionary({})
    , gravity(0.25f)
@@ -192,6 +195,18 @@ std::string Screen::get_currently_active_map_name() const
 }
 
 
+AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* Screen::get_current_boss_zone() const
+{
+   return current_boss_zone;
+}
+
+
+bool Screen::get_in_boss_zone() const
+{
+   return in_boss_zone;
+}
+
+
 std::map<std::string, AllegroFlare::Prototypes::Platforming2D::MapDictionaryListing> Screen::get_map_dictionary() const
 {
    return map_dictionary;
@@ -322,6 +337,8 @@ void Screen::clear()
    entity_control_connector = nullptr;
    player_controlled_entity = nullptr;
    last_activated_save_point = nullptr;
+   current_boss_zone = nullptr;
+   in_boss_zone = false;
 
    // Empty the map dictionary
    map_dictionary.clear();
@@ -1420,6 +1437,7 @@ void Screen::update_player_collisions_with_save_points()
    float player_x = player_controlled_entity->get_place_ref().position.x;
    float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
                                                                                // player center position
+   //AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
 
    for (auto &entity : collection_helper.select_save_points())
    {
@@ -1430,6 +1448,16 @@ void Screen::update_player_collisions_with_save_points()
          // NOTE: typically will do something here as a result of picking up the item
       }
    }
+   return;
+}
+
+void Screen::on_enter_boss_zone(AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* boss_zone)
+{
+   return;
+}
+
+void Screen::on_exit_boss_zone(AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* boss_zone)
+{
    return;
 }
 
@@ -1447,12 +1475,13 @@ void Screen::update_player_collisions_with_boss_zones()
 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
-   float player_x = player_controlled_entity->get_place_ref().position.x;
-   float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
-                                                                               // player center position
+   //float player_x = player_controlled_entity->get_place_ref().position.x;
+   //float player_y = player_controlled_entity->get_place_ref().position.y; // TODO: Replace this with
+                                                                          // player center position
 
-   for (auto &entity : collection_helper.select_boss_zones())
-   {
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+   //for (auto &entity : collection_helper.select_boss_zones())
+   //{
       // TODO: Determine what a good default action would be here, consider "entering" and "exiting" the zone
       // as well
 
@@ -1461,7 +1490,43 @@ void Screen::update_player_collisions_with_boss_zones()
          //last_activated_save_point = entity;
          // NOTE: typically will do something here as a result of picking up the item
       //}
+   //}
+
+   AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* first_collided_boss_zone = nullptr;
+
+   for (auto &entity : collection_helper.select_boss_zones())
+   {
+      if (entity->get_place_ref().collide(player_placement)) // Consider an alternative to this collision
+      //if (entity->get_place_ref().collide(player_x, player_y)) // Consider an alternative to this collision
+      {
+         first_collided_boss_zone =
+               static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::BossZone*>(entity);
+         break;
+      }
    }
+
+   if (first_collided_boss_zone != current_boss_zone) // There was a change to the boss_zone
+   {
+      // TODO: Consider *exiting* current_boss_zone (if it is not a nullptr)
+
+      if (current_boss_zone != nullptr) on_exit_boss_zone(current_boss_zone);
+      current_boss_zone = first_collided_boss_zone;
+
+      if (current_boss_zone == nullptr)
+      {
+         in_boss_zone = false;
+         //on_enter_boss_zone();
+         // Exited a boss mode
+      }
+      else // (current_boss_zone != nullptr)
+      {
+         on_enter_boss_zone(current_boss_zone);
+         in_boss_zone = true;
+         // Entered a boss mode
+      }
+   }
+
+
    return;
 }
 
