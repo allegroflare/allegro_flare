@@ -56,6 +56,7 @@ namespace AllegroFlare
       float get_rightmost_coordinate();
       float get_topmost_coordinate();
       float get_bottommost_coordinate();
+      AllegroFlare::Vec2D get_center_of_body_coordinate();
       void set_leftmost_coordinate(float x);
       void set_rightmost_coordinate(float x);
       void set_topmost_coordinate(float y);

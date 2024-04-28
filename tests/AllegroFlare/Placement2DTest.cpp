@@ -8,6 +8,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <AllegroFlare/Testing/Rulers.hpp>
 
 
 class AllegroFlare_Placement2DTest : public ::testing::Test
@@ -104,7 +105,13 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    {
       float interpolation = (float)i / (float)num_blends;
       AllegroFlare::Placement2D placement = AllegroFlare::Placement2D::blend(placement1, placement2, interpolation);
+
       placement.draw_box(ALLEGRO_COLOR{1, 1, 1, 1}, true);
+
+      // Draw the center of body
+      // TODO: Move this to another test, this current test is not related to center of body
+      AllegroFlare::Vec2D center_of_body_coordinate = placement.get_center_of_body_coordinate();
+      draw_crosshair(center_of_body_coordinate.x, center_of_body_coordinate.y);
    }
    al_flip_display();
    al_rest(1);
@@ -315,6 +322,7 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
 
 TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
    // TODO: Make this TIMED_INTERACTIVE
+   //INTERACTIVE__get_nthmost_coordinates__will_return_the_coordinates_of_the_placement)
    DISABLED__INTERACTIVE__get_nthmost_coordinates__will_return_the_coordinates_of_the_placement)
 {
    AllegroFlare::Placement2D placement_a(400, 300, 100, 100);
@@ -351,11 +359,14 @@ TEST_F(AllegroFlare_Placement2DWithAllegroRenderingFixtureTest,
             float rightmost_coordinate = placement_a.get_rightmost_coordinate();
             float topmost_coordinate = placement_a.get_topmost_coordinate();
             float bottommost_coordinate = placement_a.get_bottommost_coordinate();
+            AllegroFlare::Vec2D center_of_body_coordinate = placement_a.get_center_of_body_coordinate();
 
             al_draw_line(leftmost_coordinate, 0, leftmost_coordinate, 1080, ALLEGRO_COLOR{1, 0.4, 0.4, 1.0}, 2.0);
             al_draw_line(rightmost_coordinate, 0, rightmost_coordinate, 1080, ALLEGRO_COLOR{0.4, 0.4, 1.0, 1.0}, 2.0);
             al_draw_line(0, topmost_coordinate, 1920, topmost_coordinate, ALLEGRO_COLOR{0.4, 1.0, 0.4, 1.0}, 2.0);
             al_draw_line(0, bottommost_coordinate, 1920, bottommost_coordinate, ALLEGRO_COLOR{1.0, 1.0, 0.4, 1.0}, 2.0);
+
+            draw_crosshair(center_of_body_coordinate.x, center_of_body_coordinate.y);
 
             std::tuple<float, float, float, float> edges = placement_a.get_outermost_coordinates_trbl();
 

@@ -470,6 +470,21 @@ float Placement2D::get_bottommost_coordinate()
 }
 
 
+AllegroFlare::Vec2D Placement2D::get_center_of_body_coordinate()
+{
+   std::tuple<float, float, float, float> coordinates = get_outermost_coordinates_trbl();
+   float &top = std::get<0>(coordinates);
+   float &right = std::get<1>(coordinates);
+   float &bottom = std::get<2>(coordinates);
+   float &left = std::get<3>(coordinates);
+
+   return AllegroFlare::Vec2D(
+      (right - left) * 0.5 + left,
+      (bottom - top) * 0.5 + top
+   );
+}
+
+
 std::tuple<float, float, float, float> Placement2D::get_outermost_coordinates_trbl()
 {
    std::vector<AllegroFlare::Vec2D> self_coordinates = {
