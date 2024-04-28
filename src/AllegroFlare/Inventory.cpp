@@ -3,6 +3,7 @@
 #include <AllegroFlare/Inventory.hpp>
 
 #include <sstream>
+#include <AllegroFlare/Logger.hpp>
 
 
 namespace AllegroFlare
@@ -61,11 +62,21 @@ namespace AllegroFlare
    }
 
 
-   int Inventory::get_item_count(int item_type)
+   int Inventory::count_item(int item_type)
    {
       int count = 0;
       for (auto &item : items) if (item == item_type) count++;
       return count;
+   }
+
+
+   int Inventory::get_item_count(int item_type)
+   {
+      AllegroFlare::Logger::warn_from_once(
+         "AllegroFlare::Inventory::get_item_count"
+         "This method is deprecated, use \"count_item\" instead."
+      );
+      return count_item(item_type);
    }
 
 
