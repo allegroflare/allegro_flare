@@ -69,6 +69,8 @@ In your boss class:
     boss's death sequence begins;
   - Call `Platforming2D::Entities::Boss::call_on_death_end_callback()` when the
     boss's death sequence is finished;
+  - Provide overrides for "get_health_bar_value" and "get_health_bar_max_value"
+  - Use the "get_health_bar_value" and "get_health_bar_max_value" in your hud
 
 In `on_enter_boss_zone`, do the following:
   - Evalute the boss_zone to decide if the boss already exists or has been
