@@ -10,6 +10,7 @@ std::string const NOT_AFFECTED_BY_GRAVITY = "not_affected_by_gravity";
 std::string const PLEASE_DELETE = "please_delete";
 std::string const DOES_NOT_COLLIDE_WITH_WORLD = "does_not_collide_with_world";
 std::string const COLLECTABLE_BY_PLAYER = "collectable_by_player";
+//std::string const INTERACTABLE_BY_PLAYER = "interactable_by_player";
 std::string const INVISIBLE = "invisible";
 
 std::string const TYPE = "type";

@@ -268,7 +268,7 @@ functions:
       - name: frame_num
         type: int
         default_argument: 0
-    guards: [ initialized, (frame_num < 0), (frame_num >= frames.size()) ]
+    guards: [ initialized, (frame_num >= 0), (frame_num < frames.size()) ]
     body: |
       int sprite_sheet_cell_index_num = frames[frame_num].get_index();
       return sprite_sheet->get_cell(sprite_sheet_cell_index_num);
@@ -280,7 +280,7 @@ functions:
       - name: frame_num
         type: int
         default_argument: 0
-    guards: [ initialized, (frame_num < 0), (frame_num >= frames.size()) ]
+    guards: [ initialized, (frame_num >= 0), (frame_num < frames.size()) ]
     body: |
       // TODO: Never tested, never used
       std::tuple<float, float, float, float> result;

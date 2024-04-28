@@ -309,19 +309,19 @@ ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"initialized\" not met");
    }
-   if (!((frame_num < 0)))
+   if (!((frame_num >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num < 0)\" not met.";
+      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num < 0)\" not met");
+      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num >= 0)\" not met");
    }
-   if (!((frame_num >= frames.size())))
+   if (!((frame_num < frames.size())))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num >= frames.size())\" not met.";
+      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num < frames.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num >= frames.size())\" not met");
+      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num < frames.size())\" not met");
    }
    int sprite_sheet_cell_index_num = frames[frame_num].get_index();
    return sprite_sheet->get_cell(sprite_sheet_cell_index_num);
@@ -336,19 +336,19 @@ std::tuple<float, float, float, float> Animation::get_alignment_and_anchors_at_f
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"initialized\" not met");
    }
-   if (!((frame_num < 0)))
+   if (!((frame_num >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num < 0)\" not met.";
+      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num < 0)\" not met");
+      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num >= 0)\" not met");
    }
-   if (!((frame_num >= frames.size())))
+   if (!((frame_num < frames.size())))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num >= frames.size())\" not met.";
+      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num < frames.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num >= frames.size())\" not met");
+      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num < frames.size())\" not met");
    }
    // TODO: Never tested, never used
    std::tuple<float, float, float, float> result;
