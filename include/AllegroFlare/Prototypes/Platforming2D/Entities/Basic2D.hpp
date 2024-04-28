@@ -39,7 +39,7 @@ namespace AllegroFlare
                   ADDITIVE,
                };
             private:
-               AllegroFlare::Placement2D place;
+               AllegroFlare::Placement2D placement;
                int render_order_group;
                float render_order_z;
                AllegroFlare::Placement2D velocity;
@@ -72,7 +72,7 @@ namespace AllegroFlare
                Basic2D();
                virtual ~Basic2D();
 
-               void set_place(AllegroFlare::Placement2D place);
+               void set_placement(AllegroFlare::Placement2D placement);
                void set_render_order_group(int render_order_group);
                void set_render_order_z(float render_order_z);
                void set_velocity(AllegroFlare::Placement2D velocity);
@@ -86,7 +86,7 @@ namespace AllegroFlare
                void set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book);
                void set_draw_debug(bool draw_debug);
                void set_debug_box_color(ALLEGRO_COLOR debug_box_color);
-               AllegroFlare::Placement2D get_place() const;
+               AllegroFlare::Placement2D get_placement() const;
                int get_render_order_group() const;
                float get_render_order_z() const;
                AllegroFlare::Placement2D get_velocity() const;
@@ -101,13 +101,14 @@ namespace AllegroFlare
                AllegroFlare::FrameAnimation::Book* get_animation_book() const;
                bool get_draw_debug() const;
                ALLEGRO_COLOR get_debug_box_color() const;
-               AllegroFlare::Placement2D &get_place_ref();
+               AllegroFlare::Placement2D &get_placement_ref();
                int &get_render_order_group_ref();
                float &get_render_order_z_ref();
                AllegroFlare::Placement2D &get_velocity_ref();
                AllegroFlare::Placement2D &get_bitmap_placement_ref();
                AllegroFlare::AssetStudio::Database* &get_asset_studio_database_ref();
                AllegroFlare::FrameAnimation::Book* &get_animation_book_ref();
+               AllegroFlare::Placement2D& get_place_ref();
                void set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy="[unset-bitmap_alignment_strategy]");
                virtual void update() override;
                void refresh_bitmap_to_current_animation_frame();
@@ -117,7 +118,7 @@ namespace AllegroFlare
                virtual void on_hold_collision_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, float duration=0.0f);
                virtual void on_exit_collision_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr);
                virtual void on_hold_non_collision_with_player(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, float duration=0.0f);
-               virtual void on_collision_update(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result={}, bool top_edge_is_currently_adjacent_to_wall=false, bool right_edge_is_currently_adjacent_to_wall=false, bool bottom_edge_is_currently_adjacent_to_wall=false, bool left_edge_is_currently_adjacent_to_wall=false);
+               virtual void on_collision_update(AllegroFlare::Vec2D previous_placement_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_placement_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result={}, bool top_edge_is_currently_adjacent_to_wall=false, bool right_edge_is_currently_adjacent_to_wall=false, bool bottom_edge_is_currently_adjacent_to_wall=false, bool left_edge_is_currently_adjacent_to_wall=false);
                virtual void activate_shader();
                virtual void deactivate_shader();
                virtual void draw() override;

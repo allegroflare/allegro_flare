@@ -26176,7 +26176,7 @@ table td
     <p>{"todos"=>["Rename \"place\" to \"placement\". Add a placeholder getter and getter ref with depreciation warning.", "Consider if \"render_order_group\", or \"render_order_z\" should be outside of the object, held in the container"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">place</td>
+  <td class="property">placement</td>
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
 <tr>
@@ -26271,6 +26271,10 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">AllegroFlare::Placement2D&amp;</td>
+  <td class="method"><b>get_place_ref</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>set_bitmap_alignment_strategy</b>(std::string bitmap_alignment_strategy=&quot;[unset-bitmap_alignment_strategy]&quot;)</td>
 </tr>
@@ -26308,7 +26312,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>on_collision_update</b>(AllegroFlare::Vec2D previous_place_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_place_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;* collision_step_result={}, bool top_edge_is_currently_adjacent_to_wall=false, bool right_edge_is_currently_adjacent_to_wall=false, bool bottom_edge_is_currently_adjacent_to_wall=false, bool left_edge_is_currently_adjacent_to_wall=false)</td>
+  <td class="method"><b>on_collision_update</b>(AllegroFlare::Vec2D previous_placement_position={}, AllegroFlare::Vec2D previous_velocity_position={}, AllegroFlare::Vec2D new_placement_position={}, AllegroFlare::Vec2D new_velocity_position={}, std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;* collision_step_result={}, bool top_edge_is_currently_adjacent_to_wall=false, bool right_edge_is_currently_adjacent_to_wall=false, bool bottom_edge_is_currently_adjacent_to_wall=false, bool left_edge_is_currently_adjacent_to_wall=false)</td>
 </tr>
 <tr>
   <td class="private_method">void</td>

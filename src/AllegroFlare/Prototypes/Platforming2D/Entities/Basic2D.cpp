@@ -23,7 +23,7 @@ namespace Entities
 
 Basic2D::Basic2D()
    : AllegroFlare::Prototypes::Platforming2D::Entities::Base(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::TYPE)
-   , place({})
+   , placement({})
    , render_order_group(0)
    , render_order_z(0.0f)
    , velocity({})
@@ -39,10 +39,10 @@ Basic2D::Basic2D()
    , animation({})
    , draw_debug(false)
    , debug_box_color(ALLEGRO_COLOR{0, 0.375, 0.75, 0.75})
-   , x(place.position.x)
-   , y(place.position.y)
-   , width(place.size.x)
-   , height(place.size.y)
+   , x(placement.position.x)
+   , y(placement.position.y)
+   , width(placement.size.x)
+   , height(placement.size.y)
    , vx(velocity.position.x)
    , vy(velocity.position.y)
 {
@@ -54,9 +54,9 @@ Basic2D::~Basic2D()
 }
 
 
-void Basic2D::set_place(AllegroFlare::Placement2D place)
+void Basic2D::set_placement(AllegroFlare::Placement2D placement)
 {
-   this->place = place;
+   this->placement = placement;
 }
 
 
@@ -138,9 +138,9 @@ void Basic2D::set_debug_box_color(ALLEGRO_COLOR debug_box_color)
 }
 
 
-AllegroFlare::Placement2D Basic2D::get_place() const
+AllegroFlare::Placement2D Basic2D::get_placement() const
 {
-   return place;
+   return placement;
 }
 
 
@@ -228,9 +228,9 @@ ALLEGRO_COLOR Basic2D::get_debug_box_color() const
 }
 
 
-AllegroFlare::Placement2D &Basic2D::get_place_ref()
+AllegroFlare::Placement2D &Basic2D::get_placement_ref()
 {
-   return place;
+   return placement;
 }
 
 
@@ -269,6 +269,15 @@ AllegroFlare::FrameAnimation::Book* &Basic2D::get_animation_book_ref()
    return animation_book;
 }
 
+
+AllegroFlare::Placement2D& Basic2D::get_place_ref()
+{
+   AllegroFlare::Logger::warn_from_once(
+      "AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::get_place_ref",
+      "This method is deprecated, Use \"get_placement_ref\" instead"
+   );
+   return placement;
+}
 
 void Basic2D::set_bitmap_alignment_strategy(std::string bitmap_alignment_strategy)
 {
@@ -368,8 +377,8 @@ void Basic2D::refresh_bitmap_alignment_and_anchors_to_animation_frame()
          // be included in this calculation.
          // TODO: Consider that place->size may not be updated at this time, which could vary depending on if the
          // animation frame changes size.
-         *bitmap_x = place.size.x * frame_alignment_in_container_x;
-         *bitmap_y = place.size.y * frame_alignment_in_container_y;
+         *bitmap_x = placement.size.x * frame_alignment_in_container_x;
+         *bitmap_y = placement.size.y * frame_alignment_in_container_y;
          *bitmap_align_x = frame_align_x;
          *bitmap_align_y = frame_align_y;
          *bitmap_anchor_x = frame_anchor_x;
@@ -426,7 +435,7 @@ void Basic2D::on_hold_non_collision_with_player(AllegroFlare::Prototypes::Platfo
    return;
 }
 
-void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, AllegroFlare::Vec2D previous_velocity_position, AllegroFlare::Vec2D new_place_position, AllegroFlare::Vec2D new_velocity_position, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result, bool top_edge_is_currently_adjacent_to_wall, bool right_edge_is_currently_adjacent_to_wall, bool bottom_edge_is_currently_adjacent_to_wall, bool left_edge_is_currently_adjacent_to_wall)
+void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_placement_position, AllegroFlare::Vec2D previous_velocity_position, AllegroFlare::Vec2D new_placement_position, AllegroFlare::Vec2D new_velocity_position, std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>* collision_step_result, bool top_edge_is_currently_adjacent_to_wall, bool right_edge_is_currently_adjacent_to_wall, bool bottom_edge_is_currently_adjacent_to_wall, bool left_edge_is_currently_adjacent_to_wall)
 {
    if (!(collision_step_result))
    {
@@ -441,9 +450,9 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_place_position, A
    {
       //std::cout << "  Basic2D::movement_strategy->update().." << std::endl;
       movement_strategy->on_collision_update(
-         previous_place_position,
+         previous_placement_position,
          previous_velocity_position,
-         new_place_position,
+         new_placement_position,
          new_velocity_position,
          collision_step_result,
          top_edge_is_currently_adjacent_to_wall,
@@ -566,7 +575,7 @@ void Basic2D::draw()
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    // TODO: add some reasonable guards
 
-   place.start_transform();
+   placement.start_transform();
 
    if (bitmap)
    {
@@ -578,7 +587,7 @@ void Basic2D::draw()
       float *bitmap_align_y = &bitmap_placement.align.y;
 
       assign_alignment_strategy_values(
-         &place,
+         &placement,
          bitmap,
          bitmap_x,
          bitmap_y,
@@ -621,9 +630,9 @@ void Basic2D::draw()
             al_get_bitmap_width(bitmap), //bitmap_x + al_get_bitmap_width(bitmap),
             al_get_bitmap_width(bitmap),//bitmap_y + al_get_bitmap_height(bitmap),
             ALLEGRO_COLOR{0, 0.5, 0.25, 0.5},
-            1.0 / bitmap_placement.scale.x / place.scale.x // dividing by the scalle will ensure the lines
-                                                           // have a constant thickness, regardless of the scale
-                                                           // of the entity or bitmap scale
+            1.0 / bitmap_placement.scale.x / placement.scale.x // dividing by the scalle will ensure the lines
+                                                               // have a constant thickness, regardless of the scale
+                                                               // of the entity or bitmap scale
          );
       }
 
@@ -637,25 +646,25 @@ void Basic2D::draw()
       al_draw_rectangle(
          0,
          0,
-         place.size.x,
-         place.size.y,
+         placement.size.x,
+         placement.size.y,
          debug_box_color,
-         1.0 / place.scale.x // dividing by scale will ensure the lines have a constant thickness,
+         1.0 / placement.scale.x // dividing by scale will ensure the lines have a constant thickness,
                              // regardless of the scale of the entity
       );
    }
 
-   place.restore_transform();
+   placement.restore_transform();
 
    // draw a box around the origin
 
    if (draw_debug)
    {
       al_draw_rectangle(
-         place.position.x-1,
-         place.position.y-1,
-         place.position.x+1,
-         place.position.y+1,
+         placement.position.x-1,
+         placement.position.y-1,
+         placement.position.x+1,
+         placement.position.y+1,
          debug_box_color,
          1.0
       );
@@ -663,19 +672,19 @@ void Basic2D::draw()
       // add markers to help indicate status (ajacent to walls, ceiling, floor, ...)
       if (exists(ADJACENT_TO_CEILING))
       {
-         al_draw_filled_circle(place.position.x, place.position.y - 3, 1.5, debug_box_color);
+         al_draw_filled_circle(placement.position.x, placement.position.y - 3, 1.5, debug_box_color);
       }
       if (exists(ADJACENT_TO_LEFT_WALL))
       {
-         al_draw_filled_circle(place.position.x-3, place.position.y, 1.5, debug_box_color);
+         al_draw_filled_circle(placement.position.x-3, placement.position.y, 1.5, debug_box_color);
       }
       if (exists(ADJACENT_TO_RIGHT_WALL))
       {
-         al_draw_filled_circle(place.position.x+3, place.position.y, 1.5, debug_box_color);
+         al_draw_filled_circle(placement.position.x+3, placement.position.y, 1.5, debug_box_color);
       }
       if (exists(ADJACENT_TO_FLOOR))
       {
-         al_draw_filled_circle(place.position.x, place.position.y+3, 1.5, debug_box_color);
+         al_draw_filled_circle(placement.position.x, placement.position.y+3, 1.5, debug_box_color);
       }
    }
 
@@ -691,8 +700,8 @@ void Basic2D::fit_to_bitmap()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Basic2D::fit_to_bitmap: error: guard \"bitmap\" not met");
    }
-   place.size.x = al_get_bitmap_width(bitmap);
-   place.size.y = al_get_bitmap_height(bitmap);
+   placement.size.x = al_get_bitmap_width(bitmap);
+   placement.size.y = al_get_bitmap_height(bitmap);
    return;
 }
 
