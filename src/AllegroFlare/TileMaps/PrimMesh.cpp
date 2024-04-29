@@ -223,6 +223,7 @@ bool PrimMesh::set_tile_id(int tile_x, int tile_y, int tile_id)
 {
    if (!atlas) throw std::runtime_error("[AllegroFlare::TileMaps::PrimMesh] error: atlas must not be nullptr");
    if (tile_id >= (int)atlas->get_tile_index_size()) return false;
+   if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::set_tile_id] error: must be initialized first");
 
    // if the tile_id is a negative number, use the number "0" instead
    // I'm not sure how/why this is the preferred approach.  I think negative numbers
@@ -273,6 +274,7 @@ void PrimMesh::set_atlas(AllegroFlare::TileMaps::PrimMeshAtlas *atlas)
 
 void PrimMesh::swap_yz()
 {
+   if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::swap_yz] error: must be initialized first");
    for (auto &vertex : vertexes)
    {
       float swap = vertex.y;
