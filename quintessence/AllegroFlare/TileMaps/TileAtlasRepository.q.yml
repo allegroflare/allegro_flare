@@ -1,0 +1,186 @@
+properties:
+
+
+  - name: tile_atlas_bitmap_bin
+    type: AllegroFlare::BitmapBin
+    init_with: ''
+
+  - name: data_path
+    type: std::string
+    init_with: DEFAULT_DATA_PATH
+    getter: true
+    setter: before_initialized
+
+  - name: asset_subdirectory
+    type: std::string
+    init_with: DEFAULT_ASSET_SUBDIRECTORY
+    getter: true
+    setter: before_initialized
+
+  - name: repository
+    type: std::map<std::string, AllegroFlare::TileMaps::TileAtlasRepositoryRecord>
+    init_with: ''
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+  - name: DEFAULT_DATA_PATH
+    type: char*
+    init_with: '(char*)"[unset-data_path]"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_ASSET_SUBDIRECTORY
+    type: char*
+    init_with: '(char*)"bitmaps"'
+    static: true
+    constexpr: true
+
+
+documentation:
+
+
+  - notes:
+     - Unlike other bins (BitmapBin, FontBin), is object's internalBitmapBin does not store data, and does not need to
+       be cleared. It's just used to access bitmap assets from the filesystem, which are then duplicated into the
+       TileAtlas as a new bitmap once the data is loaded.
+
+
+methods:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - (data_path != DEFAULT_DATA_PATH)
+    body: |
+      tile_atlas_bitmap_bin.set_path(data_path + asset_subdirectory); // NOTE: Will implicitly init when setting path
+      initialized = true;
+      return;
+
+
+  - name: fetch
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      auto it = repository.find(identifier);
+      if (it == repository.end())
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::TileMaps::TileAtlasRepository::fetch",
+            "A tile atlas with the identifier \"" + identifier + "\" does not exist."
+         );
+      }
+      return &it->second.tile_atlas;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: exists
+    type: bool
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      auto it = repository.find(identifier);
+      if (it == repository.end()) return false;
+      return true;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: destroy
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      AllegroFlare::Logger::warn_from_once(
+         "AllegroFlare::TileMaps::TileAtlasRepository::destroy",
+         "This feature is not yet implemented. Feel free to add it!"
+      );
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: load
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+      - name: source_bitmap_filename
+        type: std::string
+        default_argument: '"[unset-source_bitmap_filename]"'
+      - name: source_bitmap_tile_width
+        type: int
+        default_argument: 16
+      - name: source_bitmap_tile_height
+        type: int
+        default_argument: 16
+      - name: scale
+        type: int
+        default_argument: 3
+    guards: [ initialized ]
+    body: |
+      if (exists(identifier))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::TileMaps::TileAtlasRepository::load",
+            "A tile atlas with the identifier \"" + identifier + "\" already exists."
+         );
+      }
+
+      // Preload the inital source bitmap through the bin
+      tile_atlas_bitmap_bin.load(source_bitmap_filename, source_bitmap_filename, "TileAtlasRepository::load");
+
+      // Obtain the inital source bitmap
+      ALLEGRO_BITMAP *initial_source_bitmap = tile_atlas_bitmap_bin.auto_get(source_bitmap_filename);
+
+      // Assemble the bitmap (duplicate the source bitmap at scale)
+      ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
+         AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded(initial_source_bitmap, scale);
+
+      // Add a record to the repository for this tile_atlas
+      repository[identifier] = AllegroFlare::TileMaps::TileAtlasRepositoryRecord();
+
+      // Load the image into the tile atlas, having the TileAtlas create a copy of the bitmap for itself
+      fetch(identifier)->duplicate_bitmap_and_load(
+         scaled_extruded_tile_map_bitmap,
+         source_bitmap_tile_width*scale,
+         source_bitmap_tile_height*scale,
+         1
+      );
+
+      // Destroy the duplicate scaled extruded bitmap
+      al_destroy_bitmap(scaled_extruded_tile_map_bitmap);
+
+      // Destroy the bitmap that was loaded through our local tile_atlas_bitmap_bin, and remove its record from the bin
+      tile_atlas_bitmap_bin.destroy(source_bitmap_filename);
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::TileMaps::TileAtlasBuilder
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileAtlasRepositoryRecord
+    headers: [ AllegroFlare/TileMaps/TileAtlasRepositoryRecord.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileAtlasBuilder
+    headers: [ AllegroFlare/TileMaps/TileAtlasBuilder.hpp ]
+
+

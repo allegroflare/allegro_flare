@@ -1,0 +1,16 @@
+properties:
+
+
+  - name: tile_atlas
+    type: AllegroFlare::TileMaps::PrimMeshAtlas
+    init_with: ''
+    exposed: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+
+

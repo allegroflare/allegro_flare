@@ -498,6 +498,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml">quintessence/AllegroFlare/TileMaps/MultiMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMeshUV.q.yml">quintessence/AllegroFlare/TileMaps/MultiMeshUV.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/TileMaps/MultiMeshUVAtlas.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/PrimMeshAtlas.q.yml">quintessence/AllegroFlare/TileMaps/PrimMeshAtlas.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.q.yml">quintessence/AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasBuilder.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasBuilder.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
@@ -37981,6 +37982,97 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/PrimMeshAtlas.q.yml">quintessence/AllegroFlare/TileMaps/PrimMeshAtlas.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_spacing</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_index</td>
+  <td class="property">std::vector&lt;AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_tile_width</b>(int tile_width=16)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_tile_height</b>(int tile_height=16)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_tile_spacing</b>(int tile_spacing=16)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>clear</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>duplicate_bitmap_and_load</b>(ALLEGRO_BITMAP* source_bitmap=nullptr, int tile_width=16, int tile_height=16, int tile_spacing=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_tile_index_size</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_bitmap_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_bitmap_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>get_tile_uv</b>(int index_num=0, int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>get_tile_uv</b>(int index_num=0, float* u1=nullptr, float* v1=nullptr, float* u2=nullptr, float* v2=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_BITMAP*</td>
+  <td class="method"><b>get_tile_sub_bitmap</b>(int index_num=0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.q.yml">quintessence/AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -42220,6 +42312,7 @@ table td
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/MultiMesh",
+    "AllegroFlare/TileMaps/PrimMeshAtlas",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TransitionFX/Base",
@@ -45942,6 +46035,7 @@ table td
     "AllegroFlare/TileMaps/MultiMeshUVAtlas"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord": [
+    "AllegroFlare/TileMaps/PrimMeshAtlas",
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/ImageProcessing": [

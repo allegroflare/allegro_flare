@@ -89,6 +89,7 @@
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/MultiMesh",
+    "AllegroFlare/TileMaps/PrimMeshAtlas",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TransitionFX/Base",
@@ -3811,6 +3812,7 @@
     "AllegroFlare/TileMaps/MultiMeshUVAtlas"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord": [
+    "AllegroFlare/TileMaps/PrimMeshAtlas",
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/ImageProcessing": [
