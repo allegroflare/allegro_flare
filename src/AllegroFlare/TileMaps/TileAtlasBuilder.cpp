@@ -5,6 +5,10 @@
 #include <AllegroFlare/ImageProcessing.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
+#include <allegro5/allegro.h>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -136,6 +140,13 @@ ALLEGRO_BITMAP* TileAtlasBuilder::build_extruded()
 
 ALLEGRO_BITMAP* TileAtlasBuilder::build_scaled_and_extruded(ALLEGRO_BITMAP* original_bitmap, int scale, int tile_width, int tile_height)
 {
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[TileAtlasBuilder::build_scaled_and_extruded]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileAtlasBuilder::build_scaled_and_extruded: error: guard \"al_is_system_installed()\" not met");
+   }
    // TODO: Confirm the lifecycle of this sprite sheet:
    //    - the original bitmap
    //    - the duplicated bitmap
@@ -144,7 +155,7 @@ ALLEGRO_BITMAP* TileAtlasBuilder::build_scaled_and_extruded(ALLEGRO_BITMAP* orig
    //ALLEGRO_BITMAP *original_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
    // TODO: require al_init
    // TODO: require al_init_image_addon
-   if (!al_is_system_installed()) throw std::runtime_error("AAAxixxA");// al_init();
+   //if (!al_is_system_installed()) throw std::runtime_error("AAAxixxA");// al_init();
    //al_init_image_addon();
    //al_init_color_addon();
 

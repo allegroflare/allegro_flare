@@ -40,8 +40,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, can_be_created_without_blowing_
 }
 
 
-TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
-   build_extruded__will_create_an_atlas_with_tile_edges_extruded)
+TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_atlas_with_tile_edges_extruded)
 {
    al_init();
    al_init_image_addon();

@@ -8,7 +8,6 @@
 #include <vector>
 
 
-// TODO: Split this class's sub-class into a separate class file
 // TODO: Fix argument order in "TileAtlasBuilder::build_scaled_and_extruded"
 
 namespace AllegroFlare::TileMaps

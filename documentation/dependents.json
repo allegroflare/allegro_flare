@@ -395,6 +395,7 @@
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/Time",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],

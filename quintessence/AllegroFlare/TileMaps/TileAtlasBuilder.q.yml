@@ -17,6 +17,13 @@ properties:
     constructor_arg: true
 
 
+documentation:
+
+
+  - todos:
+      - Fix argument order in "build_scaled_and_extruded"
+
+
 methods:
 
 
@@ -145,6 +152,7 @@ methods:
       - name: tile_height
         type: int
         default_argument: 16
+    guards: [ al_is_system_installed() ]
     body: |
       // TODO: Confirm the lifecycle of this sprite sheet:
       //    - the original bitmap
@@ -154,7 +162,7 @@ methods:
       //ALLEGRO_BITMAP *original_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
       // TODO: require al_init
       // TODO: require al_init_image_addon
-      if (!al_is_system_installed()) throw std::runtime_error("AAAxixxA");// al_init();
+      //if (!al_is_system_installed()) throw std::runtime_error("AAAxixxA");// al_init();
       //al_init_image_addon();
       //al_init_color_addon();
 
@@ -192,6 +200,7 @@ methods:
 
       return result;
     body_dependency_symbols:
+      - al_is_system_installed
       - AllegroFlare::TileMaps::PrimMeshAtlas
 
 
@@ -259,5 +268,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::ImageProcessing
     headers: [ AllegroFlare/ImageProcessing.hpp ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
 
 
