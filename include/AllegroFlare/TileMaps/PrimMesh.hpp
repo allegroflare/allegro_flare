@@ -9,6 +9,7 @@
 
 namespace AllegroFlare::TileMaps
 {
+   // TODO: Consider renaming this to TileMesh (also renaming PrimMeshAtlas to TileMeshAtlas)
    class PrimMesh
    {
    private:

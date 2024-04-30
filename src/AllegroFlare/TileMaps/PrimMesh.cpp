@@ -291,6 +291,7 @@ void PrimMesh::render(bool draw_outline)
    if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
    if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
 
+   // TODO: Promote this to a vertex buffer
    al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
    if (draw_outline)
