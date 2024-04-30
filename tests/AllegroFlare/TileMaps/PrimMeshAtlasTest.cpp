@@ -1,4 +1,5 @@
 
+
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
@@ -13,6 +14,14 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlasTest, can_be_created_without_blowing_up)
 
 
 
+// TODO: Previously, the destructor had this warning:
+
+   //std::cout << "[~PrimMeshAtlas()] WARNING: tile atlas may contain a bitmap (and potentially depenedencies "
+             //<< "reliant on it) that has not been properly freed. This destruction mechanism has not yet "
+             //<< "been properly implemented."
+             //<< std::endl;
+
+// Consider its ramifications
 
 
 
@@ -28,6 +37,7 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlasTest, can_be_created_without_blowing_up)
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_color.h>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
+#include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
 
 #define TEMP_TEST_FILE_PATH "/Users/markoates/Repos/allegro_flare/tmp/tests/"
 // TODO: improve this:
@@ -46,7 +56,7 @@ std::string build_test_filename_png(std::string test_name)
 
 TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder tile_atlast_builder;
+   AllegroFlare::TileMaps::TileAtlasBuilder tile_atlast_builder;
 }
 
 
@@ -63,7 +73,7 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
    atlas.duplicate_bitmap_and_load(source_bitmap, 16, 16, 0);
 
    std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
-   AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder tile_atlas_builder(16, 16, tile_index);
+   AllegroFlare::TileMaps::TileAtlasBuilder tile_atlas_builder(16, 16, tile_index);
    ALLEGRO_BITMAP *result = tile_atlas_builder.build_extruded();
    al_save_bitmap(build_test_filename_png("buid__will_create_an_atlas").c_str(), result);
 
