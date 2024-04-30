@@ -165,6 +165,7 @@
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
@@ -283,6 +284,7 @@
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/Basic2D",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/WorldMapRenderers/Basic",
@@ -3244,6 +3246,8 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
+    "AllegroFlare/TileMaps/TileAtlasRepositoryRecord",
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -3387,6 +3391,10 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
   ],
+  "AllegroFlare/TileMaps/TileAtlasRepository": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
@@ -3454,6 +3462,7 @@
   ],
   "AllegroFlare/TileMaps/TileAtlasBuilder": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
     "Tileo/TMJMeshLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [
@@ -3817,6 +3826,9 @@
   ],
   "AllegroFlare/ImageProcessing": [
     "AllegroFlare/TileMaps/TileAtlasBuilder"
+  ],
+  "AllegroFlare/TileMaps/TileAtlasRepositoryRecord": [
+    "AllegroFlare/TileMaps/TileAtlasRepository"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"

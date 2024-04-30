@@ -501,6 +501,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/PrimMeshAtlas.q.yml">quintessence/AllegroFlare/TileMaps/PrimMeshAtlas.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.q.yml">quintessence/AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasBuilder.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasBuilder.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasRepository.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasRepository.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Timeline/ActorFactory.q.yml">quintessence/AllegroFlare/Timeline/ActorFactory.q.yml</a></li>
@@ -26435,6 +26437,10 @@ table td
   <td class="property">AllegroFlare::FrameAnimation::Book*</td>
 </tr>
 <tr>
+  <td class="property">tile_atlas_repository</td>
+  <td class="property">AllegroFlare::TileMaps::TileAtlasRepository*</td>
+</tr>
+<tr>
   <td class="property">init_entities_drawing_debug</td>
   <td class="property">bool</td>
 </tr>
@@ -26607,6 +26613,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasRepository&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasRepository.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -27608,6 +27617,10 @@ table td
     <p>{"todos"=>["Test the usage of \"create_entities_from_map_callback\" and \"create_entities_from_map_callback_user_data\" when loading a TMJ file.", "Attention needs to be brought to \"gameplay_suspended\" managing (This could be used during a game pause, some active dialog, an opened inventory screen, a transition, etc.).  The consequences of a paused state remains unevaluated. Some concerns include... - some entities may rely on real-world clocks to update their states - user controls may become backlogged, need to be cleared or recaptured at unsuspend - other things not considered - possible re-collisions on unpause - audio (pausing in-environment and in-game sound effects) - animations should pause, animations could be on real-world clocks", "Figure out when \"last_activated_save_point\" should be cleared (on level_load?)"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">data_folder_path</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">bitmap_bin</td>
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
@@ -27618,6 +27631,10 @@ table td
 <tr>
   <td class="property">event_emitter</td>
   <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">tile_atlas_repository</td>
+  <td class="property">AllegroFlare::TileMaps::TileAtlasRepository</td>
 </tr>
 <tr>
   <td class="property">currently_active_map</td>
@@ -27717,6 +27734,10 @@ table td
 </tr>
 <tr>
   <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_DATA_FOLDER_PATH</td>
   <td class="property">char*</td>
 </tr>
     </table>
@@ -28122,6 +28143,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::Entities::BossZone&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasRepository&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasRepository.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -38180,6 +38204,110 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/TileAtlasRepository.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasRepository.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["Unlike other bins (BitmapBin, FontBin), is object's internalBitmapBin does not store data, and does not need to be cleared. It's just used to access bitmap assets from the filesystem, which are then duplicated into the TileAtlas as a new bitmap once the data is loaded."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tile_atlas_bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin</td>
+</tr>
+<tr>
+  <td class="property">data_path</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">asset_subdirectory</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">repository</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::TileMaps::TileAtlasRepositoryRecord&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_DATA_PATH</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_ASSET_SUBDIRECTORY</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+  <td class="method"><b>fetch</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>exists</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>destroy</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load</b>(std::string identifier=&quot;[unset-identifier]&quot;, std::string source_bitmap_filename=&quot;[unset-source_bitmap_filename]&quot;, int source_bitmap_tile_width=16, int source_bitmap_tile_height=16, int scale=3)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasRepositoryRecord&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasRepositoryRecord.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasBuilder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasBuilder.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tile_atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -42388,6 +42516,7 @@ table td
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
@@ -42506,6 +42635,7 @@ table td
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/Basic2D",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/WorldMapRenderers/Basic",
@@ -45467,6 +45597,8 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
+    "AllegroFlare/TileMaps/TileAtlasRepositoryRecord",
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -45610,6 +45742,10 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
   ],
+  "AllegroFlare/TileMaps/TileAtlasRepository": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
@@ -45677,6 +45813,7 @@ table td
   ],
   "AllegroFlare/TileMaps/TileAtlasBuilder": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
     "Tileo/TMJMeshLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [
@@ -46040,6 +46177,9 @@ table td
   ],
   "AllegroFlare/ImageProcessing": [
     "AllegroFlare/TileMaps/TileAtlasBuilder"
+  ],
+  "AllegroFlare/TileMaps/TileAtlasRepositoryRecord": [
+    "AllegroFlare/TileMaps/TileAtlasRepository"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"
