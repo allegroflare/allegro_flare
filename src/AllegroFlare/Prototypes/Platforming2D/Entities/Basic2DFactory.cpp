@@ -33,9 +33,10 @@ namespace Entities
 {
 
 
-Basic2DFactory::Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FrameAnimation::Book* animation_book)
+Basic2DFactory::Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FrameAnimation::Book* animation_book, AllegroFlare::TileMaps::TileAtlasRepository* tile_atlas_repository)
    : bitmap_bin(bitmap_bin)
    , animation_book(animation_book)
+   , tile_atlas_repository(tile_atlas_repository)
    , init_entities_drawing_debug(false)
    , enemy_debug_box_color(ALLEGRO_COLOR{0.827, 0.184, 0.184, 1.0})
    , player_collectable_box_color(ALLEGRO_COLOR{0.96, 0.93, 0.06, 1.0})
@@ -61,6 +62,12 @@ void Basic2DFactory::set_animation_book(AllegroFlare::FrameAnimation::Book* anim
 }
 
 
+void Basic2DFactory::set_tile_atlas_repository(AllegroFlare::TileMaps::TileAtlasRepository* tile_atlas_repository)
+{
+   this->tile_atlas_repository = tile_atlas_repository;
+}
+
+
 void Basic2DFactory::set_init_entities_drawing_debug(bool init_entities_drawing_debug)
 {
    this->init_entities_drawing_debug = init_entities_drawing_debug;
@@ -76,6 +83,12 @@ AllegroFlare::BitmapBin* Basic2DFactory::get_bitmap_bin() const
 AllegroFlare::FrameAnimation::Book* Basic2DFactory::get_animation_book() const
 {
    return animation_book;
+}
+
+
+AllegroFlare::TileMaps::TileAtlasRepository* Basic2DFactory::get_tile_atlas_repository() const
+{
+   return tile_atlas_repository;
 }
 
 

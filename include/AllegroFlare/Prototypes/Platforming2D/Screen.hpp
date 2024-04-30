@@ -20,6 +20,7 @@
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
+#include <AllegroFlare/TileMaps/TileAtlasRepository.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
@@ -41,11 +42,14 @@ namespace AllegroFlare
          {
          public:
             static constexpr char* TYPE = (char*)"AllegroFlare/Prototypes/Platforming2D/Screen";
+            static constexpr char* DEFAULT_DATA_FOLDER_PATH = (char*)"[unset-data_folder_path]";
 
          private:
+            std::string data_folder_path;
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
             AllegroFlare::EventEmitter* event_emitter;
+            AllegroFlare::TileMaps::TileAtlasRepository tile_atlas_repository;
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
             AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* current_boss_zone;
@@ -91,6 +95,7 @@ namespace AllegroFlare
             Screen(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
             virtual ~Screen();
 
+            void set_data_folder_path(std::string data_folder_path);
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
@@ -106,6 +111,7 @@ namespace AllegroFlare
             void set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, int, std::string, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback);
             void set_create_entities_from_map_callback_user_data(void* create_entities_from_map_callback_user_data);
             void set_show_debugging_info(bool show_debugging_info);
+            std::string get_data_folder_path() const;
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::EventEmitter* get_event_emitter() const;
@@ -128,6 +134,7 @@ namespace AllegroFlare
             void* get_create_entities_from_map_callback_user_data() const;
             bool get_show_debugging_info() const;
             bool get_initialized() const;
+            AllegroFlare::TileMaps::TileAtlasRepository &get_tile_atlas_repository_ref();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> &get_entity_pool_ref();
             AllegroFlare::Camera2D &get_camera_ref();
             AllegroFlare::Physics::TileMapCollisionStepper &get_collision_stepper_ref();

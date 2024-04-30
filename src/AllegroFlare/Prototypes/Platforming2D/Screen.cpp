@@ -36,9 +36,11 @@ namespace Platforming2D
 
 Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::EventEmitter* event_emitter)
    : AllegroFlare::Screens::Gameplay()
+   , data_folder_path(DEFAULT_DATA_FOLDER_PATH)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , event_emitter(event_emitter)
+   , tile_atlas_repository()
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
    , current_boss_zone(nullptr)
@@ -69,6 +71,12 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
 
 Screen::~Screen()
 {
+}
+
+
+void Screen::set_data_folder_path(std::string data_folder_path)
+{
+   this->data_folder_path = data_folder_path;
 }
 
 
@@ -162,6 +170,12 @@ void Screen::set_create_entities_from_map_callback_user_data(void* create_entiti
 void Screen::set_show_debugging_info(bool show_debugging_info)
 {
    this->show_debugging_info = show_debugging_info;
+}
+
+
+std::string Screen::get_data_folder_path() const
+{
+   return data_folder_path;
 }
 
 
@@ -294,6 +308,12 @@ bool Screen::get_show_debugging_info() const
 bool Screen::get_initialized() const
 {
    return initialized;
+}
+
+
+AllegroFlare::TileMaps::TileAtlasRepository &Screen::get_tile_atlas_repository_ref()
+{
+   return tile_atlas_repository;
 }
 
 
@@ -503,7 +523,9 @@ void Screen::load_maps_in_dictionary()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::load_maps_in_dictionary: error: guard \"(!map_dictionary.empty())\" not met");
    }
-   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory;
+   factory.set_bitmap_bin(bitmap_bin);
+   factory.set_tile_atlas_repository(&tile_atlas_repository);
 
    // TODO: Unload the current map if any
    // TODO: Consider clearing the entity pool
@@ -644,28 +666,27 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
    }
+   if (!((data_folder_path != DEFAULT_DATA_FOLDER_PATH)))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::initialize]: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::initialize: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met");
+   }
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    initialize_camera_control();
    initialize_camera();
 
    // Initialize the collision stepper
-   //collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
    collision_stepper.set_tile_width(16.0f);
    collision_stepper.set_tile_height(16.0f);
    collision_stepper.set_reposition_offset(
-         //0.0002
          AllegroFlare::Physics::TileMapCollisionStepper::DEFAULT_REPOSITION_OFFSET
       );
 
-
-         //collision_stepper
-
-         //&aabb2d,
-         //tile_width,
-         //tile_height,
-         //0.0001f
-      //);
-
+   // Setup the tile_atlas_repository
+   tile_atlas_repository.set_data_path(data_folder_path);
+   tile_atlas_repository.initialize();
 
    initialized = true;
    return;

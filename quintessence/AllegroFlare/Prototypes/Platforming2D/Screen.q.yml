@@ -11,6 +11,12 @@ parent_classes:
 properties:
 
 
+  - name: data_folder_path
+    type: std::string
+    init_with: DEFAULT_DATA_FOLDER_PATH
+    getter: true
+    setter: true
+
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     constructor_arg: true
@@ -31,6 +37,11 @@ properties:
     constructor_arg: true
     getter: true
     setter: before_initialized
+
+  - name: tile_atlas_repository
+    type: AllegroFlare::TileMaps::TileAtlasRepository
+    init_with: ''
+    getter_ref: true
 
   - name: currently_active_map
     type: AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*
@@ -182,6 +193,12 @@ properties:
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Prototypes/Platforming2D/Screen"'
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_DATA_FOLDER_PATH
+    type: char*
+    init_with: '(char*)"[unset-data_folder_path]"'
     static: true
     constexpr: true
 
@@ -387,7 +404,9 @@ methods:
     note__name_was_previously: initialize_maps
     guards: [ (!maps_loaded), (!map_dictionary.empty()) ]
     body: |
-      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(bitmap_bin);
+      AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory;
+      factory.set_bitmap_bin(bitmap_bin);
+      factory.set_tile_atlas_repository(&tile_atlas_repository);
 
       // TODO: Unload the current map if any
       // TODO: Consider clearing the entity pool
@@ -536,29 +555,22 @@ methods:
     type: void
     guards:
       - bitmap_bin
+      - (data_folder_path != DEFAULT_DATA_FOLDER_PATH)
     body: |
       set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
       initialize_camera_control();
       initialize_camera();
 
       // Initialize the collision stepper
-      //collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
       collision_stepper.set_tile_width(16.0f);
       collision_stepper.set_tile_height(16.0f);
       collision_stepper.set_reposition_offset(
-            //0.0002
             AllegroFlare::Physics::TileMapCollisionStepper::DEFAULT_REPOSITION_OFFSET
          );
 
-
-            //collision_stepper
-
-            //&aabb2d,
-            //tile_width,
-            //tile_height,
-            //0.0001f
-         //);
-
+      // Setup the tile_atlas_repository
+      tile_atlas_repository.set_data_path(data_folder_path);
+      tile_atlas_repository.initialize();
 
       initialized = true;
       return;
@@ -2134,5 +2146,7 @@ dependencies:
     headers: [ AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::BossZone
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/BossZone.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileAtlasRepository
+    headers: [ AllegroFlare/TileMaps/TileAtlasRepository.hpp ]
 
 

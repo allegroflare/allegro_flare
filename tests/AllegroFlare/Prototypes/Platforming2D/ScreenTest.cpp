@@ -29,6 +29,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
 
    AllegroFlare::Prototypes::Platforming2D::Screen platforming_2d;
+   platforming_2d.set_data_folder_path(data_folder_path);
    platforming_2d.set_bitmap_bin(&framework.get_bitmap_bin_ref());
    platforming_2d.set_font_bin(&framework.get_font_bin_ref());
    platforming_2d.set_event_emitter(&framework.get_event_emitter_ref());

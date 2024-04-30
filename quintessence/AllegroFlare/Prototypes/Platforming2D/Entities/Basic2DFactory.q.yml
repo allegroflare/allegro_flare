@@ -15,6 +15,13 @@ properties:
     setter: true
     getter: true
 
+  - name: tile_atlas_repository
+    type: AllegroFlare::TileMaps::TileAtlasRepository*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+    getter: true
+
   - name: init_entities_drawing_debug
     type: bool
     init_with: false
@@ -1051,5 +1058,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileAtlasRepository
+    headers: [ AllegroFlare/TileMaps/TileAtlasRepository.hpp ]
 
 

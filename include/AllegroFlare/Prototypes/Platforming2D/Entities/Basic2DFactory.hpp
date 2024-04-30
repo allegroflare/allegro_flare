@@ -9,6 +9,7 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/FrameAnimated2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp>
+#include <AllegroFlare/TileMaps/TileAtlasRepository.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
 #include <functional>
@@ -29,6 +30,7 @@ namespace AllegroFlare
             private:
                AllegroFlare::BitmapBin* bitmap_bin;
                AllegroFlare::FrameAnimation::Book* animation_book;
+               AllegroFlare::TileMaps::TileAtlasRepository* tile_atlas_repository;
                bool init_entities_drawing_debug;
                ALLEGRO_COLOR enemy_debug_box_color;
                ALLEGRO_COLOR player_collectable_box_color;
@@ -38,14 +40,16 @@ namespace AllegroFlare
 
 
             public:
-               Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FrameAnimation::Book* animation_book=nullptr);
+               Basic2DFactory(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FrameAnimation::Book* animation_book=nullptr, AllegroFlare::TileMaps::TileAtlasRepository* tile_atlas_repository=nullptr);
                ~Basic2DFactory();
 
                void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
                void set_animation_book(AllegroFlare::FrameAnimation::Book* animation_book);
+               void set_tile_atlas_repository(AllegroFlare::TileMaps::TileAtlasRepository* tile_atlas_repository);
                void set_init_entities_drawing_debug(bool init_entities_drawing_debug);
                AllegroFlare::BitmapBin* get_bitmap_bin() const;
                AllegroFlare::FrameAnimation::Book* get_animation_book() const;
+               AllegroFlare::TileMaps::TileAtlasRepository* get_tile_atlas_repository() const;
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_from_bitmap_filename(std::string map_name="[map-name-not-set]", std::string bitmap_filename="bitmap-filename-that-has-not-been-set.png", std::string bitmap_alignment_strategy="centered") const;
                AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* create_for_aabb2d(std::string map_name="[map-name-not-set]", float width=(16.0f-1.0f), float height=(16.0f-1.0f)) const;
                AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* create_frame_animated(std::string map_name="[map-name-not-set]", float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f, std::string initial_animation_name="[unset-initial_animation_name]", std::string bitmap_alignment_strategy="centered") const;
