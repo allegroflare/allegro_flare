@@ -499,6 +499,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMeshUV.q.yml">quintessence/AllegroFlare/TileMaps/MultiMeshUV.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/MultiMeshUVAtlas.q.yml">quintessence/AllegroFlare/TileMaps/MultiMeshUVAtlas.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.q.yml">quintessence/AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasBuilder.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasBuilder.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Timeline/ActorFactory.q.yml">quintessence/AllegroFlare/Timeline/ActorFactory.q.yml</a></li>
@@ -28389,6 +28390,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasBuilder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasBuilder.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -38025,6 +38029,62 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TileMaps/TileAtlasBuilder.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasBuilder.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tile_w</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_h</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_index</td>
+  <td class="property">std::vector&lt;AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">ALLEGRO_BITMAP*</td>
+  <td class="method"><b>build_extruded</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_BITMAP*</td>
+  <td class="method"><b>build_scaled_and_extruded</b>(ALLEGRO_BITMAP* original_bitmap=nullptr, int scale=3, int tile_width=16, int tile_height=16)</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_BITMAP*</td>
+  <td class="method"><b>create_pixel_perfect_scaled_render</b>(ALLEGRO_BITMAP* bitmap=nullptr, int scale=3)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ImageProcessing&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ImageProcessing.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -39823,6 +39883,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasBuilder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasBuilder.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
@@ -42155,6 +42218,7 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TransitionFX/Base",
     "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/Shaders/MeshWithNormals",
@@ -42227,6 +42291,7 @@ table td
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
@@ -45304,6 +45369,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -45509,6 +45575,10 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "ifstream": [
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "Tileo/TMJMeshLoader"
+  ],
+  "AllegroFlare/TileMaps/TileAtlasBuilder": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -45866,6 +45936,12 @@ table td
   ],
   "AllegroFlare/TileMaps/MultiMeshUV": [
     "AllegroFlare/TileMaps/MultiMeshUVAtlas"
+  ],
+  "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord": [
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
+  ],
+  "AllegroFlare/ImageProcessing": [
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"

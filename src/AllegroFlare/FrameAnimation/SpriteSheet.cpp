@@ -6,6 +6,7 @@
 #include <AllegroFlare/Errors.hpp>
 #include <sstream> // for error message
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
 
 
 
@@ -64,7 +65,7 @@ void SpriteSheet::initialize()
    num_columns = al_get_bitmap_width(atlas) / sprite_width;
 
    ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-      AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(
+      AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded(
             atlas,
             scale,
             sprite_width,

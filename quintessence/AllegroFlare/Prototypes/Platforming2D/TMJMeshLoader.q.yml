@@ -248,7 +248,7 @@ functions:
          int scale = 3;
          // TODO: factor out this step
          ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-            AllegroFlare::TileMaps::PrimMeshAtlas::TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
+            AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
          created_tile_atlas->duplicate_bitmap_and_load(
             scaled_extruded_tile_map_bitmap, tile_atlas_tile_width*scale, tile_atlas_tile_height*scale, 1
          );
@@ -360,6 +360,7 @@ functions:
       - AllegroFlare::Prototypes::Platforming2D::TMJDataLoader
       - nlohmann::json
       - ifstream
+      - AllegroFlare::TileMaps::TileAtlasBuilder
 
 
 dependencies:
@@ -375,8 +376,11 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMesh
     headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileAtlasBuilder
+    headers: [ AllegroFlare/TileMaps/TileAtlasBuilder.hpp ]
   - symbol: AllegroFlare::TileMaps::TileMap
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: AllegroFlare::Prototypes::Platforming2D::TMJDataLoader
     headers: [ AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.hpp ]
+
 

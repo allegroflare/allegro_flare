@@ -90,6 +90,7 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/MultiMesh",
     "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TransitionFX/Base",
     "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/Shaders/MeshWithNormals",
@@ -162,6 +163,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
@@ -3239,6 +3241,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -3444,6 +3447,10 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "ifstream": [
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "Tileo/TMJMeshLoader"
+  ],
+  "AllegroFlare/TileMaps/TileAtlasBuilder": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -3801,6 +3808,12 @@
   ],
   "AllegroFlare/TileMaps/MultiMeshUV": [
     "AllegroFlare/TileMaps/MultiMeshUVAtlas"
+  ],
+  "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord": [
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
+  ],
+  "AllegroFlare/ImageProcessing": [
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"
