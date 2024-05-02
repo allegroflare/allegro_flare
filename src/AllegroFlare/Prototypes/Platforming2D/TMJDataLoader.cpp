@@ -29,6 +29,10 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , layer_num_columns(0)
    , layer_num_rows(0)
    , layer_tile_data({})
+   , foreground_tilelayer_exists(false)
+   , foreground_tilelayer_num_columns(0)
+   , foreground_tilelayer_num_rows(0)
+   , foreground_tilelayer_tile_data({})
    , background_tilelayer_exists(false)
    , background_tilelayer_num_columns(0)
    , background_tilelayer_num_rows(0)
@@ -136,6 +140,54 @@ std::vector<int> TMJDataLoader::get_layer_tile_data()
       throw std::runtime_error("TMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met");
    }
    return layer_tile_data;
+}
+
+bool TMJDataLoader::get_foreground_tilelayer_exists()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJDataLoader::get_foreground_tilelayer_exists]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJDataLoader::get_foreground_tilelayer_exists: error: guard \"loaded\" not met");
+   }
+   return foreground_tilelayer_exists;
+}
+
+int TMJDataLoader::get_foreground_tilelayer_num_columns()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJDataLoader::get_foreground_tilelayer_num_columns]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJDataLoader::get_foreground_tilelayer_num_columns: error: guard \"loaded\" not met");
+   }
+   return foreground_tilelayer_num_columns;
+}
+
+int TMJDataLoader::get_foreground_tilelayer_num_rows()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJDataLoader::get_foreground_tilelayer_num_rows]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJDataLoader::get_foreground_tilelayer_num_rows: error: guard \"loaded\" not met");
+   }
+   return foreground_tilelayer_num_rows;
+}
+
+std::vector<int> TMJDataLoader::get_foreground_tilelayer_tile_data()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJDataLoader::get_foreground_tilelayer_tile_data]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJDataLoader::get_foreground_tilelayer_tile_data: error: guard \"loaded\" not met");
+   }
+   return foreground_tilelayer_tile_data;
 }
 
 bool TMJDataLoader::get_background_tilelayer_exists()
@@ -601,6 +653,148 @@ bool TMJDataLoader::load()
 
 
 
+   //
+   // Foreground tile layer
+   //
+
+   // TODO: Test loading of foreground tile layer
+   // TODO: Test loading and overriding of "foreground_manual_override"
+
+   //foreground_tilelayer_found = false;
+   nlohmann::json foreground_tilelayer;
+
+   // TODO: Test this behavior
+   for (auto &layer : j["layers"].items())
+   {
+      std::string layer_name = layer.value()["name"];
+
+      if (layer_name != "foreground") continue;
+
+      if (layer.value()["type"] != "tilelayer")
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "Found a layer named \"foreground\" but it was expected to be a \"tilelayer\" type layer and was not."
+         );
+      }
+
+      foreground_tilelayer = layer.value();
+      foreground_tilelayer_exists = true;
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Found layer \"" + layer_name + "\" to use as foreground tile layer."
+      );
+      break;
+   }
+
+   if (!foreground_tilelayer_exists)
+   {
+      AllegroFlare::Logger::warn_from( // Consider if this should be info, warn, or throw, depending on the user
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Layer named \"foreground\" was not found. Skipping."
+      );
+   }
+   else
+   {
+      foreground_tilelayer_num_columns = foreground_tilelayer["width"];
+      foreground_tilelayer_num_rows = foreground_tilelayer["height"];
+      foreground_tilelayer_tile_data = foreground_tilelayer["data"].get<std::vector<int>>();
+   }
+
+
+   // Foreground manual override
+
+   // Look for the "foreground_manual_override" tilelayer
+   bool foreground_manual_override_tilelayer_type_found = false;
+   nlohmann::json foreground_manual_override_tilelayer;
+   // First, look for a tilelayer type named "foreground_manual_override"
+   // TODO: Test this behavior
+   for (auto &layer : j["layers"].items())
+   {
+      std::string layer_name = layer.value()["name"];
+
+      if (layer_name != "foreground_manual_override") continue;
+
+      if (layer.value()["type"] != "tilelayer")
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "Found a layer named \"foreground_manual_override\" but it was expected to be a \"tilelayer\" type "
+               "layer and was not."
+         );
+      }
+
+      foreground_manual_override_tilelayer = layer.value();
+      foreground_manual_override_tilelayer_type_found = true;
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Found layer \"" + layer_name + "\" to use as override when compositing the visual tile layer."
+      );
+      break;
+   }
+
+
+   // If the "foreground_manual_override" tilelayer exists, override the tiles in the "foreground"
+   // TODO: Test this feature
+   layer_num_columns = tilelayer["width"];
+   layer_num_rows = tilelayer["height"];
+   layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+
+   if (foreground_manual_override_tilelayer_type_found)
+   {
+      int override_num_columns = foreground_manual_override_tilelayer["width"];
+      int override_num_rows = foreground_manual_override_tilelayer["height"];
+
+      std::vector<int> override_tile_data = foreground_manual_override_tilelayer["data"].get<std::vector<int>>();
+
+      if (override_num_columns != layer_num_columns)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "ztioztioiziu0gzgiu"
+         );
+      }
+      if (override_num_rows != layer_num_rows)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "qhw,.erhq,.rw.hkqrw"
+         );
+      }
+      if (override_tile_data.size() != layer_tile_data.size())
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+            "rqytwertueqwruety"
+         );
+      }
+
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "Overriding \"foreground\" layer with non-zero tiles of \"foreground_manual_override\" layer."
+      );
+      int override_count = 0;
+      for (int i=0; i<override_tile_data.size(); i++)
+      {
+         if (override_tile_data[i] != 0)
+         {
+            std::cout << ".";
+            override_count++;
+            layer_tile_data[i] = override_tile_data[i];
+         }
+      }
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         std::to_string(override_count) + " tiles overrided in foreground."
+      );
+   }
+
+
+
+
+
+
+
    // Throw if an appropriate tilelayer was never found
    //if (!tilelayer_type_found)
    //{
@@ -620,6 +814,11 @@ bool TMJDataLoader::load()
 
       background_tilelayer_tile_data = normalize_tile_data_to_tilesets_firstgids(
             background_tilelayer_tile_data,
+            tilesets_gids
+         );
+
+      foreground_tilelayer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+            foreground_tilelayer_tile_data,
             tilesets_gids
          );
    }
