@@ -120,6 +120,12 @@ properties:
     getter: true
     setter: true
 
+  - name: show_foreground_tile_mesh
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
   - name: show_collision_tile_mesh
     type: bool
     init_with: false
@@ -1702,6 +1708,10 @@ methods:
          get_tile_mesh()->render();
       }
       draw_entities_sorted_by_render_order();
+      if (show_foreground_tile_mesh && foreground_tile_mesh_exists())
+      {
+         get_foreground_tile_mesh()->render();
+      }
       if (show_collision_tile_mesh) render_collision_tile_mesh();
 
       camera.restore_transform();
@@ -2177,6 +2187,20 @@ methods:
     type: bool
     body: |
       return (currently_active_map->get_background_tile_mesh() != nullptr);
+
+
+  - name: get_foreground_tile_mesh
+    guards: [ currently_active_map ]
+    type: AllegroFlare::TileMaps::PrimMesh*
+    body: |
+      return currently_active_map->get_foreground_tile_mesh();
+
+
+  - name: foreground_tile_mesh_exists
+    guards: [ currently_active_map ]
+    type: bool
+    body: |
+      return (currently_active_map->get_foreground_tile_mesh() != nullptr);
 
 
   - name: get_collision_tile_mesh

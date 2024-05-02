@@ -22,6 +22,7 @@ Basic2D::Basic2D()
    , tile_atlas(nullptr)
    , tile_mesh(nullptr)
    , background_tile_mesh(nullptr)
+   , foreground_tile_mesh(nullptr)
    , collision_tile_mesh(nullptr)
 {
 }
@@ -50,6 +51,12 @@ void Basic2D::set_background_tile_mesh(AllegroFlare::TileMaps::PrimMesh* backgro
 }
 
 
+void Basic2D::set_foreground_tile_mesh(AllegroFlare::TileMaps::PrimMesh* foreground_tile_mesh)
+{
+   this->foreground_tile_mesh = foreground_tile_mesh;
+}
+
+
 void Basic2D::set_collision_tile_mesh(AllegroFlare::TileMaps::TileMap<int>* collision_tile_mesh)
 {
    this->collision_tile_mesh = collision_tile_mesh;
@@ -74,11 +81,29 @@ AllegroFlare::TileMaps::PrimMesh* Basic2D::get_background_tile_mesh() const
 }
 
 
+AllegroFlare::TileMaps::PrimMesh* Basic2D::get_foreground_tile_mesh() const
+{
+   return foreground_tile_mesh;
+}
+
+
 AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_mesh() const
 {
    return collision_tile_mesh;
 }
 
+
+void Basic2D::update()
+{
+   // NOTE: No update on this entity
+   return;
+}
+
+void Basic2D::draw()
+{
+   // NOTE: No draw on this entity.  Rendering is handled in the Gameplay/Screen
+   return;
+}
 
 void Basic2D::destroy()
 {
@@ -98,6 +123,11 @@ void Basic2D::destroy()
    {
       delete background_tile_mesh;
       background_tile_mesh = nullptr;
+   }
+   if (foreground_tile_mesh)
+   {
+      delete foreground_tile_mesh;
+      foreground_tile_mesh = nullptr;
    }
    if (collision_tile_mesh)
    {

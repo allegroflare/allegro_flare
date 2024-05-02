@@ -27,6 +27,12 @@ properties:
     getter: true
     setter: true
 
+  - name: foreground_tile_mesh
+    type: AllegroFlare::TileMaps::PrimMesh*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: collision_tile_mesh
     type: AllegroFlare::TileMaps::TileMap<int>*
     init_with: nullptr
@@ -42,6 +48,22 @@ documentation:
 
 
 methods:
+
+
+  - name: update
+    virtual: true
+    override: true
+    body: |
+      // NOTE: No update on this entity
+      return;
+
+
+  - name: draw
+    virtual: true
+    override: true
+    body: |
+      // NOTE: No draw on this entity.  Rendering is handled in the Gameplay/Screen
+      return;
 
 
   - name: destroy
@@ -62,6 +84,11 @@ methods:
       {
          delete background_tile_mesh;
          background_tile_mesh = nullptr;
+      }
+      if (foreground_tile_mesh)
+      {
+         delete foreground_tile_mesh;
+         foreground_tile_mesh = nullptr;
       }
       if (collision_tile_mesh)
       {

@@ -27359,12 +27359,24 @@ table td
   <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
 </tr>
 <tr>
+  <td class="property">foreground_tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
+</tr>
+<tr>
   <td class="property">collision_tile_mesh</td>
   <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw</b>()</td>
+</tr>
 <tr>
   <td class="method">void</td>
   <td class="method"><b>destroy</b>()</td>
@@ -27701,6 +27713,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">show_foreground_tile_mesh</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">show_collision_tile_mesh</td>
   <td class="property">bool</td>
 </tr>
@@ -28010,6 +28026,14 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>background_tile_mesh_exists</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::TileMaps::PrimMesh*</td>
+  <td class="method"><b>get_foreground_tile_mesh</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>foreground_tile_mesh_exists</b>()</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>

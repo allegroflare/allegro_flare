@@ -55,6 +55,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , last_activated_save_point(nullptr)
    , show_tile_mesh(true)
    , show_background_tile_mesh(true)
+   , show_foreground_tile_mesh(true)
    , show_collision_tile_mesh(false)
    , show_visual_hint_on_suspended_gameplay(false)
    , entity_control_connector(nullptr)
@@ -134,6 +135,12 @@ void Screen::set_show_tile_mesh(bool show_tile_mesh)
 void Screen::set_show_background_tile_mesh(bool show_background_tile_mesh)
 {
    this->show_background_tile_mesh = show_background_tile_mesh;
+}
+
+
+void Screen::set_show_foreground_tile_mesh(bool show_foreground_tile_mesh)
+{
+   this->show_foreground_tile_mesh = show_foreground_tile_mesh;
 }
 
 
@@ -260,6 +267,12 @@ bool Screen::get_show_tile_mesh() const
 bool Screen::get_show_background_tile_mesh() const
 {
    return show_background_tile_mesh;
+}
+
+
+bool Screen::get_show_foreground_tile_mesh() const
+{
+   return show_foreground_tile_mesh;
 }
 
 
@@ -1865,6 +1878,10 @@ void Screen::draw()
       get_tile_mesh()->render();
    }
    draw_entities_sorted_by_render_order();
+   if (show_foreground_tile_mesh && foreground_tile_mesh_exists())
+   {
+      get_foreground_tile_mesh()->render();
+   }
    if (show_collision_tile_mesh) render_collision_tile_mesh();
 
    camera.restore_transform();
@@ -2338,6 +2355,30 @@ bool Screen::background_tile_mesh_exists()
       throw std::runtime_error("Screen::background_tile_mesh_exists: error: guard \"currently_active_map\" not met");
    }
    return (currently_active_map->get_background_tile_mesh() != nullptr);
+}
+
+AllegroFlare::TileMaps::PrimMesh* Screen::get_foreground_tile_mesh()
+{
+   if (!(currently_active_map))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::get_foreground_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::get_foreground_tile_mesh: error: guard \"currently_active_map\" not met");
+   }
+   return currently_active_map->get_foreground_tile_mesh();
+}
+
+bool Screen::foreground_tile_mesh_exists()
+{
+   if (!(currently_active_map))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::foreground_tile_mesh_exists]: error: guard \"currently_active_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::foreground_tile_mesh_exists: error: guard \"currently_active_map\" not met");
+   }
+   return (currently_active_map->get_foreground_tile_mesh() != nullptr);
 }
 
 AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_mesh()
