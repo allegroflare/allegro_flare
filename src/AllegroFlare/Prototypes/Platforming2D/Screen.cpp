@@ -974,6 +974,10 @@ void Screen::update_entities()
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_save_points();
 
+   // Evaluate player collisions on interactable by player
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+   if (player_controlled_entity) update_player_collisions_with_interactables();
+
    // Evaluate player collisions on boss_zones
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    if (player_controlled_entity) update_player_collisions_with_boss_zones();
@@ -1279,6 +1283,101 @@ void Screen::on_hold_player_controlled_entity_non_collision_with_entity(AllegroF
    return;
 }
 
+void Screen::on_player_controlled_entity_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_player_controlled_entity_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_player_controlled_entity_collision_with_interactable: error: guard \"entity\" not met");
+   }
+   return;
+}
+
+void Screen::on_enter_player_controlled_entity_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_enter_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_enter_player_controlled_entity_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_enter_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_enter_player_controlled_entity_collision_with_interactable: error: guard \"entity\" not met");
+   }
+   return;
+}
+
+void Screen::on_exit_player_controlled_entity_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_exit_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_exit_player_controlled_entity_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_exit_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_exit_player_controlled_entity_collision_with_interactable: error: guard \"entity\" not met");
+   }
+   return;
+}
+
+void Screen::on_hold_player_controlled_entity_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, float duration)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_hold_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_hold_player_controlled_entity_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_hold_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_hold_player_controlled_entity_collision_with_interactable: error: guard \"entity\" not met");
+   }
+   return;
+}
+
+void Screen::on_hold_player_controlled_entity_non_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, float duration)
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_hold_player_controlled_entity_non_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_hold_player_controlled_entity_non_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+   }
+   if (!(entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::on_hold_player_controlled_entity_non_collision_with_interactable]: error: guard \"entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::on_hold_player_controlled_entity_non_collision_with_interactable: error: guard \"entity\" not met");
+   }
+   return;
+}
+
 void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
 {
    if (!(player_controlled_entity))
@@ -1473,6 +1572,83 @@ void Screen::update_player_collisions_with_save_points()
          last_activated_save_point = entity;
          //entity->set(PLEASE_DELETE);
          // NOTE: typically will do something here as a result of picking up the item
+      }
+   }
+   return;
+}
+
+void Screen::update_player_collisions_with_interactables()
+{
+   if (!(player_controlled_entity))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::update_player_collisions_with_interactables]: error: guard \"player_controlled_entity\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::update_player_collisions_with_interactables: error: guard \"player_controlled_entity\" not met");
+   }
+   // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+   AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+
+   for (auto &entity : collection_helper.select_interactable_by_player())
+   {
+      if (entity->get_place_ref().collide(player_placement)) //player_x, player_y, 0, 0, 0, 0))
+      {
+         //entity->on_collides_with_player(player_controlled_entity);
+         on_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+
+         if (!entity->exists(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER))
+         {
+            // Set colliding with player
+            entity->set(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER, al_get_time());
+
+            // On-enter collision
+            //entity->on_enter_collision_with_player(player_controlled_entity);
+            on_enter_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+         }
+         else
+         {
+            float duration = al_get_time() - entity->get_as_float(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER);
+
+            // On-holding collision with player
+            //entity->on_hold_collision_with_player(player_controlled_entity, duration);
+            on_hold_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity, duration);
+         }
+      }
+      else // Non-collision
+      {
+         //entity->on_collides_with_player(player_controlled_entity);
+         //on_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+
+         if (entity->exists(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER))
+         {
+            // Set colliding with player
+            entity->remove(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER); //, al_get_time());
+
+            // On-exit collision
+            //entity->on_exit_collision_with_player(player_controlled_entity);
+            on_exit_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+         }
+         else
+         {
+            // On-holding non collision with player
+
+            //float duration = al_get_time() - entity->get_as_float(CURRENTLY_COLLIDING_WITH_PLAYER);
+
+            // TODO: Find a way to store non-collision duration, which there currently isn't
+            float duration = 0.0f;
+
+            // On-holding non-collision with player
+            //entity->on_hold_non_collision_with_player(player_controlled_entity, duration);
+            on_hold_player_controlled_entity_non_collision_with_interactable(
+                  player_controlled_entity,
+                  entity,
+                  duration
+               );
+         }
       }
    }
    return;

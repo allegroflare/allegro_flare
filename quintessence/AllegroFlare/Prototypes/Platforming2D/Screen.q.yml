@@ -847,6 +847,10 @@ methods:
       // TODO: allow this function to run without being coupled with a "player_controlled_entity"
       if (player_controlled_entity) update_player_collisions_with_save_points();
 
+      // Evaluate player collisions on interactable by player
+      // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+      if (player_controlled_entity) update_player_collisions_with_interactables();
+
       // Evaluate player collisions on boss_zones
       // TODO: allow this function to run without being coupled with a "player_controlled_entity"
       if (player_controlled_entity) update_player_collisions_with_boss_zones();
@@ -1131,6 +1135,87 @@ methods:
       return;
 
 
+  - name: on_player_controlled_entity_collision_with_interactable
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_enter_player_controlled_entity_collision_with_interactable
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_exit_player_controlled_entity_collision_with_interactable
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_hold_player_controlled_entity_collision_with_interactable
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: duration
+        type: float
+        default_argument: 0.0f
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
+  - name: on_hold_player_controlled_entity_non_collision_with_interactable
+    private: true
+    virtual: true
+    parameters:
+      - name: player_controlled_entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: entity
+        type: AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*
+        default_argument: nullptr
+      - name: duration
+        type: float
+        default_argument: 0.0f
+    guards: [ player_controlled_entity, entity ]
+    body: |
+      return;
+
+
   - name: update_player_collisions_with_COLLIDES_WITH_PLAYER
     private: true
     virtual: true
@@ -1337,6 +1422,82 @@ methods:
             last_activated_save_point = entity;
             //entity->set(PLEASE_DELETE);
             // NOTE: typically will do something here as a result of picking up the item
+         }
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Prototypes::Platforming2D::EntityFlagNames
+      - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
+
+
+  - name: update_player_collisions_with_interactables
+    virtual: true
+    private: true
+    guards: [ player_controlled_entity ]
+    body: |
+      // TODO: allow this function to run without being coupled with a "player_controlled_entity"
+      using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+      std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
+      AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
+      AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+
+      for (auto &entity : collection_helper.select_interactable_by_player())
+      {
+         if (entity->get_place_ref().collide(player_placement)) //player_x, player_y, 0, 0, 0, 0))
+         {
+            //entity->on_collides_with_player(player_controlled_entity);
+            on_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+
+            if (!entity->exists(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER))
+            {
+               // Set colliding with player
+               entity->set(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER, al_get_time());
+
+               // On-enter collision
+               //entity->on_enter_collision_with_player(player_controlled_entity);
+               on_enter_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+            }
+            else
+            {
+               float duration = al_get_time() - entity->get_as_float(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER);
+
+               // On-holding collision with player
+               //entity->on_hold_collision_with_player(player_controlled_entity, duration);
+               on_hold_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity, duration);
+            }
+         }
+         else // Non-collision
+         {
+            //entity->on_collides_with_player(player_controlled_entity);
+            //on_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+
+            if (entity->exists(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER))
+            {
+               // Set colliding with player
+               entity->remove(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER); //, al_get_time());
+
+               // On-exit collision
+               //entity->on_exit_collision_with_player(player_controlled_entity);
+               on_exit_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+            }
+            else
+            {
+               // On-holding non collision with player
+
+               //float duration = al_get_time() - entity->get_as_float(CURRENTLY_COLLIDING_WITH_PLAYER);
+
+               // TODO: Find a way to store non-collision duration, which there currently isn't
+               float duration = 0.0f;
+
+               // On-holding non-collision with player
+               //entity->on_hold_non_collision_with_player(player_controlled_entity, duration);
+               on_hold_player_controlled_entity_non_collision_with_interactable(
+                     player_controlled_entity,
+                     entity,
+                     duration
+                  );
+            }
          }
       }
       return;

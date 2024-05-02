@@ -23,7 +23,9 @@ namespace AllegroFlare
             std::string const COLLECTABLE_BY_PLAYER = "collectable_by_player";
             std::string const COLLIDES_WITH_PLAYER = "collides_with_player";
             std::string const CURRENTLY_COLLIDING_WITH_PLAYER = "currently_colliding_with_player"; // DEPRECATE
-            //std::string const INTERACTABLE_BY_PLAYER = "interactable_by_player";
+            std::string const INTERACTABLE_BY_PLAYER = "interactable_by_player";
+            std::string const INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER =
+                  "interactable_currently_colliding_with_player";
             std::string const INVISIBLE = "invisible";
             std::string const DEAD = "dead";
 

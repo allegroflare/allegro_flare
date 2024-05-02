@@ -82,10 +82,16 @@ namespace AllegroFlare
             virtual void on_exit_player_controlled_entity_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
             virtual void on_hold_player_controlled_entity_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, float duration=0.0f);
             virtual void on_hold_player_controlled_entity_non_collision_with_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, float duration=0.0f);
+            virtual void on_player_controlled_entity_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
+            virtual void on_enter_player_controlled_entity_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
+            virtual void on_exit_player_controlled_entity_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr);
+            virtual void on_hold_player_controlled_entity_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, float duration=0.0f);
+            virtual void on_hold_player_controlled_entity_non_collision_with_interactable(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity=nullptr, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity=nullptr, float duration=0.0f);
             virtual void update_player_collisions_with_COLLIDES_WITH_PLAYER();
             virtual void update_player_collisions_with_collectables();
             virtual void update_entity_collisions_with_damage_zones();
             virtual void update_player_collisions_with_save_points();
+            virtual void update_player_collisions_with_interactables();
             virtual void update_player_collisions_with_boss_zones();
 
          protected:
