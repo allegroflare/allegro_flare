@@ -118,6 +118,28 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    return result;
 }
 
+std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityCollectionHelper::select_all_interactable_by_player_currently_colliding_with_player()
+{
+   if (!(entities))
+   {
+      std::stringstream error_message;
+      error_message << "[EntityCollectionHelper::select_all_interactable_by_player_currently_colliding_with_player]: error: guard \"entities\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("EntityCollectionHelper::select_all_interactable_by_player_currently_colliding_with_player: error: guard \"entities\" not met");
+   }
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> result;
+   for (auto &entity : (*entities))
+   {
+      if (entity->exists(INTERACTABLE_BY_PLAYER) && entity->exists(INTERACTABLE_CURRENTLY_COLLIDING_WITH_PLAYER))
+      {
+         result.push_back(entity);
+      }
+   }
+   return result;
+}
+
 std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityCollectionHelper::select_goalposts()
 {
    if (!(entities))
