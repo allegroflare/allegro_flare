@@ -10,6 +10,26 @@ namespace AllegroFlare::TileMaps
 {
 
 
+PrimMesh::PrimMesh(AllegroFlare::TileMaps::PrimMeshAtlas *atlas, int num_columns, int num_rows, int tile_width, int tile_height)
+   : atlas(atlas)
+   , vertexes()
+   , vertex_buffer(nullptr)
+   , tile_ids()
+   , num_columns(num_columns)
+   , num_rows(num_rows)
+   , tile_width(tile_width)
+   , tile_height(tile_height)
+   , initialized(false)
+   , yz_swapped(false)
+{
+}
+
+
+PrimMesh::~PrimMesh()
+{
+}
+
+
 int PrimMesh::infer_num_vertexes()
 {
    return num_columns * num_rows * 6;
@@ -38,25 +58,6 @@ void PrimMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
 
    vertexes[i+5].u = u1;
    vertexes[i+5].v = v1;
-}
-
-
-PrimMesh::PrimMesh(AllegroFlare::TileMaps::PrimMeshAtlas *atlas, int num_columns, int num_rows, int tile_width, int tile_height)
-   : atlas(atlas)
-   , vertexes()
-   , tile_ids()
-   , num_columns(num_columns)
-   , num_rows(num_rows)
-   , tile_width(tile_width)
-   , tile_height(tile_height)
-   , initialized(false)
-   , yz_swapped(false)
-{
-}
-
-
-PrimMesh::~PrimMesh()
-{
 }
 
 
@@ -293,6 +294,8 @@ void PrimMesh::render(bool draw_outline)
 
    // TODO: Promote this to a vertex buffer
    al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   //int al_draw_vertex_buffer(ALLEGRO_VERTEX_BUFFER* vertex_buffer,
+      //ALLEGRO_BITMAP* texture, int start, int end, int type)
 
    if (draw_outline)
    {

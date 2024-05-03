@@ -15,6 +15,7 @@ namespace AllegroFlare::TileMaps
    private:
       AllegroFlare::TileMaps::PrimMeshAtlas *atlas;
       std::vector<ALLEGRO_VERTEX> vertexes;
+      ALLEGRO_VERTEX_BUFFER *vertex_buffer;
       std::vector<int> tile_ids;
       int num_columns;
       int num_rows;
