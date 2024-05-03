@@ -39,26 +39,39 @@ int PrimMesh::infer_num_vertexes()
 
 void PrimMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2)
 {
-   int id_start = (tile_x * 6) + tile_y * (num_columns*6);
-   int &i = id_start;
+   int tile_index_start = (tile_x * 6) + tile_y * (num_columns*6);
+   int &i = tile_index_start;
 
+   // Modify the vertex
    vertexes[i+0].u = u1;
    vertexes[i+0].v = v1;
-
    vertexes[i+1].u = u1;
    vertexes[i+1].v = v2;
-
    vertexes[i+2].u = u2;
    vertexes[i+2].v = v2;
-
    vertexes[i+3].u = u2;
    vertexes[i+3].v = v2;
-
    vertexes[i+4].u = u2;
    vertexes[i+4].v = v1;
-
    vertexes[i+5].u = u1;
    vertexes[i+5].v = v1;
+
+   // Modify the vertex in the vertex buffer
+   ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+      vertex_buffer,
+      0,
+      infer_num_vertexes(), // Consider only locking the region that needs the change
+      ALLEGRO_LOCK_WRITEONLY
+   );
+
+   vertex_buffer_start[i+0] = vertexes[i+0];
+   vertex_buffer_start[i+1] = vertexes[i+1];
+   vertex_buffer_start[i+2] = vertexes[i+2];
+   vertex_buffer_start[i+3] = vertexes[i+3];
+   vertex_buffer_start[i+4] = vertexes[i+4];
+   vertex_buffer_start[i+5] = vertexes[i+5];
+
+   al_unlock_vertex_buffer(vertex_buffer);
 }
 
 
@@ -191,9 +204,7 @@ void PrimMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
       vertexes[v].y = vertexes[v].y / old_tile_height * new_tile_height;
       vertexes[v].z = vertexes[v].z / old_tile_height * new_tile_height;
 
-      vertex_buffer_start[v].x = vertexes[v].x;
-      vertex_buffer_start[v].y = vertexes[v].y;
-      vertex_buffer_start[v].z = vertexes[v].z;
+      vertex_buffer_start[v] = vertexes[v];
    }
 
    al_unlock_vertex_buffer(vertex_buffer);
@@ -295,12 +306,27 @@ void PrimMesh::set_atlas(AllegroFlare::TileMaps::PrimMeshAtlas *atlas)
 void PrimMesh::swap_yz()
 {
    if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::swap_yz] error: must be initialized first");
+
+
    for (auto &vertex : vertexes)
    {
       float swap = vertex.y;
       vertex.y = vertex.z;
       vertex.z = swap;
    }
+
+   // Modify the vertex in the vertex buffer
+   int num_vertices = infer_num_vertexes();
+   ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+      vertex_buffer,
+      0,
+      infer_num_vertexes(), // Consider only locking the region that needs the change
+      ALLEGRO_LOCK_WRITEONLY
+   );
+
+   for (int i=0; i<num_vertices; i++) vertex_buffer_start[i] = vertexes[i];
+
+   al_unlock_vertex_buffer(vertex_buffer);
 
    yz_swapped = !yz_swapped;
 }
@@ -312,8 +338,8 @@ void PrimMesh::render(bool draw_outline)
    if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
 
    // TODO: Promote this to a vertex buffer
-   al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-   //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   //al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
    if (draw_outline)
    {
