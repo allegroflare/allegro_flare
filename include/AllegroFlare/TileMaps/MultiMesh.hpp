@@ -30,14 +30,14 @@ namespace AllegroFlare
 
 
       public:
-         MultiMesh(std::size_t num_items=256);
+         MultiMesh(std::size_t num_items=DEFAULT_NUM_ITEMS);
          ~MultiMesh();
 
          void set_texture(ALLEGRO_BITMAP* texture);
          std::size_t get_num_items() const;
          ALLEGRO_BITMAP* get_texture() const;
          void set_atlas(AllegroFlare::TileMaps::MultiMeshUVAtlas atlas={});
-         void set_num_items(std::size_t num_items=256);
+         void set_num_items(std::size_t num_items=DEFAULT_NUM_ITEMS);
          int infer_num_items_in_use();
          int infer_largest_index_num_in_use();
          void initialize();

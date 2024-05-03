@@ -123,9 +123,50 @@ TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_TileMaps_PrimMeshWithAllegroRenderingFixtureTest,
-   DISABLED__rescale_tile_dimensions_to__will_resize_all_of_the_vertexes_to_the_new_dimensions)
+   rescale_tile_dimensions_to__will_resize_all_of_the_vertexes_to_the_new_dimensions)
 {
-   // TODO
+   ALLEGRO_BITMAP *atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+
+   AllegroFlare::TileMaps::PrimMesh mesh(&atlas, 30, 10, 1, 1); // Set the initial tile size to 1
+   atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);
+   mesh.initialize();
+
+   // Fill the tile mesh with random values
+   AllegroFlare::Random random;
+   for (int y=0; y<mesh.get_num_rows(); y++)
+   {
+      for (int x=0; x<mesh.get_num_columns(); x++)
+      {
+         int random_tile = random.get_random_int(0, atlas.get_tile_index_size());
+         mesh.set_tile_id(x, y, random_tile);
+      }
+   }
+
+   // Rescale the tile dimensions to something more arbitrary
+   mesh.rescale_tile_dimensions_to(24, 24);
+
+   al_clear_to_color(al_color_name("dodgerblue"));
+
+   float x = 100;
+   float y = 50;
+
+   float sx = 3;
+   float sy = 3;
+
+   ALLEGRO_TRANSFORM prev, transform;
+   al_copy_transform(&prev, al_get_current_transform());
+   al_identity_transform(&transform);
+   al_translate_transform(&transform, x, y);
+   al_scale_transform(&transform, sx, sy);
+   al_use_transform(&transform);
+
+   mesh.render();
+
+   al_use_transform(&prev);
+
+   al_flip_display();
+   al_rest(1.0);
 }
 
 

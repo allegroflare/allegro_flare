@@ -3,7 +3,7 @@ properties:
 
   - name: num_items
     type: std::size_t
-    init_with: 256
+    init_with: DEFAULT_NUM_ITEMS
     constructor_arg: true
     getter: true
     setter: false
@@ -68,7 +68,7 @@ functions:
     parameters:
       - name: num_items
         type: std::size_t
-        default_argument: 256
+        default_argument: DEFAULT_NUM_ITEMS
     guards: [ (!initialized) ]
     body: |
       this->num_items = num_items;

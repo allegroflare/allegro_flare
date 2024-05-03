@@ -27,6 +27,7 @@ PrimMesh::PrimMesh(AllegroFlare::TileMaps::PrimMeshAtlas *atlas, int num_columns
 
 PrimMesh::~PrimMesh()
 {
+   if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
 }
 
 
@@ -131,6 +132,10 @@ void PrimMesh::resize(int num_columns, int num_rows)
       vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
    }
 
+   // create the vertex buffer;
+   if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
+   vertex_buffer = al_create_vertex_buffer(NULL, &vertexes[0], vertexes.size(), ALLEGRO_PRIM_BUFFER_READWRITE);
+
    if (yz_swapped)
    {
       swap_yz();
@@ -172,12 +177,26 @@ void PrimMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
       throw std::runtime_error(error_message.str());
    }
 
-   for (int v=0; v<infer_num_vertexes(); v++)
+   int num_vertices = infer_num_vertexes();
+   ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+      vertex_buffer,
+      0,
+      num_vertices,
+      ALLEGRO_LOCK_WRITEONLY
+   );
+
+   for (int v=0; v<num_vertices; v++)
    {
       vertexes[v].x = vertexes[v].x / old_tile_width * new_tile_width;
       vertexes[v].y = vertexes[v].y / old_tile_height * new_tile_height;
       vertexes[v].z = vertexes[v].z / old_tile_height * new_tile_height;
+
+      vertex_buffer_start[v].x = vertexes[v].x;
+      vertex_buffer_start[v].y = vertexes[v].y;
+      vertex_buffer_start[v].z = vertexes[v].z;
    }
+
+   al_unlock_vertex_buffer(vertex_buffer);
 
    this->tile_width = new_tile_width;
    this->tile_height = new_tile_height;
@@ -294,8 +313,7 @@ void PrimMesh::render(bool draw_outline)
 
    // TODO: Promote this to a vertex buffer
    al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-   //int al_draw_vertex_buffer(ALLEGRO_VERTEX_BUFFER* vertex_buffer,
-      //ALLEGRO_BITMAP* texture, int start, int end, int type)
+   //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
    if (draw_outline)
    {
