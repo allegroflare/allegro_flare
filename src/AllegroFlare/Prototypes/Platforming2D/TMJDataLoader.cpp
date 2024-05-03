@@ -348,8 +348,8 @@ bool TMJDataLoader::load()
    // Terrain tile layer
    //
 
-   bool tilelayer_type_found = false;
-   nlohmann::json tilelayer; // TODO: Rename this "terrain_tilelayer"
+   bool terrain_tilelayer_type_found = false;
+   nlohmann::json terrain_tilelayer; // TODO: Rename this "terrain_tilelayer"
 
    // First, look for a tilelayer type named "terrain"
    // TODO: Test this behavior
@@ -367,8 +367,8 @@ bool TMJDataLoader::load()
          );
       }
 
-      tilelayer = layer.value();
-      tilelayer_type_found = true;
+      terrain_tilelayer = layer.value();
+      terrain_tilelayer_type_found = true;
       AllegroFlare::Logger::info_from(
          "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
          "Found layer \"" + layer_name + "\" to use as visual tile layer."
@@ -378,7 +378,7 @@ bool TMJDataLoader::load()
 
    // If no "terrain" layer was found of type "tilelayer", look for the first "tilelayer" that does not have
    // excluding features.
-   if (!tilelayer_type_found)
+   if (!terrain_tilelayer_type_found)
    {
       AllegroFlare::Logger::info_from(
          "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
@@ -390,7 +390,7 @@ bool TMJDataLoader::load()
       for (auto &layer : j["layers"].items())
       {
          if (layer.value()["type"] != "tilelayer") continue;
-         if (layer.value()["name"] == "collision") continue;
+         //if (layer.value()["name"] == "collision") continue;
          //if (layer.value()["name"] == "collision") continue;
 
          // If the layer name is postfixed with "_buffer", skip
@@ -407,8 +407,8 @@ bool TMJDataLoader::load()
             continue;
          }
 
-         tilelayer = layer.value();
-         tilelayer_type_found = true;
+         terrain_tilelayer = layer.value();
+         terrain_tilelayer_type_found = true;
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
             "Found layer \"" + layer_name + "\" to use as visual tile layer."
@@ -419,7 +419,7 @@ bool TMJDataLoader::load()
 
 
    // Throw if an appropriate tilelayer was never found
-   if (!tilelayer_type_found)
+   if (!terrain_tilelayer_type_found)
    {
       throw std::runtime_error("TMJMeshLoader: error: tilelayer for visual tiles was not found.");
    }
@@ -459,9 +459,9 @@ bool TMJDataLoader::load()
 
    // If the "terrain_manual_override" tilelayer exists, override the tiles in the "terrain"
    // TODO: Test this feature
-   layer_num_columns = tilelayer["width"];
-   layer_num_rows = tilelayer["height"];
-   layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+   layer_num_columns = terrain_tilelayer["width"];
+   layer_num_rows = terrain_tilelayer["height"];
+   layer_tile_data = terrain_tilelayer["data"].get<std::vector<int>>();
 
    if (terrain_manual_override_tilelayer_type_found)
    {
@@ -594,9 +594,9 @@ bool TMJDataLoader::load()
 
    // If the "background_manual_override" tilelayer exists, override the tiles in the "background"
    // TODO: Test this feature
-   layer_num_columns = tilelayer["width"];
-   layer_num_rows = tilelayer["height"];
-   layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+   //layer_num_columns = background_tilelayer["width"];
+   //layer_num_rows = background_tilelayer["height"];
+   //layer_tile_data = background_tilelayer["data"].get<std::vector<int>>();
 
    if (background_manual_override_tilelayer_type_found)
    {
@@ -605,21 +605,21 @@ bool TMJDataLoader::load()
 
       std::vector<int> override_tile_data = background_manual_override_tilelayer["data"].get<std::vector<int>>();
 
-      if (override_num_columns != layer_num_columns)
+      if (override_num_columns != background_tilelayer_num_columns)
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
             "ztioztioiziu0gzgiu"
          );
       }
-      if (override_num_rows != layer_num_rows)
+      if (override_num_rows != background_tilelayer_num_rows)
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
             "qhw,.erhq,.rw.hkqrw"
          );
       }
-      if (override_tile_data.size() != layer_tile_data.size())
+      if (override_tile_data.size() != background_tilelayer_tile_data.size())
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
@@ -638,7 +638,7 @@ bool TMJDataLoader::load()
          {
             std::cout << ".";
             override_count++;
-            layer_tile_data[i] = override_tile_data[i];
+            background_tilelayer_tile_data[i] = override_tile_data[i];
          }
       }
       AllegroFlare::Logger::info_from(
@@ -736,9 +736,9 @@ bool TMJDataLoader::load()
 
    // If the "foreground_manual_override" tilelayer exists, override the tiles in the "foreground"
    // TODO: Test this feature
-   layer_num_columns = tilelayer["width"];
-   layer_num_rows = tilelayer["height"];
-   layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+   //layer_num_columns = foreground_tilelayer["width"];
+   //layer_num_rows = foreground_tilelayer["height"];
+   //layer_tile_data = foreground_tilelayer["data"].get<std::vector<int>>();
 
    if (foreground_manual_override_tilelayer_type_found)
    {
@@ -747,21 +747,21 @@ bool TMJDataLoader::load()
 
       std::vector<int> override_tile_data = foreground_manual_override_tilelayer["data"].get<std::vector<int>>();
 
-      if (override_num_columns != layer_num_columns)
+      if (override_num_columns != foreground_tilelayer_num_columns)
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
             "ztioztioiziu0gzgiu"
          );
       }
-      if (override_num_rows != layer_num_rows)
+      if (override_num_rows != foreground_tilelayer_num_rows)
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
             "qhw,.erhq,.rw.hkqrw"
          );
       }
-      if (override_tile_data.size() != layer_tile_data.size())
+      if (override_tile_data.size() != foreground_tilelayer_tile_data.size())
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
@@ -780,7 +780,7 @@ bool TMJDataLoader::load()
          {
             std::cout << ".";
             override_count++;
-            layer_tile_data[i] = override_tile_data[i];
+            foreground_tilelayer_tile_data[i] = override_tile_data[i];
          }
       }
       AllegroFlare::Logger::info_from(

@@ -25,6 +25,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas;
             AllegroFlare::TileMaps::PrimMesh* mesh;
             AllegroFlare::TileMaps::PrimMesh* background_mesh;
+            AllegroFlare::TileMaps::PrimMesh* foreground_mesh;
             AllegroFlare::TileMaps::TileMap<int>* collision_tile_map;
             bool loaded;
 
@@ -38,6 +39,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
             AllegroFlare::TileMaps::PrimMesh* get_mesh();
             AllegroFlare::TileMaps::PrimMesh* get_background_mesh();
+            AllegroFlare::TileMaps::PrimMesh* get_foreground_mesh();
             AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map();
             bool load();
          };

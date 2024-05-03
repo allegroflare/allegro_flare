@@ -28,6 +28,7 @@ TMJMeshLoader::TMJMeshLoader(AllegroFlare::BitmapBin* bitmap_bin, std::string tm
    , tile_atlas(nullptr)
    , mesh(nullptr)
    , background_mesh(nullptr)
+   , foreground_mesh(nullptr)
    , collision_tile_map(nullptr)
    , loaded(false)
 {
@@ -73,6 +74,18 @@ AllegroFlare::TileMaps::PrimMesh* TMJMeshLoader::get_background_mesh()
       throw std::runtime_error("TMJMeshLoader::get_background_mesh: error: guard \"loaded\" not met");
    }
    return background_mesh;
+}
+
+AllegroFlare::TileMaps::PrimMesh* TMJMeshLoader::get_foreground_mesh()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJMeshLoader::get_foreground_mesh]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJMeshLoader::get_foreground_mesh: error: guard \"loaded\" not met");
+   }
+   return foreground_mesh;
 }
 
 AllegroFlare::TileMaps::TileMap<int>* TMJMeshLoader::get_collision_tile_map()
@@ -143,6 +156,11 @@ bool TMJMeshLoader::load()
    int collision_layer_num_rows = tmj_data_loader.get_collision_layer_num_rows();
    std::vector<int> collision_layer_tiles = tmj_data_loader.get_collision_layer_tile_data();
 
+   int foreground_tilelayer_exists = tmj_data_loader.get_foreground_tilelayer_exists();
+   int foreground_tilelayer_width = tmj_data_loader.get_foreground_tilelayer_num_columns();
+   int foreground_tilelayer_height = tmj_data_loader.get_foreground_tilelayer_num_rows();
+   std::vector<int> foreground_tiles = tmj_data_loader.get_foreground_tilelayer_tile_data();
+
    int background_tilelayer_exists = tmj_data_loader.get_background_tilelayer_exists();
    int background_tilelayer_width = tmj_data_loader.get_background_tilelayer_num_columns();
    int background_tilelayer_height = tmj_data_loader.get_background_tilelayer_num_rows();
@@ -175,6 +193,24 @@ bool TMJMeshLoader::load()
    {
       // TODO: Improve this error message
       throw std::runtime_error("TMJMeshLoader: error: quopiwequworeueo");
+   }
+   if (foreground_tilelayer_exists)
+   {
+      if (tilelayer_width != foreground_tilelayer_width)
+      {
+         // TODO: Improve this error message
+         throw std::runtime_error("TMJMeshLoader: error: zxnyzvnyzvxcnr");
+      }
+      if (tilelayer_height != foreground_tilelayer_height)
+      {
+         // TODO: Improve this error message
+         throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
+      }
+      if (foreground_tiles.size() != tmx_width * tmx_height)
+      {
+         // TODO: Improve this error message
+         throw std::runtime_error("TMJMeshLoader: error: aqwoyzhawehopaso");
+      }
    }
    if (background_tilelayer_exists)
    {
@@ -223,6 +259,15 @@ bool TMJMeshLoader::load()
       }
 
       for (auto &tile : collision_layer_tiles)
+      {
+         bool horizontalFlip = tile & 0x80000000;
+         bool verticalFlip = tile & 0x40000000;
+         bool diagonalFlip = tile & 0x20000000;
+         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
+         tile = filtered_tile_id;
+      }
+
+      for (auto &tile : foreground_tiles)
       {
          bool horizontalFlip = tile & 0x80000000;
          bool verticalFlip = tile & 0x40000000;
@@ -304,6 +349,43 @@ bool TMJMeshLoader::load()
 
 
    // ##
+   // create the foreground_mesh
+   //int num_columns = tmx_width;
+   //int num_rows = tmx_height;
+   AllegroFlare::TileMaps::PrimMesh* created_foreground_mesh = nullptr;
+   if (foreground_tilelayer_exists)
+   {
+      created_foreground_mesh = new AllegroFlare::TileMaps::PrimMesh(
+            created_tile_atlas,
+            num_columns,
+            num_rows,
+            tile_atlas_tile_width, // TODO: Verify if this value is correlated only to the tile atlas, or the
+                                   // foreground mesh's tile width, both? or what the relationship is between them.
+            tile_atlas_tile_height // TODO: Verify if this value is correlated only to the tile atlas, or the
+                                   // foreground mesh's tile height, both? or what the relationship is between them.
+         );
+      created_foreground_mesh->initialize();
+
+
+      // ##
+      // fill the data on the foreground_mesh
+      for (int y=0; y<num_rows; y++)
+      {
+         for (int x=0; x<num_columns; x++)
+         {
+            int tile_id = foreground_tiles[y * num_columns + x];
+            if (tile_id == 0) created_foreground_mesh->set_tile_id(x, y, 72);
+                              // ^^ TODO: this is a hack to have 0 be transparent
+                              // ^^ TODO: CRITICAL Modify this to make more sense. Consider *removing* the tile from
+                              // the mesh
+            else created_foreground_mesh->set_tile_id(x, y, tile_id-1);
+         }
+      }
+   }
+
+
+
+   // ##
    // create the background_mesh
    //int num_columns = tmx_width;
    //int num_rows = tmx_height;
@@ -363,6 +445,7 @@ bool TMJMeshLoader::load()
    // assign the created objects to the class
    this->tile_atlas = created_tile_atlas;
    this->mesh = created_mesh;
+   this->foreground_mesh = created_foreground_mesh;
    this->background_mesh = created_background_mesh;
    this->collision_tile_map = created_collision_tile_map;
    loaded = true;
