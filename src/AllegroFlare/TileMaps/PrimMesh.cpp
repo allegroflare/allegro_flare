@@ -56,6 +56,7 @@ void PrimMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    vertexes[i+5].u = u1;
    vertexes[i+5].v = v1;
 
+   /*
    // Modify the vertex in the vertex buffer
    ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
       vertex_buffer,
@@ -72,6 +73,7 @@ void PrimMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    vertex_buffer_start[i+5] = vertexes[i+5];
 
    al_unlock_vertex_buffer(vertex_buffer);
+   */
 }
 
 
@@ -338,8 +340,8 @@ void PrimMesh::render(bool draw_outline)
    if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
 
    // TODO: Promote this to a vertex buffer
-   //al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-   al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
    if (draw_outline)
    {
