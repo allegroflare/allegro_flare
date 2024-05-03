@@ -1880,7 +1880,6 @@ void Screen::draw()
    draw_entities_sorted_by_render_order();
    if (show_foreground_tile_mesh && foreground_tile_mesh_exists())
    {
-      std::cout << "JSDIOJFIOS Drawing foreground" << std::endl;
       get_foreground_tile_mesh()->render();
    }
    if (show_collision_tile_mesh) render_collision_tile_mesh();
@@ -2379,7 +2378,6 @@ bool Screen::foreground_tile_mesh_exists()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::foreground_tile_mesh_exists: error: guard \"currently_active_map\" not met");
    }
-   std::cout << "Foreground exists?: " << currently_active_map->get_foreground_tile_mesh() << std::endl;
    return (currently_active_map->get_foreground_tile_mesh() != nullptr);
 }
 
