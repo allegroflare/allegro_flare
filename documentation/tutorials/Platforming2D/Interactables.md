@@ -1,28 +1,38 @@
+# Making an object interactable
 
-making an object "interactable"
 
+## Simplest:
 
-Simplest:
-
--> tag the object with INTERACTABLE_BY_PLAYER
--> when the player presses the button to interact, EntityCollecitonHelper::select_all_interactable_by_player_currently_colliding_with_player, and select the appropriate
+- tag the object with INTERACTABLE_BY_PLAYER
+- when the player presses the button to interact, EntityCollecitonHelper::select_all_interactable_by_player_currently_colliding_with_player, and select the appropriate
 interactable object (if any).
 
 
-To add interaction input hints:
+## To add interaction input hints:
 
--> assume your object has a tmj_object_name
--> tag the object with INTERACTABLE_BY_PLAYER
--> in your Gameplay/Screen, consider having an override for:
-   -> on_enter_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
-   -> on_exit_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
-   -> ... if you want to display input hints or something
+- assume your object has a tmj_object_name
+- tag the object with INTERACTABLE_BY_PLAYER
+- in your Gameplay/Screen, have an override for:
+   - on_enter_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+   - on_exit_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
+   - ... if you want to display input hints or something
 
 
-When creating your player:
+## Interactability in the controlling entity
 
-         player_character->set_on_interact_func(SomePlatformer::Gameplay::Screen::on_player_interacts);
-         player_character->set_on_interact_func_user_data(this);
+
+### On your player character
+
+- A callback to call when the player triggers an interaction
+
+### On your player character's controls
+
+- A button that triggers an interaction
+
+### When creating your player in the factory
+
+player_character->set_on_interact_func(SomePlatformer::Gameplay::Screen::on_player_interacts);
+player_character->set_on_interact_func_user_data(this);
 
 
 In your screen class, create `SomePlatformer::Gameplay::Screen`s callbacks `SomePlatformer::Gameplay::Screen::on_player_interacts`.  Might look something like this:
