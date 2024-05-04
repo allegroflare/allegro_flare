@@ -213,9 +213,7 @@ void TileMesh::resize(int num_columns, int num_rows)
    // Build the vertex indexes
    int num_index_vertices = index_vertices.size();
    for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
-   int index_buffer_int_size = 4; // 4 is normal "int", this may be needed if vertex_indexes, when copied into the
-                                  // buffer, are indeed of size "int"
-                                  // TODO: Consider a "sizeof" here
+   int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
    index_buffer = al_create_index_buffer(
          index_buffer_int_size,
          &index_vertices[0],
