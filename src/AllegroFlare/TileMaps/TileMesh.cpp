@@ -255,14 +255,6 @@ void TileMesh::render(bool draw_outline)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TileMesh::render: error: guard \"(!vertex_buffer_is_dirty)\" not met");
    }
-   //if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
-   //if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
-   //if (
-
-   // TODO: Promote this to a vertex buffer
-   //al_draw_prim(&vertices[0], NULL, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-   //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-
    al_draw_indexed_buffer(
       vertex_buffer,
       atlas->get_bitmap(),
@@ -271,8 +263,6 @@ void TileMesh::render(bool draw_outline)
       vertices.size(), 
       ALLEGRO_PRIM_TRIANGLE_LIST
    );
-   //ALLEGRO_BITMAP* texture, ALLEGRO_INDEX_BUFFER* index_buffer,
-   //int start, int end, int type)
 
    if (draw_outline)
    {

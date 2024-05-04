@@ -3836,6 +3836,9 @@
   "AllegroFlare/TileMaps/TileAtlasRepositoryRecord": [
     "AllegroFlare/TileMaps/TileAtlasRepository"
   ],
+  "ALLEGRO_INDEX_BUFFER": [
+    "AllegroFlare/TileMaps/TileMesh"
+  ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"
   ],

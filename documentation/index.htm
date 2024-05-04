@@ -38449,7 +38449,15 @@ table td
   <td class="property">ALLEGRO_VERTEX_BUFFER*</td>
 </tr>
 <tr>
+  <td class="property">index_buffer</td>
+  <td class="property">ALLEGRO_INDEX_BUFFER*</td>
+</tr>
+<tr>
   <td class="property">tile_ids</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">index_vertices</td>
   <td class="property">std::vector&lt;int&gt;</td>
 </tr>
 <tr>
@@ -38566,6 +38574,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_INDEX_BUFFER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX_BUFFER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
@@ -46458,6 +46469,9 @@ table td
   ],
   "AllegroFlare/TileMaps/TileAtlasRepositoryRecord": [
     "AllegroFlare/TileMaps/TileAtlasRepository"
+  ],
+  "ALLEGRO_INDEX_BUFFER": [
+    "AllegroFlare/TileMaps/TileMesh"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"

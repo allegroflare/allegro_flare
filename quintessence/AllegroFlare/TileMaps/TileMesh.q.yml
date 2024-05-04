@@ -209,14 +209,6 @@ methods:
         default_argument: false
     guards: [ initialized, atlas, (!vertex_buffer_is_dirty) ]
     body: |
-      //if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
-      //if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
-      //if (
-
-      // TODO: Promote this to a vertex buffer
-      //al_draw_prim(&vertices[0], NULL, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-      //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-
       al_draw_indexed_buffer(
          vertex_buffer,
          atlas->get_bitmap(),
@@ -225,8 +217,6 @@ methods:
          vertices.size(), 
          ALLEGRO_PRIM_TRIANGLE_LIST
       );
-      //ALLEGRO_BITMAP* texture, ALLEGRO_INDEX_BUFFER* index_buffer,
-      //int start, int end, int type)
 
       if (draw_outline)
       {
