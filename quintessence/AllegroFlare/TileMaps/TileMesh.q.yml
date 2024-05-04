@@ -64,7 +64,7 @@ methods:
 
   - name: initialize
     guards:
-      - initialized
+      - (!initialized)
     body: |
       // TODO: Guard on al_is_system_installed
       // TODO: Guard on al_is_primitives_addon_initialized

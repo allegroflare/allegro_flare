@@ -89,12 +89,12 @@ std::vector<ALLEGRO_VERTEX> &TileMesh::get_vertexes_ref()
 
 void TileMesh::initialize()
 {
-   if (!(initialized))
+   if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::initialize]: error: guard \"initialized\" not met.";
+      error_message << "[TileMesh::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::initialize: error: guard \"initialized\" not met");
+      throw std::runtime_error("TileMesh::initialize: error: guard \"(!initialized)\" not met");
    }
    // TODO: Guard on al_is_system_installed
    // TODO: Guard on al_is_primitives_addon_initialized
