@@ -169,6 +169,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
    al_flip_display();
 
    al_use_transform(&prev);
+   al_rest(1);
 }
 
 
