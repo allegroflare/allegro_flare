@@ -15,7 +15,7 @@ namespace TileMaps
 
 TileMesh::TileMesh(AllegroFlare::TileMaps::PrimMeshAtlas* atlas, int num_columns, int num_rows, int tile_width, int tile_height)
    : atlas(atlas)
-   , vertexes()
+   , vertices()
    , vertex_buffer(nullptr)
    , tile_ids({})
    , num_columns(num_columns)
@@ -81,9 +81,9 @@ bool TileMesh::get_initialized() const
 }
 
 
-std::vector<ALLEGRO_VERTEX> &TileMesh::get_vertexes_ref()
+std::vector<ALLEGRO_VERTEX> &TileMesh::get_vertices_ref()
 {
-   return vertexes;
+   return vertices;
 }
 
 
@@ -116,15 +116,15 @@ void TileMesh::resize(int num_columns, int num_rows)
    this->num_columns = num_columns;
    this->num_rows = num_rows;
 
-   // resize the vertexes vector
-   vertexes.clear();
+   // resize the vertices vector
+   vertices.clear();
    tile_ids.clear();
-   vertexes.resize(num_columns*num_rows*6);
+   vertices.resize(num_columns*num_rows*6);
    tile_ids.resize(num_columns*num_rows);
 
-   // place the vertexes in the mesh
-   int num_vertexes = num_columns*num_rows*6;
-   for (int v=0; v<num_vertexes; v+=6)
+   // place the vertices in the mesh
+   int num_vertices = num_columns*num_rows*6;
+   for (int v=0; v<num_vertices; v+=6)
    {
       long tile_num = v / 6;
 
@@ -133,32 +133,32 @@ void TileMesh::resize(int num_columns, int num_rows)
       int x2 = x1 + 1;
       int y2 = y1 + 1;
 
-      vertexes[v+0].x = x1;
-      vertexes[v+0].y = y1;
-      vertexes[v+1].x = x1;
-      vertexes[v+1].y = y2;
-      vertexes[v+2].x = x2;
-      vertexes[v+2].y = y2;
-      vertexes[v+3].x = x2;
-      vertexes[v+3].y = y2;
-      vertexes[v+4].x = x2;
-      vertexes[v+4].y = y1;
-      vertexes[v+5].x = x1;
-      vertexes[v+5].y = y1;
+      vertices[v+0].x = x1;
+      vertices[v+0].y = y1;
+      vertices[v+1].x = x1;
+      vertices[v+1].y = y2;
+      vertices[v+2].x = x2;
+      vertices[v+2].y = y2;
+      vertices[v+3].x = x2;
+      vertices[v+3].y = y2;
+      vertices[v+4].x = x2;
+      vertices[v+4].y = y1;
+      vertices[v+5].x = x1;
+      vertices[v+5].y = y1;
    }
 
-   // "scale" the vertexes to the tile_w and tile_h and set other default values
-   for (int v=0; v<num_vertexes; v++)
+   // "scale" the vertices to the tile_w and tile_h and set other default values
+   for (int v=0; v<num_vertices; v++)
    {
-      vertexes[v].x *= tile_width;
-      vertexes[v].y *= tile_height;
-      vertexes[v].z = 0;
-      vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
+      vertices[v].x *= tile_width;
+      vertices[v].y *= tile_height;
+      vertices[v].z = 0;
+      vertices[v].color = al_map_rgba_f(1, 1, 1, 1);
    }
 
    // create the vertex buffer;
    if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
-   vertex_buffer = al_create_vertex_buffer(NULL, &vertexes[0], vertexes.size(), ALLEGRO_PRIM_BUFFER_READWRITE);
+   vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_READWRITE);
 
    if (yz_swapped)
    {
@@ -175,8 +175,8 @@ void TileMesh::render(bool draw_outline)
    if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
 
    // TODO: Promote this to a vertex buffer
-   al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-   //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   al_draw_prim(&vertices[0], NULL, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
    if (draw_outline)
    {
@@ -226,41 +226,41 @@ void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    int &i = tile_index_start;
 
    // Modify the vertex
-   vertexes[i+0].u = u1;
-   vertexes[i+0].v = v1;
-   vertexes[i+1].u = u1;
-   vertexes[i+1].v = v2;
-   vertexes[i+2].u = u2;
-   vertexes[i+2].v = v2;
-   vertexes[i+3].u = u2;
-   vertexes[i+3].v = v2;
-   vertexes[i+4].u = u2;
-   vertexes[i+4].v = v1;
-   vertexes[i+5].u = u1;
-   vertexes[i+5].v = v1;
+   vertices[i+0].u = u1;
+   vertices[i+0].v = v1;
+   vertices[i+1].u = u1;
+   vertices[i+1].v = v2;
+   vertices[i+2].u = u2;
+   vertices[i+2].v = v2;
+   vertices[i+3].u = u2;
+   vertices[i+3].v = v2;
+   vertices[i+4].u = u2;
+   vertices[i+4].v = v1;
+   vertices[i+5].u = u1;
+   vertices[i+5].v = v1;
 
    /*
    // Modify the vertex in the vertex buffer
    ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
       vertex_buffer,
       0,
-      infer_num_vertexes(), // Consider only locking the region that needs the change
+      infer_num_vertices(), // Consider only locking the region that needs the change
       ALLEGRO_LOCK_WRITEONLY
    );
 
-   vertex_buffer_start[i+0] = vertexes[i+0];
-   vertex_buffer_start[i+1] = vertexes[i+1];
-   vertex_buffer_start[i+2] = vertexes[i+2];
-   vertex_buffer_start[i+3] = vertexes[i+3];
-   vertex_buffer_start[i+4] = vertexes[i+4];
-   vertex_buffer_start[i+5] = vertexes[i+5];
+   vertex_buffer_start[i+0] = vertices[i+0];
+   vertex_buffer_start[i+1] = vertices[i+1];
+   vertex_buffer_start[i+2] = vertices[i+2];
+   vertex_buffer_start[i+3] = vertices[i+3];
+   vertex_buffer_start[i+4] = vertices[i+4];
+   vertex_buffer_start[i+5] = vertices[i+5];
 
    al_unlock_vertex_buffer(vertex_buffer);
    */
    return;
 }
 
-int TileMesh::infer_num_vertexes()
+int TileMesh::infer_num_vertices()
 {
    return num_columns * num_rows * 6;
 }
@@ -284,7 +284,7 @@ void TileMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
       throw std::runtime_error(error_message.str());
    }
 
-   int num_vertices = infer_num_vertexes();
+   int num_vertices = infer_num_vertices();
    ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
       vertex_buffer,
       0,
@@ -294,11 +294,11 @@ void TileMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
 
    for (int v=0; v<num_vertices; v++)
    {
-      vertexes[v].x = vertexes[v].x / old_tile_width * new_tile_width;
-      vertexes[v].y = vertexes[v].y / old_tile_height * new_tile_height;
-      vertexes[v].z = vertexes[v].z / old_tile_height * new_tile_height;
+      vertices[v].x = vertices[v].x / old_tile_width * new_tile_width;
+      vertices[v].y = vertices[v].y / old_tile_height * new_tile_height;
+      vertices[v].z = vertices[v].z / old_tile_height * new_tile_height;
 
-      vertex_buffer_start[v] = vertexes[v];
+      vertex_buffer_start[v] = vertices[v];
    }
 
    al_unlock_vertex_buffer(vertex_buffer);
@@ -339,7 +339,7 @@ void TileMesh::swap_yz()
    if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::swap_yz] error: must be initialized first");
 
 
-   for (auto &vertex : vertexes)
+   for (auto &vertex : vertices)
    {
       float swap = vertex.y;
       vertex.y = vertex.z;
@@ -347,15 +347,15 @@ void TileMesh::swap_yz()
    }
 
    // Modify the vertex in the vertex buffer
-   int num_vertices = infer_num_vertexes();
+   int num_vertices = infer_num_vertices();
    ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
       vertex_buffer,
       0,
-      infer_num_vertexes(), // Consider only locking the region that needs the change
+      infer_num_vertices(), // Consider only locking the region that needs the change
       ALLEGRO_LOCK_WRITEONLY
    );
 
-   for (int i=0; i<num_vertices; i++) vertex_buffer_start[i] = vertexes[i];
+   for (int i=0; i<num_vertices; i++) vertex_buffer_start[i] = vertices[i];
 
    al_unlock_vertex_buffer(vertex_buffer);
 

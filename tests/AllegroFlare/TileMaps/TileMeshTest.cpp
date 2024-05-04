@@ -44,7 +44,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest, render__wi
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
-   initialize__will_set_the_number_of_vertexes_to_the_expected_amount)
+   initialize__will_set_the_number_of_vertices_to_the_expected_amount)
 {
    return;
 
@@ -54,7 +54,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
    atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);
    mesh.initialize();
 
-   ASSERT_EQ(30*20*6, mesh.get_vertexes_ref().size());
+   ASSERT_EQ(30*20*6, mesh.get_vertices_ref().size());
 }
 
 
@@ -123,7 +123,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
-   rescale_tile_dimensions_to__will_resize_all_of_the_vertexes_to_the_new_dimensions)
+   rescale_tile_dimensions_to__will_resize_all_of_the_vertices_to_the_new_dimensions)
 {
    ALLEGRO_BITMAP *atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
