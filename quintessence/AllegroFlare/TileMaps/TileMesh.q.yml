@@ -64,10 +64,20 @@ methods:
 
   - name: initialize
     guards:
-      - (!initialized)
+      - initialized
     body: |
       // TODO: Guard on al_is_system_installed
       // TODO: Guard on al_is_primitives_addon_initialized
+
+      resize(num_columns, num_rows);
+
+      initialized = true;
+      return;
+
+
+  - name: destroy
+    body: |
+      if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
       return;
 
 
@@ -80,7 +90,59 @@ methods:
         type: int
         default_argument: 0
     body: |
-      // TODO: This method body
+      this->num_columns = num_columns;
+      this->num_rows = num_rows;
+
+      // resize the vertexes vector
+      vertexes.clear();
+      tile_ids.clear();
+      vertexes.resize(num_columns*num_rows*6);
+      tile_ids.resize(num_columns*num_rows);
+
+      // place the vertexes in the mesh
+      int num_vertexes = num_columns*num_rows*6;
+      for (int v=0; v<num_vertexes; v+=6)
+      {
+         long tile_num = v / 6;
+
+         int x1 = (tile_num % num_columns);
+         int y1 = (tile_num / num_columns);
+         int x2 = x1 + 1;
+         int y2 = y1 + 1;
+
+         vertexes[v+0].x = x1;
+         vertexes[v+0].y = y1;
+         vertexes[v+1].x = x1;
+         vertexes[v+1].y = y2;
+         vertexes[v+2].x = x2;
+         vertexes[v+2].y = y2;
+         vertexes[v+3].x = x2;
+         vertexes[v+3].y = y2;
+         vertexes[v+4].x = x2;
+         vertexes[v+4].y = y1;
+         vertexes[v+5].x = x1;
+         vertexes[v+5].y = y1;
+      }
+
+      // "scale" the vertexes to the tile_w and tile_h and set other default values
+      for (int v=0; v<num_vertexes; v++)
+      {
+         vertexes[v].x *= tile_width;
+         vertexes[v].y *= tile_height;
+         vertexes[v].z = 0;
+         vertexes[v].color = al_map_rgba_f(1, 1, 1, 1);
+      }
+
+      // create the vertex buffer;
+      if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
+      vertex_buffer = al_create_vertex_buffer(NULL, &vertexes[0], vertexes.size(), ALLEGRO_PRIM_BUFFER_READWRITE);
+
+      if (yz_swapped)
+      {
+         swap_yz();
+         yz_swapped = true; // NOTE: This is a bit of an akward way to re-assign yz_swapped
+                            // simply because swap_yz() toggles the yz_swapped value.
+      }
       return;
 
 
@@ -90,11 +152,22 @@ methods:
         type: bool
         default_argument: false
     body: |
-      // TODO: This method body
+      if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
+      if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
+
+      // TODO: Promote this to a vertex buffer
+      al_draw_prim(&vertexes[0], NULL, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+      //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertexes.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+      if (draw_outline)
+      {
+         al_draw_rectangle(0, 0, num_columns * tile_width, num_rows * tile_height, ALLEGRO_COLOR{1, 0, 1, 1}, 2.0);
+      }
       return;
 
 
   - name: set_tile_id
+    type: bool
     parameters:
       - name: tile_x
         type: int
@@ -106,8 +179,25 @@ methods:
         type: int
         default_argument: 0
     body: |
-      // TODO: This method body
-      return;
+      if (!atlas) throw std::runtime_error("[AllegroFlare::TileMaps::PrimMesh] error: atlas must not be nullptr");
+      if (tile_id >= (int)atlas->get_tile_index_size()) return false;
+      if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::set_tile_id] error: must be initialized first");
+
+      // if the tile_id is a negative number, use the number "0" instead
+      // I'm not sure how/why this is the preferred approach.  I think negative numbers
+      // should be allowed, any number should be allowed.  So this should be revisited
+      if (tile_id < 0) tile_id = 0;
+
+      // transfer the uv coordinates of the from the tile atlas bitmap to the mesh
+      // {
+         int u1, v1, u2, v2;
+         atlas->get_tile_uv(tile_id, &u1, &v1, &u2, &v2);
+         set_tile_uv(tile_x, tile_y, u1, v1, u2, v2);
+      // }
+
+      tile_ids[tile_x + tile_y * num_columns] = tile_id;
+      
+      return true;
 
 
   - name: get_tile_id
@@ -120,7 +210,12 @@ methods:
         type: int
         default_argument: 0
     body: |
-      // TODO: This method body
+      if (tile_x < 0) return 0;
+      if (tile_x >= num_columns) return 0;
+      if (tile_y < 0) return 0;
+      if (tile_y >= num_rows) return 0;
+
+      return tile_ids[tile_x + tile_y * num_columns];
       return 0;
 
 
@@ -146,22 +241,54 @@ methods:
         default_argument: 0
     body: |
       // NOTE: Should the uv coordinates be floats?
-      // TODO: This method body
+      int tile_index_start = (tile_x * 6) + tile_y * (num_columns*6);
+      int &i = tile_index_start;
+
+      // Modify the vertex
+      vertexes[i+0].u = u1;
+      vertexes[i+0].v = v1;
+      vertexes[i+1].u = u1;
+      vertexes[i+1].v = v2;
+      vertexes[i+2].u = u2;
+      vertexes[i+2].v = v2;
+      vertexes[i+3].u = u2;
+      vertexes[i+3].v = v2;
+      vertexes[i+4].u = u2;
+      vertexes[i+4].v = v1;
+      vertexes[i+5].u = u1;
+      vertexes[i+5].v = v1;
+
+      /*
+      // Modify the vertex in the vertex buffer
+      ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+         vertex_buffer,
+         0,
+         infer_num_vertexes(), // Consider only locking the region that needs the change
+         ALLEGRO_LOCK_WRITEONLY
+      );
+
+      vertex_buffer_start[i+0] = vertexes[i+0];
+      vertex_buffer_start[i+1] = vertexes[i+1];
+      vertex_buffer_start[i+2] = vertexes[i+2];
+      vertex_buffer_start[i+3] = vertexes[i+3];
+      vertex_buffer_start[i+4] = vertexes[i+4];
+      vertex_buffer_start[i+5] = vertexes[i+5];
+
+      al_unlock_vertex_buffer(vertex_buffer);
+      */
       return;
 
 
   - name: infer_num_vertexes
     type: int
     body: |
-      // TODO: This method body
-      return 0;
+      return num_columns * num_rows * 6;
 
 
   - name: infer_num_tiles
     type: int
     body: |
-      // TODO: This method body
-      return 0;
+      return num_rows * num_columns;
 
 
   - name: rescale_tile_dimensions_to
@@ -173,27 +300,59 @@ methods:
         type: int
         default_argument: 0
     body: |
-      // TODO: This method body
+      int old_tile_width = this->tile_width;
+      int old_tile_height = this->tile_height;
+
+      if (new_tile_width <= 0 || new_tile_height <= 0)
+      {
+         // TODO: test this assertion
+         std::stringstream error_message;
+         error_message << "AllegroFlare::TileMaps::PrimMesh::rescale_tile_dimensions_to: error: "
+                       << "new_tile_width and/or new_tile_height cannot be less than or equal to zero.";
+         throw std::runtime_error(error_message.str());
+      }
+
+      int num_vertices = infer_num_vertexes();
+      ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+         vertex_buffer,
+         0,
+         num_vertices,
+         ALLEGRO_LOCK_WRITEONLY
+      );
+
+      for (int v=0; v<num_vertices; v++)
+      {
+         vertexes[v].x = vertexes[v].x / old_tile_width * new_tile_width;
+         vertexes[v].y = vertexes[v].y / old_tile_height * new_tile_height;
+         vertexes[v].z = vertexes[v].z / old_tile_height * new_tile_height;
+
+         vertex_buffer_start[v] = vertexes[v];
+      }
+
+      al_unlock_vertex_buffer(vertex_buffer);
+
+      this->tile_width = new_tile_width;
+      this->tile_height = new_tile_height;
       return;
 
 
   - name: set_tile_width
     parameters:
-      - name: tile_width
+      - name: new_tile_width
         type: int
         default_argument: 0
     body: |
-      // TODO: This method body
+      rescale_tile_dimensions_to(new_tile_width, this->tile_height);
       return;
 
 
   - name: set_tile_height
     parameters:
-      - name: tile_width
+      - name: new_tile_height
         type: int
         default_argument: 0
     body: |
-      // TODO: This method body
+      rescale_tile_dimensions_to(this->tile_width, new_tile_height);
       return;
 
 
@@ -201,7 +360,7 @@ methods:
     type: int
     body: |
       // TODO: This should be a float?
-      // TODO: This method body
+      return num_columns * tile_width;
       return 0;
 
 
@@ -209,13 +368,36 @@ methods:
     type: int
     body: |
       // TODO: This should be a float?
-      // TODO: This method body
+      return num_rows * tile_height;
       return 0;
 
 
   - name: swap_yz
     body: |
-      // TODO: This method body
+      if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::swap_yz] error: must be initialized first");
+
+
+      for (auto &vertex : vertexes)
+      {
+         float swap = vertex.y;
+         vertex.y = vertex.z;
+         vertex.z = swap;
+      }
+
+      // Modify the vertex in the vertex buffer
+      int num_vertices = infer_num_vertexes();
+      ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+         vertex_buffer,
+         0,
+         infer_num_vertexes(), // Consider only locking the region that needs the change
+         ALLEGRO_LOCK_WRITEONLY
+      );
+
+      for (int i=0; i<num_vertices; i++) vertex_buffer_start[i] = vertexes[i];
+
+      al_unlock_vertex_buffer(vertex_buffer);
+
+      yz_swapped = !yz_swapped;
       return;
 
 
