@@ -2,6 +2,8 @@
 
 #include <AllegroFlare/TileMaps/TileMesh.hpp>
 
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -17,7 +19,9 @@ TileMesh::TileMesh(AllegroFlare::TileMaps::PrimMeshAtlas* atlas, int num_columns
    : atlas(atlas)
    , vertices()
    , vertex_buffer(nullptr)
+   , index_buffer(nullptr)
    , tile_ids({})
+   , index_vertices({})
    , num_columns(num_columns)
    , num_rows(num_rows)
    , tile_width(tile_width)
@@ -50,6 +54,12 @@ AllegroFlare::TileMaps::PrimMeshAtlas* TileMesh::get_atlas() const
 std::vector<int> TileMesh::get_tile_ids() const
 {
    return tile_ids;
+}
+
+
+std::vector<int> TileMesh::get_index_vertices() const
+{
+   return index_vertices;
 }
 
 
@@ -110,12 +120,22 @@ void TileMesh::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TileMesh::initialize: error: guard \"(!initialized)\" not met");
    }
-   // TODO: Guard on al_is_system_installed
-   // TODO: Guard on al_is_primitives_addon_initialized
-
-   resize(num_columns, num_rows);
-
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::initialize: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
    initialized = true;
+   resize(num_columns, num_rows);
    return;
 }
 
@@ -133,6 +153,13 @@ void TileMesh::enable_holding_vertex_buffer_update_until_refresh()
 
 void TileMesh::resize(int num_columns, int num_rows)
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::resize]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::resize: error: guard \"initialized\" not met");
+   }
    this->num_columns = num_columns;
    this->num_rows = num_rows;
 
@@ -141,6 +168,10 @@ void TileMesh::resize(int num_columns, int num_rows)
    tile_ids.clear();
    vertices.resize(num_columns*num_rows*6);
    tile_ids.resize(num_columns*num_rows);
+   index_vertices.clear();
+   index_vertices.resize(vertices.size());
+   if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
+   if (index_buffer) al_destroy_index_buffer(index_buffer);
 
    // place the vertices in the mesh
    int num_vertices = num_columns*num_rows*6;
@@ -167,7 +198,7 @@ void TileMesh::resize(int num_columns, int num_rows)
       vertices[v+5].y = y1;
    }
 
-   // "scale" the vertices to the tile_w and tile_h and set other default values
+   // Scale the vertices to the tile_w and tile_h and set other default values
    for (int v=0; v<num_vertices; v++)
    {
       vertices[v].x *= tile_width;
@@ -176,9 +207,21 @@ void TileMesh::resize(int num_columns, int num_rows)
       vertices[v].color = al_map_rgba_f(1, 1, 1, 1);
    }
 
-   // create the vertex buffer;
-   if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
-   vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_READWRITE);
+   // Create the vertex buffer, duplicate the vertices into it
+   vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+
+   // Build the vertex indexes
+   int num_index_vertices = index_vertices.size();
+   for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+   int index_buffer_int_size = 4; // 4 is normal "int", this may be needed if vertex_indexes, when copied into the
+                                  // buffer, are indeed of size "int"
+                                  // TODO: Consider a "sizeof" here
+   index_buffer = al_create_index_buffer(
+         index_buffer_int_size,
+         &index_vertices[0],
+         index_vertices.size(),
+         ALLEGRO_PRIM_BUFFER_DYNAMIC
+      );
 
    if (yz_swapped)
    {
@@ -218,7 +261,18 @@ void TileMesh::render(bool draw_outline)
 
    // TODO: Promote this to a vertex buffer
    //al_draw_prim(&vertices[0], NULL, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-   al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+   al_draw_indexed_buffer(
+      vertex_buffer,
+      atlas->get_bitmap(),
+      index_buffer,
+      0,
+      vertices.size(), 
+      ALLEGRO_PRIM_TRIANGLE_LIST
+   );
+   //ALLEGRO_BITMAP* texture, ALLEGRO_INDEX_BUFFER* index_buffer,
+   //int start, int end, int type)
 
    if (draw_outline)
    {

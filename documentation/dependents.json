@@ -399,6 +399,7 @@
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
+    "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/Time",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
@@ -741,6 +742,7 @@
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
+    "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/UnicodeFontViewer",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],

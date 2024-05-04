@@ -17,7 +17,9 @@ namespace AllegroFlare
          AllegroFlare::TileMaps::PrimMeshAtlas* atlas;
          std::vector<ALLEGRO_VERTEX> vertices;
          ALLEGRO_VERTEX_BUFFER* vertex_buffer;
+         ALLEGRO_INDEX_BUFFER* index_buffer;
          std::vector<int> tile_ids;
+         std::vector<int> index_vertices;
          int num_columns;
          int num_rows;
          int tile_width;
@@ -37,6 +39,7 @@ namespace AllegroFlare
          void set_atlas(AllegroFlare::TileMaps::PrimMeshAtlas* atlas);
          AllegroFlare::TileMaps::PrimMeshAtlas* get_atlas() const;
          std::vector<int> get_tile_ids() const;
+         std::vector<int> get_index_vertices() const;
          int get_num_columns() const;
          int get_num_rows() const;
          int get_tile_width() const;
