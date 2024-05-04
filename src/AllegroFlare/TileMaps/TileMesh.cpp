@@ -22,6 +22,8 @@ TileMesh::TileMesh(AllegroFlare::TileMaps::PrimMeshAtlas* atlas, int num_columns
    , num_rows(num_rows)
    , tile_width(tile_width)
    , tile_height(tile_height)
+   , holding_vertex_buffer_update_until_refresh(false)
+   , vertex_buffer_is_dirty(false)
    , yz_swapped(false)
    , initialized(false)
 {
@@ -75,6 +77,18 @@ int TileMesh::get_tile_height() const
 }
 
 
+bool TileMesh::get_holding_vertex_buffer_update_until_refresh() const
+{
+   return holding_vertex_buffer_update_until_refresh;
+}
+
+
+bool TileMesh::get_vertex_buffer_is_dirty() const
+{
+   return vertex_buffer_is_dirty;
+}
+
+
 bool TileMesh::get_initialized() const
 {
    return initialized;
@@ -108,6 +122,12 @@ void TileMesh::initialize()
 void TileMesh::destroy()
 {
    if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
+   return;
+}
+
+void TileMesh::enable_holding_vertex_buffer_update_until_refresh()
+{
+   holding_vertex_buffer_update_until_refresh = true;
    return;
 }
 
@@ -171,12 +191,34 @@ void TileMesh::resize(int num_columns, int num_rows)
 
 void TileMesh::render(bool draw_outline)
 {
-   if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
-   if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::render: error: guard \"initialized\" not met");
+   }
+   if (!(atlas))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::render]: error: guard \"atlas\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::render: error: guard \"atlas\" not met");
+   }
+   if (!((!vertex_buffer_is_dirty)))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::render]: error: guard \"(!vertex_buffer_is_dirty)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::render: error: guard \"(!vertex_buffer_is_dirty)\" not met");
+   }
+   //if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::render] error: initialized can not be nullptr");
+   //if (!atlas) throw std::runtime_error("[AllegroFlare::PrimMesh] error: atlas must not be nullptr");
+   //if (
 
    // TODO: Promote this to a vertex buffer
-   al_draw_prim(&vertices[0], NULL, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-   //al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   //al_draw_prim(&vertices[0], NULL, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   al_draw_vertex_buffer(vertex_buffer, atlas->get_bitmap(), 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
 
    if (draw_outline)
    {
@@ -239,24 +281,47 @@ void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    vertices[i+5].u = u1;
    vertices[i+5].v = v1;
 
-   /*
-   // Modify the vertex in the vertex buffer
+   if (holding_vertex_buffer_update_until_refresh)
+   {
+      vertex_buffer_is_dirty = true;
+   }
+   else
+   {
+      // Modify the vertex in the vertex buffer
+      ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+         vertex_buffer,
+         0,
+         infer_num_vertices(), // Consider only locking the region that needs the change
+         ALLEGRO_LOCK_WRITEONLY
+      );
+
+      vertex_buffer_start[i+0] = vertices[i+0];
+      vertex_buffer_start[i+1] = vertices[i+1];
+      vertex_buffer_start[i+2] = vertices[i+2];
+      vertex_buffer_start[i+3] = vertices[i+3];
+      vertex_buffer_start[i+4] = vertices[i+4];
+      vertex_buffer_start[i+5] = vertices[i+5];
+
+      al_unlock_vertex_buffer(vertex_buffer);
+   }
+   return;
+}
+
+void TileMesh::refresh_vertex_buffer()
+{
+   int num_vertices = infer_num_vertices();
    ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
       vertex_buffer,
       0,
-      infer_num_vertices(), // Consider only locking the region that needs the change
+      num_vertices,
       ALLEGRO_LOCK_WRITEONLY
    );
 
-   vertex_buffer_start[i+0] = vertices[i+0];
-   vertex_buffer_start[i+1] = vertices[i+1];
-   vertex_buffer_start[i+2] = vertices[i+2];
-   vertex_buffer_start[i+3] = vertices[i+3];
-   vertex_buffer_start[i+4] = vertices[i+4];
-   vertex_buffer_start[i+5] = vertices[i+5];
+   for (int v=0; v<num_vertices; v++) vertex_buffer_start[v] = vertices[v];
 
    al_unlock_vertex_buffer(vertex_buffer);
-   */
+
+   vertex_buffer_is_dirty = false;
    return;
 }
 
@@ -285,12 +350,12 @@ void TileMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
    }
 
    int num_vertices = infer_num_vertices();
-   ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
-      vertex_buffer,
-      0,
-      num_vertices,
-      ALLEGRO_LOCK_WRITEONLY
-   );
+   //ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+      //vertex_buffer,
+      //0,
+      //num_vertices,
+      //ALLEGRO_LOCK_WRITEONLY
+   //);
 
    for (int v=0; v<num_vertices; v++)
    {
@@ -298,10 +363,13 @@ void TileMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
       vertices[v].y = vertices[v].y / old_tile_height * new_tile_height;
       vertices[v].z = vertices[v].z / old_tile_height * new_tile_height;
 
-      vertex_buffer_start[v] = vertices[v];
+      //vertex_buffer_start[v] = vertices[v];
    }
 
-   al_unlock_vertex_buffer(vertex_buffer);
+   //al_unlock_vertex_buffer(vertex_buffer);
+
+   if (holding_vertex_buffer_update_until_refresh) vertex_buffer_is_dirty = true;
+   else refresh_vertex_buffer();
 
    this->tile_width = new_tile_width;
    this->tile_height = new_tile_height;
@@ -347,17 +415,8 @@ void TileMesh::swap_yz()
    }
 
    // Modify the vertex in the vertex buffer
-   int num_vertices = infer_num_vertices();
-   ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
-      vertex_buffer,
-      0,
-      infer_num_vertices(), // Consider only locking the region that needs the change
-      ALLEGRO_LOCK_WRITEONLY
-   );
-
-   for (int i=0; i<num_vertices; i++) vertex_buffer_start[i] = vertices[i];
-
-   al_unlock_vertex_buffer(vertex_buffer);
+   if (holding_vertex_buffer_update_until_refresh) vertex_buffer_is_dirty = true;
+   else refresh_vertex_buffer();
 
    yz_swapped = !yz_swapped;
    return;

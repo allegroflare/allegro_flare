@@ -22,6 +22,8 @@ namespace AllegroFlare
          int num_rows;
          int tile_width;
          int tile_height;
+         bool holding_vertex_buffer_update_until_refresh;
+         bool vertex_buffer_is_dirty;
          bool yz_swapped;
          bool initialized;
 
@@ -39,15 +41,19 @@ namespace AllegroFlare
          int get_num_rows() const;
          int get_tile_width() const;
          int get_tile_height() const;
+         bool get_holding_vertex_buffer_update_until_refresh() const;
+         bool get_vertex_buffer_is_dirty() const;
          bool get_initialized() const;
          std::vector<ALLEGRO_VERTEX> &get_vertices_ref();
          void initialize();
          void destroy();
+         void enable_holding_vertex_buffer_update_until_refresh();
          void resize(int num_columns=0, int num_rows=0);
          void render(bool draw_outline=false);
          bool set_tile_id(int tile_x=0, int tile_y=0, int tile_id=0);
          int get_tile_id(int tile_x=0, int tile_y=0);
          void set_tile_uv(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0);
+         void refresh_vertex_buffer();
          int infer_num_vertices();
          int infer_num_tiles();
          void rescale_tile_dimensions_to(int new_tile_width=0, int new_tile_height=0);

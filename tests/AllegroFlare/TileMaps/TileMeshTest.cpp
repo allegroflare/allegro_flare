@@ -133,6 +133,8 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
    mesh.initialize();
 
    // Fill the tile mesh with random values
+   mesh.enable_holding_vertex_buffer_update_until_refresh();
+
    AllegroFlare::Random random;
    for (int y=0; y<mesh.get_num_rows(); y++)
    {
@@ -145,6 +147,8 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
 
    // Rescale the tile dimensions to something more arbitrary
    mesh.rescale_tile_dimensions_to(24, 24);
+
+   mesh.refresh_vertex_buffer();
 
    al_clear_to_color(al_color_name("dodgerblue"));
 

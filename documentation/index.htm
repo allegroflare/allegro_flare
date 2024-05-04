@@ -38441,7 +38441,7 @@ table td
   <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
 </tr>
 <tr>
-  <td class="property">vertexes</td>
+  <td class="property">vertices</td>
   <td class="property">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
 </tr>
 <tr>
@@ -38469,6 +38469,14 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">holding_vertex_buffer_update_until_refresh</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">vertex_buffer_is_dirty</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">yz_swapped</td>
   <td class="property">bool</td>
 </tr>
@@ -38486,6 +38494,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>enable_holding_vertex_buffer_update_until_refresh</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -38508,8 +38520,12 @@ table td
   <td class="method"><b>set_tile_uv</b>(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0)</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>refresh_vertex_buffer</b>()</td>
+</tr>
+<tr>
   <td class="method">int</td>
-  <td class="method"><b>infer_num_vertexes</b>()</td>
+  <td class="method"><b>infer_num_vertices</b>()</td>
 </tr>
 <tr>
   <td class="method">int</td>
