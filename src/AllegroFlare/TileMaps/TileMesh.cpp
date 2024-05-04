@@ -139,6 +139,48 @@ void TileMesh::initialize()
    return;
 }
 
+std::vector<int> TileMesh::vertex_indices_for_tile_xy(int tile_x, int tile_y)
+{
+   if (!((tile_x >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_x >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::vertex_indices_for_tile_xy: error: guard \"(tile_x >= 0)\" not met");
+   }
+   if (!((tile_x < num_columns)))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_x < num_columns)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::vertex_indices_for_tile_xy: error: guard \"(tile_x < num_columns)\" not met");
+   }
+   if (!((tile_y >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_y >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::vertex_indices_for_tile_xy: error: guard \"(tile_y >= 0)\" not met");
+   }
+   if (!((tile_y < num_rows)))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_y < num_rows)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::vertex_indices_for_tile_xy: error: guard \"(tile_y < num_rows)\" not met");
+   }
+   // TODO: Test and try using this method
+   int first_vertex_index = (tile_x + tile_y * num_columns) * 6;
+   return std::vector<int>{
+      first_vertex_index+0,
+      first_vertex_index+1,
+      first_vertex_index+2,
+      first_vertex_index+3,
+      first_vertex_index+4,
+      first_vertex_index+5,
+   };
+}
+
 void TileMesh::destroy()
 {
    if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);

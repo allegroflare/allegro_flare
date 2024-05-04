@@ -108,6 +108,29 @@ methods:
       - al_is_primitives_addon_initialized
 
 
+  - name: vertex_indices_for_tile_xy
+    type: std::vector<int>
+    parameters:
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+    guards: [ (tile_x >= 0), (tile_x < num_columns), (tile_y >= 0), (tile_y < num_rows) ]
+    body: |
+      // TODO: Test and try using this method
+      int first_vertex_index = (tile_x + tile_y * num_columns) * 6;
+      return std::vector<int>{
+         first_vertex_index+0,
+         first_vertex_index+1,
+         first_vertex_index+2,
+         first_vertex_index+3,
+         first_vertex_index+4,
+         first_vertex_index+5,
+      };
+
+
   - name: destroy
     body: |
       if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
