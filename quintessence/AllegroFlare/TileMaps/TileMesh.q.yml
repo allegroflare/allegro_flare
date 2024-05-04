@@ -69,6 +69,19 @@ properties:
     setter: false
 
 
+documentation:
+
+
+  - notes:
+     - This class is the evolutionary replacement for TileMaps/PrimMesh. It includes uses vertex_buffer and has features
+       for postponing a vertex_buffer refresh. Feel free to optimize this!
+  - todos:
+     - Add a pruning feature (Make is to that "empty" tiles can be present in the tile_ids<>, but do not draw them)
+        - Consider adding an index buffer so that empty tiles are not rendered
+        - Consider *removing* empty tile vertices from the vertices<>.
+     - Consider adding an index buffer feature, breaking the map into sections so that off-screen draws can be bypassed
+
+
 methods:
 
 
@@ -196,10 +209,10 @@ methods:
       - name: tile_id
         type: int
         default_argument: 0
+    guards: [ initialized, atlas ]
     body: |
-      if (!atlas) throw std::runtime_error("[AllegroFlare::TileMaps::PrimMesh] error: atlas must not be nullptr");
       if (tile_id >= (int)atlas->get_tile_index_size()) return false;
-      if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::set_tile_id] error: must be initialized first");
+      //if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::set_tile_id] error: must be initialized first");
 
       // if the tile_id is a negative number, use the number "0" instead
       // I'm not sure how/why this is the preferred approach.  I think negative numbers

@@ -229,9 +229,22 @@ void TileMesh::render(bool draw_outline)
 
 bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id)
 {
-   if (!atlas) throw std::runtime_error("[AllegroFlare::TileMaps::PrimMesh] error: atlas must not be nullptr");
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::set_tile_id]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::set_tile_id: error: guard \"initialized\" not met");
+   }
+   if (!(atlas))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::set_tile_id]: error: guard \"atlas\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::set_tile_id: error: guard \"atlas\" not met");
+   }
    if (tile_id >= (int)atlas->get_tile_index_size()) return false;
-   if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::set_tile_id] error: must be initialized first");
+   //if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::set_tile_id] error: must be initialized first");
 
    // if the tile_id is a negative number, use the number "0" instead
    // I'm not sure how/why this is the preferred approach.  I think negative numbers
