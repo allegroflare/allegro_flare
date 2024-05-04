@@ -175,6 +175,9 @@ namespace AllegroFlare
             void draw_entities_sorted_by_render_order();
             virtual void update();
             virtual void draw_hud();
+            virtual void draw__before_background_tile_mesh_render_func();
+            virtual void draw__before_tile_mesh_render_func();
+            virtual void draw__before_foreground_tile_mesh_render_func();
             void draw();
             void draw_debugging();
             void toggle_show_collision_tile_mesh();

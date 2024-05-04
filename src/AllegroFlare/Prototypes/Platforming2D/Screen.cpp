@@ -1829,6 +1829,27 @@ void Screen::draw_hud()
    return;
 }
 
+void Screen::draw__before_background_tile_mesh_render_func()
+{
+   // shader = currently_active_map->get_shader_for_background_tile_mesh();
+   // shader->set_darkness(0.2);
+   return;
+}
+
+void Screen::draw__before_tile_mesh_render_func()
+{
+   // shader = currently_active_map->get_shader_for_background_tile_mesh();
+   // shader->set_darkness(0.2);
+   return;
+}
+
+void Screen::draw__before_foreground_tile_mesh_render_func()
+{
+   // shader = currently_active_map->get_shader_for_background_tile_mesh();
+   // shader->set_darkness(0.2);
+   return;
+}
+
 void Screen::draw()
 {
    if (!(initialized))
@@ -1868,9 +1889,11 @@ void Screen::draw()
                                                                            // z-level to overwrite. This 
                                                                            // mimics the rendering of typical
                                                                            // "traditional" drawing functions
+
    // TODO: Figure out how to include tile mesh with entities, including "draw_order_z" and "draw_order_group"
    if (show_background_tile_mesh && background_tile_mesh_exists())
    {
+      draw__before_background_tile_mesh_render_func();
       if (currently_active_map->get_shader_for_background_tile_mesh())
       {
          currently_active_map->get_shader_for_background_tile_mesh()->activate();
@@ -1883,12 +1906,30 @@ void Screen::draw()
    }
    if (show_tile_mesh)
    {
+      draw__before_tile_mesh_render_func();
+      if (currently_active_map->get_shader_for_tile_mesh())
+      {
+         currently_active_map->get_shader_for_tile_mesh()->activate();
+      }
       get_tile_mesh()->render();
+      if (currently_active_map->get_shader_for_tile_mesh())
+      {
+         currently_active_map->get_shader_for_tile_mesh()->deactivate();
+      }
    }
    draw_entities_sorted_by_render_order();
    if (show_foreground_tile_mesh && foreground_tile_mesh_exists())
    {
+      draw__before_foreground_tile_mesh_render_func();
+      if (currently_active_map->get_shader_for_foreground_tile_mesh())
+      {
+         currently_active_map->get_shader_for_foreground_tile_mesh()->activate();
+      }
       get_foreground_tile_mesh()->render();
+      if (currently_active_map->get_shader_for_foreground_tile_mesh())
+      {
+         currently_active_map->get_shader_for_foreground_tile_mesh()->deactivate();
+      }
    }
    if (show_collision_tile_mesh) render_collision_tile_mesh();
 
