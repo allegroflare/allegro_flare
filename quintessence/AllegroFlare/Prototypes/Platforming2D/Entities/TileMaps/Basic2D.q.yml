@@ -21,14 +21,32 @@ properties:
     getter: true
     setter: true
 
+  - name: shader_for_tile_mesh
+    type: AllegroFlare::Shaders::Base*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: background_tile_mesh
     type: AllegroFlare::TileMaps::PrimMesh*
     init_with: nullptr
     getter: true
     setter: true
 
+  - name: shader_for_background_tile_mesh
+    type: AllegroFlare::Shaders::Base*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: foreground_tile_mesh
     type: AllegroFlare::TileMaps::PrimMesh*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: shader_for_foreground_tile_mesh
+    type: AllegroFlare::Shaders::Base*
     init_with: nullptr
     getter: true
     setter: true
@@ -109,5 +127,7 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMesh
     headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
+  - symbol: AllegroFlare::Shaders::Base
+    headers: [ AllegroFlare/Shaders/Base.hpp ]
 
 

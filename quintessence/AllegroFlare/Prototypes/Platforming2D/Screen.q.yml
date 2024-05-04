@@ -1701,7 +1701,15 @@ methods:
       // TODO: Figure out how to include tile mesh with entities, including "draw_order_z" and "draw_order_group"
       if (show_background_tile_mesh && background_tile_mesh_exists())
       {
+         if (currently_active_map->get_shader_for_background_tile_mesh())
+         {
+            currently_active_map->get_shader_for_background_tile_mesh()->activate();
+         }
          get_background_tile_mesh()->render();
+         if (currently_active_map->get_shader_for_background_tile_mesh())
+         {
+            currently_active_map->get_shader_for_background_tile_mesh()->deactivate();
+         }
       }
       if (show_tile_mesh)
       {

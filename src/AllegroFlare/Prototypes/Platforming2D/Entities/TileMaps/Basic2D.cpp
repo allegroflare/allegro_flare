@@ -21,8 +21,11 @@ Basic2D::Basic2D()
    : AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D()
    , tile_atlas(nullptr)
    , tile_mesh(nullptr)
+   , shader_for_tile_mesh(nullptr)
    , background_tile_mesh(nullptr)
+   , shader_for_background_tile_mesh(nullptr)
    , foreground_tile_mesh(nullptr)
+   , shader_for_foreground_tile_mesh(nullptr)
    , collision_tile_mesh(nullptr)
 {
 }
@@ -45,15 +48,33 @@ void Basic2D::set_tile_mesh(AllegroFlare::TileMaps::PrimMesh* tile_mesh)
 }
 
 
+void Basic2D::set_shader_for_tile_mesh(AllegroFlare::Shaders::Base* shader_for_tile_mesh)
+{
+   this->shader_for_tile_mesh = shader_for_tile_mesh;
+}
+
+
 void Basic2D::set_background_tile_mesh(AllegroFlare::TileMaps::PrimMesh* background_tile_mesh)
 {
    this->background_tile_mesh = background_tile_mesh;
 }
 
 
+void Basic2D::set_shader_for_background_tile_mesh(AllegroFlare::Shaders::Base* shader_for_background_tile_mesh)
+{
+   this->shader_for_background_tile_mesh = shader_for_background_tile_mesh;
+}
+
+
 void Basic2D::set_foreground_tile_mesh(AllegroFlare::TileMaps::PrimMesh* foreground_tile_mesh)
 {
    this->foreground_tile_mesh = foreground_tile_mesh;
+}
+
+
+void Basic2D::set_shader_for_foreground_tile_mesh(AllegroFlare::Shaders::Base* shader_for_foreground_tile_mesh)
+{
+   this->shader_for_foreground_tile_mesh = shader_for_foreground_tile_mesh;
 }
 
 
@@ -75,15 +96,33 @@ AllegroFlare::TileMaps::PrimMesh* Basic2D::get_tile_mesh() const
 }
 
 
+AllegroFlare::Shaders::Base* Basic2D::get_shader_for_tile_mesh() const
+{
+   return shader_for_tile_mesh;
+}
+
+
 AllegroFlare::TileMaps::PrimMesh* Basic2D::get_background_tile_mesh() const
 {
    return background_tile_mesh;
 }
 
 
+AllegroFlare::Shaders::Base* Basic2D::get_shader_for_background_tile_mesh() const
+{
+   return shader_for_background_tile_mesh;
+}
+
+
 AllegroFlare::TileMaps::PrimMesh* Basic2D::get_foreground_tile_mesh() const
 {
    return foreground_tile_mesh;
+}
+
+
+AllegroFlare::Shaders::Base* Basic2D::get_shader_for_foreground_tile_mesh() const
+{
+   return shader_for_foreground_tile_mesh;
 }
 
 

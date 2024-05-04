@@ -27355,12 +27355,24 @@ table td
   <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
 </tr>
 <tr>
+  <td class="property">shader_for_tile_mesh</td>
+  <td class="property">AllegroFlare::Shaders::Base*</td>
+</tr>
+<tr>
   <td class="property">background_tile_mesh</td>
   <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
 </tr>
 <tr>
+  <td class="property">shader_for_background_tile_mesh</td>
+  <td class="property">AllegroFlare::Shaders::Base*</td>
+</tr>
+<tr>
   <td class="property">foreground_tile_mesh</td>
   <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
+</tr>
+<tr>
+  <td class="property">shader_for_foreground_tile_mesh</td>
+  <td class="property">AllegroFlare::Shaders::Base*</td>
 </tr>
 <tr>
   <td class="property">collision_tile_mesh</td>
@@ -27395,6 +27407,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -44882,6 +44897,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/Cubemap",
     "AllegroFlare/Shaders/FlatColor",
