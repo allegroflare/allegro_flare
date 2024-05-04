@@ -4,10 +4,14 @@ properties:
   - name: atlas
     type: AllegroFlare::TileMaps::PrimMeshAtlas*
     init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
 
   - name: vertexes
     type: std::vector<ALLEGRO_VERTEX>
     init_with: ''
+    getter_ref: true
 
   - name: vertex_buffer
     type: ALLEGRO_VERTEX_BUFFER*
@@ -16,22 +20,33 @@ properties:
   - name: tile_ids
     type: std::vector<int>
     init_with: '{}'
+    getter: true
 
   - name: num_columns
     type: int
     init_with: 0
+    constructor_arg: true
+    getter: true
 
   - name: num_rows
     type: int
     init_with: 0
+    constructor_arg: true
+    getter: true
 
   - name: tile_width
     type: int
     init_with: 1
+    constructor_arg: true
+    getter: true
+    setter: explicit
 
   - name: tile_height
     type: int
     init_with: 1
+    constructor_arg: true
+    getter: true
+    setter: explicit
 
   - name: yz_swapped
     type: bool
@@ -40,6 +55,8 @@ properties:
   - name: initialized
     type: bool
     init_with: false
+    getter: true
+    setter: false
 
 
 methods:
@@ -51,6 +68,154 @@ methods:
     body: |
       // TODO: Guard on al_is_system_installed
       // TODO: Guard on al_is_primitives_addon_initialized
+      return;
+
+
+  - name: resize
+    parameters:
+      - name: num_columns
+        type: int
+        default_argument: 0
+      - name: num_rows
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: This method body
+      return;
+
+
+  - name: render
+    parameters:
+      - name: draw_outline
+        type: bool
+        default_argument: false
+    body: |
+      // TODO: This method body
+      return;
+
+
+  - name: set_tile_id
+    parameters:
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+      - name: tile_id
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: This method body
+      return;
+
+
+  - name: get_tile_id
+    type: int
+    parameters:
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: This method body
+      return 0;
+
+
+  - name: set_tile_uv
+    parameters:
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+      - name: u1
+        type: int
+        default_argument: 0
+      - name: v1
+        type: int
+        default_argument: 0
+      - name: u2
+        type: int
+        default_argument: 0
+      - name: v2
+        type: int
+        default_argument: 0
+    body: |
+      // NOTE: Should the uv coordinates be floats?
+      // TODO: This method body
+      return;
+
+
+  - name: infer_num_vertexes
+    type: int
+    body: |
+      // TODO: This method body
+      return 0;
+
+
+  - name: infer_num_tiles
+    type: int
+    body: |
+      // TODO: This method body
+      return 0;
+
+
+  - name: rescale_tile_dimensions_to
+    parameters:
+      - name: new_tile_width
+        type: int
+        default_argument: 0
+      - name: new_tile_height
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: This method body
+      return;
+
+
+  - name: set_tile_width
+    parameters:
+      - name: tile_width
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: This method body
+      return;
+
+
+  - name: set_tile_height
+    parameters:
+      - name: tile_width
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: This method body
+      return;
+
+
+  - name: get_real_width
+    type: int
+    body: |
+      // TODO: This should be a float?
+      // TODO: This method body
+      return 0;
+
+
+  - name: get_real_height
+    type: int
+    body: |
+      // TODO: This should be a float?
+      // TODO: This method body
+      return 0;
+
+
+  - name: swap_yz
+    body: |
+      // TODO: This method body
       return;
 
 

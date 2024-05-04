@@ -38435,15 +38435,120 @@ table td
     <h3 id="quintessence/AllegroFlare/TileMaps/TileMesh.q.yml">quintessence/AllegroFlare/TileMaps/TileMesh.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
-<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+</tr>
+<tr>
+  <td class="property">vertexes</td>
+  <td class="property">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+</tr>
+<tr>
+  <td class="property">vertex_buffer</td>
+  <td class="property">ALLEGRO_VERTEX_BUFFER*</td>
+</tr>
+<tr>
+  <td class="property">tile_ids</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">yz_swapped</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">std::string</td>
-  <td class="method"><b>run</b>()</td>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>resize</b>(int num_columns=0, int num_rows=0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>(bool draw_outline=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_tile_id</b>(int tile_x=0, int tile_y=0, int tile_id=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_tile_id</b>(int tile_x=0, int tile_y=0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_tile_uv</b>(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>infer_num_vertexes</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>infer_num_tiles</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>rescale_tile_dimensions_to</b>(int new_tile_width=0, int new_tile_height=0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_tile_width</b>(int tile_width=0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_tile_height</b>(int tile_width=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_real_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_real_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>swap_yz</b>()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX_BUFFER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -44681,7 +44786,8 @@ table td
     "WickedDemos/TileDemo"
   ],
   "ALLEGRO_VERTEX": [
-    "AllegroFlare/Elements/NinePatch"
+    "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
@@ -45741,6 +45847,7 @@ table td
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/TileMaps/TileAtlasRepositoryRecord",
+    "AllegroFlare/TileMaps/TileMesh",
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -46308,7 +46415,8 @@ table td
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "ALLEGRO_VERTEX_BUFFER": [
-    "AllegroFlare/TileMaps/MultiMesh"
+    "AllegroFlare/TileMaps/MultiMesh",
+    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/TileMaps/MultiMeshUV": [
     "AllegroFlare/TileMaps/MultiMeshUVAtlas"

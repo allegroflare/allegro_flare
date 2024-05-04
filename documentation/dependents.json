@@ -2189,7 +2189,8 @@
     "WickedDemos/TileDemo"
   ],
   "ALLEGRO_VERTEX": [
-    "AllegroFlare/Elements/NinePatch"
+    "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
@@ -3249,6 +3250,7 @@
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/TileMaps/TileAtlasRepositoryRecord",
+    "AllegroFlare/TileMaps/TileMesh",
     "Tileo/MeshWithNormals",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory",
@@ -3816,7 +3818,8 @@
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
   ],
   "ALLEGRO_VERTEX_BUFFER": [
-    "AllegroFlare/TileMaps/MultiMesh"
+    "AllegroFlare/TileMaps/MultiMesh",
+    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/TileMaps/MultiMeshUV": [
     "AllegroFlare/TileMaps/MultiMeshUVAtlas"
