@@ -1,0 +1,67 @@
+properties:
+
+
+  - name: atlas
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
+    init_with: nullptr
+
+  - name: vertexes
+    type: std::vector<ALLEGRO_VERTEX>
+    init_with: ''
+
+  - name: vertex_buffer
+    type: ALLEGRO_VERTEX_BUFFER*
+    init_with: nullptr
+
+  - name: tile_ids
+    type: std::vector<int>
+    init_with: '{}'
+
+  - name: num_columns
+    type: int
+    init_with: 0
+
+  - name: num_rows
+    type: int
+    init_with: 0
+
+  - name: tile_width
+    type: int
+    init_with: 1
+
+  - name: tile_height
+    type: int
+    init_with: 1
+
+  - name: yz_swapped
+    type: bool
+    init_with: false
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+methods:
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+    body: |
+      // TODO: Guard on al_is_system_installed
+      // TODO: Guard on al_is_primitives_addon_initialized
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_VERTEX
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_VERTEX_BUFFER
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+
+

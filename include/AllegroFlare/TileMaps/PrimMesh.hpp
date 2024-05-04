@@ -16,7 +16,7 @@ namespace AllegroFlare::TileMaps
       AllegroFlare::TileMaps::PrimMeshAtlas *atlas;
       std::vector<ALLEGRO_VERTEX> vertexes;
       ALLEGRO_VERTEX_BUFFER *vertex_buffer;
-         // NOTE: "prim_mesh" features are disabled for now, because the specific operation "set_tile_uv" is
+         // NOTE: "vertex_buffer" features are disabled for now, because the specific operation "set_tile_uv" is
          // astronimacally slow at init time when loading the tile maps.  There could be a "refresh_vertex_buffer" in
          // the future, but there are many users of this PrimMesh class and everything would need to be updated
          // downstream
