@@ -15,7 +15,7 @@ const std::string TEST_TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
 class AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
-class AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestAndSetup
+class AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
 public:
@@ -23,7 +23,7 @@ public:
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
    AllegroFlare::TileMaps::TileMesh mesh; //(&atlas, 30, 10, 1, 1); // Set the initial tile size to 1
 
-   AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestAndSetup()
+   AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup()
       : atlas_bitmap(nullptr)
       , atlas()
       , mesh(&atlas, 30, 10, 1, 1)
@@ -228,7 +228,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
 
 
 
-TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestAndSetup,
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    CAPTURE__VISUAL__render__will_render_the_mesh_as_expected__solid_tiles_example)
 {
    // Fill the tile mesh with random values
