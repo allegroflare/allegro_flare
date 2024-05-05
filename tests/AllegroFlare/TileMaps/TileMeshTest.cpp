@@ -52,6 +52,30 @@ public:
       AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
    }
 
+   void fill_with_random_tiles(std::vector<int> possible_random_tiles = {})
+   {
+      mesh.enable_holding_vertex_buffer_update_until_refresh();
+      AllegroFlare::Random random;
+      for (int y=0; y<mesh.get_num_rows(); y++)
+      {
+         for (int x=0; x<mesh.get_num_columns(); x++)
+         {
+            int random_tile = 0;
+
+            if (possible_random_tiles.empty())
+            {
+               random_tile = random.get_random_int(0, atlas.get_tile_index_size());
+            }
+            else
+            {
+               random_tile = possible_random_tiles[random.get_random_int(0, possible_random_tiles.size()-1)];
+            }
+            mesh.set_tile_id(x, y, random_tile);
+         }
+      }
+      mesh.refresh_vertex_buffer();
+   }
+
    void render_subject(float duration_sec=1.0f)
    {
       AllegroFlare::Placement2D subject_placement;
@@ -226,25 +250,11 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    CAPTURE__VISUAL__render__will_render_the_mesh_as_expected__solid_tiles_example)
 {
-   // Fill the tile mesh with random values
-   mesh.enable_holding_vertex_buffer_update_until_refresh();
-
+   // Fill the subject with random tiles
    std::vector<int> possible_random_tiles = { 82, 102, 122, 121, 81 };
-   AllegroFlare::Random random;
-   for (int y=0; y<mesh.get_num_rows(); y++)
-   {
-      for (int x=0; x<mesh.get_num_columns(); x++)
-      {
-         int random_tile = possible_random_tiles[random.get_random_int(0, possible_random_tiles.size()-1)];
-         //int random_tile = random.get_random_int(0, atlas.get_tile_index_size());
-         mesh.set_tile_id(x, y, random_tile);
-      }
-   }
+   fill_with_random_tiles(possible_random_tiles);
 
-   // Rescale the tile dimensions to something more arbitrary
-   //mesh.rescale_tile_dimensions_to(24, 24);
-   mesh.refresh_vertex_buffer();
-
+   // Render the subject
    render_subject(1.0f);
 }
 
