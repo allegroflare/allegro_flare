@@ -254,6 +254,8 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    std::vector<int> possible_random_tiles = { 82, 102, 122, 121, 81 };
    fill_with_random_tiles(possible_random_tiles);
 
+   ASSERT_EQ(6, mesh.remove_vertices_from_index_vertices( { 0, 1, 2, 3, 4, 5 } ));
+
    // Render the subject
    render_subject(1.0f);
 }
