@@ -247,6 +247,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    }
 
    // Rescale the tile dimensions to something more arbitrary
+   mesh.rescale_tile_dimensions_to(24, 24);
    mesh.refresh_vertex_buffer();
 
    render_subject(1.0f);

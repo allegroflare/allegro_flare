@@ -36,12 +36,14 @@ properties:
     init_with: 0
     constructor_arg: true
     getter: true
+    setter: explicit
 
   - name: num_rows
     type: int
     init_with: 0
     constructor_arg: true
     getter: true
+    setter: explicit
 
   - name: tile_width
     type: int
@@ -106,6 +108,28 @@ methods:
     body_dependency_symbols:
       - al_is_system_installed
       - al_is_primitives_addon_initialized
+
+
+  - name: set_num_rows
+    parameters:
+      - name: num_rows
+        type: int
+        default_argument: 0
+    guards: [ (num_rows >= 0) ]
+    body: |
+      this->num_rows = num_rows;
+      if (initialized) resize(num_columns, num_rows);
+
+
+  - name: set_num_columns
+    parameters:
+      - name: num_columns
+        type: int
+        default_argument: 0
+    guards: [ (num_columns >= 0) ]
+    body: |
+      this->num_columns = num_columns;
+      if (initialized) resize(num_columns, num_rows);
 
 
   - name: vertex_indices_for_tile_xy
@@ -213,6 +237,8 @@ methods:
             index_vertices.size(),
             ALLEGRO_PRIM_BUFFER_DYNAMIC
          );
+
+      vertex_buffer_is_dirty = false;
 
       if (yz_swapped)
       {

@@ -139,6 +139,32 @@ void TileMesh::initialize()
    return;
 }
 
+void TileMesh::set_num_rows(int num_rows)
+{
+   if (!((num_rows >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::set_num_rows]: error: guard \"(num_rows >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::set_num_rows: error: guard \"(num_rows >= 0)\" not met");
+   }
+   this->num_rows = num_rows;
+   if (initialized) resize(num_columns, num_rows);
+}
+
+void TileMesh::set_num_columns(int num_columns)
+{
+   if (!((num_columns >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::set_num_columns]: error: guard \"(num_columns >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::set_num_columns: error: guard \"(num_columns >= 0)\" not met");
+   }
+   this->num_columns = num_columns;
+   if (initialized) resize(num_columns, num_rows);
+}
+
 std::vector<int> TileMesh::vertex_indices_for_tile_xy(int tile_x, int tile_y)
 {
    if (!((tile_x >= 0)))
@@ -262,6 +288,8 @@ void TileMesh::resize(int num_columns, int num_rows)
          index_vertices.size(),
          ALLEGRO_PRIM_BUFFER_DYNAMIC
       );
+
+   vertex_buffer_is_dirty = false;
 
    if (yz_swapped)
    {

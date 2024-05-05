@@ -49,6 +49,8 @@ namespace AllegroFlare
          bool get_initialized() const;
          std::vector<ALLEGRO_VERTEX> &get_vertices_ref();
          void initialize();
+         void set_num_rows(int num_rows=0);
+         void set_num_columns(int num_columns=0);
          std::vector<int> vertex_indices_for_tile_xy(int tile_x=0, int tile_y=0);
          void destroy();
          void enable_holding_vertex_buffer_update_until_refresh();
