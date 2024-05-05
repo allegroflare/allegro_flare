@@ -2,27 +2,16 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/TileMaps/TileMesh.hpp>
 
 class AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
-{
-   //AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest()
-      //: AllegroFlare::Testing::WithAllegroRenderingFixture(
-     //     "/Users/markoates/Repos/Tilo/tests/fixtures/",
-      //    "/Users/markoates/Repos/Tilo/tests/fixtures/"
-      //)
-   //{}
-   //virtual ~AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest() {}
-};
+{};
 
 
-#include <AllegroFlare/TileMaps/TileMesh.hpp>
 
 const std::string TEST_TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
 
@@ -32,13 +21,13 @@ const std::string TEST_TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest, render__without_initialized__throws_an_error)
 {
-   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-   AllegroFlare::TileMaps::TileMesh mesh(&atlas);
+   //AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+   AllegroFlare::TileMaps::TileMesh mesh; //(&atlas);
 
    //ASSERT_THROW_WITH_MESSAGE(
-   //   mesh.render(nullptr),
-   //   std::runtime_error,
-   //   "[AllegroFlare::TileMaps::TileMesh::render] error: initialized can not be nullptr"
+      //mesh.render(nullptr),
+      //std::runtime_error,
+      //"[AllegroFlare::TileMaps::TileMesh::render] error: initialized can not be nullptr"
    //);
 }
 
@@ -135,12 +124,14 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
    // Fill the tile mesh with random values
    mesh.enable_holding_vertex_buffer_update_until_refresh();
 
+   std::vector<int> possible_random_tiles = { 82, 102, 122, 121, 81 };
    AllegroFlare::Random random;
    for (int y=0; y<mesh.get_num_rows(); y++)
    {
       for (int x=0; x<mesh.get_num_columns(); x++)
       {
-         int random_tile = random.get_random_int(0, atlas.get_tile_index_size());
+         int random_tile = possible_random_tiles[random.get_random_int(0, possible_random_tiles.size()-1)];
+         //int random_tile = random.get_random_int(0, atlas.get_tile_index_size());
          mesh.set_tile_id(x, y, random_tile);
       }
    }
