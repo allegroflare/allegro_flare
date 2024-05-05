@@ -9,6 +9,7 @@
 
 const std::string TEST_TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
 #include <AllegroFlare/Random.hpp>
+#include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro_color.h>
 
 
@@ -38,10 +39,10 @@ public:
       get_bitmap_bin_ref().destroy(TEST_TILE_MAP_BITMAP);
 
       mesh.set_atlas(&atlas);
-      mesh.set_num_columns(30);
+      mesh.set_num_columns(20);
       mesh.set_num_rows(10);
-      mesh.set_tile_width(1);
-      mesh.set_tile_height(1);
+      mesh.set_tile_width(16);
+      mesh.set_tile_height(16);
 
       mesh.initialize();
    }
@@ -53,25 +54,19 @@ public:
 
    void render_subject(float duration_sec=1.0f)
    {
-      al_clear_to_color(al_color_name("dodgerblue"));
+      AllegroFlare::Placement2D subject_placement;
+      subject_placement.position = { 1920/2, 1080/2 };
+      subject_placement.scale = { 4.0f, 4.0f };
+      subject_placement.size = { (float)mesh.get_real_width(), (float)mesh.get_real_height() };
+      subject_placement.align = { 0.5f, 0.5f };
 
-      float x = 100;
-      float y = 50;
+      clear();
 
-      float sx = 3;
-      float sy = 3;
-
-      ALLEGRO_TRANSFORM prev, transform;
-      al_copy_transform(&prev, al_get_current_transform());
-      al_identity_transform(&transform);
-      al_translate_transform(&transform, x, y);
-      al_scale_transform(&transform, sx, sy);
-      al_use_transform(&transform);
-
+      subject_placement.start_transform();
       mesh.render();
-      al_flip_display();
+      subject_placement.restore_transform();
 
-      al_use_transform(&prev);
+      al_flip_display();
       al_rest(duration_sec);
    }
 };
@@ -247,7 +242,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    }
 
    // Rescale the tile dimensions to something more arbitrary
-   mesh.rescale_tile_dimensions_to(24, 24);
+   //mesh.rescale_tile_dimensions_to(24, 24);
    mesh.refresh_vertex_buffer();
 
    render_subject(1.0f);
