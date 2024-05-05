@@ -21,14 +21,13 @@ const std::string TEST_TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest, render__without_initialized__throws_an_error)
 {
-   //AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-   AllegroFlare::TileMaps::TileMesh mesh; //(&atlas);
+   AllegroFlare::TileMaps::TileMesh mesh;
 
-   //ASSERT_THROW_WITH_MESSAGE(
-      //mesh.render(nullptr),
-      //std::runtime_error,
-      //"[AllegroFlare::TileMaps::TileMesh::render] error: initialized can not be nullptr"
-   //);
+   ASSERT_THROW_WITH_MESSAGE(
+      mesh.render(),
+      std::runtime_error,
+      "TileMesh::render: error: guard \"initialized\" not met"
+   );
 }
 
 
