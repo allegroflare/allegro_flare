@@ -503,13 +503,27 @@ void TileMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
 
 void TileMesh::set_tile_width(int new_tile_width)
 {
-   rescale_tile_dimensions_to(new_tile_width, this->tile_height);
+   if (!initialized)
+   {
+      this->tile_width = new_tile_width;
+   }
+   else
+   {
+      rescale_tile_dimensions_to(new_tile_width, this->tile_height);
+   }
    return;
 }
 
 void TileMesh::set_tile_height(int new_tile_height)
 {
-   rescale_tile_dimensions_to(this->tile_width, new_tile_height);
+   if (!initialized)
+   {
+      this->tile_height = new_tile_height;
+   }
+   else
+   {
+      rescale_tile_dimensions_to(this->tile_width, new_tile_height);
+   }
    return;
 }
 

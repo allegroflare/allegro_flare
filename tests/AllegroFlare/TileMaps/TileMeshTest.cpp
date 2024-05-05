@@ -26,7 +26,7 @@ public:
    AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup()
       : atlas_bitmap(nullptr)
       , atlas()
-      , mesh(&atlas, 30, 10, 1, 1)
+      , mesh()
    {}
 
    void SetUp() override
@@ -35,13 +35,13 @@ public:
 
       atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
       atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);
-      //al_destroy_bitmap(atlas_bitmap);
+      get_bitmap_bin_ref().destroy(TEST_TILE_MAP_BITMAP);
 
-      //mesh.set_atlas(&atlas);
-      //mesh.set_num_columns(30);
-      //mesh.set_num_rows(10);
-      //mesh.set_tile_width(1);
-      //mesh.set_tile_height(1);
+      mesh.set_atlas(&atlas);
+      mesh.set_num_columns(30);
+      mesh.set_num_rows(10);
+      mesh.set_tile_width(1);
+      mesh.set_tile_height(1);
 
       mesh.initialize();
    }

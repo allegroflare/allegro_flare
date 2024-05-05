@@ -474,7 +474,14 @@ methods:
         type: int
         default_argument: 0
     body: |
-      rescale_tile_dimensions_to(new_tile_width, this->tile_height);
+      if (!initialized)
+      {
+         this->tile_width = new_tile_width;
+      }
+      else
+      {
+         rescale_tile_dimensions_to(new_tile_width, this->tile_height);
+      }
       return;
 
 
@@ -484,7 +491,14 @@ methods:
         type: int
         default_argument: 0
     body: |
-      rescale_tile_dimensions_to(this->tile_width, new_tile_height);
+      if (!initialized)
+      {
+         this->tile_height = new_tile_height;
+      }
+      else
+      {
+         rescale_tile_dimensions_to(this->tile_width, new_tile_height);
+      }
       return;
 
 
