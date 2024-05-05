@@ -277,7 +277,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    CAPTURE__VISUAL__remove_tile_xy_from_index__will_remove_the_verteces_for_that_tile)
 {
    // Fill the subject with random tiles
-   std::vector<int> possible_random_tiles = { 20, 21, 22, 23, 100, 101, 102, 103 };
+   std::vector<int> possible_random_tiles = { 20, 21, 23, 100, 101, 103, 172, 193 };
    fill_with_random_tiles(possible_random_tiles);
 
    mesh.remove_tile_xy_from_index(3, 2);
