@@ -254,7 +254,34 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    std::vector<int> possible_random_tiles = { 82, 102, 122, 121, 81 };
    fill_with_random_tiles(possible_random_tiles);
 
+   // Render the subject
+   render_subject(1.0f);
+}
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   CAPTURE__VISUAL__remove_vertices_from_index_vertices__will_remove_the_verteces_as_expected)
+{
+   // Fill the subject with random tiles
+   std::vector<int> possible_random_tiles = { 82, 102, 122, 121, 81 };
+   fill_with_random_tiles(possible_random_tiles);
+
    ASSERT_EQ(6, mesh.remove_vertices_from_index_vertices( { 0, 1, 2, 3, 4, 5 } ));
+
+   // Render the subject
+   render_subject(1.0f);
+}
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   CAPTURE__VISUAL__remove_tile_xy_from_index__will_remove_the_verteces_for_that_tile)
+{
+   // Fill the subject with random tiles
+   std::vector<int> possible_random_tiles = { 20, 21, 22, 23, 100, 101, 102, 103 };
+   fill_with_random_tiles(possible_random_tiles);
+
+   mesh.remove_tile_xy_from_index(3, 2);
+   mesh.remove_tile_xy_from_index(11, 7);
 
    // Render the subject
    render_subject(1.0f);

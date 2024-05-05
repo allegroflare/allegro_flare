@@ -165,6 +165,12 @@ void TileMesh::set_num_columns(int num_columns)
    if (initialized) resize(num_columns, num_rows);
 }
 
+void TileMesh::remove_tile_xy_from_index(int tile_x, int tile_y)
+{
+   remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
+   return;
+}
+
 int TileMesh::remove_vertices_from_index_vertices(std::vector<int> vertices_to_remove)
 {
    int num_removed = 0;
@@ -180,12 +186,9 @@ int TileMesh::remove_vertices_from_index_vertices(std::vector<int> vertices_to_r
       num_removed++;
    }
 
-   //return num_removed;
-
    // Completely rebuild the vertex indexes
    if (index_buffer) al_destroy_index_buffer(index_buffer);
    int num_index_vertices = index_vertices.size();
-   //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
    int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
    index_buffer = al_create_index_buffer(
          index_buffer_int_size,
@@ -193,7 +196,6 @@ int TileMesh::remove_vertices_from_index_vertices(std::vector<int> vertices_to_r
          index_vertices.size(),
          ALLEGRO_PRIM_BUFFER_DYNAMIC
       );
-
 
    return num_removed;
 }

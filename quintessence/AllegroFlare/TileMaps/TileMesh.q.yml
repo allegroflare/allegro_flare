@@ -132,6 +132,19 @@ methods:
       if (initialized) resize(num_columns, num_rows);
 
 
+  - name: remove_tile_xy_from_index
+    parameters:
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+    body: |
+      remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
+      return;
+
+
   - name: remove_vertices_from_index_vertices
     type: int
     parameters:
@@ -152,12 +165,9 @@ methods:
          num_removed++;
       }
 
-      //return num_removed;
-
       // Completely rebuild the vertex indexes
       if (index_buffer) al_destroy_index_buffer(index_buffer);
       int num_index_vertices = index_vertices.size();
-      //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
       int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
       index_buffer = al_create_index_buffer(
             index_buffer_int_size,
@@ -165,7 +175,6 @@ methods:
             index_vertices.size(),
             ALLEGRO_PRIM_BUFFER_DYNAMIC
          );
-
 
       return num_removed;
 
