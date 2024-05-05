@@ -61,53 +61,10 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
-   CAPTURE__VISUAL__render__will_render_the_mesh_as_expected)
+   DISABLED__rescale_tile_dimensions_to__with_any_argument_with_a_value_less_than_or_equal_to_zero__will_throw_an_error)
 {
-   ALLEGRO_BITMAP *atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
-   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-
-   AllegroFlare::TileMaps::TileMesh mesh(&atlas, 30, 10, 16, 16);
-   atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);
-   mesh.initialize();
-
-   AllegroFlare::Random random;
-   for (int y=0; y<mesh.get_num_rows(); y++)
-   {
-      for (int x=0; x<mesh.get_num_columns(); x++)
-      {
-         int random_tile = random.get_random_int(0, atlas.get_tile_index_size());
-         //int random_tile = 1;
-         mesh.set_tile_id(x, y, random_tile);
-      }
-   }
-
-   al_clear_to_color(al_color_name("orange"));
-
-   // render the actual mesh
-
-   float x = 100;
-   float y = 50;
-
-   float sx = 3;
-   float sy = 3;
-
-   ALLEGRO_TRANSFORM prev, transform;
-   al_copy_transform(&prev, al_get_current_transform());
-   al_identity_transform(&transform);
-   al_translate_transform(&transform, x, y);
-   al_scale_transform(&transform, sx, sy);
-   al_use_transform(&transform);
-
-   mesh.render();
-
-   al_use_transform(&prev);
-
-
-   // flip the display and sleep
-   al_flip_display();
-   al_rest(1.0);
+   // TODO
 }
-
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
@@ -164,9 +121,51 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
-   DISABLED__rescale_tile_dimensions_to__with_any_argument_with_a_value_less_than_or_equal_to_zero__will_throw_an_error)
+   CAPTURE__VISUAL__render__will_render_the_mesh_as_expected)
 {
-   // TODO
+   ALLEGRO_BITMAP *atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+
+   AllegroFlare::TileMaps::TileMesh mesh(&atlas, 30, 10, 16, 16);
+   atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);
+   mesh.initialize();
+
+   AllegroFlare::Random random;
+   for (int y=0; y<mesh.get_num_rows(); y++)
+   {
+      for (int x=0; x<mesh.get_num_columns(); x++)
+      {
+         int random_tile = random.get_random_int(0, atlas.get_tile_index_size());
+         //int random_tile = 1;
+         mesh.set_tile_id(x, y, random_tile);
+      }
+   }
+
+   al_clear_to_color(al_color_name("orange"));
+
+   // render the actual mesh
+
+   float x = 100;
+   float y = 50;
+
+   float sx = 3;
+   float sy = 3;
+
+   ALLEGRO_TRANSFORM prev, transform;
+   al_copy_transform(&prev, al_get_current_transform());
+   al_identity_transform(&transform);
+   al_translate_transform(&transform, x, y);
+   al_scale_transform(&transform, sx, sy);
+   al_use_transform(&transform);
+
+   mesh.render();
+
+   al_use_transform(&prev);
+
+
+   // flip the display and sleep
+   al_flip_display();
+   al_rest(1.0);
 }
 
 
