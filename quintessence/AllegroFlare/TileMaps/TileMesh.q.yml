@@ -133,6 +133,7 @@ methods:
 
 
   - name: remove_tile_xy_from_index
+    type: int
     parameters:
       - name: tile_x
         type: int
@@ -141,8 +142,7 @@ methods:
         type: int
         default_argument: 0
     body: |
-      remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
-      return;
+      return remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
 
 
   - name: remove_vertices_from_index_vertices
@@ -308,7 +308,8 @@ methods:
          atlas->get_bitmap(),
          index_buffer,
          0,
-         vertices.size(), 
+         //vertices.size(),  // vertex_buffer? should be index_buffer?
+         index_vertices.size(),  // vertex_buffer? should be index_buffer?
          ALLEGRO_PRIM_TRIANGLE_LIST
       );
 

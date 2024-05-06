@@ -165,10 +165,9 @@ void TileMesh::set_num_columns(int num_columns)
    if (initialized) resize(num_columns, num_rows);
 }
 
-void TileMesh::remove_tile_xy_from_index(int tile_x, int tile_y)
+int TileMesh::remove_tile_xy_from_index(int tile_x, int tile_y)
 {
-   remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
-   return;
+   return remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
 }
 
 int TileMesh::remove_vertices_from_index_vertices(std::vector<int> vertices_to_remove)
@@ -363,7 +362,8 @@ void TileMesh::render(bool draw_outline)
       atlas->get_bitmap(),
       index_buffer,
       0,
-      vertices.size(), 
+      //vertices.size(),  // vertex_buffer? should be index_buffer?
+      index_vertices.size(),  // vertex_buffer? should be index_buffer?
       ALLEGRO_PRIM_TRIANGLE_LIST
    );
 

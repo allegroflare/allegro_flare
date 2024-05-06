@@ -462,18 +462,38 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
       );
    created_terrain_mesh->initialize();
 
+   std::vector<std::pair<int, int>> tile_coords_to_remove;
+
+   // Fill the tile data
    for (int y=0; y<num_rows; y++)
    {
       for (int x=0; x<num_columns; x++)
       {
          int tile_id = tile_data->operator[](y * num_columns + x);
-         if (tile_id == 0) created_terrain_mesh->set_tile_id(x, y, 72);
-                        // <- TODO: this is a hack to have 0 be transparent
-                        // ^^ TODO: CRITICAL Modify this to make more sense. Consider *removing* the tile from
-                        // the mesh
-         else created_terrain_mesh->set_tile_id(x, y, tile_id-1);
+         // TODO: Consider updating this to (tile_id == -1), this will require the tile_data to be 0-indexed, which
+         // it does not appear to be. This should probably happen at the TMJDataLoader stage (though TMJMeshLoader
+         // is dependent on it, so will need to be updated there as well).
+         // Also, using "tile_id-1" below should be set to simply "tile_id" after having made the above change.
+         if (tile_id == 0)
+         {
+            created_terrain_mesh->set_tile_id(x, y, 0);
+            tile_coords_to_remove.push_back(std::pair<int, int>(x, y));
+            //created_terrain_mesh->set_tile_id(x, y, 72); // <- Previously
+         }
+         else
+         {
+            created_terrain_mesh->set_tile_id(x, y, tile_id-1);
+         }
       }
    }
+
+   for (auto &tile_coord_to_remove : tile_coords_to_remove)
+   {
+      // TODO: Consider a performance improvement here, locking the index update until all tiles are removed
+      created_terrain_mesh->remove_tile_xy_from_index(tile_coord_to_remove.first, tile_coord_to_remove.second);
+   }
+
+   //std::cout << "Tiles removed from index in TileMesh: " << tile_coords_to_remove.size() << std::endl;
 
    return created_terrain_mesh;
 }

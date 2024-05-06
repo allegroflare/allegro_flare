@@ -288,3 +288,20 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 }
 
 
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   CAPTURE__VISUAL__remove_tile_xy_from_index__on_the_last_tile__will_remove_the_tile)
+{
+   // Fill the subject with random tiles
+   std::vector<int> possible_random_tiles = { 20, 21, 23, 100, 101, 103, 172, 193 };
+   fill_with_random_tiles(possible_random_tiles);
+
+   //mesh.remove_tile_xy_from_index(3, 2);
+   int tile_to_remove_y = mesh.get_num_rows() - 1;
+   int tile_to_remove_x = mesh.get_num_columns() - 1;
+   mesh.remove_tile_xy_from_index(tile_to_remove_x, tile_to_remove_y);
+
+   // Render the subject
+   render_subject(1.0f);
+}
+
+

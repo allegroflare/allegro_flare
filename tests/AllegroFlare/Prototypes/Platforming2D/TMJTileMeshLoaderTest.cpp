@@ -115,6 +115,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 
    // Render the subject
    placement.start_transform();
+
    background_mesh->render();
    terrain_mesh->render();
    foreground_mesh->render();
