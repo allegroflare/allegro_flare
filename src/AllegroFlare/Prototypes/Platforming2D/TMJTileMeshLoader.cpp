@@ -176,8 +176,8 @@ bool TMJTileMeshLoader::load()
 
    int tmx_height = tmj_data_loader.get_num_rows();
    int tmx_width = tmj_data_loader.get_num_columns();
-   int tmx_tileheight = tmj_data_loader.get_tile_height();
-   int tmx_tilewidth = tmj_data_loader.get_tile_width();
+   int tmx_tile_height = tmj_data_loader.get_tile_height();
+   int tmx_tile_width = tmj_data_loader.get_tile_width();
 
    int terrain_tilelayer_width = tmj_data_loader.get_layer_num_columns();
    int terrain_tilelayer_height = tmj_data_loader.get_layer_num_rows();
@@ -207,7 +207,7 @@ bool TMJTileMeshLoader::load()
    {
       throw std::runtime_error("TMJMeshLoader: error: tilelayer height does not match tmx_height.");
    }
-   if (tmx_tileheight != 16 || tmx_tilewidth != 16)
+   if (tmx_tile_height != 16 || tmx_tile_width != 16)
    {
       throw std::runtime_error("TMJMeshLoader: error: tmx tileheight and tilewidth other than 16 not supported.");
    }
