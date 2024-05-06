@@ -22,6 +22,8 @@ TileMesh::TileMesh(AllegroFlare::TileMaps::PrimMeshAtlas* atlas, int num_columns
    , index_buffer(nullptr)
    , tile_ids({})
    , index_vertices({})
+   , h_flipped_tiles({})
+   , v_flipped_tiles({})
    , num_columns(num_columns)
    , num_rows(num_rows)
    , tile_width(tile_width)
@@ -60,6 +62,18 @@ std::vector<int> TileMesh::get_tile_ids() const
 std::vector<int> TileMesh::get_index_vertices() const
 {
    return index_vertices;
+}
+
+
+std::set<std::pair<int, int>> TileMesh::get_h_flipped_tiles() const
+{
+   return h_flipped_tiles;
+}
+
+
+std::set<std::pair<int, int>> TileMesh::get_v_flipped_tiles() const
+{
+   return v_flipped_tiles;
 }
 
 
@@ -272,6 +286,8 @@ void TileMesh::resize(int num_columns, int num_rows)
    tile_ids.resize(num_columns*num_rows);
    index_vertices.clear();
    index_vertices.resize(vertices.size());
+   h_flipped_tiles.clear();
+   v_flipped_tiles.clear();
    if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
    if (index_buffer) al_destroy_index_buffer(index_buffer);
 
@@ -374,7 +390,7 @@ void TileMesh::render(bool draw_outline)
    return;
 }
 
-bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id)
+bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, bool flip_v)
 {
    if (!(initialized))
    {
@@ -398,12 +414,21 @@ bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id)
    // should be allowed, any number should be allowed.  So this should be revisited
    if (tile_id < 0) tile_id = 0;
 
-   // transfer the uv coordinates of the from the tile atlas bitmap to the mesh
-   // {
-      int u1, v1, u2, v2;
-      atlas->get_tile_uv(tile_id, &u1, &v1, &u2, &v2);
-      set_tile_uv(tile_x, tile_y, u1, v1, u2, v2);
-   // }
+   int u1, v1, u2, v2;
+   atlas->get_tile_uv(tile_id, &u1, &v1, &u2, &v2);
+
+   if (flip_h)
+   {
+      h_flip_vertices(&u1, &v1, &u2, &v2);
+      h_flipped_tiles.insert({tile_x, tile_y});
+   }
+   if (flip_v)
+   {
+      v_flip_vertices(&u1, &v1, &u2, &v2);
+      h_flipped_tiles.erase({tile_x, tile_y});
+   }
+
+   set_tile_uv(tile_x, tile_y, u1, v1, u2, v2);
 
    tile_ids[tile_x + tile_y * num_columns] = tile_id;
 
@@ -419,6 +444,80 @@ int TileMesh::get_tile_id(int tile_x, int tile_y)
 
    return tile_ids[tile_x + tile_y * num_columns];
    return 0;
+}
+
+void TileMesh::h_flip_vertices(int* u1, int* v1, int* u2, int* v2)
+{
+   if (!(u1))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::h_flip_vertices]: error: guard \"u1\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::h_flip_vertices: error: guard \"u1\" not met");
+   }
+   if (!(v1))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::h_flip_vertices]: error: guard \"v1\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::h_flip_vertices: error: guard \"v1\" not met");
+   }
+   if (!(u2))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::h_flip_vertices]: error: guard \"u2\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::h_flip_vertices: error: guard \"u2\" not met");
+   }
+   if (!(v2))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::h_flip_vertices]: error: guard \"v2\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::h_flip_vertices: error: guard \"v2\" not met");
+   }
+   // NOTE: Should the uv coordinates be floats?
+   int swap = *u1;
+   *u1 = *u2;
+   *u2 = swap;
+   return;
+}
+
+void TileMesh::v_flip_vertices(int* u1, int* v1, int* u2, int* v2)
+{
+   if (!(u1))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::v_flip_vertices]: error: guard \"u1\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::v_flip_vertices: error: guard \"u1\" not met");
+   }
+   if (!(v1))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::v_flip_vertices]: error: guard \"v1\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::v_flip_vertices: error: guard \"v1\" not met");
+   }
+   if (!(u2))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::v_flip_vertices]: error: guard \"u2\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::v_flip_vertices: error: guard \"u2\" not met");
+   }
+   if (!(v2))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::v_flip_vertices]: error: guard \"v2\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::v_flip_vertices: error: guard \"v2\" not met");
+   }
+   // NOTE: Should the uv coordinates be floats?
+   int swap = *v1;
+   *v1 = *v2;
+   *v2 = swap;
+   return;
 }
 
 void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2)
@@ -447,22 +546,9 @@ void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    }
    else
    {
-      // Modify the vertex in the vertex buffer
-      ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
-         vertex_buffer,
-         0,
-         infer_num_vertices(), // Consider only locking the region that needs the change
-         ALLEGRO_LOCK_WRITEONLY
-      );
-
-      vertex_buffer_start[i+0] = vertices[i+0];
-      vertex_buffer_start[i+1] = vertices[i+1];
-      vertex_buffer_start[i+2] = vertices[i+2];
-      vertex_buffer_start[i+3] = vertices[i+3];
-      vertex_buffer_start[i+4] = vertices[i+4];
-      vertex_buffer_start[i+5] = vertices[i+5];
-
-      al_unlock_vertex_buffer(vertex_buffer);
+      // Upate the vertex in the vertex buffer
+      // Consider only locking the region that needs the change
+      refresh_vertex_buffer();
    }
    return;
 }

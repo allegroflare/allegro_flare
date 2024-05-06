@@ -38584,6 +38584,14 @@ table td
   <td class="property">std::vector&lt;int&gt;</td>
 </tr>
 <tr>
+  <td class="property">h_flipped_tiles</td>
+  <td class="property">std::set&lt;std::pair&lt;int, int&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">v_flipped_tiles</td>
+  <td class="property">std::set&lt;std::pair&lt;int, int&gt;&gt;</td>
+</tr>
+<tr>
   <td class="property">num_columns</td>
   <td class="property">int</td>
 </tr>
@@ -38660,11 +38668,19 @@ table td
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>set_tile_id</b>(int tile_x=0, int tile_y=0, int tile_id=0)</td>
+  <td class="method"><b>set_tile_id</b>(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false)</td>
 </tr>
 <tr>
   <td class="method">int</td>
   <td class="method"><b>get_tile_id</b>(int tile_x=0, int tile_y=0)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>h_flip_vertices</b>(int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>v_flip_vertices</b>(int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr)</td>
 </tr>
 <tr>
   <td class="method">void</td>

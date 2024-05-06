@@ -4,6 +4,8 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
+#include <set>
+#include <utility>
 #include <vector>
 
 
@@ -20,6 +22,8 @@ namespace AllegroFlare
          ALLEGRO_INDEX_BUFFER* index_buffer;
          std::vector<int> tile_ids;
          std::vector<int> index_vertices;
+         std::set<std::pair<int, int>> h_flipped_tiles;
+         std::set<std::pair<int, int>> v_flipped_tiles;
          int num_columns;
          int num_rows;
          int tile_width;
@@ -28,6 +32,8 @@ namespace AllegroFlare
          bool vertex_buffer_is_dirty;
          bool yz_swapped;
          bool initialized;
+         void h_flip_vertices(int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr);
+         void v_flip_vertices(int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr);
 
       protected:
 
@@ -40,6 +46,8 @@ namespace AllegroFlare
          AllegroFlare::TileMaps::PrimMeshAtlas* get_atlas() const;
          std::vector<int> get_tile_ids() const;
          std::vector<int> get_index_vertices() const;
+         std::set<std::pair<int, int>> get_h_flipped_tiles() const;
+         std::set<std::pair<int, int>> get_v_flipped_tiles() const;
          int get_num_columns() const;
          int get_num_rows() const;
          int get_tile_width() const;
@@ -58,7 +66,7 @@ namespace AllegroFlare
          void enable_holding_vertex_buffer_update_until_refresh();
          void resize(int num_columns=0, int num_rows=0);
          void render(bool draw_outline=false);
-         bool set_tile_id(int tile_x=0, int tile_y=0, int tile_id=0);
+         bool set_tile_id(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false);
          int get_tile_id(int tile_x=0, int tile_y=0);
          void set_tile_uv(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0);
          void refresh_vertex_buffer();

@@ -1,0 +1,67 @@
+{ "compressionlevel":-1,
+ "height":5,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1],
+         "height":5,
+         "id":5,
+         "name":"collision",
+         "opacity":0.48,
+         "type":"tilelayer",
+         "visible":true,
+         "width":5,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0,
+            0, 715, 0, 2147484363, 0,
+            0, 0, 0, 0, 0,
+            0, 1073742539, 0, 3221226187, 0,
+            0, 0, 0, 0, 0],
+         "height":5,
+         "id":1,
+         "name":"terrain",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":5,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":2,
+         "name":"Object Layer 1",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":8,
+ "nextobjectid":10,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.10.2",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"..\/tiles_dungeon_v1.1.tsx"
+        }, 
+        {
+         "firstgid":481,
+         "source":"maps\/tiles_dungeon_v1.1-02.tsx"
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.10",
+ "width":5
+}

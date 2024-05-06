@@ -31,6 +31,16 @@ properties:
     init_with: '{}'
     getter: true
 
+  - name: h_flipped_tiles
+    type: std::set<std::pair<int, int>>
+    init_with: '{}'
+    getter: true
+
+  - name: v_flipped_tiles
+    type: std::set<std::pair<int, int>>
+    init_with: '{}'
+    getter: true
+
   - name: num_columns
     type: int
     init_with: 0
@@ -234,6 +244,8 @@ methods:
       tile_ids.resize(num_columns*num_rows);
       index_vertices.clear();
       index_vertices.resize(vertices.size());
+      h_flipped_tiles.clear();
+      v_flipped_tiles.clear();
       if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
       if (index_buffer) al_destroy_index_buffer(index_buffer);
 
@@ -332,6 +344,12 @@ methods:
       - name: tile_id
         type: int
         default_argument: 0
+      - name: flip_h
+        type: bool
+        default_argument: false
+      - name: flip_v
+        type: bool
+        default_argument: false
     guards: [ initialized, atlas ]
     body: |
       if (tile_id >= (int)atlas->get_tile_index_size()) return false;
@@ -342,12 +360,21 @@ methods:
       // should be allowed, any number should be allowed.  So this should be revisited
       if (tile_id < 0) tile_id = 0;
 
-      // transfer the uv coordinates of the from the tile atlas bitmap to the mesh
-      // {
-         int u1, v1, u2, v2;
-         atlas->get_tile_uv(tile_id, &u1, &v1, &u2, &v2);
-         set_tile_uv(tile_x, tile_y, u1, v1, u2, v2);
-      // }
+      int u1, v1, u2, v2;
+      atlas->get_tile_uv(tile_id, &u1, &v1, &u2, &v2);
+
+      if (flip_h)
+      {
+         h_flip_vertices(&u1, &v1, &u2, &v2);
+         h_flipped_tiles.insert({tile_x, tile_y});
+      }
+      if (flip_v)
+      {
+         v_flip_vertices(&u1, &v1, &u2, &v2);
+         h_flipped_tiles.erase({tile_x, tile_y});
+      }
+
+      set_tile_uv(tile_x, tile_y, u1, v1, u2, v2);
 
       tile_ids[tile_x + tile_y * num_columns] = tile_id;
       
@@ -371,6 +398,54 @@ methods:
 
       return tile_ids[tile_x + tile_y * num_columns];
       return 0;
+
+
+  - name: h_flip_vertices
+    private: true
+    parameters:
+      - name: u1
+        type: int*
+        default_argument: nullptr
+      - name: v1
+        type: int*
+        default_argument: nullptr
+      - name: u2
+        type: int*
+        default_argument: nullptr
+      - name: v2
+        type: int*
+        default_argument: nullptr
+    guards: [ u1, v1, u2, v2 ]
+    body: |
+      // NOTE: Should the uv coordinates be floats?
+      int swap = *u1;
+      *u1 = *u2;
+      *u2 = swap;
+      return;
+
+
+  - name: v_flip_vertices
+    private: true
+    parameters:
+      - name: u1
+        type: int*
+        default_argument: nullptr
+      - name: v1
+        type: int*
+        default_argument: nullptr
+      - name: u2
+        type: int*
+        default_argument: nullptr
+      - name: v2
+        type: int*
+        default_argument: nullptr
+    guards: [ u1, v1, u2, v2 ]
+    body: |
+      // NOTE: Should the uv coordinates be floats?
+      int swap = *v1;
+      *v1 = *v2;
+      *v2 = swap;
+      return;
 
 
   - name: set_tile_uv
@@ -418,22 +493,9 @@ methods:
       }
       else
       {
-         // Modify the vertex in the vertex buffer
-         ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
-            vertex_buffer,
-            0,
-            infer_num_vertices(), // Consider only locking the region that needs the change
-            ALLEGRO_LOCK_WRITEONLY
-         );
-
-         vertex_buffer_start[i+0] = vertices[i+0];
-         vertex_buffer_start[i+1] = vertices[i+1];
-         vertex_buffer_start[i+2] = vertices[i+2];
-         vertex_buffer_start[i+3] = vertices[i+3];
-         vertex_buffer_start[i+4] = vertices[i+4];
-         vertex_buffer_start[i+5] = vertices[i+5];
-
-         al_unlock_vertex_buffer(vertex_buffer);
+         // Upate the vertex in the vertex buffer
+         // Consider only locking the region that needs the change
+         refresh_vertex_buffer();
       }
       return;
 

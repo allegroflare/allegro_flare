@@ -306,3 +306,19 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 }
 
 
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   FOCUS__CAPTURE__VISUAL__set_tile_id__with_flip_h_set_to_true__will_flip_the_tile_horizontally)
+{
+   mesh.enable_holding_vertex_buffer_update_until_refresh();
+
+   mesh.set_tile_id(0, 0, 234, false, false);
+   mesh.set_tile_id(3, 0, 234, true, false);
+   mesh.set_tile_id(6, 0, 234, false, true);
+   mesh.set_tile_id(9, 0, 234, true, true);
+
+   mesh.refresh_vertex_buffer();
+
+   // Render the subject
+   render_subject(1.0f);
+}
+
