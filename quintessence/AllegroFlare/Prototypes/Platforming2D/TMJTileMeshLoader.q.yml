@@ -10,14 +10,14 @@ properties:
 
   - name: tmj_filename
     type: std::string
-    init_with: '"filename-not-set.tmj"'
+    init_with: '"[unset-tmj_filename]"'
     constructor_arg: true
     getter: true
     setter: true
 
   - name: tile_atlas_bitmap_identifier
     type: std::string
-    init_with: '"tiles_dungeon_v1.1.png"'
+    init_with: '"[unset-tile_atlas_bitmap_identifier]"'
     constructor_arg: true
     getter: true
     setter: true

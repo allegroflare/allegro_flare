@@ -41,6 +41,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 {
    loader.set_bitmap_bin(&get_bitmap_bin_ref());
    loader.set_tmj_filename(get_fixtures_path() + TMJ_FIXTURE_FILENAME);
+   loader.set_tile_atlas_bitmap_identifier(TILE_ATLAS_FILENAME);
 
    ASSERT_EQ(true, loader.load());
 
