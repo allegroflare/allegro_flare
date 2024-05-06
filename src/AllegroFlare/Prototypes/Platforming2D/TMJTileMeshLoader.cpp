@@ -353,6 +353,8 @@ bool TMJTileMeshLoader::load()
    // Some helper vars
    int &num_columns = tmx_num_columns;
    int &num_rows = tmx_num_rows;
+   int tile_width = tmx_tile_width;
+   int tile_height = tmx_tile_height;
 
 
 
@@ -362,10 +364,8 @@ bool TMJTileMeshLoader::load()
          created_tile_atlas,
          num_columns,
          num_rows,
-         tile_atlas_tile_width, // TODO: Verify if this value is correlated only to the tile atlas, or the mesh's
-                                // tile width, both? or what the relationship is between them.
-         tile_atlas_tile_height // TODO: Verify if this value is correlated only to the tile atlas, or the mesh's
-                                // tile height, both? or what the relationship is between them.
+         tile_width,
+         tile_height
       );
    created_terrain_mesh->initialize();
 
@@ -393,10 +393,8 @@ bool TMJTileMeshLoader::load()
             created_tile_atlas,
             num_columns,
             num_rows,
-            tile_atlas_tile_width, // TODO: Verify if this value is correlated only to the tile atlas, or the
-                                   // foreground mesh's tile width, both? or what the relationship is between them.
-            tile_atlas_tile_height // TODO: Verify if this value is correlated only to the tile atlas, or the
-                                   // foreground mesh's tile height, both? or what the relationship is between them.
+            tile_width,
+            tile_height
          );
       created_foreground_mesh->initialize();
 
@@ -425,10 +423,8 @@ bool TMJTileMeshLoader::load()
             created_tile_atlas,
             num_columns,
             num_rows,
-            tile_atlas_tile_width, // TODO: Verify if this value is correlated only to the tile atlas, or the
-                                   // background mesh's tile width, both? or what the relationship is between them.
-            tile_atlas_tile_height // TODO: Verify if this value is correlated only to the tile atlas, or the
-                                   // background mesh's tile height, both? or what the relationship is between them.
+            tile_width,
+            tile_height
          );
       created_background_mesh->initialize();
 
