@@ -3468,7 +3468,6 @@
   ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "Tileo/TMJMeshLoader"
   ],
   "AllegroFlare/TileMaps/TileAtlasBuilder": [

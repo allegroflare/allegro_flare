@@ -4,7 +4,6 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.hpp>
 #include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
-#include <fstream>
 #include <iostream>
 #include <lib/nlohmann/json.hpp>
 #include <sstream>
@@ -277,6 +276,12 @@ bool TMJTileMeshLoader::load()
    // For more information, see this discourse support page:
    // https://discourse.mapeditor.org/t/tiled-csv-format-has-exceptionally-large-tile-values-solved/4765
 
+   // TODO: There are four options here:
+   //   1) Allow flipped tiles
+   //   2) Continue not allowing flipped tiles, but throw when a flipped tile is detected
+   //   3) Continue not allowing flipped tiles, and flip them automatically with a warning
+   //   4) Continue not allowing flipped tiles, and flip them implicitly with no warning. (current behavior)
+
    bool filter_out_flipped_tile_numbers = true;
    if (filter_out_flipped_tile_numbers)
    {
@@ -320,11 +325,8 @@ bool TMJTileMeshLoader::load()
 
 
 
-   // ##
-   // create the atlas
-   // TODO: These will need to be passed in eventually:
-   //int tile_width = 16;
-   //int tile_height = 16;
+   // Create the atlas
+   // TODO: Use a TileAtlasRepository
 
    AllegroFlare::TileMaps::PrimMeshAtlas *created_tile_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
    ALLEGRO_BITMAP *tile_map_bitmap = bitmap_bin->operator[](tile_atlas_bitmap_identifier);
@@ -347,8 +349,9 @@ bool TMJTileMeshLoader::load()
    }
 
 
-   // ##
-   // create the mesh
+
+   // terrain
+
    int num_columns = tmx_width;
    int num_rows = tmx_height;
    AllegroFlare::TileMaps::PrimMesh* created_mesh = new AllegroFlare::TileMaps::PrimMesh(
@@ -362,9 +365,6 @@ bool TMJTileMeshLoader::load()
       );
    created_mesh->initialize();
 
-
-   // ##
-   // fill the data on the mesh
    for (int y=0; y<num_rows; y++)
    {
       for (int x=0; x<num_columns; x++)
@@ -379,10 +379,8 @@ bool TMJTileMeshLoader::load()
    }
 
 
-   // ##
-   // create the foreground_mesh
-   //int num_columns = tmx_width;
-   //int num_rows = tmx_height;
+   // foreground
+
    AllegroFlare::TileMaps::PrimMesh* created_foreground_mesh = nullptr;
    if (foreground_tilelayer_exists)
    {
@@ -398,8 +396,6 @@ bool TMJTileMeshLoader::load()
       created_foreground_mesh->initialize();
 
 
-      // ##
-      // fill the data on the foreground_mesh
       for (int y=0; y<num_rows; y++)
       {
          for (int x=0; x<num_columns; x++)
@@ -416,10 +412,8 @@ bool TMJTileMeshLoader::load()
 
 
 
-   // ##
-   // create the background_mesh
-   //int num_columns = tmx_width;
-   //int num_rows = tmx_height;
+   // background
+
    AllegroFlare::TileMaps::PrimMesh* created_background_mesh = nullptr;
    if (background_tilelayer_exists)
    {
@@ -452,16 +446,13 @@ bool TMJTileMeshLoader::load()
    }
 
 
-   // ##
-   // create the collision tile map
+   // collision
+
    AllegroFlare::TileMaps::TileMap<int>* created_collision_tile_map = new AllegroFlare::TileMaps::TileMap<int>(
       collision_layer_num_columns,
       collision_layer_num_rows);
    created_collision_tile_map->initialize();
 
-
-   // ##
-   // fill the data on the collision tile map
    for (int y=0; y<num_rows; y++)
    {
       for (int x=0; x<num_columns; x++)
@@ -472,13 +463,15 @@ bool TMJTileMeshLoader::load()
       }
    }
 
-   // ##
-   // assign the created objects to the class
+
+   // Assign all of our created objects into the final result
    this->tile_atlas = created_tile_atlas;
    this->mesh = created_mesh;
    this->foreground_mesh = created_foreground_mesh;
    this->background_mesh = created_background_mesh;
    this->collision_tile_map = created_collision_tile_map;
+
+   // Set loaded to true
    loaded = true;
 
    return true;
