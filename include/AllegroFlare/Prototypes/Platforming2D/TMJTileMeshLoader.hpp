@@ -36,6 +36,10 @@ namespace AllegroFlare
             TMJTileMeshLoader(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string tmj_filename="filename-not-set.tmj", std::string tile_atlas_bitmap_identifier="tiles_dungeon_v1.1.png", int tile_atlas_tile_width=16, int tile_atlas_tile_height=16);
             ~TMJTileMeshLoader();
 
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+            void set_tmj_filename(std::string tmj_filename);
+            AllegroFlare::BitmapBin* get_bitmap_bin() const;
+            std::string get_tmj_filename() const;
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
             AllegroFlare::TileMaps::PrimMesh* get_mesh();
             AllegroFlare::TileMaps::PrimMesh* get_background_mesh();

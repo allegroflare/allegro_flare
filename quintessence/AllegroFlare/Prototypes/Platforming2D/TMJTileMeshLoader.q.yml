@@ -5,11 +5,15 @@ properties:
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: tmj_filename
     type: std::string
     init_with: '"filename-not-set.tmj"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: tile_atlas_bitmap_identifier
     type: std::string

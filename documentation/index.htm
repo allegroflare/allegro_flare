@@ -409,6 +409,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml">quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Hud/Hud.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/Screen.q.yml</a></li>
@@ -28708,6 +28709,115 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Resolve hard-coded hack to fix tiled tile 0 to be transparent", "Move more of the logic for building the mesh from the TMJDataLoader into this class, for example the \"terrain_override\" layer could be composited here instead."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">tmj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">tile_atlas_bitmap_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">tile_atlas_tile_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_atlas_tile_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+</tr>
+<tr>
+  <td class="property">mesh</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
+</tr>
+<tr>
+  <td class="property">background_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
+</tr>
+<tr>
+  <td class="property">foreground_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMesh*</td>
+</tr>
+<tr>
+  <td class="property">collision_tile_map</td>
+  <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">AllegroFlare::TileMaps::PrimMeshAtlas*</td>
+  <td class="method"><b>get_tile_atlas</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::TileMaps::PrimMesh*</td>
+  <td class="method"><b>get_mesh</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::TileMaps::PrimMesh*</td>
+  <td class="method"><b>get_background_mesh</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::TileMaps::PrimMesh*</td>
+  <td class="method"><b>get_foreground_mesh</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
+  <td class="method"><b>get_collision_tile_map</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>load</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ifstream&quot;, &quot;headers&quot;=&gt;[&quot;fstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasBuilder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasBuilder.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml">quintessence/AllegroFlare/Prototypes/Solitare/Solitare.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -42917,6 +43027,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
@@ -45127,6 +45238,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
@@ -45651,6 +45763,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
@@ -45901,6 +46014,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
@@ -45919,6 +46033,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
@@ -46117,15 +46232,18 @@ table td
   ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "Tileo/TMJMeshLoader"
   ],
   "AllegroFlare/TileMaps/TileAtlasBuilder": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/TileMaps/TileAtlasRepository",
     "Tileo/TMJMeshLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [
-    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader"
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "AllegroFlare/Elements/PlayingCards/DeckFactory": [
     "AllegroFlare/Prototypes/Solitare/Solitare"

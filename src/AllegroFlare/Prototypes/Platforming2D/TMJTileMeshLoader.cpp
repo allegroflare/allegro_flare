@@ -40,6 +40,30 @@ TMJTileMeshLoader::~TMJTileMeshLoader()
 }
 
 
+void TMJTileMeshLoader::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   this->bitmap_bin = bitmap_bin;
+}
+
+
+void TMJTileMeshLoader::set_tmj_filename(std::string tmj_filename)
+{
+   this->tmj_filename = tmj_filename;
+}
+
+
+AllegroFlare::BitmapBin* TMJTileMeshLoader::get_bitmap_bin() const
+{
+   return bitmap_bin;
+}
+
+
+std::string TMJTileMeshLoader::get_tmj_filename() const
+{
+   return tmj_filename;
+}
+
+
 AllegroFlare::TileMaps::PrimMeshAtlas* TMJTileMeshLoader::get_tile_atlas()
 {
    if (!(loaded))

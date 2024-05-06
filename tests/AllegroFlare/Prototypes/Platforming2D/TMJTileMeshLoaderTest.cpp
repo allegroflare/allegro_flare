@@ -18,7 +18,19 @@
 
 class AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTest : public ::testing::Test{};
 class AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture :
-   public AllegroFlare::Testing::WithAllegroRenderingFixture {};
+   public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+public:
+      AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader loader;
+
+public:
+   void load_map(std::string tmj_filename)
+   {
+      loader.set_bitmap_bin(&get_bitmap_bin_ref());
+      loader.set_tmj_filename(tmj_filename);
+      loader.load();
+   }
+};
 
 
 
@@ -32,7 +44,6 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    load__returns_true)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
-   bitmap_bin.set_full_path(TMJ_FIXTURE_PATH);
    AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader loader(
          &bitmap_bin,
          std::string(TMJ_FIXTURE_PATH) + TMJ_FIXTURE_FILENAME
@@ -47,14 +58,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture,
    load__creates_the_mesh_filled_with_the_expected_data)
 {
-   AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
-   bitmap_bin.set_full_path(TMJ_FIXTURE_PATH);
-   AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader loader(
-         &bitmap_bin,
-         std::string(TMJ_FIXTURE_PATH) + TMJ_FIXTURE_FILENAME
-      );
-
-   loader.load();
+   load_map(std::string(TMJ_FIXTURE_PATH) + TMJ_FIXTURE_FILENAME);
 
    AllegroFlare::TileMaps::PrimMesh *mesh = loader.get_mesh();
 
@@ -71,7 +75,6 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    load__creates_the_collision_tile_map_filled_with_the_expected_data)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
-   bitmap_bin.set_full_path(TMJ_FIXTURE_PATH);
    AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader loader(
          &bitmap_bin,
          std::string(TMJ_FIXTURE_PATH) + TMJ_FIXTURE_FILENAME
@@ -93,7 +96,6 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    CAPTURE__prim_mesh__will_appear_as_expected_when_rendered)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
-   bitmap_bin.set_full_path(TMJ_FIXTURE_PATH);
    AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader loader(
          &bitmap_bin,
          std::string(TMJ_FIXTURE_PATH) + TMJ_FIXTURE_FILENAME
@@ -104,7 +106,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    AllegroFlare::TileMaps::PrimMesh *mesh = loader.get_mesh();
    mesh->render();
    al_flip_display();
-   //sleep(2.0);
+   sleep(1.0);
 
    delete mesh;
 }
@@ -114,7 +116,6 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    load__when_a_background_tilelayer_is_present__creates_the_background_tile_map_filled_with_the_expected_data)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
-   bitmap_bin.set_full_path(TMJ_FIXTURE_PATH);
    AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader loader(
          &bitmap_bin,
          std::string(TMJ_FIXTURE_PATH) + TMJ_FIXTURE_WITH_BACKGROUND_FILENAME
