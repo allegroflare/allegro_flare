@@ -40,24 +40,6 @@ TMJTileMeshLoader::~TMJTileMeshLoader()
 }
 
 
-void TMJTileMeshLoader::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
-{
-   this->bitmap_bin = bitmap_bin;
-}
-
-
-void TMJTileMeshLoader::set_tmj_filename(std::string tmj_filename)
-{
-   this->tmj_filename = tmj_filename;
-}
-
-
-void TMJTileMeshLoader::set_tile_atlas_bitmap_identifier(std::string tile_atlas_bitmap_identifier)
-{
-   this->tile_atlas_bitmap_identifier = tile_atlas_bitmap_identifier;
-}
-
-
 AllegroFlare::BitmapBin* TMJTileMeshLoader::get_bitmap_bin() const
 {
    return bitmap_bin;
@@ -75,6 +57,42 @@ std::string TMJTileMeshLoader::get_tile_atlas_bitmap_identifier() const
    return tile_atlas_bitmap_identifier;
 }
 
+
+void TMJTileMeshLoader::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+{
+   if (!((!loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJTileMeshLoader::set_bitmap_bin]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJTileMeshLoader::set_bitmap_bin: error: guard \"(!loaded)\" not met");
+   }
+   this->bitmap_bin = bitmap_bin;
+}
+
+void TMJTileMeshLoader::set_tmj_filename(std::string tmj_filename)
+{
+   if (!((!loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJTileMeshLoader::set_tmj_filename]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJTileMeshLoader::set_tmj_filename: error: guard \"(!loaded)\" not met");
+   }
+   this->tmj_filename = tmj_filename;
+}
+
+void TMJTileMeshLoader::set_tile_atlas_bitmap_identifier(std::string tile_atlas_bitmap_identifier)
+{
+   if (!((!loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJTileMeshLoader::set_tile_atlas_bitmap_identifier]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJTileMeshLoader::set_tile_atlas_bitmap_identifier: error: guard \"(!loaded)\" not met");
+   }
+   this->tile_atlas_bitmap_identifier = tile_atlas_bitmap_identifier;
+}
 
 AllegroFlare::TileMaps::PrimMeshAtlas* TMJTileMeshLoader::get_tile_atlas()
 {

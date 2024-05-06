@@ -36,12 +36,12 @@ namespace AllegroFlare
             TMJTileMeshLoader(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string tmj_filename="[unset-tmj_filename]", std::string tile_atlas_bitmap_identifier="[unset-tile_atlas_bitmap_identifier]", int tile_atlas_tile_width=16, int tile_atlas_tile_height=16);
             ~TMJTileMeshLoader();
 
-            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
-            void set_tmj_filename(std::string tmj_filename);
-            void set_tile_atlas_bitmap_identifier(std::string tile_atlas_bitmap_identifier);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             std::string get_tmj_filename() const;
             std::string get_tile_atlas_bitmap_identifier() const;
+            void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
+            void set_tmj_filename(std::string tmj_filename="[unset-tmj_filename]");
+            void set_tile_atlas_bitmap_identifier(std::string tile_atlas_bitmap_identifier="[unset-tile_atlas_bitmap_identifier]");
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
             AllegroFlare::TileMaps::PrimMesh* get_mesh();
             AllegroFlare::TileMaps::PrimMesh* get_background_mesh();

@@ -6,21 +6,21 @@ properties:
     init_with: nullptr
     constructor_arg: true
     getter: true
-    setter: true
+    setter: explicit
 
   - name: tmj_filename
     type: std::string
     init_with: '"[unset-tmj_filename]"'
     constructor_arg: true
     getter: true
-    setter: true
+    setter: explicit
 
   - name: tile_atlas_bitmap_identifier
     type: std::string
     init_with: '"[unset-tile_atlas_bitmap_identifier]"'
     constructor_arg: true
     getter: true
-    setter: true
+    setter: explicit
 
   - name: tile_atlas_tile_width
     type: int
@@ -71,7 +71,37 @@ documentation:
        "terrain_override" layer could be composited here instead.
 
 
-functions:
+methods:
+
+
+  - name: set_bitmap_bin
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+    guards: [ (!loaded) ]
+    body: |
+      this->bitmap_bin = bitmap_bin;
+
+
+  - name: set_tmj_filename
+    parameters:
+      - name: tmj_filename
+        type: std::string
+        default_argument: '"[unset-tmj_filename]"'
+    guards: [ (!loaded) ]
+    body: |
+      this->tmj_filename = tmj_filename;
+
+
+  - name: set_tile_atlas_bitmap_identifier
+    parameters:
+      - name: tile_atlas_bitmap_identifier
+        type: std::string
+        default_argument: '"[unset-tile_atlas_bitmap_identifier]"'
+    guards: [ (!loaded) ]
+    body: |
+      this->tile_atlas_bitmap_identifier = tile_atlas_bitmap_identifier;
 
 
   - name: get_tile_atlas
