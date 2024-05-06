@@ -27,7 +27,7 @@ public:
    void load_map(std::string tmj_filename)
    {
       loader.set_bitmap_bin(&get_bitmap_bin_ref());
-      loader.set_tmj_filename(tmj_filename);
+      loader.set_tmj_filename(get_fixtures_path() + tmj_filename);
       loader.load();
    }
 };
@@ -58,7 +58,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture,
    load__creates_the_mesh_filled_with_the_expected_data)
 {
-   load_map(std::string(TMJ_FIXTURE_PATH) + TMJ_FIXTURE_FILENAME);
+   load_map(TMJ_FIXTURE_FILENAME);
 
    AllegroFlare::TileMaps::PrimMesh *mesh = loader.get_mesh();
 
