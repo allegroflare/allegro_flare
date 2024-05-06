@@ -451,7 +451,6 @@ int TileMesh::get_tile_id(int tile_x, int tile_y)
    if (tile_y >= num_rows) return 0;
 
    return tile_ids[tile_x + tile_y * num_columns];
-   return 0;
 }
 
 std::pair<bool, bool> TileMesh::get_tile_flip(int tile_x, int tile_y)
@@ -673,14 +672,12 @@ int TileMesh::get_real_width()
 {
    // TODO: This should be a float?
    return num_columns * tile_width;
-   return 0;
 }
 
 int TileMesh::get_real_height()
 {
    // TODO: This should be a float?
    return num_rows * tile_height;
-   return 0;
 }
 
 void TileMesh::swap_yz()

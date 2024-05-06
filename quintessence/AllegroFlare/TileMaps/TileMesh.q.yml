@@ -405,7 +405,6 @@ methods:
       if (tile_y >= num_rows) return 0;
 
       return tile_ids[tile_x + tile_y * num_columns];
-      return 0;
 
 
   - name: get_tile_flip
@@ -646,7 +645,6 @@ methods:
     body: |
       // TODO: This should be a float?
       return num_columns * tile_width;
-      return 0;
 
 
   - name: get_real_height
@@ -654,7 +652,6 @@ methods:
     body: |
       // TODO: This should be a float?
       return num_rows * tile_height;
-      return 0;
 
 
   - name: swap_yz
