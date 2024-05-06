@@ -350,11 +350,14 @@ bool TMJTileMeshLoader::load()
    }
 
 
+   // Some helper vars
+   int &num_columns = tmx_num_columns;
+   int &num_rows = tmx_num_rows;
+
+
 
    // terrain
 
-   int num_columns = tmx_num_columns;
-   int num_rows = tmx_num_rows;
    AllegroFlare::TileMaps::PrimMesh* created_mesh = new AllegroFlare::TileMaps::PrimMesh(
          created_tile_atlas,
          num_columns,
@@ -378,6 +381,7 @@ bool TMJTileMeshLoader::load()
          else created_mesh->set_tile_id(x, y, tile_id-1);
       }
    }
+
 
 
    // foreground
@@ -441,6 +445,7 @@ bool TMJTileMeshLoader::load()
          }
       }
    }
+
 
 
    // collision

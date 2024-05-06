@@ -101,8 +101,17 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    load_map(TMJ_FIXTURE_FILENAME);
 
    AllegroFlare::TileMaps::PrimMesh *mesh = loader.get_mesh();
+
+   AllegroFlare::Placement2D placement;
+   placement.position = { 1920/2, 1080/2 };
+   placement.size = { (float)mesh->get_real_width(), (float)mesh->get_real_height() };
+   placement.scale = { 3.0f, 3.0f };
+
+   placement.start_transform();
    mesh->render();
    al_flip_display();
+   placement.restore_transform();
+
    sleep(1.0);
 
    delete mesh;
