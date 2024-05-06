@@ -3269,7 +3269,6 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
     "Tileo/TMJMeshLoader",
@@ -3478,6 +3477,9 @@
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
+  ],
+  "AllegroFlare/TileMaps/TileMesh": [
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "AllegroFlare/Elements/PlayingCards/DeckFactory": [

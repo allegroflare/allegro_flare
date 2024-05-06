@@ -38,17 +38,17 @@ properties:
     getter: explicit
 
   - name: terrain_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     init_with: nullptr
     getter: explicit
 
   - name: background_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     init_with: nullptr
     getter: explicit
 
   - name: foreground_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     init_with: nullptr
     getter: explicit
 
@@ -111,19 +111,19 @@ methods:
 
 
   - name: get_terrain_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     guards: [ loaded ]
     body: return terrain_mesh;
 
 
   - name: get_background_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     guards: [ loaded ]
     body: return background_mesh;
 
 
   - name: get_foreground_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     guards: [ loaded ]
     body: return foreground_mesh;
 
@@ -329,7 +329,7 @@ methods:
 
       // terrain
 
-      AllegroFlare::TileMaps::PrimMesh* created_terrain_mesh = nullptr;
+      AllegroFlare::TileMaps::TileMesh* created_terrain_mesh = nullptr;
       created_terrain_mesh = create_mesh(
          created_tile_atlas,
          num_columns,
@@ -343,7 +343,7 @@ methods:
 
       // foreground
 
-      AllegroFlare::TileMaps::PrimMesh* created_foreground_mesh = nullptr;
+      AllegroFlare::TileMaps::TileMesh* created_foreground_mesh = nullptr;
       if (foreground_tilelayer_exists)
       {
          created_foreground_mesh = create_mesh(
@@ -360,7 +360,7 @@ methods:
 
       // background
 
-      AllegroFlare::TileMaps::PrimMesh* created_background_mesh = nullptr;
+      AllegroFlare::TileMaps::TileMesh* created_background_mesh = nullptr;
       if (background_tilelayer_exists)
       {
          created_background_mesh = create_mesh(
@@ -411,7 +411,7 @@ methods:
 
 
   - name: create_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     parameters:
       - name: tile_atlas
         type: AllegroFlare::TileMaps::PrimMeshAtlas*
@@ -433,7 +433,7 @@ methods:
         default_argument: '{}'
     guards: [ tile_atlas, tile_data ]
     body: |
-      AllegroFlare::TileMaps::PrimMesh* created_terrain_mesh = new AllegroFlare::TileMaps::PrimMesh(
+      AllegroFlare::TileMaps::TileMesh* created_terrain_mesh = new AllegroFlare::TileMaps::TileMesh(
             tile_atlas,
             num_columns,
             num_rows,
@@ -467,8 +467,8 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
-  - symbol: AllegroFlare::TileMaps::PrimMesh
-    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMesh
+    headers: [ AllegroFlare/TileMaps/TileMesh.hpp ]
   - symbol: AllegroFlare::TileMaps::TileAtlasBuilder
     headers: [ AllegroFlare/TileMaps/TileAtlasBuilder.hpp ]
   - symbol: AllegroFlare::TileMaps::TileMap

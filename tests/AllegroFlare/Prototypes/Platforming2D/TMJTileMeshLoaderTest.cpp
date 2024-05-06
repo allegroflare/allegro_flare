@@ -55,7 +55,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 {
    load_map(TMJ_FIXTURE_FILENAME);
 
-   AllegroFlare::TileMaps::PrimMesh *terrain_mesh = loader.get_terrain_mesh();
+   AllegroFlare::TileMaps::TileMesh *terrain_mesh = loader.get_terrain_mesh();
 
    ASSERT_NE(nullptr, terrain_mesh);
    EXPECT_EQ(15, terrain_mesh->get_num_rows());
@@ -85,7 +85,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 {
    load_map(TMJ_FIXTURE_WITH_BACKGROUND_FILENAME);
 
-   AllegroFlare::TileMaps::PrimMesh *background_mesh = loader.get_background_mesh();
+   AllegroFlare::TileMaps::TileMesh *background_mesh = loader.get_background_mesh();
 
    ASSERT_NE(nullptr, background_mesh);
    EXPECT_EQ(15, background_mesh->get_num_rows());
@@ -101,9 +101,9 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 {
    load_map(TMJ_FIXTURE_WITH_BACKGROUND_AND_FOREGROUND_FILENAME);
 
-   AllegroFlare::TileMaps::PrimMesh *terrain_mesh = loader.get_terrain_mesh();
-   AllegroFlare::TileMaps::PrimMesh *background_mesh = loader.get_background_mesh();
-   AllegroFlare::TileMaps::PrimMesh *foreground_mesh = loader.get_foreground_mesh();
+   AllegroFlare::TileMaps::TileMesh *terrain_mesh = loader.get_terrain_mesh();
+   AllegroFlare::TileMaps::TileMesh *background_mesh = loader.get_background_mesh();
+   AllegroFlare::TileMaps::TileMesh *foreground_mesh = loader.get_foreground_mesh();
 
    float map_width = terrain_mesh->get_real_width();
    float map_height = terrain_mesh->get_real_height();

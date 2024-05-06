@@ -105,7 +105,7 @@ AllegroFlare::TileMaps::PrimMeshAtlas* TMJTileMeshLoader::get_tile_atlas()
    return tile_atlas;
 }
 
-AllegroFlare::TileMaps::PrimMesh* TMJTileMeshLoader::get_terrain_mesh()
+AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::get_terrain_mesh()
 {
    if (!(loaded))
    {
@@ -117,7 +117,7 @@ AllegroFlare::TileMaps::PrimMesh* TMJTileMeshLoader::get_terrain_mesh()
    return terrain_mesh;
 }
 
-AllegroFlare::TileMaps::PrimMesh* TMJTileMeshLoader::get_background_mesh()
+AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::get_background_mesh()
 {
    if (!(loaded))
    {
@@ -129,7 +129,7 @@ AllegroFlare::TileMaps::PrimMesh* TMJTileMeshLoader::get_background_mesh()
    return background_mesh;
 }
 
-AllegroFlare::TileMaps::PrimMesh* TMJTileMeshLoader::get_foreground_mesh()
+AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::get_foreground_mesh()
 {
    if (!(loaded))
    {
@@ -360,7 +360,7 @@ bool TMJTileMeshLoader::load()
 
    // terrain
 
-   AllegroFlare::TileMaps::PrimMesh* created_terrain_mesh = nullptr;
+   AllegroFlare::TileMaps::TileMesh* created_terrain_mesh = nullptr;
    created_terrain_mesh = create_mesh(
       created_tile_atlas,
       num_columns,
@@ -374,7 +374,7 @@ bool TMJTileMeshLoader::load()
 
    // foreground
 
-   AllegroFlare::TileMaps::PrimMesh* created_foreground_mesh = nullptr;
+   AllegroFlare::TileMaps::TileMesh* created_foreground_mesh = nullptr;
    if (foreground_tilelayer_exists)
    {
       created_foreground_mesh = create_mesh(
@@ -391,7 +391,7 @@ bool TMJTileMeshLoader::load()
 
    // background
 
-   AllegroFlare::TileMaps::PrimMesh* created_background_mesh = nullptr;
+   AllegroFlare::TileMaps::TileMesh* created_background_mesh = nullptr;
    if (background_tilelayer_exists)
    {
       created_background_mesh = create_mesh(
@@ -437,7 +437,7 @@ bool TMJTileMeshLoader::load()
    return true;
 }
 
-AllegroFlare::TileMaps::PrimMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas, int num_columns, int num_rows, int tile_width, int tile_height, std::vector<int>* tile_data)
+AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas, int num_columns, int num_rows, int tile_width, int tile_height, std::vector<int>* tile_data)
 {
    if (!(tile_atlas))
    {
@@ -453,7 +453,7 @@ AllegroFlare::TileMaps::PrimMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TMJTileMeshLoader::create_mesh: error: guard \"tile_data\" not met");
    }
-   AllegroFlare::TileMaps::PrimMesh* created_terrain_mesh = new AllegroFlare::TileMaps::PrimMesh(
+   AllegroFlare::TileMaps::TileMesh* created_terrain_mesh = new AllegroFlare::TileMaps::TileMesh(
          tile_atlas,
          num_columns,
          num_rows,
