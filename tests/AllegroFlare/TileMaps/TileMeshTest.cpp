@@ -111,15 +111,16 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest, render__wi
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
    initialize__will_set_the_number_of_vertices_to_the_expected_amount)
 {
-   return;
-
    ALLEGRO_BITMAP *atlas_bitmap = get_bitmap_bin_ref()[TEST_TILE_MAP_BITMAP];
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-   AllegroFlare::TileMaps::TileMesh mesh(&atlas, 30, 20, 16, 16);
    atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);
+
+   AllegroFlare::TileMaps::TileMesh mesh(&atlas);
+   mesh.set_num_columns(30);
+   mesh.set_num_rows(10);
    mesh.initialize();
 
-   ASSERT_EQ(30*20*6, mesh.get_vertices_ref().size());
+   ASSERT_EQ(30*10*6, mesh.get_vertices_ref().size());
 }
 
 
