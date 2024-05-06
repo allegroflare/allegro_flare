@@ -170,41 +170,18 @@ bool TMJTileMeshLoader::load()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TMJTileMeshLoader::load: error: guard \"(!loaded)\" not met");
    }
-   // 1
-   // load and validate the json data to variables
-   // TODO: replace this with the TMJDataLoader
-
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader tmj_data_loader(tmj_filename);
    tmj_data_loader.load();
 
 
-   //// TODO: remove dead code for manual loading (now using only the tmj_data_loader data yay!)
-   //std::ifstream i(tmj_filename);
-   //nlohmann::json j;
-   //i >> j;
+   int tmx_height = tmj_data_loader.get_num_rows();
+   int tmx_width = tmj_data_loader.get_num_columns();
+   int tmx_tileheight = tmj_data_loader.get_tile_height();
+   int tmx_tilewidth = tmj_data_loader.get_tile_width();
 
-   int tmx_height = tmj_data_loader.get_num_rows(); //j["height"];// get height
-   int tmx_width = tmj_data_loader.get_num_columns(); //j["width"];// get width
-   int tmx_tileheight = tmj_data_loader.get_tile_height(); //j["tileheight"]; // get height
-   int tmx_tilewidth = tmj_data_loader.get_tile_width(); //j["tilewidth"]; // get width
-
-   //// get first j["layers"] that is a ["type"] == "tilelayer"
-   //bool tilelayer_type_found = false;
-   //nlohmann::json tilelayer;
-   //for (auto &layer : j["layers"].items())
-   //{
-      //if (layer.value()["type"] == "tilelayer")
-      //{
-         //tilelayer = layer.value();
-         //tilelayer_type_found = true;
-         //break;
-      //}
-   //{}
-   //if (!tilelayer_type_found) throw std::runtime_error("TMJMeshLoader: error: tilelayer type not found.");
-
-   int tilelayer_width = tmj_data_loader.get_layer_num_columns(); //tilelayer["width"];
-   int tilelayer_height = tmj_data_loader.get_layer_num_rows(); //tilelayer["height"];
-   std::vector<int> tiles = tmj_data_loader.get_layer_tile_data(); //tilelayer["data"].get<std::vector<int>>();
+   int terrain_tilelayer_width = tmj_data_loader.get_layer_num_columns();
+   int terrain_tilelayer_height = tmj_data_loader.get_layer_num_rows();
+   std::vector<int> terrain_tiles = tmj_data_loader.get_layer_tile_data();
 
    int collision_layer_num_columns = tmj_data_loader.get_collision_layer_num_columns();
    int collision_layer_num_rows = tmj_data_loader.get_collision_layer_num_rows();
@@ -222,11 +199,11 @@ bool TMJTileMeshLoader::load()
 
 
    // validate widths and heights match
-   if (tilelayer_width != tmx_width)
+   if (terrain_tilelayer_width != tmx_width)
    {
       throw std::runtime_error("TMJMeshLoader: error: tilelayer width does not match tmx_width.");
    }
-   if (tilelayer_height != tmx_height)
+   if (terrain_tilelayer_height != tmx_height)
    {
       throw std::runtime_error("TMJMeshLoader: error: tilelayer height does not match tmx_height.");
    }
@@ -234,28 +211,28 @@ bool TMJTileMeshLoader::load()
    {
       throw std::runtime_error("TMJMeshLoader: error: tmx tileheight and tilewidth other than 16 not supported.");
    }
-   if (tiles.size() != tmx_width * tmx_height)
+   if (terrain_tiles.size() != tmx_width * tmx_height)
    {
-      throw std::runtime_error("TMJMeshLoader: error: num tiles (in \"data\" field) does not match width*height.");
+      throw std::runtime_error("TMJMeshLoader: error: num terrain tiles (in \"data\" field) does not match width*height.");
    }
-   if (tilelayer_width != collision_layer_num_columns)
+   if (terrain_tilelayer_width != collision_layer_num_columns)
    {
       // TODO: Improve this error message
       throw std::runtime_error("TMJMeshLoader: error: asjlasjl;afsdj;afjl");
    }
-   if (tilelayer_height != collision_layer_num_rows)
+   if (terrain_tilelayer_height != collision_layer_num_rows)
    {
       // TODO: Improve this error message
       throw std::runtime_error("TMJMeshLoader: error: quopiwequworeueo");
    }
    if (foreground_tilelayer_exists)
    {
-      if (tilelayer_width != foreground_tilelayer_width)
+      if (terrain_tilelayer_width != foreground_tilelayer_width)
       {
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zxnyzvnyzvxcnr");
       }
-      if (tilelayer_height != foreground_tilelayer_height)
+      if (terrain_tilelayer_height != foreground_tilelayer_height)
       {
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
@@ -268,12 +245,12 @@ bool TMJTileMeshLoader::load()
    }
    if (background_tilelayer_exists)
    {
-      if (tilelayer_width != background_tilelayer_width)
+      if (terrain_tilelayer_width != background_tilelayer_width)
       {
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zxnyzvnyzvxcnr");
       }
-      if (tilelayer_height != background_tilelayer_height)
+      if (terrain_tilelayer_height != background_tilelayer_height)
       {
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
@@ -287,7 +264,7 @@ bool TMJTileMeshLoader::load()
    if (collision_layer_tiles.size() != tmx_width * tmx_height)
    {
       // TODO: add test for this
-      throw std::runtime_error("TMJMeshLoader: error: num tiles (in \"data\" field) for collision_layer "
+      throw std::runtime_error("TMJMeshLoader: error: num collision layer tiles (in \"data\" field) for collision_layer "
                                "does not match width*height.");
    }
 
@@ -303,7 +280,7 @@ bool TMJTileMeshLoader::load()
    bool filter_out_flipped_tile_numbers = true;
    if (filter_out_flipped_tile_numbers)
    {
-      for (auto &tile : tiles)
+      for (auto &tile : terrain_tiles)
       {
          bool horizontalFlip = tile & 0x80000000;
          bool verticalFlip = tile & 0x40000000;
@@ -392,7 +369,7 @@ bool TMJTileMeshLoader::load()
    {
       for (int x=0; x<num_columns; x++)
       {
-         int tile_id = tiles[y * num_columns + x];
+         int tile_id = terrain_tiles[y * num_columns + x];
          if (tile_id == 0) created_mesh->set_tile_id(x, y, 72);
                         // <- TODO: this is a hack to have 0 be transparent
                         // ^^ TODO: CRITICAL Modify this to make more sense. Consider *removing* the tile from
