@@ -19,6 +19,8 @@ properties:
     type: std::string
     init_with: '"tiles_dungeon_v1.1.png"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: tile_atlas_tile_width
     type: int

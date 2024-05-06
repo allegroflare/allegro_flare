@@ -38,8 +38,10 @@ namespace AllegroFlare
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_tmj_filename(std::string tmj_filename);
+            void set_tile_atlas_bitmap_identifier(std::string tile_atlas_bitmap_identifier);
             AllegroFlare::BitmapBin* get_bitmap_bin() const;
             std::string get_tmj_filename() const;
+            std::string get_tile_atlas_bitmap_identifier() const;
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
             AllegroFlare::TileMaps::PrimMesh* get_mesh();
             AllegroFlare::TileMaps::PrimMesh* get_background_mesh();

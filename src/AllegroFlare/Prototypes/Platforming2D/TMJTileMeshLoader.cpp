@@ -52,6 +52,12 @@ void TMJTileMeshLoader::set_tmj_filename(std::string tmj_filename)
 }
 
 
+void TMJTileMeshLoader::set_tile_atlas_bitmap_identifier(std::string tile_atlas_bitmap_identifier)
+{
+   this->tile_atlas_bitmap_identifier = tile_atlas_bitmap_identifier;
+}
+
+
 AllegroFlare::BitmapBin* TMJTileMeshLoader::get_bitmap_bin() const
 {
    return bitmap_bin;
@@ -61,6 +67,12 @@ AllegroFlare::BitmapBin* TMJTileMeshLoader::get_bitmap_bin() const
 std::string TMJTileMeshLoader::get_tmj_filename() const
 {
    return tmj_filename;
+}
+
+
+std::string TMJTileMeshLoader::get_tile_atlas_bitmap_identifier() const
+{
+   return tile_atlas_bitmap_identifier;
 }
 
 
