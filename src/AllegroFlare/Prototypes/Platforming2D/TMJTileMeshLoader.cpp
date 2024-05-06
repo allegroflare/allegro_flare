@@ -173,8 +173,8 @@ bool TMJTileMeshLoader::load()
    tmj_data_loader.load();
 
 
-   int tmx_height = tmj_data_loader.get_num_rows();
-   int tmx_width = tmj_data_loader.get_num_columns();
+   int tmx_num_rows = tmj_data_loader.get_num_rows();
+   int tmx_num_columns = tmj_data_loader.get_num_columns();
    int tmx_tile_height = tmj_data_loader.get_tile_height();
    int tmx_tile_width = tmj_data_loader.get_tile_width();
 
@@ -198,19 +198,20 @@ bool TMJTileMeshLoader::load()
 
 
    // validate widths and heights match
-   if (terrain_tilelayer_width != tmx_width)
+   // TODO: Improve the validation code here
+   if (terrain_tilelayer_width != tmx_num_columns)
    {
-      throw std::runtime_error("TMJMeshLoader: error: tilelayer width does not match tmx_width.");
+      throw std::runtime_error("TMJMeshLoader: error: tilelayer width does not match tmx_num_columns.");
    }
-   if (terrain_tilelayer_height != tmx_height)
+   if (terrain_tilelayer_height != tmx_num_rows)
    {
-      throw std::runtime_error("TMJMeshLoader: error: tilelayer height does not match tmx_height.");
+      throw std::runtime_error("TMJMeshLoader: error: tilelayer height does not match tmx_num_rows.");
    }
    if (tmx_tile_height != 16 || tmx_tile_width != 16)
    {
       throw std::runtime_error("TMJMeshLoader: error: tmx tileheight and tilewidth other than 16 not supported.");
    }
-   if (terrain_tiles.size() != tmx_width * tmx_height)
+   if (terrain_tiles.size() != tmx_num_columns * tmx_num_rows)
    {
       throw std::runtime_error("TMJMeshLoader: error: num terrain tiles (in \"data\" field) does not match width*height.");
    }
@@ -236,7 +237,7 @@ bool TMJTileMeshLoader::load()
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
       }
-      if (foreground_tiles.size() != tmx_width * tmx_height)
+      if (foreground_tiles.size() != tmx_num_columns * tmx_num_rows)
       {
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: aqwoyzhawehopaso");
@@ -254,13 +255,13 @@ bool TMJTileMeshLoader::load()
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
       }
-      if (background_tiles.size() != tmx_width * tmx_height)
+      if (background_tiles.size() != tmx_num_columns * tmx_num_rows)
       {
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: aqwoyzhawehopaso");
       }
    }
-   if (collision_layer_tiles.size() != tmx_width * tmx_height)
+   if (collision_layer_tiles.size() != tmx_num_columns * tmx_num_rows)
    {
       // TODO: add test for this
       throw std::runtime_error("TMJMeshLoader: error: num collision layer tiles (in \"data\" field) for collision_layer "
@@ -271,8 +272,8 @@ bool TMJTileMeshLoader::load()
 
    // Filter out any "flipped" tiles. Tiled will give *very large* numbers to tiles that have been flipped,
    // which could result in unexpected/missing tiles if they have been flipped accidentally. For now,
-   // this feature is unexpected to we will "filter out" the flipped data from the tile id here.  Note we'll
-   // do this twice, once for the visual tiles, and a second time for the "collision" tiles.
+   // this feature is unexpected so we will "filter out" the flipped data from the tile id here.  Note we'll
+   // do this for each layer.
    // For more information, see this discourse support page:
    // https://discourse.mapeditor.org/t/tiled-csv-format-has-exceptionally-large-tile-values-solved/4765
 
@@ -352,8 +353,8 @@ bool TMJTileMeshLoader::load()
 
    // terrain
 
-   int num_columns = tmx_width;
-   int num_rows = tmx_height;
+   int num_columns = tmx_num_columns;
+   int num_rows = tmx_num_rows;
    AllegroFlare::TileMaps::PrimMesh* created_mesh = new AllegroFlare::TileMaps::PrimMesh(
          created_tile_atlas,
          num_columns,
@@ -395,7 +396,6 @@ bool TMJTileMeshLoader::load()
          );
       created_foreground_mesh->initialize();
 
-
       for (int y=0; y<num_rows; y++)
       {
          for (int x=0; x<num_columns; x++)
@@ -428,9 +428,6 @@ bool TMJTileMeshLoader::load()
          );
       created_background_mesh->initialize();
 
-
-      // ##
-      // fill the data on the background_mesh
       for (int y=0; y<num_rows; y++)
       {
          for (int x=0; x<num_columns; x++)
