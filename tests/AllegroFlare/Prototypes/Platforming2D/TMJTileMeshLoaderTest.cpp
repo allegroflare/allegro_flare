@@ -8,6 +8,7 @@
 
 #define TMJ_FIXTURE_FILENAME "map1-02.tmj"
 #define TMJ_FIXTURE_WITH_BACKGROUND_FILENAME "map1-with_background-02.tmj"
+#define TMJ_FIXTURE_WITH_BACKGROUND_AND_FOREGROUND_FILENAME "map1-with_background_and_foreground-02.tmj"
 #define TILE_ATLAS_FILENAME "tiles_dungeon_v1.1.png"
 
 class AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTest : public ::testing::Test{};
@@ -45,23 +46,23 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 
    ASSERT_EQ(true, loader.load());
 
-   delete loader.get_mesh();
+   delete loader.get_terrain_mesh();
 }
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture,
-   load__creates_the_mesh_filled_with_the_expected_data)
+   load__creates_the_terrain_mesh_filled_with_the_expected_data)
 {
    load_map(TMJ_FIXTURE_FILENAME);
 
-   AllegroFlare::TileMaps::PrimMesh *mesh = loader.get_mesh();
+   AllegroFlare::TileMaps::PrimMesh *terrain_mesh = loader.get_terrain_mesh();
 
-   ASSERT_NE(nullptr, mesh);
-   EXPECT_EQ(15, mesh->get_num_rows());
-   EXPECT_EQ(25, mesh->get_num_columns());
+   ASSERT_NE(nullptr, terrain_mesh);
+   EXPECT_EQ(15, terrain_mesh->get_num_rows());
+   EXPECT_EQ(25, terrain_mesh->get_num_columns());
    // TODO: include more data members
 
-   delete mesh;
+   delete terrain_mesh;
 }
 
 
@@ -96,25 +97,36 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture,
-   CAPTURE__prim_mesh__will_appear_as_expected_when_rendered)
+   CAPTURE__will_appear_as_expected_when_loaded_objects_are_rendered)
 {
-   load_map(TMJ_FIXTURE_FILENAME);
+   load_map(TMJ_FIXTURE_WITH_BACKGROUND_AND_FOREGROUND_FILENAME);
 
-   AllegroFlare::TileMaps::PrimMesh *mesh = loader.get_mesh();
+   AllegroFlare::TileMaps::PrimMesh *terrain_mesh = loader.get_terrain_mesh();
+   AllegroFlare::TileMaps::PrimMesh *background_mesh = loader.get_background_mesh();
+   AllegroFlare::TileMaps::PrimMesh *foreground_mesh = loader.get_foreground_mesh();
+
+   float map_width = terrain_mesh->get_real_width();
+   float map_height = terrain_mesh->get_real_height();
 
    AllegroFlare::Placement2D placement;
    placement.position = { 1920/2, 1080/2 };
-   placement.size = { (float)mesh->get_real_width(), (float)mesh->get_real_height() };
+   placement.size = { map_width, map_height };
    placement.scale = { 3.0f, 3.0f };
 
+   // Render the subject
    placement.start_transform();
-   mesh->render();
+   background_mesh->render();
+   terrain_mesh->render();
+   foreground_mesh->render();
+
    al_flip_display();
    placement.restore_transform();
 
    sleep(1.0);
 
-   delete mesh;
+   delete terrain_mesh;
+   delete background_mesh;
+   delete foreground_mesh;
 }
 
 
