@@ -190,9 +190,8 @@ int TileMesh::remove_vertices_from_index_vertices(std::vector<int> vertices_to_r
 
    for (int i=0; i<index_vertices.size(); i++)
    {
-      bool vertices_found = false;
-
-      if (std::find(vertices_to_remove.begin(), vertices_to_remove.end(), index_vertices[i]) == vertices_to_remove.end()) continue;
+      if (std::find(vertices_to_remove.begin(), vertices_to_remove.end(),
+          index_vertices[i]) == vertices_to_remove.end()) continue;
 
       index_vertices.erase(index_vertices.begin() + i);
       i--; // Adjust index since element was removed
@@ -407,7 +406,6 @@ bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, boo
       throw std::runtime_error("TileMesh::set_tile_id: error: guard \"atlas\" not met");
    }
    if (tile_id >= (int)atlas->get_tile_index_size()) return false;
-   //if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::set_tile_id] error: must be initialized first");
 
    // if the tile_id is a negative number, use the number "0" instead
    // I'm not sure how/why this is the preferred approach.  I think negative numbers
@@ -567,7 +565,7 @@ void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    else
    {
       // Upate the vertex in the vertex buffer
-      // Consider only locking the region that needs the change
+      // TODO: Consider only locking the region that needs the change
       refresh_vertex_buffer();
    }
    return;
@@ -616,23 +614,13 @@ void TileMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
    }
 
    int num_vertices = infer_num_vertices();
-   //ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
-      //vertex_buffer,
-      //0,
-      //num_vertices,
-      //ALLEGRO_LOCK_WRITEONLY
-   //);
 
    for (int v=0; v<num_vertices; v++)
    {
       vertices[v].x = vertices[v].x / old_tile_width * new_tile_width;
       vertices[v].y = vertices[v].y / old_tile_height * new_tile_height;
       vertices[v].z = vertices[v].z / old_tile_height * new_tile_height;
-
-      //vertex_buffer_start[v] = vertices[v];
    }
-
-   //al_unlock_vertex_buffer(vertex_buffer);
 
    if (holding_vertex_buffer_update_until_refresh) vertex_buffer_is_dirty = true;
    else refresh_vertex_buffer();
@@ -682,9 +670,13 @@ int TileMesh::get_real_height()
 
 void TileMesh::swap_yz()
 {
-   if (!initialized) throw std::runtime_error("[AllegroFlare::PrimMesh::swap_yz] error: must be initialized first");
-
-
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[TileMesh::swap_yz]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TileMesh::swap_yz: error: guard \"initialized\" not met");
+   }
    for (auto &vertex : vertices)
    {
       float swap = vertex.y;
