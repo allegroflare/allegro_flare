@@ -368,10 +368,18 @@ methods:
          h_flip_vertices(&u1, &v1, &u2, &v2);
          h_flipped_tiles.insert({tile_x, tile_y});
       }
+      else
+      {
+         h_flipped_tiles.erase({tile_x, tile_y});
+      }
       if (flip_v)
       {
          v_flip_vertices(&u1, &v1, &u2, &v2);
-         h_flipped_tiles.erase({tile_x, tile_y});
+         v_flipped_tiles.insert({tile_x, tile_y});
+      }
+      else
+      {
+         v_flipped_tiles.erase({tile_x, tile_y});
       }
 
       set_tile_uv(tile_x, tile_y, u1, v1, u2, v2);
@@ -398,6 +406,27 @@ methods:
 
       return tile_ids[tile_x + tile_y * num_columns];
       return 0;
+
+
+  - name: get_tile_flip
+    type: std::pair<bool, bool>
+    parameters:
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+    body: |
+      if (tile_x < 0) return { false, false };
+      if (tile_x >= num_columns) return { false, false };
+      if (tile_y < 0) return { false, false };
+      if (tile_y >= num_rows) return { false, false };
+
+      bool is_h_flipped = h_flipped_tiles.find({ tile_x, tile_y }) != h_flipped_tiles.end();
+      bool is_v_flipped = v_flipped_tiles.find({ tile_x, tile_y }) != v_flipped_tiles.end();
+
+      return { is_h_flipped, is_v_flipped };
 
 
   - name: h_flip_vertices

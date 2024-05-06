@@ -307,7 +307,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
-   FOCUS__CAPTURE__VISUAL__set_tile_id__with_flip_h_set_to_true__will_flip_the_tile_horizontally)
+   CAPTURE__VISUAL__set_tile_id__with_flip_h_and_flip_v_values__will_flip_the_tile_horizontally_and_vertically)
 {
    mesh.enable_holding_vertex_buffer_update_until_refresh();
 
@@ -321,4 +321,31 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    // Render the subject
    render_subject(1.0f);
 }
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   get_file_filp__will_return_expected_values_for_horizontal_and_vertical_flip_on_a_tile)
+{
+   mesh.enable_holding_vertex_buffer_update_until_refresh();
+
+   mesh.set_tile_id(0, 0, 234, false, false);
+   mesh.set_tile_id(3, 0, 234, true, false);
+   mesh.set_tile_id(6, 0, 234, false, true);
+   mesh.set_tile_id(9, 0, 234, true, true);
+
+   std::pair<bool, bool> expected_flip;
+
+   expected_flip = { false, false };
+   EXPECT_EQ(expected_flip, mesh.get_tile_flip(0, 0));
+
+   expected_flip = { true, false };
+   EXPECT_EQ(expected_flip, mesh.get_tile_flip(3, 0));
+
+   expected_flip = { false, true };
+   EXPECT_EQ(expected_flip, mesh.get_tile_flip(6, 0));
+
+   expected_flip = { true, true };
+   EXPECT_EQ(expected_flip, mesh.get_tile_flip(9, 0));
+}
+
 

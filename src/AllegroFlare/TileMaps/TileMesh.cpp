@@ -422,10 +422,18 @@ bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, boo
       h_flip_vertices(&u1, &v1, &u2, &v2);
       h_flipped_tiles.insert({tile_x, tile_y});
    }
+   else
+   {
+      h_flipped_tiles.erase({tile_x, tile_y});
+   }
    if (flip_v)
    {
       v_flip_vertices(&u1, &v1, &u2, &v2);
-      h_flipped_tiles.erase({tile_x, tile_y});
+      v_flipped_tiles.insert({tile_x, tile_y});
+   }
+   else
+   {
+      v_flipped_tiles.erase({tile_x, tile_y});
    }
 
    set_tile_uv(tile_x, tile_y, u1, v1, u2, v2);
@@ -444,6 +452,19 @@ int TileMesh::get_tile_id(int tile_x, int tile_y)
 
    return tile_ids[tile_x + tile_y * num_columns];
    return 0;
+}
+
+std::pair<bool, bool> TileMesh::get_tile_flip(int tile_x, int tile_y)
+{
+   if (tile_x < 0) return { false, false };
+   if (tile_x >= num_columns) return { false, false };
+   if (tile_y < 0) return { false, false };
+   if (tile_y >= num_rows) return { false, false };
+
+   bool is_h_flipped = h_flipped_tiles.find({ tile_x, tile_y }) != h_flipped_tiles.end();
+   bool is_v_flipped = v_flipped_tiles.find({ tile_x, tile_y }) != v_flipped_tiles.end();
+
+   return { is_h_flipped, is_v_flipped };
 }
 
 void TileMesh::h_flip_vertices(int* u1, int* v1, int* u2, int* v2)
