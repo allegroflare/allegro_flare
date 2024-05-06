@@ -180,21 +180,21 @@ bool TMJTileMeshLoader::load()
 
    int terrain_tilelayer_width = tmj_data_loader.get_layer_num_columns();
    int terrain_tilelayer_height = tmj_data_loader.get_layer_num_rows();
-   std::vector<int> terrain_tiles = tmj_data_loader.get_layer_tile_data();
+   std::vector<int> terrain_tile_data = tmj_data_loader.get_layer_tile_data();
 
    int collision_layer_num_columns = tmj_data_loader.get_collision_layer_num_columns();
    int collision_layer_num_rows = tmj_data_loader.get_collision_layer_num_rows();
-   std::vector<int> collision_layer_tiles = tmj_data_loader.get_collision_layer_tile_data();
+   std::vector<int> collision_layer_tile_data = tmj_data_loader.get_collision_layer_tile_data();
 
    int foreground_tilelayer_exists = tmj_data_loader.get_foreground_tilelayer_exists();
    int foreground_tilelayer_width = tmj_data_loader.get_foreground_tilelayer_num_columns();
    int foreground_tilelayer_height = tmj_data_loader.get_foreground_tilelayer_num_rows();
-   std::vector<int> foreground_tiles = tmj_data_loader.get_foreground_tilelayer_tile_data();
+   std::vector<int> foreground_tile_data = tmj_data_loader.get_foreground_tilelayer_tile_data();
 
    int background_tilelayer_exists = tmj_data_loader.get_background_tilelayer_exists();
    int background_tilelayer_width = tmj_data_loader.get_background_tilelayer_num_columns();
    int background_tilelayer_height = tmj_data_loader.get_background_tilelayer_num_rows();
-   std::vector<int> background_tiles = tmj_data_loader.get_background_tilelayer_tile_data();
+   std::vector<int> background_tile_data = tmj_data_loader.get_background_tilelayer_tile_data();
 
 
    // validate widths and heights match
@@ -211,7 +211,7 @@ bool TMJTileMeshLoader::load()
    {
       throw std::runtime_error("TMJMeshLoader: error: tmx tileheight and tilewidth other than 16 not supported.");
    }
-   if (terrain_tiles.size() != tmx_num_columns * tmx_num_rows)
+   if (terrain_tile_data.size() != tmx_num_columns * tmx_num_rows)
    {
       throw std::runtime_error("TMJMeshLoader: error: num terrain tiles (in \"data\" field) does not match width*height.");
    }
@@ -237,7 +237,7 @@ bool TMJTileMeshLoader::load()
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
       }
-      if (foreground_tiles.size() != tmx_num_columns * tmx_num_rows)
+      if (foreground_tile_data.size() != tmx_num_columns * tmx_num_rows)
       {
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: aqwoyzhawehopaso");
@@ -255,13 +255,13 @@ bool TMJTileMeshLoader::load()
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: zsboizbeiozsnroi");
       }
-      if (background_tiles.size() != tmx_num_columns * tmx_num_rows)
+      if (background_tile_data.size() != tmx_num_columns * tmx_num_rows)
       {
          // TODO: Improve this error message
          throw std::runtime_error("TMJMeshLoader: error: aqwoyzhawehopaso");
       }
    }
-   if (collision_layer_tiles.size() != tmx_num_columns * tmx_num_rows)
+   if (collision_layer_tile_data.size() != tmx_num_columns * tmx_num_rows)
    {
       // TODO: add test for this
       throw std::runtime_error("TMJMeshLoader: error: num collision layer tiles (in \"data\" field) for collision_layer "
@@ -286,7 +286,7 @@ bool TMJTileMeshLoader::load()
    bool filter_out_flipped_tile_numbers = true;
    if (filter_out_flipped_tile_numbers)
    {
-      for (auto &tile : terrain_tiles)
+      for (auto &tile : terrain_tile_data)
       {
          bool horizontalFlip = tile & 0x80000000;
          bool verticalFlip = tile & 0x40000000;
@@ -295,7 +295,7 @@ bool TMJTileMeshLoader::load()
          tile = filtered_tile_id;
       }
 
-      for (auto &tile : collision_layer_tiles)
+      for (auto &tile : collision_layer_tile_data)
       {
          bool horizontalFlip = tile & 0x80000000;
          bool verticalFlip = tile & 0x40000000;
@@ -304,7 +304,7 @@ bool TMJTileMeshLoader::load()
          tile = filtered_tile_id;
       }
 
-      for (auto &tile : foreground_tiles)
+      for (auto &tile : foreground_tile_data)
       {
          bool horizontalFlip = tile & 0x80000000;
          bool verticalFlip = tile & 0x40000000;
@@ -313,7 +313,7 @@ bool TMJTileMeshLoader::load()
          tile = filtered_tile_id;
       }
 
-      for (auto &tile : background_tiles)
+      for (auto &tile : background_tile_data)
       {
          bool horizontalFlip = tile & 0x80000000;
          bool verticalFlip = tile & 0x40000000;
@@ -353,34 +353,22 @@ bool TMJTileMeshLoader::load()
    // Some helper vars
    int &num_columns = tmx_num_columns;
    int &num_rows = tmx_num_rows;
-   int tile_width = tmx_tile_width;
-   int tile_height = tmx_tile_height;
+   int &tile_width = tmx_tile_width;
+   int &tile_height = tmx_tile_height;
 
 
 
    // terrain
 
-   AllegroFlare::TileMaps::PrimMesh* created_terrain_mesh = new AllegroFlare::TileMaps::PrimMesh(
-         created_tile_atlas,
-         num_columns,
-         num_rows,
-         tile_width,
-         tile_height
-      );
-   created_terrain_mesh->initialize();
-
-   for (int y=0; y<num_rows; y++)
-   {
-      for (int x=0; x<num_columns; x++)
-      {
-         int tile_id = terrain_tiles[y * num_columns + x];
-         if (tile_id == 0) created_terrain_mesh->set_tile_id(x, y, 72);
-                        // <- TODO: this is a hack to have 0 be transparent
-                        // ^^ TODO: CRITICAL Modify this to make more sense. Consider *removing* the tile from
-                        // the mesh
-         else created_terrain_mesh->set_tile_id(x, y, tile_id-1);
-      }
-   }
+   AllegroFlare::TileMaps::PrimMesh* created_terrain_mesh = nullptr;
+   created_terrain_mesh = create_mesh(
+      created_tile_atlas,
+      num_columns,
+      num_rows,
+      tile_width,
+      tile_height,
+      &terrain_tile_data
+   );
 
 
 
@@ -389,27 +377,14 @@ bool TMJTileMeshLoader::load()
    AllegroFlare::TileMaps::PrimMesh* created_foreground_mesh = nullptr;
    if (foreground_tilelayer_exists)
    {
-      created_foreground_mesh = new AllegroFlare::TileMaps::PrimMesh(
-            created_tile_atlas,
-            num_columns,
-            num_rows,
-            tile_width,
-            tile_height
-         );
-      created_foreground_mesh->initialize();
-
-      for (int y=0; y<num_rows; y++)
-      {
-         for (int x=0; x<num_columns; x++)
-         {
-            int tile_id = foreground_tiles[y * num_columns + x];
-            if (tile_id == 0) created_foreground_mesh->set_tile_id(x, y, 72);
-                              // ^^ TODO: this is a hack to have 0 be transparent
-                              // ^^ TODO: CRITICAL Modify this to make more sense. Consider *removing* the tile from
-                              // the mesh
-            else created_foreground_mesh->set_tile_id(x, y, tile_id-1);
-         }
-      }
+      created_foreground_mesh = create_mesh(
+         created_tile_atlas,
+         num_columns,
+         num_rows,
+         tile_width,
+         tile_height,
+         &foreground_tile_data
+      );
    }
 
 
@@ -419,27 +394,14 @@ bool TMJTileMeshLoader::load()
    AllegroFlare::TileMaps::PrimMesh* created_background_mesh = nullptr;
    if (background_tilelayer_exists)
    {
-      created_background_mesh = new AllegroFlare::TileMaps::PrimMesh(
-            created_tile_atlas,
-            num_columns,
-            num_rows,
-            tile_width,
-            tile_height
-         );
-      created_background_mesh->initialize();
-
-      for (int y=0; y<num_rows; y++)
-      {
-         for (int x=0; x<num_columns; x++)
-         {
-            int tile_id = background_tiles[y * num_columns + x];
-            if (tile_id == 0) created_background_mesh->set_tile_id(x, y, 72);
-                              // ^^ TODO: this is a hack to have 0 be transparent
-                              // ^^ TODO: CRITICAL Modify this to make more sense. Consider *removing* the tile from
-                              // the mesh
-            else created_background_mesh->set_tile_id(x, y, tile_id-1);
-         }
-      }
+      created_background_mesh = create_mesh(
+         created_tile_atlas,
+         num_columns,
+         num_rows,
+         tile_width,
+         tile_height,
+         &background_tile_data
+      );
    }
 
 
@@ -456,7 +418,7 @@ bool TMJTileMeshLoader::load()
       for (int x=0; x<num_columns; x++)
       {
          // TODO
-         int tile_id = collision_layer_tiles[y * num_columns + x];
+         int tile_id = collision_layer_tile_data[y * num_columns + x];
          created_collision_tile_map->set_tile(x, y, tile_id);
       }
    }
@@ -473,6 +435,47 @@ bool TMJTileMeshLoader::load()
    loaded = true;
 
    return true;
+}
+
+AllegroFlare::TileMaps::PrimMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas, int num_columns, int num_rows, int tile_width, int tile_height, std::vector<int>* tile_data)
+{
+   if (!(tile_atlas))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJTileMeshLoader::create_mesh]: error: guard \"tile_atlas\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJTileMeshLoader::create_mesh: error: guard \"tile_atlas\" not met");
+   }
+   if (!(tile_data))
+   {
+      std::stringstream error_message;
+      error_message << "[TMJTileMeshLoader::create_mesh]: error: guard \"tile_data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("TMJTileMeshLoader::create_mesh: error: guard \"tile_data\" not met");
+   }
+   AllegroFlare::TileMaps::PrimMesh* created_terrain_mesh = new AllegroFlare::TileMaps::PrimMesh(
+         tile_atlas,
+         num_columns,
+         num_rows,
+         tile_width,
+         tile_height
+      );
+   created_terrain_mesh->initialize();
+
+   for (int y=0; y<num_rows; y++)
+   {
+      for (int x=0; x<num_columns; x++)
+      {
+         int tile_id = tile_data->operator[](y * num_columns + x);
+         if (tile_id == 0) created_terrain_mesh->set_tile_id(x, y, 72);
+                        // <- TODO: this is a hack to have 0 be transparent
+                        // ^^ TODO: CRITICAL Modify this to make more sense. Consider *removing* the tile from
+                        // the mesh
+         else created_terrain_mesh->set_tile_id(x, y, tile_id-1);
+      }
+   }
+
+   return created_terrain_mesh;
 }
 
 

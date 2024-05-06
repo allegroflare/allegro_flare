@@ -6,6 +6,7 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -48,6 +49,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::PrimMesh* get_foreground_mesh();
             AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map();
             bool load();
+            AllegroFlare::TileMaps::PrimMesh* create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas=nullptr, int num_columns=0, int num_rows=0, int tile_width=16, int tile_height=16, std::vector<int>* tile_data={});
          };
       }
    }
