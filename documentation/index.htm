@@ -38596,6 +38596,10 @@ table td
   <td class="property">std::set&lt;std::pair&lt;int, int&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">d_flipped_tiles</td>
+  <td class="property">std::set&lt;std::pair&lt;int, int&gt;&gt;</td>
+</tr>
+<tr>
   <td class="property">num_columns</td>
   <td class="property">int</td>
 </tr>
@@ -38672,7 +38676,7 @@ table td
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>set_tile_id</b>(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false)</td>
+  <td class="method"><b>set_tile_id</b>(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false, bool flip_d=false)</td>
 </tr>
 <tr>
   <td class="method">int</td>
@@ -38692,7 +38696,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>set_tile_uv</b>(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0)</td>
+  <td class="method"><b>set_tile_uv</b>(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0, bool diagonal_flip=false)</td>
 </tr>
 <tr>
   <td class="method">void</td>

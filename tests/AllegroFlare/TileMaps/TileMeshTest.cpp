@@ -307,14 +307,19 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
-   CAPTURE__VISUAL__set_tile_id__with_flip_h_and_flip_v_values__will_flip_the_tile_horizontally_and_vertically)
+   FOCUS__CAPTURE__VISUAL__set_tile_id__with_flip_h_and_flip_v_values__will_flip_the_tile_horizontally_and_vertically)
 {
    mesh.enable_holding_vertex_buffer_update_until_refresh();
 
-   mesh.set_tile_id(0, 0, 234, false, false);
-   mesh.set_tile_id(3, 0, 234, true, false);
-   mesh.set_tile_id(6, 0, 234, false, true);
-   mesh.set_tile_id(9, 0, 234, true, true);
+   mesh.set_tile_id(0, 0, 234, false, false, false);
+   mesh.set_tile_id(3, 0, 234, true, false, false);
+   mesh.set_tile_id(6, 0, 234, false, true, false);
+   mesh.set_tile_id(9, 0, 234, true, true, false);
+
+   mesh.set_tile_id(0, 3, 234, false, false, true);
+   mesh.set_tile_id(3, 3, 234, true, false, true);
+   mesh.set_tile_id(6, 3, 234, false, true, true);
+   mesh.set_tile_id(9, 3, 234, true, true, true);
 
    mesh.refresh_vertex_buffer();
 
@@ -328,11 +333,17 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 {
    mesh.enable_holding_vertex_buffer_update_until_refresh();
 
-   mesh.set_tile_id(0, 0, 234, false, false);
-   mesh.set_tile_id(3, 0, 234, true, false);
-   mesh.set_tile_id(6, 0, 234, false, true);
-   mesh.set_tile_id(9, 0, 234, true, true);
+   mesh.set_tile_id(0, 0, 234, false, false, false);
+   mesh.set_tile_id(3, 0, 234, true, false, false);
+   mesh.set_tile_id(6, 0, 234, false, true, false);
+   mesh.set_tile_id(9, 0, 234, true, true, false);
 
+   mesh.set_tile_id(0, 3, 234, false, false, true);
+   mesh.set_tile_id(3, 3, 234, true, false, true);
+   mesh.set_tile_id(6, 3, 234, false, true, true);
+   mesh.set_tile_id(9, 3, 234, true, true, true);
+
+   // TODO: Update this with three bools
    std::pair<bool, bool> expected_flip;
 
    expected_flip = { false, false };

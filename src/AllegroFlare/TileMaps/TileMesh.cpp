@@ -24,6 +24,7 @@ TileMesh::TileMesh(AllegroFlare::TileMaps::PrimMeshAtlas* atlas, int num_columns
    , index_vertices({})
    , h_flipped_tiles({})
    , v_flipped_tiles({})
+   , d_flipped_tiles({})
    , num_columns(num_columns)
    , num_rows(num_rows)
    , tile_width(tile_width)
@@ -74,6 +75,12 @@ std::set<std::pair<int, int>> TileMesh::get_h_flipped_tiles() const
 std::set<std::pair<int, int>> TileMesh::get_v_flipped_tiles() const
 {
    return v_flipped_tiles;
+}
+
+
+std::set<std::pair<int, int>> TileMesh::get_d_flipped_tiles() const
+{
+   return d_flipped_tiles;
 }
 
 
@@ -287,6 +294,7 @@ void TileMesh::resize(int num_columns, int num_rows)
    index_vertices.resize(vertices.size());
    h_flipped_tiles.clear();
    v_flipped_tiles.clear();
+   d_flipped_tiles.clear();
    if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
    if (index_buffer) al_destroy_index_buffer(index_buffer);
 
@@ -389,7 +397,7 @@ void TileMesh::render(bool draw_outline)
    return;
 }
 
-bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, bool flip_v)
+bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, bool flip_v, bool flip_d)
 {
    if (!(initialized))
    {
@@ -433,8 +441,16 @@ bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, boo
    {
       v_flipped_tiles.erase({tile_x, tile_y});
    }
+   if (flip_d)
+   {
+      d_flipped_tiles.insert({tile_x, tile_y});
+   }
+   else
+   {
+      d_flipped_tiles.erase({tile_x, tile_y});
+   }
 
-   set_tile_uv(tile_x, tile_y, u1, v1, u2, v2);
+   set_tile_uv(tile_x, tile_y, u1, v1, u2, v2, flip_d);
 
    tile_ids[tile_x + tile_y * num_columns] = tile_id;
 
@@ -538,25 +554,54 @@ void TileMesh::v_flip_vertices(int* u1, int* v1, int* u2, int* v2)
    return;
 }
 
-void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2)
+void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2, bool diagonal_flip)
 {
    // NOTE: Should the uv coordinates be floats?
    int tile_index_start = (tile_x * 6) + tile_y * (num_columns*6);
    int &i = tile_index_start;
 
-   // Modify the vertex
-   vertices[i+0].u = u1;
-   vertices[i+0].v = v1;
-   vertices[i+1].u = u1;
-   vertices[i+1].v = v2;
-   vertices[i+2].u = u2;
-   vertices[i+2].v = v2;
-   vertices[i+3].u = u2;
-   vertices[i+3].v = v2;
-   vertices[i+4].u = u2;
-   vertices[i+4].v = v1;
-   vertices[i+5].u = u1;
-   vertices[i+5].v = v1;
+   if (diagonal_flip)
+   {
+      // NOTE: The vertices are woven in the following order:
+      //   triangle 1: top left, bottom left, bottom right
+      //   triangle 2: bottom right, top right, top left
+
+      vertices[i+0].u = u2;
+      vertices[i+0].v = v1;
+      vertices[i+1].u = u1;
+      vertices[i+1].v = v1;
+      vertices[i+2].u = u1;
+      vertices[i+2].v = v2;
+
+      vertices[i+3].u = u1;
+      vertices[i+3].v = v2;
+      vertices[i+4].u = u2;
+      vertices[i+4].v = v2;
+      vertices[i+5].u = u2;
+      vertices[i+5].v = v1;
+   }
+   else
+   {
+      // NOTE: The vertices are woven in the following order:
+      //   triangle 1: top left, bottom left, bottom right
+      //   triangle 2: bottom right, top right, top left
+
+      // Triangle 1:
+      vertices[i+0].u = u1;
+      vertices[i+0].v = v1;
+      vertices[i+1].u = u1;
+      vertices[i+1].v = v2;
+      vertices[i+2].u = u2;
+      vertices[i+2].v = v2;
+
+      // Triangle 2:
+      vertices[i+3].u = u2;
+      vertices[i+3].v = v2;
+      vertices[i+4].u = u2;
+      vertices[i+4].v = v1;
+      vertices[i+5].u = u1;
+      vertices[i+5].v = v1;
+   }
 
    if (holding_vertex_buffer_update_until_refresh)
    {
