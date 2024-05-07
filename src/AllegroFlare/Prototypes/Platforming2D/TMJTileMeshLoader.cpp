@@ -283,11 +283,6 @@ bool TMJTileMeshLoader::load()
    //   3) Continue not allowing flipped tiles, and flip them automatically with a warning
    //   4) Continue not allowing flipped tiles, and flip them implicitly with no warning. (current behavior)
 
-   // Flags:
-   // horizontalFlip = tile & 0x80000000;
-   // verticalFlip = tile & 0x40000000;
-   // diagonalFlip = tile & 0x20000000;
-
    bool filter_out_flipped_tile_numbers_on_collision_layer_tile_data = true;
    if (filter_out_flipped_tile_numbers_on_collision_layer_tile_data)
    {
@@ -297,39 +292,6 @@ bool TMJTileMeshLoader::load()
          tile = filtered_tile_id;
       }
    }
-
-   /*
-   bool filter_out_flipped_tile_numbers_on_terrain_tile_data = true;
-   if (filter_out_flipped_tile_numbers_on_terrain_tile_data)
-   {
-      for (auto &tile : terrain_tile_data)
-      {
-         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); // clear the flags
-         tile = filtered_tile_id;
-      }
-   }
-
-   bool filter_out_flipped_tile_numbers_on_foreground_tile_data = true;
-   if (filter_out_flipped_tile_numbers_on_foreground_tile_data)
-   {
-      for (auto &tile : foreground_tile_data)
-      {
-         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
-         tile = filtered_tile_id;
-      }
-   }
-
-   bool filter_out_flipped_tile_numbers_on_background_tile_data = true;
-   if (filter_out_flipped_tile_numbers_on_background_tile_data)
-   {
-      for (auto &tile : background_tile_data)
-      {
-         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
-         tile = filtered_tile_id;
-      }
-   }
-   */
-
 
 
 
@@ -467,6 +429,10 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
    {
       for (auto &tile : tile_data)
       {
+         // TODO: Sort out flip flags as loaded here and below
+         // Help on flip flags:
+         // https://discourse.mapeditor.org/t/need-help-understanding-exported-flipped-tiles/5383/3
+
          //bool horizontalFlip = (tile & 0x80000000) != 0;
          //bool verticalFlip = (tile & 0x40000000) != 0;
          //bool antidiagonalFlip = (tile & 0x20000000) != 0;
