@@ -162,13 +162,42 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 {
    std::vector<std::pair<uint32_t, std::tuple<bool, bool, bool, bool, int>>> test_data = {
       // TODO: Add data
-      //{ 128, { false, false, false, false, 128 } },
+      { 128,                { false, false, false, false, 128 } },
+      { 1073742059,         { false, true,  false, false, 234 } },
    };
    
    for (auto &test_datum : test_data)
    {
-      // TODO: Add assertions on data
-      //AllegroFlare::TileMaps::TileMesh::extract_tmj_tile_flip_properties();
+      uint32_t tmj_tile_value = test_datum.first;
+      auto actual_flip_data =
+         AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::extract_tmj_tile_flip_properties(tmj_tile_value);
+
+      bool expected_horizontal_flip_flag_present = std::get<0>(test_datum.second);
+      bool expected_vertical_flip_flag_present = std::get<1>(test_datum.second);
+      bool expected_antidiagonal_flip_flag_present = std::get<2>(test_datum.second);
+      bool expected_hex_120_rotation_flag_present = std::get<3>(test_datum.second);
+
+      bool actual_horizontal_flip_flag_present = std::get<0>(actual_flip_data);
+      bool actual_vertical_flip_flag_present = std::get<1>(actual_flip_data);
+      bool actual_antidiagonal_flip_flag_present = std::get<2>(actual_flip_data);
+      bool actual_hex_120_rotation_flag_present = std::get<3>(actual_flip_data);
+
+      EXPECT_EQ(
+         expected_horizontal_flip_flag_present,
+         actual_horizontal_flip_flag_present
+      ) << " on tmj_tile_value of " << tmj_tile_value;
+      EXPECT_EQ(
+         expected_vertical_flip_flag_present,
+         actual_vertical_flip_flag_present
+      ) << " on tmj_tile_value of " << tmj_tile_value;
+      EXPECT_EQ(
+         expected_antidiagonal_flip_flag_present,
+         actual_antidiagonal_flip_flag_present
+      ) << " on tmj_tile_value of " << tmj_tile_value;
+      EXPECT_EQ(
+         expected_hex_120_rotation_flag_present,
+         actual_hex_120_rotation_flag_present
+      ) << " on tmj_tile_value of " << tmj_tile_value;
    }
 }
 
