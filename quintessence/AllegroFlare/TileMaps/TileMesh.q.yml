@@ -437,7 +437,7 @@ methods:
 
 
   - name: get_tile_flip
-    type: std::pair<bool, bool>
+    type: std::tuple<bool, bool, bool>
     parameters:
       - name: tile_x
         type: int
@@ -446,16 +446,17 @@ methods:
         type: int
         default_argument: 0
     body: |
-      if (tile_x < 0) return { false, false };
-      if (tile_x >= num_columns) return { false, false };
-      if (tile_y < 0) return { false, false };
-      if (tile_y >= num_rows) return { false, false };
+      if (tile_x < 0) return { false, false, false };
+      if (tile_x >= num_columns) return { false, false, false };
+      if (tile_y < 0) return { false, false, false };
+      if (tile_y >= num_rows) return { false, false, false };
 
       // TODO: Add is_d_flipped to result
       bool is_h_flipped = h_flipped_tiles.find({ tile_x, tile_y }) != h_flipped_tiles.end();
       bool is_v_flipped = v_flipped_tiles.find({ tile_x, tile_y }) != v_flipped_tiles.end();
+      bool is_d_flipped = d_flipped_tiles.find({ tile_x, tile_y }) != d_flipped_tiles.end();
 
-      return { is_h_flipped, is_v_flipped };
+      return { is_h_flipped, is_v_flipped, is_d_flipped };
 
 
   - name: h_flip_vertices

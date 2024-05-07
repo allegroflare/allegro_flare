@@ -431,7 +431,7 @@ methods:
         default_argument: '{}'
       - name: filter_out_flipped_tile_numbers
         type: bool
-        default_argument: true
+        default_argument: false
     guards: [ tile_atlas, (tile_data.size() == num_rows * num_columns) ]
     body: |
       if (filter_out_flipped_tile_numbers)

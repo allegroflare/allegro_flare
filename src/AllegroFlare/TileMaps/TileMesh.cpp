@@ -481,18 +481,19 @@ int TileMesh::get_tile_id(int tile_x, int tile_y)
    return tile_ids[tile_x + tile_y * num_columns];
 }
 
-std::pair<bool, bool> TileMesh::get_tile_flip(int tile_x, int tile_y)
+std::tuple<bool, bool, bool> TileMesh::get_tile_flip(int tile_x, int tile_y)
 {
-   if (tile_x < 0) return { false, false };
-   if (tile_x >= num_columns) return { false, false };
-   if (tile_y < 0) return { false, false };
-   if (tile_y >= num_rows) return { false, false };
+   if (tile_x < 0) return { false, false, false };
+   if (tile_x >= num_columns) return { false, false, false };
+   if (tile_y < 0) return { false, false, false };
+   if (tile_y >= num_rows) return { false, false, false };
 
    // TODO: Add is_d_flipped to result
    bool is_h_flipped = h_flipped_tiles.find({ tile_x, tile_y }) != h_flipped_tiles.end();
    bool is_v_flipped = v_flipped_tiles.find({ tile_x, tile_y }) != v_flipped_tiles.end();
+   bool is_d_flipped = d_flipped_tiles.find({ tile_x, tile_y }) != d_flipped_tiles.end();
 
-   return { is_h_flipped, is_v_flipped };
+   return { is_h_flipped, is_v_flipped, is_d_flipped };
 }
 
 void TileMesh::h_flip_vertices(int* u1, int* v1, int* u2, int* v2)
