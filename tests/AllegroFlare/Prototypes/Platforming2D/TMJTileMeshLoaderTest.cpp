@@ -131,7 +131,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__with_tiles_that_are_flipped_vertically_and_horizontally__will_render_as_expected)
+   CAPTURE__with_tiles_that_are_flipped_vertically_and_horizontally__will_render_as_expected)
 {
    load_map(TMJ_FIXTURE_WITH_FLIPPED_TILES);
 
@@ -154,6 +154,22 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    sleep(1.0);
 
    delete terrain_mesh;
+}
+
+
+TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture,
+   FOCUS__extract_tmj_tile_flip_properties__will_return_expected_values)
+{
+   std::vector<std::pair<uint32_t, std::tuple<bool, bool, bool, bool, int>>> test_data = {
+      // TODO: Add data
+      //{ 128, { false, false, false, false, 128 } },
+   };
+   
+   for (auto &test_datum : test_data)
+   {
+      // TODO: Add assertions on data
+      //AllegroFlare::TileMaps::TileMesh::extract_tmj_tile_flip_properties();
+   }
 }
 
 

@@ -409,6 +409,26 @@ bool TMJTileMeshLoader::load()
    return true;
 }
 
+std::tuple<bool, bool, bool, bool, int> TMJTileMeshLoader::extract_tmj_tile_flip_properties(uint32_t tmj_tile_value)
+{
+   // Extract the flag values
+   bool horizontal_flip_flag_present = (tmj_tile_value & 0x80000000) != 0;
+   bool vertical_flip_flag_present = (tmj_tile_value & 0x40000000) != 0;
+   bool antidiagonal_flip_flag_present = (tmj_tile_value & 0x20000000) != 0;
+   bool hex_120_rotation_flag_present = (tmj_tile_value & 0x10000000) != 0;
+
+   // Clear all the flags
+   int filtered_tile_value = tmj_tile_value& ~(0x80000000 | 0x40000000 | 0x20000000 | 0x1000000);
+
+   return std::tuple<bool, bool, bool, bool, int>{
+      horizontal_flip_flag_present,
+      vertical_flip_flag_present,
+      antidiagonal_flip_flag_present,
+      hex_120_rotation_flag_present,
+      filtered_tile_value
+   };
+}
+
 AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas, int num_columns, int num_rows, int tile_width, int tile_height, std::vector<int> tile_data, bool filter_out_flipped_tile_numbers)
 {
    if (!(tile_atlas))
