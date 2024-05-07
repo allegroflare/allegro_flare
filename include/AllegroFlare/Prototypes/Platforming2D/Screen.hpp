@@ -18,10 +18,10 @@
 #include <AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
-#include <AllegroFlare/TileMaps/PrimMesh.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileAtlasRepository.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
+#include <AllegroFlare/TileMaps/TileMesh.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
@@ -193,10 +193,10 @@ namespace AllegroFlare
             virtual void user_event_func(ALLEGRO_EVENT* event=nullptr) override;
             void render_collision_tile_map();
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
-            AllegroFlare::TileMaps::PrimMesh* get_terrain_tile_mesh();
-            AllegroFlare::TileMaps::PrimMesh* get_background_tile_mesh();
+            AllegroFlare::TileMaps::TileMesh* get_terrain_tile_mesh();
+            AllegroFlare::TileMaps::TileMesh* get_background_tile_mesh();
             bool background_tile_mesh_exists();
-            AllegroFlare::TileMaps::PrimMesh* get_foreground_tile_mesh();
+            AllegroFlare::TileMaps::TileMesh* get_foreground_tile_mesh();
             bool foreground_tile_mesh_exists();
             AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> get_current_map_entities();

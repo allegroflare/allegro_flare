@@ -13,11 +13,11 @@
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Tracking.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
-#include <AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader.hpp>
-#include <AllegroFlare/TileMaps/PrimMesh.hpp>
+#include <AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
+#include <AllegroFlare/TileMaps/TileMesh.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -462,24 +462,24 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
 
    AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;
    AllegroFlare::TileMaps::PrimMeshAtlas *tile_atlas = nullptr;
-   AllegroFlare::TileMaps::PrimMesh *terrain_tile_mesh = nullptr;
-   AllegroFlare::TileMaps::PrimMesh *foreground_tile_mesh = nullptr;
-   AllegroFlare::TileMaps::PrimMesh *background_tile_mesh = nullptr;
+   AllegroFlare::TileMaps::TileMesh *terrain_tile_mesh = nullptr;
+   AllegroFlare::TileMaps::TileMesh *foreground_tile_mesh = nullptr;
+   AllegroFlare::TileMaps::TileMesh *background_tile_mesh = nullptr;
    AllegroFlare::TileMaps::TileMap<int> *collision_tile_map = nullptr;
    created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
 
-   AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(
+   AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader tmj_tile_mesh_loader(
       bitmap_bin,
       map_json_filename,
       tile_atlas_bitmap_identifier
    );
-   tmj_mesh_loader.load();
+   tmj_tile_mesh_loader.load();
 
-   tile_atlas = tmj_mesh_loader.get_tile_atlas();
-   terrain_tile_mesh = tmj_mesh_loader.get_mesh();
-   foreground_tile_mesh = tmj_mesh_loader.get_foreground_mesh();
-   background_tile_mesh = tmj_mesh_loader.get_background_mesh();
-   collision_tile_map = tmj_mesh_loader.get_collision_tile_map();
+   tile_atlas = tmj_tile_mesh_loader.get_tile_atlas();
+   terrain_tile_mesh = tmj_tile_mesh_loader.get_terrain_mesh();
+   foreground_tile_mesh = tmj_tile_mesh_loader.get_foreground_mesh();
+   background_tile_mesh = tmj_tile_mesh_loader.get_background_mesh();
+   collision_tile_map = tmj_tile_mesh_loader.get_collision_tile_map();
 
    if (!tile_atlas)
    {

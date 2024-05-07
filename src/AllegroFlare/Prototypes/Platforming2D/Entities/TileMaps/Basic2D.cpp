@@ -42,7 +42,7 @@ void Basic2D::set_tile_atlas(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas)
 }
 
 
-void Basic2D::set_terrain_tile_mesh(AllegroFlare::TileMaps::PrimMesh* terrain_tile_mesh)
+void Basic2D::set_terrain_tile_mesh(AllegroFlare::TileMaps::TileMesh* terrain_tile_mesh)
 {
    this->terrain_tile_mesh = terrain_tile_mesh;
 }
@@ -54,7 +54,7 @@ void Basic2D::set_shader_for_terrain_tile_mesh(AllegroFlare::Shaders::Base* shad
 }
 
 
-void Basic2D::set_background_tile_mesh(AllegroFlare::TileMaps::PrimMesh* background_tile_mesh)
+void Basic2D::set_background_tile_mesh(AllegroFlare::TileMaps::TileMesh* background_tile_mesh)
 {
    this->background_tile_mesh = background_tile_mesh;
 }
@@ -66,7 +66,7 @@ void Basic2D::set_shader_for_background_tile_mesh(AllegroFlare::Shaders::Base* s
 }
 
 
-void Basic2D::set_foreground_tile_mesh(AllegroFlare::TileMaps::PrimMesh* foreground_tile_mesh)
+void Basic2D::set_foreground_tile_mesh(AllegroFlare::TileMaps::TileMesh* foreground_tile_mesh)
 {
    this->foreground_tile_mesh = foreground_tile_mesh;
 }
@@ -90,7 +90,7 @@ AllegroFlare::TileMaps::PrimMeshAtlas* Basic2D::get_tile_atlas() const
 }
 
 
-AllegroFlare::TileMaps::PrimMesh* Basic2D::get_terrain_tile_mesh() const
+AllegroFlare::TileMaps::TileMesh* Basic2D::get_terrain_tile_mesh() const
 {
    return terrain_tile_mesh;
 }
@@ -102,7 +102,7 @@ AllegroFlare::Shaders::Base* Basic2D::get_shader_for_terrain_tile_mesh() const
 }
 
 
-AllegroFlare::TileMaps::PrimMesh* Basic2D::get_background_tile_mesh() const
+AllegroFlare::TileMaps::TileMesh* Basic2D::get_background_tile_mesh() const
 {
    return background_tile_mesh;
 }
@@ -114,7 +114,7 @@ AllegroFlare::Shaders::Base* Basic2D::get_shader_for_background_tile_mesh() cons
 }
 
 
-AllegroFlare::TileMaps::PrimMesh* Basic2D::get_foreground_tile_mesh() const
+AllegroFlare::TileMaps::TileMesh* Basic2D::get_foreground_tile_mesh() const
 {
    return foreground_tile_mesh;
 }

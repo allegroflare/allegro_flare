@@ -3265,9 +3265,6 @@
   ],
   "AllegroFlare/TileMaps/PrimMesh": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D",
@@ -3383,7 +3380,13 @@
     "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
-  "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader": [
+  "AllegroFlare/TileMaps/TileMesh": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
+  ],
+  "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Enemies/Base": [
@@ -3477,9 +3480,6 @@
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
-  ],
-  "AllegroFlare/TileMaps/TileMesh": [
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "AllegroFlare/Elements/PlayingCards/DeckFactory": [

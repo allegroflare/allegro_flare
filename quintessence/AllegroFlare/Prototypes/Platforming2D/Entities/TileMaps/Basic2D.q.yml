@@ -16,7 +16,7 @@ properties:
     setter: true
 
   - name: terrain_tile_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     init_with: nullptr
     getter: true
     setter: true
@@ -28,7 +28,7 @@ properties:
     setter: true
 
   - name: background_tile_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     init_with: nullptr
     getter: true
     setter: true
@@ -40,7 +40,7 @@ properties:
     setter: true
 
   - name: foreground_tile_mesh
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     init_with: nullptr
     getter: true
     setter: true
@@ -118,8 +118,8 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
-  - symbol: AllegroFlare::TileMaps::PrimMesh
-    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMesh
+    headers: [ AllegroFlare/TileMaps/TileMesh.hpp ]
   - symbol: AllegroFlare::Shaders::Base
     headers: [ AllegroFlare/Shaders/Base.hpp ]
 

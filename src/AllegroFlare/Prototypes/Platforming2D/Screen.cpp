@@ -2370,7 +2370,7 @@ AllegroFlare::TileMaps::PrimMeshAtlas* Screen::get_tile_atlas()
    return currently_active_map->get_tile_atlas();
 }
 
-AllegroFlare::TileMaps::PrimMesh* Screen::get_terrain_tile_mesh()
+AllegroFlare::TileMaps::TileMesh* Screen::get_terrain_tile_mesh()
 {
    if (!(currently_active_map))
    {
@@ -2382,7 +2382,7 @@ AllegroFlare::TileMaps::PrimMesh* Screen::get_terrain_tile_mesh()
    return currently_active_map->get_terrain_tile_mesh();
 }
 
-AllegroFlare::TileMaps::PrimMesh* Screen::get_background_tile_mesh()
+AllegroFlare::TileMaps::TileMesh* Screen::get_background_tile_mesh()
 {
    if (!(currently_active_map))
    {
@@ -2406,7 +2406,7 @@ bool Screen::background_tile_mesh_exists()
    return (currently_active_map->get_background_tile_mesh() != nullptr);
 }
 
-AllegroFlare::TileMaps::PrimMesh* Screen::get_foreground_tile_mesh()
+AllegroFlare::TileMaps::TileMesh* Screen::get_foreground_tile_mesh()
 {
    if (!(currently_active_map))
    {

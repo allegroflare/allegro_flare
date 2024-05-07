@@ -2222,14 +2222,14 @@ methods:
 
   - name: get_terrain_tile_mesh
     guards: [ currently_active_map ]
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     body: |
       return currently_active_map->get_terrain_tile_mesh();
 
 
   - name: get_background_tile_mesh
     guards: [ currently_active_map ]
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     body: |
       return currently_active_map->get_background_tile_mesh();
 
@@ -2243,7 +2243,7 @@ methods:
 
   - name: get_foreground_tile_mesh
     guards: [ currently_active_map ]
-    type: AllegroFlare::TileMaps::PrimMesh*
+    type: AllegroFlare::TileMaps::TileMesh*
     body: |
       return currently_active_map->get_foreground_tile_mesh();
 
@@ -2337,8 +2337,8 @@ dependencies:
     headers: [ algorithm ]
   - symbol: tan
     headers: [ cmath ]
-  - symbol: AllegroFlare::TileMaps::PrimMesh
-    headers: [ AllegroFlare/TileMaps/PrimMesh.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMesh
+    headers: [ AllegroFlare/TileMaps/TileMesh.hpp ]
   - symbol: AllegroFlare::TileMaps::TileMap
     headers: [ AllegroFlare/TileMaps/TileMap.hpp ]
   - symbol: ALLEGRO_EVENT
