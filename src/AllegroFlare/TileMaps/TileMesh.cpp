@@ -423,6 +423,20 @@ bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, boo
    int u1, v1, u2, v2;
    atlas->get_tile_uv(tile_id, &u1, &v1, &u2, &v2);
 
+   // HACK
+   {
+      bool diagonal_will_do_the_h_flip = (flip_h && !flip_v && flip_d);
+      bool diagonal_will_do_the_v_flip = (!flip_h && flip_v && flip_d);
+      bool diagonal_will_do_the_flip = diagonal_will_do_the_h_flip || diagonal_will_do_the_v_flip;
+
+      if (diagonal_will_do_the_flip)
+      {
+         v_flip_vertices(&u1, &v1, &u2, &v2);
+         h_flip_vertices(&u1, &v1, &u2, &v2);
+      }
+   }
+
+
    if (flip_h)
    {
       h_flip_vertices(&u1, &v1, &u2, &v2);
@@ -474,6 +488,7 @@ std::pair<bool, bool> TileMesh::get_tile_flip(int tile_x, int tile_y)
    if (tile_y < 0) return { false, false };
    if (tile_y >= num_rows) return { false, false };
 
+   // TODO: Add is_d_flipped to result
    bool is_h_flipped = h_flipped_tiles.find({ tile_x, tile_y }) != h_flipped_tiles.end();
    bool is_v_flipped = v_flipped_tiles.find({ tile_x, tile_y }) != v_flipped_tiles.end();
 
@@ -566,18 +581,18 @@ void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
       //   triangle 1: top left, bottom left, bottom right
       //   triangle 2: bottom right, top right, top left
 
-      vertices[i+0].u = u2;
+      vertices[i+0].u = u1;
       vertices[i+0].v = v1;
-      vertices[i+1].u = u1;
+      vertices[i+1].u = u2;
       vertices[i+1].v = v1;
-      vertices[i+2].u = u1;
+      vertices[i+2].u = u2;
       vertices[i+2].v = v2;
 
-      vertices[i+3].u = u1;
+      vertices[i+3].u = u2;
       vertices[i+3].v = v2;
-      vertices[i+4].u = u2;
+      vertices[i+4].u = u1;
       vertices[i+4].v = v2;
-      vertices[i+5].u = u2;
+      vertices[i+5].u = u1;
       vertices[i+5].v = v1;
    }
    else

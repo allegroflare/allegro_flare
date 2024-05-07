@@ -477,8 +477,9 @@ methods:
             bool hex_120_rotation_flag_present = std::get<3>(tile_flip_data);
             int raw_tile_id = std::get<4>(tile_flip_data);
 
-            bool has_horizontal_flip = horizontal_flip_flag_present; // || antidiagonal_flip_flag_present);
-            bool has_vertical_flip = vertical_flip_flag_present; // || antidiagonal_flip_flag_present);
+            bool has_horizontal_flip = horizontal_flip_flag_present;
+            bool has_vertical_flip = vertical_flip_flag_present;
+            bool has_diagonal_flip = antidiagonal_flip_flag_present;
 
             //std::cout << "[" << tile_id << ":";
             //if (tile_id < 0) tile_id = static_cast<unsigned int>(tile_id);
@@ -494,13 +495,13 @@ methods:
 
             if (tile_id == 0)
             {
-               created_terrain_mesh->set_tile_id(x, y, 0, has_horizontal_flip, has_vertical_flip);
+               created_terrain_mesh->set_tile_id(x, y, 0, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
                tile_coords_to_remove.push_back(std::pair<int, int>(x, y));
                //created_terrain_mesh->set_tile_id(x, y, 72); // <- Previously
             }
             else
             {
-               created_terrain_mesh->set_tile_id(x, y, tile_id-1, has_horizontal_flip, has_vertical_flip);
+               created_terrain_mesh->set_tile_id(x, y, tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
             }
          }
          std::cout << std::endl;
