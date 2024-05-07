@@ -139,6 +139,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    float map_width = terrain_mesh->get_real_width();
    float map_height = terrain_mesh->get_real_height();
 
+   ALLEGRO_BITMAP* expected_visual_result = get_bitmap_bin_ref().auto_get("map_with_flipped_tiles.png");
 
    AllegroFlare::Placement2D placement;
    placement.position = { 1920/2, 1080/2 };
@@ -148,8 +149,21 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    // Render the subject
    placement.start_transform();
    terrain_mesh->render();
-   al_flip_display();
    placement.restore_transform();
+
+   // Render the "expected" viasual output
+   AllegroFlare::Placement2D placement_expected;
+   placement_expected.position = { 1920/8, 1080/8 };
+   placement_expected.size = { (float)al_get_bitmap_width(expected_visual_result), (float)al_get_bitmap_height(expected_visual_result) };
+   placement_expected.scale = { 3.0f, 3.0f };
+   placement_expected.align = { 0.0f, 0.0f };
+   placement_expected.start_transform();
+   al_draw_bitmap(expected_visual_result, 0, 0, 0);
+   placement_expected.restore_transform();
+
+   al_flip_display();
+
+   //placement.restore_transform();
 
    sleep(1.0);
 
