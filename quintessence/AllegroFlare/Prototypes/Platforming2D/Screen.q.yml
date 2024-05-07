@@ -108,7 +108,7 @@ properties:
     getter: true
     setter: true
 
-  - name: show_tile_mesh
+  - name: show_terrain_tile_mesh
     type: bool
     init_with: true
     getter: true
@@ -1687,7 +1687,7 @@ methods:
       return;
 
 
-  - name: draw__before_tile_mesh_render_func
+  - name: draw__before_terrain_tile_mesh_render_func
     virtual: true
     body: |
       // shader = currently_active_map->get_shader_for_background_tile_mesh();
@@ -1704,7 +1704,7 @@ methods:
 
 
   - name: draw
-    guards: [ initialized, currently_active_map, get_tile_mesh() ]
+    guards: [ initialized, currently_active_map, get_terrain_tile_mesh() ]
     body: |
       //ALLEGRO_STATE previous_target_bitmap;
 
@@ -1737,17 +1737,17 @@ methods:
             currently_active_map->get_shader_for_background_tile_mesh()->deactivate();
          }
       }
-      if (show_tile_mesh)
+      if (show_terrain_tile_mesh)
       {
-         draw__before_tile_mesh_render_func();
-         if (currently_active_map->get_shader_for_tile_mesh())
+         draw__before_terrain_tile_mesh_render_func();
+         if (currently_active_map->get_shader_for_terrain_tile_mesh())
          {
-            currently_active_map->get_shader_for_tile_mesh()->activate();
+            currently_active_map->get_shader_for_terrain_tile_mesh()->activate();
          }
-         get_tile_mesh()->render();
-         if (currently_active_map->get_shader_for_tile_mesh())
+         get_terrain_tile_mesh()->render();
+         if (currently_active_map->get_shader_for_terrain_tile_mesh())
          {
-            currently_active_map->get_shader_for_tile_mesh()->deactivate();
+            currently_active_map->get_shader_for_terrain_tile_mesh()->deactivate();
          }
       }
       draw_entities_sorted_by_render_order();
@@ -1830,9 +1830,9 @@ methods:
       return;
 
 
-  - name: toggle_show_tile_mesh
+  - name: toggle_show_terrain_tile_mesh
     body: |
-      show_tile_mesh = !show_tile_mesh;
+      show_terrain_tile_mesh = !show_terrain_tile_mesh;
       return;
 
 
@@ -2220,11 +2220,11 @@ methods:
       return currently_active_map->get_tile_atlas();
 
 
-  - name: get_tile_mesh
+  - name: get_terrain_tile_mesh
     guards: [ currently_active_map ]
     type: AllegroFlare::TileMaps::PrimMesh*
     body: |
-      return currently_active_map->get_tile_mesh();
+      return currently_active_map->get_terrain_tile_mesh();
 
 
   - name: get_background_tile_mesh

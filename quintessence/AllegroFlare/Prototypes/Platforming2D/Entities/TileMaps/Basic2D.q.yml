@@ -15,13 +15,13 @@ properties:
     getter: true
     setter: true
 
-  - name: tile_mesh
+  - name: terrain_tile_mesh
     type: AllegroFlare::TileMaps::PrimMesh*
     init_with: nullptr
     getter: true
     setter: true
 
-  - name: shader_for_tile_mesh
+  - name: shader_for_terrain_tile_mesh
     type: AllegroFlare::Shaders::Base*
     init_with: nullptr
     getter: true
@@ -93,10 +93,10 @@ methods:
          delete tile_atlas;
          tile_atlas = nullptr;
       }
-      if (tile_mesh)
+      if (terrain_tile_mesh)
       {
-         delete tile_mesh;
-         tile_mesh = nullptr;
+         delete terrain_tile_mesh;
+         terrain_tile_mesh = nullptr;
       }
       if (background_tile_mesh)
       {

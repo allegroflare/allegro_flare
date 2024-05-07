@@ -462,7 +462,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
 
    AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map = nullptr;
    AllegroFlare::TileMaps::PrimMeshAtlas *tile_atlas = nullptr;
-   AllegroFlare::TileMaps::PrimMesh *tile_mesh = nullptr;
+   AllegroFlare::TileMaps::PrimMesh *terrain_tile_mesh = nullptr;
    AllegroFlare::TileMaps::PrimMesh *foreground_tile_mesh = nullptr;
    AllegroFlare::TileMaps::PrimMesh *background_tile_mesh = nullptr;
    AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr;
@@ -476,7 +476,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    tmj_mesh_loader.load();
 
    tile_atlas = tmj_mesh_loader.get_tile_atlas();
-   tile_mesh = tmj_mesh_loader.get_mesh();
+   terrain_tile_mesh = tmj_mesh_loader.get_mesh();
    foreground_tile_mesh = tmj_mesh_loader.get_foreground_mesh();
    background_tile_mesh = tmj_mesh_loader.get_background_mesh();
    collision_tile_mesh = tmj_mesh_loader.get_collision_tile_map();
@@ -486,10 +486,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
       // TODO: Test this failure
       throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create tile_atlas");
    }
-   if (!tile_mesh)
+   if (!terrain_tile_mesh)
    {
       // TODO: Test this failure
-      throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create tile_mesh");
+      throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create terrain_tile_mesh");
    }
    if (!foreground_tile_mesh)
    {
@@ -514,7 +514,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    }
 
    created_map->set_tile_atlas(tile_atlas);
-   created_map->set_tile_mesh(tile_mesh);
+   created_map->set_terrain_tile_mesh(terrain_tile_mesh);
    created_map->set_foreground_tile_mesh(foreground_tile_mesh);
    created_map->set_background_tile_mesh(background_tile_mesh);
    created_map->set_collision_tile_mesh(collision_tile_mesh);

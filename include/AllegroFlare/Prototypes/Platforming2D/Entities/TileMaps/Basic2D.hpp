@@ -22,8 +22,8 @@ namespace AllegroFlare
                {
                private:
                   AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas;
-                  AllegroFlare::TileMaps::PrimMesh* tile_mesh;
-                  AllegroFlare::Shaders::Base* shader_for_tile_mesh;
+                  AllegroFlare::TileMaps::PrimMesh* terrain_tile_mesh;
+                  AllegroFlare::Shaders::Base* shader_for_terrain_tile_mesh;
                   AllegroFlare::TileMaps::PrimMesh* background_tile_mesh;
                   AllegroFlare::Shaders::Base* shader_for_background_tile_mesh;
                   AllegroFlare::TileMaps::PrimMesh* foreground_tile_mesh;
@@ -38,16 +38,16 @@ namespace AllegroFlare
                   virtual ~Basic2D();
 
                   void set_tile_atlas(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas);
-                  void set_tile_mesh(AllegroFlare::TileMaps::PrimMesh* tile_mesh);
-                  void set_shader_for_tile_mesh(AllegroFlare::Shaders::Base* shader_for_tile_mesh);
+                  void set_terrain_tile_mesh(AllegroFlare::TileMaps::PrimMesh* terrain_tile_mesh);
+                  void set_shader_for_terrain_tile_mesh(AllegroFlare::Shaders::Base* shader_for_terrain_tile_mesh);
                   void set_background_tile_mesh(AllegroFlare::TileMaps::PrimMesh* background_tile_mesh);
                   void set_shader_for_background_tile_mesh(AllegroFlare::Shaders::Base* shader_for_background_tile_mesh);
                   void set_foreground_tile_mesh(AllegroFlare::TileMaps::PrimMesh* foreground_tile_mesh);
                   void set_shader_for_foreground_tile_mesh(AllegroFlare::Shaders::Base* shader_for_foreground_tile_mesh);
                   void set_collision_tile_mesh(AllegroFlare::TileMaps::TileMap<int>* collision_tile_mesh);
                   AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas() const;
-                  AllegroFlare::TileMaps::PrimMesh* get_tile_mesh() const;
-                  AllegroFlare::Shaders::Base* get_shader_for_tile_mesh() const;
+                  AllegroFlare::TileMaps::PrimMesh* get_terrain_tile_mesh() const;
+                  AllegroFlare::Shaders::Base* get_shader_for_terrain_tile_mesh() const;
                   AllegroFlare::TileMaps::PrimMesh* get_background_tile_mesh() const;
                   AllegroFlare::Shaders::Base* get_shader_for_background_tile_mesh() const;
                   AllegroFlare::TileMaps::PrimMesh* get_foreground_tile_mesh() const;

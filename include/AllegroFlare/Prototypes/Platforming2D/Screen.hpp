@@ -62,7 +62,7 @@ namespace AllegroFlare
             AllegroFlare::Vec2D camera_baseline_zoom;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* player_controlled_entity;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* last_activated_save_point;
-            bool show_tile_mesh;
+            bool show_terrain_tile_mesh;
             bool show_background_tile_mesh;
             bool show_foreground_tile_mesh;
             bool show_collision_tile_mesh;
@@ -110,7 +110,7 @@ namespace AllegroFlare
             void set_gravity(float gravity);
             void set_camera_baseline_zoom(AllegroFlare::Vec2D camera_baseline_zoom);
             void set_last_activated_save_point(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* last_activated_save_point);
-            void set_show_tile_mesh(bool show_tile_mesh);
+            void set_show_terrain_tile_mesh(bool show_terrain_tile_mesh);
             void set_show_background_tile_mesh(bool show_background_tile_mesh);
             void set_show_foreground_tile_mesh(bool show_foreground_tile_mesh);
             void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
@@ -132,7 +132,7 @@ namespace AllegroFlare
             AllegroFlare::Vec2D get_camera_baseline_zoom() const;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_player_controlled_entity() const;
             AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* get_last_activated_save_point() const;
-            bool get_show_tile_mesh() const;
+            bool get_show_terrain_tile_mesh() const;
             bool get_show_background_tile_mesh() const;
             bool get_show_foreground_tile_mesh() const;
             bool get_show_collision_tile_mesh() const;
@@ -176,12 +176,12 @@ namespace AllegroFlare
             virtual void update();
             virtual void draw_hud();
             virtual void draw__before_background_tile_mesh_render_func();
-            virtual void draw__before_tile_mesh_render_func();
+            virtual void draw__before_terrain_tile_mesh_render_func();
             virtual void draw__before_foreground_tile_mesh_render_func();
             void draw();
             void draw_debugging();
             void toggle_show_collision_tile_mesh();
-            void toggle_show_tile_mesh();
+            void toggle_show_terrain_tile_mesh();
             virtual void primary_update_func(double time_now=0.0, double delta_time=0.0) override;
             virtual void primary_render_func() override;
             virtual void key_char_func(ALLEGRO_EVENT* event=nullptr) override;
@@ -193,7 +193,7 @@ namespace AllegroFlare
             virtual void user_event_func(ALLEGRO_EVENT* event=nullptr) override;
             void render_collision_tile_mesh();
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
-            AllegroFlare::TileMaps::PrimMesh* get_tile_mesh();
+            AllegroFlare::TileMaps::PrimMesh* get_terrain_tile_mesh();
             AllegroFlare::TileMaps::PrimMesh* get_background_tile_mesh();
             bool background_tile_mesh_exists();
             AllegroFlare::TileMaps::PrimMesh* get_foreground_tile_mesh();
