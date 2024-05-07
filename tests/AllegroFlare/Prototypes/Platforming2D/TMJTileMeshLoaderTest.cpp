@@ -131,7 +131,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture,
-   CAPTURE__with_tiles_that_are_flipped_vertically_and_horizontally__will_render_as_expected)
+   FOCUS__CAPTURE__with_tiles_that_are_flipped_vertically_and_horizontally__will_render_as_expected)
 {
    load_map(TMJ_FIXTURE_WITH_FLIPPED_TILES);
 

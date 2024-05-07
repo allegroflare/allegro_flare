@@ -293,7 +293,7 @@ bool TMJTileMeshLoader::load()
    {
       for (auto &tile : collision_layer_tile_data)
       {
-         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
+         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000 | 0x1000000); //clear the flags
          tile = filtered_tile_id;
       }
    }
@@ -375,7 +375,7 @@ bool TMJTileMeshLoader::load()
       tile_width,
       tile_height,
       terrain_tile_data,
-      false
+      true
    );
 
 
@@ -392,7 +392,7 @@ bool TMJTileMeshLoader::load()
          tile_width,
          tile_height,
          foreground_tile_data,
-         false
+         true
       );
    }
 
@@ -410,7 +410,7 @@ bool TMJTileMeshLoader::load()
          tile_width,
          tile_height,
          background_tile_data,
-         false
+         true
       );
    }
 
@@ -469,8 +469,9 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
       {
          //bool horizontalFlip = (tile & 0x80000000) != 0;
          //bool verticalFlip = (tile & 0x40000000) != 0;
-         //bool diagonalFlip = (tile & 0x20000000) != 0;
-         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); // clear the flags
+         //bool antidiagonalFlip = (tile & 0x20000000) != 0;
+         //bool Hex120Rotation = (tile & 0x10000000) != 0;
+         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000 | 0x1000000); // clear the flags
          tile = filtered_tile_id;
       }
    }
@@ -495,13 +496,19 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
 
          bool horizontal_flip_flag_present = (tile_id & 0x80000000) != 0;
          bool vertical_flip_flag_present = (tile_id & 0x40000000) != 0;
-         bool diagonal_flip_flag_present = (tile_id & 0x20000000) != 0;
+         bool antidiagonal_flip_flag_present = (tile_id & 0x20000000) != 0;
+         bool hex_120_rotation_flag_present = (tile_id & 0x10000000) != 0;
 
-         bool has_horizontal_flip = (horizontal_flip_flag_present || diagonal_flip_flag_present);
-         bool has_vertical_flip = (vertical_flip_flag_present || diagonal_flip_flag_present);
-         tile_id = tile_id & ~(0x80000000 | 0x40000000 | 0x20000000); // tile with cleared flags
+         bool has_horizontal_flip = (horizontal_flip_flag_present || antidiagonal_flip_flag_present);
+         bool has_vertical_flip = (vertical_flip_flag_present || antidiagonal_flip_flag_present);
 
-         std::cout << tile_id << " ";
+         std::cout << "[" << tile_id << ":";
+         //if (tile_id < 0) tile_id = static_cast<unsigned int>(tile_id);
+
+         tile_id = tile_id & ~(0x80000000 | 0x40000000 | 0x20000000 | 0x1000000); // tile with cleared flags
+         //if (tile_id < 0) = static_cast<unsigned int>
+
+         std::cout << tile_id << "]:" << horizontal_flip_flag_present << vertical_flip_flag_present << " ";
          // TODO: Consider updating this to (tile_id == -1), this will require the tile_data to be 0-indexed, which
          // it does not appear to be. This should probably happen at the TMJDataLoader stage (though TMJMeshLoader
          // is dependent on it, so will need to be updated there as well).
