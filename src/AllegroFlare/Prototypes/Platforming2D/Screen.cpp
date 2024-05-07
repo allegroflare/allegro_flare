@@ -56,7 +56,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , show_terrain_tile_mesh(true)
    , show_background_tile_mesh(true)
    , show_foreground_tile_mesh(true)
-   , show_collision_tile_mesh(false)
+   , show_collision_tile_map(false)
    , show_visual_hint_on_suspended_gameplay(false)
    , entity_control_connector(nullptr)
    , collision_stepper({})
@@ -144,9 +144,9 @@ void Screen::set_show_foreground_tile_mesh(bool show_foreground_tile_mesh)
 }
 
 
-void Screen::set_show_collision_tile_mesh(bool show_collision_tile_mesh)
+void Screen::set_show_collision_tile_map(bool show_collision_tile_map)
 {
-   this->show_collision_tile_mesh = show_collision_tile_mesh;
+   this->show_collision_tile_map = show_collision_tile_map;
 }
 
 
@@ -276,9 +276,9 @@ bool Screen::get_show_foreground_tile_mesh() const
 }
 
 
-bool Screen::get_show_collision_tile_mesh() const
+bool Screen::get_show_collision_tile_map() const
 {
-   return show_collision_tile_mesh;
+   return show_collision_tile_map;
 }
 
 
@@ -844,7 +844,7 @@ void Screen::update_entities()
    AllegroFlare::Vec2D now_velocity_position;
 
    // Set the collision stepper to use the "currently_active_map"
-   collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
+   collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_map());
 
    // Loop through each entity that is in the current map
    for (auto &entity : get_current_map_entities())
@@ -1931,7 +1931,7 @@ void Screen::draw()
          currently_active_map->get_shader_for_foreground_tile_mesh()->deactivate();
       }
    }
-   if (show_collision_tile_mesh) render_collision_tile_mesh();
+   if (show_collision_tile_map) render_collision_tile_map();
 
    camera.restore_transform();
 
@@ -1989,9 +1989,9 @@ void Screen::draw_debugging()
    return;
 }
 
-void Screen::toggle_show_collision_tile_mesh()
+void Screen::toggle_show_collision_tile_map()
 {
-   show_collision_tile_mesh = !show_collision_tile_mesh;
+   show_collision_tile_map = !show_collision_tile_map;
    return;
 }
 
@@ -2060,7 +2060,7 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
    switch (event->keyboard.keycode)
    {
    case ALLEGRO_KEY_1:
-      toggle_show_collision_tile_mesh();
+      toggle_show_collision_tile_map();
       break;
    case ALLEGRO_KEY_2:
       //toggle_show_tile_mesh();
@@ -2318,16 +2318,16 @@ void Screen::user_event_func(ALLEGRO_EVENT* event)
    return;
 }
 
-void Screen::render_collision_tile_mesh()
+void Screen::render_collision_tile_map()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::render_collision_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      error_message << "[Screen::render_collision_tile_map]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::render_collision_tile_mesh: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("Screen::render_collision_tile_map: error: guard \"currently_active_map\" not met");
    }
-   AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_mesh();
+   AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_map();
    float tile_width=16.0f;
    float tile_height=16.0f;
 
@@ -2430,16 +2430,16 @@ bool Screen::foreground_tile_mesh_exists()
    return (currently_active_map->get_foreground_tile_mesh() != nullptr);
 }
 
-AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_mesh()
+AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_map()
 {
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::get_collision_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      error_message << "[Screen::get_collision_tile_map]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::get_collision_tile_mesh: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("Screen::get_collision_tile_map: error: guard \"currently_active_map\" not met");
    }
-   return currently_active_map->get_collision_tile_mesh();
+   return currently_active_map->get_collision_tile_map();
 }
 
 std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> Screen::get_current_map_entities()

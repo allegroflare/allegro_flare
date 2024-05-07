@@ -126,7 +126,7 @@ properties:
     getter: true
     setter: true
 
-  - name: show_collision_tile_mesh
+  - name: show_collision_tile_map
     type: bool
     init_with: false
     getter: true
@@ -710,7 +710,7 @@ methods:
       AllegroFlare::Vec2D now_velocity_position;
 
       // Set the collision stepper to use the "currently_active_map"
-      collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_mesh());
+      collision_stepper.set_collision_tile_map(currently_active_map->get_collision_tile_map());
 
       // Loop through each entity that is in the current map
       for (auto &entity : get_current_map_entities())
@@ -1764,7 +1764,7 @@ methods:
             currently_active_map->get_shader_for_foreground_tile_mesh()->deactivate();
          }
       }
-      if (show_collision_tile_mesh) render_collision_tile_mesh();
+      if (show_collision_tile_map) render_collision_tile_map();
 
       camera.restore_transform();
 
@@ -1824,9 +1824,9 @@ methods:
       return;
 
 
-  - name: toggle_show_collision_tile_mesh
+  - name: toggle_show_collision_tile_map
     body: |
-      show_collision_tile_mesh = !show_collision_tile_mesh;
+      show_collision_tile_map = !show_collision_tile_map;
       return;
 
 
@@ -1899,7 +1899,7 @@ methods:
       switch (event->keyboard.keycode)
       {
       case ALLEGRO_KEY_1:
-         toggle_show_collision_tile_mesh();
+         toggle_show_collision_tile_map();
          break;
       case ALLEGRO_KEY_2:
          //toggle_show_tile_mesh();
@@ -2179,10 +2179,10 @@ methods:
       - AllegroFlare::EventNames
 
 
-  - name: render_collision_tile_mesh
+  - name: render_collision_tile_map
     guards: [ currently_active_map ]
     body: |
-      AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_mesh();
+      AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_map();
       float tile_width=16.0f;
       float tile_height=16.0f;
 
@@ -2255,11 +2255,11 @@ methods:
       return (currently_active_map->get_foreground_tile_mesh() != nullptr);
 
 
-  - name: get_collision_tile_mesh
+  - name: get_collision_tile_map
     guards: [ currently_active_map ]
     type: AllegroFlare::TileMaps::TileMap<int>*
     body: |
-      return currently_active_map->get_collision_tile_mesh();
+      return currently_active_map->get_collision_tile_map();
 
 
   - name: get_current_map_entities

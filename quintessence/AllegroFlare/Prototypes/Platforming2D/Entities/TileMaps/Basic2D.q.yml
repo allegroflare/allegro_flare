@@ -51,18 +51,11 @@ properties:
     getter: true
     setter: true
 
-  - name: collision_tile_mesh
+  - name: collision_tile_map
     type: AllegroFlare::TileMaps::TileMap<int>*
     init_with: nullptr
     getter: true
     setter: true
-
-
-documentation:
-
-
-  - todos:
-      - rename "collision_tile_mesh" to "collision_tile_map"
 
 
 methods:
@@ -108,10 +101,10 @@ methods:
          delete foreground_tile_mesh;
          foreground_tile_mesh = nullptr;
       }
-      if (collision_tile_mesh)
+      if (collision_tile_map)
       {
-         delete collision_tile_mesh;
-         collision_tile_mesh = nullptr;
+         delete collision_tile_map;
+         collision_tile_map= nullptr;
       }
       return;
 

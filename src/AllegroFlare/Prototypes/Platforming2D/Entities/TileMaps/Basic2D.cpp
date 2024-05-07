@@ -26,7 +26,7 @@ Basic2D::Basic2D()
    , shader_for_background_tile_mesh(nullptr)
    , foreground_tile_mesh(nullptr)
    , shader_for_foreground_tile_mesh(nullptr)
-   , collision_tile_mesh(nullptr)
+   , collision_tile_map(nullptr)
 {
 }
 
@@ -78,9 +78,9 @@ void Basic2D::set_shader_for_foreground_tile_mesh(AllegroFlare::Shaders::Base* s
 }
 
 
-void Basic2D::set_collision_tile_mesh(AllegroFlare::TileMaps::TileMap<int>* collision_tile_mesh)
+void Basic2D::set_collision_tile_map(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map)
 {
-   this->collision_tile_mesh = collision_tile_mesh;
+   this->collision_tile_map = collision_tile_map;
 }
 
 
@@ -126,9 +126,9 @@ AllegroFlare::Shaders::Base* Basic2D::get_shader_for_foreground_tile_mesh() cons
 }
 
 
-AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_mesh() const
+AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_map() const
 {
-   return collision_tile_mesh;
+   return collision_tile_map;
 }
 
 
@@ -168,10 +168,10 @@ void Basic2D::destroy()
       delete foreground_tile_mesh;
       foreground_tile_mesh = nullptr;
    }
-   if (collision_tile_mesh)
+   if (collision_tile_map)
    {
-      delete collision_tile_mesh;
-      collision_tile_mesh = nullptr;
+      delete collision_tile_map;
+      collision_tile_map= nullptr;
    }
    return;
 }

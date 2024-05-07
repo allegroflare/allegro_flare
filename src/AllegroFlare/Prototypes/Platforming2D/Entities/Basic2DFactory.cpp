@@ -465,7 +465,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    AllegroFlare::TileMaps::PrimMesh *terrain_tile_mesh = nullptr;
    AllegroFlare::TileMaps::PrimMesh *foreground_tile_mesh = nullptr;
    AllegroFlare::TileMaps::PrimMesh *background_tile_mesh = nullptr;
-   AllegroFlare::TileMaps::TileMap<int> *collision_tile_mesh = nullptr;
+   AllegroFlare::TileMaps::TileMap<int> *collision_tile_map = nullptr;
    created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
 
    AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader tmj_mesh_loader(
@@ -479,7 +479,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    terrain_tile_mesh = tmj_mesh_loader.get_mesh();
    foreground_tile_mesh = tmj_mesh_loader.get_foreground_mesh();
    background_tile_mesh = tmj_mesh_loader.get_background_mesh();
-   collision_tile_mesh = tmj_mesh_loader.get_collision_tile_map();
+   collision_tile_map = tmj_mesh_loader.get_collision_tile_map();
 
    if (!tile_atlas)
    {
@@ -507,17 +507,17 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
             "\"background_tile_mesh\" was not incuded in the creation of this map"
          );
    }
-   if (!collision_tile_mesh)
+   if (!collision_tile_map)
    {
       // TODO: Test this failure
-      throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create collision_tile_mesh");
+      throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create collision_tile_map");
    }
 
    created_map->set_tile_atlas(tile_atlas);
    created_map->set_terrain_tile_mesh(terrain_tile_mesh);
    created_map->set_foreground_tile_mesh(foreground_tile_mesh);
    created_map->set_background_tile_mesh(background_tile_mesh);
-   created_map->set_collision_tile_mesh(collision_tile_mesh);
+   created_map->set_collision_tile_map(collision_tile_map);
    created_map->set(MAP_NAME, map_name);
 
    if (init_entities_drawing_debug) created_map->set_draw_debug(true);

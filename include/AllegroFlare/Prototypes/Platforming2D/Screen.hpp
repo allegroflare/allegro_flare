@@ -65,7 +65,7 @@ namespace AllegroFlare
             bool show_terrain_tile_mesh;
             bool show_background_tile_mesh;
             bool show_foreground_tile_mesh;
-            bool show_collision_tile_mesh;
+            bool show_collision_tile_map;
             bool show_visual_hint_on_suspended_gameplay;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector;
             AllegroFlare::Physics::TileMapCollisionStepper collision_stepper;
@@ -113,7 +113,7 @@ namespace AllegroFlare
             void set_show_terrain_tile_mesh(bool show_terrain_tile_mesh);
             void set_show_background_tile_mesh(bool show_background_tile_mesh);
             void set_show_foreground_tile_mesh(bool show_foreground_tile_mesh);
-            void set_show_collision_tile_mesh(bool show_collision_tile_mesh);
+            void set_show_collision_tile_map(bool show_collision_tile_map);
             void set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on_suspended_gameplay);
             void set_entity_control_connector(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* entity_control_connector);
             void set_create_entities_from_map_callback(std::function<void( std::string, float, float, float, float, int, std::string, std::string, std::string, AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties, std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*>*, AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory*, void*) > create_entities_from_map_callback);
@@ -135,7 +135,7 @@ namespace AllegroFlare
             bool get_show_terrain_tile_mesh() const;
             bool get_show_background_tile_mesh() const;
             bool get_show_foreground_tile_mesh() const;
-            bool get_show_collision_tile_mesh() const;
+            bool get_show_collision_tile_map() const;
             bool get_show_visual_hint_on_suspended_gameplay() const;
             AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* get_entity_control_connector() const;
             AllegroFlare::CameraControlStrategies2D::Base* get_camera_control_strategy() const;
@@ -180,7 +180,7 @@ namespace AllegroFlare
             virtual void draw__before_foreground_tile_mesh_render_func();
             void draw();
             void draw_debugging();
-            void toggle_show_collision_tile_mesh();
+            void toggle_show_collision_tile_map();
             void toggle_show_terrain_tile_mesh();
             virtual void primary_update_func(double time_now=0.0, double delta_time=0.0) override;
             virtual void primary_render_func() override;
@@ -191,14 +191,14 @@ namespace AllegroFlare
             virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
             virtual void virtual_control_axis_change_func(ALLEGRO_EVENT* event=nullptr) override;
             virtual void user_event_func(ALLEGRO_EVENT* event=nullptr) override;
-            void render_collision_tile_mesh();
+            void render_collision_tile_map();
             AllegroFlare::TileMaps::PrimMeshAtlas* get_tile_atlas();
             AllegroFlare::TileMaps::PrimMesh* get_terrain_tile_mesh();
             AllegroFlare::TileMaps::PrimMesh* get_background_tile_mesh();
             bool background_tile_mesh_exists();
             AllegroFlare::TileMaps::PrimMesh* get_foreground_tile_mesh();
             bool foreground_tile_mesh_exists();
-            AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_mesh();
+            AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map();
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> get_current_map_entities();
             ALLEGRO_FONT* obtain_debug_font();
          };

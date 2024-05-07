@@ -128,7 +128,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
    ASSERT_NE(nullptr, created_tile_map->get_tile_atlas());
    ASSERT_NE(nullptr, created_tile_map->get_terrain_tile_mesh());
    // TODO: Test creation of map that includes a background_mesh
-   ASSERT_NE(nullptr, created_tile_map->get_collision_tile_mesh());
+   ASSERT_NE(nullptr, created_tile_map->get_collision_tile_map());
 
    EXPECT_EQ(true, created_tile_map->exists(MAP_NAME, "map_a"));
 
