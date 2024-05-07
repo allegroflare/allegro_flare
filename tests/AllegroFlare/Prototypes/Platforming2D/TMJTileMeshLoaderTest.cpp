@@ -9,6 +9,7 @@
 #define TMJ_FIXTURE_FILENAME "map1-02.tmj"
 #define TMJ_FIXTURE_WITH_BACKGROUND_FILENAME "map1-with_background-02.tmj"
 #define TMJ_FIXTURE_WITH_BACKGROUND_AND_FOREGROUND_FILENAME "map1-with_background_and_foreground-02.tmj"
+#define TMJ_FIXTURE_WITH_FLIPPED_TILES "map_with_flipped_tiles.tmj"
 #define TILE_ATLAS_FILENAME "tiles_dungeon_v1.1.png"
 
 class AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTest : public ::testing::Test{};
@@ -115,11 +116,9 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 
    // Render the subject
    placement.start_transform();
-
    background_mesh->render();
    terrain_mesh->render();
    foreground_mesh->render();
-
    al_flip_display();
    placement.restore_transform();
 
@@ -128,6 +127,33 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    delete terrain_mesh;
    delete background_mesh;
    delete foreground_mesh;
+}
+
+
+TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRenderingFixture,
+   CAPTURE__with_tiles_that_are_flipped_vertically_and_horizontally__will_render_as_expected)
+{
+   load_map(TMJ_FIXTURE_WITH_FLIPPED_TILES);
+
+   AllegroFlare::TileMaps::TileMesh *terrain_mesh = loader.get_terrain_mesh();
+   float map_width = terrain_mesh->get_real_width();
+   float map_height = terrain_mesh->get_real_height();
+
+
+   AllegroFlare::Placement2D placement;
+   placement.position = { 1920/2, 1080/2 };
+   placement.size = { map_width, map_height };
+   placement.scale = { 5.0f, 5.0f };
+
+   // Render the subject
+   placement.start_transform();
+   terrain_mesh->render();
+   al_flip_display();
+   placement.restore_transform();
+
+   sleep(1.0);
+
+   delete terrain_mesh;
 }
 
 

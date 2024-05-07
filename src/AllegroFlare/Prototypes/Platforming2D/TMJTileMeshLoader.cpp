@@ -283,45 +283,52 @@ bool TMJTileMeshLoader::load()
    //   3) Continue not allowing flipped tiles, and flip them automatically with a warning
    //   4) Continue not allowing flipped tiles, and flip them implicitly with no warning. (current behavior)
 
-   bool filter_out_flipped_tile_numbers = true;
-   if (filter_out_flipped_tile_numbers)
-   {
-      for (auto &tile : terrain_tile_data)
-      {
-         bool horizontalFlip = tile & 0x80000000;
-         bool verticalFlip = tile & 0x40000000;
-         bool diagonalFlip = tile & 0x20000000;
-         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
-         tile = filtered_tile_id;
-      }
+   // Flags:
+   // horizontalFlip = tile & 0x80000000;
+   // verticalFlip = tile & 0x40000000;
+   // diagonalFlip = tile & 0x20000000;
 
+   bool filter_out_flipped_tile_numbers_on_collision_layer_tile_data = true;
+   if (filter_out_flipped_tile_numbers_on_collision_layer_tile_data)
+   {
       for (auto &tile : collision_layer_tile_data)
       {
-         bool horizontalFlip = tile & 0x80000000;
-         bool verticalFlip = tile & 0x40000000;
-         bool diagonalFlip = tile & 0x20000000;
-         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
-         tile = filtered_tile_id;
-      }
-
-      for (auto &tile : foreground_tile_data)
-      {
-         bool horizontalFlip = tile & 0x80000000;
-         bool verticalFlip = tile & 0x40000000;
-         bool diagonalFlip = tile & 0x20000000;
-         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
-         tile = filtered_tile_id;
-      }
-
-      for (auto &tile : background_tile_data)
-      {
-         bool horizontalFlip = tile & 0x80000000;
-         bool verticalFlip = tile & 0x40000000;
-         bool diagonalFlip = tile & 0x20000000;
          int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
          tile = filtered_tile_id;
       }
    }
+
+   /*
+   bool filter_out_flipped_tile_numbers_on_terrain_tile_data = true;
+   if (filter_out_flipped_tile_numbers_on_terrain_tile_data)
+   {
+      for (auto &tile : terrain_tile_data)
+      {
+         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); // clear the flags
+         tile = filtered_tile_id;
+      }
+   }
+
+   bool filter_out_flipped_tile_numbers_on_foreground_tile_data = true;
+   if (filter_out_flipped_tile_numbers_on_foreground_tile_data)
+   {
+      for (auto &tile : foreground_tile_data)
+      {
+         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
+         tile = filtered_tile_id;
+      }
+   }
+
+   bool filter_out_flipped_tile_numbers_on_background_tile_data = true;
+   if (filter_out_flipped_tile_numbers_on_background_tile_data)
+   {
+      for (auto &tile : background_tile_data)
+      {
+         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); //clear the flags
+         tile = filtered_tile_id;
+      }
+   }
+   */
 
 
 
@@ -367,7 +374,8 @@ bool TMJTileMeshLoader::load()
       num_rows,
       tile_width,
       tile_height,
-      &terrain_tile_data
+      terrain_tile_data,
+      false
    );
 
 
@@ -383,7 +391,8 @@ bool TMJTileMeshLoader::load()
          num_rows,
          tile_width,
          tile_height,
-         &foreground_tile_data
+         foreground_tile_data,
+         false
       );
    }
 
@@ -400,7 +409,8 @@ bool TMJTileMeshLoader::load()
          num_rows,
          tile_width,
          tile_height,
-         &background_tile_data
+         background_tile_data,
+         false
       );
    }
 
@@ -437,7 +447,7 @@ bool TMJTileMeshLoader::load()
    return true;
 }
 
-AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas, int num_columns, int num_rows, int tile_width, int tile_height, std::vector<int>* tile_data)
+AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas, int num_columns, int num_rows, int tile_width, int tile_height, std::vector<int> tile_data, bool filter_out_flipped_tile_numbers)
 {
    if (!(tile_atlas))
    {
@@ -446,13 +456,25 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("TMJTileMeshLoader::create_mesh: error: guard \"tile_atlas\" not met");
    }
-   if (!(tile_data))
+   if (!((tile_data.size() == num_rows * num_columns)))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::create_mesh]: error: guard \"tile_data\" not met.";
+      error_message << "[TMJTileMeshLoader::create_mesh]: error: guard \"(tile_data.size() == num_rows * num_columns)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::create_mesh: error: guard \"tile_data\" not met");
+      throw std::runtime_error("TMJTileMeshLoader::create_mesh: error: guard \"(tile_data.size() == num_rows * num_columns)\" not met");
    }
+   if (filter_out_flipped_tile_numbers)
+   {
+      for (auto &tile : tile_data)
+      {
+         //bool horizontalFlip = (tile & 0x80000000) != 0;
+         //bool verticalFlip = (tile & 0x40000000) != 0;
+         //bool diagonalFlip = (tile & 0x20000000) != 0;
+         int filtered_tile_id = tile & ~(0x80000000 | 0x40000000 | 0x20000000); // clear the flags
+         tile = filtered_tile_id;
+      }
+   }
+
    AllegroFlare::TileMaps::TileMesh* created_terrain_mesh = new AllegroFlare::TileMaps::TileMesh(
          tile_atlas,
          num_columns,
@@ -469,22 +491,34 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
    {
       for (int x=0; x<num_columns; x++)
       {
-         int tile_id = tile_data->operator[](y * num_columns + x);
+         int tile_id = tile_data[y * num_columns + x];
+
+         bool horizontal_flip_flag_present = (tile_id & 0x80000000) != 0;
+         bool vertical_flip_flag_present = (tile_id & 0x40000000) != 0;
+         bool diagonal_flip_flag_present = (tile_id & 0x20000000) != 0;
+
+         bool has_horizontal_flip = (horizontal_flip_flag_present || diagonal_flip_flag_present);
+         bool has_vertical_flip = (vertical_flip_flag_present || diagonal_flip_flag_present);
+         tile_id = tile_id & ~(0x80000000 | 0x40000000 | 0x20000000); // tile with cleared flags
+
+         std::cout << tile_id << " ";
          // TODO: Consider updating this to (tile_id == -1), this will require the tile_data to be 0-indexed, which
          // it does not appear to be. This should probably happen at the TMJDataLoader stage (though TMJMeshLoader
          // is dependent on it, so will need to be updated there as well).
          // Also, using "tile_id-1" below should be set to simply "tile_id" after having made the above change.
+
          if (tile_id == 0)
          {
-            created_terrain_mesh->set_tile_id(x, y, 0);
+            created_terrain_mesh->set_tile_id(x, y, 0, has_horizontal_flip, has_vertical_flip);
             tile_coords_to_remove.push_back(std::pair<int, int>(x, y));
             //created_terrain_mesh->set_tile_id(x, y, 72); // <- Previously
          }
          else
          {
-            created_terrain_mesh->set_tile_id(x, y, tile_id-1);
+            created_terrain_mesh->set_tile_id(x, y, tile_id-1, has_horizontal_flip, has_vertical_flip);
          }
       }
+      std::cout << std::endl;
    }
 
    for (auto &tile_coord_to_remove : tile_coords_to_remove)

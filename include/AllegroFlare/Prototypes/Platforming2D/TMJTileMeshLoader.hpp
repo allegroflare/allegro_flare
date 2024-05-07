@@ -49,7 +49,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::TileMesh* get_foreground_mesh();
             AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map();
             bool load();
-            AllegroFlare::TileMaps::TileMesh* create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas=nullptr, int num_columns=0, int num_rows=0, int tile_width=16, int tile_height=16, std::vector<int>* tile_data={});
+            AllegroFlare::TileMaps::TileMesh* create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas=nullptr, int num_columns=0, int num_rows=0, int tile_width=16, int tile_height=16, std::vector<int> tile_data={}, bool filter_out_flipped_tile_numbers=true);
          };
       }
    }
