@@ -161,9 +161,11 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    FOCUS__extract_tmj_tile_flip_properties__will_return_expected_values)
 {
    std::vector<std::pair<uint32_t, std::tuple<bool, bool, bool, bool, int>>> test_data = {
-      // TODO: Add data
+      // NOTE: These numbers are taken from the TMJ_FIXTURE_WITH_FLIPPED_TILES
       { 128,                { false, false, false, false, 128 } },
       { 1073742059,         { false, true,  false, false, 234 } },
+      { 2147483883,         { true,  false, false, false, 234 } },
+      { 3221225707,         { true,  true,  false, false, 234 } },
    };
    
    for (auto &test_datum : test_data)
