@@ -166,6 +166,11 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
       { 1073742059,         { false, true,  false, false, 234 } },
       { 2147483883,         { true,  false, false, false, 234 } },
       { 3221225707,         { true,  true,  false, false, 234 } },
+
+      { 2684354795,         { true,  false, true,  false, 234 } },
+      { 3758096619,         { true,  true,  true,  false, 234 } },
+      { 536871147,          { false, false, true,  false, 234 } },
+      { 1610612971,         { false, true,  true,  false, 234 } },
    };
    
    for (auto &test_datum : test_data)
