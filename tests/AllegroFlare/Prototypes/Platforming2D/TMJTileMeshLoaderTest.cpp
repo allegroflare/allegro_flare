@@ -154,7 +154,10 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    // Render the "expected" viasual output
    AllegroFlare::Placement2D placement_expected;
    placement_expected.position = { 1920/8, 1080/8 };
-   placement_expected.size = { (float)al_get_bitmap_width(expected_visual_result), (float)al_get_bitmap_height(expected_visual_result) };
+   placement_expected.size = {
+         (float)al_get_bitmap_width(expected_visual_result),
+         (float)al_get_bitmap_height(expected_visual_result)
+      };
    placement_expected.scale = { 3.0f, 3.0f };
    placement_expected.align = { 0.0f, 0.0f };
    placement_expected.start_transform();
@@ -162,8 +165,6 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    placement_expected.restore_transform();
 
    al_flip_display();
-
-   //placement.restore_transform();
 
    sleep(1.0);
 
