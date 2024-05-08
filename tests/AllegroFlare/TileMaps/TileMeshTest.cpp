@@ -54,7 +54,7 @@ public:
 
    void fill_with_random_tiles(std::vector<int> possible_random_tiles = {})
    {
-      mesh.enable_holding_vertex_buffer_update_until_refresh();
+      //mesh.enable_holding_vertex_buffer_update_until_refresh();
       AllegroFlare::Random random;
       for (int y=0; y<mesh.get_num_rows(); y++)
       {
@@ -156,7 +156,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
    mesh.initialize();
 
    // Fill the tile mesh with random values
-   mesh.enable_holding_vertex_buffer_update_until_refresh();
+   //mesh.enable_holding_vertex_buffer_update_until_refresh();
 
    std::vector<int> possible_random_tiles = { 82, 102, 122, 121, 81 };
    AllegroFlare::Random random;
@@ -207,6 +207,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
    AllegroFlare::TileMaps::TileMesh mesh(&atlas, 30, 10, 16, 16);
    atlas.duplicate_bitmap_and_load(atlas_bitmap, 16, 16);
    mesh.initialize();
+   mesh.disable_holding_vertex_buffer_update_until_refresh();
 
    AllegroFlare::Random random;
    for (int y=0; y<mesh.get_num_rows(); y++)
@@ -309,7 +310,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    CAPTURE__VISUAL__set_tile_id__with_flip_h_and_flip_v_values__will_flip_the_tile_horizontally_and_vertically)
 {
-   mesh.enable_holding_vertex_buffer_update_until_refresh();
+   //mesh.enable_holding_vertex_buffer_update_until_refresh();
 
    mesh.set_tile_id(0, 0, 234, false, false, false);
    mesh.set_tile_id(3, 0, 234, true, false, false);
@@ -331,7 +332,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    get_file_filp__will_return_expected_values_for_horizontal_and_vertical_flip_on_a_tile)
 {
-   mesh.enable_holding_vertex_buffer_update_until_refresh();
+   //mesh.enable_holding_vertex_buffer_update_until_refresh();
 
    mesh.set_tile_id(0, 0, 234, false, false, false);
    mesh.set_tile_id(3, 0, 234, true, false, false);

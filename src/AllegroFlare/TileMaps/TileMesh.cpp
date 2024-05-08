@@ -29,7 +29,7 @@ TileMesh::TileMesh(AllegroFlare::TileMaps::PrimMeshAtlas* atlas, int num_columns
    , num_rows(num_rows)
    , tile_width(tile_width)
    , tile_height(tile_height)
-   , holding_vertex_buffer_update_until_refresh(false)
+   , holding_vertex_buffer_update_until_refresh(true)
    , vertex_buffer_is_dirty(false)
    , yz_swapped(false)
    , initialized(false)
@@ -267,9 +267,10 @@ void TileMesh::destroy()
    return;
 }
 
-void TileMesh::enable_holding_vertex_buffer_update_until_refresh()
+void TileMesh::disable_holding_vertex_buffer_update_until_refresh()
 {
-   holding_vertex_buffer_update_until_refresh = true;
+   // TODO: Test this behavior
+   holding_vertex_buffer_update_until_refresh = false;
    return;
 }
 

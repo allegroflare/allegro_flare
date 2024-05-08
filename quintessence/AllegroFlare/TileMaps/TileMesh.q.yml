@@ -76,7 +76,7 @@ properties:
 
   - name: holding_vertex_buffer_update_until_refresh
     type: bool
-    init_with: false
+    init_with: true
     getter: true
 
   - name: vertex_buffer_is_dirty
@@ -222,9 +222,10 @@ methods:
       return;
 
 
-  - name: enable_holding_vertex_buffer_update_until_refresh
+  - name: disable_holding_vertex_buffer_update_until_refresh
     body: |
-      holding_vertex_buffer_update_until_refresh = true;
+      // TODO: Test this behavior
+      holding_vertex_buffer_update_until_refresh = false;
       return;
 
 

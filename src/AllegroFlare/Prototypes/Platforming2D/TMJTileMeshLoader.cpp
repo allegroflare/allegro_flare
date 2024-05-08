@@ -470,7 +470,7 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
          tile_height
       );
    created_mesh->initialize();
-   created_mesh->enable_holding_vertex_buffer_update_until_refresh();
+   //created_mesh->enable_holding_vertex_buffer_update_until_refresh();
 
    std::vector<std::pair<int, int>> tile_coords_to_remove;
 
