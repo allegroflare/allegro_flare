@@ -462,14 +462,15 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
       }
    }
 
-   AllegroFlare::TileMaps::TileMesh* created_terrain_mesh = new AllegroFlare::TileMaps::TileMesh(
+   AllegroFlare::TileMaps::TileMesh* created_mesh = new AllegroFlare::TileMaps::TileMesh(
          tile_atlas,
          num_columns,
          num_rows,
          tile_width,
          tile_height
       );
-   created_terrain_mesh->initialize();
+   created_mesh->initialize();
+   created_mesh->enable_holding_vertex_buffer_update_until_refresh();
 
    std::vector<std::pair<int, int>> tile_coords_to_remove;
 
@@ -506,13 +507,13 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
 
          if (tile_id == 0)
          {
-            created_terrain_mesh->set_tile_id(x, y, 0, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
+            created_mesh->set_tile_id(x, y, 0, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
             tile_coords_to_remove.push_back(std::pair<int, int>(x, y));
-            //created_terrain_mesh->set_tile_id(x, y, 72); // <- Previously
+            //created_mesh->set_tile_id(x, y, 72); // <- Previously
          }
          else
          {
-            created_terrain_mesh->set_tile_id(x, y, tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
+            created_mesh->set_tile_id(x, y, tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
          }
       }
       std::cout << std::endl;
@@ -521,12 +522,13 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
    for (auto &tile_coord_to_remove : tile_coords_to_remove)
    {
       // TODO: Consider a performance improvement here, locking the index update until all tiles are removed
-      created_terrain_mesh->remove_tile_xy_from_index(tile_coord_to_remove.first, tile_coord_to_remove.second);
+      created_mesh->remove_tile_xy_from_index(tile_coord_to_remove.first, tile_coord_to_remove.second);
    }
 
+   created_mesh->refresh_vertex_buffer();
    //std::cout << "Tiles removed from index in TileMesh: " << tile_coords_to_remove.size() << std::endl;
 
-   return created_terrain_mesh;
+   return created_mesh;
 }
 
 
