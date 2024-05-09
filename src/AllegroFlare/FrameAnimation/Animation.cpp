@@ -481,8 +481,12 @@ std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_
       case PLAYMODE_FORWARD_PING_PONG: {
          float duration_so_far = 0.0f;
          float duration = calculate_duration();
+
+         // Create an virtual ping_pong_playhead that will play in reverse after the initial duration
          float ping_pong_playhead = fmod(time, duration*2);
-         if (ping_pong_playhead > duration) ping_pong_playhead = duration*2 - ping_pong_playhead;
+         // If the virtual ping_pong_playhead is over half the duration, then have the playhead play in reverse
+         if (ping_pong_playhead >= duration) ping_pong_playhead = duration*2 - ping_pong_playhead;
+
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();

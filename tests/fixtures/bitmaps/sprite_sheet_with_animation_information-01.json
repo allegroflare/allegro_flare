@@ -114,7 +114,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
     "sourceSize": { "w": 48, "h": 48 },
-    "duration": 200
+    "duration": 400
    },
    {
     "filename": "sprite_sheet_with_animation_information-01 13.ase",
@@ -123,7 +123,7 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
     "sourceSize": { "w": 48, "h": 48 },
-    "duration": 200
+    "duration": 100
    },
    {
     "filename": "sprite_sheet_with_animation_information-01 14.ase",
@@ -502,6 +502,33 @@
     "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
     "sourceSize": { "w": 48, "h": 48 },
     "duration": 200
+   },
+   {
+    "filename": "sprite_sheet_with_animation_information-01 56.ase",
+    "frame": { "x": 0, "y": 336, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 200
+   },
+   {
+    "filename": "sprite_sheet_with_animation_information-01 57.ase",
+    "frame": { "x": 48, "y": 336, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 200
+   },
+   {
+    "filename": "sprite_sheet_with_animation_information-01 58.ase",
+    "frame": { "x": 96, "y": 336, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 200
    }
  ],
  "meta": {
@@ -509,7 +536,7 @@
   "version": "1.2.34.1-arm64",
   "image": "sprite_sheet_with_animation_information-01.png",
   "format": "RGBA8888",
-  "size": { "w": 384, "h": 336 },
+  "size": { "w": 384, "h": 384 },
   "scale": "1",
   "frameTags": [
    { "name": "blob", "from": 1, "to": 3, "direction": "pingpong" },
@@ -517,11 +544,12 @@
    { "name": "skull head", "from": 7, "to": 11, "direction": "forward" },
    { "name": "fly", "from": 7, "to": 8, "direction": "forward" },
    { "name": "die!", "from": 9, "to": 11, "direction": "forward" },
-   { "name": "krampus", "from": 26, "to": 26, "direction": "forward" },
-   { "name": "attack.", "from": 27, "to": 31, "direction": "forward" },
-   { "name": "shield", "from": 36, "to": 36, "direction": "forward" },
-   { "name": "gold_shield", "from": 37, "to": 37, "direction": "forward" },
-   { "name": "sword", "from": 39, "to": 39, "direction": "forward" }
+   { "name": "save_point-active", "from": 12, "to": 14, "direction": "pingpong" },
+   { "name": "krampus", "from": 29, "to": 29, "direction": "forward" },
+   { "name": "attack.", "from": 30, "to": 34, "direction": "forward" },
+   { "name": "shield", "from": 39, "to": 39, "direction": "forward" },
+   { "name": "gold_shield", "from": 40, "to": 40, "direction": "forward" },
+   { "name": "sword", "from": 42, "to": 42, "direction": "forward" }
   ],
   "layers": [
    { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }

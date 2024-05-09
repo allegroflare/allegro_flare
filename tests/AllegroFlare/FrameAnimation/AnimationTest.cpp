@@ -203,3 +203,29 @@ return_the_expected_index_num)
 }
 
 
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, 
+   get_sprite_sheet_cell_index_num_at__on_a_PLAYMODE_FORWARD_PING_PONG__will_return_the_expected_cell_index_num)
+{
+   setup_animation(
+      std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
+      Animation::PLAYMODE_FORWARD_PING_PONG
+   );
+
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(0.0));
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(0.101));
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(0.199));
+
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(0.2));
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(0.201));
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(0.299));
+
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.3));
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.301));
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.499));
+
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.5f));
+   //EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.5001f));
+   //EXPECT_EQ(-1, animation->get_sprite_sheet_cell_index_num_at(0.5001f));
+}
+
+
