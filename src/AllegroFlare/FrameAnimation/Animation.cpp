@@ -492,6 +492,7 @@ std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_
             return { result_frame, last_frame_index, result_frame->get_index() };
          }
 
+         // Find the current frame
          for (auto &frame : frames)
          {
             duration_so_far += frame.get_duration();
