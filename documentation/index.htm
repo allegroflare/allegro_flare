@@ -16019,6 +16019,10 @@ table td
   <td class="property">PLAY_ONCE_BANG_CHAR</td>
   <td class="property">char</td>
 </tr>
+<tr>
+  <td class="property">PLAY_ONCE_AND_HOLD_LAST_FRAME_BANG_CHAR</td>
+  <td class="property">char</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -16032,7 +16036,11 @@ table td
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>ends_in_bang_char</b>(std::string str=&quot;[unset-str]&quot;)</td>
+  <td class="method"><b>ends_in_play_once_bang_char</b>(std::string str=&quot;[unset-str]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>ends_in_play_once_and_hold_bang_char</b>(std::string str=&quot;[unset-str]&quot;)</td>
 </tr>
 <tr>
   <td class="method">std::string</td>
@@ -16040,7 +16048,7 @@ table td
 </tr>
 <tr>
   <td class="method">uint32_t</td>
-  <td class="method"><b>_get_playmode_from_direction</b>(std::string direction=&quot;[unset-direction]&quot;, bool playmode_is_looped=true)</td>
+  <td class="method"><b>_get_playmode_from_direction</b>(std::string direction=&quot;[unset-direction]&quot;, bool playmode_is_looped=true, bool hold_last_frame=false)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

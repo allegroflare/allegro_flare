@@ -42,7 +42,7 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
 TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    load__fills_the_animation_book_with_the_expected_values)
 {
-   std::string TEST_FIXTURE_JSON_FILE = "./tests/fixtures/sprites_grid-x.json";
+   std::string TEST_FIXTURE_JSON_FILE = "./tests/fixtures/bitmaps/sprite_sheet_with_animation_information-01.json";
 
    AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader loader(TEST_FIXTURE_JSON_FILE);
    std::map<std::string, AllegroFlare::FrameAnimation::Animation> actual = loader.load();
@@ -81,11 +81,25 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
 
    std::vector<AllegroFlare::FrameAnimation::Frame> fly_frames = actual["fly"].get_frames();
    EXPECT_EQ(7,   fly_frames[0].get_index());
-   EXPECT_FLOAT_EQ(0.16, fly_frames[0].get_duration());
+   EXPECT_FLOAT_EQ(0.16f, fly_frames[0].get_duration());
    EXPECT_EQ(8,   fly_frames[1].get_index());
    EXPECT_FLOAT_EQ(0.08, fly_frames[1].get_duration());
 
    EXPECT_EQ(AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_LOOP, actual["fly"].get_playmode());
+
+
+   ASSERT_EQ(1, actual.count("attack"));
+   ASSERT_EQ(5, actual["attack"].get_num_frames());
+
+   std::vector<AllegroFlare::FrameAnimation::Frame> attack_frames = actual["attack"].get_frames();
+   EXPECT_EQ(27,   attack_frames[0].get_index());
+   EXPECT_FLOAT_EQ(0.2f, attack_frames[0].get_duration());
+   // etc (rest of frames)
+
+   EXPECT_EQ(
+      AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME,
+      actual["attack"].get_playmode()
+   );
 }
 
 

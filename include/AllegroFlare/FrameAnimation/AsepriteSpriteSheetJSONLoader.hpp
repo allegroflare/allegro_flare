@@ -17,7 +17,8 @@ namespace AllegroFlare
       class AsepriteSpriteSheetJSONLoader
       {
       public:
-         static constexpr char PLAY_ONCE_BANG_CHAR = '.';
+         static constexpr char PLAY_ONCE_BANG_CHAR = '!';
+         static constexpr char PLAY_ONCE_AND_HOLD_LAST_FRAME_BANG_CHAR = '.';
 
       private:
          std::string filename;
@@ -38,9 +39,10 @@ namespace AllegroFlare
          bool get_discard_last_bang_char_in_tag_names() const;
          std::map<std::string, AllegroFlare::FrameAnimation::Animation> load();
          std::vector<AllegroFlare::FrameAnimation::Frame> _build_animation_frames_for(uint32_t start_frame=0, uint32_t end_frame=0, std::map<int, int> frame_data={});
-         bool ends_in_bang_char(std::string str="[unset-str]");
+         bool ends_in_play_once_bang_char(std::string str="[unset-str]");
+         bool ends_in_play_once_and_hold_bang_char(std::string str="[unset-str]");
          std::string strip_appended_bang_char(std::string str="[unset-str]");
-         uint32_t _get_playmode_from_direction(std::string direction="[unset-direction]", bool playmode_is_looped=true);
+         uint32_t _get_playmode_from_direction(std::string direction="[unset-direction]", bool playmode_is_looped=true, bool hold_last_frame=false);
       };
    }
 }

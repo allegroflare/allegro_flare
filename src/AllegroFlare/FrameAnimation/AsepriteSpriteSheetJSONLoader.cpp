@@ -133,7 +133,10 @@ std::map<std::string, AllegroFlare::FrameAnimation::Animation> AsepriteSpriteShe
       tag.at("to").get_to(end_frame);
       tag.at("direction").get_to(mode);
 
-      bool tag_name_ends_in_bang_char = ends_in_bang_char(unsanitized_tag_name);
+      bool tag_name_ends_in_play_once_bang_char = ends_in_play_once_bang_char(unsanitized_tag_name);
+      bool tag_name_ends_in_play_once_and_hold_bang_char =
+         ends_in_play_once_and_hold_bang_char(unsanitized_tag_name);
+
       tag_name = discard_last_bang_char_in_tag_names
                ? strip_appended_bang_char(unsanitized_tag_name)
                : unsanitized_tag_name;
@@ -148,16 +151,23 @@ std::map<std::string, AllegroFlare::FrameAnimation::Animation> AsepriteSpriteShe
 
 
       bool playmode_is_looped = true;
-      if (load_tag_names_ending_in_bang_char_with_looping_playmode && tag_name_ends_in_bang_char)
+      bool hold_last_frame = false;
+      if (load_tag_names_ending_in_bang_char_with_looping_playmode && tag_name_ends_in_play_once_bang_char)
       {
          playmode_is_looped = false;
+      }
+      if (load_tag_names_ending_in_bang_char_with_looping_playmode &&
+         tag_name_ends_in_play_once_and_hold_bang_char)
+      {
+         playmode_is_looped = false;
+         hold_last_frame = true;
       }
 
       result[tag_name] = AllegroFlare::FrameAnimation::Animation(
          sprite_sheet,
          tag_name,
          _build_animation_frames_for(start_frame, end_frame, frame_data), // <- NOTE: this copy arg can be optimized
-         _get_playmode_from_direction(mode, playmode_is_looped)
+         _get_playmode_from_direction(mode, playmode_is_looped, hold_last_frame)
       );
    }
 
@@ -188,20 +198,30 @@ std::vector<AllegroFlare::FrameAnimation::Frame> AsepriteSpriteSheetJSONLoader::
    return result;
 }
 
-bool AsepriteSpriteSheetJSONLoader::ends_in_bang_char(std::string str)
+bool AsepriteSpriteSheetJSONLoader::ends_in_play_once_bang_char(std::string str)
 {
    if (str.size() <= 1) return false;
    return str[str.size()-1] == PLAY_ONCE_BANG_CHAR;
 }
 
+bool AsepriteSpriteSheetJSONLoader::ends_in_play_once_and_hold_bang_char(std::string str)
+{
+   if (str.size() <= 1) return false;
+   return str[str.size()-1] == PLAY_ONCE_AND_HOLD_LAST_FRAME_BANG_CHAR;
+}
+
 std::string AsepriteSpriteSheetJSONLoader::strip_appended_bang_char(std::string str)
 {
-   if (!ends_in_bang_char(str)) return str;
-   str.pop_back();
+   bool has_ending_bang_char = false;
+   if (ends_in_play_once_bang_char(str)) has_ending_bang_char = true;
+   else if (ends_in_play_once_and_hold_bang_char(str)) has_ending_bang_char = true;
+
+   if (has_ending_bang_char) str.pop_back();
+
    return str;
 }
 
-uint32_t AsepriteSpriteSheetJSONLoader::_get_playmode_from_direction(std::string direction, bool playmode_is_looped)
+uint32_t AsepriteSpriteSheetJSONLoader::_get_playmode_from_direction(std::string direction, bool playmode_is_looped, bool hold_last_frame)
 {
    std::map<std::string, uint32_t> playmode_map = {
       { "pingpong", AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_PING_PONG },
@@ -219,7 +239,8 @@ uint32_t AsepriteSpriteSheetJSONLoader::_get_playmode_from_direction(std::string
    {
       if (direction == "forward")
       {
-         return AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE;
+         if (hold_last_frame) return AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME;
+         else return AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE;
       }
    }
 
