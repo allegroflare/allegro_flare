@@ -18,11 +18,14 @@ namespace AllegroFlare
       class Animation
       {
       public:
-         static constexpr uint32_t PLAYMODE_UNDEF = 0;
-         static constexpr uint32_t PLAYMODE_FORWARD_ONCE = 1;
-         static constexpr uint32_t PLAYMODE_FORWARD_LOOP = 2;
-         static constexpr uint32_t PLAYMODE_FORWARD_PING_PONG = 3;
 
+         enum Playmode
+         {
+            PLAYMODE_UNDEF = 0,
+            PLAYMODE_FORWARD_ONCE,
+            PLAYMODE_FORWARD_LOOP,
+            PLAYMODE_FORWARD_PING_PONG,
+         };
       private:
          AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet;
          std::string name;

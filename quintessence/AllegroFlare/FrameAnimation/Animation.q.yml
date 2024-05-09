@@ -45,38 +45,22 @@ properties:
     init_with: 0.0f
     getter: true
 
-  - name: PLAYMODE_UNDEF
-    type: uint32_t
-    const: true
-    constexpr: true
-    static: true
-    init_with: 0
-
-  - name: PLAYMODE_FORWARD_ONCE
-    type: uint32_t
-    const: true
-    constexpr: true
-    static: true
-    init_with: 1
-
-  - name: PLAYMODE_FORWARD_LOOP
-    type: uint32_t
-    const: true
-    constexpr: true
-    static: true
-    init_with: 2
-
-  - name: PLAYMODE_FORWARD_PING_PONG
-    type: uint32_t
-    const: true
-    constexpr: true
-    static: true
-    init_with: 3
-
   - name: initialized
     type: bool
     init_with: false
     getter: true
+
+
+enums:
+
+
+  - name: Playmode
+    scope: public
+    enumerators:
+      - PLAYMODE_UNDEF
+      - PLAYMODE_FORWARD_ONCE
+      - PLAYMODE_FORWARD_LOOP
+      - PLAYMODE_FORWARD_PING_PONG
 
 
 documentation:
@@ -87,7 +71,7 @@ documentation:
         mechanism, including an option to display the dead frame.  Also, some animations will intermittently flash the
         0 frame. I'm not sure what the cause is but it needs to be looked into. Probably "empty" frame ids shoudl be
         returned as -1 and checked accordingly.
-      - Add PLAYMODE_FORWARD_ONCE_AND_HOLD
+      - Add PLAYMODE_FORWARD_ONCE_AND_HOLD_ON_LAST_FRAME
 
 
   - body_markdown: |-
