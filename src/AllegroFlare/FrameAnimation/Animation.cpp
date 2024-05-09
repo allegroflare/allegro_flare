@@ -180,6 +180,7 @@ void Animation::update()
    switch(playmode)
    {
       case PLAYMODE_FORWARD_ONCE:
+      case PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME:
          if (playhead > calculate_duration())
          {
             if (!finished)
@@ -413,8 +414,12 @@ std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_
    // Note the return value is std::pair<frame, current_animations_frame_number, sprite_sheet_frame_index>
 
    float duration = calculate_duration();
-   if (duration < 0.0001) return { nullptr, 0, 0 }; // TODO: have a value other than 0 representing the frame_count
-                                                    // when not present
+   // The animation has a very very short duration (this is a technique to evaluate if it is invalid and contains
+   // no frames)
+   if (frames.empty()) return { nullptr, 0, -1 };
+   // Previously: TODO: clear these lines
+   //if (duration < 0.0001) return { nullptr, 0, 0 }; // TODO: have a value other than 0 representing the frame_count
+                                                     // when not present
    int current_frame_count = 0;
 
    switch(playmode)
@@ -431,6 +436,28 @@ std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_
                return { result_frame, current_frame_count, frame.get_index() };
             }
             current_frame_count++;
+         }
+      } break;
+
+      case PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME: {
+         float duration_so_far = 0.0f;
+         for (auto &frame : frames)
+         {
+            duration_so_far += frame.get_duration();
+            if (time < duration_so_far)
+            {
+               AllegroFlare::FrameAnimation::Frame* result_frame = nullptr;
+               if (current_frame_count < frames.size()) result_frame = &frames[current_frame_count];
+               return { result_frame, current_frame_count, frame.get_index() };
+            }
+            current_frame_count++;
+         }
+         if (!frames.empty())
+         {
+            int last_frame_index = frames.size()-1;
+            AllegroFlare::FrameAnimation::Frame* result_frame = &frames[last_frame_index];
+            //int last_frame_in_animation = frmes
+            return { result_frame, last_frame_index, result_frame->get_index() };
          }
       } break;
 

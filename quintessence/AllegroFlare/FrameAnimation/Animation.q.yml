@@ -59,6 +59,7 @@ enums:
     enumerators:
       - PLAYMODE_UNDEF
       - PLAYMODE_FORWARD_ONCE
+      - PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME
       - PLAYMODE_FORWARD_LOOP
       - PLAYMODE_FORWARD_PING_PONG
 
@@ -71,7 +72,7 @@ documentation:
         mechanism, including an option to display the dead frame.  Also, some animations will intermittently flash the
         0 frame. I'm not sure what the cause is but it needs to be looked into. Probably "empty" frame ids shoudl be
         returned as -1 and checked accordingly.
-      - Add PLAYMODE_FORWARD_ONCE_AND_HOLD_ON_LAST_FRAME
+      - Add PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME
 
 
   - body_markdown: |-
@@ -147,6 +148,7 @@ functions:
       switch(playmode)
       {
          case PLAYMODE_FORWARD_ONCE:
+         case PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME:
             if (playhead > calculate_duration())
             {
                if (!finished)
@@ -326,8 +328,12 @@ functions:
       // Note the return value is std::pair<frame, current_animations_frame_number, sprite_sheet_frame_index>
 
       float duration = calculate_duration();
-      if (duration < 0.0001) return { nullptr, 0, 0 }; // TODO: have a value other than 0 representing the frame_count
-                                                       // when not present
+      // The animation has a very very short duration (this is a technique to evaluate if it is invalid and contains
+      // no frames)
+      if (frames.empty()) return { nullptr, 0, -1 };
+      // Previously: TODO: clear these lines
+      //if (duration < 0.0001) return { nullptr, 0, 0 }; // TODO: have a value other than 0 representing the frame_count
+                                                        // when not present
       int current_frame_count = 0;
 
       switch(playmode)
@@ -344,6 +350,28 @@ functions:
                   return { result_frame, current_frame_count, frame.get_index() };
                }
                current_frame_count++;
+            }
+         } break;
+
+         case PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME: {
+            float duration_so_far = 0.0f;
+            for (auto &frame : frames)
+            {
+               duration_so_far += frame.get_duration();
+               if (time < duration_so_far)
+               {
+                  AllegroFlare::FrameAnimation::Frame* result_frame = nullptr;
+                  if (current_frame_count < frames.size()) result_frame = &frames[current_frame_count];
+                  return { result_frame, current_frame_count, frame.get_index() };
+               }
+               current_frame_count++;
+            }
+            if (!frames.empty())
+            {
+               int last_frame_index = frames.size()-1;
+               AllegroFlare::FrameAnimation::Frame* result_frame = &frames[last_frame_index];
+               //int last_frame_in_animation = frmes
+               return { result_frame, last_frame_index, result_frame->get_index() };
             }
          } break;
 

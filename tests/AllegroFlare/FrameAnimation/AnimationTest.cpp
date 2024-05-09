@@ -138,7 +138,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, DISABLED__test_fixtur
 
 
 TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, 
-   get_sprite_sheet_cell_index_num_at__on_a_PLAYMODE_FORWARD_ONCE__will_return_the_cell_index_num_at_that_time)
+   get_sprite_sheet_cell_index_num_at__on_a_PLAYMODE_FORWARD_ONCE__will_return_the_cell_index_num)
 {
    setup_animation(
       std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
@@ -158,6 +158,48 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
    EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.499));
 
    EXPECT_EQ(-1, animation->get_sprite_sheet_cell_index_num_at(0.5001f));
+}
+
+
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, 
+   get_sprite_sheet_cell_index_num_at__on_a_PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME__will_return_the_cell_index_num)
+{
+   setup_animation(
+      std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
+      Animation::PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME
+   );
+
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(0.0));
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(0.101));
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(0.199));
+
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(0.2));
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(0.201));
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(0.299));
+
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.3));
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.301));
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.499));
+
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.5001f));
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.9999f));
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(9999.9999f));
+}
+
+
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, 
+   get_sprite_sheet_cell_index_num_at__on_a_PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME__when_there_are_no_frames__will_\
+return_the_expected_index_num)
+{
+   setup_animation(
+      std::vector<Frame>{},
+      Animation::PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME
+   );
+
+   EXPECT_EQ(-1, animation->get_sprite_sheet_cell_index_num_at(0.0f));
+   EXPECT_EQ(-1, animation->get_sprite_sheet_cell_index_num_at(0.5f));
+   EXPECT_EQ(-1, animation->get_sprite_sheet_cell_index_num_at(0.9999f));
+   EXPECT_EQ(-1, animation->get_sprite_sheet_cell_index_num_at(9999.9999f));
 }
 
 

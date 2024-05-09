@@ -23,6 +23,7 @@ namespace AllegroFlare
          {
             PLAYMODE_UNDEF = 0,
             PLAYMODE_FORWARD_ONCE,
+            PLAYMODE_FORWARD_ONCE_AND_HOLD_LAST_FRAME,
             PLAYMODE_FORWARD_LOOP,
             PLAYMODE_FORWARD_PING_PONG,
          };
