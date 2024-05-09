@@ -452,13 +452,10 @@ std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_
             }
             current_frame_count++;
          }
-         if (!frames.empty())
-         {
-            int last_frame_index = frames.size()-1;
-            AllegroFlare::FrameAnimation::Frame* result_frame = &frames[last_frame_index];
-            //int last_frame_in_animation = frmes
-            return { result_frame, last_frame_index, result_frame->get_index() };
-         }
+
+         int last_frame_index = frames.size()-1;
+         AllegroFlare::FrameAnimation::Frame* result_frame = &frames[last_frame_index];
+         return { result_frame, last_frame_index, result_frame->get_index() };
       } break;
 
       case PLAYMODE_FORWARD_LOOP: {
@@ -486,6 +483,14 @@ std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_
          float ping_pong_playhead = fmod(time, duration*2);
          // If the virtual ping_pong_playhead is over half the duration, then have the playhead play in reverse
          if (ping_pong_playhead >= duration) ping_pong_playhead = duration*2 - ping_pong_playhead;
+
+         if (ping_pong_playhead == duration) // The playhead is exactly at the end
+         {
+            // Return the last frame
+            int last_frame_index = frames.size()-1;
+            AllegroFlare::FrameAnimation::Frame* result_frame = &frames[last_frame_index];
+            return { result_frame, last_frame_index, result_frame->get_index() };
+         }
 
          for (auto &frame : frames)
          {

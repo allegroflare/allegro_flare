@@ -223,9 +223,25 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
    EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.301));
    EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.499));
 
+   // At the last timeframe
    EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.5f));
-   //EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.5001f));
-   //EXPECT_EQ(-1, animation->get_sprite_sheet_cell_index_num_at(0.5001f));
+
+   // In the "pong" part of the "ping-pong"
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.5001f));
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.6999f));
+
+   EXPECT_EQ(3, animation->get_sprite_sheet_cell_index_num_at(0.7f)); // Should this be frame 3 though, technically?
+
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(0.7001f));
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(0.7999f));
+
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(0.8f)); // Should this be frame 2?
+
+   // Repeating on the ping
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(0.999f));
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(1.0f));
+   EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(1.199f));
+   EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(1.2f));
 }
 
 
