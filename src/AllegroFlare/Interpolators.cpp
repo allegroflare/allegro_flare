@@ -26,7 +26,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::linear(float value)
+   float Interpolators::linear(float value)
    {
       return value;
    }
@@ -39,7 +39,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quadratic_in(float t)
+   float Interpolators::quadratic_in(float t)
    {
       return t*t;
    }
@@ -47,7 +47,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quadratic_out(float t)
+   float Interpolators::quadratic_out(float t)
    {
       return -t*(t-2);
    }
@@ -55,7 +55,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quadratic_in_out(float t)
+   float Interpolators::quadratic_in_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -68,7 +68,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quadratic_out_in(float t)
+   float Interpolators::quadratic_out_in(float t)
    {
       if (t < 0.5f) return quadratic_out(t*2) * 0.5f;
       else if (t > 0.5f) return quadratic_in((t-0.5f)*2) * 0.5f + 0.5f;
@@ -83,7 +83,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::cubic_in(float t)
+   float Interpolators::cubic_in(float t)
    {
       float b = 0;
       float c = 1;
@@ -94,7 +94,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::cubic_out(float t)
+   float Interpolators::cubic_out(float t)
    {
       t = t-1;
       return t*t*t + 1;
@@ -103,7 +103,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::cubic_in_out(float t)
+   float Interpolators::cubic_in_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -122,7 +122,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quartic_in(float t)
+   float Interpolators::quartic_in(float t)
    {
       float b = 0;
       float c = 1;
@@ -134,7 +134,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quartic_out(float t)
+   float Interpolators::quartic_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -146,7 +146,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quartic_in_out(float t)
+   float Interpolators::quartic_in_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -164,7 +164,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quintic_in(float t)
+   float Interpolators::quintic_in(float t)
    {
       float b = 0;
       float c = 1;
@@ -176,7 +176,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quintic_out(float t)
+   float Interpolators::quintic_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -188,7 +188,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::quintic_in_out(float t)
+   float Interpolators::quintic_in_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -207,7 +207,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::sine_in(float t)
+   float Interpolators::sine_in(float t)
    {
       float b = 0.0f;
       float c = 1.0f;
@@ -218,7 +218,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::sine_out(float t)
+   float Interpolators::sine_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -229,7 +229,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::sine_in_out(float t)
+   float Interpolators::sine_in_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -245,7 +245,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::exponential_in(float t)
+   float Interpolators::exponential_in(float t)
    {
       float b = 0;
       float c = 1;
@@ -256,7 +256,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::exponential_out(float t)
+   float Interpolators::exponential_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -267,7 +267,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::exponential_in_out(float t)
+   float Interpolators::exponential_in_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -286,7 +286,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::circular_in(float t)
+   float Interpolators::circular_in(float t)
    {
       float b = 0;
       float c = 1;
@@ -298,7 +298,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::circular_out(float t)
+   float Interpolators::circular_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -310,7 +310,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::circular_in_out(float t)
+   float Interpolators::circular_in_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -328,7 +328,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::elastic_in(float t)
+   float Interpolators::elastic_in(float t)
    {
       float amplitude = 1.0f; //<- not sure how modifying these variables will change things
       float period = 0.3f; //<- not sure how modifying these variables will change things
@@ -356,7 +356,7 @@ namespace AllegroFlare
    // an OVERSHOOT value of 1.70158 produces an overshoot of 10%
 #define OVERSHOOT 1.70158f
 
-   float interpolator::back_in(float t)
+   float Interpolators::back_in(float t)
    {
       float b = 0;
       float c = 1;
@@ -371,7 +371,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::back_out(float t)
+   float Interpolators::back_out(float t)
    {
       float b = 0;
       float c = 1;
@@ -385,7 +385,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::back_in_out(float t)
+   float Interpolators::back_in_out(float t)
    {
       float s = OVERSHOOT;
       if ((t) < 1) { t /= 0.5f; s*=(1.525f); return 0.5f*(t*t*(((s)+1)*t - s)); }
@@ -402,7 +402,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::bounce_out(float t)
+   float Interpolators::bounce_out(float t)
    {
       if (t < (1.0f/2.75f)) return (7.5625f*t*t);
       else if (t < (2.0f/2.75f))
@@ -425,7 +425,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::bounce_in(float t)
+   float Interpolators::bounce_in(float t)
    {
       t = 1.0f - t;
       if (t < (1.0f/2.75f)) return 1.0f - (7.5625f*t*t);
@@ -449,7 +449,7 @@ namespace AllegroFlare
 
 
 
-   float interpolator::bounce_in_out(float t)
+   float Interpolators::bounce_in_out(float t)
    {
       if (t < 0.5f) return bounce_in(t*2.0f) * 0.5f;
       return bounce_out(t*2.0f-1.0f) * 0.5f + 0.5f;
@@ -463,37 +463,37 @@ namespace AllegroFlare
 
 
 
-   float interpolator::fast_in(float t) { return quadratic_out(t); }
-   float interpolator::fast_out(float t) { return quadratic_in(t); }
-   float interpolator::fast_in_out(float t) { return quadratic_out_in(t); }
-   float interpolator::slow_in(float t) { return quadratic_in(t); }
-   float interpolator::slow_out(float t) { return quadratic_out(t); }
-   float interpolator::slow_in_out(float t) { return quadratic_in_out(t); }
+   float Interpolators::fast_in(float t) { return quadratic_out(t); }
+   float Interpolators::fast_out(float t) { return quadratic_in(t); }
+   float Interpolators::fast_in_out(float t) { return quadratic_out_in(t); }
+   float Interpolators::slow_in(float t) { return quadratic_in(t); }
+   float Interpolators::slow_out(float t) { return quadratic_out(t); }
+   float Interpolators::slow_in_out(float t) { return quadratic_in_out(t); }
 
-   float interpolator::double_fast_in(float t) { return cubic_out(t); }
-   float interpolator::double_fast_out(float t) { return cubic_in(t); }
-   float interpolator::double_slow_in(float t) { return cubic_in(t); }
-   float interpolator::double_slow_out(float t) { return cubic_out(t); }
-   float interpolator::double_slow_in_out(float t) { return cubic_in_out(t); }
+   float Interpolators::double_fast_in(float t) { return cubic_out(t); }
+   float Interpolators::double_fast_out(float t) { return cubic_in(t); }
+   float Interpolators::double_slow_in(float t) { return cubic_in(t); }
+   float Interpolators::double_slow_out(float t) { return cubic_out(t); }
+   float Interpolators::double_slow_in_out(float t) { return cubic_in_out(t); }
 
-   float interpolator::tripple_fast_in(float t) { return quartic_out(t); }
-   float interpolator::tripple_fast_out(float t) { return quartic_in(t); }
-   float interpolator::tripple_slow_in(float t) { return quartic_in(t); }
-   float interpolator::tripple_slow_out(float t) { return quartic_out(t); }
-   float interpolator::tripple_slow_in_out(float t) { return quartic_in_out(t); }
+   float Interpolators::tripple_fast_in(float t) { return quartic_out(t); }
+   float Interpolators::tripple_fast_out(float t) { return quartic_in(t); }
+   float Interpolators::tripple_slow_in(float t) { return quartic_in(t); }
+   float Interpolators::tripple_slow_out(float t) { return quartic_out(t); }
+   float Interpolators::tripple_slow_in_out(float t) { return quartic_in_out(t); }
 
-   float interpolator::quadruple_fast_in(float t) { return quintic_out(t); }
-   float interpolator::quadruple_fast_out(float t) { return quintic_in(t); }
-   float interpolator::quadruple_slow_in(float t) { return quintic_in(t); }
-   float interpolator::quadruple_slow_out(float t) { return quintic_out(t); }
-   float interpolator::quadruple_slow_in_out(float t) { return quintic_in_out(t); }
+   float Interpolators::quadruple_fast_in(float t) { return quintic_out(t); }
+   float Interpolators::quadruple_fast_out(float t) { return quintic_in(t); }
+   float Interpolators::quadruple_slow_in(float t) { return quintic_in(t); }
+   float Interpolators::quadruple_slow_out(float t) { return quintic_out(t); }
+   float Interpolators::quadruple_slow_in_out(float t) { return quintic_in_out(t); }
 
 
 
 
    // TODO: fix this thing
 
-   float interpolator::bloomp_in(float value)
+   float Interpolators::bloomp_in(float value)
    {
 #define fast_curve_interpolator(xxx, yyy, zzz) (fast_in((zzz-xxx)/(yyy-xxx))*(yyy-xxx) + xxx)
 #define slow_curve_interpolator(xxx, yyy, zzz) (slow_in((zzz-xxx)/(yyy-xxx))*(yyy-xxx) + xxx)
@@ -531,7 +531,7 @@ namespace AllegroFlare
 
 
 
-   interpolator::interpolator_func_t interpolator::get_interpolator_by_name(std::string name)
+   Interpolators::interpolator_func_t Interpolators::get_interpolator_by_name(std::string name)
    {
       // incomplete
       if (name == "linear") return linear;
@@ -570,7 +570,7 @@ namespace AllegroFlare
 
 
 
-   std::string interpolator::get_interpolator_func_name_as_str(interpolator::interpolator_func_t func)
+   std::string Interpolators::get_interpolator_func_name_as_str(Interpolators::interpolator_func_t func)
    {
       // incomplete
       if (func == linear) return "linear";
