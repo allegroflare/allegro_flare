@@ -427,6 +427,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/RouteEventDatas/StartLevel.q.yml">quintessence/AllegroFlare/RouteEventDatas/StartLevel.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Routers/Base.q.yml">quintessence/AllegroFlare/Routers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Routers/Standard.q.yml">quintessence/AllegroFlare/Routers/Standard.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Rulers.q.yml">quintessence/AllegroFlare/Rulers.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Runners/Base.q.yml">quintessence/AllegroFlare/Runners/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Runners/Complete.q.yml">quintessence/AllegroFlare/Runners/Complete.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
@@ -30434,6 +30435,89 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Rulers.q.yml">quintessence/AllegroFlare/Rulers.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_dimensional_grid</b>(float x=0.0f, float y=0.0f, float z=0.0f, float spacing=(16*4.8))</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_2d_grid</b>(float x=0.0f, float y=0.0f, float size=1.0f, float spacing=(16*4.8))</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_vertical_ruler</b>(float x=0.0f, float y=0.0f, float tick_width=30.0f, float tick_height=4.0f, float y_distance=160.0f, int num_ticks=5, float tick_align_x=0.0f, float tick_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_vertical_ruler_numbers</b>(float x=0.0f, float y=0.0f, int number_start=0, int number_increment=1, float y_distance=160.0f, int num_ticks=5, float text_align_x=0.0f, float text_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_vertical_ruler</b>(float x=0.0f, float y=0.0f, float tick_width=30.0f, float tick_height=4.0f, float y_distance=160.0f, int num_ticks=5, float tick_align_x=0.0f, float tick_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_number</b>(float x=0.0f, float y=0.0f, int number=137, int num_digits_filled=-1, float align_x=0.5f, float align_y=0.5f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_number</b>(int number=137, int num_digits_filled=-1)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_small_hud_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_STATE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful3D/Useful3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Runners/Base.q.yml">quintessence/AllegroFlare/Runners/Base.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -43193,6 +43277,7 @@ table td
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Rulers",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
@@ -43371,6 +43456,7 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -43482,6 +43568,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -43527,6 +43614,7 @@ table td
     "AllegroFlare/InputHints",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -43696,7 +43784,8 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Rulers"
   ],
   "al_get_time": [
     "AllegroFlare/ClubCatt/Logo",
@@ -43812,6 +43901,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -44313,6 +44403,7 @@ table td
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/Rulers"
@@ -44990,6 +45081,7 @@ table td
   ],
   "ALLEGRO_VERTEX": [
     "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
@@ -46327,6 +46419,13 @@ table td
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
   ],
+  "ALLEGRO_STATE": [
+    "AllegroFlare/Rulers",
+    "AllegroFlare/Testing/Rulers"
+  ],
+  "AllegroFlare/Useful3D": [
+    "AllegroFlare/Rulers"
+  ],
   "AllegroFlare/Screens/Storyboard": [
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Storyboard",
@@ -46546,9 +46645,6 @@ table td
   ],
   ":AllegroFlare/DisplaySettingsInterfaces/Base": [
     "AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock"
-  ],
-  "ALLEGRO_STATE": [
-    "AllegroFlare/Testing/Rulers"
   ],
   "random": [
     "AllegroFlare/Testing/TemporaryDirectoryCreator"

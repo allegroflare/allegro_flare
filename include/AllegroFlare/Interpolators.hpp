@@ -81,6 +81,8 @@ namespace AllegroFlare
       interpolator_func_t get_interpolator_by_name(std::string name);
       std::string get_interpolator_func_name_as_str(interpolator_func_t func); // TODO: complete this function
    }
+
+   namespace Interpolators = interpolator; // TODO: Rename the "interpolator" namespace with "Interpolator" entirely
 }
 
 

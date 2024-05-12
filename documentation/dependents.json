@@ -396,6 +396,7 @@
     "AllegroFlare/InputHints",
     "AllegroFlare/NotificationsFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Rulers",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/Rulers",
@@ -574,6 +575,7 @@
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -685,6 +687,7 @@
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -730,6 +733,7 @@
     "AllegroFlare/InputHints",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -899,7 +903,8 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Rulers"
   ],
   "al_get_time": [
     "AllegroFlare/ClubCatt/Logo",
@@ -1015,6 +1020,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -1516,6 +1522,7 @@
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Rulers",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Testing/Rulers"
@@ -2193,6 +2200,7 @@
   ],
   "ALLEGRO_VERTEX": [
     "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
@@ -3530,6 +3538,13 @@
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
   ],
+  "ALLEGRO_STATE": [
+    "AllegroFlare/Rulers",
+    "AllegroFlare/Testing/Rulers"
+  ],
+  "AllegroFlare/Useful3D": [
+    "AllegroFlare/Rulers"
+  ],
   "AllegroFlare/Screens/Storyboard": [
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Storyboard",
@@ -3749,9 +3764,6 @@
   ],
   ":AllegroFlare/DisplaySettingsInterfaces/Base": [
     "AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock"
-  ],
-  "ALLEGRO_STATE": [
-    "AllegroFlare/Testing/Rulers"
   ],
   "random": [
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
