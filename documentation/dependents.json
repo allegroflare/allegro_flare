@@ -399,7 +399,6 @@
     "AllegroFlare/Rulers",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
-    "AllegroFlare/Testing/Rulers",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/Time",
@@ -746,7 +745,6 @@
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
-    "AllegroFlare/Testing/Rulers",
     "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/UnicodeFontViewer",
     "Tileo/TileoTileVertexAllegroVertexDeclaration"
@@ -1524,8 +1522,7 @@
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen",
-    "AllegroFlare/Testing/Rulers"
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/AchievementsList",
@@ -3539,8 +3536,7 @@
     "AllegroFlare/Routers/Standard"
   ],
   "ALLEGRO_STATE": [
-    "AllegroFlare/Rulers",
-    "AllegroFlare/Testing/Rulers"
+    "AllegroFlare/Rulers"
   ],
   "AllegroFlare/Useful3D": [
     "AllegroFlare/Rulers"
@@ -3764,6 +3760,9 @@
   ],
   ":AllegroFlare/DisplaySettingsInterfaces/Base": [
     "AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock"
+  ],
+  "AllegroFlare/Rulers": [
+    "AllegroFlare/Testing/Rulers"
   ],
   "random": [
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
