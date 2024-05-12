@@ -1,0 +1,373 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: draw_dimensional_grid
+    static: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: z
+        type: float
+        default_argument: 0.0f
+      - name: spacing
+        type: float
+        default_argument: '(16*4.8)'
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      for (int zz=-10; zz<10; zz++)
+         for (int xx=-10; xx<10; xx++)
+            for (int yy=-10; yy<10; yy++)
+            {
+               ALLEGRO_STATE previous_target_bitmap_state;
+               al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TRANSFORM);
+               //al_set_target_bitmap(display_bitmap);
+               //al_use_projection_transform(&trans);
+
+               ALLEGRO_TRANSFORM trans;
+
+               al_copy_transform(&trans, al_get_current_transform());
+
+               //al_identity_transform(&trans);
+               al_translate_transform_3d(&trans, x+xx*spacing, y+yy*spacing, z+zz*spacing);
+               al_use_transform(&trans);
+               al_draw_filled_rectangle(-0.5, -0.5, 0.5, 0.5, ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5});
+               //al_start_transform(&trans);
+
+               al_restore_state(&previous_target_bitmap_state);
+            }
+      
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_STATE
+      - al_draw_filled_rectangle
+      - al_is_primitives_addon_initialized
+      - al_is_system_installed
+
+
+  - name: draw_2d_grid
+    static: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: size
+        type: float
+        default_argument: 1.0f
+      - name: spacing
+        type: float
+        default_argument: '(16*4.8)'
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      for (int xx=-10; xx<10; xx++)
+         for (int yy=-10; yy<10; yy++)
+         {
+            ALLEGRO_STATE previous_target_bitmap_state;
+            al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TRANSFORM);
+            //al_set_target_bitmap(display_bitmap);
+            //al_use_projection_transform(&trans);
+
+            ALLEGRO_TRANSFORM trans;
+
+            al_copy_transform(&trans, al_get_current_transform());
+
+            //al_identity_transform(&trans);
+            al_translate_transform_3d(&trans, x+xx*spacing, y+yy*spacing, 0); //z+zz*spacing);
+            al_use_transform(&trans);
+            al_draw_filled_rectangle(-size*0.5, -size*0.5, size*0.5, size*0.5, ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5});
+            //al_start_transform(&trans);
+
+            al_restore_state(&previous_target_bitmap_state);
+         }
+      
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_STATE
+      - al_draw_filled_rectangle
+      - al_is_primitives_addon_initialized
+      - al_is_system_installed
+
+
+  - name: draw_vertical_ruler
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: tick_width
+        type: float
+        default_argument: 30.0f
+      - name: tick_height
+        type: float
+        default_argument: 4.0f
+      - name: y_distance
+        type: float
+        default_argument: 160.0f
+      - name: num_ticks
+        type: int
+        default_argument: 5
+      - name: tick_align_x
+        type: float
+        default_argument: 0.0f
+      - name: tick_align_y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    body: |
+      std::vector<ALLEGRO_VERTEX> vertices = build_vertical_ruler(
+            x, y, tick_width, tick_height, y_distance, num_ticks, tick_align_x, tick_align_y, color
+         );
+      al_draw_prim(&vertices[0], NULL, NULL, 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+    body_dependency_symbols:
+      - ALLEGRO_VERTEX
+
+
+  - name: draw_vertical_ruler_numbers
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: number_start
+        type: int
+        default_argument: 0
+      - name: number_increment
+        type: int
+        default_argument: 1
+      - name: y_distance
+        type: float
+        default_argument: 160.0f
+      - name: num_ticks
+        type: int
+        default_argument: 5
+      - name: text_align_x
+        type: float
+        default_argument: 0.0f
+      - name: text_align_y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    body: |
+      for (int i=0; i<num_ticks; i++)
+      {
+         draw_number(x, y+y_distance*i, number_start + number_increment*i, 2, text_align_x, text_align_y, color);
+      }
+    body_dependency_symbols:
+      - ALLEGRO_VERTEX
+
+
+  - name: build_vertical_ruler
+    type: std::vector<ALLEGRO_VERTEX>
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: tick_width
+        type: float
+        default_argument: 30.0f
+      - name: tick_height
+        type: float
+        default_argument: 4.0f
+      - name: y_distance
+        type: float
+        default_argument: 160.0f
+      - name: num_ticks
+        type: int
+        default_argument: 5
+      - name: tick_align_x
+        type: float
+        default_argument: 0.0f
+      - name: tick_align_y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      ALLEGRO_VERTEX vtx_a = AllegroFlare::build_vertex(0, 0, 0, color, 0, 0);
+      ALLEGRO_VERTEX vtx_b = AllegroFlare::build_vertex(1, 0, 0, color, 0, 0);
+      ALLEGRO_VERTEX vtx_c = AllegroFlare::build_vertex(1, 1, 0, color, 0, 0);
+      ALLEGRO_VERTEX vtx_d = AllegroFlare::build_vertex(0, 1, 0, color, 0, 0);
+
+      // Define a triangle list set of vertices
+      std::vector<ALLEGRO_VERTEX> tick_vertices = {
+         vtx_a,
+         vtx_b,
+         vtx_d,
+         vtx_b,
+         vtx_c,
+         vtx_d,
+      };
+
+      // Position the tick
+      for (auto &vertex : tick_vertices)
+      {
+         vertex.x *= tick_width;
+         vertex.y *= tick_height;
+         vertex.x += x - tick_width * tick_align_x;
+         vertex.y += y - tick_height * tick_align_y;
+      }
+
+      // Create multiple ticks
+      std::vector<ALLEGRO_VERTEX> result;
+      for (int i=0; i<num_ticks; i++)
+      {
+         std::vector<ALLEGRO_VERTEX> tick_to_insert_vertices = tick_vertices;
+         for (auto &vertex : tick_to_insert_vertices)
+         {
+            vertex.y += (y_distance * i);
+         }
+         
+         result.insert(result.end(), tick_to_insert_vertices.begin(), tick_to_insert_vertices.end());
+      }
+
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Useful
+      - AllegroFlare::Useful3D
+      - ALLEGRO_VERTEX
+
+
+  - name: draw_number
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: number
+        type: int
+        default_argument: 137
+      - name: num_digits_filled
+        type: int
+        default_argument: -1
+      - name: align_x
+        type: float
+        default_argument: 0.5f
+      - name: align_y
+        type: float
+        default_argument: 0.5f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    body: |
+      ALLEGRO_FONT *font = obtain_small_hud_font();
+      std::string number_as_string = build_number(number, num_digits_filled);
+      float text_width = al_get_text_width(font, number_as_string.c_str());
+      float font_ascent = al_get_font_ascent(font);
+      float font_line_height = al_get_font_line_height(font);
+
+      al_draw_text(
+            font,
+            color,
+            x - text_width * align_x,
+            y - font_line_height + font_ascent * (1.0 - align_y),
+            ALLEGRO_ALIGN_LEFT,
+            number_as_string.c_str()
+         );
+
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FONT
+
+
+  - name: build_number
+    static: true
+    type: std::string
+    parameters:
+      - name: number
+        type: int
+        default_argument: 137
+      - name: num_digits_filled
+        type: int
+        default_argument: -1
+    body: |
+      std::string number_as_string = std::to_string(number);
+      std::stringstream result;
+
+      int num_digits = number_as_string.length();
+      int num_digits_to_fill = num_digits_filled - num_digits;
+      for (int i=0; i<num_digits_to_fill; i++)
+      {
+         number_as_string = "O" + number_as_string;
+      }
+
+      int digit_n = 0;
+      for (auto &digit_c : number_as_string)
+      {
+         if (digit_c == '0') result << "O";
+         else result << digit_c;
+
+         // Add some extra spaces inside the numbers
+         digit_n++;
+         if (digit_n != number_as_string.length()) result << " ";
+      }
+
+      return result.str();
+
+
+  - name: obtain_small_hud_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream result_font_identifier;
+      result_font_identifier << "Orbitron-Medium.ttf" << " " << -13;
+      return font_bin->auto_get(result_font_identifier.str());
+
+
+dependencies:
+
+
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_STATE
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_draw_filled_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_VERTEX
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Useful3D
+    headers: [ AllegroFlare/Useful3D/Useful3D.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: AllegroFlare::Useful
+    headers: [ AllegroFlare/Useful.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+
+
