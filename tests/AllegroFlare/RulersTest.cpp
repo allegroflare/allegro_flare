@@ -20,7 +20,7 @@ TEST_F(AllegroFlare_RulersTest, can_be_created_without_blowing_up)
 }
 
 
-TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__draw_vertical_ruler__will_not_blow_up)
 {
    AllegroFlare::Placement2D subject_placement = build_centered_placement();
    AllegroFlare::Rulers rulers(&get_font_bin_ref());
@@ -28,6 +28,21 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__render__will
    clear();
    subject_placement.start_transform();
    rulers.draw_vertical_ruler(0, 0, 30.0, 4.0, 160.0, 5, 0.0, 0.0, al_color_html("b8e8e8"));
+   subject_placement.restore_transform();
+
+   al_flip_display();
+   sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__draw_horizontal_ruler__will_not_blow_up)
+{
+   AllegroFlare::Placement2D subject_placement = build_centered_placement();
+   AllegroFlare::Rulers rulers(&get_font_bin_ref());
+
+   clear();
+   subject_placement.start_transform();
+   rulers.draw_horizontal_ruler(0, 0, 4.0, 30.0, 160.0, 5, 0.0, 0.0, al_color_html("b8e8e8"));
    subject_placement.restore_transform();
 
    al_flip_display();
