@@ -43,6 +43,7 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__draw_horizon
    clear();
    subject_placement.start_transform();
    rulers.draw_horizontal_ruler(0, 0, 4.0, 30.0, 160.0, 5, 0.0, 0.0, al_color_html("b8e8e8"));
+   rulers.draw_horizontal_ruler_numbers(0, -4, 3, 1, 160.0, 5, 0.5, 1.0, al_color_html("b8e8e8"));
    subject_placement.restore_transform();
 
    al_flip_display();
