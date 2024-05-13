@@ -1,59 +1,9 @@
-documentation:
+parent_classes:
 
 
-  - notes:
-      - Consider removing this class and using AllegroFlare/Rulers directly
-
-
-methods:
-
-
-  - name: draw_dimensional_grid
-    static: true
-    parameters:
-      - name: x
-        type: float
-        default_argument: 0.0f
-      - name: y
-        type: float
-        default_argument: 0.0f
-      - name: z
-        type: float
-        default_argument: 0.0f
-      - name: spacing
-        type: float
-        default_argument: '(16*4.8)'
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
-    body: |
-      // TODO: Test this method
-      AllegroFlare::Rulers::draw_dimensional_grid(x, y, z, spacing);
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Rulers
-
-
-  - name: draw_2d_grid
-    static: true
-    parameters:
-      - name: x
-        type: float
-        default_argument: 0.0f
-      - name: y
-        type: float
-        default_argument: 0.0f
-      - name: size
-        type: float
-        default_argument: 1.0f
-      - name: spacing
-        type: float
-        default_argument: '(16*4.8)'
-    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
-    body: |
-      // TODO: Test this method
-      AllegroFlare::Rulers::draw_2d_grid(x, y, size, spacing);
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Rulers
+  - class: AllegroFlare::Rulers
+    scope: public
+    init_with: ''
 
 
 dependencies:

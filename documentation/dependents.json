@@ -3761,9 +3761,6 @@
   ":AllegroFlare/DisplaySettingsInterfaces/Base": [
     "AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock"
   ],
-  "AllegroFlare/Rulers": [
-    "AllegroFlare/Testing/Rulers"
-  ],
   "random": [
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
   ],
