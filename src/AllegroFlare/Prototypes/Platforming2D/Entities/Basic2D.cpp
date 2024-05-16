@@ -476,6 +476,7 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_placement_positio
       else if (!was_adjacent_to_floor_prior && is_currently_adjacent_to_floor) // on enter
       {
          set(ADJACENT_TO_FLOOR);
+         // TODO: Consider callback on_floor_land or something
          //on_attribute_added(ADJACENT_TO_FLOOR);
       }
       else if (was_adjacent_to_floor_prior && !is_currently_adjacent_to_floor) // on exit

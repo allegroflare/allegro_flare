@@ -7,6 +7,7 @@ properties:
     constructor_arg: true
     getter: true
     setter: true
+    lifecycle: [ injected ]
 
   - name: vertices
     type: std::vector<ALLEGRO_VERTEX>
@@ -16,15 +17,18 @@ properties:
   - name: vertex_buffer
     type: ALLEGRO_VERTEX_BUFFER*
     init_with: nullptr
+    lifecycle: [ created, destroyed ]
 
   - name: index_buffer
     type: ALLEGRO_INDEX_BUFFER*
     init_with: nullptr
+    lifecycle: [ created, destroyed ]
 
   - name: tile_ids
     type: std::vector<int>
     init_with: '{}'
     getter: true
+    lifecycle: [ injected, created, shared, destroyed, handed_off ]
 
   - name: index_vertices
     type: std::vector<int>
@@ -106,7 +110,10 @@ documentation:
         - Consider adding an index buffer so that empty tiles are not rendered
         - Consider *removing* empty tile vertices from the vertices<>.
      - Consider adding an index buffer feature, breaking the map into sections so that off-screen draws can be bypassed
-
+     - Add a destroy mechanism for object destruction
+     - Add a warning in the class's destructor if the object has not been destroyed
+     - Consider option to opt out of using the vertex buffer
+     
 
 methods:
 

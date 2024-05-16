@@ -860,6 +860,7 @@ void Screen::update_entities()
       // TODO: Consider scenario where does not collide, but entity still receives info about block collisions
       if (entity->exists(DOES_NOT_COLLIDE_WITH_WORLD))
       {
+         // TODO: Consider updating using the whole (position += velocity) and not just x and y
          place.position.x += velocity.position.x;
          place.position.y += velocity.position.y;
          continue;
