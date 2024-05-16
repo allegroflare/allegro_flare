@@ -22,7 +22,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_BaseTest, can_be_created_wit
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_BaseTest, TYPE__has_the_expected_value)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::Base base;
-   EXPECT_EQ("Entities/Base", base.get_type());
+   EXPECT_EQ("AllegroFlare/Prototypes/Platforming2D/Entities/Base", base.get_type());
 }
 
 

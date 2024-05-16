@@ -55,7 +55,7 @@ namespace AllegroFlare
                   AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map() const;
                   virtual void update() override;
                   virtual void draw() override;
-                  void destroy();
+                  virtual void destroy() override;
                };
             }
          }

@@ -73,12 +73,14 @@ properties:
     init_with: nullptr
     getter: true
     setter: true
+    lifecycle: [ injected ]
 
   - name: movement_strategy
     type: AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base*
     init_with: nullptr
     getter: true
     setter: true
+    lifecycle: [ injected, destroyed ]
 
   - name: asset_studio_database
     type: AllegroFlare::AssetStudio::Database*
@@ -86,6 +88,7 @@ properties:
     getter: true
     getter_ref: true
     setter: true
+    lifecycle: [ injected ]
 
   - name: animation_book
     type: AllegroFlare::FrameAnimation::Book*
@@ -93,6 +96,7 @@ properties:
     getter: true
     getter_ref: true
     setter: true
+    lifecycle: [ injected ]
 
   - name: animation
     type: AllegroFlare::FrameAnimation::Animation

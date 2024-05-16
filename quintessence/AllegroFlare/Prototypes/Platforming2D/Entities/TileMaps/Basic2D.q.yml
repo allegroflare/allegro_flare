@@ -78,7 +78,11 @@ methods:
 
 
   - name: destroy
+    virtual: true
+    override: true
     body: |
+      // TODO: This destroy() method is now override. The location where destroy is called before this change was made
+      // may be affected if another call to destroy() is added if this object is part of a collection of objects
       // TODO: There could potentially be dangling members left from these objects after they are deleted. Please
       // evaluate them individually to make sure they are not leaving anything dangling.
       if (tile_atlas)

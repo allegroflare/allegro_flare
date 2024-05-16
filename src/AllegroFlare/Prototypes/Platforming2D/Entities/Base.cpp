@@ -50,6 +50,11 @@ void Base::draw()
    return;
 }
 
+void Base::destroy()
+{
+   return;
+}
+
 bool Base::is_type(std::string possible_type)
 {
    return (possible_type == get_type());

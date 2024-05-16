@@ -359,6 +359,11 @@ void Screen::clear()
 
    for (auto &entity : entity_pool)
    {
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::Screen::clear",
+         "Destroying entity {\"tmj_object_id\": " + entity->get("tmj_object_id") + "}."
+      );
+      entity->destroy();
       delete entity;
    }
    entity_pool.clear();

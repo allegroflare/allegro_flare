@@ -13,7 +13,6 @@ namespace AllegroFlare::TileMaps
 PrimMesh::PrimMesh(AllegroFlare::TileMaps::PrimMeshAtlas *atlas, int num_columns, int num_rows, int tile_width, int tile_height)
    : atlas(atlas)
    , vertexes()
-   , vertex_buffer(nullptr)
    , tile_ids()
    , num_columns(num_columns)
    , num_rows(num_rows)
@@ -27,7 +26,6 @@ PrimMesh::PrimMesh(AllegroFlare::TileMaps::PrimMeshAtlas *atlas, int num_columns
 
 PrimMesh::~PrimMesh()
 {
-   if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
 }
 
 
@@ -55,25 +53,6 @@ void PrimMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    vertexes[i+4].v = v1;
    vertexes[i+5].u = u1;
    vertexes[i+5].v = v1;
-
-   /*
-   // Modify the vertex in the vertex buffer
-   ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
-      vertex_buffer,
-      0,
-      infer_num_vertexes(), // Consider only locking the region that needs the change
-      ALLEGRO_LOCK_WRITEONLY
-   );
-
-   vertex_buffer_start[i+0] = vertexes[i+0];
-   vertex_buffer_start[i+1] = vertexes[i+1];
-   vertex_buffer_start[i+2] = vertexes[i+2];
-   vertex_buffer_start[i+3] = vertexes[i+3];
-   vertex_buffer_start[i+4] = vertexes[i+4];
-   vertex_buffer_start[i+5] = vertexes[i+5];
-
-   al_unlock_vertex_buffer(vertex_buffer);
-   */
 }
 
 
@@ -148,8 +127,8 @@ void PrimMesh::resize(int num_columns, int num_rows)
    }
 
    // create the vertex buffer;
-   if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
-   vertex_buffer = al_create_vertex_buffer(NULL, &vertexes[0], vertexes.size(), ALLEGRO_PRIM_BUFFER_READWRITE);
+   //if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
+   //vertex_buffer = al_create_vertex_buffer(NULL, &vertexes[0], vertexes.size(), ALLEGRO_PRIM_BUFFER_READWRITE);
 
    if (yz_swapped)
    {
@@ -193,12 +172,12 @@ void PrimMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
    }
 
    int num_vertices = infer_num_vertexes();
-   ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
-      vertex_buffer,
-      0,
-      num_vertices,
-      ALLEGRO_LOCK_WRITEONLY
-   );
+   //ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+      //vertex_buffer,
+      //0,
+      //num_vertices,
+      //ALLEGRO_LOCK_WRITEONLY
+   //);
 
    for (int v=0; v<num_vertices; v++)
    {
@@ -206,10 +185,10 @@ void PrimMesh::rescale_tile_dimensions_to(int new_tile_width, int new_tile_heigh
       vertexes[v].y = vertexes[v].y / old_tile_height * new_tile_height;
       vertexes[v].z = vertexes[v].z / old_tile_height * new_tile_height;
 
-      vertex_buffer_start[v] = vertexes[v];
+      //vertex_buffer_start[v] = vertexes[v];
    }
 
-   al_unlock_vertex_buffer(vertex_buffer);
+   //al_unlock_vertex_buffer(vertex_buffer);
 
    this->tile_width = new_tile_width;
    this->tile_height = new_tile_height;
@@ -319,16 +298,16 @@ void PrimMesh::swap_yz()
 
    // Modify the vertex in the vertex buffer
    int num_vertices = infer_num_vertexes();
-   ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
-      vertex_buffer,
-      0,
-      infer_num_vertexes(), // Consider only locking the region that needs the change
-      ALLEGRO_LOCK_WRITEONLY
-   );
+   //ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
+      //vertex_buffer,
+      //0,
+      //infer_num_vertexes(), // Consider only locking the region that needs the change
+      //ALLEGRO_LOCK_WRITEONLY
+   //);
 
-   for (int i=0; i<num_vertices; i++) vertex_buffer_start[i] = vertexes[i];
+   //for (int i=0; i<num_vertices; i++) vertex_buffer_start[i] = vertexes[i];
 
-   al_unlock_vertex_buffer(vertex_buffer);
+   //al_unlock_vertex_buffer(vertex_buffer);
 
    yz_swapped = !yz_swapped;
 }

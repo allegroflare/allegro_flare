@@ -16,7 +16,7 @@ namespace AllegroFlare
             class Base : public AllegroFlare::ElementID
             {
             public:
-               static constexpr char* TYPE = (char*)"Entities/Base";
+               static constexpr char* TYPE = (char*)"AllegroFlare/Prototypes/Platforming2D/Entities/Base";
 
             private:
                std::string type;
@@ -33,6 +33,7 @@ namespace AllegroFlare
                AllegroFlare::ElementID* get_parent() const;
                virtual void update();
                virtual void draw();
+               virtual void destroy();
                bool is_type(std::string possible_type="");
             };
          }
