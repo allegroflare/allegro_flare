@@ -1,0 +1,146 @@
+properties:
+
+
+  - name: initial_keyboard_state
+    type: ALLEGRO_KEYBOARD_STATE
+    init_with: ''
+    getter: false
+    setter: false
+
+  - name: subsequent_keyboard_state
+    type: ALLEGRO_KEYBOARD_STATE
+    init_with: ''
+    getter: false
+    setter: false
+
+  - name: initial_keyboard_state_is_captured
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+  - name: subsequent_keyboard_state_is_captured
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+  - name: keyboard_state_changes_are_calculated
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+  - name: keys_pressed
+    type: std::vector<uint32_t>
+    init_with: '{}'
+    setter: false
+    getter: explicit
+
+  - name: keys_released
+    type: std::vector<uint32_t>
+    init_with: '{}'
+    setter: false
+    getter: explicit
+
+
+methods:
+
+
+  - name: reset
+    body: |
+      initial_keyboard_state = ALLEGRO_KEYBOARD_STATE{};
+      subsequent_keyboard_state = ALLEGRO_KEYBOARD_STATE{};
+      initial_keyboard_state_is_captured = false;
+      subsequent_keyboard_state_is_captured = false;
+      keyboard_state_changes_are_calculated = false;
+      keys_pressed.clear();
+      keys_released.clear();
+
+
+  - name: get_keys_pressed
+    type: std::vector<uint32_t>
+    guards: [ keyboard_state_changes_are_calculated ]
+    body: |
+      return keys_pressed;
+
+
+  - name: get_keys_released
+    type: std::vector<uint32_t>
+    guards: [ keyboard_state_changes_are_calculated ]
+    body: |
+      return keys_released;
+
+
+  - name: get_keys_pressed_in_initial_keyboard_state
+    type: std::vector<uint32_t>
+    guards: [ initial_keyboard_state_is_captured ]
+    body: |
+      std::vector<uint32_t> keys;
+      uint32_t key_min = 0;
+      for (int al_keycode=key_min; al_keycode<ALLEGRO_KEY_MAX; al_keycode++)
+      {
+         if (al_key_down(&initial_keyboard_state, al_keycode)) keys.push_back(al_keycode);
+      }
+      return keys;
+
+
+  - name: get_keys_pressed_in_subsequent_keyboard_state
+    type: std::vector<uint32_t>
+    guards: [ subsequent_keyboard_state_is_captured ]
+    body: |
+      std::vector<uint32_t> keys;
+      uint32_t key_min = 0;
+      for (int al_keycode=key_min; al_keycode<ALLEGRO_KEY_MAX; al_keycode++)
+      {
+         if (al_key_down(&subsequent_keyboard_state, al_keycode)) keys.push_back(al_keycode);
+      }
+      return keys;
+
+
+  - name: capture_initial_keyboard_state
+    guards: [ (!initial_keyboard_state_is_captured), al_is_system_installed(), al_is_keyboard_installed() ]
+    body: |
+      al_get_keyboard_state(&initial_keyboard_state);
+      initial_keyboard_state_is_captured = true;
+      return;
+
+
+  - name: capture_subsequent_keyboard_state
+    guards: [ (!subsequent_keyboard_state_is_captured), al_is_system_installed(), al_is_keyboard_installed() ]
+    body: |
+      al_get_keyboard_state(&subsequent_keyboard_state);
+      subsequent_keyboard_state_is_captured = true;
+      return;
+
+
+  - name: calculate_keyboard_state_changes
+    guards:
+      - (!keyboard_state_changes_are_calculated)
+      - initial_keyboard_state_is_captured
+      - subsequent_keyboard_state_is_captured
+    body: |
+      uint32_t key_min = 0;
+      for (int al_keycode=key_min; al_keycode<ALLEGRO_KEY_MAX; al_keycode++)
+      {
+         if (al_key_down(&initial_keyboard_state, al_keycode) == al_key_down(&subsequent_keyboard_state, al_keycode))
+         {
+            // No change in key state
+            continue;
+         }
+
+         // There was a change, store it
+         if (al_key_down(&subsequent_keyboard_state, al_keycode)) keys_pressed.push_back(al_keycode);
+         else keys_released.push_back(al_keycode);
+      }
+      keyboard_state_changes_are_calculated = true;
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_KEYBOARD_STATE
+    headers: [ allegro5/allegro.h ]
+
+
