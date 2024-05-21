@@ -26,6 +26,12 @@ properties:
     init_with: false
     getter: true
 
+  - name: suspended_keyboard_state
+    type: AllegroFlare::SuspendedKeyboardState
+    init_with: '{}'
+    getter: true
+    getter_ref: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Screens/Gameplay"'
@@ -36,9 +42,12 @@ properties:
 documentation:
 
 
-  - Note that TYPE is not used from this class. Ideally, quintessence would have a "passthrough" and type would be
-    passed along to the base class
-  - Ideally would like to remove "load_level_by_identifier" from this class
+  - notes:
+     - Note that TYPE is not used from this class. Ideally, quintessence would have a "passthrough" and type would be
+       passed along to the base class
+     - Ideally would like to remove "load_level_by_identifier" from this class
+  - todos:
+     - Include SuspendedJoystickState as well (find a way to inject the joystick)
 
 
 methods:
@@ -89,6 +98,7 @@ methods:
   - name: suspend_gameplay
     body: |
       if (gameplay_suspended) return;
+      suspended_keyboard_state.capture_initial_keyboard_state(); // TODO: Add guard if state cannot be captured
       gameplay_suspended = true;
       gameplay_suspend_func();
       return;
@@ -98,7 +108,10 @@ methods:
     body: |
       if (!gameplay_suspended) return;
       gameplay_suspended = false;
+      suspended_keyboard_state.capture_subsequent_keyboard_state(); // TODO: Add guard if state cannot be captured
+      suspended_keyboard_state.calculate_keyboard_state_changes(); // TODO: Add guard if state cannot be captured
       gameplay_resume_func();
+      suspended_keyboard_state.reset();
       return;
 
 
@@ -144,5 +157,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/Gameplay.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::SuspendedKeyboardState
+    headers: [ AllegroFlare/SuspendedKeyboardState.hpp ]
 
 

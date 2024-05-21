@@ -3616,6 +3616,9 @@
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
   ],
+  "AllegroFlare/SuspendedKeyboardState": [
+    "AllegroFlare/Screens/Gameplay"
+  ],
   "AllegroFlare/Elements/InputDeviceConfigurationList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],

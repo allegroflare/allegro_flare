@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
+#include <AllegroFlare/SuspendedKeyboardState.hpp>
 #include <functional>
 #include <string>
 
@@ -20,6 +21,7 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func;
          void* on_finished_callback_func_user_data;
          bool gameplay_suspended;
+         AllegroFlare::SuspendedKeyboardState suspended_keyboard_state;
 
       protected:
 
@@ -33,6 +35,8 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
          bool get_gameplay_suspended() const;
+         AllegroFlare::SuspendedKeyboardState get_suspended_keyboard_state() const;
+         AllegroFlare::SuspendedKeyboardState &get_suspended_keyboard_state_ref();
          virtual void dialog_system_switch_in_func() override;
          virtual void dialog_system_switch_out_func() override;
          virtual void gameplay_suspend_func();

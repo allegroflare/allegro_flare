@@ -16,6 +16,7 @@ Gameplay::Gameplay()
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
    , gameplay_suspended(false)
+   , suspended_keyboard_state({})
 {
 }
 
@@ -52,6 +53,18 @@ void* Gameplay::get_on_finished_callback_func_user_data() const
 bool Gameplay::get_gameplay_suspended() const
 {
    return gameplay_suspended;
+}
+
+
+AllegroFlare::SuspendedKeyboardState Gameplay::get_suspended_keyboard_state() const
+{
+   return suspended_keyboard_state;
+}
+
+
+AllegroFlare::SuspendedKeyboardState &Gameplay::get_suspended_keyboard_state_ref()
+{
+   return suspended_keyboard_state;
 }
 
 
@@ -94,6 +107,7 @@ void Gameplay::gameplay_resume_func()
 void Gameplay::suspend_gameplay()
 {
    if (gameplay_suspended) return;
+   suspended_keyboard_state.capture_initial_keyboard_state(); // TODO: Add guard if state cannot be captured
    gameplay_suspended = true;
    gameplay_suspend_func();
    return;
@@ -103,7 +117,10 @@ void Gameplay::resume_suspended_gameplay()
 {
    if (!gameplay_suspended) return;
    gameplay_suspended = false;
+   suspended_keyboard_state.capture_subsequent_keyboard_state(); // TODO: Add guard if state cannot be captured
+   suspended_keyboard_state.calculate_keyboard_state_changes(); // TODO: Add guard if state cannot be captured
    gameplay_resume_func();
+   suspended_keyboard_state.reset();
    return;
 }
 

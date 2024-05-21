@@ -32021,7 +32021,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/Gameplay.q.yml">quintessence/AllegroFlare/Screens/Gameplay.q.yml</h3>
     <h3>Overview</h3>
-    <p>Note that TYPE is not used from this class. Ideally, quintessence would have a "passthrough" and type would be passed along to the base class</p>    <p>Ideally would like to remove "load_level_by_identifier" from this class</p>    <h3>Properties</h3>
+    <p>{"notes"=>["Note that TYPE is not used from this class. Ideally, quintessence would have a \"passthrough\" and type would be passed along to the base class", "Ideally would like to remove \"load_level_by_identifier\" from this class"]}</p>    <p>{"todos"=>["Include SuspendedJoystickState as well (find a way to inject the joystick)"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">on_finished_callback_func</td>
@@ -32034,6 +32034,10 @@ table td
 <tr>
   <td class="property">gameplay_suspended</td>
   <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">suspended_keyboard_state</td>
+  <td class="property">AllegroFlare::SuspendedKeyboardState</td>
 </tr>
 <tr>
   <td class="property">TYPE</td>
@@ -32089,6 +32093,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SuspendedKeyboardState&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SuspendedKeyboardState.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46681,6 +46688,9 @@ table td
   ],
   "ALLEGRO_FLARE_EVENT_START_TITLE_SCREEN": [
     "AllegroFlare/Screens/GameWonScreen"
+  ],
+  "AllegroFlare/SuspendedKeyboardState": [
+    "AllegroFlare/Screens/Gameplay"
   ],
   "AllegroFlare/Elements/InputDeviceConfigurationList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
