@@ -1,0 +1,318 @@
+properties:
+
+
+  - name: joystick
+    type: ALLEGRO_JOYSTICK*
+    init_with: nullptr
+    getter: true
+    setter: explicit
+
+  - name: initial_joystick_state
+    type: ALLEGRO_JOYSTICK_STATE
+    init_with: ''
+    getter: false
+    setter: false
+
+  - name: initial_joystick_state_stick_and_axis_count
+    type: std::vector<int>
+    init_with: '{}'
+    getter: false
+    setter: false
+
+  - name: initial_joystick_state_num_buttons
+    type: int
+    init_with: 0
+    getter: false
+    setter: false
+
+  - name: subsequent_joystick_state
+    type: ALLEGRO_JOYSTICK_STATE
+    init_with: ''
+    getter: false
+    setter: false
+
+  - name: subsequent_joystick_state_stick_and_axis_count
+    type: std::vector<int>
+    init_with: '{}'
+    getter: false
+    setter: false
+
+  - name: subsequent_joystick_state_num_buttons
+    type: int
+    init_with: 0
+    getter: false
+    setter: false
+
+  - name: initial_joystick_state_is_captured
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+  - name: subsequent_joystick_state_is_captured
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+  - name: joystick_state_changes_are_calculated
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+  - name: buttons_pressed
+    type: std::vector<uint32_t>
+    init_with: '{}'
+    setter: false
+    getter: explicit
+
+  - name: buttons_released
+    type: std::vector<uint32_t>
+    init_with: '{}'
+    setter: false
+    getter: explicit
+
+  - name: sticks_moved
+    type: std::map<std::pair<int, int>, std::pair<float, float>>
+    init_with: '{}'
+    setter: false
+    getter: explicit
+
+
+methods:
+
+
+  - name: set_joystick
+    parameters:
+      - name: joystick
+        type: ALLEGRO_JOYSTICK*
+        default_argument: nullptr
+    guards: [ (!initial_joystick_state_is_captured), (!subsequent_joystick_state_is_captured) ]
+    body: |
+      this->joystick = joystick;
+      return;
+
+
+  - name: reset
+    body: |
+      initial_joystick_state = ALLEGRO_JOYSTICK_STATE{};
+      subsequent_joystick_state = ALLEGRO_JOYSTICK_STATE{};
+      initial_joystick_state_is_captured = false;
+      subsequent_joystick_state_is_captured = false;
+      joystick_state_changes_are_calculated = false;
+      buttons_pressed.clear();
+      buttons_released.clear();
+      sticks_moved.clear();
+      return;
+
+
+  - name: get_buttons_pressed_in_initial_joystick_state
+    type: std::vector<uint32_t>
+    guards: [ initial_joystick_state_is_captured ]
+    body: |
+      std::vector<uint32_t> buttons;
+      int num_buttons = initial_joystick_state_num_buttons;
+      for (int button_num=0; button_num<num_buttons; button_num++)
+      {
+         if (initial_joystick_state.button[button_num]) buttons.push_back(button_num);
+      }
+      return buttons;
+
+
+  - name: get_buttons_pressed_in_subsequent_joystick_state
+    type: std::vector<uint32_t>
+    guards: [ subsequent_joystick_state_is_captured ]
+    body: |
+      std::vector<uint32_t> buttons;
+      int num_buttons = subsequent_joystick_state_num_buttons;
+      for (int button_num=0; button_num<num_buttons; button_num++)
+      {
+         if (subsequent_joystick_state.button[button_num]) buttons.push_back(button_num);
+      }
+      return buttons;
+
+
+  - name: get_sticks_moved_in_initial_joystick_state
+    type: std::map<std::pair<int, int>, std::pair<float, float>>
+    guards: [ initial_joystick_state_is_captured ]
+    body: |
+      // Calculate the change in axes
+      std::map<std::pair<int, int>, std::pair<float, float>> sticks;
+      int num_sticks = initial_joystick_state_stick_and_axis_count.size();
+      for (int stick_num=0; stick_num<num_sticks; stick_num++)
+      {
+         int num_axes = initial_joystick_state_stick_and_axis_count[stick_num];
+         for (int axis_num=0; axis_num<num_axes; axis_num++)
+         {
+            if (initial_joystick_state.stick[stick_num].axis[axis_num] == 0.0f)
+            {
+               // No position
+               // TODO: Consider if this should be reported anyway
+               continue;
+            }
+
+            sticks[std::make_pair(stick_num, axis_num)] =
+               { 0.0, initial_joystick_state.stick[stick_num].axis[axis_num] };
+         }
+      }
+      return sticks;
+
+
+  - name: get_sticks_moved_in_subsequent_joystick_state
+    type: std::map<std::pair<int, int>, std::pair<float, float>>
+    guards: [ subsequent_joystick_state_is_captured ]
+    body: |
+      // Calculate the change in axes
+      std::map<std::pair<int, int>, std::pair<float, float>> sticks;
+      int num_sticks = subsequent_joystick_state_stick_and_axis_count.size();
+      for (int stick_num=0; stick_num<num_sticks; stick_num++)
+      {
+         int num_axes = subsequent_joystick_state_stick_and_axis_count[stick_num];
+         for (int axis_num=0; axis_num<num_axes; axis_num++)
+         {
+            if (subsequent_joystick_state.stick[stick_num].axis[axis_num] == 0.0f)
+            {
+               // No position
+               // TODO: Consider if this should be reported anyway
+               continue;
+            }
+
+            sticks[std::make_pair(stick_num, axis_num)] =
+               { 0.0, subsequent_joystick_state.stick[stick_num].axis[axis_num] };
+         }
+      }
+      return sticks;
+
+
+  - name: get_buttons_pressed
+    type: std::vector<uint32_t>
+    guards: [ joystick_state_changes_are_calculated ]
+    body: |
+      return buttons_pressed;
+
+
+  - name: get_buttons_released
+    type: std::vector<uint32_t>
+    guards: [ joystick_state_changes_are_calculated ]
+    body: |
+      return buttons_released;
+
+
+  - name: get_sticks_moved
+    type: std::map<std::pair<int, int>, std::pair<float, float>>
+    guards: [ joystick_state_changes_are_calculated ]
+    body: |
+      return sticks_moved;
+
+
+  - name: capture_initial_joystick_state
+    guards: [ (!initial_joystick_state_is_captured), al_is_system_installed(), al_is_joystick_installed(), joystick ]
+    body: |
+      if (!al_get_joystick_active(joystick))
+      {
+         // TODO: Consider what behavior should be here (joystick was disconnected just before this method was called)
+         return;
+      }
+
+      al_get_joystick_state(joystick, &initial_joystick_state);
+      int num_sticks = al_get_joystick_num_sticks(joystick);
+      initial_joystick_state_stick_and_axis_count.resize(num_sticks);
+      for (int i=0; i<num_sticks; i++)
+      {
+         int num_axis = al_get_joystick_num_axes(joystick, i);
+         initial_joystick_state_stick_and_axis_count[i] = num_axis;
+      }
+      initial_joystick_state_num_buttons = al_get_joystick_num_buttons(joystick);
+      initial_joystick_state_is_captured = true;
+      return;
+
+
+  - name: capture_subsequent_joystick_state
+    guards: [ (!subsequent_joystick_state_is_captured), al_is_system_installed(), al_is_joystick_installed(), joystick ]
+    body: |
+      if (!al_get_joystick_active(joystick))
+      {
+         // TODO: Consider what behavior should be here (joystick was disconnected just before this method was called)
+         return;
+      }
+
+      al_get_joystick_state(joystick, &subsequent_joystick_state);
+      int num_sticks = al_get_joystick_num_sticks(joystick);
+      subsequent_joystick_state_stick_and_axis_count.resize(num_sticks);
+      for (int i=0; i<num_sticks; i++)
+      {
+         int num_axis = al_get_joystick_num_axes(joystick, i);
+         subsequent_joystick_state_stick_and_axis_count[i] = num_axis;
+      }
+      subsequent_joystick_state_num_buttons = al_get_joystick_num_buttons(joystick);
+      subsequent_joystick_state_is_captured = true;
+      return;
+
+
+  - name: calculate_joystick_state_changes
+    guards:
+      - (!joystick_state_changes_are_calculated)
+      - initial_joystick_state_is_captured
+      - subsequent_joystick_state_is_captured
+    body: |
+      if (initial_joystick_state_stick_and_axis_count != subsequent_joystick_state_stick_and_axis_count)
+      {
+         // TODO: Consider what behavior should be here (joystick stick count or num axes changed, unexpected state)
+         return;
+      }
+      else if (initial_joystick_state_num_buttons != subsequent_joystick_state_num_buttons)
+      {
+         // TODO: Consider what behavior should be here (joystick num buttons changed, unexpected state)
+         return;
+      }
+
+      // Calculate the change in button presses
+      int num_buttons = initial_joystick_state_num_buttons;
+      for (int button_num=0; button_num<num_buttons; button_num++)
+      {
+         if (initial_joystick_state.button[button_num] == subsequent_joystick_state.button[button_num])
+         {
+            // No change
+            continue;
+         }
+
+         bool button_is_pressed = subsequent_joystick_state.button[button_num];
+         if (button_is_pressed) buttons_pressed.push_back(button_num);
+         else buttons_released.push_back(button_num);
+      }
+
+      // Calculate the change in axes
+      int num_sticks = initial_joystick_state_stick_and_axis_count.size();
+      for (int stick_num=0; stick_num<num_sticks; stick_num++)
+      {
+         int num_axes = initial_joystick_state_stick_and_axis_count[stick_num];
+         for (int axis_num=0; axis_num<num_axes; axis_num++)
+         {
+            if (initial_joystick_state.stick[stick_num].axis[axis_num]
+               == subsequent_joystick_state.stick[stick_num].axis[axis_num])
+            {
+               // No change
+               continue;
+            }
+
+            float stick_delta = subsequent_joystick_state.stick[stick_num].axis[axis_num]
+                              - initial_joystick_state.stick[stick_num].axis[axis_num];
+            sticks_moved[std::make_pair(stick_num, axis_num)] =
+               { stick_delta, subsequent_joystick_state.stick[stick_num].axis[axis_num] };
+         }
+      }
+
+      joystick_state_changes_are_calculated = true;
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_JOYSTICK_STATE
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_JOYSTICK
+    headers: [ allegro5/allegro.h ]
+
+

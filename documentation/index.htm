@@ -476,6 +476,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StringFormatValidator.q.yml">quintessence/AllegroFlare/StringFormatValidator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SuspendedJoystickState.q.yml">quintessence/AllegroFlare/SuspendedJoystickState.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SuspendedKeyboardState.q.yml">quintessence/AllegroFlare/SuspendedKeyboardState.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SyncOracle.q.yml">quintessence/AllegroFlare/SyncOracle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SystemInfo.q.yml">quintessence/AllegroFlare/SystemInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TemplatedText.q.yml">quintessence/AllegroFlare/TemplatedText.q.yml</a></li>
@@ -36140,6 +36142,209 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/SuspendedJoystickState.q.yml">quintessence/AllegroFlare/SuspendedJoystickState.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">joystick</td>
+  <td class="property">ALLEGRO_JOYSTICK*</td>
+</tr>
+<tr>
+  <td class="property">initial_joystick_state</td>
+  <td class="property">ALLEGRO_JOYSTICK_STATE</td>
+</tr>
+<tr>
+  <td class="property">initial_joystick_state_stick_and_axis_count</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">initial_joystick_state_num_buttons</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">subsequent_joystick_state</td>
+  <td class="property">ALLEGRO_JOYSTICK_STATE</td>
+</tr>
+<tr>
+  <td class="property">subsequent_joystick_state_stick_and_axis_count</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">subsequent_joystick_state_num_buttons</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initial_joystick_state_is_captured</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">subsequent_joystick_state_is_captured</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">joystick_state_changes_are_calculated</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">buttons_pressed</td>
+  <td class="property">std::vector&lt;uint32_t&gt;</td>
+</tr>
+<tr>
+  <td class="property">buttons_released</td>
+  <td class="property">std::vector&lt;uint32_t&gt;</td>
+</tr>
+<tr>
+  <td class="property">sticks_moved</td>
+  <td class="property">std::map&lt;std::pair&lt;int, int&gt;, std::pair&lt;float, float&gt;&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_joystick</b>(ALLEGRO_JOYSTICK* joystick=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>reset</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;uint32_t&gt;</td>
+  <td class="method"><b>get_buttons_pressed_in_initial_joystick_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;uint32_t&gt;</td>
+  <td class="method"><b>get_buttons_pressed_in_subsequent_joystick_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::map&lt;std::pair&lt;int, int&gt;, std::pair&lt;float, float&gt;&gt;</td>
+  <td class="method"><b>get_sticks_moved_in_initial_joystick_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::map&lt;std::pair&lt;int, int&gt;, std::pair&lt;float, float&gt;&gt;</td>
+  <td class="method"><b>get_sticks_moved_in_subsequent_joystick_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;uint32_t&gt;</td>
+  <td class="method"><b>get_buttons_pressed</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;uint32_t&gt;</td>
+  <td class="method"><b>get_buttons_released</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::map&lt;std::pair&lt;int, int&gt;, std::pair&lt;float, float&gt;&gt;</td>
+  <td class="method"><b>get_sticks_moved</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>capture_initial_joystick_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>capture_subsequent_joystick_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>calculate_joystick_state_changes</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_JOYSTICK_STATE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_JOYSTICK&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/SuspendedKeyboardState.q.yml">quintessence/AllegroFlare/SuspendedKeyboardState.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">initial_keyboard_state</td>
+  <td class="property">ALLEGRO_KEYBOARD_STATE</td>
+</tr>
+<tr>
+  <td class="property">subsequent_keyboard_state</td>
+  <td class="property">ALLEGRO_KEYBOARD_STATE</td>
+</tr>
+<tr>
+  <td class="property">initial_keyboard_state_is_captured</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">subsequent_keyboard_state_is_captured</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">keyboard_state_changes_are_calculated</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">keys_pressed</td>
+  <td class="property">std::vector&lt;uint32_t&gt;</td>
+</tr>
+<tr>
+  <td class="property">keys_released</td>
+  <td class="property">std::vector&lt;uint32_t&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>reset</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;uint32_t&gt;</td>
+  <td class="method"><b>get_keys_pressed</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;uint32_t&gt;</td>
+  <td class="method"><b>get_keys_released</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;uint32_t&gt;</td>
+  <td class="method"><b>get_keys_pressed_in_initial_keyboard_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;uint32_t&gt;</td>
+  <td class="method"><b>get_keys_pressed_in_subsequent_keyboard_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>capture_initial_keyboard_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>capture_subsequent_keyboard_state</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>calculate_keyboard_state_changes</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_KEYBOARD_STATE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SyncOracle.q.yml">quintessence/AllegroFlare/SyncOracle.q.yml</h3>
     <h3>Overview</h3>
     <p>primary_event_queue must be passed in</p>    <p>primary_timer is owned and managed by the SyncOracle</p>    <h3>Properties</h3>
@@ -45558,6 +45763,7 @@ table td
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
+    "AllegroFlare/SuspendedJoystickState",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/set_difference": [
@@ -46603,6 +46809,12 @@ table td
   ],
   "AllegroFlare/Elements/StoryboardPages/ClubCattLogo": [
     "AllegroFlare/StoryboardPageFactory"
+  ],
+  "ALLEGRO_JOYSTICK_STATE": [
+    "AllegroFlare/SuspendedJoystickState"
+  ],
+  "ALLEGRO_KEYBOARD_STATE": [
+    "AllegroFlare/SuspendedKeyboardState"
   ],
   "AllegroFlare/Instrumentation/DurationMeasurer": [
     "AllegroFlare/SyncOracle"

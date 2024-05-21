@@ -2697,6 +2697,7 @@
   "ALLEGRO_JOYSTICK": [
     "AllegroFlare/InputDevicesList",
     "AllegroFlare/PhysicalInputDevices/Joysticks/Base",
+    "AllegroFlare/SuspendedJoystickState",
     "AllegroFlare/VirtualControlsProcessor"
   ],
   "std/set_difference": [
@@ -3742,6 +3743,12 @@
   ],
   "AllegroFlare/Elements/StoryboardPages/ClubCattLogo": [
     "AllegroFlare/StoryboardPageFactory"
+  ],
+  "ALLEGRO_JOYSTICK_STATE": [
+    "AllegroFlare/SuspendedJoystickState"
+  ],
+  "ALLEGRO_KEYBOARD_STATE": [
+    "AllegroFlare/SuspendedKeyboardState"
   ],
   "AllegroFlare/Instrumentation/DurationMeasurer": [
     "AllegroFlare/SyncOracle"
