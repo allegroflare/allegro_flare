@@ -36,6 +36,10 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , on_arbitrary_storyboard_screen_finished_func_user_data(nullptr)
    , on_arbitrary_storyboard_screen_activated_func({})
    , on_arbitrary_storyboard_screen_activated_func_user_data(nullptr)
+   , on_gameplay_paused({})
+   , on_gameplay_paused_user_data(nullptr)
+   , on_gameplay_unpaused({})
+   , on_gameplay_unpaused_user_data(nullptr)
 {
 }
 
@@ -147,6 +151,30 @@ void Standard::set_on_arbitrary_storyboard_screen_activated_func_user_data(void*
 }
 
 
+void Standard::set_on_gameplay_paused(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_paused)
+{
+   this->on_gameplay_paused = on_gameplay_paused;
+}
+
+
+void Standard::set_on_gameplay_paused_user_data(void* on_gameplay_paused_user_data)
+{
+   this->on_gameplay_paused_user_data = on_gameplay_paused_user_data;
+}
+
+
+void Standard::set_on_gameplay_unpaused(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_unpaused)
+{
+   this->on_gameplay_unpaused = on_gameplay_unpaused;
+}
+
+
+void Standard::set_on_gameplay_unpaused_user_data(void* on_gameplay_unpaused_user_data)
+{
+   this->on_gameplay_unpaused_user_data = on_gameplay_unpaused_user_data;
+}
+
+
 AllegroFlare::EventEmitter* Standard::get_event_emitter() const
 {
    return event_emitter;
@@ -246,6 +274,30 @@ std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_ar
 void* Standard::get_on_arbitrary_storyboard_screen_activated_func_user_data() const
 {
    return on_arbitrary_storyboard_screen_activated_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_paused() const
+{
+   return on_gameplay_paused;
+}
+
+
+void* Standard::get_on_gameplay_paused_user_data() const
+{
+   return on_gameplay_paused_user_data;
+}
+
+
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_unpaused() const
+{
+   return on_gameplay_unpaused;
+}
+
+
+void* Standard::get_on_gameplay_unpaused_user_data() const
+{
+   return on_gameplay_unpaused_user_data;
 }
 
 
@@ -511,11 +563,27 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             // Suspend the gameplay
             pause_managed_gameplay_screen->suspend_gameplay();
 
-            // Move the system into a paused game state
-            // TODO: Here, take the appropriate action based on the games design. Possible options:
-            //    - activate the pause screen?
-            //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
-            //    - activate a special subscreen (e.g. Zelda, Cat Detective, Metroid, etc)?
+            // Call the callback
+            // TODO: Test this conditional
+            if (!on_gameplay_paused)
+            {
+               // TODO: Test this warning message
+               AllegroFlare::Logger::warn_from_once(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "Handling a EVENT_PAUSE_GAME but no \"on_gameplay_paused\" callback is present. Usually you would "
+                     "use this callback to make changes to your system's state (e.g. activate a subscreen "
+                     "or a pause screen)."
+               );
+            }
+            else
+            {
+               // NOTE: In this callback, take the appropriate action based on the games design. Possible options:
+               //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
+               //    - activate a special subscreen (e.g. Zelda, Cat Detective, Metroid, etc)?
+               //    - activate a pause screen (Screens/PauseScreen)?
+
+               on_gameplay_paused(this, on_gameplay_paused_user_data); // TODO: Test this
+            }
          }
       }},
       { EVENT_UNPAUSE_GAME, [this](){
@@ -532,11 +600,27 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          }
          else
          {
-            // Move the system out of the paused game state
-            // TODO: Here, take the appropriate action based on the games design. Possible options:
-            //    - activate the gameplay_screen that (had been deactivated for a pause_screen)
-            //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
-            //    - activate the gameplay_screen that (had been deactivated for a special subscreen)?
+            // Call the callback
+            // TODO: Test this conditional
+            if (!on_gameplay_unpaused)
+            {
+               // TODO: Test this warning message
+               AllegroFlare::Logger::warn_from_once(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "Handling a EVENT_UNPAUSE_GAME but no \"on_gameplay_unpaused\" callback is present. Usually you "
+                     "would use this callback to make changes to your system's state (e.g. re-activate gameplay "
+                     "screen if it was deactivated in the \"on_gameplay_paused\" callback)."
+               );
+            }
+            else
+            {
+               // NOTE: Here, take the appropriate action based on the games design. Possible options:
+               //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
+               //    - activate the gameplay_screen that had been deactivated for a special subscreen?
+               //    - activate the gameplay_screen that had been deactivated for a pause_screen?
+
+               on_gameplay_unpaused(this, on_gameplay_unpaused_user_data); // TODO: Test this
+            }
 
             // Resume the suspended gameplay
             pause_managed_gameplay_screen->resume_suspended_gameplay();

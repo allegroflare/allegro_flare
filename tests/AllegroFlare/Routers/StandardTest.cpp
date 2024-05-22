@@ -160,7 +160,7 @@ public:
       (*((int*)user_data))++;
       return true;
    }
-   static bool my_on_gameplay_screen_finished_func(
+   static bool my_on_primary_gameplay_screen_finished_func(
          AllegroFlare::Routers::Standard *router,
          void* user_data
       )
@@ -544,12 +544,12 @@ EVENT_ACTIVATE_GAME_WON_SCREEN_route_event)
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED_event__will_call_the__\
-on_gameplay_screen_finished_func)
+on_primary_gameplay_screen_finished_func)
 {
    int call_count = 0;
 
-   router.set_on_gameplay_screen_finished_func(my_on_gameplay_screen_finished_func);
-   router.set_on_gameplay_screen_finished_func_user_data(&call_count);
+   router.set_on_primary_gameplay_screen_finished_func(my_on_primary_gameplay_screen_finished_func);
+   router.set_on_primary_gameplay_screen_finished_func_user_data(&call_count);
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED);
 
    EXPECT_EQ(1, call_count);

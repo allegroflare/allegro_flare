@@ -118,6 +118,30 @@ properties:
     getter: true
     setter: true
 
+  - name: on_gameplay_paused
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_gameplay_paused_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: on_gameplay_unpaused
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_gameplay_unpaused_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: INTRO_LOGOS_SCREEN_IDENTIFIER
     type: char*
     init_with: '(char*)"intro_logos_screen"'
@@ -584,11 +608,27 @@ methods:
                // Suspend the gameplay
                pause_managed_gameplay_screen->suspend_gameplay();
 
-               // Move the system into a paused game state
-               // TODO: Here, take the appropriate action based on the games design. Possible options:
-               //    - activate the pause screen?
-               //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
-               //    - activate a special subscreen (e.g. Zelda, Cat Detective, Metroid, etc)?
+               // Call the callback
+               // TODO: Test this conditional
+               if (!on_gameplay_paused)
+               {
+                  // TODO: Test this warning message
+                  AllegroFlare::Logger::warn_from_once(
+                     "AllegroFlare::Routers::Standard::on_route_event",
+                     "Handling a EVENT_PAUSE_GAME but no \"on_gameplay_paused\" callback is present. Usually you would "
+                        "use this callback to make changes to your system's state (e.g. activate a subscreen "
+                        "or a pause screen)."
+                  );
+               }
+               else
+               {
+                  // NOTE: In this callback, take the appropriate action based on the games design. Possible options:
+                  //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
+                  //    - activate a special subscreen (e.g. Zelda, Cat Detective, Metroid, etc)?
+                  //    - activate a pause screen (Screens/PauseScreen)?
+
+                  on_gameplay_paused(this, on_gameplay_paused_user_data); // TODO: Test this
+               }
             }
          }},
          { EVENT_UNPAUSE_GAME, [this](){
@@ -605,11 +645,27 @@ methods:
             }
             else
             {
-               // Move the system out of the paused game state
-               // TODO: Here, take the appropriate action based on the games design. Possible options:
-               //    - activate the gameplay_screen that (had been deactivated for a pause_screen)
-               //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
-               //    - activate the gameplay_screen that (had been deactivated for a special subscreen)?
+               // Call the callback
+               // TODO: Test this conditional
+               if (!on_gameplay_unpaused)
+               {
+                  // TODO: Test this warning message
+                  AllegroFlare::Logger::warn_from_once(
+                     "AllegroFlare::Routers::Standard::on_route_event",
+                     "Handling a EVENT_UNPAUSE_GAME but no \"on_gameplay_unpaused\" callback is present. Usually you "
+                        "would use this callback to make changes to your system's state (e.g. re-activate gameplay "
+                        "screen if it was deactivated in the \"on_gameplay_paused\" callback)."
+                  );
+               }
+               else
+               {
+                  // NOTE: Here, take the appropriate action based on the games design. Possible options:
+                  //    - have the pause_managed_gameplay_screen manage its "in-pause" behavior in the screen?
+                  //    - activate the gameplay_screen that had been deactivated for a special subscreen?
+                  //    - activate the gameplay_screen that had been deactivated for a pause_screen?
+
+                  on_gameplay_unpaused(this, on_gameplay_unpaused_user_data); // TODO: Test this
+               }
 
                // Resume the suspended gameplay
                pause_managed_gameplay_screen->resume_suspended_gameplay();
