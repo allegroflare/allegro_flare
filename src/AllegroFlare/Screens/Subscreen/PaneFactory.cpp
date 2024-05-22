@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Screens/Subscreen/PaneFactory.hpp>
 
-
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -23,12 +23,16 @@ PaneFactory::~PaneFactory()
 }
 
 
-AllegroFlare::Screens::Subscreen::Panes::Inventory* PaneFactory::create_inventory_pane()
+void PaneFactory::create_inventory_pane()
 {
+   throw std::runtime_error("AllegroFlare::Screens::Subscreen::PaneFactory::create_inventory_pane: "
+      "This method is not developed");
+   /*
    AllegroFlare::Screens::Subscreen::Panes::Inventory *result =
       new AllegroFlare::Screens::Subscreen::Panes::Inventory;
    // TODO: Setup the result
    return result;
+   */
 }
 
 

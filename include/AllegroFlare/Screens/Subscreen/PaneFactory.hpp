@@ -1,7 +1,6 @@
 #pragma once
 
 
-#include <AllegroFlare/Screens/Subscreen/Panes/Inventory.hpp>
 
 
 namespace AllegroFlare
@@ -21,7 +20,7 @@ namespace AllegroFlare
             PaneFactory();
             ~PaneFactory();
 
-            AllegroFlare::Screens::Subscreen::Panes::Inventory* create_inventory_pane();
+            void create_inventory_pane();
          };
       }
    }

@@ -23,6 +23,9 @@ SubscreenFactory::~SubscreenFactory()
 
 AllegroFlare::Screens::Subscreen::Screen* SubscreenFactory::create_basic_subscreen()
 {
+   throw std::runtime_error("AllegroFlare::Screens::SubscreenFactory::create_basic_subscreen: "
+      "This method is not developed");
+   /*
    AllegroFlare::Screens::Subscreen::PaneFactory pane_factory;
 
    AllegroFlare::Screens::Subscreen::Screen *result = new AllegroFlare::Screens::Subscreen::Screen;
@@ -39,6 +42,7 @@ AllegroFlare::Screens::Subscreen::Screen* SubscreenFactory::create_basic_subscre
    result->set_subscreen_element(subscreen_element);
    //result->set_subscreen_element(
    return result;
+   */
 }
 
 

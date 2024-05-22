@@ -449,9 +449,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Screens/Storyboard.q.yml">quintessence/AllegroFlare/Screens/Storyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Element.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Element.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/PaneFactory.q.yml">quintessence/AllegroFlare/Screens/Subscreen/PaneFactory.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Panes/Airwing.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Airwing.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Panes/Base.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Base.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Panes/Inventory.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Inventory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/Subscreen/Screen.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/SubscreenFactory.q.yml">quintessence/AllegroFlare/Screens/SubscreenFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Screens/TitleScreen.q.yml">quintessence/AllegroFlare/Screens/TitleScreen.q.yml</a></li>
@@ -33660,7 +33658,7 @@ table td
 <p>This class contains no properties</p>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">AllegroFlare::Screens::Subscreen::Panes::Inventory*</td>
+  <td class="method">void</td>
   <td class="method"><b>create_inventory_pane</b>()</td>
 </tr>
     </table>
@@ -33668,38 +33666,6 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Panes::Inventory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Panes/Inventory.hpp&quot;]}</td>
-</tr>
-    </table>
-</div>  </div>
-</ul>
-<br><br><br>
-<br><br><br>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Panes/Airwing.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Airwing.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
-<div class="property-box properties">     <table>
-<tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
-</tr>
-    </table>
-</div>    <h3>Methods</h3>
-<div class="property-box methods">     <table>
-<tr>
-  <td class="method">bool</td>
-  <td class="method"><b>property_is</b>(std::string possible_type=&quot;&quot;)</td>
-</tr>
-    </table>
-</div>    <h3>Dependencies</h3>
-<div class="property-box dependencies">     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Panes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Panes/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -33759,38 +33725,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
-</tr>
-    </table>
-</div>  </div>
-</ul>
-<br><br><br>
-<br><br><br>
-<ul>
-  <div class="component">
-    <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Panes/Inventory.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Panes/Inventory.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
-<div class="property-box properties">     <table>
-<tr>
-  <td class="property">property</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
-  <td class="property">TYPE</td>
-  <td class="property">char*</td>
-</tr>
-    </table>
-</div>    <h3>Methods</h3>
-<div class="property-box methods">     <table>
-<tr>
-  <td class="method">bool</td>
-  <td class="method"><b>property_is</b>(std::string possible_type=&quot;&quot;)</td>
-</tr>
-    </table>
-</div>    <h3>Dependencies</h3>
-<div class="property-box dependencies">     <table>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Panes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Panes/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -47125,9 +47059,7 @@ table td
     "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/Screens/Subscreen/Panes/Base": [
-    "AllegroFlare/Screens/Subscreen/Element",
-    "AllegroFlare/Screens/Subscreen/Panes/Airwing",
-    "AllegroFlare/Screens/Subscreen/Panes/Inventory"
+    "AllegroFlare/Screens/Subscreen/Element"
   ],
   "AllegroFlare/Screens/Subscreen/Panes/Inventory": [
     "AllegroFlare/Screens/Subscreen/PaneFactory"

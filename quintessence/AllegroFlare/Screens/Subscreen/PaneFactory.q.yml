@@ -2,12 +2,18 @@ methods:
 
 
   - name: create_inventory_pane
-    type: AllegroFlare::Screens::Subscreen::Panes::Inventory*
+    xtype: AllegroFlare::Screens::Subscreen::Panes::Inventory*
     body: |
+      throw std::runtime_error("AllegroFlare::Screens::Subscreen::PaneFactory::create_inventory_pane: "
+         "This method is not developed");
+      /*
       AllegroFlare::Screens::Subscreen::Panes::Inventory *result =
          new AllegroFlare::Screens::Subscreen::Panes::Inventory;
       // TODO: Setup the result
       return result;
+      */
+    body_dependency_symbols:
+      - std::runtime_error
 
 
 dependencies:

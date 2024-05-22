@@ -4,6 +4,9 @@ methods:
   - name: create_basic_subscreen
     type: AllegroFlare::Screens::Subscreen::Screen*
     body: |
+      throw std::runtime_error("AllegroFlare::Screens::SubscreenFactory::create_basic_subscreen: "
+         "This method is not developed");
+      /*
       AllegroFlare::Screens::Subscreen::PaneFactory pane_factory;
 
       AllegroFlare::Screens::Subscreen::Screen *result = new AllegroFlare::Screens::Subscreen::Screen;
@@ -20,6 +23,7 @@ methods:
       result->set_subscreen_element(subscreen_element);
       //result->set_subscreen_element(
       return result;
+      */
     body_dependency_symbols:
       - AllegroFlare::Screens::Subscreen::PaneFactory
 

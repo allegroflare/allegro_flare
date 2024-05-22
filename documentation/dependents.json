@@ -3676,9 +3676,7 @@
     "AllegroFlare/Screens/Storyboard"
   ],
   "AllegroFlare/Screens/Subscreen/Panes/Base": [
-    "AllegroFlare/Screens/Subscreen/Element",
-    "AllegroFlare/Screens/Subscreen/Panes/Airwing",
-    "AllegroFlare/Screens/Subscreen/Panes/Inventory"
+    "AllegroFlare/Screens/Subscreen/Element"
   ],
   "AllegroFlare/Screens/Subscreen/Panes/Inventory": [
     "AllegroFlare/Screens/Subscreen/PaneFactory"
