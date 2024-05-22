@@ -1,0 +1,72 @@
+properties:
+
+
+  - name: text
+    type: std::string
+    init_with: '"[unset-text]"'
+    constructor_arg: true
+    getter: true
+
+
+methods:
+
+
+  - name: upcase
+    type: AllegroFlare::StringTransformer&
+    body: |
+      //std::string result = original_text;
+      // note: the 4th argument casts std::toupper with a specific signature.  This is to prevent
+      // a compile error on Windows that is unable to resolve which "std::toupper" function to use
+      // see https://stackoverflow.com/a/16792532
+      std::transform(
+         text.begin(),
+         text.end(),
+         text.begin(),
+         static_cast<int(*)(int)>(std::toupper)
+      );
+
+      return *this;
+    body_dependency_symbols:
+      - std::transform
+      - std::toupper
+
+
+  - name: expand
+    type: AllegroFlare::StringTransformer&
+    parameters:
+      - name: num_spaces
+        type: int
+        default_argument: 3
+    guards: [ (num_spaces >= 0) ]
+    body: |
+      std::string interpolate_string(num_spaces, ' ');
+      std::stringstream result;
+
+      for (size_t i=0; i<text.size(); i++)
+      {
+         result << text[i];
+
+         // Append interpolate_string if not at the last character
+         if (i != text.size() - 1) {
+             result << interpolate_string;
+         }
+      }
+
+      text = result.str();
+
+      return *this;
+    body_dependency_symbols:
+      - std::stringstream
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::StringTransformer
+    headers: [ AllegroFlare/StringTransformer.hpp ]
+  - symbol: std::transform
+    headers: [ algorithm ]
+  - symbol: std::toupper
+    headers: [ cctype ]
+
+

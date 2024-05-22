@@ -383,6 +383,7 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Elements/Scrollbar",
@@ -503,6 +504,8 @@
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -632,6 +635,7 @@
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -718,6 +722,7 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
@@ -974,6 +979,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogBoxes/Intertitle",
     "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
@@ -1516,6 +1522,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -1887,6 +1894,7 @@
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
@@ -2063,6 +2071,7 @@
   ],
   "AllegroFlare/ColorKit": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Screens/TitleScreen"
   ],
@@ -2107,6 +2116,37 @@
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
+  ],
+  "AllegroFlare/Useful3D": [
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Rulers"
+  ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
+    "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
+  ],
+  "ALLEGRO_STATE": [
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Rulers"
+  ],
+  "ALLEGRO_VERTEX": [
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Rulers",
+    "AllegroFlare/TileMaps/TileMesh"
+  ],
+  "AllegroFlare/StringTransformer": [
+    "AllegroFlare/Elements/FUI/PanningGrid"
   ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
@@ -2194,11 +2234,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
-  ],
-  "ALLEGRO_VERTEX": [
-    "AllegroFlare/Elements/NinePatch",
-    "AllegroFlare/Rulers",
-    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
@@ -2598,19 +2633,6 @@
   ],
   "AllegroFlare/GraphicsPipelines/Basic3D/Entity": [
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene"
-  ],
-  "AllegroFlare/Vec3D": [
-    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
-    "AllegroFlare/Physics/AABB3D",
-    "AllegroFlare/Prototypes/CubeShooter/Entity",
-    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
@@ -3535,12 +3557,6 @@
   ],
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
-  ],
-  "ALLEGRO_STATE": [
-    "AllegroFlare/Rulers"
-  ],
-  "AllegroFlare/Useful3D": [
-    "AllegroFlare/Rulers"
   ],
   "AllegroFlare/Screens/Storyboard": [
     "AllegroFlare/Runners/Complete",

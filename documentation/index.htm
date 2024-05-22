@@ -181,6 +181,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/DialogButton.q.yml">quintessence/AllegroFlare/Elements/DialogButton.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogRoll.q.yml">quintessence/AllegroFlare/Elements/DialogRoll.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/DialogRollRenderer.q.yml">quintessence/AllegroFlare/Elements/DialogRollRenderer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/FUI/PanningGrid.q.yml">quintessence/AllegroFlare/Elements/FUI/PanningGrid.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
@@ -10260,6 +10261,169 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/FUI/PanningGrid.q.yml">quintessence/AllegroFlare/Elements/FUI/PanningGrid.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_triangle</b>(AllegroFlare::Vec3D v0={}, AllegroFlare::Vec3D v1={}, AllegroFlare::Vec3D v2={}, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_l_bracket</b>(float x=0.0f, float y=0.0f, float size=10.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_3d_dimensional_grid</b>(float x=0.0f, float y=0.0f, float z=0.0f, float spacing=(16*4.8))</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_2d_grid</b>(float x=0.0f, float y=0.0f, float size=1.0f, float spacing=(16*4.8))</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_number</b>(float x=0.0f, float y=0.0f, int number=137, int num_digits_filled=-1, float align_x=0.5f, float align_y=0.5f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_number</b>(int number=137, int num_digits_filled=-1)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_bracket</b>(float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, float thickness=12.0f, float length=20.0f, float bracket_align_x=0.5f, float bracket_align_y=0.5f, float bracket_offset_x=0.0f, float bracket_offset_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::pair&lt;float, float&gt;</td>
+  <td class="method"><b>draw_text</b>(float x=0.0f, float y=0.0f, std::string text=&quot;[unset-text]&quot;, int font_size=16, float align_x=0.0f, float align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_tab</b>(float x=0.0f, float y=0.0f, float width=120.0f, float thickness=12.0f, float align=1.0f, bool on_top=true, bool slant_left=false, bool slant_right=false, bool is_vertical=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_grid</b>(float x=0.0f, float y=0.0f, float line_size=3.0f, float distance=160.0f, float extensions_distance=60.0f, int num_horizontal_repeats=5, int num_vertical_repeats=3, float line_align_x=0.0f, float line_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_window_frame</b>(float x=0.0f, float y=0.0f, float width=600.0f, float height=200.0f, float frame_align_x=1.0f, float frame_align_y=1.0f, float frame_offset_x=0.0f, float frame_offset_y=0.0f, float thickness=3.0f, float tab_length=100.0f, float tab_thickness=6.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_bracketed_box</b>(float x=0.0f, float y=0.0f, float width=600.0f, float height=200.0f, float thickness=3.0f, float align_x=0.0f, float align_y=0.0f, float bracket_thickness=3.0f, float bracket_offset_x=16.0f, float bracket_offset_y=16.0f, ALLEGRO_COLOR box_color=ALLEGRO_COLOR{1, 1, 1, 1}, ALLEGRO_COLOR bracket_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_rectangle_frame_segments</b>(float x=0.0f, float y=0.0f, float width=600.0f, float height=200.0f, float thickness=3.0f, float align_x=0.5f, float align_y=0.5f, bool include_top_segment=true, bool include_top_right_segment=true, bool include_right_segment=true, bool include_bottom_right_segment=true, bool include_bottom_segment=true, bool include_bottom_left_segment=true, bool include_left_segment=true, bool include_top_left_segment=true, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_tall_cross_segments</b>(float x=0.0f, float y=0.0f, float line_size=3.0f, float y_distance=160.0f, float line_align_x=0.0f, float line_align_y=0.0f, bool include_top_segment=true, bool include_right_segment=true, bool include_bottom_segment=true, bool include_left_segment=true, bool include_middle_segment=true, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>draw_tall_cross</b>(float x=0.0f, float y=0.0f, float line_size=3.0f, float y_distance=160.0f, int num_ticks=5, float line_align_x=0.0f, float line_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>draw_cross</b>(float x=0.0f, float y=0.0f, float line_size=3.0f, float line_align_x=0.0f, float line_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_vertical_ruler</b>(float x=0.0f, float y=0.0f, float tick_width=30.0f, float tick_height=4.0f, float y_distance=160.0f, int num_ticks=5, float tick_align_x=0.0f, float tick_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_vertical_ruler_numbers</b>(float x=0.0f, float y=0.0f, int number_start=0, int number_increment=1, float y_distance=160.0f, int num_ticks=5, float text_align_x=0.0f, float text_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_vertical_ruler</b>(float x=0.0f, float y=0.0f, float tick_width=30.0f, float tick_height=4.0f, float y_distance=160.0f, int num_ticks=5, float tick_align_x=0.0f, float tick_align_y=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_small_hud_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_sized_font</b>(int size=-13)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_STATE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_system_installed&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StringTransformer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StringTransformer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -43456,6 +43620,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Elements/Scrollbar",
@@ -43576,6 +43741,8 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -43705,6 +43872,7 @@ table td
     "AllegroFlare/Elements/DialogButton",
     "AllegroFlare/Elements/DialogRollRenderer",
     "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/HealthBars/Hearts",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -43791,6 +43959,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
@@ -44047,6 +44216,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogBoxes/Intertitle",
     "AllegroFlare/Elements/DialogRollRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
@@ -44589,6 +44759,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -44960,6 +45131,7 @@ table td
   ],
   "AllegroFlare/Elements/Base": [
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
@@ -45136,6 +45308,7 @@ table td
   ],
   "AllegroFlare/ColorKit": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Screens/TitleScreen"
   ],
@@ -45180,6 +45353,37 @@ table td
   "char": [
     "AllegroFlare/Elements/DialogRoll",
     "AllegroFlare/Network2/Message"
+  ],
+  "AllegroFlare/Useful3D": [
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Rulers"
+  ],
+  "AllegroFlare/Vec3D": [
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
+    "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
+  ],
+  "ALLEGRO_STATE": [
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Rulers"
+  ],
+  "ALLEGRO_VERTEX": [
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Rulers",
+    "AllegroFlare/TileMaps/TileMesh"
+  ],
+  "AllegroFlare/StringTransformer": [
+    "AllegroFlare/Elements/FUI/PanningGrid"
   ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
@@ -45267,11 +45471,6 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
-  ],
-  "ALLEGRO_VERTEX": [
-    "AllegroFlare/Elements/NinePatch",
-    "AllegroFlare/Rulers",
-    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/Elements/Notifications/Base": [
     "AllegroFlare/Elements/NotificationRenderer",
@@ -45671,19 +45870,6 @@ table td
   ],
   "AllegroFlare/GraphicsPipelines/Basic3D/Entity": [
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene"
-  ],
-  "AllegroFlare/Vec3D": [
-    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
-    "AllegroFlare/Physics/AABB3D",
-    "AllegroFlare/Prototypes/CubeShooter/Entity",
-    "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
@@ -46608,12 +46794,6 @@ table td
   ],
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
-  ],
-  "ALLEGRO_STATE": [
-    "AllegroFlare/Rulers"
-  ],
-  "AllegroFlare/Useful3D": [
-    "AllegroFlare/Rulers"
   ],
   "AllegroFlare/Screens/Storyboard": [
     "AllegroFlare/Runners/Complete",
