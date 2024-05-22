@@ -343,8 +343,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 #include <AllegroFlare/EventNames.hpp>
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    // TODO: modify this to a TIMED_INTERACTIVE test
-   //INTERACTIVE__will_work_as_expected)
-   DISABLED__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
+   //DISABLED__INTERACTIVE__will_work_as_expected)
 {
    al_install_keyboard();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();

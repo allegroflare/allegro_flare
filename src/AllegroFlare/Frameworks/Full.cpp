@@ -27,7 +27,7 @@
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonPressedEventData.hpp>
 #include <AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
-#include <AllegroFlare/Routers/Standard.hpp>
+//#include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver.hpp>
 #include <AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp>
 #include <AllegroFlare/DisplaySettingsInterfaces/Live.hpp>
