@@ -30,6 +30,14 @@ public:
 };
 
 
+class GameplayScreenTestClass : public AllegroFlare::Screens::Gameplay
+{
+public:
+   void virtual gameplay_suspend_func() override {}
+   void virtual gameplay_resume_func() override {}
+};
+
+
 class AllegroFlare_Routers_StandardTest : public ::testing::Test
 {
 public:
@@ -167,6 +175,14 @@ public:
    {
       (*((int*)user_data))++;
       return true;
+   }
+   static void my_on_gameplay_paused_func(AllegroFlare::Routers::Standard *router, void* user_data)
+   {
+      (*((int*)user_data))++;
+   }
+   static void my_on_gameplay_unpaused_func(AllegroFlare::Routers::Standard *router, void* user_data)
+   {
+      (*((int*)user_data))++;
    }
 };
 
@@ -565,6 +581,25 @@ EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_SCREEN_route_event)
       AllegroFlare::Routers::Standard::EVENT_TITLE_SCREEN_FINISHED,
       AllegroFlare::Routers::Standard::EVENT_ACTIVATE_INTRO_LOGOS_SCREEN
    );
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_PAUSE_GAME__will_call_the_on_gameplay_paused_func)
+{
+   al_install_keyboard(); // TODO: Add an option to the gameplay_screen_class to disable capturing the keyboard on
+                          // suspend, then remove this line and the al_uninstall_keyboard() at the end of the test.
+
+   GameplayScreenTestClass gameplay_screen_test_class;
+   router.set_pause_managed_gameplay_screen(&gameplay_screen_test_class);
+
+   int call_count = 0;
+   router.set_on_gameplay_paused_func(my_on_gameplay_paused_func);
+   router.set_on_gameplay_paused_func_user_data(&call_count);
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
+   EXPECT_EQ(1, call_count);
+
+   al_uninstall_keyboard();
 }
 
 

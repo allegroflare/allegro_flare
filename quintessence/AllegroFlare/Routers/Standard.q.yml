@@ -118,25 +118,25 @@ properties:
     getter: true
     setter: true
 
-  - name: on_gameplay_paused
+  - name: on_gameplay_paused_func
     type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
     init_with: '{}'
     getter: true
     setter: true
 
-  - name: on_gameplay_paused_user_data
+  - name: on_gameplay_paused_func_user_data
     type: void*
     init_with: nullptr
     getter: true
     setter: true
 
-  - name: on_gameplay_unpaused
+  - name: on_gameplay_unpaused_func
     type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
     init_with: '{}'
     getter: true
     setter: true
 
-  - name: on_gameplay_unpaused_user_data
+  - name: on_gameplay_unpaused_func_user_data
     type: void*
     init_with: nullptr
     getter: true
@@ -610,13 +610,13 @@ methods:
 
                // Call the callback
                // TODO: Test this conditional
-               if (!on_gameplay_paused)
+               if (!on_gameplay_paused_func)
                {
                   // TODO: Test this warning message
                   AllegroFlare::Logger::warn_from_once(
                      "AllegroFlare::Routers::Standard::on_route_event",
-                     "Handling a EVENT_PAUSE_GAME but no \"on_gameplay_paused\" callback is present. Usually you would "
-                        "use this callback to make changes to your system's state (e.g. activate a subscreen "
+                     "Handling a EVENT_PAUSE_GAME but no \"on_gameplay_paused_func\" callback is present. Usually you "
+                        "would use this callback to make changes to your system's state (e.g. activate a subscreen "
                         "or a pause screen)."
                   );
                }
@@ -627,7 +627,7 @@ methods:
                   //    - activate a special subscreen (e.g. Zelda, Cat Detective, Metroid, etc)?
                   //    - activate a pause screen (Screens/PauseScreen)?
 
-                  on_gameplay_paused(this, on_gameplay_paused_user_data); // TODO: Test this
+                  on_gameplay_paused_func(this, on_gameplay_paused_func_user_data); // TODO: Test this
                }
             }
          }},
@@ -647,14 +647,14 @@ methods:
             {
                // Call the callback
                // TODO: Test this conditional
-               if (!on_gameplay_unpaused)
+               if (!on_gameplay_unpaused_func)
                {
                   // TODO: Test this warning message
                   AllegroFlare::Logger::warn_from_once(
                      "AllegroFlare::Routers::Standard::on_route_event",
-                     "Handling a EVENT_UNPAUSE_GAME but no \"on_gameplay_unpaused\" callback is present. Usually you "
-                        "would use this callback to make changes to your system's state (e.g. re-activate gameplay "
-                        "screen if it was deactivated in the \"on_gameplay_paused\" callback)."
+                     "Handling a EVENT_UNPAUSE_GAME but no \"on_gameplay_unpaused_func\" callback is present. Usually "
+                        "you would use this callback to make changes to your system's state (e.g. re-activate gameplay "
+                        "screen if it was deactivated in the \"on_gameplay_paused_func\" callback)."
                   );
                }
                else
@@ -664,7 +664,7 @@ methods:
                   //    - activate the gameplay_screen that had been deactivated for a special subscreen?
                   //    - activate the gameplay_screen that had been deactivated for a pause_screen?
 
-                  on_gameplay_unpaused(this, on_gameplay_unpaused_user_data); // TODO: Test this
+                  on_gameplay_unpaused_func(this, on_gameplay_unpaused_func_user_data); // TODO: Test this
                }
 
                // Resume the suspended gameplay
