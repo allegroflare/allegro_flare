@@ -1,0 +1,488 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Base
+    scope: public
+    init_with: ''
+
+
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    setter: before_initialized
+
+  - name: cursor_x
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: cursor_y
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: lists
+    type: std::vector<std::vector<std::pair<std::string, std::string>>>
+    init_with: '{}'
+
+  - name: list_cursor_positions
+    type: std::vector<int>
+    init_with: '{}'
+
+  - name: selection_cursor_box
+    type: AllegroFlare::Elements::SelectionCursorBox
+    init_with: '{}'
+
+  - name: list_item_width
+    type: float
+    init_with: 480.0f
+    getter: true
+    setter: explicit
+
+  - name: list_item_height
+    type: float
+    init_with: 48.0f
+    getter: true
+    setter: explicit
+
+  - name: list_item_margin_x
+    type: float
+    init_with: 80.0f
+
+  - name: list_item_margin_y
+    type: float
+    init_with: 12.0f
+
+  - name: wrap_cursor_horizontally
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
+  - name: wrap_cursors_vertically
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
+  - name: move_cursor_to_active_item_when_entering_list
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+
+documentation:
+
+
+  - notes:
+     - This is a special kind of UI element that contains multiple lists in columns. The players cursor can move
+       between the lists (with a configurable option to have the cursor move to the selected item).
+     - Currently the lists are visually static (they do not move vertically), but it would be a nice optional addition,
+       effectively making each of the lists a spinner list. If you'd like to add that to this class, please feel free!
+
+
+methods:
+
+
+  - name: set_list_item_width
+    parameters:
+      - name: list_item_width
+        type: int
+        default_argument: 48.0f
+    body: |
+      // TODO: Test this
+      this->list_item_width = list_item_width;
+      selection_cursor_box.set_size_quietly(list_item_width, list_item_height); // TODO: See if width can be set without
+                                                                                // needing to assign height
+      return;
+
+
+  - name: set_list_item_height
+    parameters:
+      - name: list_item_height
+        type: int
+        default_argument: 48.0f
+    body: |
+      // TODO: Test this
+      this->list_item_height = list_item_height;
+      selection_cursor_box.set_size_quietly(list_item_width, list_item_height); // TODO: See if height can be set
+                                                                                // without needing to assign width
+      return;
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - font_bin
+    body: |
+      selection_cursor_box.set_size_quietly(list_item_width, list_item_height);
+      move_cursor_box_position_to_cursor_location(); // TODO: See if this is necessary
+      initialized = true;
+      return;
+
+
+  - name: move_cursor_up
+    type: bool
+    body: |
+      if (lists.empty()) return false; // TODO: Test this case
+      //int &list_cursor = list_cursor_positions[cursor_x]; // This option will automatically change the selection
+                                                            // in the list
+      int &list_cursor = cursor_y;
+      list_cursor--;
+      if (wrap_cursors_vertically) // TODO: Test this wrapping feature (with and without)
+      {
+         if (list_cursor < 0) list_cursor += lists[cursor_x].size();
+      }
+      else
+      {
+         if (list_cursor < 0) list_cursor = 0;
+      }
+      move_cursor_box_position_to_cursor_location();
+      return true;
+
+
+  - name: move_cursor_down
+    type: bool
+    body: |
+      if (lists.empty()) return false; // TODO: Test this case
+      //int &list_cursor = list_cursor_positions[cursor_x]; // This option will automatically change the selection
+                                                            // in the list
+      int &list_cursor = cursor_y;
+      list_cursor++;
+      if (wrap_cursors_vertically) // TODO: Test this wrapping feature (with and without)
+      {
+         if (list_cursor >= lists[cursor_x].size()) list_cursor -= lists[cursor_x].size();
+      }
+      else
+      {
+         if (list_cursor >= lists[cursor_x].size()) list_cursor = lists[cursor_x].size() - 1;
+      }
+      move_cursor_box_position_to_cursor_location();
+      return true;
+
+
+  - name: move_cursor_left
+    type: bool
+    body: |
+      if (lists.size() <= 1) return false; // TODO: Test this case
+      cursor_x--;
+      if (wrap_cursor_horizontally) // TODO: Test this wrapping feature (with and without)
+      {
+         if (cursor_x < 0) cursor_x += lists.size();
+      }
+      if (move_cursor_to_active_item_when_entering_list)
+      {
+         cursor_y = list_cursor_positions[cursor_x];
+      }
+      move_cursor_box_position_to_cursor_location();
+      return true;
+
+
+  - name: move_cursor_right
+    type: bool
+    body: |
+      if (lists.size() <= 1) return false; // TODO: Test this case
+      cursor_x++;
+      if (wrap_cursor_horizontally) // TODO: Test this wrapping feature (with and without)
+      {
+         if (cursor_x >= lists.size()) cursor_x -= lists.size();
+      }
+      if (move_cursor_to_active_item_when_entering_list)
+      {
+         cursor_y = list_cursor_positions[cursor_x];
+      }
+      move_cursor_box_position_to_cursor_location();
+      return true;
+
+
+  - name: move_cursor_box_position_to_cursor_location
+    private: true
+    body: |
+      selection_cursor_box.set_position(calculate_cursor_real_x(), calculate_cursor_real_y());
+      return;
+
+
+  - name: set_lists
+    parameters:
+      - name: lists
+        type: std::vector<std::vector<std::pair<std::string, std::string>>>
+        default_argument: '{}'
+    body: |
+      this->lists = lists;
+      list_cursor_positions.clear();
+      list_cursor_positions.resize(lists.size(), 0);
+      return;
+
+
+  - name: activate_selection_at_current_cursor_position
+    body: |
+      list_cursor_positions[cursor_x] = cursor_y;
+      // TODO: Consider adding a callback
+      return;
+
+
+  - name: set_cursor_position
+    parameters:
+      - name: cursor_x
+        type: int
+        default_argument: 0
+      - name: cursor_y
+        type: int
+        default_argument: 0
+    guards:
+      - (cursor_x >= 0)
+      - (cursor_x < lists.size())
+      - (cursor_y >= 0)
+      - (cursor_y < lists[cursor_x].size())
+    body: |
+      this->cursor_x = cursor_x;
+      this->cursor_y = cursor_y;
+      //list_cursor_positions[cursor_x] = cursor_y;
+      return;
+
+
+  - name: calculate_width
+    type: float
+    body: |
+      if (lists.empty()) return 0.0f;
+      return (lists.size() * list_item_width) + ((lists.size()-1) * list_item_margin_x);
+
+
+  - name: calculate_cursor_real_x
+    type: float
+    body: |
+      float result = (cursor_x * list_item_width);
+      if (cursor_x > 0) result += cursor_x * list_item_margin_x;
+      return result;
+
+
+  - name: calculate_cursor_real_y
+    type: float
+    body: |
+      //int &list_cursor_pos = list_cursor_positions[cursor_x];
+      int &list_cursor_pos = cursor_y;
+      float result = (list_cursor_pos * list_item_height);
+      if (list_cursor_pos > 0) result += list_cursor_pos * list_item_margin_y;
+      return result;
+
+
+  - name: render
+    virtual: true
+    override: true
+    body: |
+      get_placement_ref().start_transform();
+
+      float list_x_spacing = list_item_width + list_item_margin_x;
+      float list_y_spacing = list_item_height + list_item_margin_y;
+
+      bool cursor_is_on_this_list = false;
+      bool cursor_is_on_this_list_item = false;
+
+      int list_num = 0;
+      for (auto &list : lists)
+      {
+         cursor_is_on_this_list = (cursor_x == list_num);
+
+         int list_y = 0;
+         for (auto &list_item : list)
+         {
+            //bool this_list_item_is_activated = (list_cursor_positions[cursor_x] == list_y);
+            bool item_is_activated_in_this_list =  (list_cursor_positions[list_num] == list_y);
+            cursor_is_on_this_list_item = cursor_is_on_this_list && (list_cursor_positions[cursor_x] == list_y);
+
+            // Draw the list item
+            std::string &list_item_text = list_item.first;
+            draw_list_item(
+                  list_num * list_x_spacing,
+                  list_y * list_y_spacing, //list_item_margin_y,
+                  list_item_width,
+                  list_item_height,
+                  list_item_text,
+                  item_is_activated_in_this_list
+               );
+
+            // Increment the list item
+            list_y++;
+         }
+
+         list_num++;
+      }
+
+      selection_cursor_box.render();
+
+      get_placement_ref().restore_transform();
+
+      return;
+
+
+  - name: draw_list_item
+    private: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 480.0f
+      - name: height
+        type: float
+        default_argument: 48.0f
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+      - name: is_selected
+        type: bool
+        default_argument: false
+    body: |
+      text = AllegroFlare::StringTransformer(text).upcase().expand(1).get_text();
+
+      ALLEGRO_COLOR unselected_text_color = ALLEGRO_COLOR{0.92f, 0.9f, 0.82f, 1.0f};
+      ALLEGRO_COLOR selected_text_color = ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f};
+
+      float label_op = 0.9f;
+      ALLEGRO_COLOR unselected_frame_color = ALLEGRO_COLOR{0.2f, 0.2f, 0.2f, 1.0f};
+      ALLEGRO_COLOR selected_frame_color = al_color_html("4f5e93");
+      //ALLEGRO_COLOR{0.3, 0.3, 0.3, 1.0f};
+
+      float frame_thickness = 2.0f;
+
+      ALLEGRO_COLOR unselected_fill_color = ALLEGRO_COLOR{0.0f, 0.0f, 0.0f, 0.0f};
+      ALLEGRO_COLOR selected_fill_color = al_color_html("394778");
+      //ALLEGRO_COLOR{0.3, 0.3, 0.3, 1.0f};
+
+      float dropshadow_op = 0.8f;
+      ALLEGRO_COLOR dropshadow_color = ALLEGRO_COLOR{
+            0.1f * dropshadow_op,
+            0.1f * dropshadow_op,
+            0.14f * dropshadow_op,
+            dropshadow_op
+         };
+
+      AllegroFlare::Placement2D label_and_text_placement;
+      label_and_text_placement.position.x = x;
+      label_and_text_placement.position.y = y;
+
+      label_and_text_placement.start_transform();
+      {
+         ALLEGRO_COLOR frame_color = is_selected ? selected_frame_color : unselected_frame_color;
+         ALLEGRO_COLOR fill_color = is_selected ? selected_fill_color : unselected_fill_color;
+         ALLEGRO_COLOR text_color = is_selected ? selected_text_color : unselected_text_color;
+
+         // Draw the fill
+         al_draw_filled_rectangle(
+            0,
+            0,
+            width,
+            height,
+            fill_color
+         );
+
+         // Draw the frame
+         al_draw_rectangle(
+            0,
+            0,
+            width,
+            height,
+            frame_color,
+            2.0f
+         );
+
+         // Draw the text
+         ALLEGRO_FONT *medium_hud_font = obtain_medium_hud_font();
+         int text_x = 24;
+         int text_y = 7;
+
+         // Draw the dropshadow (if actively selected)
+         if (is_selected)
+         {
+            int dropshadow_offset_x = 3;
+            int dropshadow_offset_y = 3;
+            // Draw the text
+            al_draw_textf(
+               medium_hud_font,
+               dropshadow_color,
+               text_x + dropshadow_offset_x,
+               text_y + dropshadow_offset_y,
+               ALLEGRO_ALIGN_LEFT,
+               text.c_str()
+            );
+         }
+
+         // Draw the text
+         al_draw_textf(
+            medium_hud_font,
+            text_color,
+            text_x,
+            text_y,
+            ALLEGRO_ALIGN_LEFT,
+            text.c_str()
+         );
+      }
+      label_and_text_placement.restore_transform();
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_FONT
+      - ALLEGRO_COLOR
+      - AllegroFlare::Placement2D
+      - AllegroFlare::StringTransformer
+      - al_draw_rectangle
+      - al_color_html
+
+
+  - name: obtain_small_hud_font
+    private: true
+    type: ALLEGRO_FONT*
+    body: |
+      std::stringstream result_font_identifier;
+      result_font_identifier << "Orbitron-Medium.ttf" << " " << -26;
+      return font_bin->auto_get(result_font_identifier.str());
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: obtain_medium_hud_font
+    private: true
+    type: ALLEGRO_FONT*
+    body: |
+      std::stringstream result_font_identifier;
+      result_font_identifier << "Orbitron-Medium.ttf" << " " << -32;
+      return font_bin->auto_get(result_font_identifier.str());
+    body_dependency_symbols:
+      - std::stringstream
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::StringTransformer
+    headers: [ AllegroFlare/StringTransformer.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: al_draw_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Elements::Base
+    headers: [ AllegroFlare/Elements/Base.hpp ]
+  - symbol: al_color_html
+    headers: [ allegro5/allegro_color.h ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
+
+

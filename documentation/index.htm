@@ -191,6 +191,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ListBox.q.yml">quintessence/AllegroFlare/Elements/ListBox.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ListBoxRenderer.q.yml">quintessence/AllegroFlare/Elements/ListBoxRenderer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/MultiList.q.yml">quintessence/AllegroFlare/Elements/MultiList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NinePatch.q.yml">quintessence/AllegroFlare/Elements/NinePatch.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml</a></li>
@@ -477,6 +478,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/StoryboardFactory.q.yml">quintessence/AllegroFlare/StoryboardFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StoryboardPageFactory.q.yml">quintessence/AllegroFlare/StoryboardPageFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/StringFormatValidator.q.yml">quintessence/AllegroFlare/StringFormatValidator.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/StringTransformer.q.yml">quintessence/AllegroFlare/StringTransformer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SuspendedJoystickState.q.yml">quintessence/AllegroFlare/SuspendedJoystickState.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SuspendedKeyboardState.q.yml">quintessence/AllegroFlare/SuspendedKeyboardState.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SyncOracle.q.yml">quintessence/AllegroFlare/SyncOracle.q.yml</a></li>
@@ -12241,6 +12243,178 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Interpolators::&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Interpolators.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/MultiList.q.yml">quintessence/AllegroFlare/Elements/MultiList.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This is a special kind of UI element that contains multiple lists in columns. The players cursor can move between the lists (with a configurable option to have the cursor move to the selected item).", "Currently the lists are visually static (they do not move vertically), but it would be a nice optional addition, effectively making each of the lists a spinner list. If you'd like to add that to this class, please feel free!"]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">cursor_x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cursor_y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">lists</td>
+  <td class="property">std::vector&lt;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">list_cursor_positions</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">selection_cursor_box</td>
+  <td class="property">AllegroFlare::Elements::SelectionCursorBox</td>
+</tr>
+<tr>
+  <td class="property">list_item_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">list_item_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">list_item_margin_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">list_item_margin_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">wrap_cursor_horizontally</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">wrap_cursors_vertically</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">move_cursor_to_active_item_when_entering_list</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_list_item_width</b>(int list_item_width=48.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_list_item_height</b>(int list_item_height=48.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>move_cursor_up</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>move_cursor_down</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>move_cursor_left</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>move_cursor_right</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>move_cursor_box_position_to_cursor_location</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_lists</b>(std::vector&lt;std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&gt; lists={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>activate_selection_at_current_cursor_position</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_cursor_position</b>(int cursor_x=0, int cursor_y=0)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>calculate_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>calculate_cursor_real_x</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>calculate_cursor_real_y</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_list_item</b>(float x=0.0f, float y=0.0f, float width=480.0f, float height=48.0f, std::string text=&quot;[unset-text]&quot;, bool is_selected=false)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_small_hud_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_medium_hud_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StringTransformer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StringTransformer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_html&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36313,6 +36487,44 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/StringTransformer.q.yml">quintessence/AllegroFlare/StringTransformer.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">text</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">AllegroFlare::StringTransformer&amp;</td>
+  <td class="method"><b>upcase</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::StringTransformer&amp;</td>
+  <td class="method"><b>expand</b>(int num_spaces=3)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StringTransformer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StringTransformer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::transform&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::toupper&quot;, &quot;headers&quot;=&gt;[&quot;cctype&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SuspendedJoystickState.q.yml">quintessence/AllegroFlare/SuspendedJoystickState.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -43751,6 +43963,7 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
@@ -43881,6 +44094,7 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -44034,6 +44248,7 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -44225,6 +44440,7 @@ table td
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
@@ -44631,7 +44847,8 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
-    "AllegroFlare/Elements/ListBoxRenderer"
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -45098,6 +45315,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
@@ -45135,6 +45353,7 @@ table td
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
   ],
@@ -45246,7 +45465,8 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer"
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList"
   ],
   "al_draw_filled_rounded_rectangle": [
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -45383,7 +45603,9 @@ table td
     "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/StringTransformer": [
-    "AllegroFlare/Elements/FUI/PanningGrid"
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/StringTransformer"
   ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
@@ -46999,6 +47221,12 @@ table td
   ],
   "AllegroFlare/Elements/StoryboardPages/ClubCattLogo": [
     "AllegroFlare/StoryboardPageFactory"
+  ],
+  "std/transform": [
+    "AllegroFlare/StringTransformer"
+  ],
+  "std/toupper": [
+    "AllegroFlare/StringTransformer"
   ],
   "ALLEGRO_JOYSTICK_STATE": [
     "AllegroFlare/SuspendedJoystickState"

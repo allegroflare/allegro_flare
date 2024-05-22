@@ -514,6 +514,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationsRenderer",
@@ -644,6 +645,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -797,6 +799,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/Storyboard",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
@@ -988,6 +991,7 @@
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
@@ -1394,7 +1398,8 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
-    "AllegroFlare/Elements/ListBoxRenderer"
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -1861,6 +1866,7 @@
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
@@ -1898,6 +1904,7 @@
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/Stopwatch",
     "AllegroFlare/Elements/Text"
   ],
@@ -2009,7 +2016,8 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
-    "AllegroFlare/Elements/ListBoxRenderer"
+    "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Elements/MultiList"
   ],
   "al_draw_filled_rounded_rectangle": [
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -2146,7 +2154,9 @@
     "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/StringTransformer": [
-    "AllegroFlare/Elements/FUI/PanningGrid"
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/StringTransformer"
   ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
@@ -3762,6 +3772,12 @@
   ],
   "AllegroFlare/Elements/StoryboardPages/ClubCattLogo": [
     "AllegroFlare/StoryboardPageFactory"
+  ],
+  "std/transform": [
+    "AllegroFlare/StringTransformer"
+  ],
+  "std/toupper": [
+    "AllegroFlare/StringTransformer"
   ],
   "ALLEGRO_JOYSTICK_STATE": [
     "AllegroFlare/SuspendedJoystickState"
