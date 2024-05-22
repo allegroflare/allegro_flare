@@ -1,4 +1,4 @@
-# Using SyspendedKeyboardState and SuspendedJoystickState
+# Using SuspendedKeyboardState and SuspendedJoystickState
 
 
 TLDR: In your `Gameplay/Screen`'s `gameplay_resume_func`, you can obtain the
