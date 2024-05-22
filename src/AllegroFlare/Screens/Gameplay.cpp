@@ -106,7 +106,7 @@ void Gameplay::gameplay_resume_func()
 
 void Gameplay::suspend_gameplay()
 {
-   if (gameplay_suspended) return;
+   if (gameplay_suspended) return; // TODO: Should this throw? (it caused an issue in a Routers/Standard test)
    suspended_keyboard_state.capture_initial_keyboard_state(); // TODO: Add guard if state cannot be captured
    gameplay_suspended = true;
    gameplay_suspend_func();
@@ -115,7 +115,7 @@ void Gameplay::suspend_gameplay()
 
 void Gameplay::resume_suspended_gameplay()
 {
-   if (!gameplay_suspended) return;
+   if (!gameplay_suspended) return; // TODO: Should this throw? (it caused an issue in a Routers/Standard test)
    gameplay_suspended = false;
    suspended_keyboard_state.capture_subsequent_keyboard_state(); // TODO: Add guard if state cannot be captured
    suspended_keyboard_state.calculate_keyboard_state_changes(); // TODO: Add guard if state cannot be captured
