@@ -2624,7 +2624,8 @@
   "AllegroFlare/Screens/PauseScreen": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/PauseScreen"
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

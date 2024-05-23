@@ -87,6 +87,11 @@ AllegroFlare::Screens::Gameplay* SimpleConfiguration::create_primary_gameplay_sc
    return new AllegroFlare::Screens::Gameplay;
 }
 
+AllegroFlare::Screens::PauseScreen* SimpleConfiguration::create_pause_screen(AllegroFlare::Runners::Complete* runner)
+{
+   return new AllegroFlare::Screens::PauseScreen;
+}
+
 std::vector<AllegroFlare::Elements::StoryboardPages::Base *> SimpleConfiguration::create_intro_logos_storyboard_pages()
 {
    return {};

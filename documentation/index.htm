@@ -30745,6 +30745,10 @@ table td
   <td class="property">char*</td>
 </tr>
 <tr>
+  <td class="property">PAUSE_SCREEN_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -37216,6 +37220,10 @@ table td
   <td class="method"><b>create_primary_gameplay_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Screens::PauseScreen*</td>
+  <td class="method"><b>create_pause_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;AllegroFlare::Elements::StoryboardPages::Base *&gt;</td>
   <td class="method"><b>create_intro_logos_storyboard_pages</b>()</td>
 </tr>
@@ -37331,6 +37339,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Runners::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Runners/Complete.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::PauseScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/PauseScreen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46049,7 +46060,8 @@ table td
   "AllegroFlare/Screens/PauseScreen": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/PauseScreen"
+    "AllegroFlare/Screens/PauseScreen",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

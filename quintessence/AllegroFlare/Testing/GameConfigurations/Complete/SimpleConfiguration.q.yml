@@ -127,6 +127,18 @@ methods:
       return new AllegroFlare::Screens::Gameplay;
 
 
+  - name: create_pause_screen
+    virtual: true
+    override: true
+    type: AllegroFlare::Screens::PauseScreen*
+    parameters:
+      - name: runner
+        type: AllegroFlare::Runners::Complete*
+        default_argument: nullptr
+    body: |
+      return new AllegroFlare::Screens::PauseScreen;
+
+
   - name: create_intro_logos_storyboard_pages
     virtual: true
     override: true
@@ -306,5 +318,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/Gameplay.hpp ]
   - symbol: AllegroFlare::Runners::Complete
     headers: [ AllegroFlare/Runners/Complete.hpp ]
+  - symbol: AllegroFlare::Screens::PauseScreen
+    headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
 
 

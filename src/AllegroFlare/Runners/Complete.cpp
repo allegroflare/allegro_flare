@@ -624,6 +624,10 @@ void Complete::setup_router()
       AllegroFlare::Routers::Standard::PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER,
       primary_gameplay_screen
    );
+   router.register_screen(
+      AllegroFlare::Routers::Standard::PAUSE_SCREEN_IDENTIFIER,
+      pause_screen
+   );
 
    // Set the callbacks
    intro_logos_screen.set_on_finished_callback_func(

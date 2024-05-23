@@ -344,7 +344,8 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_ACTIVATE_GAME_WON_SCREEN, "EVENT_ACTIVATE_GAME_WON_SCREEN"},
       {EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN, "EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN"},
       {EVENT_ACTIVATE_CREDITS_SCREEN, "EVENT_ACTIVATE_CREDITS_SCREEN"},
-      {EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, "EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN"}
+      {EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, "EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN"},
+      {EVENT_ACTIVATE_PAUSE_SCREEN, "EVENT_ACTIVATE_PAUSE_SCREEN"}
    };
 
    auto it = event_names.find(route_event);
@@ -715,6 +716,9 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       }},
       { EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, [this](){
          activate_screen(PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER);
+      }},
+      { EVENT_ACTIVATE_PAUSE_SCREEN, [this](){
+         activate_screen(PAUSE_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER, [this, route_event_data](){
          // TODO: Test this event
