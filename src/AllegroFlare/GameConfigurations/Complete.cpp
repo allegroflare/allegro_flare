@@ -223,6 +223,28 @@ AllegroFlare::Screens::Gameplay* Complete::create_primary_gameplay_screen(Allegr
    return nullptr;
 }
 
+void Complete::handle_primary_gameplay_screen_paused()
+{
+   // NOTE: Implementation to be managed by the derived class
+   // TODO: Consider if game is already paused or not
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_paused"
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return;
+}
+
+void Complete::handle_primary_gameplay_screen_unpaused()
+{
+   // NOTE: Implementation to be managed by the derived class
+   // TODO: Consider if game is already paused or not
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_unpaused"
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return;
+}
+
 void Complete::handle_primary_gameplay_screen_finished()
 {
    AllegroFlare::Logger::throw_error(

@@ -361,6 +361,48 @@ bool Complete::on_route_event_unhandled_func(uint32_t unhandled_event, AllegroFl
    return handled;
 }
 
+bool Complete::on_gameplay_paused_func(AllegroFlare::Routers::Standard* router, void* user_data)
+{
+   if (!(router))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_gameplay_paused_func]: error: guard \"router\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_gameplay_paused_func: error: guard \"router\" not met");
+   }
+   if (!(user_data))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_gameplay_paused_func]: error: guard \"user_data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_gameplay_paused_func: error: guard \"user_data\" not met");
+   }
+   AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
+   this_runner->game_configuration->handle_primary_gameplay_screen_paused();
+   return true;
+}
+
+bool Complete::on_gameplay_unpaused_func(AllegroFlare::Routers::Standard* router, void* user_data)
+{
+   if (!(router))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_gameplay_unpaused_func]: error: guard \"router\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_gameplay_unpaused_func: error: guard \"router\" not met");
+   }
+   if (!(user_data))
+   {
+      std::stringstream error_message;
+      error_message << "[Complete::on_gameplay_unpaused_func]: error: guard \"user_data\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Complete::on_gameplay_unpaused_func: error: guard \"user_data\" not met");
+   }
+   AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
+   this_runner->game_configuration->handle_primary_gameplay_screen_unpaused();
+   return true;
+}
+
 bool Complete::on_primary_gameplay_screen_finished_func(AllegroFlare::Routers::Standard* router, void* user_data)
 {
    if (!(router))
@@ -501,6 +543,10 @@ void Complete::setup_router()
    // TODO: Rename these methods to "on_primary_gameplay_screen_finished"
    router.set_on_primary_gameplay_screen_finished_func(on_primary_gameplay_screen_finished_func);
    router.set_on_primary_gameplay_screen_finished_func_user_data(this);
+   router.set_on_gameplay_paused_func(on_gameplay_paused_func);
+   router.set_on_gameplay_paused_func_user_data(this);
+   router.set_on_gameplay_unpaused_func(on_gameplay_unpaused_func);
+   router.set_on_gameplay_unpaused_func_user_data(this);
 
    router.set_on_arbitrary_storyboard_screen_finished_func(on_arbitrary_storyboard_screen_finished_func);
    router.set_on_arbitrary_storyboard_screen_finished_func_user_data(this);

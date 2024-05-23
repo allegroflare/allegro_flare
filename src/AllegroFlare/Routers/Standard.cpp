@@ -30,16 +30,16 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , on_create_new_session_func_user_data(nullptr)
    , on_continue_from_last_save_func({})
    , on_continue_from_last_save_func_user_data(nullptr)
+   , on_gameplay_paused_func({})
+   , on_gameplay_paused_func_user_data(nullptr)
+   , on_gameplay_unpaused_func({})
+   , on_gameplay_unpaused_func_user_data(nullptr)
    , on_primary_gameplay_screen_finished_func({})
    , on_primary_gameplay_screen_finished_func_user_data(nullptr)
    , on_arbitrary_storyboard_screen_finished_func({})
    , on_arbitrary_storyboard_screen_finished_func_user_data(nullptr)
    , on_arbitrary_storyboard_screen_activated_func({})
    , on_arbitrary_storyboard_screen_activated_func_user_data(nullptr)
-   , on_gameplay_paused_func({})
-   , on_gameplay_paused_func_user_data(nullptr)
-   , on_gameplay_unpaused_func({})
-   , on_gameplay_unpaused_func_user_data(nullptr)
 {
 }
 
@@ -115,6 +115,30 @@ void Standard::set_on_continue_from_last_save_func_user_data(void* on_continue_f
 }
 
 
+void Standard::set_on_gameplay_paused_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_paused_func)
+{
+   this->on_gameplay_paused_func = on_gameplay_paused_func;
+}
+
+
+void Standard::set_on_gameplay_paused_func_user_data(void* on_gameplay_paused_func_user_data)
+{
+   this->on_gameplay_paused_func_user_data = on_gameplay_paused_func_user_data;
+}
+
+
+void Standard::set_on_gameplay_unpaused_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_unpaused_func)
+{
+   this->on_gameplay_unpaused_func = on_gameplay_unpaused_func;
+}
+
+
+void Standard::set_on_gameplay_unpaused_func_user_data(void* on_gameplay_unpaused_func_user_data)
+{
+   this->on_gameplay_unpaused_func_user_data = on_gameplay_unpaused_func_user_data;
+}
+
+
 void Standard::set_on_primary_gameplay_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_primary_gameplay_screen_finished_func)
 {
    this->on_primary_gameplay_screen_finished_func = on_primary_gameplay_screen_finished_func;
@@ -148,30 +172,6 @@ void Standard::set_on_arbitrary_storyboard_screen_activated_func(std::function<v
 void Standard::set_on_arbitrary_storyboard_screen_activated_func_user_data(void* on_arbitrary_storyboard_screen_activated_func_user_data)
 {
    this->on_arbitrary_storyboard_screen_activated_func_user_data = on_arbitrary_storyboard_screen_activated_func_user_data;
-}
-
-
-void Standard::set_on_gameplay_paused_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_paused_func)
-{
-   this->on_gameplay_paused_func = on_gameplay_paused_func;
-}
-
-
-void Standard::set_on_gameplay_paused_func_user_data(void* on_gameplay_paused_func_user_data)
-{
-   this->on_gameplay_paused_func_user_data = on_gameplay_paused_func_user_data;
-}
-
-
-void Standard::set_on_gameplay_unpaused_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_unpaused_func)
-{
-   this->on_gameplay_unpaused_func = on_gameplay_unpaused_func;
-}
-
-
-void Standard::set_on_gameplay_unpaused_func_user_data(void* on_gameplay_unpaused_func_user_data)
-{
-   this->on_gameplay_unpaused_func_user_data = on_gameplay_unpaused_func_user_data;
 }
 
 
@@ -241,6 +241,30 @@ void* Standard::get_on_continue_from_last_save_func_user_data() const
 }
 
 
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_paused_func() const
+{
+   return on_gameplay_paused_func;
+}
+
+
+void* Standard::get_on_gameplay_paused_func_user_data() const
+{
+   return on_gameplay_paused_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_unpaused_func() const
+{
+   return on_gameplay_unpaused_func;
+}
+
+
+void* Standard::get_on_gameplay_unpaused_func_user_data() const
+{
+   return on_gameplay_unpaused_func_user_data;
+}
+
+
 std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_primary_gameplay_screen_finished_func() const
 {
    return on_primary_gameplay_screen_finished_func;
@@ -274,30 +298,6 @@ std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_ar
 void* Standard::get_on_arbitrary_storyboard_screen_activated_func_user_data() const
 {
    return on_arbitrary_storyboard_screen_activated_func_user_data;
-}
-
-
-std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_paused_func() const
-{
-   return on_gameplay_paused_func;
-}
-
-
-void* Standard::get_on_gameplay_paused_func_user_data() const
-{
-   return on_gameplay_paused_func_user_data;
-}
-
-
-std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_unpaused_func() const
-{
-   return on_gameplay_unpaused_func;
-}
-
-
-void* Standard::get_on_gameplay_unpaused_func_user_data() const
-{
-   return on_gameplay_unpaused_func_user_data;
 }
 
 

@@ -82,6 +82,30 @@ properties:
     getter: true
     setter: true
 
+  - name: on_gameplay_paused_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_gameplay_paused_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: on_gameplay_unpaused_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_gameplay_unpaused_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: on_primary_gameplay_screen_finished_func
     type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
     init_with: '{}'
@@ -113,30 +137,6 @@ properties:
     setter: true
 
   - name: on_arbitrary_storyboard_screen_activated_func_user_data
-    type: void*
-    init_with: nullptr
-    getter: true
-    setter: true
-
-  - name: on_gameplay_paused_func
-    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
-    init_with: '{}'
-    getter: true
-    setter: true
-
-  - name: on_gameplay_paused_func_user_data
-    type: void*
-    init_with: nullptr
-    getter: true
-    setter: true
-
-  - name: on_gameplay_unpaused_func
-    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
-    init_with: '{}'
-    getter: true
-    setter: true
-
-  - name: on_gameplay_unpaused_func_user_data
     type: void*
     init_with: nullptr
     getter: true

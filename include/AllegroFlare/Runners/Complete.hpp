@@ -85,6 +85,8 @@ namespace AllegroFlare
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          void initialize();
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
+         static bool on_gameplay_paused_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
+         static bool on_gameplay_unpaused_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_primary_gameplay_screen_finished_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_arbitrary_storyboard_screen_finished_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_arbitrary_storyboard_screen_activated_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);

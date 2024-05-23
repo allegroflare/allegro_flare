@@ -266,6 +266,30 @@ methods:
       return nullptr;
 
 
+  - name: handle_primary_gameplay_screen_paused
+    virtual: true
+    body: |
+      // NOTE: Implementation to be managed by the derived class
+      // TODO: Consider if game is already paused or not
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_paused"
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
+
+
+  - name: handle_primary_gameplay_screen_unpaused
+    virtual: true
+    body: |
+      // NOTE: Implementation to be managed by the derived class
+      // TODO: Consider if game is already paused or not
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_unpaused"
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
+
+
   - name: handle_primary_gameplay_screen_finished
     virtual: true
     body: |
