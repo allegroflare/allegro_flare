@@ -485,7 +485,7 @@ void Complete::setup_router()
    }
    router.set_screen_manager(&framework->get_screen_manager_ref());
    router.set_event_emitter(event_emitter);
-   router.set_pause_managed_gameplay_screen(primary_gameplay_screen); // TODO: Test this
+   //router.set_pause_managed_gameplay_screen(primary_gameplay_screen); // TODO: Test this // TODO: Remove this line
 
    // Set handlers for route events
    router.set_on_route_event_unhandled_func(on_route_event_unhandled_func);

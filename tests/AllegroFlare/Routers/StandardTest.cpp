@@ -30,25 +30,25 @@ public:
 };
 
 
-class GameplayScreenTestClass : public AllegroFlare::Screens::Gameplay
-{
-public:
-   int gameplay_suspend_func_call_count;
-   int gameplay_resume_func_call_count;
-   GameplayScreenTestClass()
-      : AllegroFlare::Screens::Gameplay()
-      , gameplay_suspend_func_call_count(0)
-      , gameplay_resume_func_call_count(0)
-   {}
-   void virtual gameplay_suspend_func() override
-   {
-      gameplay_suspend_func_call_count++;
-   }
-   void virtual gameplay_resume_func() override
-   {
-      gameplay_resume_func_call_count++;
-   }
-};
+//class GameplayScreenTestClass : public AllegroFlare::Screens::Gameplay
+//{
+//public:
+   //int gameplay_suspend_func_call_count;
+   //int gameplay_resume_func_call_count;
+   //GameplayScreenTestClass()
+      //: AllegroFlare::Screens::Gameplay()
+      //, gameplay_suspend_func_call_count(0)
+      //, gameplay_resume_func_call_count(0)
+   //{}
+   //void virtual gameplay_suspend_func() override
+   //{
+      //gameplay_suspend_func_call_count++;
+   //}
+   //void virtual gameplay_resume_func() override
+   //{
+      //gameplay_resume_func_call_count++;
+   //}
+//};
 
 
 class AllegroFlare_Routers_StandardTest : public ::testing::Test
@@ -619,6 +619,8 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 }
 
 
+/* // NOTE: This component no longer has this behavior
+// TODO: Remove these tests
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_PAUSE_GAME_event__will_call_the_suspend_gameplay_method_on_the_\
 pause_managed_gameplay_screen)
@@ -654,5 +656,6 @@ unpause_managed_gameplay_screen)
 
    al_uninstall_keyboard();
 }
+*/
 
 
