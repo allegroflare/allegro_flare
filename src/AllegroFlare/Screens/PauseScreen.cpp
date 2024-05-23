@@ -296,6 +296,7 @@ void PauseScreen::move_cursor_down()
 
 void PauseScreen::activate_menu_option(std::string menu_option_name)
 {
+   // TORO: Remove emitting the event
    event_emitter->emit_game_event(menu_option_name);
    // TODO: Test this callback
    if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);

@@ -196,6 +196,7 @@ functions:
         type: std::string
         default_argument: '"[unset-menu-option-name]"'
     body: |
+      // TORO: Remove emitting the event
       event_emitter->emit_game_event(menu_option_name);
       // TODO: Test this callback
       if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
@@ -365,7 +366,6 @@ functions:
 
 
   - name: infer_current_menu_option_value
-    private: true
     type: std::string
     body: |
       if (menu_options.empty()) return "";
@@ -379,7 +379,6 @@ functions:
 
 
   - name: infer_current_menu_option_label
-    private: true
     type: std::string
     body: |
       if (menu_options.empty()) return "";

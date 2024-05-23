@@ -46,8 +46,6 @@ namespace AllegroFlare
          void move_cursor_up();
          void move_cursor_down();
          void select_menu_option();
-         std::string infer_current_menu_option_value();
-         std::string infer_current_menu_option_label();
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_menu_font();
          ALLEGRO_FONT* obtain_footer_font();
@@ -106,6 +104,8 @@ namespace AllegroFlare
          void draw_title();
          void draw_footer_text();
          void draw_menu();
+         std::string infer_current_menu_option_value();
+         std::string infer_current_menu_option_label();
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          static std::vector<std::pair<std::string, std::string>> build_default_menu_options();
       };
