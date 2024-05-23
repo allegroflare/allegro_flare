@@ -112,6 +112,10 @@ properties:
     type: AllegroFlare::Screens::Gameplay*
     init_with: nullptr
 
+  - name: primary_gameplay_subscreen
+    type: AllegroFlare::Screens::Subscreen::Screen*
+    init_with: nullptr
+
   - name: pause_screen
     type: AllegroFlare::Screens::PauseScreen*
     init_with: nullptr
@@ -194,6 +198,9 @@ methods:
 
       // Create the primary_gameplay_screen
       primary_gameplay_screen = game_configuration->create_primary_gameplay_screen(this);
+
+      // Create the primary_gameplay_screen
+      primary_gameplay_subscreen = game_configuration->create_primary_gameplay_subscreen(this);
 
       // Create the pause_screen
       pause_screen = game_configuration->create_pause_screen(this);
@@ -629,6 +636,10 @@ methods:
          primary_gameplay_screen
       );
       router.register_screen(
+         AllegroFlare::Routers::Standard::PRIMARY_GAMEPLAY_SUBSCREEN_IDENTIFIER,
+         primary_gameplay_subscreen
+      );
+      router.register_screen(
          AllegroFlare::Routers::Standard::PAUSE_SCREEN_IDENTIFIER,
          pause_screen
       );
@@ -1049,5 +1060,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/DisplaySettings.hpp ]
   - symbol: AllegroFlare::Screens::PauseScreen
     headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
+  - symbol: AllegroFlare::Screens::Subscreen::Screen
+    headers: [ AllegroFlare/Screens/Subscreen/Screen.hpp ]
 
 

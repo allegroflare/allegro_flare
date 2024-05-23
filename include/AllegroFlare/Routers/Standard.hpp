@@ -35,6 +35,7 @@ namespace AllegroFlare
          static constexpr char* CHARACTER_NAME_INPUT_SCREEN_IDENTIFIER = (char*)"character_name_input_screen";
          static constexpr char* CREDITS_SCREEN_IDENTIFIER = (char*)"credits_screen";
          static constexpr char* PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER = (char*)"primary_gameplay_screen";
+         static constexpr char* PRIMARY_GAMEPLAY_SUBSCREEN_IDENTIFIER = (char*)"primary_gameplay_subscreen";
          static constexpr char* PAUSE_SCREEN_IDENTIFIER = (char*)"pause_gameplay_screen";
          static constexpr char* TYPE = (char*)"AllegroFlare/Routers/Standard";
 
@@ -78,6 +79,7 @@ namespace AllegroFlare
             EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN,
             EVENT_ACTIVATE_CREDITS_SCREEN,
             EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN,
+            EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SUBSCREEN,
             EVENT_ACTIVATE_PAUSE_SCREEN,
             EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER,
             EVENT_LAST_EVENT,

@@ -16790,6 +16790,10 @@ table td
   <td class="method"><b>handle_primary_gameplay_screen_finished</b>()</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Screens::Subscreen::Screen*</td>
+  <td class="method"><b>create_primary_gameplay_subscreen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::Screens::PauseScreen*</td>
   <td class="method"><b>create_pause_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
 </tr>
@@ -16932,6 +16936,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::PauseScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/PauseScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Screen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -30745,6 +30752,10 @@ table td
   <td class="property">char*</td>
 </tr>
 <tr>
+  <td class="property">PRIMARY_GAMEPLAY_SUBSCREEN_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
   <td class="property">PAUSE_SCREEN_IDENTIFIER</td>
   <td class="property">char*</td>
 </tr>
@@ -31026,6 +31037,10 @@ table td
   <td class="property">AllegroFlare::Screens::Gameplay*</td>
 </tr>
 <tr>
+  <td class="property">primary_gameplay_subscreen</td>
+  <td class="property">AllegroFlare::Screens::Subscreen::Screen*</td>
+</tr>
+<tr>
   <td class="property">pause_screen</td>
   <td class="property">AllegroFlare::Screens::PauseScreen*</td>
 </tr>
@@ -31219,6 +31234,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::PauseScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/PauseScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Screen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -37220,6 +37238,10 @@ table td
   <td class="method"><b>create_primary_gameplay_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Screens::Subscreen::Screen*</td>
+  <td class="method"><b>create_primary_gameplay_subscreen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::Screens::PauseScreen*</td>
   <td class="method"><b>create_pause_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
 </tr>
@@ -37342,6 +37364,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::PauseScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/PauseScreen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Screen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46063,6 +46088,12 @@ table td
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
+  "AllegroFlare/Screens/Subscreen/Screen": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/SubscreenFactory",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
@@ -47125,9 +47156,6 @@ table td
   ],
   "AllegroFlare/Screens/Subscreen/Element": [
     "AllegroFlare/Screens/Subscreen/Screen"
-  ],
-  "AllegroFlare/Screens/Subscreen/Screen": [
-    "AllegroFlare/Screens/SubscreenFactory"
   ],
   "AllegroFlare/Screens/Subscreen/PaneFactory": [
     "AllegroFlare/Screens/SubscreenFactory"

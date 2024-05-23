@@ -276,6 +276,15 @@ void Complete::handle_primary_gameplay_screen_finished()
    return;
 }
 
+AllegroFlare::Screens::Subscreen::Screen* Complete::create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner)
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::create_primary_gameplay_subscreen"
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return nullptr;
+}
+
 AllegroFlare::Screens::PauseScreen* Complete::create_pause_screen(AllegroFlare::Runners::Complete* runner)
 {
    AllegroFlare::Logger::throw_error(

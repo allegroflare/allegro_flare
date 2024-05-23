@@ -46,6 +46,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , settings_screen()
    , rolling_credits_screen()
    , primary_gameplay_screen(nullptr)
+   , primary_gameplay_subscreen(nullptr)
    , pause_screen(nullptr)
    , shared_background(nullptr)
    , shared_foreground(nullptr)
@@ -168,6 +169,9 @@ void Complete::initialize()
 
    // Create the primary_gameplay_screen
    primary_gameplay_screen = game_configuration->create_primary_gameplay_screen(this);
+
+   // Create the primary_gameplay_screen
+   primary_gameplay_subscreen = game_configuration->create_primary_gameplay_subscreen(this);
 
    // Create the pause_screen
    pause_screen = game_configuration->create_pause_screen(this);
@@ -623,6 +627,10 @@ void Complete::setup_router()
    router.register_screen(
       AllegroFlare::Routers::Standard::PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER,
       primary_gameplay_screen
+   );
+   router.register_screen(
+      AllegroFlare::Routers::Standard::PRIMARY_GAMEPLAY_SUBSCREEN_IDENTIFIER,
+      primary_gameplay_subscreen
    );
    router.register_screen(
       AllegroFlare::Routers::Standard::PAUSE_SCREEN_IDENTIFIER,

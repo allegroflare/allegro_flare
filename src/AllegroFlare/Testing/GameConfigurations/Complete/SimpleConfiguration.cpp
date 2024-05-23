@@ -87,6 +87,12 @@ AllegroFlare::Screens::Gameplay* SimpleConfiguration::create_primary_gameplay_sc
    return new AllegroFlare::Screens::Gameplay;
 }
 
+AllegroFlare::Screens::Subscreen::Screen* SimpleConfiguration::create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner)
+{
+   return new AllegroFlare::Screens::Subscreen::Screen; // TODO: Investigate if this result object is too
+                                                        // "base class"y for this test class.
+}
+
 AllegroFlare::Screens::PauseScreen* SimpleConfiguration::create_pause_screen(AllegroFlare::Runners::Complete* runner)
 {
    return new AllegroFlare::Screens::PauseScreen;

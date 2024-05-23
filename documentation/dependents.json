@@ -2627,6 +2627,12 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
+  "AllegroFlare/Screens/Subscreen/Screen": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/SubscreenFactory",
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
@@ -3689,9 +3695,6 @@
   ],
   "AllegroFlare/Screens/Subscreen/Element": [
     "AllegroFlare/Screens/Subscreen/Screen"
-  ],
-  "AllegroFlare/Screens/Subscreen/Screen": [
-    "AllegroFlare/Screens/SubscreenFactory"
   ],
   "AllegroFlare/Screens/Subscreen/PaneFactory": [
     "AllegroFlare/Screens/SubscreenFactory"

@@ -255,6 +255,13 @@ properties:
     const: true
     constexpr: true
 
+  - name: PRIMARY_GAMEPLAY_SUBSCREEN_IDENTIFIER
+    type: char*
+    init_with: '(char*)"primary_gameplay_subscreen"'
+    static: true
+    const: true
+    constexpr: true
+
   - name: PAUSE_SCREEN_IDENTIFIER
     type: char*
     init_with: '(char*)"pause_gameplay_screen"'
@@ -333,6 +340,7 @@ enums:
       - EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN
       - EVENT_ACTIVATE_CREDITS_SCREEN
       - EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN
+      - EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SUBSCREEN
       - EVENT_ACTIVATE_PAUSE_SCREEN
       - EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER
 
@@ -403,6 +411,7 @@ methods:
          {EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN, "EVENT_ACTIVATE_GAME_WON_OUTRO_STORYBOARD_SCREEN"},
          {EVENT_ACTIVATE_CREDITS_SCREEN, "EVENT_ACTIVATE_CREDITS_SCREEN"},
          {EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, "EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN"},
+         {EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SUBSCREEN, "EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SUBSCREEN"},
          {EVENT_ACTIVATE_PAUSE_SCREEN, "EVENT_ACTIVATE_PAUSE_SCREEN"}
       };
 
@@ -775,6 +784,9 @@ methods:
          }},
          { EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, [this](){
             activate_screen(PRIMARY_GAMEPLAY_SCREEN_IDENTIFIER);
+         }},
+         { EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SUBSCREEN, [this](){
+            activate_screen(PRIMARY_GAMEPLAY_SUBSCREEN_IDENTIFIER);
          }},
          { EVENT_ACTIVATE_PAUSE_SCREEN, [this](){
             activate_screen(PAUSE_SCREEN_IDENTIFIER);

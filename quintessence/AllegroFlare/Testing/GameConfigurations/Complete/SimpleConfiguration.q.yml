@@ -127,6 +127,19 @@ methods:
       return new AllegroFlare::Screens::Gameplay;
 
 
+  - name: create_primary_gameplay_subscreen
+    virtual: true
+    override: true
+    type: AllegroFlare::Screens::Subscreen::Screen*
+    parameters:
+      - name: runner
+        type: AllegroFlare::Runners::Complete*
+        default_argument: nullptr
+    body: |
+      return new AllegroFlare::Screens::Subscreen::Screen; // TODO: Investigate if this result object is too
+                                                           // "base class"y for this test class.
+
+
   - name: create_pause_screen
     virtual: true
     override: true
@@ -320,5 +333,7 @@ dependencies:
     headers: [ AllegroFlare/Runners/Complete.hpp ]
   - symbol: AllegroFlare::Screens::PauseScreen
     headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
+  - symbol: AllegroFlare::Screens::Subscreen::Screen
+    headers: [ AllegroFlare/Screens/Subscreen/Screen.hpp ]
 
 
