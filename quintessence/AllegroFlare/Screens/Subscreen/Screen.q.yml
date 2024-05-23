@@ -52,6 +52,14 @@ properties:
     getter: true
 
 
+documentation:
+
+
+  - todos:
+      - Look into this class needing the event_emitter, bitmap_bin, and font_bin at all? I believe the
+        subscreen_element needs it, but probably not this screen.
+
+
 methods:
 
 
@@ -60,6 +68,7 @@ methods:
       - al_is_system_installed()
       - al_is_primitives_addon_initialized()
       - al_is_font_addon_initialized()
+      - event_emitter
       - bitmap_bin
       - font_bin
       - subscreen_element
@@ -72,7 +81,7 @@ methods:
 
 
   - name: refresh
-    guards: [ event_emitter ]
+    guards: [ initialized ]
     body: |
       subscreen_element->refresh();
       return;
@@ -81,7 +90,7 @@ methods:
   - name: on_activate
     virtual: true
     override: true
-    guards: [ event_emitter ]
+    guards: [ initialized ]
     body: |
       emit_event_to_update_input_hints_bar();
       emit_show_and_size_input_hints_bar_event();
@@ -91,7 +100,7 @@ methods:
   - name: on_deactivate
     virtual: true
     override: true
-    guards: [ event_emitter ]
+    guards: [ initialized ]
     body: |
       // TODO: this should be a push/pop style to restore the previous input hints bar state, rather than
       // turning it off. This might be an option to add to the framework
@@ -288,7 +297,7 @@ methods:
       - name: event
         type: ALLEGRO_EVENT*
         default_argument: nullptr
-    guards: [ initialized, event, event_emitter ]
+    guards: [ initialized, event ]
     body: |
       bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
       switch(event->keyboard.keycode)
@@ -309,13 +318,21 @@ methods:
            //if (!shift) chronicle_element.cursor_right_pressed();
         break;
 
-        case ALLEGRO_KEY_X:
+        //case ALLEGRO_KEY_X:
            // TODO: assess if this is the correct location for emitting this event
            // TODO: ensure missing event_emitter throws error
-           event_emitter->emit_game_event(AllegroFlare::GameEvent("close_chronicle_screen"));
+           //event_emitter->emit_game_event(AllegroFlare::GameEvent("close_chronicle_screen"));
+        //break;
+
+        case ALLEGRO_KEY_ESCAPE:
+           // TODO: Change this to a callback, something like "on_finished_callback_func" similar to other screens,
+           // then remove the Routers/Standard dependency
+           event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME);
         break;
       }
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Routers::Standard
 
 
   - name: key_char_func
@@ -401,5 +418,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Screens::Subscreen::Element
     headers: [ AllegroFlare/Screens/Subscreen/Element.hpp ]
+  - symbol: AllegroFlare::Routers::Standard
+    headers: [ AllegroFlare/Routers/Standard.hpp ]
 
 

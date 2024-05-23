@@ -28588,6 +28588,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasRepository&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasRepository.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Standard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Standard.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -33799,7 +33802,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Screen.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Screen.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"notes"=>["This class is the screen used to coordinate the subscreen with the system.  It contains a subscreen element.", "You might create a derived of this class, override the input hints bar setup, override the keyboard/user inputs handling and mapping."]}</p>    <h3>Properties</h3>
+    <p>{"todos"=>["Look into this class needing the event_emitter, bitmap_bin, and font_bin at all? I believe the subscreen_element needs it, but probably not this screen."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">event_emitter</td>
@@ -33923,6 +33926,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Element&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Element.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Standard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Standard.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46979,6 +46985,12 @@ table td
   "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "AllegroFlare/Routers/Standard": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Subscreen/Screen"
+  ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "Tileo/TMJMeshLoader"
@@ -47030,10 +47042,6 @@ table td
   ],
   "AllegroFlare/ScreenManagers/Dictionary": [
     "AllegroFlare/Routers/Base"
-  ],
-  "AllegroFlare/Routers/Standard": [
-    "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Standard"

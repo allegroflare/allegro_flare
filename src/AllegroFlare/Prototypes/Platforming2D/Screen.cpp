@@ -16,6 +16,7 @@
 #include <AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
+#include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <algorithm>
 #include <allegro5/allegro_color.h>
@@ -691,6 +692,7 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::initialize: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met");
    }
+   // TODO: Consider adding event_emitter in guards
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    initialize_camera_control();
    initialize_camera();
@@ -2132,6 +2134,13 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
    }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::key_down_func]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
+   }
    if (!get_gameplay_suspended())
    {
       if (entity_control_connector) entity_control_connector->key_down_func(event);
@@ -2151,7 +2160,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
          case ALLEGRO_KEY_UP:
             //player_control_velocity.y = -1.0;
             //player_controls.set_up_button_pressed(true);
-            check_player_collisions_with_doors();
+            check_player_collisions_with_doors(); // TODO: See how this correlates with suspended_key_state
          break;
 
          case ALLEGRO_KEY_DOWN:
@@ -2170,15 +2179,21 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
             player_emit_projectile();
             //reverse_gravity();
          break;
+
+         case ALLEGRO_KEY_ESCAPE:
+            // TODO: Consider moving route events to separate file (so this class does not need to include the)
+            // entire router.
+            event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
+         break;
       }
    }
 
-   switch (event->keyboard.keycode) // TODO: Add boolean option to disable this "manual" toggling of pause
-   {
-      case ALLEGRO_KEY_P:
-         toggle_suspend_gameplay();
-      break;
-   }
+   //switch (event->keyboard.keycode) // TODO: Add boolean option to disable this "manual" toggling of pause
+   //{
+      //case ALLEGRO_KEY_P:
+         //toggle_suspend_gameplay();
+      //break;
+   //}
    return;
 }
 

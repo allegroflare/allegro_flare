@@ -3518,6 +3518,12 @@
   "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "AllegroFlare/Routers/Standard": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Subscreen/Screen"
+  ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "Tileo/TMJMeshLoader"
@@ -3569,10 +3575,6 @@
   ],
   "AllegroFlare/ScreenManagers/Dictionary": [
     "AllegroFlare/Routers/Base"
-  ],
-  "AllegroFlare/Routers/Standard": [
-    "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Standard"

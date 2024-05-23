@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/Subscreen/Screen.hpp>
 
+#include <AllegroFlare/Routers/Standard.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -114,6 +115,13 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
    }
+   if (!(event_emitter))
+   {
+      std::stringstream error_message;
+      error_message << "[Screen::initialize]: error: guard \"event_emitter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("Screen::initialize: error: guard \"event_emitter\" not met");
+   }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
@@ -142,12 +150,12 @@ void Screen::initialize()
 
 void Screen::refresh()
 {
-   if (!(event_emitter))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::refresh]: error: guard \"event_emitter\" not met.";
+      error_message << "[Screen::refresh]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::refresh: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("Screen::refresh: error: guard \"initialized\" not met");
    }
    subscreen_element->refresh();
    return;
@@ -155,12 +163,12 @@ void Screen::refresh()
 
 void Screen::on_activate()
 {
-   if (!(event_emitter))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_activate]: error: guard \"event_emitter\" not met.";
+      error_message << "[Screen::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_activate: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("Screen::on_activate: error: guard \"initialized\" not met");
    }
    emit_event_to_update_input_hints_bar();
    emit_show_and_size_input_hints_bar_event();
@@ -169,12 +177,12 @@ void Screen::on_activate()
 
 void Screen::on_deactivate()
 {
-   if (!(event_emitter))
+   if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_deactivate]: error: guard \"event_emitter\" not met.";
+      error_message << "[Screen::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_deactivate: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("Screen::on_deactivate: error: guard \"initialized\" not met");
    }
    // TODO: this should be a push/pop style to restore the previous input hints bar state, rather than
    // turning it off. This might be an option to add to the framework
@@ -393,13 +401,6 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
    }
-   if (!(event_emitter))
-   {
-      std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"event_emitter\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
-   }
    bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
    switch(event->keyboard.keycode)
    {
@@ -419,10 +420,16 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
         //if (!shift) chronicle_element.cursor_right_pressed();
      break;
 
-     case ALLEGRO_KEY_X:
+     //case ALLEGRO_KEY_X:
         // TODO: assess if this is the correct location for emitting this event
         // TODO: ensure missing event_emitter throws error
-        event_emitter->emit_game_event(AllegroFlare::GameEvent("close_chronicle_screen"));
+        //event_emitter->emit_game_event(AllegroFlare::GameEvent("close_chronicle_screen"));
+     //break;
+
+     case ALLEGRO_KEY_ESCAPE:
+        // TODO: Change this to a callback, something like "on_finished_callback_func" similar to other screens,
+        // then remove the Routers/Standard dependency
+        event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME);
      break;
    }
    return;
