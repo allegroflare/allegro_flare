@@ -15,6 +15,7 @@
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
 #include <AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
+#include <AllegroFlare/Screens/PauseScreen.hpp>
 #include <ReleaseInfo.hpp>
 #include <string>
 #include <tuple>
@@ -62,6 +63,7 @@ namespace AllegroFlare
          virtual void handle_primary_gameplay_screen_paused();
          virtual void handle_primary_gameplay_screen_unpaused();
          virtual void handle_primary_gameplay_screen_finished();
+         virtual AllegroFlare::Screens::PauseScreen* create_pause_screen(AllegroFlare::Runners::Complete* runner=nullptr);
          virtual void handle_arbitrary_storyboard_screen_finished();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_arbitrary_storyboard_pages_by_identifier(std::string identifier="[unset-identifier]");
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages();

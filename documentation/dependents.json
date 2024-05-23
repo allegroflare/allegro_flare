@@ -2621,6 +2621,11 @@
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
   ],
+  "AllegroFlare/Screens/PauseScreen": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/PauseScreen"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
@@ -3661,9 +3666,6 @@
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/Screens/PauseScreen": [
-    "AllegroFlare/Screens/PauseScreen"
   ],
   "AllegroFlare/Elements/RollingCredits/RollingCredits": [
     "AllegroFlare/Screens/RollingCredits",

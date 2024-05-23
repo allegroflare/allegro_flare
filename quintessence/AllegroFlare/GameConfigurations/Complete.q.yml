@@ -322,6 +322,21 @@ methods:
       return;
 
 
+  - name: create_pause_screen
+    virtual: true
+    type: AllegroFlare::Screens::PauseScreen*
+    parameters:
+      - name: runner
+        type: AllegroFlare::Runners::Complete*
+        default_argument: nullptr
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::create_pause_screen"
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return nullptr;
+
+
   - name: handle_arbitrary_storyboard_screen_finished
     virtual: true
     body: |
@@ -705,5 +720,7 @@ dependencies:
     headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp ]
   - symbol: AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
     headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp ]
+  - symbol: AllegroFlare::Screens::PauseScreen
+    headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
 
 

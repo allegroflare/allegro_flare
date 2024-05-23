@@ -46,6 +46,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , settings_screen()
    , rolling_credits_screen()
    , primary_gameplay_screen(nullptr)
+   , pause_screen(nullptr)
    , shared_background(nullptr)
    , shared_foreground(nullptr)
    , release_info({})
@@ -167,6 +168,9 @@ void Complete::initialize()
 
    // Create the primary_gameplay_screen
    primary_gameplay_screen = game_configuration->create_primary_gameplay_screen(this);
+
+   // Create the pause_screen
+   pause_screen = game_configuration->create_pause_screen(this);
 
    // Setup our router
    setup_router();

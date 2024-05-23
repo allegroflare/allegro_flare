@@ -16790,6 +16790,10 @@ table td
   <td class="method"><b>handle_primary_gameplay_screen_finished</b>()</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Screens::PauseScreen*</td>
+  <td class="method"><b>create_pause_screen</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>handle_arbitrary_storyboard_screen_finished</b>()</td>
 </tr>
@@ -16925,6 +16929,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::PauseScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/PauseScreen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31015,6 +31022,10 @@ table td
   <td class="property">AllegroFlare::Screens::Gameplay*</td>
 </tr>
 <tr>
+  <td class="property">pause_screen</td>
+  <td class="property">AllegroFlare::Screens::PauseScreen*</td>
+</tr>
+<tr>
   <td class="property">shared_background</td>
   <td class="property">AllegroFlare::Elements::Backgrounds::Base*</td>
 </tr>
@@ -31201,6 +31212,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::DisplaySettings&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/DisplaySettings.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::PauseScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/PauseScreen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46032,6 +46046,11 @@ table td
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete"
   ],
+  "AllegroFlare/Screens/PauseScreen": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/PauseScreen"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],
@@ -47072,9 +47091,6 @@ table td
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/Screens/PauseScreen": [
-    "AllegroFlare/Screens/PauseScreen"
   ],
   "AllegroFlare/Elements/RollingCredits/RollingCredits": [
     "AllegroFlare/Screens/RollingCredits",

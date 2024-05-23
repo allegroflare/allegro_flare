@@ -276,6 +276,15 @@ void Complete::handle_primary_gameplay_screen_finished()
    return;
 }
 
+AllegroFlare::Screens::PauseScreen* Complete::create_pause_screen(AllegroFlare::Runners::Complete* runner)
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::create_pause_screen"
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return nullptr;
+}
+
 void Complete::handle_arbitrary_storyboard_screen_finished()
 {
    AllegroFlare::Logger::throw_error(

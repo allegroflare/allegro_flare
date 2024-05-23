@@ -20,6 +20,7 @@
 #include <AllegroFlare/Screens/GameWonScreen.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/Screens/LevelSelectScreen.hpp>
+#include <AllegroFlare/Screens/PauseScreen.hpp>
 #include <AllegroFlare/Screens/RollingCredits.hpp>
 #include <AllegroFlare/Screens/SettingsScreen.hpp>
 #include <AllegroFlare/Screens/Storyboard.hpp>
@@ -65,6 +66,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::SettingsScreen settings_screen;
          AllegroFlare::Screens::RollingCredits rolling_credits_screen;
          AllegroFlare::Screens::Gameplay* primary_gameplay_screen;
+         AllegroFlare::Screens::PauseScreen* pause_screen;
          AllegroFlare::Elements::Backgrounds::Base* shared_background;
          AllegroFlare::Elements::Backgrounds::Base* shared_foreground;
          ReleaseInfo release_info;

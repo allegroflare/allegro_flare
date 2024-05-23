@@ -112,6 +112,10 @@ properties:
     type: AllegroFlare::Screens::Gameplay*
     init_with: nullptr
 
+  - name: pause_screen
+    type: AllegroFlare::Screens::PauseScreen*
+    init_with: nullptr
+
   - name: shared_background
     type: AllegroFlare::Elements::Backgrounds::Base*
     init_with: nullptr
@@ -190,6 +194,9 @@ methods:
 
       // Create the primary_gameplay_screen
       primary_gameplay_screen = game_configuration->create_primary_gameplay_screen(this);
+
+      // Create the pause_screen
+      pause_screen = game_configuration->create_pause_screen(this);
 
       // Setup our router
       setup_router();
@@ -1036,5 +1043,7 @@ dependencies:
     headers: [ AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp ]
   - symbol: AllegroFlare::Screens::DisplaySettings
     headers: [ AllegroFlare/Screens/DisplaySettings.hpp ]
+  - symbol: AllegroFlare::Screens::PauseScreen
+    headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
 
 
