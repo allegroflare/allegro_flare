@@ -275,7 +275,6 @@ documentation:
 
   - todos:
       - consider a EVENT_FINISH_LEVEL type of event, something that denotes progress in the game, a save, level beaten
-      - consider a EVENT_GAMEPLAY_SCREEN_FINISHED type of event
       - test on_route_event_unhandled_func
   - on sessions:
       - there's currently some misalignment on what a session is, its relationship to GameProgressAndStateInfo, and
@@ -284,7 +283,7 @@ documentation:
         number of lives, high score, and time played), or another, not yet surfaced representation.  At this time,
         the session represents the super mario brothers version and the logic is treated as such in the router, however
         this may need to be changed. GameProgressAndStateInfo is the user's custom data that travels along with the
-        session.
+        session. GameProgressAndStateInfo also serves as the content for the save file.
 
 
 enums:
