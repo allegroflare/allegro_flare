@@ -1157,6 +1157,7 @@
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
+    "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",

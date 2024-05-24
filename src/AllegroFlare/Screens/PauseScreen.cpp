@@ -607,6 +607,27 @@ void PauseScreen::virtual_control_button_down_func(AllegroFlare::Player* player,
    }
 }
 
+void PauseScreen::key_down_func(ALLEGRO_EVENT* event)
+{
+   if (!(event))
+   {
+      std::stringstream error_message;
+      error_message << "[PauseScreen::key_down_func]: error: guard \"event\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("PauseScreen::key_down_func: error: guard \"event\" not met");
+   }
+   bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+   switch(event->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_ESCAPE:
+         // TODO: Test this
+         // TODO: Add option to disable this, or change the key used to exit
+         exit_screen();
+      break;
+   }
+   return;
+}
+
 bool PauseScreen::menu_is_empty()
 {
    return menu_options.empty();

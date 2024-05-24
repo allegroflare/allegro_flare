@@ -114,6 +114,7 @@ namespace AllegroFlare
          std::string infer_current_menu_option_value();
          std::string infer_current_menu_option_label();
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
+         virtual void key_down_func(ALLEGRO_EVENT* event=nullptr) override;
          static std::vector<std::pair<std::string, std::string>> build_default_menu_options();
       };
    }

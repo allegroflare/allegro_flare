@@ -487,6 +487,27 @@ functions:
       - AllegroFlare::VirtualControllers::GenericController
 
 
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ event ]
+    body: |
+      bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+      switch(event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_ESCAPE:
+            // TODO: Test this
+            // TODO: Add option to disable this, or change the key used to exit
+            exit_screen();
+         break;
+      }
+      return;
+
+
   - name: menu_is_empty
     type: bool
     private: true
@@ -554,5 +575,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/Backgrounds/Base.hpp ]
   - symbol: AllegroFlare::Screens::PauseScreen
     headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
 
 
