@@ -34,3 +34,13 @@ TEST(AllegroFlare_StringTransformerTest, expand__will_inject_spaces_between_each
 }
 
 
+TEST(AllegroFlare_StringTransformerTest, join_with_commas__will_join_the_string_with_commas)
+{
+   std::set<std::string> elements = { "foo", "bar", "baz" };
+   std::string expected_joined_string = "bar, baz, foo"; // NOTE: The result is sorted because the container is a set
+   std::string actual_joined_string = AllegroFlare::StringTransformer::join_with_commas(&elements);
+
+   EXPECT_EQ(expected_joined_string, actual_joined_string);
+}
+
+

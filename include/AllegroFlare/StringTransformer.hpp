@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/StringTransformer.hpp>
+#include <set>
 #include <string>
 
 
@@ -22,6 +23,7 @@ namespace AllegroFlare
       std::string get_text() const;
       AllegroFlare::StringTransformer& upcase();
       AllegroFlare::StringTransformer& expand(int num_spaces=3);
+      static std::string join_with_commas(std::set<std::string>* elements=nullptr);
    };
 }
 

@@ -73,6 +73,24 @@ AllegroFlare::StringTransformer& StringTransformer::expand(int num_spaces)
    return *this;
 }
 
+std::string StringTransformer::join_with_commas(std::set<std::string>* elements)
+{
+   if (!(elements))
+   {
+      std::stringstream error_message;
+      error_message << "[StringTransformer::join_with_commas]: error: guard \"elements\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("StringTransformer::join_with_commas: error: guard \"elements\" not met");
+   }
+   std::ostringstream result;
+   for (auto it = elements->begin(); it != elements->end(); ++it)
+   {
+       if (it != elements->begin()) result << ", ";
+       result << *it;
+   }
+   return result.str();
+}
+
 
 } // namespace AllegroFlare
 

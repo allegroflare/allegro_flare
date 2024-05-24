@@ -59,6 +59,26 @@ methods:
       - std::stringstream
 
 
+  - name: join_with_commas
+    static: true
+    type: std::string
+    parameters:
+      - name: elements
+        type: std::set<std::string>*
+        default_argument: nullptr
+    guards: [ elements ]
+    body: |
+      std::ostringstream result;
+      for (auto it = elements->begin(); it != elements->end(); ++it)
+      {
+          if (it != elements->begin()) result << ", ";
+          result << *it;
+      }
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
 dependencies:
 
 
