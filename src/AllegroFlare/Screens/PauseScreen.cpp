@@ -322,7 +322,14 @@ void PauseScreen::move_cursor_down()
 void PauseScreen::activate_menu_option(std::string menu_option_name)
 {
    // TODO: Test this callback
-   if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+   if (!on_menu_choice_callback_func)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::PauseScreen::activate_menu_option",
+         "Expecting an \"on_menu_choice_callback_func\" to be present, but it is not."
+      );
+   }
+   on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
    return;
 }
 
@@ -344,11 +351,10 @@ void PauseScreen::select_menu_option()
 {
    if (menu_is_empty())
    {
-      std::cout <<
-         "[AllegroFlare::Screens::TitleScreen::select_menu_option()] error: can not select a menu item, "
-         "the menu is empty."
-         << std::endl;
-      return;
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::PauseScreen::select_menu_option",
+         "Expecting an \"on_exit_callback_func\" to be present, but it is not."
+      );
    }
 
    std::string current_menu_option_value = infer_current_menu_option_value();
