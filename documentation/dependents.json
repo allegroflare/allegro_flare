@@ -3672,10 +3672,6 @@
   "AllegroFlare/Screens/InputDeviceConfiguration": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
-  "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
-    "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen"
-  ],
   "AllegroFlare/Elements/RollingCredits/RollingCredits": [
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/Version"
@@ -3700,6 +3696,9 @@
   ],
   "AllegroFlare/Screens/Subscreen/PaneFactory": [
     "AllegroFlare/Screens/SubscreenFactory"
+  ],
+  "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
+    "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"

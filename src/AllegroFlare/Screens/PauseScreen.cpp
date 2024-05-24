@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/Screens/PauseScreen.hpp>
 
-#include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <allegro5/allegro_primitives.h>
@@ -296,21 +295,12 @@ void PauseScreen::move_cursor_down()
 
 void PauseScreen::activate_menu_option(std::string menu_option_name)
 {
-   // TORO: Remove emitting the event
-   event_emitter->emit_game_event(menu_option_name);
    // TODO: Test this callback
    if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
 }
 
 void PauseScreen::select_menu_option()
 {
-   if (!(event_emitter))
-   {
-      std::stringstream error_message;
-      error_message << "[PauseScreen::select_menu_option]: error: guard \"event_emitter\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PauseScreen::select_menu_option: error: guard \"event_emitter\" not met");
-   }
    if (menu_is_empty())
    {
       std::cout <<

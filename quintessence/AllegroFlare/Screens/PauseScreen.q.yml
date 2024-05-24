@@ -196,15 +196,12 @@ functions:
         type: std::string
         default_argument: '"[unset-menu-option-name]"'
     body: |
-      // TORO: Remove emitting the event
-      event_emitter->emit_game_event(menu_option_name);
       // TODO: Test this callback
       if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
 
 
   - name: select_menu_option
     private: true
-    guards: [ event_emitter ]
     body: |
       if (menu_is_empty())
       {
@@ -220,8 +217,6 @@ functions:
       activate_menu_option(current_menu_option_value);
 
       return;
-    body_dependency_symbols:
-      - ALLEGRO_FLARE_EVENT_START_NEW_GAME
 
 
   - name: primary_timer_func
@@ -483,8 +478,6 @@ functions:
 
 dependencies:
 
-  - symbol: ALLEGRO_FLARE_EVENT_START_NEW_GAME
-    headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: AllegroFlare::EventEmitter*
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: std::vector<std::pair<std::string, std::string>>
