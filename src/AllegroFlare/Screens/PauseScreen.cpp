@@ -25,6 +25,8 @@ PauseScreen::PauseScreen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , footer_text(footer_text)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
+   , on_exit_callback_func()
+   , on_exit_callback_func_user_data(nullptr)
    , title_bitmap_name(title_bitmap_name)
    , font_name(font_name)
    , title_text_color(title_text_color)
@@ -86,6 +88,18 @@ void PauseScreen::set_on_menu_choice_callback_func(std::function<void(AllegroFla
 void PauseScreen::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
 {
    this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
+}
+
+
+void PauseScreen::set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> on_exit_callback_func)
+{
+   this->on_exit_callback_func = on_exit_callback_func;
+}
+
+
+void PauseScreen::set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data)
+{
+   this->on_exit_callback_func_user_data = on_exit_callback_func_user_data;
 }
 
 
@@ -176,6 +190,18 @@ std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> PauseScreen::get
 void* PauseScreen::get_on_menu_choice_callback_func_user_data() const
 {
    return on_menu_choice_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> PauseScreen::get_on_exit_callback_func() const
+{
+   return on_exit_callback_func;
+}
+
+
+void* PauseScreen::get_on_exit_callback_func_user_data() const
+{
+   return on_exit_callback_func_user_data;
 }
 
 
@@ -297,6 +323,21 @@ void PauseScreen::activate_menu_option(std::string menu_option_name)
 {
    // TODO: Test this callback
    if (on_menu_choice_callback_func) on_menu_choice_callback_func(this, on_menu_choice_callback_func_user_data);
+   return;
+}
+
+void PauseScreen::exit_screen()
+{
+   // TODO: Test this callback
+   if (!on_exit_callback_func)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::PauseScreen::exit_screen",
+         "Expecting an \"on_exit_callback_func\" to be present, but it is not."
+      );
+   }
+   on_exit_callback_func(this, on_exit_callback_func_user_data);
+   return;
 }
 
 void PauseScreen::select_menu_option()

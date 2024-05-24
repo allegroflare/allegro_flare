@@ -30,6 +30,8 @@ namespace AllegroFlare
          std::string footer_text;
          std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
+         std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> on_exit_callback_func;
+         void* on_exit_callback_func_user_data;
          std::string title_bitmap_name;
          std::string font_name;
          ALLEGRO_COLOR title_text_color;
@@ -67,6 +69,8 @@ namespace AllegroFlare
          void set_footer_text(std::string footer_text);
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
+         void set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> on_exit_callback_func);
+         void set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data);
          void set_title_bitmap_name(std::string title_bitmap_name);
          void set_font_name(std::string font_name);
          void set_title_text_color(ALLEGRO_COLOR title_text_color);
@@ -82,6 +86,8 @@ namespace AllegroFlare
          std::string get_footer_text() const;
          std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> get_on_menu_choice_callback_func() const;
          void* get_on_menu_choice_callback_func_user_data() const;
+         std::function<void(AllegroFlare::Screens::PauseScreen*, void*)> get_on_exit_callback_func() const;
+         void* get_on_exit_callback_func_user_data() const;
          std::string get_title_bitmap_name() const;
          std::string get_font_name() const;
          ALLEGRO_COLOR get_title_text_color() const;
@@ -99,6 +105,7 @@ namespace AllegroFlare
          virtual void on_deactivate() override;
          void set_menu_options(std::vector<std::pair<std::string, std::string>> menu_options={});
          virtual void activate_menu_option(std::string menu_option_name="[unset-menu-option-name]");
+         virtual void exit_screen();
          virtual void primary_timer_func() override;
          void render();
          void draw_title();

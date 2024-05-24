@@ -194,17 +194,15 @@ void SettingsScreen::initialize()
 
 void SettingsScreen::exit_screen()
 {
-   if (on_exit_callback_func)
-   {
-      on_exit_callback_func(this, on_exit_callback_func_user_data);
-   }
-   else
+   if (!on_exit_callback_func)
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::Screens::SettingsScreen::exit_screen",
          "Expecting an \"on_exit_callback_func\" to be present, but it is not."
       );
    }
+
+   on_exit_callback_func(this, on_exit_callback_func_user_data);
 
    return;
 }
