@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/Screens/Subscreen/Screen.hpp>
 
-#include <AllegroFlare/Routers/Standard.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -467,9 +466,9 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
      //break;
 
      case ALLEGRO_KEY_ESCAPE:
-        // TODO: Change this to a callback, something like "on_finished_callback_func" similar to other screens,
-        // then remove the Routers/Standard dependency
-        event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME);
+         // TODO: Test this
+         // TODO: Add option to disable this, or change the key used to exit
+        exit_screen();
      break;
    }
    return;
