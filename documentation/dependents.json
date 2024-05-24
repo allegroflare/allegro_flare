@@ -2631,6 +2631,7 @@
   "AllegroFlare/Screens/Subscreen/Screen": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/SubscreenFactory",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],

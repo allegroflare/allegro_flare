@@ -46,6 +46,18 @@ properties:
     getter: true
     setter: before_initialized
 
+  - name: on_exit_callback_func
+    type: std::function<void(AllegroFlare::Screens::Subscreen::Screen*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_exit_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: initialized
     type: bool
     init_with: false
@@ -120,6 +132,21 @@ methods:
                                                                    // this screen. However, the element may want to
                                                                    // control the background so I'm not sure how that
                                                                    // might work out.
+      return;
+
+
+  - name: exit_screen
+    virtual: true
+    body: |
+      // TODO: Test this callback
+      if (!on_exit_callback_func)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Screens::Subscreen::Screen::exit_screen",
+            "Expecting an \"on_exit_callback_func\" to be present, but it is not."
+         );
+      }
+      on_exit_callback_func(this, on_exit_callback_func_user_data);
       return;
 
 
@@ -420,5 +447,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/Subscreen/Element.hpp ]
   - symbol: AllegroFlare::Routers::Standard
     headers: [ AllegroFlare/Routers/Standard.hpp ]
+  - symbol: AllegroFlare::Screens::Subscreen::Screen
+    headers: [ AllegroFlare/Screens/Subscreen/Screen.hpp ]
 
 

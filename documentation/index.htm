@@ -33837,6 +33837,14 @@ table td
   <td class="property">AllegroFlare::Screens::Subscreen::Element*</td>
 </tr>
 <tr>
+  <td class="property">on_exit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::Subscreen::Screen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_exit_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -33862,6 +33870,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>set_background_bitmap</b>(ALLEGRO_BITMAP* background_bitmap=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>exit_screen</b>()</td>
 </tr>
 <tr>
   <td class="private_method">void</td>
@@ -33945,6 +33957,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Standard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Standard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Screen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46114,6 +46129,7 @@ table td
   "AllegroFlare/Screens/Subscreen/Screen": [
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/SubscreenFactory",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],

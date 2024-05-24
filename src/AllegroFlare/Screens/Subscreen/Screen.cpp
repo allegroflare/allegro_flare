@@ -24,6 +24,8 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , subscreen_element(subscreen_element)
+   , on_exit_callback_func()
+   , on_exit_callback_func_user_data(nullptr)
    , initialized(false)
 {
 }
@@ -62,6 +64,18 @@ void Screen::set_subscreen_element(AllegroFlare::Screens::Subscreen::Element* su
 }
 
 
+void Screen::set_on_exit_callback_func(std::function<void(AllegroFlare::Screens::Subscreen::Screen*, void*)> on_exit_callback_func)
+{
+   this->on_exit_callback_func = on_exit_callback_func;
+}
+
+
+void Screen::set_on_exit_callback_func_user_data(void* on_exit_callback_func_user_data)
+{
+   this->on_exit_callback_func_user_data = on_exit_callback_func_user_data;
+}
+
+
 AllegroFlare::EventEmitter* Screen::get_event_emitter() const
 {
    return event_emitter;
@@ -83,6 +97,18 @@ AllegroFlare::FontBin* Screen::get_font_bin() const
 AllegroFlare::Screens::Subscreen::Element* Screen::get_subscreen_element() const
 {
    return subscreen_element;
+}
+
+
+std::function<void(AllegroFlare::Screens::Subscreen::Screen*, void*)> Screen::get_on_exit_callback_func() const
+{
+   return on_exit_callback_func;
+}
+
+
+void* Screen::get_on_exit_callback_func_user_data() const
+{
+   return on_exit_callback_func_user_data;
 }
 
 
@@ -204,6 +230,20 @@ void Screen::set_background_bitmap(ALLEGRO_BITMAP* background_bitmap)
                                                                 // this screen. However, the element may want to
                                                                 // control the background so I'm not sure how that
                                                                 // might work out.
+   return;
+}
+
+void Screen::exit_screen()
+{
+   // TODO: Test this callback
+   if (!on_exit_callback_func)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Subscreen::Screen::exit_screen",
+         "Expecting an \"on_exit_callback_func\" to be present, but it is not."
+      );
+   }
+   on_exit_callback_func(this, on_exit_callback_func_user_data);
    return;
 }
 
