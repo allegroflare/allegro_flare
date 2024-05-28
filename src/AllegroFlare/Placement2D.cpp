@@ -134,6 +134,31 @@ Placement2D::Placement2D(float x, float y, float w, float h, float rotation, flo
 
 
 
+void Placement2D::scale_width_to(float target_width)
+{
+   // TODO: Test this function
+   // TODO: Have divide by zero to set scale to 0.0f or other if alternative scale is better
+   // TODO: Consider negative width/height
+   if (size.x == 0.0f) scale.x = 1.0f;
+   float new_scale_x = target_width / size.x;
+   scale.x = new_scale_x;
+}
+
+
+
+void Placement2D::scale_height_to(float target_height)
+{
+   // TODO: Test this function
+   // TODO: Have divide by zero to set scale to 0.0f or other if alternative scale is better
+   // TODO: Consider negative width/height
+   if (size.y == 0.0f) scale.y = 1.0f;
+
+   float new_scale_y = target_height / size.y;
+   scale.y = new_scale_y;
+}
+
+
+
 void Placement2D::scale_to_fit_width(float target_width)
 {
    // TODO: Test this function

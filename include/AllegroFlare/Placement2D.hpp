@@ -27,6 +27,8 @@ namespace AllegroFlare
       Placement2D(float x, float y, float w, float h);
       Placement2D(float x, float y, float w, float h, float rotation, float scale_x=1.0, float scale_y=1.0, float align_x=0.5, float align_y=0.5, float anchor_x=0.0, float anchor_y=0.0);
 
+      void scale_width_to(float target_width); // TODO: Consider better name for this function
+      void scale_height_to(float target_width); // TODO: Consider better name for this function
       void scale_to_fit_width(float target_width);
       void scale_to_fit_height(float target_height);
       void scale_to_fit_width_or_height(float target_width, float target_height);
