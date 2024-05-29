@@ -1,0 +1,123 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Bin<std::string, std::pair<ALLEGRO_SAMPLE*, ALLEGRO_BITMAP*>>
+    scope: public
+    init_with: '"AllegroFlare/SampleAndRendersBin"'
+
+
+properties:
+
+
+  - name: samples_to_bitmaps_map
+    type: std::map<ALLEGRO_SAMPLE*, ALLEGRO_BITMAP*>
+    init_with: '{}'
+    getter: false
+    setter: false
+
+
+methods:
+
+
+  - name: validate
+    type: bool
+    override: true
+    virtual: true
+    guards:
+      - al_is_system_installed()
+      - al_is_audio_installed()
+      - al_is_acodec_addon_initialized()
+    body: |
+      // TODO: Add guards on audio
+      return true;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - al_is_audio_installed
+      - al_is_acodec_addon_initialized
+
+
+  - name: find_render_by_sample
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: sample
+        type: ALLEGRO_SAMPLE*
+        default_argument: nullptr
+    body: |
+      if (samples_to_bitmaps_map.find(sample) == samples_to_bitmaps_map.end()) return nullptr;
+      return samples_to_bitmaps_map[sample];
+
+
+  - name: load_data
+    type: std::pair<ALLEGRO_SAMPLE*, ALLEGRO_BITMAP*>
+    override: true
+    virtual: true
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    guards: [ validate() ]
+    body: |
+      // Load the sample
+      ALLEGRO_SAMPLE *sample = al_load_sample((get_path() + identifier).c_str());
+
+      if (!sample)
+      {
+         AllegroFlare::Logger::throw_error(
+               "AllegroFlare::SampleAndRendersBinxx",
+               "Could not load sample by identifier \"" + identifier
+                  + "\" while looking in \"" + get_path()
+                  + "\" while working in \"" + std::filesystem::current_path().string() + "\"."
+            );
+      }
+
+      // Create a bitmap from the sample
+      ALLEGRO_STATE previous_render_state;
+      al_store_state(&previous_render_state, ALLEGRO_STATE_TARGET_BITMAP);
+      ALLEGRO_BITMAP *render = al_create_bitmap(512, 64); // TODO: Create a dynamically sized bitmap
+                                                          // TODO: Put the samples on a sprite sheet
+                                                          // TODO: Consider adding more settings for width/height
+      AllegroFlare::AudioWaveformRenderer renderer(sample);
+      al_set_target_bitmap(render);
+      renderer.draw_waveform(render);
+      al_restore_state(&previous_render_state);
+
+      samples_to_bitmaps_map[sample] = render;
+
+      return std::pair<ALLEGRO_SAMPLE*, ALLEGRO_BITMAP*>(sample, render);
+    body_dependency_symbols:
+      - AllegroFlare::AudioWaveformRenderer
+
+
+  - name: destroy_data
+    override: true
+    virtual: true
+    parameters:
+      - name: sample_and_render
+        type: std::pair<ALLEGRO_SAMPLE*, ALLEGRO_BITMAP*>
+        default_argument: '{ nullptr, nullptr }'
+    body: |
+      if (sample_and_render.first) al_destroy_sample(sample_and_render.first);
+      if (sample_and_render.second) al_destroy_bitmap(sample_and_render.second);
+      samples_to_bitmaps_map.erase(sample_and_render.first);
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Bin
+    headers: [ AllegroFlare/Bin.hpp ]
+  - symbol: ALLEGRO_SAMPLE
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_is_audio_installed
+    headers: [ allegro5/allegro_audio.h ]
+  - symbol: al_is_acodec_addon_initialized
+    headers: [ allegro5/allegro_acodec.h ]
+  - symbol: AllegroFlare::AudioWaveformRenderer
+    headers: [ AllegroFlare/AudioWaveformRenderer.hpp ]
+
+
