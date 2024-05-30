@@ -179,6 +179,19 @@ methods:
       return font_bin.auto_get(ss.str());
 
 
+  - name: get_small_font
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: size
+        type: int
+        default_argument: -20
+    guards: [ (size != 0) ]
+    body: |
+      std::stringstream ss;
+      ss << "Inter-Regular.ttf " << size;
+      return font_bin.auto_get(ss.str());
+
+
   - name: get_user_prompt_font
     type: ALLEGRO_FONT*
     body: |

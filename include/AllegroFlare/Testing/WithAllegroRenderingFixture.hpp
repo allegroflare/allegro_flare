@@ -50,6 +50,7 @@ namespace AllegroFlare
          std::string get_fixtures_path();
          virtual void TearDown() override;
          ALLEGRO_FONT* get_any_font(int size=-30);
+         ALLEGRO_FONT* get_small_font(int size=-20);
          ALLEGRO_FONT* get_user_prompt_font();
          ALLEGRO_BITMAP* get_display_backbuffer();
          void sleep_for_frame();
