@@ -1,0 +1,26 @@
+properties:
+
+
+  - name: x
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+  - name: y
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+
+methods:
+
+
+  - name: rotate
+    body: |
+      int s = x;
+      x = y;
+      y = s;
+
+
