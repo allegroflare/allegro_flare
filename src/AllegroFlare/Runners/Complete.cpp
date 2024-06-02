@@ -91,6 +91,96 @@ AllegroFlare::ModelBin* Complete::get_model_bin() const
 }
 
 
+AllegroFlare::Screens::Storyboard &Complete::get_intro_logos_screen_ref()
+{
+   return intro_logos_screen;
+}
+
+
+AllegroFlare::Screens::Storyboard &Complete::get_intro_storyboard_screen_ref()
+{
+   return intro_storyboard_screen;
+}
+
+
+AllegroFlare::Screens::TitleScreen &Complete::get_title_screen_ref()
+{
+   return title_screen;
+}
+
+
+AllegroFlare::Screens::DisplaySettings &Complete::get_display_settings_screen_ref()
+{
+   return display_settings_screen;
+}
+
+
+AllegroFlare::Screens::Achievements &Complete::get_achievements_screen_ref()
+{
+   return achievements_screen;
+}
+
+
+AllegroFlare::Screens::Version &Complete::get_version_screen_ref()
+{
+   return version_screen;
+}
+
+
+AllegroFlare::LoadASavedGame::Screen &Complete::get_load_a_saved_game_screen_ref()
+{
+   return load_a_saved_game_screen;
+}
+
+
+AllegroFlare::Screens::Storyboard &Complete::get_new_game_intro_storyboard_screen_ref()
+{
+   return new_game_intro_storyboard_screen;
+}
+
+
+AllegroFlare::Screens::LevelSelectScreen &Complete::get_level_select_screen_ref()
+{
+   return level_select_screen;
+}
+
+
+AllegroFlare::Screens::Storyboard &Complete::get_arbitrary_storyboard_screen_ref()
+{
+   return arbitrary_storyboard_screen;
+}
+
+
+AllegroFlare::Screens::GameOverScreen &Complete::get_game_over_screen_ref()
+{
+   return game_over_screen;
+}
+
+
+AllegroFlare::Screens::GameWonScreen &Complete::get_game_won_screen_ref()
+{
+   return game_won_screen;
+}
+
+
+AllegroFlare::Screens::Storyboard &Complete::get_game_won_outro_storyboard_screen_ref()
+{
+   return game_won_outro_storyboard_screen;
+}
+
+
+AllegroFlare::Screens::SettingsScreen &Complete::get_settings_screen_ref()
+{
+   return settings_screen;
+}
+
+
+AllegroFlare::Screens::RollingCredits &Complete::get_rolling_credits_screen_ref()
+{
+   return rolling_credits_screen;
+}
+
+
 void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
 {
    if (!(game_event))

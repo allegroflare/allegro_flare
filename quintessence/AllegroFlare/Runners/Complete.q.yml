@@ -51,62 +51,77 @@ properties:
   - name: intro_logos_screen
     type: AllegroFlare::Screens::Storyboard
     init_with: ''
+    getter_ref: true
 
   - name: intro_storyboard_screen
     type: AllegroFlare::Screens::Storyboard
     init_with: ''
+    getter_ref: true
 
   - name: title_screen
     type: AllegroFlare::Screens::TitleScreen
     init_with: ''
+    getter_ref: true
 
   - name: display_settings_screen
     type: AllegroFlare::Screens::DisplaySettings
     init_with: ''
+    getter_ref: true
 
   - name: achievements_screen
     type: AllegroFlare::Screens::Achievements
     init_with: ''
+    getter_ref: true
 
   - name: version_screen
     type: AllegroFlare::Screens::Version
     init_with: ''
+    getter_ref: true
 
   - name: load_a_saved_game_screen
     type: AllegroFlare::LoadASavedGame::Screen
     init_with: ''
+    getter_ref: true
 
   - name: new_game_intro_storyboard_screen
     type: AllegroFlare::Screens::Storyboard
     init_with: ''
+    getter_ref: true
 
   - name: level_select_screen
     type: AllegroFlare::Screens::LevelSelectScreen
     init_with: ''
+    getter_ref: true
 
   - name: arbitrary_storyboard_screen
     type: AllegroFlare::Screens::Storyboard
     init_with: ''
+    getter_ref: true
 
   - name: game_over_screen
     type: AllegroFlare::Screens::GameOverScreen
     init_with: ''
+    getter_ref: true
 
   - name: game_won_screen
     type: AllegroFlare::Screens::GameWonScreen
     init_with: ''
+    getter_ref: true
 
   - name: game_won_outro_storyboard_screen
     type: AllegroFlare::Screens::Storyboard
     init_with: ''
+    getter_ref: true
 
   - name: settings_screen
     type: AllegroFlare::Screens::SettingsScreen
     init_with: ''
+    getter_ref: true
 
   - name: rolling_credits_screen
     type: AllegroFlare::Screens::RollingCredits
     init_with: ''
+    getter_ref: true
 
   - name: primary_gameplay_screen
     type: AllegroFlare::Screens::Gameplay*
