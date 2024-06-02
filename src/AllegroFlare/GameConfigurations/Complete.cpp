@@ -77,6 +77,20 @@ std::string Complete::primary_display_icon_filename()
    return "icons/allegro-flare-generic-icon-1024.png";
 }
 
+void Complete::before_activate_screen_callback(std::string screen_identifier_that_will_activate, std::string currently_active_screen_identifier)
+{
+   //type: std::function<void(std::string, std::string, AllegroFlare::Routers::Base*, void*)>
+   //init_with: '{}'
+   //getter: true
+   //setter: true
+   //- name: on_before_activate_screen_func_user_data
+     //type: void*
+     //init_with: nullptr
+     //getter: true
+     //setter: true
+   return;
+}
+
 void Complete::handle_game_event(AllegroFlare::GameEvent* game_event)
 {
    // NOTE: Handle top-level game events here.

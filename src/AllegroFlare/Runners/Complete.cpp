@@ -562,6 +562,18 @@ void Complete::setup_router()
    router.set_on_arbitrary_storyboard_screen_activated_func(on_arbitrary_storyboard_screen_activated_func);
    router.set_on_arbitrary_storyboard_screen_activated_func_user_data(this);
 
+   //router.set_on_before_activate_screen_func(AllegroFlare::Runners::Complete::on_before_activate_screen_func);
+   //router.set_on_before_activate_screen_func_user_data(this);
+   // HERE
+   router.set_on_before_activate_screen_func(
+      [this](std::string activating, std::string current, AllegroFlare::Routers::Base*, void*) {
+         //: std::function<void(
+         //std::string, std::string, AllegroFlare::Routers::Base*, void*
+         //)>
+         this->game_configuration->before_activate_screen_callback(activating, current);
+      });
+   router.set_on_before_activate_screen_func_user_data(this);
+
 
    // Set the routes
    router.register_screen(
