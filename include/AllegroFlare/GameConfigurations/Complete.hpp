@@ -51,6 +51,7 @@ namespace AllegroFlare
          virtual std::string app_title();
          virtual std::string title_screen_title();
          virtual std::string primary_display_icon_filename();
+         virtual void on_runner_after_initialization_func(AllegroFlare::Runners::Complete* runner=nullptr);
          virtual void before_activate_screen_callback(std::string screen_identifier_that_will_activate="[unset-screen_identifier_that_will_activate]", std::string currently_active_screen_identifier="[unset-currently_active_screen_identifier]");
          virtual void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
          virtual AllegroFlare::Levels::Base* load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");

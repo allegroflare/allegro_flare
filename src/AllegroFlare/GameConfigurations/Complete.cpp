@@ -77,8 +77,16 @@ std::string Complete::primary_display_icon_filename()
    return "icons/allegro-flare-generic-icon-1024.png";
 }
 
+void Complete::on_runner_after_initialization_func(AllegroFlare::Runners::Complete* runner)
+{
+   // TODO: Consider renaming this method to align with other methods
+   return;
+}
+
 void Complete::before_activate_screen_callback(std::string screen_identifier_that_will_activate, std::string currently_active_screen_identifier)
 {
+   // TODO: Consider renaming this method to align with other methods
+
    //type: std::function<void(std::string, std::string, AllegroFlare::Routers::Base*, void*)>
    //init_with: '{}'
    //getter: true

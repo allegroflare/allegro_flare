@@ -333,6 +333,9 @@ void Complete::initialize()
    // TODO: Consider adding a free-for-all, "post-initialization" method to the configuration. Would be useful
    // for example, for setting up and configuring the settings on the dialog system or anything else left
    // un specified.
+   game_configuration->on_runner_after_initialization_func(this);
+
+   initialized = true;
 
    return;
 }

@@ -62,6 +62,20 @@ methods:
       return "icons/allegro-flare-generic-icon-1024.png";
 
 
+  - name: on_runner_after_initialization_func
+    virtual: true
+    parameters:
+      - name: runner
+        type: AllegroFlare::Runners::Complete*
+        default_argument: nullptr
+        default_argument_dependency_symbols:
+          - AllegroFlare::ForwardDeclarations::AllegroFlare::Runners::Complete
+          - AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
+    body: |
+      // TODO: Consider renaming this method to align with other methods
+      return;
+
+
   - name: before_activate_screen_callback
     virtual: true
     parameters:
@@ -72,6 +86,8 @@ methods:
         type: std::string
         default_argument: '"[unset-currently_active_screen_identifier]"'
     body: |
+      // TODO: Consider renaming this method to align with other methods
+
       //type: std::function<void(std::string, std::string, AllegroFlare::Routers::Base*, void*)>
       //init_with: '{}'
       //getter: true
