@@ -83,6 +83,18 @@ properties:
     getter: true
     setter: true
 
+  - name: drawing_backfill_and_frame
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
+  - name: drawing_title_text
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
   - name: ignore_on_invalid_selection
     type: bool
     init_with: false
@@ -98,6 +110,7 @@ documentation:
        diminensions > 0
      - Make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0
      - Output a warning when the number of levels is greater than the number of selection boxes
+     - Consider renaming "selection_box_" to something else
 
 
 functions:
@@ -132,13 +145,37 @@ functions:
       return color;
 
 
+  - name: disable_drawing_backfill_and_frame
+    body: |
+      drawing_backfill_and_frame = false;
+      return;
+
+
+  - name: disable_drawing_title_text
+    body: |
+      drawing_title_text = false;
+      return;
+
+
+  - name: enable_drawing_backfill_and_frame
+    body: |
+      drawing_backfill_and_frame = true;
+      return;
+
+
+  - name: enable_drawing_title_text
+    body: |
+      drawing_title_text = true;
+      return;
+
+
   - name: render
     guards: [ font_bin ]
     body: |
       place.start_transform();
 
-      draw_backfill_and_frame();
-      draw_level_select_title_text();
+      if (drawing_backfill_and_frame) draw_backfill_and_frame();
+      if (drawing_title_text) draw_level_select_title_text();
       draw_level_select_boxes_and_cursor();
 
       place.restore_transform();

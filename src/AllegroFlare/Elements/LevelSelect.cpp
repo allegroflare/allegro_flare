@@ -35,6 +35,8 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , selection_box_spacing_y(30)
    , num_columns(5)
    , num_rows(3)
+   , drawing_backfill_and_frame(true)
+   , drawing_title_text(true)
    , ignore_on_invalid_selection(false)
 {
 }
@@ -108,6 +110,18 @@ void LevelSelect::set_num_columns(int num_columns)
 void LevelSelect::set_num_rows(int num_rows)
 {
    this->num_rows = num_rows;
+}
+
+
+void LevelSelect::set_drawing_backfill_and_frame(bool drawing_backfill_and_frame)
+{
+   this->drawing_backfill_and_frame = drawing_backfill_and_frame;
+}
+
+
+void LevelSelect::set_drawing_title_text(bool drawing_title_text)
+{
+   this->drawing_title_text = drawing_title_text;
 }
 
 
@@ -189,6 +203,18 @@ int LevelSelect::get_num_rows() const
 }
 
 
+bool LevelSelect::get_drawing_backfill_and_frame() const
+{
+   return drawing_backfill_and_frame;
+}
+
+
+bool LevelSelect::get_drawing_title_text() const
+{
+   return drawing_title_text;
+}
+
+
 bool LevelSelect::get_ignore_on_invalid_selection() const
 {
    return ignore_on_invalid_selection;
@@ -209,6 +235,30 @@ ALLEGRO_COLOR LevelSelect::change_a(ALLEGRO_COLOR color, float alpha)
    return color;
 }
 
+void LevelSelect::disable_drawing_backfill_and_frame()
+{
+   drawing_backfill_and_frame = false;
+   return;
+}
+
+void LevelSelect::disable_drawing_title_text()
+{
+   drawing_title_text = false;
+   return;
+}
+
+void LevelSelect::enable_drawing_backfill_and_frame()
+{
+   drawing_backfill_and_frame = true;
+   return;
+}
+
+void LevelSelect::enable_drawing_title_text()
+{
+   drawing_title_text = true;
+   return;
+}
+
 void LevelSelect::render()
 {
    if (!(font_bin))
@@ -220,8 +270,8 @@ void LevelSelect::render()
    }
    place.start_transform();
 
-   draw_backfill_and_frame();
-   draw_level_select_title_text();
+   if (drawing_backfill_and_frame) draw_backfill_and_frame();
+   if (drawing_title_text) draw_level_select_title_text();
    draw_level_select_boxes_and_cursor();
 
    place.restore_transform();

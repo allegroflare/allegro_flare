@@ -34,6 +34,8 @@ namespace AllegroFlare
          int selection_box_spacing_y;
          int num_columns;
          int num_rows;
+         bool drawing_backfill_and_frame;
+         bool drawing_title_text;
          bool ignore_on_invalid_selection;
          ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0});
          ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
@@ -64,6 +66,8 @@ namespace AllegroFlare
          void set_selection_box_spacing_y(int selection_box_spacing_y);
          void set_num_columns(int num_columns);
          void set_num_rows(int num_rows);
+         void set_drawing_backfill_and_frame(bool drawing_backfill_and_frame);
+         void set_drawing_title_text(bool drawing_title_text);
          void set_ignore_on_invalid_selection(bool ignore_on_invalid_selection);
          std::vector<std::pair<std::string, std::string>> get_levels_list() const;
          std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> get_on_menu_choice_callback_func() const;
@@ -77,7 +81,13 @@ namespace AllegroFlare
          int get_selection_box_spacing_y() const;
          int get_num_columns() const;
          int get_num_rows() const;
+         bool get_drawing_backfill_and_frame() const;
+         bool get_drawing_title_text() const;
          bool get_ignore_on_invalid_selection() const;
+         void disable_drawing_backfill_and_frame();
+         void disable_drawing_title_text();
+         void enable_drawing_backfill_and_frame();
+         void enable_drawing_title_text();
          void render();
          void move_cursor_up();
          void move_cursor_down();

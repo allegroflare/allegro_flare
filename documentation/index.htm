@@ -11749,7 +11749,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"todos"=>["Make dimension setters (set_selection_box_width, set_selection_box_spacing_y, etc) explicit and require diminensions > 0", "Make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0", "Output a warning when the number of levels is greater than the number of selection boxes"]}</p>    <h3>Properties</h3>
+    <p>{"todos"=>["Make dimension setters (set_selection_box_width, set_selection_box_spacing_y, etc) explicit and require diminensions > 0", "Make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0", "Output a warning when the number of levels is greater than the number of selection boxes", "Consider renaming \"selection_box_\" to something else"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">event_emitter</td>
@@ -11808,6 +11808,14 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">drawing_backfill_and_frame</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">drawing_title_text</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">ignore_on_invalid_selection</td>
   <td class="property">bool</td>
 </tr>
@@ -11821,6 +11829,22 @@ table td
 <tr>
   <td class="private_method">ALLEGRO_COLOR</td>
   <td class="private_method"><b>change_a</b>(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>disable_drawing_backfill_and_frame</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>disable_drawing_title_text</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>enable_drawing_backfill_and_frame</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>enable_drawing_title_text</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
