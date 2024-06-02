@@ -279,6 +279,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Instrumentation/Metrics/Double.q.yml">quintessence/AllegroFlare/Instrumentation/Metrics/Double.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Instrumentation/Metrics/TimePoint.q.yml">quintessence/AllegroFlare/Instrumentation/Metrics/TimePoint.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Instrumentation/PrimaryProcessEventMetric.q.yml">quintessence/AllegroFlare/Instrumentation/PrimaryProcessEventMetric.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Int2D.q.yml">quintessence/AllegroFlare/Int2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Integrations/CameraProjectionChanges.q.yml">quintessence/AllegroFlare/Integrations/CameraProjectionChanges.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Integrations/Network.q.yml">quintessence/AllegroFlare/Integrations/Network.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryDictionary.q.yml">quintessence/AllegroFlare/InventoryDictionary.q.yml</a></li>
@@ -19083,6 +19084,33 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Int2D.q.yml">quintessence/AllegroFlare/Int2D.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>rotate</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Integrations/CameraProjectionChanges.q.yml">quintessence/AllegroFlare/Integrations/CameraProjectionChanges.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -30541,6 +30569,14 @@ table td
   <td class="property">AllegroFlare::ScreenManagers::Dictionary*</td>
 </tr>
 <tr>
+  <td class="property">on_before_activate_screen_func</td>
+  <td class="property">std::function&lt;void(std::string, std::string, AllegroFlare::Routers::Base*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_before_activate_screen_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -30590,6 +30626,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -47085,6 +47124,7 @@ table td
     "AllegroFlare/Routers/Base"
   ],
   "AllegroFlare/Routers/Base": [
+    "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [

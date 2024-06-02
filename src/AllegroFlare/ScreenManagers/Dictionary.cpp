@@ -311,6 +311,16 @@ bool Dictionary::activate(std::string identifier)
 
 std::string Dictionary::get_currently_active_screen_name()
 {
+   AllegroFlare::Logger::warn_from_once(
+         "AllegroFlare::ScreenManagers::Dictionary::get_currently_active_screen_name",
+         "This method is deprecated. Use \"get_currently_active_screen_identifier\" instead, which is identical in use."
+      );
+   return get_currently_active_screen_identifier();
+}
+
+
+std::string Dictionary::get_currently_active_screen_identifier()
+{
    for (auto &screen : screens) if (screen.second.active) return screen.first;
    return "";
 }

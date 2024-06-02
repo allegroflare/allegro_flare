@@ -14,6 +14,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_before_activate_screen_func
+    type: std::function<void(std::string, std::string, AllegroFlare::Routers::Base*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_before_activate_screen_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Routers/Base"'
@@ -56,6 +68,16 @@ functions:
         default_argument: '"[unset-screen_identifier]"'
     guards: [ screen_manager ]
     body: |
+      if (on_before_activate_screen_func)
+      {
+         std::string currently_active_screen_identifier = screen_manager->get_currently_active_screen_identifier();
+         on_before_activate_screen_func(
+               screen_identifier,
+               currently_active_screen_identifier,
+               this,
+               on_before_activate_screen_func_user_data
+            );
+      }
       screen_manager->activate(screen_identifier);
       return;
 
@@ -111,5 +133,7 @@ dependencies:
     headers: [ AllegroFlare/ScreenManagers/Dictionary.hpp ]
   - symbol: AllegroFlare::RouteEventDatas::Base
     headers: [ AllegroFlare/RouteEventDatas/Base.hpp ]
+  - symbol: AllegroFlare::Routers::Base
+    headers: [ AllegroFlare/Routers/Base.hpp ]
 
 

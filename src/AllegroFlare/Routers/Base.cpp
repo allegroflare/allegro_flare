@@ -17,6 +17,8 @@ namespace Routers
 Base::Base(std::string type, AllegroFlare::ScreenManagers::Dictionary* screen_manager)
    : type(type)
    , screen_manager(screen_manager)
+   , on_before_activate_screen_func({})
+   , on_before_activate_screen_func_user_data(nullptr)
 {
 }
 
@@ -32,6 +34,18 @@ void Base::set_screen_manager(AllegroFlare::ScreenManagers::Dictionary* screen_m
 }
 
 
+void Base::set_on_before_activate_screen_func(std::function<void(std::string, std::string, AllegroFlare::Routers::Base*, void*)> on_before_activate_screen_func)
+{
+   this->on_before_activate_screen_func = on_before_activate_screen_func;
+}
+
+
+void Base::set_on_before_activate_screen_func_user_data(void* on_before_activate_screen_func_user_data)
+{
+   this->on_before_activate_screen_func_user_data = on_before_activate_screen_func_user_data;
+}
+
+
 std::string Base::get_type() const
 {
    return type;
@@ -41,6 +55,18 @@ std::string Base::get_type() const
 AllegroFlare::ScreenManagers::Dictionary* Base::get_screen_manager() const
 {
    return screen_manager;
+}
+
+
+std::function<void(std::string, std::string, AllegroFlare::Routers::Base*, void*)> Base::get_on_before_activate_screen_func() const
+{
+   return on_before_activate_screen_func;
+}
+
+
+void* Base::get_on_before_activate_screen_func_user_data() const
+{
+   return on_before_activate_screen_func_user_data;
 }
 
 
@@ -92,6 +118,16 @@ void Base::activate_screen(std::string screen_identifier)
       error_message << "[Base::activate_screen]: error: guard \"screen_manager\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("Base::activate_screen: error: guard \"screen_manager\" not met");
+   }
+   if (on_before_activate_screen_func)
+   {
+      std::string currently_active_screen_identifier = screen_manager->get_currently_active_screen_identifier();
+      on_before_activate_screen_func(
+            screen_identifier,
+            currently_active_screen_identifier,
+            this,
+            on_before_activate_screen_func_user_data
+         );
    }
    screen_manager->activate(screen_identifier);
    return;

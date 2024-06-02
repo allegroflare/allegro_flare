@@ -3579,6 +3579,7 @@
     "AllegroFlare/Routers/Base"
   ],
   "AllegroFlare/Routers/Base": [
+    "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
