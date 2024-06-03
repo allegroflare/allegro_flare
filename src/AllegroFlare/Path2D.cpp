@@ -45,8 +45,8 @@ namespace AllegroFlare
       if (point.size() == 1) _length = 0.0f;
       else
       {
-         segment.push_back(new SegmentInfo2D(point[point.size()-2], point[point.size()-1]));
-         _length += segment.back()->length;
+         segment.push_back(SegmentInfo2D(point[point.size()-2], point[point.size()-1]));
+         _length += segment.back().length;
       }
 
       if (refresh) refresh_segment_info();
@@ -107,7 +107,7 @@ namespace AllegroFlare
    Path2D &Path2D::clear()
    {
       //for (int i=0; i<(int)point.size(); i++) delete point[i];
-      for (unsigned i=0; i<segment.size(); i++) delete segment[i];
+      //for (unsigned i=0; i<segment.size(); i++) delete segment[i];
       point.clear();
       segment.clear();
       _length = 0;
@@ -226,11 +226,11 @@ namespace AllegroFlare
 
       for (int i=1; i<(int)point.size(); i++)
       {
-         len += segment[i-1]->length;
+         len += segment[i-1].length;
          if (dist < len)
          {
-            float percentage = (segment[i-1]->length - (len - dist)) / segment[i-1]->length;
-            return segment[i-1]->from_start * percentage + point[i-1];
+            float percentage = (segment[i-1].length - (len - dist)) / segment[i-1].length;
+            return segment[i-1].from_start * percentage + point[i-1];
          }
       }
 
@@ -343,7 +343,7 @@ namespace AllegroFlare
 
       _length = 0;
 
-      for (int i=0; i<(int)segment.size(); i++) delete segment[i];
+      //for (int i=0; i<(int)segment.size(); i++) delete segment[i];
       segment.clear();
 
       _top_left = point.front();
@@ -351,8 +351,8 @@ namespace AllegroFlare
 
       for (int i=1; i<(int)point.size(); i++)
       {
-         segment.push_back(new SegmentInfo2D(point[i-1], point[i]));
-         _length += segment.back()->length;
+         segment.push_back(SegmentInfo2D(point[i-1], point[i]));
+         _length += segment.back().length;
 
          if (point[i].x < _top_left.x) _top_left.x = point[i].x;
          if (point[i].x > _bottom_right.x) _bottom_right.x = point[i].x;
@@ -433,12 +433,12 @@ namespace AllegroFlare
       }
       for (int i=0; i<(int)segment.size(); i++)
       {
-         segment[i]->start.x += x;
-         segment[i]->start.y += y;
-         segment[i]->end.x += x;
-         segment[i]->end.y += y;
-         segment[i]->middle.x += x;
-         segment[i]->middle.y += y;
+         segment[i].start.x += x;
+         segment[i].start.y += y;
+         segment[i].end.x += x;
+         segment[i].end.y += y;
+         segment[i].middle.x += x;
+         segment[i].middle.y += y;
       }
 
       refresh_segment_info();
@@ -604,13 +604,13 @@ namespace AllegroFlare
       for (int i=0; i<(int)segment.size(); i++)
       {
          if (show_normals)
-         al_draw_line(segment[i]->middle.x, segment[i]->middle.y,
-         segment[i]->middle.x + segment[i]->normal.x * normal_length,
-         segment[i]->middle.y + segment[i]->normal.y * normal_length,
+         al_draw_line(segment[i].middle.x, segment[i].middle.y,
+         segment[i].middle.x + segment[i].normal.x * normal_length,
+         segment[i].middle.y + segment[i].normal.y * normal_length,
          al_map_rgba_f(0.5, 0.5, 0, 1), 1.0);
 
          if (show_normal_angles)
-         t.text(tostring((segment[i]->normal.GetAngle()))).position(segment[i]->middle.x, segment[i]->middle.y).print();
+         t.text(tostring((segment[i].normal.GetAngle()))).position(segment[i].middle.x, segment[i].middle.y).print();
       }
       */
    }
@@ -788,7 +788,7 @@ namespace AllegroFlare
 
       for (int i=0; i<(int)point.size()-1; i++)
       {
-         angle = segment[i]->normal.get_angle();
+         angle = segment[i].normal.get_angle();
          std::cout << std::endl << i << " " << angle;
          if (angle > radian && angle < radian+theta)
          {

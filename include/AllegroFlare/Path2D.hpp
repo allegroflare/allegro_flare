@@ -82,7 +82,7 @@ namespace AllegroFlare
       // all of these things should be considered internal
       AllegroFlare::vec2d _top_left;
       AllegroFlare::vec2d _bottom_right;
-      std::vector<SegmentInfo2D *> segment;
+      std::vector<SegmentInfo2D> segment;
       std::vector<AllegroFlare::vec2d> point;
       float _length;
 
