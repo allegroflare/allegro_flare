@@ -2690,6 +2690,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityPool",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/SceneGraph/EntityPool",
+    "AllegroFlare/TileMaps/TileMesh",
     "WickedDemos/TileDemo"
   ],
   "std/unordered_set": [

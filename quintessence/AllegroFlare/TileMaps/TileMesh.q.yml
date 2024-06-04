@@ -198,6 +198,8 @@ methods:
          );
 
       return num_removed;
+    body_dependency_symbols:
+      - std::find
 
 
   - name: vertex_indices_for_tile_xy
@@ -736,6 +738,8 @@ methods:
 dependencies:
 
 
+  - symbol: std::find
+    headers: [ algorithm ]
   - symbol: al_is_system_installed
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_VERTEX

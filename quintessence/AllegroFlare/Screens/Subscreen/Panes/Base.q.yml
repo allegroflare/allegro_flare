@@ -16,7 +16,7 @@ properties:
 
   - name: TYPE
     type: char*
-    init_with: '"AllegroFlare/Screens/Subscreen/Panes/Base"'
+    init_with: '(char*)"AllegroFlare/Screens/Subscreen/Panes/Base"'
     static: true
     constexpr: true
 

@@ -16,7 +16,7 @@ namespace AllegroFlare
             class Base
             {
             public:
-               static constexpr char* TYPE = "AllegroFlare/Screens/Subscreen/Panes/Base";
+               static constexpr char* TYPE = (char*)"AllegroFlare/Screens/Subscreen/Panes/Base";
 
             private:
                std::string type;
