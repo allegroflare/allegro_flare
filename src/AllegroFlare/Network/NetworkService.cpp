@@ -201,7 +201,10 @@ bool NetworkService::send_message(std::string message)
    //return false;
 
    // TWEAK
-   bool ret_val = _service->send_message("Hello"); // argv1;
+   // Previously:
+   //bool ret_val = _service->send_message("Hello"); // argv1;
+   // To fix compile error
+   bool ret_val = _service->send_message((char*)"Hello"); // argv1;
 
    std::cout << "checkpoint: NetworkService::send_message (E)" << std::endl << std::flush;
    //return false;
