@@ -1,4 +1,20 @@
-functions:
+properties:
+
+
+  - name: OPERATING_SYSTEM_WINDOWS_32_BIT
+    type: char*
+    init_with: '(char*)"Windows 32-bit"'
+    static: true
+    constexpr: true
+
+  - name: OPERATING_SYSTEM_WINDOWS_64_BIT
+    type: char*
+    init_with: '(char*)"Windows 64-bit"'
+    static: true
+    constexpr: true
+
+
+methods:
 
 
   - name: allegro_flare_version
@@ -91,9 +107,9 @@ functions:
        // TODO: this might be incorrect, might be detecting WIN32 even when WIN64 is present
 
        #ifdef _WIN32
-       return "Windows 32-bit";
+       return OPERATING_SYSTEM_WINDOWS_32_BIT;
        #elif _WIN64
-       return "Windows 64-bit";
+       return OPERATING_SYSTEM_WINDOWS_64_BIT;
        #elif __APPLE__ || __MACH__
        return "MacOS";
        #elif __linux__

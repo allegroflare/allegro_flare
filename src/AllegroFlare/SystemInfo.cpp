@@ -82,9 +82,9 @@ std::string SystemInfo::operating_system()
    // TODO: this might be incorrect, might be detecting WIN32 even when WIN64 is present
 
    #ifdef _WIN32
-   return "Windows 32-bit";
+   return OPERATING_SYSTEM_WINDOWS_32_BIT;
    #elif _WIN64
-   return "Windows 64-bit";
+   return OPERATING_SYSTEM_WINDOWS_64_BIT;
    #elif __APPLE__ || __MACH__
    return "MacOS";
    #elif __linux__

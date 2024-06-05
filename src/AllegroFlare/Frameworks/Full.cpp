@@ -32,6 +32,7 @@
 #include <AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp>
 #include <AllegroFlare/DisplaySettingsInterfaces/Live.hpp>
 #include <AllegroFlare/AssetStudio/DatabaseCSVLoader.hpp>
+#include <AllegroFlare/SystemInfo.hpp>
 
 
 
@@ -437,8 +438,20 @@ bool Full::initialize_core_system()
    // Load global assets
    if (!deployment_environment.is_production())
    {
-      //bool using_global_assets = false;
       assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
+
+      AllegroFlare::SystemInfo system_info;
+      // DEVELOPER HACK: Depending on the developer system, use different path for the assets_db.csv file
+      std::string operating_system = system_info.operating_system();
+      if (operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_32_BIT
+         || operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_64_BIT
+         )
+      {
+         assets_full_path = "/msys64/home/Mark/Assets/";
+      }
+
+      //bool using_global_assets = false;
+      //assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
       asset_studio_bitmap_bin.set_full_path(assets_full_path);
       AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
       loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);

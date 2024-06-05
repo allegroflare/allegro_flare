@@ -9,6 +9,10 @@ namespace AllegroFlare
 {
    class SystemInfo
    {
+   public:
+      static constexpr char* OPERATING_SYSTEM_WINDOWS_32_BIT = (char*)"Windows 32-bit";
+      static constexpr char* OPERATING_SYSTEM_WINDOWS_64_BIT = (char*)"Windows 64-bit";
+
    private:
 
    protected:
