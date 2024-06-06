@@ -234,7 +234,7 @@ TEST_F(AllegroFlare_SuspendedJoystickStateTest, render__without_a_font_bin__rais
 
 
 TEST_F(AllegroFlare_SuspendedJoystickStateTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__INTERACTIVE__will_capture_joystick_state_changes_as_expected)
+   CAPTURE__INTERACTIVE__will_capture_joystick_state_changes_as_expected)
 {
    al_install_keyboard(); // TODO: Check return value
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();

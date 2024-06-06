@@ -61,7 +61,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
 
 TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    //load__when_loading_from_the_source_data__will_create_the_expected_records)
-   FOCUS__load__when_loading_from_the_source_data__will_load_records_with_the_expected_data)
+   load__when_loading_from_the_source_data__will_load_records_with_the_expected_data)
 {
    al_init();
    al_init_image_addon();
