@@ -2,39 +2,39 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 #include <AllegroFlare/SuspendedKeyboardState.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 
 
+static void draw_key_names_vertically(ALLEGRO_FONT *font, std::string label, float x, float y, std::vector<uint32_t> keycodes)
+{
+   // Draw column label
+   al_draw_text(font, ALLEGRO_COLOR{1, 1, 0.85, 1}, x, 0, ALLEGRO_ALIGN_CENTER, label.c_str());
+
+   // Draw key names
+   int line_spacing = 40;
+   int line = 0;
+   for (auto &key : keycodes)
+   {
+      al_draw_text(
+            font,
+            ALLEGRO_COLOR{0.85, 1, 1, 1},
+            x,
+            y + 50 + line_spacing * line,
+            ALLEGRO_ALIGN_CENTER,
+            al_keycode_to_name(key)
+         );
+      line++;
+   }
+}
+
+
 class AllegroFlare_SuspendedKeyboardStateTest : public ::testing::Test {};
 class AllegroFlare_SuspendedKeyboardStateTestWithAllegroRenderingFixture
-   : public AllegroFlare::Testing::WithAllegroRenderingFixture
-{
-public:
-   void draw_key_names_vertically(std::string label, float x, float y, std::vector<uint32_t> keycodes)
-   {
-      ALLEGRO_FONT *font = get_user_prompt_font();
-
-      // Draw column label
-      al_draw_text(font, ALLEGRO_COLOR{1, 1, 0.85, 1}, x, 0, ALLEGRO_ALIGN_CENTER, label.c_str());
-
-      // Draw key names
-      int line_spacing = 40;
-      int line = 0;
-      for (auto &key : keycodes)
-      {
-         al_draw_text(
-               font,
-               ALLEGRO_COLOR{0.85, 1, 1, 1},
-               x,
-               y + 50 + line_spacing * line,
-               ALLEGRO_ALIGN_CENTER,
-               al_keycode_to_name(key)
-            );
-         line++;
-      }
-   }
-};
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
+class AllegroFlare_SuspendedKeyboardStateTestWithInteractionFixture
+   : public AllegroFlare::Testing::WithInteractionFixture {};
 
 
 TEST_F(AllegroFlare_SuspendedKeyboardStateTest, can_be_created_without_blowing_up)
@@ -147,15 +147,9 @@ TEST_F(AllegroFlare_SuspendedKeyboardStateTestWithAllegroRenderingFixture,
 
 #include <AllegroFlare/Camera2D.hpp>
 
-TEST_F(AllegroFlare_SuspendedKeyboardStateTestWithAllegroRenderingFixture,
+TEST_F(AllegroFlare_SuspendedKeyboardStateTestWithInteractionFixture,
    INTERACTIVE__will_capture_keyboard_state_changes_as_expected)
 {
-   al_install_keyboard();
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-   ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
-   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
-   al_register_event_source(event_queue, al_get_keyboard_event_source());
-
    // Setup our resources
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    ALLEGRO_FONT *font = get_user_prompt_font();
@@ -167,12 +161,10 @@ TEST_F(AllegroFlare_SuspendedKeyboardStateTestWithAllegroRenderingFixture,
    AllegroFlare::Camera2D camera;
    camera.size = { 1920, 1080 };
 
-   al_start_timer(primary_timer);
-   bool abort = false;
-   while(!abort)
+   while(!interactive_test_wait_for_event())
    {
-      ALLEGRO_EVENT current_event;
-      al_wait_for_event(event_queue, &current_event);
+      ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
+
       switch(current_event.type)
       {
          case ALLEGRO_EVENT_TIMER:
@@ -196,26 +188,29 @@ TEST_F(AllegroFlare_SuspendedKeyboardStateTestWithAllegroRenderingFixture,
             al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 0, -200+34, ALLEGRO_ALIGN_CENTER, "Press ENTER when keys are pressed");
 
             // Show the currently pressed key names
-            draw_key_names_vertically("now", -600, 50, keys_pressed);
+            draw_key_names_vertically(font, "now", -600, 50, keys_pressed);
 
             // Show the initial state key names
             if (input_state.get_initial_keyboard_state_is_captured())
             {
-               draw_key_names_vertically("initial", -300, 50, input_state.get_keys_pressed_in_initial_keyboard_state());
+               draw_key_names_vertically(font, "initial", -300, 50, input_state.get_keys_pressed_in_initial_keyboard_state());
             }
 
             // Show the subsequent state key names
             if (input_state.get_subsequent_keyboard_state_is_captured())
             {
-               draw_key_names_vertically("subsequent", 0, 50, input_state.get_keys_pressed_in_subsequent_keyboard_state());
+               draw_key_names_vertically(font, "subsequent", 0, 50, input_state.get_keys_pressed_in_subsequent_keyboard_state());
             }
 
             if (input_state.get_keyboard_state_changes_are_calculated())
             {
-               draw_key_names_vertically("pressed", 300, 50, input_state.get_keys_pressed());
+               draw_key_names_vertically(font, "pressed", 300, 50, input_state.get_keys_pressed());
 
-               draw_key_names_vertically("released", 600, 50, input_state.get_keys_released());
+               draw_key_names_vertically(font, "released", 600, 50, input_state.get_keys_released());
             }
+
+            // Draw the interactive test text
+            interactive_test_render_status();
 
             // Restore the camera
             camera.restore_transform();
@@ -240,17 +235,13 @@ TEST_F(AllegroFlare_SuspendedKeyboardStateTestWithAllegroRenderingFixture,
                      input_state.calculate_keyboard_state_changes();
                   }
                break;
-
-               case ALLEGRO_KEY_ESCAPE:
-                  abort = true;
-               break;
             }
          }
          break;
       }
    }
 
-   al_destroy_timer(primary_timer);
+   //al_destroy_timer(primary_timer);
 }
 
 
