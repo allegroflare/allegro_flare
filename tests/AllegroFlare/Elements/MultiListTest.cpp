@@ -5,6 +5,7 @@
 
 //#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 //#include <allegro5/allegro_primitives.h>
 
 //#include <AllegroFlare/Screens/Subscreen/Panes/CharacterProfiles.hpp>
@@ -13,6 +14,34 @@
 class AllegroFlare_Elements_MultiListTest : public ::testing::Test {};
 class AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+public:
+   std::vector<std::vector<std::pair<std::string, std::string>>> build_lists()
+   {
+      std::vector<std::vector<std::pair<std::string, std::string>>> result_lists = {
+         {
+            { "Standard Blaster", "blaster" },
+            { "Double Turret", "turret" },
+            { "Laser", "laser" },
+            { "Missle", "missle" },
+         },
+         {
+            { "Standard Shields", "standard" },
+            { "Double Walled", "double_walled" },
+            { "Plasma", "plasma" },
+         },
+         {
+            { "Hypersonic Boost", "hypersonic_boost" },
+            { "Cloaking", "cloak" },
+            { "Wide Area EMP", "wide_area_emp" },
+            { "Echo Sonar", "echo_sonar" },
+         },
+      };
+      return result_lists;
+   }
+};
+class AllegroFlare_Elements_MultiListTestWithInteractionFixture
+   : public AllegroFlare::Testing::WithInteractionFixture
 {
 public:
    std::vector<std::vector<std::pair<std::string, std::string>>> build_lists()
@@ -276,6 +305,68 @@ TEST_F(AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture,
 
    //al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
    al_destroy_timer(primary_timer);
+}
+
+
+TEST_F(AllegroFlare_Elements_MultiListTestWithInteractionFixture, FOCUS__will_work_as_expected)
+{
+   // Setup subject here
+   AllegroFlare::Elements::MultiList multi_list;
+   multi_list.set_font_bin(&get_font_bin_ref());
+   multi_list.initialize();
+   multi_list.set_lists(build_lists());
+
+   while(!get_aborted())
+   {
+      ALLEGRO_EVENT current_event;
+      al_wait_for_event(get_event_queue(), &current_event);
+
+      handle_interactive_test_event(&current_event);
+
+      switch(current_event.type)
+      {
+         case ALLEGRO_EVENT_TIMER:
+         {
+            clear();
+            multi_list.render();
+            render_interactive_test_status();
+            al_flip_display();
+         }
+         break;
+
+         case ALLEGRO_EVENT_KEY_DOWN:
+         {
+            bool shift = current_event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+            switch(current_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_UP:
+                  multi_list.move_cursor_up();
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  multi_list.move_cursor_down();
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  multi_list.move_cursor_left();
+               break;
+
+               case ALLEGRO_KEY_RIGHT:
+                  multi_list.move_cursor_right();
+               break;
+
+               case ALLEGRO_KEY_ENTER:
+                  multi_list.activate_selection_at_current_cursor_position();
+               break;
+
+               case ALLEGRO_KEY_ESCAPE:
+                  abort();
+               break;
+            }
+         }
+         break;
+      }
+   }
 }
 
 
