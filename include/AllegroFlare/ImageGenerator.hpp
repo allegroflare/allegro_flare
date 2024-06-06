@@ -44,10 +44,11 @@ namespace AllegroFlare
       // graphs
       ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(
          float (*interpolator_func)(float),
-         float size=512,
+         int width=512,
+         int height=512,
          ALLEGRO_COLOR col=AllegroFlare::color::white,
          float thickness=5,
-         float padding=0
+         int padding=0
       );
    };
 }

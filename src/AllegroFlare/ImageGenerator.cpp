@@ -245,14 +245,17 @@ ALLEGRO_BITMAP *ImageGenerator::generate_brush_metal_bitmap(float w, float h, AL
 
 ALLEGRO_BITMAP *ImageGenerator::generate_interpolator_graph_bitmap(
       float(* interpolator_func)(float),
-      float size,
+      int width,
+      int height,
       ALLEGRO_COLOR col,
       float thickness,
-      float padding
+      int padding
    )
 {
+   // TODO: Guard against dimensions
+
    // setup the drawing surface
-   ALLEGRO_BITMAP *surface = al_create_bitmap(size, size);
+   ALLEGRO_BITMAP *surface = al_create_bitmap(width, height);
    ALLEGRO_STATE state;
    al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
    al_set_target_bitmap(surface);
@@ -266,8 +269,8 @@ ALLEGRO_BITMAP *ImageGenerator::generate_interpolator_graph_bitmap(
 
    float line_width = thickness;
 
-   float w = size;
-   float h = size;
+   float w = width;
+   float h = height;
 
    float x = padding;
    float y = padding;
@@ -285,11 +288,11 @@ ALLEGRO_BITMAP *ImageGenerator::generate_interpolator_graph_bitmap(
       float point_x = (float)i/(num_points-1);
       float point_y = interpolator_func(point_x);
 
-      point_x *= (size-padding*2);
-      point_y *= -(size-padding*2);
+      point_x *= (width-padding*2);
+      point_y *= -(height-padding*2);
 
       point_x += x;
-      point_y += y+(size-padding*2);
+      point_y += y+(height-padding*2);
 
       al_draw_filled_circle(point_x, point_y, line_width*1.3, col);
    }
