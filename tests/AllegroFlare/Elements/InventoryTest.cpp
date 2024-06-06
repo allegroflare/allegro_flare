@@ -342,9 +342,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
 #include <AllegroFlare/EventNames.hpp>
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
-   // TODO: modify this to a TIMED_INTERACTIVE test
-   INTERACTIVE__will_work_as_expected)
-   //DISABLED__INTERACTIVE__will_work_as_expected)
+   TIMED_INTERACTIVE__will_work_as_expected)
 {
    al_install_keyboard();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -371,19 +369,34 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
    af_inventory.add_item(3);
    af_inventory.add_item(4);
 
+   float duration_to_auto_abort_sec = 6;
+   bool auto_abort_halted = false;
+   ALLEGRO_FONT *prompt_font = get_user_prompt_font();
+
    al_start_timer(primary_timer);
    bool abort = false;
    while(!abort)
    {
+      double time_now = al_get_time();
       ALLEGRO_EVENT current_event;
       al_wait_for_event(event_queue, &current_event);
       switch(current_event.type)
       {
          case ALLEGRO_EVENT_TIMER:
          {
-            clear();
+            // Update
             inventory.update();
+            if (!auto_abort_halted && (time_now >= duration_to_auto_abort_sec)) abort = true;
+
+            // Render
+            clear();
             inventory.render();
+            if (!auto_abort_halted)
+            {
+               int seconds_left = (int)(duration_to_auto_abort_sec - time_now) + 1;
+               al_draw_textf(prompt_font, ALLEGRO_COLOR{0.3, 0.3, 0.3, 1}, 30, 1080-60, ALLEGRO_ALIGN_LEFT, "Interactive "
+                  "test will auto-close in %d seconds. Otherwise press any key.", seconds_left);
+            }
             al_flip_display();
          }
          break;
@@ -397,6 +410,8 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
          case ALLEGRO_EVENT_KEY_CHAR:
          {
+            if (!auto_abort_halted) auto_abort_halted = true;
+
             switch(current_event.keyboard.keycode)
             {
                case ALLEGRO_KEY_A:
