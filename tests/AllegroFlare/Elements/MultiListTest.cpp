@@ -135,8 +135,7 @@ TEST_F(AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture,
-   //DISABLED__INTERACTIVE__will_work_as_expected)
-   INTERACTIVE__will_work_as_expected)
+   TIMED_INTERACTIVE__will_work_as_expected)
 {
    // Setup interactive components not already setup in WithAllegroRenderingFixture
    al_install_keyboard();
@@ -151,19 +150,34 @@ TEST_F(AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture,
    multi_list.initialize();
    multi_list.set_lists(build_lists());
 
+   // Setup the timed interactive
+   float duration_to_auto_abort_test = 6.0;
+   bool auto_abort_halted = false;
+
    // Start the interactive loop
    al_start_timer(primary_timer);
    bool abort = false;
    while(!abort)
    {
+      double time_now = al_get_time();
       ALLEGRO_EVENT current_event;
       al_wait_for_event(event_queue, &current_event);
       switch(current_event.type)
       {
          case ALLEGRO_EVENT_TIMER:
          {
+            // Update
+            if (!auto_abort_halted && (time_now >= duration_to_auto_abort_test)) abort = true;
+
+            // Render
             clear();
             multi_list.render();
+            if (!auto_abort_halted)
+            {
+               int seconds_left = (int)(duration_to_auto_abort_test - time_now) + 1;
+               al_draw_textf(get_user_prompt_font(), ALLEGRO_COLOR{0.3, 0.3, 0.3, 1}, 30, 1080-60, ALLEGRO_ALIGN_LEFT,
+                  "Interactive test will auto-close in %d seconds. Otherwise press any key.", seconds_left);
+            }
             al_flip_display();
          }
          break;
@@ -230,6 +244,7 @@ TEST_F(AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture,
 
          case ALLEGRO_EVENT_KEY_CHAR:
          {
+            auto_abort_halted = true;
             bool shift = current_event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
             switch(current_event.keyboard.keycode)
             {
