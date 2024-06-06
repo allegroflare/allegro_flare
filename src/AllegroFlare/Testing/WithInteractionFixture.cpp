@@ -41,6 +41,37 @@ bool WithInteractionFixture::get_aborted() const
 }
 
 
+void WithInteractionFixture::SetUp()
+{
+   AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+
+   al_install_keyboard();
+   event_queue = al_create_event_queue();
+   primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(FPS));
+   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+   // Start the interactive loop
+   al_start_timer(primary_timer);
+
+   return;
+}
+
+void WithInteractionFixture::TearDown()
+{
+   al_stop_timer(primary_timer);
+   al_destroy_timer(primary_timer);
+   primary_timer = nullptr;
+   al_unregister_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   al_unregister_event_source(event_queue, al_get_keyboard_event_source());
+   al_destroy_event_queue(event_queue);
+   event_queue = nullptr;
+   al_uninstall_keyboard();
+
+   AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+   return;
+}
+
 void WithInteractionFixture::halt_auto_abort()
 {
    if (!auto_abort_halted) auto_abort_halted = true;
@@ -58,7 +89,7 @@ bool WithInteractionFixture::interactive_test_wait_for_event()
    // TODO: Consider renaming this
    al_wait_for_event(get_event_queue(), &current_event);
    handle_interactive_test_event(&current_event);
-   return aborted;
+   return !aborted;
 }
 
 ALLEGRO_EVENT* WithInteractionFixture::interactive_test_get_current_event()
@@ -91,29 +122,12 @@ void WithInteractionFixture::handle_interactive_test_event(ALLEGRO_EVENT* curren
       case ALLEGRO_EVENT_KEY_UP:
       case ALLEGRO_EVENT_KEY_DOWN: {
          halt_auto_abort();
+         bool shift = current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+         // TODO: Make this optionally disabled:
+         if (current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE && (!shift)) abort();
       } break;
 
    }
-   return;
-}
-
-void WithInteractionFixture::SetUp()
-{
-   AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
-
-   al_install_keyboard();
-   event_queue = al_create_event_queue();
-   primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(FPS));
-   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
-   al_register_event_source(event_queue, al_get_keyboard_event_source());
-
-   // Setup the timed interactive
-   //float duration_to_auto_abort_test = 6.0;
-   //bool auto_abort_halted = false;
-
-   // Start the interactive loop
-   al_start_timer(primary_timer);
-
    return;
 }
 
@@ -126,14 +140,6 @@ void WithInteractionFixture::interactive_test_render_status()
       al_draw_textf(get_user_prompt_font(), ALLEGRO_COLOR{0.3, 0.3, 0.3, 1}, 30, 1080-60, ALLEGRO_ALIGN_LEFT,
          "Interactive test will auto-close in %d seconds. Otherwise press any key.", seconds_left);
    }
-   return;
-}
-
-void WithInteractionFixture::TearDown()
-{
-   al_destroy_timer(primary_timer);
-
-   AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
    return;
 }
 

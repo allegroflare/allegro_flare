@@ -40,17 +40,18 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithInteractionFixture, will_work_with_
          //}
          //break;
 
-         case ALLEGRO_EVENT_KEY_CHAR:
-         {
-            bool shift = current_event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
-            switch(current_event.keyboard.keycode)
-            {
-               case ALLEGRO_KEY_ESCAPE:
-                  abort();
-               break;
-            }
-         }
-         break;
+         //// For example:
+         //case ALLEGRO_EVENT_KEY_DOWN:
+         //{
+            //bool shift = current_event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+            //switch(current_event.keyboard.keycode)
+            //{
+               //case ALLEGRO_KEY_ENTER:
+                  //// Do something
+               //break;
+            //}
+         //}
+         //break;
       }
    }
 }

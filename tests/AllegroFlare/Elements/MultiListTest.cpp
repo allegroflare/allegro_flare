@@ -171,6 +171,7 @@ TEST_F(AllegroFlare_Elements_MultiListTestWithInteractionFixture, TIMED_INTERACT
    multi_list.initialize();
    multi_list.set_lists(build_lists());
 
+   // Start the interactive test
    while(interactive_test_wait_for_event())
    {
       ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
@@ -209,10 +210,6 @@ TEST_F(AllegroFlare_Elements_MultiListTestWithInteractionFixture, TIMED_INTERACT
 
                case ALLEGRO_KEY_ENTER:
                   multi_list.activate_selection_at_current_cursor_position();
-               break;
-
-               case ALLEGRO_KEY_ESCAPE:
-                  abort();
                break;
             }
          }

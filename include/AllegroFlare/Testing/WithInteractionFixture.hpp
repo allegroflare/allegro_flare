@@ -31,14 +31,14 @@ namespace AllegroFlare
 
          ALLEGRO_EVENT_QUEUE* get_event_queue() const;
          bool get_aborted() const;
+         virtual void SetUp() override;
+         virtual void TearDown() override;
          void halt_auto_abort();
          void abort();
          bool interactive_test_wait_for_event();
          ALLEGRO_EVENT* interactive_test_get_current_event();
          void handle_interactive_test_event(ALLEGRO_EVENT* current_event=nullptr);
-         virtual void SetUp() override;
          void interactive_test_render_status();
-         virtual void TearDown() override;
       };
    }
 }
