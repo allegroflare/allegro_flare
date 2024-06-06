@@ -490,6 +490,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Testing/TestNameInference.q.yml">quintessence/AllegroFlare/Testing/TestNameInference.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Testing/WithInteractionFixture.q.yml">quintessence/AllegroFlare/Testing/WithInteractionFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Base.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Basic.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Basic.q.yml</a></li>
@@ -38001,6 +38002,83 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Testing/WithInteractionFixture.q.yml">quintessence/AllegroFlare/Testing/WithInteractionFixture.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_queue</td>
+  <td class="property">ALLEGRO_EVENT_QUEUE*</td>
+</tr>
+<tr>
+  <td class="property">primary_timer</td>
+  <td class="property">ALLEGRO_TIMER*</td>
+</tr>
+<tr>
+  <td class="property">auto_abort_halted</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">aborted</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">FPS</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">DURATION_TO_AUTO_ABORT_INTERACTIVE_TEST_SEC</td>
+  <td class="property">double</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>halt_auto_abort</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>abort</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>handle_interactive_test_event</b>(ALLEGRO_EVENT* current_event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>SetUp</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_interactive_test_status</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>TearDown</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Testing::WithAllegroRenderingFixture&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Testing/WithAllegroRenderingFixture.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_QUEUE&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TIMER&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -44754,6 +44832,7 @@ table td
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithInteractionFixture",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
@@ -46840,7 +46919,8 @@ table td
   "ALLEGRO_EVENT_QUEUE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/ShaderSourcePoller",
-    "AllegroFlare/SyncOracle"
+    "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithInteractionFixture"
   ],
   "ALLEGRO_AUDIO_STREAM": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
@@ -47317,7 +47397,8 @@ table td
   ],
   "ALLEGRO_TIMER": [
     "AllegroFlare/ShaderSourcePoller",
-    "AllegroFlare/SyncOracle"
+    "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithInteractionFixture"
   ],
   "ALLEGRO_SHADER": [
     "AllegroFlare/Shaders/Base"
@@ -47454,6 +47535,9 @@ table td
   ],
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/Testing/WithAllegroRenderingFixture": [
+    "AllegroFlare/Testing/WithInteractionFixture"
   ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
     "AllegroFlare/TileMaps/AutoTile/FilterMatrix",

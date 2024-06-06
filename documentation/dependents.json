@@ -1164,6 +1164,7 @@
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithInteractionFixture",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo",
@@ -3250,7 +3251,8 @@
   "ALLEGRO_EVENT_QUEUE": [
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/ShaderSourcePoller",
-    "AllegroFlare/SyncOracle"
+    "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithInteractionFixture"
   ],
   "ALLEGRO_AUDIO_STREAM": [
     "AllegroFlare/Prototypes/MindDive/Hypersync"
@@ -3727,7 +3729,8 @@
   ],
   "ALLEGRO_TIMER": [
     "AllegroFlare/ShaderSourcePoller",
-    "AllegroFlare/SyncOracle"
+    "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithInteractionFixture"
   ],
   "ALLEGRO_SHADER": [
     "AllegroFlare/Shaders/Base"
@@ -3864,6 +3867,9 @@
   ],
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "AllegroFlare/Testing/WithAllegroRenderingFixture": [
+    "AllegroFlare/Testing/WithInteractionFixture"
   ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
     "AllegroFlare/TileMaps/AutoTile/FilterMatrix",

@@ -6,7 +6,81 @@ parent_classes:
     init_with: ''
 
 
+properties:
+
+
+  - name: event_queue
+    type: ALLEGRO_EVENT_QUEUE*
+    init_with: nullptr
+    getter: true
+
+  - name: primary_timer
+    type: ALLEGRO_TIMER*
+    init_with: nullptr
+
+  - name: auto_abort_halted
+    type: bool
+    init_with: false
+
+  - name: aborted
+    type: bool
+    init_with: false
+
+  - name: FPS
+    type: double
+    init_with: 60.0
+    static: true
+    constexpr: true
+
+  - name: DURATION_TO_AUTO_ABORT_INTERACTIVE_TEST_SEC
+    type: double
+    init_with: 4.0
+    static: true
+    constexpr: true
+
+
 methods:
+
+
+  - name: halt_auto_abort
+    body: |
+      if (!auto_abort_halted) auto_abort_halted = true;
+      return;
+
+
+  - name: abort
+    body: |
+      if (!aborted) aborted = true;
+      return;
+
+
+  - name: handle_interactive_test_event
+    parameters:
+      - name: current_event
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ current_event ]
+    body: |
+      double time_now = al_get_time();
+      switch(current_event->type)
+      {
+         case ALLEGRO_EVENT_TIMER: {
+            // Update
+            if (current_event->any.source == al_get_timer_event_source(primary_timer))
+            {
+               if (!auto_abort_halted && (time_now >= DURATION_TO_AUTO_ABORT_INTERACTIVE_TEST_SEC)) abort();
+            }
+         } break;
+
+         // TODO: Include other forms of input, joystics, mouse
+         case ALLEGRO_EVENT_KEY_CHAR:
+         case ALLEGRO_EVENT_KEY_UP:
+         case ALLEGRO_EVENT_KEY_DOWN: {
+            halt_auto_abort();
+         } break;
+
+      }
+      return;
 
 
   - name: SetUp
@@ -15,6 +89,32 @@ methods:
     override: true
     body: |
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+
+      al_install_keyboard();
+      event_queue = al_create_event_queue();
+      primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(FPS));
+      al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+      al_register_event_source(event_queue, al_get_keyboard_event_source());
+
+      // Setup the timed interactive
+      //float duration_to_auto_abort_test = 6.0;
+      //bool auto_abort_halted = false;
+
+      // Start the interactive loop
+      al_start_timer(primary_timer);
+
+      return;
+
+
+  - name: render_interactive_test_status
+    body: |
+      double time_now = al_get_time();
+      if (!auto_abort_halted)
+      {
+         int seconds_left = (int)(DURATION_TO_AUTO_ABORT_INTERACTIVE_TEST_SEC - time_now) + 1;
+         al_draw_textf(get_user_prompt_font(), ALLEGRO_COLOR{0.3, 0.3, 0.3, 1}, 30, 1080-60, ALLEGRO_ALIGN_LEFT,
+            "Interactive test will auto-close in %d seconds. Otherwise press any key.", seconds_left);
+      }
       return;
 
 
@@ -23,6 +123,8 @@ methods:
     virtual: true
     override: true
     body: |
+      al_destroy_timer(primary_timer);
+
       AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
       return;
 
@@ -32,5 +134,11 @@ dependencies:
 
   - symbol: AllegroFlare::Testing::WithAllegroRenderingFixture
     headers: [ AllegroFlare/Testing/WithAllegroRenderingFixture.hpp ]
+  - symbol: ALLEGRO_EVENT_QUEUE
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_TIMER
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
 
 
