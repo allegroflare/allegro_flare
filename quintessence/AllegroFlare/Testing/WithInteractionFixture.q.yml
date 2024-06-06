@@ -25,6 +25,7 @@ properties:
   - name: aborted
     type: bool
     init_with: false
+    getter: true
 
   - name: FPS
     type: double

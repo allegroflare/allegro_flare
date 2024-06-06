@@ -29,6 +29,7 @@ namespace AllegroFlare
          virtual ~WithInteractionFixture();
 
          ALLEGRO_EVENT_QUEUE* get_event_queue() const;
+         bool get_aborted() const;
          void halt_auto_abort();
          void abort();
          void handle_interactive_test_event(ALLEGRO_EVENT* current_event=nullptr);

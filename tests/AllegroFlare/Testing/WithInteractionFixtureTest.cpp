@@ -9,16 +9,15 @@ class TestClassFor_AllegroFlare_Testing_WithInteractionFixture
 {};
 
 
-TEST(TestClassFor_AllegroFlare_Testing_WithInteractionFixture, will_setup_and_teardown_without_blowing_up)
+TEST_F(TestClassFor_AllegroFlare_Testing_WithInteractionFixture, will_setup_and_teardown_without_blowing_up)
 {
    // This test is testing the fixture
 }
 
 
-TEST(TestClassFor_AllegroFlare_Testing_WithInteractionFixture, will_work_with_the_expected_context)
+TEST_F(TestClassFor_AllegroFlare_Testing_WithInteractionFixture, will_work_with_the_expected_context)
 {
-/*
-   while(!abort)
+   while(!get_aborted())
    {
       double time_now = al_get_time();
       ALLEGRO_EVENT current_event;
@@ -57,7 +56,6 @@ TEST(TestClassFor_AllegroFlare_Testing_WithInteractionFixture, will_work_with_th
          break;
       }
    }
-*/
 }
 
 

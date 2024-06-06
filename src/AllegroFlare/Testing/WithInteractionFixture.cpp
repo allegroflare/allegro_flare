@@ -34,6 +34,12 @@ ALLEGRO_EVENT_QUEUE* WithInteractionFixture::get_event_queue() const
 }
 
 
+bool WithInteractionFixture::get_aborted() const
+{
+   return aborted;
+}
+
+
 void WithInteractionFixture::halt_auto_abort()
 {
    if (!auto_abort_halted) auto_abort_halted = true;
