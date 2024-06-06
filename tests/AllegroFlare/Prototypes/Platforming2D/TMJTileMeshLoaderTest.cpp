@@ -122,7 +122,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
    al_flip_display();
    placement.restore_transform();
 
-   sleep(1.0);
+   al_rest(1.0);
 
    delete terrain_mesh;
    delete background_mesh;
@@ -166,7 +166,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_TMJTileMeshLoaderTestWithAllegroRen
 
    al_flip_display();
 
-   sleep(1.0);
+   al_rest(1.0);
 
    delete terrain_mesh;
 }
