@@ -1,0 +1,15 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Screens::Subscreen::Element
+    scope: public
+    init_with: ''
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Screens::Subscreen::Element
+    headers: [ AllegroFlare/Screens/Subscreen/Element.hpp ]
+
+
