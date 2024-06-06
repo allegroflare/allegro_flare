@@ -17,6 +17,7 @@ WithInteractionFixture::WithInteractionFixture()
    : AllegroFlare::Testing::WithAllegroRenderingFixture()
    , event_queue(nullptr)
    , primary_timer(nullptr)
+   , current_event({})
    , auto_abort_halted(false)
    , aborted(false)
 {
@@ -50,6 +51,19 @@ void WithInteractionFixture::abort()
 {
    if (!aborted) aborted = true;
    return;
+}
+
+bool WithInteractionFixture::interactive_test_wait_for_event()
+{
+   // TODO: Consider renaming this
+   al_wait_for_event(get_event_queue(), &current_event);
+   handle_interactive_test_event(&current_event);
+   return aborted;
+}
+
+ALLEGRO_EVENT* WithInteractionFixture::interactive_test_get_current_event()
+{
+   return &current_event;
 }
 
 void WithInteractionFixture::handle_interactive_test_event(ALLEGRO_EVENT* current_event)
@@ -103,7 +117,7 @@ void WithInteractionFixture::SetUp()
    return;
 }
 
-void WithInteractionFixture::render_interactive_test_status()
+void WithInteractionFixture::interactive_test_render_status()
 {
    double time_now = al_get_time();
    if (!auto_abort_halted)

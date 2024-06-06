@@ -171,12 +171,9 @@ TEST_F(AllegroFlare_Elements_MultiListTestWithInteractionFixture, TIMED_INTERACT
    multi_list.initialize();
    multi_list.set_lists(build_lists());
 
-   while(!get_aborted())
+   while(interactive_test_wait_for_event())
    {
-      ALLEGRO_EVENT current_event;
-      al_wait_for_event(get_event_queue(), &current_event);
-
-      handle_interactive_test_event(&current_event);
+      ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
 
       switch(current_event.type)
       {
@@ -184,7 +181,7 @@ TEST_F(AllegroFlare_Elements_MultiListTestWithInteractionFixture, TIMED_INTERACT
          {
             clear();
             multi_list.render();
-            render_interactive_test_status();
+            interactive_test_render_status();
             al_flip_display();
          }
          break;

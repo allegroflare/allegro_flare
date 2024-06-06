@@ -18,6 +18,7 @@ namespace AllegroFlare
       private:
          ALLEGRO_EVENT_QUEUE* event_queue;
          ALLEGRO_TIMER* primary_timer;
+         ALLEGRO_EVENT current_event;
          bool auto_abort_halted;
          bool aborted;
 
@@ -32,9 +33,11 @@ namespace AllegroFlare
          bool get_aborted() const;
          void halt_auto_abort();
          void abort();
+         bool interactive_test_wait_for_event();
+         ALLEGRO_EVENT* interactive_test_get_current_event();
          void handle_interactive_test_event(ALLEGRO_EVENT* current_event=nullptr);
          virtual void SetUp() override;
-         void render_interactive_test_status();
+         void interactive_test_render_status();
          virtual void TearDown() override;
       };
    }

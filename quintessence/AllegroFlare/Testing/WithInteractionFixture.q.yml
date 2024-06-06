@@ -18,6 +18,10 @@ properties:
     type: ALLEGRO_TIMER*
     init_with: nullptr
 
+  - name: current_event
+    type: ALLEGRO_EVENT
+    init_with: '{}'
+
   - name: auto_abort_halted
     type: bool
     init_with: false
@@ -53,6 +57,21 @@ methods:
     body: |
       if (!aborted) aborted = true;
       return;
+
+
+  - name: interactive_test_wait_for_event
+    type: bool
+    body: |
+      // TODO: Consider renaming this
+      al_wait_for_event(get_event_queue(), &current_event);
+      handle_interactive_test_event(&current_event);
+      return aborted;
+
+
+  - name: interactive_test_get_current_event
+    type: ALLEGRO_EVENT*
+    body: |
+      return &current_event;
 
 
   - name: handle_interactive_test_event
@@ -107,7 +126,7 @@ methods:
       return;
 
 
-  - name: render_interactive_test_status
+  - name: interactive_test_render_status
     body: |
       double time_now = al_get_time();
       if (!auto_abort_halted)

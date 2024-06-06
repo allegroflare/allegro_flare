@@ -17,24 +17,21 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithInteractionFixture, will_setup_and_
 
 TEST_F(TestClassFor_AllegroFlare_Testing_WithInteractionFixture, will_work_with_the_expected_context)
 {
-   while(!get_aborted())
+   while(interactive_test_wait_for_event())
    {
-      double time_now = al_get_time();
-      ALLEGRO_EVENT current_event;
-      al_wait_for_event(get_event_queue(), &current_event);
-
-      handle_interactive_test_event(&current_event);
+      ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
 
       switch(current_event.type)
       {
          case ALLEGRO_EVENT_TIMER:
          {
             clear();
-            render_interactive_test_status();
+            interactive_test_render_status();
             al_flip_display();
          }
          break;
 
+         //// For example:
          //case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
          //{
             //std::cout << "[AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture]: INFO: "

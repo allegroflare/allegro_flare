@@ -38015,6 +38015,10 @@ table td
   <td class="property">ALLEGRO_TIMER*</td>
 </tr>
 <tr>
+  <td class="property">current_event</td>
+  <td class="property">ALLEGRO_EVENT</td>
+</tr>
+<tr>
   <td class="property">auto_abort_halted</td>
   <td class="property">bool</td>
 </tr>
@@ -38042,6 +38046,14 @@ table td
   <td class="method"><b>abort</b>()</td>
 </tr>
 <tr>
+  <td class="method">bool</td>
+  <td class="method"><b>interactive_test_wait_for_event</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_EVENT*</td>
+  <td class="method"><b>interactive_test_get_current_event</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>handle_interactive_test_event</b>(ALLEGRO_EVENT* current_event=nullptr)</td>
 </tr>
@@ -38051,7 +38063,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>render_interactive_test_status</b>()</td>
+  <td class="method"><b>interactive_test_render_status</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
