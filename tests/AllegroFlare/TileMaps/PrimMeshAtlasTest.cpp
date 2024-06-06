@@ -48,7 +48,7 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlasTest, can_be_created_without_blowing_up)
 #endif
 
 
-std::string build_test_filename_png(std::string test_name)
+static std::string build_test_filename_png(std::string test_name)
 {
    return TEMP_TEST_FILE_PATH + test_name + ".png";
 }

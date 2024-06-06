@@ -28,7 +28,7 @@
 #endif
 
 
-std::string build_test_filename_png(std::string test_name)
+static std::string build_test_filename_png(std::string test_name)
 {
    return TEMP_TEST_FILE_PATH + test_name + ".png";
 }
@@ -96,7 +96,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
 }
 
 
-TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
+TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
    get_tile_sub_bitmap__when_a_tile_does_not_exist_at_that_index__returns_a_nullptr)
 {
    // TODO
