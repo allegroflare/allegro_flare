@@ -226,7 +226,7 @@ TEST(AllegroFlare_AudioControllerTest,
    audio_controller.initialize();
 
    audio_controller.play_music_track(music_identifier);
-   sleep(2);
+   al_rest(2);
 
    audio_controller.destruct();
 
@@ -257,7 +257,7 @@ TEST(AllegroFlare_AudioControllerTest,
    audio_controller.set_and_load_sound_effect_elements(sound_effect_elements);
 
    audio_controller.play_sound_effect("pickup_health");
-   sleep(2);
+   al_rest(2);
 
    audio_controller.destruct();
 
