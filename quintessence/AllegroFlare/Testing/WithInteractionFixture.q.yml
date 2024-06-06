@@ -1,0 +1,36 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Testing::WithAllegroRenderingFixture
+    scope: public
+    init_with: ''
+
+
+methods:
+
+
+  - name: SetUp
+    type: void
+    virtual: true
+    override: true
+    body: |
+      AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+      return;
+
+
+  - name: TearDown
+    type: void
+    virtual: true
+    override: true
+    body: |
+      AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Testing::WithAllegroRenderingFixture
+    headers: [ AllegroFlare/Testing/WithAllegroRenderingFixture.hpp ]
+
+
