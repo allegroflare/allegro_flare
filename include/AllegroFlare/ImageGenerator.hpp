@@ -42,7 +42,13 @@ namespace AllegroFlare
       ALLEGRO_BITMAP *create_pixel_pattern_4(ALLEGRO_COLOR pixel1_color, ALLEGRO_COLOR pixel2_color, int x_distance=5, float slope=-1);
 
       // graphs
-      ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(float (*interpolator_func)(float), float size=512, ALLEGRO_COLOR col=AllegroFlare::color::white, float thickness=5, float padding=0);
+      ALLEGRO_BITMAP *generate_interpolator_graph_bitmap(
+         float (*interpolator_func)(float),
+         float size=512,
+         ALLEGRO_COLOR col=AllegroFlare::color::white,
+         float thickness=5,
+         float padding=0
+      );
    };
 }
 
