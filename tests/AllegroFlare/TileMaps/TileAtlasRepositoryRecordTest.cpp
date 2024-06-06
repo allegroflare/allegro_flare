@@ -11,11 +11,3 @@ TEST(AllegroFlare_TileMaps_TileAtlasRepositoryRecordTest, can_be_created_without
 }
 
 
-TEST(AllegroFlare_TileMaps_TileAtlasRepositoryRecordTest, can_be_created_without_blowing_up)
-{
-   al_init();
-   AllegroFlare::TileMaps::TileAtlasRepositoryRecord tile_atlas_repository_record;
-   al_uninstall_system();
-}
-
-
