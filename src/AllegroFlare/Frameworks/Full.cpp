@@ -47,8 +47,8 @@ namespace Frameworks
 
 
 Full::Full()
-   : logger_instance()
-   , screens()
+   //: logger_instance()
+   : screens()
    , initialized(false)
    , config(DEFAULT_CONFIG_FILENAME)
    , profiler()
@@ -294,17 +294,17 @@ bool Full::initialize_core_system()
    // TODO: throw if alt, shift, command, or ctrl are pressed, or capture initial state and
    // set the values for these to correct values
 
-   AllegroFlare::Logger::set_instance(&logger_instance);
+   //AllegroFlare::Logger::set_instance(&logger_instance);
 
-   if (!log_file_is_disabled)
-   {
-      logger_instance.set_log_filename(LOG_FILENAME);
-      logger_instance.initialize_log_file();
-      AllegroFlare::Logger::info_from(
-            "AllegroFlare::Frameworks::Full::",
-            "Initialized AllegroFlare::Logger to \"" + LOG_FILENAME + "\""
-         );
-   }
+   //if (!log_file_is_disabled)
+   //{
+      //logger_instance.set_log_filename(LOG_FILENAME);
+      //logger_instance.initialize_log_file();
+      //AllegroFlare::Logger::info_from(
+            //"AllegroFlare::Frameworks::Full::",
+            //"Initialized AllegroFlare::Logger to \"" + LOG_FILENAME + "\""
+         //);
+   //}
 
 
 
@@ -1138,12 +1138,12 @@ bool Full::shutdown()
    //}
 
 
-   AllegroFlare::Logger::clear_instance();
+   //AllegroFlare::Logger::clear_instance();
 
-   if (!log_file_is_disabled)
-   {
-      logger_instance.close_log_file();
-   }
+   //if (!log_file_is_disabled)
+   //{
+      //logger_instance.close_log_file();
+   //}
 
    return true;
 }

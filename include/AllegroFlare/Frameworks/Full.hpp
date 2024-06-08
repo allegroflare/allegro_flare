@@ -33,7 +33,7 @@
 #include <AllegroFlare/InputDevicesList.hpp>
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/Routers/Base.hpp>
-#include <AllegroFlare/Logger.hpp>
+//#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/SyncOracle.hpp>
 #include <AllegroFlare/DisplaySettingsInterfaces/Base.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
@@ -48,7 +48,7 @@ namespace AllegroFlare
       class Full
       {
       private:
-         AllegroFlare::Logger logger_instance;
+         //AllegroFlare::Logger logger_instance;
          ScreenManagers::Dictionary screens;
          bool initialized;
          Config config;

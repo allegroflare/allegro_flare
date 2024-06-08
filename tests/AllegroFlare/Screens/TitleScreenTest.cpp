@@ -219,3 +219,17 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroFlareFrameworksFullFixture
 }
 
 
+TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroFlareFrameworksFullFixture,
+   TIMED_INTERACTIVE__will_work_in_a_frameworks_full_context__with_a_non_display_backbuffer_2)
+{
+   AllegroFlare::Screens::TitleScreen title_screen;
+   title_screen.set_event_emitter(get_framework_event_emitter());
+   title_screen.set_font_bin(get_framework_font_bin());
+   title_screen.set_bitmap_bin(get_framework_bitmap_bin());
+
+   framework_register_and_activate_screen("title_screen", &title_screen);
+
+   framework_run_loop(3);
+}
+
+
