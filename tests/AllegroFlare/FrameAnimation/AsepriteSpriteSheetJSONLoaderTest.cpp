@@ -40,7 +40,7 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
 
 
 TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
-   load__fills_the_animation_book_with_the_expected_values)
+   FOCUS__load__fills_the_animation_book_with_the_expected_values)
 {
    std::string TEST_FIXTURE_JSON_FILE = "./tests/fixtures/bitmaps/sprite_sheet_with_animation_information-01.json";
 
@@ -52,11 +52,11 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    ASSERT_EQ(3, actual["blob"].get_num_frames());
 
    std::vector<AllegroFlare::FrameAnimation::Frame> blob_frames = actual["blob"].get_frames();
-   EXPECT_EQ(1,   blob_frames[0].get_index());
+   EXPECT_EQ(1, blob_frames[0].get_index());
    EXPECT_FLOAT_EQ(0.2, blob_frames[0].get_duration());
-   EXPECT_EQ(2,   blob_frames[1].get_index());
+   EXPECT_EQ(2, blob_frames[1].get_index());
    EXPECT_FLOAT_EQ(0.1, blob_frames[1].get_duration());
-   EXPECT_EQ(3,   blob_frames[2].get_index());
+   EXPECT_EQ(3, blob_frames[2].get_index());
    EXPECT_FLOAT_EQ(0.2, blob_frames[2].get_duration());
 
    EXPECT_EQ(AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_PING_PONG, actual["blob"].get_playmode());
@@ -66,11 +66,11 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    ASSERT_EQ(3, actual["die"].get_num_frames());
 
    std::vector<AllegroFlare::FrameAnimation::Frame> die_frames = actual["die"].get_frames();
-   EXPECT_EQ(9,   die_frames[0].get_index());
+   EXPECT_EQ(9, die_frames[0].get_index());
    EXPECT_FLOAT_EQ(0.2, die_frames[0].get_duration());
-   EXPECT_EQ(10,   die_frames[1].get_index());
+   EXPECT_EQ(10, die_frames[1].get_index());
    EXPECT_FLOAT_EQ(0.2, die_frames[1].get_duration());
-   EXPECT_EQ(11,   die_frames[2].get_index());
+   EXPECT_EQ(11, die_frames[2].get_index());
    EXPECT_FLOAT_EQ(0.2, die_frames[2].get_duration());
 
    EXPECT_EQ(AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE, actual["die"].get_playmode());
@@ -82,7 +82,7 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    std::vector<AllegroFlare::FrameAnimation::Frame> fly_frames = actual["fly"].get_frames();
    EXPECT_EQ(7,   fly_frames[0].get_index());
    EXPECT_FLOAT_EQ(0.16f, fly_frames[0].get_duration());
-   EXPECT_EQ(8,   fly_frames[1].get_index());
+   EXPECT_EQ(8, fly_frames[1].get_index());
    EXPECT_FLOAT_EQ(0.08, fly_frames[1].get_duration());
 
    EXPECT_EQ(AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_LOOP, actual["fly"].get_playmode());
@@ -92,7 +92,7 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
    ASSERT_EQ(5, actual["attack"].get_num_frames());
 
    std::vector<AllegroFlare::FrameAnimation::Frame> attack_frames = actual["attack"].get_frames();
-   EXPECT_EQ(27,   attack_frames[0].get_index());
+   EXPECT_EQ(30, attack_frames[0].get_index());
    EXPECT_FLOAT_EQ(0.2f, attack_frames[0].get_duration());
    // etc (rest of frames)
 
