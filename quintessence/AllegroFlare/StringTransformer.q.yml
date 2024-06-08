@@ -8,6 +8,14 @@ properties:
     getter: true
 
 
+documentation:
+
+
+  - todos:
+      - There's a good "replace()" in Logger, as well as a few other string manipulation methods. You should move
+        them here.
+
+
 methods:
 
 
