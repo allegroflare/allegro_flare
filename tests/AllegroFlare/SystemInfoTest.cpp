@@ -54,7 +54,7 @@ TEST(AllegroFlare_SystemInfoTest, get_hostname__will_return_a_string_representin
    AllegroFlare::SystemInfo system_info;
    std::vector<std::string> expected_possible_hostnames = {
       "DESKTOP-NC9M1BH",            // Mark's Laptop
-      "Marks-MacBook-Pro.local", // Mark's Mac Laptop
+      "Marks-MacBook-Pro.local",    // Mark's Mac Laptop
       "Marks-13-MacBook-Pro.local", // Mark's 13" Mac Laptop
       "Marks-Mac-mini.local",       // Mark's MacMini
    };
