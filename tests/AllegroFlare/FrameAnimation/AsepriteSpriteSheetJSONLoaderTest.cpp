@@ -40,7 +40,7 @@ TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
 
 
 TEST(AllegroFlare_FrameAnimation_AsepriteSpriteSheetJSONLoaderTest,
-   FOCUS__load__fills_the_animation_book_with_the_expected_values)
+   load__fills_the_animation_book_with_the_expected_values)
 {
    std::string TEST_FIXTURE_JSON_FILE = "./tests/fixtures/bitmaps/sprite_sheet_with_animation_information-01.json";
 

@@ -143,11 +143,7 @@ void CameraProjectionChanges::initialize_platforming_2d()
    platforming_2d_screen.set_currently_active_map("map_a");
 
 
-
    // create some entities
-
-
-
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory(&framework.get_bitmap_bin_ref());
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* created_entity =
@@ -155,7 +151,7 @@ void CameraProjectionChanges::initialize_platforming_2d()
    created_entity->get_place_ref().position.x = 400/2;
    created_entity->get_place_ref().position.y = 240/2;
 
-   platforming_2d_screen.set_player_controlled_entity(created_entity);
+   platforming_2d_screen.set_player_controlled_entity(created_entity, false, false);
    platforming_2d_screen.add_entity_to_pool(created_entity);
 
    for (unsigned i=0; i<6; i++)
@@ -188,7 +184,7 @@ void CameraProjectionChanges::initialize_platforming_2d()
    );
 
 
-
+   platforming_2d_screen.set_data_folder_path(TEST_FIXTURES_PATH);
 
    platforming_2d_screen.initialize();
 
