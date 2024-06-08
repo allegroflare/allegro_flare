@@ -40,6 +40,14 @@ properties:
   - name: loaded
     type: bool
     init_with: false
+
+
+documentation:
+
+
+  - todos:
+    - This class is actually an integration when used as expected. Consider testing it on both sides, in
+      /../Repos/AllegroFlare and in /../Assets/
     
 
 methods:

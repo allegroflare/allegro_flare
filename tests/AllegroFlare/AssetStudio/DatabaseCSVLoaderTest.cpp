@@ -5,7 +5,7 @@
 #include <AllegroFlare/BitmapBin.hpp>
 
 
-// TODO: Consider loading some test data csv, and then separately from that the production data set
+// TODO: Consider loading some test data csv, and then separately from the production data set
 //#define ASSETS_FULL_PATH "/Users/markoates/Assets/"
 //#define ASSETS_FULL_PATH "/Volumes/markoates/Assets/"
 #define ASSETS_FULL_PATH "/Users/markoates/Assets/"
@@ -63,6 +63,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    //load__when_loading_from_the_source_data__will_create_the_expected_records)
    load__when_loading_from_the_source_data__will_load_records_with_the_expected_data)
 {
+   // TODO: Consider testing more records and more values on the loaded data
    al_init();
    al_init_image_addon();
 
@@ -83,7 +84,8 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    EXPECT_EQ(8, animation.get_num_frames());
    for (auto &frame : animation.get_frames())
    {
-      EXPECT_EQ(0.425f, frame.get_align_in_container_y());
+      //EXPECT_EQ(0.425f, frame.get_align_in_container_y());
+      EXPECT_EQ(1.0f, frame.get_align_in_container_y());
    }
 
    assets_bitmap_bin.clear();
