@@ -691,6 +691,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          activate_screen(GAME_WON_OUTRO_STORYBOARD_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_ARBITRARY_STORYBOARD_SCREEN, [this, route_event_data](){
+         (void)(route_event_data); // TODO: See if this argument should just be removed
          if (on_arbitrary_storyboard_screen_activated_func)
          {
             // TODO: Consider if this should return a boolean on success
@@ -725,6 +726,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          activate_screen(PAUSE_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_SCREEN_BY_IDENTIFIER, [this, route_event_data](){
+         (void)(route_event_data); // TODO: See if this argument should just be removed
          // TODO: Test this event
 
          // TODO: Test this condition

@@ -74,7 +74,7 @@ TEST_F(AllegroFlare_Screens_LevelSelectScreenTestWithAllegroRenderingFixture,
    level_select_screen.initialize();
 
    int my_callback_user_data_representing_num_callback_calls = 0;
-   level_select_screen.set_on_menu_choice_callback_func([this](AllegroFlare::Screens::LevelSelectScreen*, void* data) {
+   level_select_screen.set_on_menu_choice_callback_func([](AllegroFlare::Screens::LevelSelectScreen*, void* data) {
       // Increment my_callback_user_data_representing_num_callback_calls
       (*(int*)data)++;
    });
@@ -97,7 +97,7 @@ TEST_F(AllegroFlare_Screens_LevelSelectScreenTestWithAllegroFrameworksFullFixtur
    level_select_screen.set_font_bin(get_framework_font_bin());
    // TODO: As alternative to creating this dummy callback, could (and and) set submit_on_activate_if_empty to false
    level_select_screen.set_on_menu_choice_callback_func(
-      [this](AllegroFlare::Screens::LevelSelectScreen*, void* data) {} // Nothing to do
+      [](AllegroFlare::Screens::LevelSelectScreen*, void* data) {} // Nothing to do
    );
    level_select_screen.initialize();
 
@@ -118,7 +118,7 @@ will_call_on_menu_choice_callback_func)
    level_select_screen.initialize();
 
    int my_callback_user_data_representing_num_callback_calls = 0;
-   level_select_screen.set_on_menu_choice_callback_func([this](AllegroFlare::Screens::LevelSelectScreen*, void* data) {
+   level_select_screen.set_on_menu_choice_callback_func([](AllegroFlare::Screens::LevelSelectScreen*, void* data) {
       // Increment my_callback_user_data_representing_num_callback_calls
       (*(int*)data)++;
    });
