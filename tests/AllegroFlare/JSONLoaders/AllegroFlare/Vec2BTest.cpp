@@ -36,7 +36,7 @@ R"({
    nlohmann::json parsed_json = nlohmann::json::parse(json);
    parsed_json.get_to(vec2b);
 
-   AllegroFlare::Vec2B expected(1.5);
+   AllegroFlare::Vec2B expected(true);
 
    // TODO: Add/use comparison operators on the Vec2B class and use here
    EXPECT_EQ(expected.get_x(), vec2b.get_x());
