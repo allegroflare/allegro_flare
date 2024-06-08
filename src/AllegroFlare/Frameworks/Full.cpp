@@ -294,19 +294,12 @@ bool Full::initialize_core_system()
    // TODO: throw if alt, shift, command, or ctrl are pressed, or capture initial state and
    // set the values for these to correct values
 
-   //static std::string LOG_FILENAME = "flare_log.txt";
-   //ASSERT_EQ(false, std::filesystem::exists(TEST_LOG_FILENAME));
-
-   //AllegroFlare::Logger logger;
-
-   //AllegroFlare::Logger::set_instance(&logger_instance);
    AllegroFlare::Logger::set_instance(&logger_instance);
 
    if (!log_file_is_disabled)
    {
       logger_instance.set_log_filename(LOG_FILENAME);
       logger_instance.initialize_log_file();
-      //AllegroFlare::Logger::set_instance(&logger_instance);
       AllegroFlare::Logger::info_from(
             "AllegroFlare::Frameworks::Full::",
             "Initialized AllegroFlare::Logger to \"" + LOG_FILENAME + "\""
