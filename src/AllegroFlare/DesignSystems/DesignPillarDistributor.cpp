@@ -23,7 +23,7 @@ DesignPillarDistributor::~DesignPillarDistributor()
 }
 
 
-std::vector<AllegroFlare::DesignSystems::DesignFocus> DesignPillarDistributor::build_distribution()
+std::vector<AllegroFlare::DesignSystems::DesignFocus> DesignPillarDistributor::build_distribution(int seed)
 {
    std::vector<AllegroFlare::DesignSystems::DesignFocus> result;
 
@@ -37,7 +37,7 @@ std::vector<AllegroFlare::DesignSystems::DesignFocus> DesignPillarDistributor::b
 
    // 1) Shuffle all lists
    AllegroFlare::Random random;
-   random.set_seed(157618);
+   random.set_seed(seed);
    random.shuffle_elements(primary_source_list);
    random.shuffle_elements(secondary_source_list);
    random.shuffle_elements(tertiary_source_list);

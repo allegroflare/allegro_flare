@@ -23,7 +23,7 @@ namespace AllegroFlare
          DesignPillarDistributor();
          ~DesignPillarDistributor();
 
-         std::vector<AllegroFlare::DesignSystems::DesignFocus> build_distribution();
+         std::vector<AllegroFlare::DesignSystems::DesignFocus> build_distribution(int seed=157618);
          std::string select_not_of(std::vector<std::string> existing_elements={}, std::vector<std::string> elements_not_to_select={});
          std::vector<std::string> remove_element(std::vector<std::string> elements={}, std::string element_to_remove="[unset-element]");
          std::vector<std::string> build_source_list();
