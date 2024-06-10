@@ -7,6 +7,7 @@
 
 //#include <AllegroFlare/Network2/inc/chat_message.hpp>
 #include <AllegroFlare/Network2/Message.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 
@@ -124,22 +125,43 @@ private:
 
   void read_header()
   {
-    asio::async_read(socket,
+     asio::async_read(socket,
         asio::buffer(message_being_read.data_ptr(), AllegroFlare::Network2::Message::HEADER_LENGTH),
-        [this](std::error_code ec, std::size_t /*length*/)
+        [this](std::error_code error_code, std::size_t /*length*/)
         {
-          if (!ec && message_being_read.decode_header_and_validate().empty())
-          {
-            read_body();
-          }
-          else
-          {
-            std::stringstream error_message;
-            error_message << "AllegroFlare::Network2::Client error: read_header() returned with an error.";
-            std::cout << error_message.str() << std::endl;
+           bool header_parsed_correctly = false;
+           if (error_code)
+           {
+              std::stringstream error_message;
+              error_message << "AllegroFlare::Network2::Client error: read_header() returned with an error. "
+                            << "Closing the socket.";
+              std::cout << error_message.str() << std::endl;
 
-            socket.close();
-          }
+              socket.close();
+           }
+           else
+           {
+              std::vector<std::string> header_decoding_error_messages = message_being_read.decode_header_and_validate();
+
+              if (!header_decoding_error_messages.empty())
+              {
+                 AllegroFlare::Logger::error_from(
+                    "AllegroFlare::Network2::Client",
+                    "When decoding the header, errors were returned. Closing the socket."
+                 );
+
+                 socket.close();
+              }
+              else
+              {
+                 header_parsed_correctly = true;
+              }
+           }
+
+           if (header_parsed_correctly)
+           {
+              read_body();
+           }
         });
   }
 

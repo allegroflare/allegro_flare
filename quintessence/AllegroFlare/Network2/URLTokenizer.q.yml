@@ -9,7 +9,7 @@ properties:
     setter: true
 
 
-functions:
+methods:
 
 
   - name: extract_port
