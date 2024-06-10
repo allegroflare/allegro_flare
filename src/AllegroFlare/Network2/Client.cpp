@@ -39,7 +39,36 @@ static void sleep_for(float length_in_seconds)
 #include <deque>
 #include <iostream>
 #include <thread>
+
+
+
+
+
+
+// This guarded include is related to this issue:
+// https://github.com/chriskohlhoff/asio/issues/1148
+
+#if defined(__clang__)
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#elif defined(__GNUC__) || defined(__GNUG__)
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #include <asio.hpp>
+
+#if defined(__clang__)
+  #pragma clang diagnostic pop
+#elif defined(__GNUC__) || defined(__GNUG__)
+  #pragma GCC diagnostic pop
+#endif
+
+
+
+
+
+
 //#include "chat_message.hpp"
 
 using asio::ip::tcp;
@@ -134,7 +163,7 @@ private:
            {
               std::stringstream error_message;
               error_message << "AllegroFlare::Network2::Client error: read_header() returned with an error. "
-                            << "Closing the socket.";
+                            << "The error code was \"" << error_code << "\". The socket will now be closed.";
               std::cout << error_message.str() << std::endl;
 
               socket.close();

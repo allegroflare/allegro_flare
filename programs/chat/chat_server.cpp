@@ -17,8 +17,29 @@
 #include <memory>
 #include <set>
 #include <utility>
+
+
+// This guarded include is related to this issue:
+// https://github.com/chriskohlhoff/asio/issues/1148
+
+#if defined(__clang__)
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#elif defined(__GNUC__) || defined(__GNUG__)
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
+
 #include <asio.hpp>
 #include "chat_message.hpp"
+
+#if defined(__clang__)
+  #pragma clang diagnostic pop
+#elif defined(__GNUC__) || defined(__GNUG__)
+  #pragma GCC diagnostic pop
+#endif
+
+
 
 using asio::ip::tcp;
 
