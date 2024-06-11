@@ -127,9 +127,10 @@ methods:
          {
             // TODO: Test this throw
             std::stringstream error_message;
-            error_message << "The first row contained \"" << num_columns << "\", However the row \""
-                  << (line_num+1) << "\" containes \"" << parsed_row.size() << "\" columns. The number "
-                     "of columns must be the same on all rows.";
+            error_message
+                  << "The number of columns must be the same on all rows. "
+                  << "The first row contained \"" << num_columns << "\", However the row \""
+                  << (line_num+1) << "\" containes \"" << parsed_row.size() << "\" columns.";
             AllegroFlare::Logger::throw_error("AllegroFlare::CSVParser", error_message.str());
          }
 

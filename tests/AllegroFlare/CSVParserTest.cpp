@@ -225,6 +225,36 @@ TEST_F(AllegroFlare_CSVParserTest,
 }
 
 
+TEST_F(AllegroFlare_CSVParserTest,
+   DISABLED__assemble_column_headers__will_assemble_collapse_column_headers_when_multiple_header_rows_are_present)
+{
+   std::string raw_csv_content =
+     //0    1    2       3     4   5           6 7    8
+      "Name ,    ,Address,     ,Age,Coordinates, ,    , \n"
+      "First,Last,City   ,State,   ,Home       , ,Work, \n"
+      "     ,    ,       ,     ,   ,x          ,y,x   ,y\n"
+      ;
+   AllegroFlare::CSVParser csv_parser(raw_csv_content);
+   csv_parser.parse();
+
+   csv_parser.assemble_column_headers(3);
+   std::map<std::string, int> expected_column_headers = {
+      { "Address__City", 2 },
+      { "Address__State", 3 },
+      { "Name__First", 0 },
+      { "Name__Last", 1 },
+      { "Age", 4 },
+      { "Coordinates__Home__x", 5 },
+      { "Coordinates__Home__y", 6 },
+      { "Coordinates__Work__x", 7 },
+      { "Coordinates__Work__y", 8 },
+   };
+   std::map<std::string, int> actual_column_headers = csv_parser.get_column_headers();
+
+   EXPECT_EQ(expected_column_headers, actual_column_headers);
+}
+
+
 TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, assemble_column_headers__will_work_with_large_test_fixture)
 {
    load_fixture_file("csv/game_content_csv2.csv");
