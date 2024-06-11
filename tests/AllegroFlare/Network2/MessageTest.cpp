@@ -27,8 +27,8 @@ TEST(AllegroFlare_Network2_MessageTest,
    data___has_the_expected_size_which_is_the_sum_of_HEADER_LENGTH_and_MAX_BODY_LENGTH)
 {
    AllegroFlare::Network2::Message message;
-   int expected_data_size = AllegroFlare::Network2::Message::HEADER_LENGTH
-                          + AllegroFlare::Network2::Message::MAX_BODY_LENGTH;
+   std::size_t expected_data_size = AllegroFlare::Network2::Message::HEADER_LENGTH
+                                  + AllegroFlare::Network2::Message::MAX_BODY_LENGTH;
    EXPECT_EQ(expected_data_size, message.get_data().size());
 }
 
@@ -36,7 +36,7 @@ TEST(AllegroFlare_Network2_MessageTest,
 TEST(AllegroFlare_Network2_MessageTest, body_length__has_the_expected_default_value)
 {
    AllegroFlare::Network2::Message message;
-   EXPECT_EQ(0, message.get_body_length());
+   EXPECT_EQ(0UL, message.get_body_length());
 }
 
 
@@ -45,16 +45,16 @@ TEST(AllegroFlare_Network2_MessageTest, set_body_length__will_set_the_body_lengt
    AllegroFlare::Network2::Message message;
 
    message.set_body_length(256);
-   EXPECT_EQ(256, message.get_body_length());
+   EXPECT_EQ(256UL, message.get_body_length());
 
    message.set_body_length(1);
-   EXPECT_EQ(1, message.get_body_length());
+   EXPECT_EQ(1UL, message.get_body_length());
 
    message.set_body_length(AllegroFlare::Network2::Message::MAX_BODY_LENGTH);
    EXPECT_EQ(AllegroFlare::Network2::Message::MAX_BODY_LENGTH, message.get_body_length());
 
    message.set_body_length(0);
-   EXPECT_EQ(0, message.get_body_length());
+   EXPECT_EQ(0UL, message.get_body_length());
 }
 
 
