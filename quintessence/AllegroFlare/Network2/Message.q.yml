@@ -153,12 +153,13 @@ functions:
 
        char header[HEADER_LENGTH + 1] = "";
 
+
        std::string first_8 = std::string(MAGIC_HEADER_CHUNK) + body_size_base62();
 
-       std::sprintf(header,    MAGIC_HEADER_CHUNK); //.c_str());
-       std::sprintf(header+4,  body_size_base62().c_str());
-       std::sprintf(header+8,  first_4_chars_hash_of(first_8).c_str());
-       std::sprintf(header+12, first_4_chars_hash_of(get_body()).c_str());
+       std::snprintf(header,    5, "%s", MAGIC_HEADER_CHUNK); //.c_str());
+       std::snprintf(header+4,  5, "%s", body_size_base62().c_str());
+       std::snprintf(header+8,  5, "%s", first_4_chars_hash_of(first_8).c_str());
+       std::snprintf(header+12, 5, "%s", first_4_chars_hash_of(get_body()).c_str());
 
        std::memcpy(data_ptr(), header, HEADER_LENGTH);
        return;
