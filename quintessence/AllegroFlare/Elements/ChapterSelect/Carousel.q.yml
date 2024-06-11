@@ -180,7 +180,7 @@ methods:
       AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer renderer(bitmap_bin, font_bin);
       renderer.set_element_font_identifier(element_font_identifier);
       renderer.set_element_font_size(element_font_size);
-      int position = 0;
+      //int position = 0;
       for (auto &element : elements)
       {
          std::tuple<float, float, float, float> element_dimensions = get_element_dimensions(element);
@@ -202,7 +202,7 @@ methods:
                //2.0f
             //);
          list_element_placement.restore_transform();
-         position++;
+         //position++;
       }
       camera.restore_transform();
       return;
