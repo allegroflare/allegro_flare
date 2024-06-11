@@ -19,7 +19,7 @@ properties:
 
   - name: primary_timer_is_active
     type: bool
-    init_with: nullptr
+    init_with: false
     getter: true
 
   - name: hyper_primary_timer
