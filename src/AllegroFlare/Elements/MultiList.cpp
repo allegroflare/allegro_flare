@@ -419,7 +419,7 @@ void MultiList::draw_list_item(float x, float y, float width, float height, std:
          int dropshadow_offset_x = 3;
          int dropshadow_offset_y = 3;
          // Draw the text
-         al_draw_textf(
+         al_draw_text(
             medium_hud_font,
             dropshadow_color,
             text_x + dropshadow_offset_x,
@@ -430,7 +430,7 @@ void MultiList::draw_list_item(float x, float y, float width, float height, std:
       }
 
       // Draw the text
-      al_draw_textf(
+      al_draw_text(
          medium_hud_font,
          text_color,
          text_x,
