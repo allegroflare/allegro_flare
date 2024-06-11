@@ -47,8 +47,9 @@ TEST_F(AllegroFlare_CSVParserTest, parse_row__returns_the_row_parsed_into_tokens
 
 
 TEST_F(AllegroFlare_CSVParserTest,
-   DISABLED__parse_row__will_account_for_quoted_tokens_and_escaped_quotes_within_quoted_tokens)
+   parse_row__will_account_for_quoted_tokens_and_escaped_quotes_within_quoted_tokens)
 {
+   GTEST_SKIP() << "This feature needs to be implemented";
    // TODO: Enable quotes within quoted string tokens
    AllegroFlare::CSVParser csv_parser;
    std::string line = "John,Doe,\"123, Main St\",\"This is a \"\"quoted\"\" string\",42";
@@ -226,7 +227,7 @@ TEST_F(AllegroFlare_CSVParserTest,
 
 
 TEST_F(AllegroFlare_CSVParserTest,
-   DISABLED__assemble_column_headers__will_assemble_collapse_column_headers_when_multiple_header_rows_are_present)
+   DISABLED__assemble_column_headers__will_collapse_column_headers_appropriately_when_multiple_header_rows_are_present)
 {
    std::string raw_csv_content =
      //0    1    2       3     4   5           6 7    8
