@@ -24,6 +24,7 @@ namespace AllegroFlare
       AllegroFlare::StringTransformer& upcase();
       AllegroFlare::StringTransformer& expand(int num_spaces=3);
       static std::string join_with_commas(std::set<std::string>* elements=nullptr);
+      static std::string remove_non_alphanumeric(std::string input="[unset-input]");
    };
 }
 

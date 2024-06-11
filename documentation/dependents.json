@@ -3791,6 +3791,12 @@
   "std/toupper": [
     "AllegroFlare/StringTransformer"
   ],
+  "isspace": [
+    "AllegroFlare/StringTransformer"
+  ],
+  "isalnum": [
+    "AllegroFlare/StringTransformer"
+  ],
   "ALLEGRO_JOYSTICK_STATE": [
     "AllegroFlare/SuspendedJoystickState"
   ],

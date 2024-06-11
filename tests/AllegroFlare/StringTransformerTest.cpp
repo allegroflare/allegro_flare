@@ -44,3 +44,20 @@ TEST(AllegroFlare_StringTransformerTest, join_with_commas__will_join_the_string_
 }
 
 
+TEST(AllegroFlare_StringTransformerTest, remove_non_alphanumeric__will_remove_any_unwanted_characters)
+{
+   std::vector<std::pair<std::string, std::string>> test_data = {
+      { "hello world", "helloworld" },
+      { "+54 and me", "54andme" },
+   };
+
+   std::string subject, expected;
+   for (auto &test_datum : test_data)
+   {
+      std::tie(subject, expected) = test_datum;
+      std::string actual = AllegroFlare::StringTransformer::remove_non_alphanumeric(subject);
+      EXPECT_EQ(expected, actual);
+   }
+}
+
+

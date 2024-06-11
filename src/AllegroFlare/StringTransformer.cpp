@@ -91,6 +91,20 @@ std::string StringTransformer::join_with_commas(std::set<std::string>* elements)
    return result.str();
 }
 
+std::string StringTransformer::remove_non_alphanumeric(std::string input)
+{
+   std::string output = "";
+   for (int i = 0; i < input.size(); i++)
+   {
+       if (isalnum(input[i])) output += input[i];
+       //|| isspace(input[i]))
+       //{
+           //output += input[i];
+       //}
+   }
+   return output;
+}
+
 
 } // namespace AllegroFlare
 

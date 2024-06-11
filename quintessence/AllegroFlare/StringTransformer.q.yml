@@ -87,6 +87,30 @@ methods:
       - std::stringstream
 
 
+  - name: remove_non_alphanumeric
+    type: std::string
+    static: true
+    parameters:
+      - name: input
+        type: std::string
+        default_argument: '"[unset-input]"'
+    body: |
+      std::string output = "";
+      for (int i = 0; i < input.size(); i++)
+      {
+          if (isalnum(input[i])) output += input[i];
+          //|| isspace(input[i]))
+          //{
+              //output += input[i];
+          //}
+      }
+      return output;
+    body_dependency_symbols:
+      - isalnum
+      - isspace
+      - isalnum
+
+
 dependencies:
 
 
@@ -95,6 +119,10 @@ dependencies:
   - symbol: std::transform
     headers: [ algorithm ]
   - symbol: std::toupper
+    headers: [ cctype ]
+  - symbol: isspace
+    headers: [ cctype ]
+  - symbol: isalnum
     headers: [ cctype ]
 
 

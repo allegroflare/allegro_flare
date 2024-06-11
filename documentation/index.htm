@@ -36617,6 +36617,10 @@ table td
   <td class="method">std::string</td>
   <td class="method"><b>join_with_commas</b>(std::set&lt;std::string&gt;* elements=nullptr)</td>
 </tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>remove_non_alphanumeric</b>(std::string input=&quot;[unset-input]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -36628,6 +36632,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::toupper&quot;, &quot;headers&quot;=&gt;[&quot;cctype&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;isspace&quot;, &quot;headers&quot;=&gt;[&quot;cctype&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;isalnum&quot;, &quot;headers&quot;=&gt;[&quot;cctype&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -47469,6 +47479,12 @@ table td
     "AllegroFlare/StringTransformer"
   ],
   "std/toupper": [
+    "AllegroFlare/StringTransformer"
+  ],
+  "isspace": [
+    "AllegroFlare/StringTransformer"
+  ],
+  "isalnum": [
     "AllegroFlare/StringTransformer"
   ],
   "ALLEGRO_JOYSTICK_STATE": [
