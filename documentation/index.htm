@@ -1958,6 +1958,12 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StringTransformer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StringTransformer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::reverse&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -44462,6 +44468,17 @@ table td
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
+  "AllegroFlare/StringTransformer": [
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/StringTransformer"
+  ],
+  "std/reverse": [
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/MusicNotation/AccidentalStacker",
+    "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
+  ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
@@ -45849,11 +45866,6 @@ table td
     "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
   ],
-  "AllegroFlare/StringTransformer": [
-    "AllegroFlare/Elements/FUI/PanningGrid",
-    "AllegroFlare/Elements/MultiList",
-    "AllegroFlare/StringTransformer"
-  ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
@@ -46647,10 +46659,6 @@ table td
     "AllegroFlare/MusicNotation/AccidentalStacker",
     "AllegroFlare/MusicNotation/ChordDotPositionCalculator",
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver",
-    "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
-  ],
-  "std/reverse": [
-    "AllegroFlare/MusicNotation/AccidentalStacker",
     "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
   ],
   "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [

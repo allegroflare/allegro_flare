@@ -227,7 +227,7 @@ TEST_F(AllegroFlare_CSVParserTest,
 
 
 TEST_F(AllegroFlare_CSVParserTest,
-   DISABLED__assemble_column_headers__will_collapse_column_headers_appropriately_when_multiple_header_rows_are_present)
+   assemble_column_headers__will_collapse_column_headers_appropriately_when_multiple_header_rows_are_present)
 {
    std::string raw_csv_content =
      //0    1    2       3     4   5           6 7    8

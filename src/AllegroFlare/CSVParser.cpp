@@ -3,7 +3,9 @@
 #include <AllegroFlare/CSVParser.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/StringTransformer.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -402,6 +404,13 @@ void CSVParser::assemble_column_headers(int num_rows_of_column_headers)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"(num_rows_of_column_headers <= num_raw_rows())\" not met");
    }
+   if (!((num_rows_of_column_headers > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"(num_rows_of_column_headers > 0)\" not met");
+   }
    AllegroFlare::CSVParser &parser = *this;
    //(num_rows_of_column_headers <= parser.num_rows()), (num_rows_of_column_headers <= 2) ]
 
@@ -409,50 +418,111 @@ void CSVParser::assemble_column_headers(int num_rows_of_column_headers)
    num_header_rows = num_rows_of_column_headers;
    column_headers.clear();
 
+   // TODO: Add tests for cases where multi-row column headers will not line up as expected, and throw error.
+
    // TODO: Add a test test with greater than 2 rows for column headers
    // TODO: Remove this warning
-   AllegroFlare::Logger::warn_from(
-      "AllegroFlare::CSVParser",
-      "CSVParser does not properly collapse identifiers when there are more than 2 header rows. Middle colums "
-         "are not properly collapsed. You can eiter add the feature here OR you can add the extra column headers "
-         "in each \"intermediate\" header row in your sheet (the ones not the first or last)."
-   );
+   //AllegroFlare::Logger::warn_from(
+      //"AllegroFlare::CSVParser",
+      //"CSVParser does not properly collapse identifiers when there are more than 2 header rows. Middle colums "
+         //"are not properly collapsed. You can eiter add the feature here OR you can add the extra column headers "
+         //"in each \"intermediate\" header row in your sheet (the ones not the first or last)."
+   //);
 
 
    // TODO: Only get the min required rows
-   std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
+   std::vector<std::vector<std::string>> parsed_content = get_parsed_content();
    std::vector<std::string> collapsed_column_names;
-   collapsed_column_names.resize(parser.num_columns());
+   collapsed_column_names.resize(num_columns());
 
-   // TODO: Assemble on multiple rows
-   bool on_first_row = true;
-   std::string last_parsed_column = "";
+
+
+   // Extract the first column of cells
+   std::vector<std::string> first_column_cells;
+   //std::cout << "first_column_cells:" << std::endl;
+   //for (int row_num=(num_header_rows-1); row_num>=0; row_num--)
    for (int row_num=0; row_num<num_header_rows; row_num++)
    {
-      //std::cout << "--- parsing row " << row_num << std::endl;
-      for (int column_num=0; column_num<parser.num_columns(); column_num++)
-      {
-         // TODO: Confirm column header is unique
-         std::string this_cell_content = AllegroFlare::php::trim(parsed_content[row_num][column_num]);
-         //std::cout << "   -> this cell \"" << this_cell_content << "\"" << std::endl;
+      std::string token = parsed_content[row_num][0];
+      std::string cell_value = AllegroFlare::php::trim(token);
+      first_column_cells.push_back(cell_value);
+      //std::cout << "  " << row_num << " ##" << cell_value << "##" << std::endl;
+   }
 
-         if (on_first_row)
+
+   std::vector<std::string> collapsed_prior_column_cells = first_column_cells;
+
+
+   for (int column_num=0; column_num<num_columns(); column_num++)
+   {
+      std::vector<std::string> this_column_cells;
+      for (int row_num=(num_header_rows-1); row_num>=0; row_num--)
+      //for (int row_num=0; row_num<num_header_rows; row_num++)
+      {
+         std::string token = parsed_content[row_num][column_num];
+         std::string cell_value = AllegroFlare::php::trim(token);
+         this_column_cells.push_back(cell_value);
+      }
+
+      std::vector<std::string> final_tokens;
+      bool nonempty_token_found = false;
+      // From the bottom row of tokens in this column, find the first non-empty
+      for (int row_num=(num_header_rows-1); row_num>=0; row_num--)
+      {
+         std::string token = parsed_content[row_num][column_num];
+         std::string cell_value = AllegroFlare::php::trim(token);
+
+         // If it's a non-empty cell, fill the collapsed_prior_column_cells cell with the value
+         if (!cell_value.empty())
          {
-            if (!this_cell_content.empty()) last_parsed_column = this_cell_content;
-            collapsed_column_names[column_num] = last_parsed_column;
-            //std::cout << "   -# last_parsed_column \"" << last_parsed_column << "\"" << std::endl;
+            collapsed_prior_column_cells[row_num] = cell_value;
+         }
+
+         //std::string cell_value = parsed_content[row_num][column_num];
+         if (!nonempty_token_found)
+         {
+            if (cell_value.empty())
+            {
+               //final_tokens.push_back("---");
+               continue;
+            }
+
+            final_tokens.push_back(cell_value);
+            nonempty_token_found = true;
          }
          else
          {
-            std::string existing_cell_content = collapsed_column_names[column_num];
-            if (!this_cell_content.empty())
+            if (cell_value.empty())
             {
-               collapsed_column_names[column_num] += ("__" + this_cell_content);
+               // Retrieve value from collapsed column and use it as the token
+               std::string cell_value_to_fill = collapsed_prior_column_cells[row_num];
+               //std::cout << "Collapsing, using row_num: " << row_num << " with value: ##"
+                         //<< cell_value_to_fill << "## " << std::endl;
+               final_tokens.push_back(cell_value_to_fill);
+            }
+            else
+            {
+               final_tokens.push_back(cell_value);
             }
          }
       }
-      on_first_row = false;
+
+      // For debugging, output final tokens
+      //std::cout << "++++++++++ tokens START ++++++++++++" << std::endl;
+      int i=(num_header_rows-1);
+      for (auto &final_token : final_tokens)
+      {
+         //std::cout << "   " << i << " ##" << final_token << "##" << std::endl;
+         i--;
+      }
+      std::reverse(final_tokens.begin(), final_tokens.end());
+      std::string final_column_header = AllegroFlare::StringTransformer::join(&final_tokens, "__");
+      //std::cout << " --- final_column_header: \"" << final_column_header << "\"" << std::endl;
+      //std::cout << "++++++++++ tokens END ++++++++++++" << std::endl;
+
+      collapsed_column_names[column_num] = final_column_header;
    }
+
 
    // Reverse the collapsed_column_names into the column_headers
    for (std::size_t column_num=0; column_num<collapsed_column_names.size(); column_num++)

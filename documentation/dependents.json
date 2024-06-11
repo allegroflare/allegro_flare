@@ -768,6 +768,17 @@
   "AllegroFlare/draw_3d_line": [
     "AllegroFlare/Bone3DGraphRenderer"
   ],
+  "AllegroFlare/StringTransformer": [
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/Elements/FUI/PanningGrid",
+    "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/StringTransformer"
+  ],
+  "std/reverse": [
+    "AllegroFlare/CSVParser",
+    "AllegroFlare/MusicNotation/AccidentalStacker",
+    "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
+  ],
   "AllegroFlare/Placement2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/BasicCentered",
@@ -2155,11 +2166,6 @@
     "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
   ],
-  "AllegroFlare/StringTransformer": [
-    "AllegroFlare/Elements/FUI/PanningGrid",
-    "AllegroFlare/Elements/MultiList",
-    "AllegroFlare/StringTransformer"
-  ],
   "AllegroFlare/FontAwesome": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
@@ -2953,10 +2959,6 @@
     "AllegroFlare/MusicNotation/AccidentalStacker",
     "AllegroFlare/MusicNotation/ChordDotPositionCalculator",
     "AllegroFlare/MusicNotation/ChordNoteheadPositionResolver",
-    "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
-  ],
-  "std/reverse": [
-    "AllegroFlare/MusicNotation/AccidentalStacker",
     "AllegroFlare/MusicNotation/Parser/PitchTokenSorter"
   ],
   "AllegroFlare/MusicNotation/Parser/PitchTokenSorter": [
