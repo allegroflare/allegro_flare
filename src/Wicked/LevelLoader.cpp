@@ -359,7 +359,7 @@ void LevelLoader::load(
          mesh_json_entity.at("num_rows").get_to(num_rows);
          mesh_json_entity.at("tiles").get_to(tiles);
 
-         if (tiles.size() != (num_rows * num_columns))
+         if ((int)tiles.size() != (num_rows * num_columns))
          {
             std::stringstream error_message;
             error_message << "LevelLoader::load] loading mesh, num_columns*num_rows (" << num_rows*num_columns << ") "
