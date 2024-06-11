@@ -44,6 +44,16 @@ TEST(AllegroFlare_StringTransformerTest, join_with_commas__will_join_the_string_
 }
 
 
+TEST(AllegroFlare_StringTransformerTest, join__will_join_the_string_with_the_interpolation_string)
+{
+   std::vector<std::string> elements = { "foo", "bar", "baz" };
+   std::string expected_joined_string = "foo_+_bar_+_baz"; // NOTE: The result is sorted because the container is a set
+   std::string actual_joined_string = AllegroFlare::StringTransformer::join(&elements, "_+_");
+
+   EXPECT_EQ(expected_joined_string, actual_joined_string);
+}
+
+
 TEST(AllegroFlare_StringTransformerTest, remove_non_alphanumeric__will_remove_any_unwanted_characters)
 {
    std::vector<std::pair<std::string, std::string>> test_data = {

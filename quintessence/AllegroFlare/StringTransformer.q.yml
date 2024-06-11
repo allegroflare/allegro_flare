@@ -87,6 +87,29 @@ methods:
       - std::stringstream
 
 
+  - name: join
+    static: true
+    type: std::string
+    parameters:
+      - name: elements
+        type: std::vector<std::string>*
+        default_argument: nullptr
+      - name: interpolation_string
+        type: std::string
+        default_argument: '", "'
+    guards: [ elements ]
+    body: |
+      std::ostringstream result;
+      for (auto it = elements->begin(); it != elements->end(); ++it)
+      {
+          if (it != elements->begin()) result << interpolation_string;
+          result << *it;
+      }
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
   - name: remove_non_alphanumeric
     type: std::string
     static: true

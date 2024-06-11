@@ -91,6 +91,24 @@ std::string StringTransformer::join_with_commas(std::set<std::string>* elements)
    return result.str();
 }
 
+std::string StringTransformer::join(std::vector<std::string>* elements, std::string interpolation_string)
+{
+   if (!(elements))
+   {
+      std::stringstream error_message;
+      error_message << "[StringTransformer::join]: error: guard \"elements\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("StringTransformer::join: error: guard \"elements\" not met");
+   }
+   std::ostringstream result;
+   for (auto it = elements->begin(); it != elements->end(); ++it)
+   {
+       if (it != elements->begin()) result << interpolation_string;
+       result << *it;
+   }
+   return result.str();
+}
+
 std::string StringTransformer::remove_non_alphanumeric(std::string input)
 {
    std::string output = "";
