@@ -285,7 +285,7 @@ methods:
       float list_y_spacing = list_item_height + list_item_margin_y;
 
       bool cursor_is_on_this_list = false;
-      bool cursor_is_on_this_list_item = false;
+      //bool cursor_is_on_this_list_item = false;
 
       int list_num = 0;
       for (auto &list : lists)
@@ -297,7 +297,7 @@ methods:
          {
             //bool this_list_item_is_activated = (list_cursor_positions[cursor_x] == list_y);
             bool item_is_activated_in_this_list =  (list_cursor_positions[list_num] == list_y);
-            cursor_is_on_this_list_item = cursor_is_on_this_list && (list_cursor_positions[cursor_x] == list_y);
+            //cursor_is_on_this_list_item = cursor_is_on_this_list && (list_cursor_positions[cursor_x] == list_y);
 
             // Draw the list item
             std::string &list_item_text = list_item.first;
