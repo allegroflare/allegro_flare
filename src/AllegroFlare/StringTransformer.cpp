@@ -94,7 +94,7 @@ std::string StringTransformer::join_with_commas(std::set<std::string>* elements)
 std::string StringTransformer::remove_non_alphanumeric(std::string input)
 {
    std::string output = "";
-   for (int i = 0; i < input.size(); i++)
+   for (std::size_t i=0; i<input.size(); i++)
    {
        if (isalnum(input[i])) output += input[i];
        //|| isspace(input[i]))
