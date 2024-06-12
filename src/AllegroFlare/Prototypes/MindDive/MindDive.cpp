@@ -94,9 +94,9 @@ void MindDive::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -107,9 +107,9 @@ void MindDive::set_sample_bin(AllegroFlare::SampleBin* sample_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::set_sample_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::set_sample_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::set_sample_bin]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::set_sample_bin]: error: guard \"(!initialized)\" not met");
    }
    this->sample_bin = sample_bin;
    return;
@@ -120,9 +120,9 @@ void MindDive::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::set_font_bin]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -133,51 +133,51 @@ void MindDive::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_audio_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"al_is_audio_installed()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"al_is_audio_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"al_is_audio_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"al_is_audio_installed()\" not met");
    }
    if (!(al_is_acodec_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(sample_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"sample_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"sample_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::initialize]: error: guard \"sample_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::initialize]: error: guard \"sample_bin\" not met");
    }
    AllegroFlare::Prototypes::MindDive::TunnelMeshFactory factory(bitmap_bin);
    //current_tunnel_mesh = factory.create_classic_random();
@@ -253,9 +253,9 @@ void MindDive::reset()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::reset]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::reset]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::reset]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::reset]: error: guard \"initialized\" not met");
    }
    surfer_position.x = current_tunnel_mesh->infer_real_width() * 0.5
                      - current_tunnel_mesh->obtain_tile_width() * 0.5;
@@ -386,9 +386,9 @@ void MindDive::render_surfer()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::render_surfer]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::render_surfer]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::render_surfer]: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::render_surfer]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    draw_crosshair(surfer_position, AllegroFlare::Color::Yellow, 0.75);
    return;
@@ -415,9 +415,9 @@ void MindDive::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::update]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::update]: error: guard \"initialized\" not met");
    }
    if (surfer_attached_to_playhead_track) // the player velocity is synchronized to the music track
    {
@@ -476,16 +476,16 @@ void MindDive::play_around_with_collision_step_result(AllegroFlare::Physics::Til
    if (!(step_result))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::play_around_with_collision_step_result]: error: guard \"step_result\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::play_around_with_collision_step_result]: error: guard \"step_result\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::play_around_with_collision_step_result]: error: guard \"step_result\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::play_around_with_collision_step_result]: error: guard \"step_result\" not met");
    }
    if (!(current_tunnel_mesh))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::play_around_with_collision_step_result]: error: guard \"current_tunnel_mesh\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::play_around_with_collision_step_result]: error: guard \"current_tunnel_mesh\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::play_around_with_collision_step_result]: error: guard \"current_tunnel_mesh\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::play_around_with_collision_step_result]: error: guard \"current_tunnel_mesh\" not met");
    }
    if (step_result->get_collisions_ref().empty()) return;
 
@@ -522,9 +522,9 @@ void MindDive::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::MindDiveMindDive::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::MindDive::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::MindDiveMindDive::render]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::MindDive::render]: error: guard \"initialized\" not met");
    }
    //al_clear_depth_buffer(1);
    camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));

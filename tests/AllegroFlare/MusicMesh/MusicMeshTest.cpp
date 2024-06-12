@@ -27,7 +27,7 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTest, render__without_allegro_initialized
 {
    AllegroFlare::MusicMesh::MusicMesh music_mesh;
    std::string expected_error_message =
-      "MusicMesh::render: error: guard \"al_is_system_installed()\" not met";
+      "[AllegroFlare::MusicMesh::MusicMesh::render]: error: guard \"al_is_system_installed()\" not met";
    EXPECT_THROW_WITH_MESSAGE(music_mesh.render(), std::runtime_error, expected_error_message);
 }
 

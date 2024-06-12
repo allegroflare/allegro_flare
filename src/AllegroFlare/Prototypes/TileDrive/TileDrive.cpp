@@ -150,9 +150,9 @@ void TileDrive::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -163,9 +163,9 @@ void TileDrive::set_sample_bin(AllegroFlare::SampleBin* sample_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::set_sample_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::set_sample_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::set_sample_bin]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::set_sample_bin]: error: guard \"(!initialized)\" not met");
    }
    this->sample_bin = sample_bin;
    return;
@@ -176,9 +176,9 @@ void TileDrive::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::set_font_bin]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -189,9 +189,9 @@ void TileDrive::set_maps_folder(std::string maps_folder)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::set_maps_folder]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::set_maps_folder]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::set_maps_folder]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::set_maps_folder]: error: guard \"(!initialized)\" not met");
    }
    this->maps_folder = maps_folder;
    return;
@@ -202,9 +202,9 @@ void TileDrive::set_terrain_mesh_dictionary(std::map<std::string, AllegroFlare::
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::set_terrain_mesh_dictionary]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::set_terrain_mesh_dictionary]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::set_terrain_mesh_dictionary]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::set_terrain_mesh_dictionary]: error: guard \"(!initialized)\" not met");
    }
    this->terrain_mesh_dictionary = terrain_mesh_dictionary;
    return;
@@ -215,9 +215,9 @@ void TileDrive::set_current_map_identifier(std::string current_map_identifier)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::set_current_map_identifier]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::set_current_map_identifier]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::set_current_map_identifier]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::set_current_map_identifier]: error: guard \"(!initialized)\" not met");
    }
    this->current_map_identifier = current_map_identifier;
    return;
@@ -234,58 +234,58 @@ void TileDrive::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_audio_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"al_is_audio_installed()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"al_is_audio_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"al_is_audio_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"al_is_audio_installed()\" not met");
    }
    if (!(al_is_acodec_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(sample_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"sample_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"sample_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"sample_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"sample_bin\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::initialize]: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"al_get_current_display()\" not met");
    }
    backbuffer_sub_bitmap = create_new_backbuffer_sub_bitmap();
    if (!backbuffer_sub_bitmap)
@@ -411,9 +411,9 @@ void TileDrive::reset()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::reset]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::reset]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::reset]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::reset]: error: guard \"initialized\" not met");
    }
    driver_position.x = current_terrain_mesh->infer_real_width() * 0.5
                      - current_terrain_mesh->obtain_tile_width() * 0.5;
@@ -542,9 +542,9 @@ void TileDrive::render_driver()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::render_driver]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::render_driver]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::render_driver]: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::render_driver]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    draw_crosshair(driver_position, AllegroFlare::Color::Yellow, 0.75);
    return;
@@ -555,9 +555,9 @@ void TileDrive::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::update]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::update]: error: guard \"initialized\" not met");
    }
 
    //driver_turn_rotation += driver_turning_velocity;
@@ -642,16 +642,16 @@ void TileDrive::development_play_around_with_collision_steper_callback(AllegroFl
    if (!(step_result))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::development_play_around_with_collision_steper_callback]: error: guard \"step_result\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::development_play_around_with_collision_steper_callback]: error: guard \"step_result\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::development_play_around_with_collision_steper_callback]: error: guard \"step_result\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::development_play_around_with_collision_steper_callback]: error: guard \"step_result\" not met");
    }
    if (!(tile_drive))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::development_play_around_with_collision_steper_callback]: error: guard \"tile_drive\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::development_play_around_with_collision_steper_callback]: error: guard \"tile_drive\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::development_play_around_with_collision_steper_callback]: error: guard \"tile_drive\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::development_play_around_with_collision_steper_callback]: error: guard \"tile_drive\" not met");
    }
    if (step_result->get_collisions_ref().empty()) return;
 
@@ -691,9 +691,9 @@ void TileDrive::render_background()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::render_background]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::render_background]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::render_background]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::render_background]: error: guard \"initialized\" not met");
    }
    al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
    parallax_background.render();
@@ -705,9 +705,9 @@ void TileDrive::render_world()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::render_world]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::render_world]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::render_world]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::render_world]: error: guard \"initialized\" not met");
    }
    //al_clear_depth_buffer(1);
    ALLEGRO_STATE previous_target_bitmap_state;
@@ -727,9 +727,9 @@ void TileDrive::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::TileDriveTileDrive::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TileDrive::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::TileDriveTileDrive::render]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::render]: error: guard \"initialized\" not met");
    }
    render_background();
    render_world();

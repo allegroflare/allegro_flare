@@ -59,9 +59,9 @@ void MusicMesh::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::MusicMeshMusicMesh::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::MusicMesh::MusicMesh::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::MusicMeshMusicMesh::initialize]: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicMesh::MusicMesh::initialize]: error: guard \"(!initialized)\" not met");
    }
    font_character_atlas_builder.set_font_bin(font_bin);
    ALLEGRO_BITMAP *texture = font_character_atlas_builder.create();
@@ -112,16 +112,16 @@ void MusicMesh::remove_stamp_at(int index_of_stamp)
    if (!((index_of_stamp > 0)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::MusicMeshMusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp > 0)\" not met.";
+      error_message << "[AllegroFlare::MusicMesh::MusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::MusicMeshMusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicMesh::MusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp > 0)\" not met");
    }
    if (!((index_of_stamp <= stamps.size())))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::MusicMeshMusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp <= stamps.size())\" not met.";
+      error_message << "[AllegroFlare::MusicMesh::MusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp <= stamps.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::MusicMeshMusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp <= stamps.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicMesh::MusicMesh::remove_stamp_at]: error: guard \"(index_of_stamp <= stamps.size())\" not met");
    }
    // TODO: add initialized guard
    // TODO bounds checking
@@ -142,16 +142,16 @@ void MusicMesh::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::MusicMeshMusicMesh::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::MusicMesh::MusicMesh::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::MusicMeshMusicMesh::render]: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicMesh::MusicMesh::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::MusicMeshMusicMesh::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::MusicMesh::MusicMesh::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::MusicMeshMusicMesh::render]: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicMesh::MusicMesh::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    multi_mesh.render();
    return;
