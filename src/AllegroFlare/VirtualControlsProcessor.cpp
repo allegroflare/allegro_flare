@@ -48,9 +48,9 @@ void VirtualControlsProcessor::set_input_devices_list(AllegroFlare::InputDevices
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::set_input_devices_list]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::set_input_devices_list]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::set_input_devices_list: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::set_input_devices_list]: error: guard \"(!initialized)\" not met");
    }
    this->input_devices_list = input_devices_list;
    return;
@@ -61,9 +61,9 @@ void VirtualControlsProcessor::set_event_emitter(AllegroFlare::EventEmitter* eve
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    return;
@@ -74,37 +74,37 @@ void VirtualControlsProcessor::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_joystick_installed()))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"al_is_joystick_installed()\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"al_is_joystick_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"al_is_joystick_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"al_is_joystick_installed()\" not met");
    }
    if (!(input_devices_list))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"input_devices_list\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"input_devices_list\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"input_devices_list\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"input_devices_list\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::initialize]: error: guard \"event_emitter\" not met");
    }
    AllegroFlare::PhysicalInputDeviceToVirtualControllerMappingFactory factory; // TODO: remove factory as dependency
    AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping mapping =
@@ -122,23 +122,23 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_down_event(ALLEGRO_EVENT*
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_keyboard_key_down_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_keyboard_key_down_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"event_emitter\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_keyboard_key_down_event: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_down_event]: error: guard \"event\" not met");
    }
    AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping *mapping =
       get_keyboard_mapped_physical_input_device_to_virtual_controller_mapping(event->keyboard.keycode);
@@ -159,23 +159,23 @@ void VirtualControlsProcessor::handle_raw_keyboard_key_up_event(ALLEGRO_EVENT* e
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_keyboard_key_up_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_keyboard_key_up_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"event_emitter\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_keyboard_key_up_event: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_up_event]: error: guard \"event\" not met");
    }
    AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping *mapping =
       get_keyboard_mapped_physical_input_device_to_virtual_controller_mapping(event->keyboard.keycode);
@@ -196,23 +196,23 @@ void VirtualControlsProcessor::handle_raw_joystick_button_down_event(ALLEGRO_EVE
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"event_emitter\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_down_event: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_down_event]: error: guard \"event\" not met");
    }
    // TODO: Implement this function
    AllegroFlare::Logger::warn_from_once(
@@ -229,23 +229,23 @@ void VirtualControlsProcessor::handle_raw_joystick_button_up_event(ALLEGRO_EVENT
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"event_emitter\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_button_up_event: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_up_event]: error: guard \"event\" not met");
    }
    // TODO: Implement this function
    AllegroFlare::Logger::warn_from_once(
@@ -262,23 +262,23 @@ void VirtualControlsProcessor::handle_raw_joystick_axis_change_event(ALLEGRO_EVE
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_axis_change_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_axis_change_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"event_emitter\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_raw_joystick_axis_change_event: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_axis_change_event]: error: guard \"event\" not met");
    }
    // TODO: Implement this function
    AllegroFlare::Logger::warn_from_once(
@@ -295,23 +295,23 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event_emitter\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event\" not met");
    }
    // TODO: Implement this function
    AllegroFlare::Logger::warn_from_once(
@@ -363,16 +363,16 @@ void VirtualControlsProcessor::emit_virtual_controls_button_up_event(AllegroFlar
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::emit_virtual_controls_button_up_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_button_up_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::emit_virtual_controls_button_up_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_button_up_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::emit_virtual_controls_button_up_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_button_up_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::emit_virtual_controls_button_up_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_button_up_event]: error: guard \"event_emitter\" not met");
    }
    AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData *event_data = new
       AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData();
@@ -394,16 +394,16 @@ void VirtualControlsProcessor::emit_virtual_controls_button_down_event(AllegroFl
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::emit_virtual_controls_button_down_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_button_down_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::emit_virtual_controls_button_down_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_button_down_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::emit_virtual_controls_button_down_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_button_down_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::emit_virtual_controls_button_down_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_button_down_event]: error: guard \"event_emitter\" not met");
    }
    AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData *event_data = new
       AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData();
@@ -425,16 +425,16 @@ void VirtualControlsProcessor::emit_virtual_controls_axis_change_event(AllegroFl
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::emit_virtual_controls_axis_change_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_axis_change_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::emit_virtual_controls_axis_change_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_axis_change_event]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[VirtualControlsProcessor::emit_virtual_controls_axis_change_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_axis_change_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("VirtualControlsProcessor::emit_virtual_controls_axis_change_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::emit_virtual_controls_axis_change_event]: error: guard \"event_emitter\" not met");
    }
    // TODO: consider using non-global event names for these types, or a better design for this scope
    AllegroFlare::GameEventDatas::VirtualControllerAxisChangeEventData *event_data = new

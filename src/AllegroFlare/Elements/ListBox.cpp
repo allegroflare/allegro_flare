@@ -97,9 +97,9 @@ std::string ListBox::get_currently_selected_item_label()
    if (!(has_valid_currently_selected_item()))
    {
       std::stringstream error_message;
-      error_message << "[ListBox::get_currently_selected_item_label]: error: guard \"has_valid_currently_selected_item()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBox::get_currently_selected_item_label]: error: guard \"has_valid_currently_selected_item()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBox::get_currently_selected_item_label: error: guard \"has_valid_currently_selected_item()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBox::get_currently_selected_item_label]: error: guard \"has_valid_currently_selected_item()\" not met");
    }
    return items[cursor_position].first;
 }
@@ -109,9 +109,9 @@ std::string ListBox::get_currently_selected_item_value()
    if (!(has_valid_currently_selected_item()))
    {
       std::stringstream error_message;
-      error_message << "[ListBox::get_currently_selected_item_value]: error: guard \"has_valid_currently_selected_item()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBox::get_currently_selected_item_value]: error: guard \"has_valid_currently_selected_item()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBox::get_currently_selected_item_value: error: guard \"has_valid_currently_selected_item()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBox::get_currently_selected_item_value]: error: guard \"has_valid_currently_selected_item()\" not met");
    }
    return items[cursor_position].second;
 }
@@ -121,9 +121,9 @@ float ListBox::infer_age(float time_now)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ListBox::infer_age]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBox::infer_age]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBox::infer_age: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBox::infer_age]: error: guard \"al_is_system_installed()\" not met");
    }
    return time_now - get_created_at();
 }
@@ -133,16 +133,16 @@ void ListBox::set_cursor_position(int cursor_position)
    if (!((cursor_position >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[ListBox::set_cursor_position]: error: guard \"(cursor_position >= 0)\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBox::set_cursor_position]: error: guard \"(cursor_position >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBox::set_cursor_position: error: guard \"(cursor_position >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBox::set_cursor_position]: error: guard \"(cursor_position >= 0)\" not met");
    }
    if (!(((cursor_position < items.size()) || (cursor_position == 0))))
    {
       std::stringstream error_message;
-      error_message << "[ListBox::set_cursor_position]: error: guard \"((cursor_position < items.size()) || (cursor_position == 0))\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBox::set_cursor_position]: error: guard \"((cursor_position < items.size()) || (cursor_position == 0))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBox::set_cursor_position: error: guard \"((cursor_position < items.size()) || (cursor_position == 0))\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBox::set_cursor_position]: error: guard \"((cursor_position < items.size()) || (cursor_position == 0))\" not met");
    }
    // TODO: Test this method
    this->cursor_position = cursor_position;

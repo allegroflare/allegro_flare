@@ -160,23 +160,23 @@ void TrackView::render()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TrackView::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::MotionComposer::TrackView::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TrackView::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionComposer::TrackView::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[TrackView::render]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::MotionComposer::TrackView::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TrackView::render: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionComposer::TrackView::render]: error: guard \"font_bin\" not met");
    }
    if (!(track))
    {
       std::stringstream error_message;
-      error_message << "[TrackView::render]: error: guard \"track\" not met.";
+      error_message << "[AllegroFlare::MotionComposer::TrackView::render]: error: guard \"track\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TrackView::render: error: guard \"track\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionComposer::TrackView::render]: error: guard \"track\" not met");
    }
    ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0.2, 0.205, 0.21, 1.0};
    ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.1, 0.1, 0.1, 0.1};
@@ -242,9 +242,9 @@ ALLEGRO_FONT* TrackView::obtain_icon_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[TrackView::obtain_icon_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::MotionComposer::TrackView::obtain_icon_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TrackView::obtain_icon_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionComposer::TrackView::obtain_icon_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream ss;
    ss << "fa-solid-900.ttf " << icon_font_size;
@@ -256,9 +256,9 @@ ALLEGRO_FONT* TrackView::obtain_bigger_icon_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[TrackView::obtain_bigger_icon_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::MotionComposer::TrackView::obtain_bigger_icon_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TrackView::obtain_bigger_icon_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionComposer::TrackView::obtain_bigger_icon_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream ss;
    ss << "fa-solid-900.ttf " << icon_font_size - 8;
@@ -270,9 +270,9 @@ ALLEGRO_FONT* TrackView::obtain_track_values_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[TrackView::obtain_track_values_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::MotionComposer::TrackView::obtain_track_values_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TrackView::obtain_track_values_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionComposer::TrackView::obtain_track_values_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf -20");
 }

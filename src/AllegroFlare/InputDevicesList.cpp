@@ -38,9 +38,9 @@ void InputDevicesList::initialize()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::InputDevicesList::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::InputDevicesList::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    // create a keyboard (if it is installed)
    if (al_is_keyboard_installed())

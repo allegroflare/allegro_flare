@@ -32,16 +32,16 @@ bool Triangle::intersect(AllegroFlare::Useful3D::Ray* ray_, AllegroFlare::Useful
    if (!(ray_))
    {
       std::stringstream error_message;
-      error_message << "[Triangle::intersect]: error: guard \"ray_\" not met.";
+      error_message << "[AllegroFlare::Useful3D::Triangle::intersect]: error: guard \"ray_\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Triangle::intersect: error: guard \"ray_\" not met");
+      throw std::runtime_error("[AllegroFlare::Useful3D::Triangle::intersect]: error: guard \"ray_\" not met");
    }
    if (!(intersect_data))
    {
       std::stringstream error_message;
-      error_message << "[Triangle::intersect]: error: guard \"intersect_data\" not met.";
+      error_message << "[AllegroFlare::Useful3D::Triangle::intersect]: error: guard \"intersect_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Triangle::intersect: error: guard \"intersect_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Useful3D::Triangle::intersect]: error: guard \"intersect_data\" not met");
    }
    IntersectData &isectData = (*intersect_data);
    Ray &ray = (*ray_);
@@ -70,9 +70,9 @@ void Triangle::draw(ALLEGRO_COLOR color)
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Triangle::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Useful3D::Triangle::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Triangle::draw: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Useful3D::Triangle::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    ALLEGRO_VERTEX vtx[3];
    vtx[0] = AllegroFlare::build_vertex(v0.x, v0.y, v0.z, color, 0, 0);

@@ -56,23 +56,23 @@ void MeshWithNormals::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[Tileo::MeshWithNormals::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!((num_columns >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::initialize]: error: guard \"(num_columns >= 0)\" not met.";
+      error_message << "[Tileo::MeshWithNormals::initialize]: error: guard \"(num_columns >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::initialize: error: guard \"(num_columns >= 0)\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::initialize]: error: guard \"(num_columns >= 0)\" not met");
    }
    if (!((num_rows >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::initialize]: error: guard \"(num_rows >= 0)\" not met.";
+      error_message << "[Tileo::MeshWithNormals::initialize]: error: guard \"(num_rows >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::initialize: error: guard \"(num_rows >= 0)\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::initialize]: error: guard \"(num_rows >= 0)\" not met");
    }
    tileo_tile_vertex_allegro_vertex_declaration.initialize();
    resize(num_columns, num_rows);
@@ -98,16 +98,16 @@ void MeshWithNormals::resize(int num_columns, int num_rows)
    if (!((num_columns >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::resize]: error: guard \"(num_columns >= 0)\" not met.";
+      error_message << "[Tileo::MeshWithNormals::resize]: error: guard \"(num_columns >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::resize: error: guard \"(num_columns >= 0)\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::resize]: error: guard \"(num_columns >= 0)\" not met");
    }
    if (!((num_rows >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::resize]: error: guard \"(num_rows >= 0)\" not met.";
+      error_message << "[Tileo::MeshWithNormals::resize]: error: guard \"(num_rows >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::resize: error: guard \"(num_rows >= 0)\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::resize]: error: guard \"(num_rows >= 0)\" not met");
    }
    this->num_columns = num_columns;
    this->num_rows = num_rows;
@@ -123,16 +123,16 @@ bool MeshWithNormals::set_tile(int tile_x, int tile_y, int tile_index_num)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::set_tile]: error: guard \"initialized\" not met.";
+      error_message << "[Tileo::MeshWithNormals::set_tile]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::set_tile: error: guard \"initialized\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::set_tile]: error: guard \"initialized\" not met");
    }
    if (!(atlas))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::set_tile]: error: guard \"atlas\" not met.";
+      error_message << "[Tileo::MeshWithNormals::set_tile]: error: guard \"atlas\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::set_tile: error: guard \"atlas\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::set_tile]: error: guard \"atlas\" not met");
    }
    if (tile_x < 0) return false;
    if (tile_x >= num_columns) return false;
@@ -162,16 +162,16 @@ bool MeshWithNormals::set_normal_tile(int tile_x, int tile_y, int tile_index_num
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::set_normal_tile]: error: guard \"initialized\" not met.";
+      error_message << "[Tileo::MeshWithNormals::set_normal_tile]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::set_normal_tile: error: guard \"initialized\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::set_normal_tile]: error: guard \"initialized\" not met");
    }
    if (!(normal_atlas))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::set_normal_tile]: error: guard \"normal_atlas\" not met.";
+      error_message << "[Tileo::MeshWithNormals::set_normal_tile]: error: guard \"normal_atlas\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::set_normal_tile: error: guard \"normal_atlas\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::set_normal_tile]: error: guard \"normal_atlas\" not met");
    }
    if (tile_x < 0) return false;
    if (tile_x >= num_columns) return false;
@@ -201,9 +201,9 @@ bool MeshWithNormals::set_tile_uv(int tile_x, int tile_y, float u1, float v1, fl
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::set_tile_uv]: error: guard \"initialized\" not met.";
+      error_message << "[Tileo::MeshWithNormals::set_tile_uv]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::set_tile_uv: error: guard \"initialized\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::set_tile_uv]: error: guard \"initialized\" not met");
    }
    if (tile_x < 0) return false;
    if (tile_x >= num_columns) return false;
@@ -239,9 +239,9 @@ bool MeshWithNormals::set_normal_tile_uv(int tile_x, int tile_y, float u1, float
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[MeshWithNormals::set_normal_tile_uv]: error: guard \"initialized\" not met.";
+      error_message << "[Tileo::MeshWithNormals::set_normal_tile_uv]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MeshWithNormals::set_normal_tile_uv: error: guard \"initialized\" not met");
+      throw std::runtime_error("[Tileo::MeshWithNormals::set_normal_tile_uv]: error: guard \"initialized\" not met");
    }
    if (tile_x < 0) return false;
    if (tile_x >= num_columns) return false;

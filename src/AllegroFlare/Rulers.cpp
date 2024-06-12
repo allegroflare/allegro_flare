@@ -44,16 +44,16 @@ void Rulers::draw_dimensional_grid(float x, float y, float z, float spacing)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Rulers::draw_dimensional_grid]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Rulers::draw_dimensional_grid]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rulers::draw_dimensional_grid: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_dimensional_grid]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Rulers::draw_dimensional_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Rulers::draw_dimensional_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rulers::draw_dimensional_grid: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_dimensional_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    for (int zz=-10; zz<10; zz++)
       for (int xx=-10; xx<10; xx++)
@@ -85,16 +85,16 @@ void Rulers::draw_2d_grid(float x, float y, float size, float spacing)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Rulers::draw_2d_grid]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Rulers::draw_2d_grid]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rulers::draw_2d_grid: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_2d_grid]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Rulers::draw_2d_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Rulers::draw_2d_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rulers::draw_2d_grid: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_2d_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    for (int xx=-10; xx<10; xx++)
       for (int yy=-10; yy<10; yy++)
@@ -141,9 +141,9 @@ std::vector<ALLEGRO_VERTEX> Rulers::build_vertical_ruler(float x, float y, float
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Rulers::build_vertical_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Rulers::build_vertical_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rulers::build_vertical_ruler: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Rulers::build_vertical_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    ALLEGRO_VERTEX vtx_a = AllegroFlare::build_vertex(0, 0, 0, color, 0, 0);
    ALLEGRO_VERTEX vtx_b = AllegroFlare::build_vertex(1, 0, 0, color, 0, 0);
@@ -206,9 +206,9 @@ std::vector<ALLEGRO_VERTEX> Rulers::build_horizontal_ruler(float x, float y, flo
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Rulers::build_horizontal_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Rulers::build_horizontal_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rulers::build_horizontal_ruler: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Rulers::build_horizontal_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    ALLEGRO_VERTEX vtx_a = AllegroFlare::build_vertex(0, 0, 0, color, 0, 0);
    ALLEGRO_VERTEX vtx_b = AllegroFlare::build_vertex(1, 0, 0, color, 0, 0);
@@ -301,9 +301,9 @@ ALLEGRO_FONT* Rulers::obtain_small_hud_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Rulers::obtain_small_hud_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Rulers::obtain_small_hud_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rulers::obtain_small_hud_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Rulers::obtain_small_hud_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream result_font_identifier;
    result_font_identifier << "Orbitron-Medium.ttf" << " " << -13;

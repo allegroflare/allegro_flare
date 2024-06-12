@@ -240,9 +240,9 @@ std::vector<ALLEGRO_VERTEX> NinePatch::get_mesh()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::get_mesh]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::NinePatch::get_mesh]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::get_mesh: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::NinePatch::get_mesh]: error: guard \"initialized\" not met");
    }
    return mesh;
 }
@@ -252,30 +252,30 @@ void NinePatch::initialize()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::NinePatch::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::NinePatch::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::NinePatch::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::NinePatch::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(source_texture))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::initialize]: error: guard \"source_texture\" not met.";
+      error_message << "[AllegroFlare::Elements::NinePatch::initialize]: error: guard \"source_texture\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::initialize: error: guard \"source_texture\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::NinePatch::initialize]: error: guard \"source_texture\" not met");
    }
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::NinePatch::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::NinePatch::initialize]: error: guard \"(!initialized)\" not met");
    }
    build_mesh();
    initialized = true;
@@ -287,9 +287,9 @@ void NinePatch::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[NinePatch::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::NinePatch::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NinePatch::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::NinePatch::render]: error: guard \"initialized\" not met");
    }
    al_draw_prim(&mesh[0], NULL, source_texture, 0, mesh.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
    return;

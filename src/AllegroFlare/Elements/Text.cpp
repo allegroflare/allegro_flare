@@ -83,16 +83,16 @@ void Text::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Text::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::Text::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Text::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Text::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Text::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::Text::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Text::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Text::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    fit_placement_width_and_height_to_text();
 
@@ -107,16 +107,16 @@ void Text::fit_placement_width_and_height_to_text()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Text::fit_placement_width_and_height_to_text]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::Text::fit_placement_width_and_height_to_text]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Text::fit_placement_width_and_height_to_text: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Text::fit_placement_width_and_height_to_text]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Text::fit_placement_width_and_height_to_text]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::Text::fit_placement_width_and_height_to_text]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Text::fit_placement_width_and_height_to_text: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Text::fit_placement_width_and_height_to_text]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    float width = al_get_text_width(obtain_font(), text.c_str());
    float height = al_get_font_line_height(obtain_font());
@@ -130,9 +130,9 @@ ALLEGRO_FONT* Text::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Text::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::Text::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Text::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Text::obtain_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream result_font_identifier;
    result_font_identifier << font_identifier << " " << font_size;

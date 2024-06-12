@@ -46,16 +46,16 @@ void SmoothSnap::initialize()
    if (!((!get_initialized())))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnap::initialize]: error: guard \"(!get_initialized())\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnap::initialize]: error: guard \"(!get_initialized())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnap::initialize: error: guard \"(!get_initialized())\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnap::initialize]: error: guard \"(!get_initialized())\" not met");
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnap::initialize]: error: guard \"get_camera()\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnap::initialize]: error: guard \"get_camera()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnap::initialize: error: guard \"get_camera()\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnap::initialize]: error: guard \"get_camera()\" not met");
    }
    get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
    get_camera_ref()->position = {room_width/2, room_height/2};
@@ -69,16 +69,16 @@ void SmoothSnap::update()
    if (!(get_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnap::update]: error: guard \"get_initialized()\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnap::update]: error: guard \"get_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnap::update: error: guard \"get_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnap::update]: error: guard \"get_initialized()\" not met");
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnap::update]: error: guard \"get_camera()\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnap::update]: error: guard \"get_camera()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnap::update: error: guard \"get_camera()\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnap::update]: error: guard \"get_camera()\" not met");
    }
    // If the camera loses track of the "entity_to_follow" (the tracking target dies for example), this logic will
    // retain the last coordinate that had been tracked, and use it until a new tracking target is introduced.

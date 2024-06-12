@@ -53,9 +53,9 @@ void Base::set_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
    if (!((!has_been_setup)))
    {
       std::stringstream error_message;
-      error_message << "[Base::set_al_joystick]: error: guard \"(!has_been_setup)\" not met.";
+      error_message << "[AllegroFlare::PhysicalInputDevices::Joysticks::Base::set_al_joystick]: error: guard \"(!has_been_setup)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::set_al_joystick: error: guard \"(!has_been_setup)\" not met");
+      throw std::runtime_error("[AllegroFlare::PhysicalInputDevices::Joysticks::Base::set_al_joystick]: error: guard \"(!has_been_setup)\" not met");
    }
    this->al_joystick = al_joystick;
    return;
@@ -66,9 +66,9 @@ std::string Base::get_name()
    if (!(has_been_setup))
    {
       std::stringstream error_message;
-      error_message << "[Base::get_name]: error: guard \"has_been_setup\" not met.";
+      error_message << "[AllegroFlare::PhysicalInputDevices::Joysticks::Base::get_name]: error: guard \"has_been_setup\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::get_name: error: guard \"has_been_setup\" not met");
+      throw std::runtime_error("[AllegroFlare::PhysicalInputDevices::Joysticks::Base::get_name]: error: guard \"has_been_setup\" not met");
    }
    return name;
 }
@@ -78,9 +78,9 @@ std::map<uint32_t, std::string> Base::get_buttons()
    if (!(has_been_setup))
    {
       std::stringstream error_message;
-      error_message << "[Base::get_buttons]: error: guard \"has_been_setup\" not met.";
+      error_message << "[AllegroFlare::PhysicalInputDevices::Joysticks::Base::get_buttons]: error: guard \"has_been_setup\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::get_buttons: error: guard \"has_been_setup\" not met");
+      throw std::runtime_error("[AllegroFlare::PhysicalInputDevices::Joysticks::Base::get_buttons]: error: guard \"has_been_setup\" not met");
    }
    return buttons;
 }
@@ -90,9 +90,9 @@ bool Base::setup()
    if (!(al_joystick))
    {
       std::stringstream error_message;
-      error_message << "[Base::setup]: error: guard \"al_joystick\" not met.";
+      error_message << "[AllegroFlare::PhysicalInputDevices::Joysticks::Base::setup]: error: guard \"al_joystick\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::setup: error: guard \"al_joystick\" not met");
+      throw std::runtime_error("[AllegroFlare::PhysicalInputDevices::Joysticks::Base::setup]: error: guard \"al_joystick\" not met");
    }
    // Grab the joystick name
    name = al_get_joystick_name(al_joystick);

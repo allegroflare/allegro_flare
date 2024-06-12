@@ -97,9 +97,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Basic2DFactory::create_from_bitmap_filename]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_from_bitmap_filename]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2DFactory::create_from_bitmap_filename: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_from_bitmap_filename]: error: guard \"bitmap_bin\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -137,9 +137,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFacto
    if (!(animation_book))
    {
       std::stringstream error_message;
-      error_message << "[Basic2DFactory::create_frame_animated]: error: guard \"animation_book\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_frame_animated]: error: guard \"animation_book\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2DFactory::create_frame_animated: error: guard \"animation_book\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_frame_animated]: error: guard \"animation_book\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    using namespace AllegroFlare::Prototypes::Platforming2D;
@@ -453,9 +453,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Basic2DFactory::create_tile_map]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_tile_map]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2DFactory::create_tile_map: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_tile_map]: error: guard \"bitmap_bin\" not met");
    }
    // TODO: Note that "tile_atlas_bitmap_identifier" will need to be paired with more data, such as tile size
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
@@ -530,9 +530,9 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func(std:
    if (!(data))
    {
       std::stringstream error_message;
-      error_message << "[Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func]: error: guard \"data\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func]: error: guard \"data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func: error: guard \"data\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_entities_from_map__tmj_obj_loader_callback_func]: error: guard \"data\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -597,9 +597,9 @@ void Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_prov
    if (!(data))
    {
       std::stringstream error_message;
-      error_message << "[Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func]: error: guard \"data\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func]: error: guard \"data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func: error: guard \"data\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory::create_entities_from_map__tmj_obj_loader_with_callback_provided_func]: error: guard \"data\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 

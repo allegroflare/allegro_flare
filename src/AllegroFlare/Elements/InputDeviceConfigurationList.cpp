@@ -166,23 +166,23 @@ void InputDeviceConfigurationList::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    selection_cursor_box.set_position(0, 0);
    selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
@@ -196,9 +196,9 @@ void InputDeviceConfigurationList::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::update]: error: guard \"initialized\" not met");
    }
    scrollbar_position = (scrollbar_position_destination - scrollbar_position)
                       * scrollbar_reposition_multiplier + scrollbar_position;
@@ -211,9 +211,9 @@ void InputDeviceConfigurationList::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::render]: error: guard \"initialized\" not met");
    }
    draw_joystick_configuration_mapping_list_items_and_scrollbar();
    draw_joystick_configuration_mapping_list_title_text();
@@ -354,16 +354,16 @@ void InputDeviceConfigurationList::set_scrollbar_reposition_multiplier(float scr
    if (!((scrollbar_reposition_multiplier > 0.001)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::set_scrollbar_reposition_multiplier: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier > 0.001)\" not met");
    }
    if (!((scrollbar_reposition_multiplier <= 1.0)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::set_scrollbar_reposition_multiplier: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::set_scrollbar_reposition_multiplier]: error: guard \"(scrollbar_reposition_multiplier <= 1.0)\" not met");
    }
    // TODO: test this function
    this->scrollbar_reposition_multiplier = scrollbar_reposition_multiplier;
@@ -710,9 +710,9 @@ void InputDeviceConfigurationList::set_state(uint32_t state, bool override_if_bu
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::set_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::set_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::set_state]: error: guard \"is_valid_state(state)\" not met");
    }
    if (this->state == state) return;
    if (!override_if_busy && state_is_busy) return;
@@ -764,9 +764,9 @@ ALLEGRO_FONT* InputDeviceConfigurationList::obtain_title_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::obtain_title_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::obtain_title_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_title_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Bold.ttf -40");
 }
@@ -776,9 +776,9 @@ ALLEGRO_FONT* InputDeviceConfigurationList::obtain_item_title_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::obtain_item_title_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_item_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::obtain_item_title_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_item_title_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Bold.ttf -34");
 }
@@ -788,9 +788,9 @@ ALLEGRO_FONT* InputDeviceConfigurationList::obtain_empty_state_text_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::obtain_empty_state_text_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_empty_state_text_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::obtain_empty_state_text_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_empty_state_text_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf -34");
 }
@@ -800,9 +800,9 @@ ALLEGRO_FONT* InputDeviceConfigurationList::obtain_item_description_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::obtain_item_description_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_item_description_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::obtain_item_description_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_item_description_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf -26");
 }
@@ -812,9 +812,9 @@ ALLEGRO_FONT* InputDeviceConfigurationList::obtain_icon_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfigurationList::obtain_icon_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_icon_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfigurationList::obtain_icon_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDeviceConfigurationList::obtain_icon_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("fa-solid-900.ttf -50");
 }

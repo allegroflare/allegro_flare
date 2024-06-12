@@ -333,9 +333,9 @@ void TileDemo::initialize()
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::initialize]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::initialize]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::initialize: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::initialize]: error: guard \"framework\" not met");
    }
    initialize_display_projection();
    initialize_maps();
@@ -391,23 +391,23 @@ void TileDemo::setup_camera()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::setup_camera]: error: guard \"currently_active_map\" not met.";
+      error_message << "[WickedDemos::TileDemo::setup_camera]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::setup_camera: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::setup_camera]: error: guard \"currently_active_map\" not met");
    }
    if (!(currently_active_map->get_tile_atlas()))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::setup_camera]: error: guard \"currently_active_map->get_tile_atlas()\" not met.";
+      error_message << "[WickedDemos::TileDemo::setup_camera]: error: guard \"currently_active_map->get_tile_atlas()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::setup_camera: error: guard \"currently_active_map->get_tile_atlas()\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::setup_camera]: error: guard \"currently_active_map->get_tile_atlas()\" not met");
    }
    if (!(currently_active_map->get_tile_mesh()))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::setup_camera]: error: guard \"currently_active_map->get_tile_mesh()\" not met.";
+      error_message << "[WickedDemos::TileDemo::setup_camera]: error: guard \"currently_active_map->get_tile_mesh()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::setup_camera: error: guard \"currently_active_map->get_tile_mesh()\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::setup_camera]: error: guard \"currently_active_map->get_tile_mesh()\" not met");
    }
    //float width = tile_mesh->get_real_width();
    //float height = tile_mesh->get_real_height();
@@ -434,9 +434,9 @@ void TileDemo::initialize_entities()
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::initialize_entities]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::initialize_entities]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::initialize_entities: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::initialize_entities]: error: guard \"framework\" not met");
    }
    Wicked::Entities::Basic2DFactory factory(&framework->get_bitmap_bin_ref());
    //Wicked::Entities::Basic2D* created_entity = factory.create_from_bitmap_filename(
@@ -582,16 +582,16 @@ void TileDemo::update_entities()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::update_entities]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::update_entities]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::update_entities: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::update_entities]: error: guard \"initialized\" not met");
    }
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::update_entities]: error: guard \"currently_active_map\" not met.";
+      error_message << "[WickedDemos::TileDemo::update_entities]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::update_entities: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::update_entities]: error: guard \"currently_active_map\" not met");
    }
    // apply gravity
    for (auto &entity : get_current_map_entities())
@@ -714,9 +714,9 @@ void TileDemo::check_player_collisions_with_doors()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::check_player_collisions_with_doors]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[WickedDemos::TileDemo::check_player_collisions_with_doors]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::check_player_collisions_with_doors: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::check_player_collisions_with_doors]: error: guard \"player_controlled_entity\" not met");
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
 
@@ -755,9 +755,9 @@ void TileDemo::update_player_collisions_with_collectables()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::update_player_collisions_with_collectables]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[WickedDemos::TileDemo::update_player_collisions_with_collectables]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::update_player_collisions_with_collectables: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::update_player_collisions_with_collectables]: error: guard \"player_controlled_entity\" not met");
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
    Wicked::Entities::CollectionHelper collection_helper(&_entities);
@@ -780,16 +780,16 @@ void TileDemo::update_player_collisions_with_goalposts()
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::update_player_collisions_with_goalposts]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::update_player_collisions_with_goalposts]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::update_player_collisions_with_goalposts: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::update_player_collisions_with_goalposts]: error: guard \"framework\" not met");
    }
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::update_player_collisions_with_goalposts]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[WickedDemos::TileDemo::update_player_collisions_with_goalposts]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::update_player_collisions_with_goalposts: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::update_player_collisions_with_goalposts]: error: guard \"player_controlled_entity\" not met");
    }
    std::vector<Wicked::Entities::Basic2D*> _entities = get_current_map_entities();
    Wicked::Entities::CollectionHelper collection_helper(&_entities);
@@ -863,9 +863,9 @@ void TileDemo::update_player_controls_on_player_controlled_entity()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::update_player_controls_on_player_controlled_entity]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[WickedDemos::TileDemo::update_player_controls_on_player_controlled_entity]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::update_player_controls_on_player_controlled_entity: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::update_player_controls_on_player_controlled_entity]: error: guard \"player_controlled_entity\" not met");
    }
    // if this block is active, the player cannot control themselves while in the air, only when on the ground:
    //if (player_controlled_entity->exists(ADJACENT_TO_FLOOR))
@@ -902,16 +902,16 @@ void TileDemo::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::update]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::update]: error: guard \"initialized\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::update]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::update]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::update: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::update]: error: guard \"framework\" not met");
    }
    //return;
    update_player_controls_on_player_controlled_entity();
@@ -953,30 +953,30 @@ void TileDemo::draw()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::draw]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::draw]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::draw: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::draw]: error: guard \"initialized\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::draw]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::draw]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::draw: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::draw]: error: guard \"framework\" not met");
    }
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::draw]: error: guard \"currently_active_map\" not met.";
+      error_message << "[WickedDemos::TileDemo::draw]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::draw: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::draw]: error: guard \"currently_active_map\" not met");
    }
    if (!(get_tile_mesh()))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::draw]: error: guard \"get_tile_mesh()\" not met.";
+      error_message << "[WickedDemos::TileDemo::draw]: error: guard \"get_tile_mesh()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::draw: error: guard \"get_tile_mesh()\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::draw]: error: guard \"get_tile_mesh()\" not met");
    }
    //al_set_target_bitmap(al_get_backbuffer(al_get_current_display()));
    //al_set_render_state(ALLEGRO_DEPTH_TEST, true);
@@ -1029,9 +1029,9 @@ void TileDemo::draw_player_reticle()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::draw_player_reticle]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[WickedDemos::TileDemo::draw_player_reticle]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::draw_player_reticle: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::draw_player_reticle]: error: guard \"player_controlled_entity\" not met");
    }
    float radius = 48;
    AllegroFlare::vec2d player_pos = player_controlled_entity->get_place_ref().position;
@@ -1086,23 +1086,23 @@ void TileDemo::key_char_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_char_func]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_char_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_char_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_char_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_char_func]: error: guard \"event\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_char_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_char_func: error: guard \"event\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_char_func]: error: guard \"event\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_char_func]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_char_func]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_char_func: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_char_func]: error: guard \"framework\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -1141,23 +1141,23 @@ void TileDemo::_key_up_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::_key_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::_key_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::_key_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::_key_up_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::_key_up_func]: error: guard \"event\" not met.";
+      error_message << "[WickedDemos::TileDemo::_key_up_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::_key_up_func: error: guard \"event\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::_key_up_func]: error: guard \"event\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::_key_up_func]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::_key_up_func]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::_key_up_func: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::_key_up_func]: error: guard \"framework\" not met");
    }
    //virtual_controls_processor.handle_raw_keyboard_key_up_event(event);
    return;
@@ -1168,23 +1168,23 @@ void TileDemo::_key_down_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::_key_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::_key_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::_key_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::_key_down_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::_key_down_func]: error: guard \"event\" not met.";
+      error_message << "[WickedDemos::TileDemo::_key_down_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::_key_down_func: error: guard \"event\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::_key_down_func]: error: guard \"event\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::_key_down_func]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::_key_down_func]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::_key_down_func: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::_key_down_func]: error: guard \"framework\" not met");
    }
    if (event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) { framework->shutdown_program = true; return; }
 
@@ -1197,23 +1197,23 @@ void TileDemo::key_up_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_up_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_up_func]: error: guard \"event\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_up_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_up_func: error: guard \"event\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_up_func]: error: guard \"event\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_up_func]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_up_func]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_up_func: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_up_func]: error: guard \"framework\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -1233,23 +1233,23 @@ void TileDemo::key_down_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_down_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_down_func]: error: guard \"event\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_down_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_down_func: error: guard \"event\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_down_func]: error: guard \"event\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::key_down_func]: error: guard \"framework\" not met.";
+      error_message << "[WickedDemos::TileDemo::key_down_func]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::key_down_func: error: guard \"framework\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::key_down_func]: error: guard \"framework\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -1273,9 +1273,9 @@ void TileDemo::virtual_control_button_down_func(AllegroFlare::Player* player, Al
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    // TODO: Validate controller type
 
@@ -1321,9 +1321,9 @@ void TileDemo::virtual_control_button_up_func(AllegroFlare::Player* player, Alle
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[WickedDemos::TileDemo::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::virtual_control_button_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::virtual_control_button_up_func]: error: guard \"initialized\" not met");
    }
    // TODO: Validate controller type
 
@@ -1410,9 +1410,9 @@ void TileDemo::render_collision_tile_mesh()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::render_collision_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      error_message << "[WickedDemos::TileDemo::render_collision_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::render_collision_tile_mesh: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::render_collision_tile_mesh]: error: guard \"currently_active_map\" not met");
    }
    AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_mesh();
    float tile_width=16.0f;
@@ -1450,9 +1450,9 @@ AllegroFlare::TileMaps::PrimMeshAtlas* TileDemo::get_tile_atlas()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::get_tile_atlas]: error: guard \"currently_active_map\" not met.";
+      error_message << "[WickedDemos::TileDemo::get_tile_atlas]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::get_tile_atlas: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::get_tile_atlas]: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_tile_atlas();
 }
@@ -1462,9 +1462,9 @@ AllegroFlare::TileMaps::PrimMesh* TileDemo::get_tile_mesh()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::get_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      error_message << "[WickedDemos::TileDemo::get_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::get_tile_mesh: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::get_tile_mesh]: error: guard \"currently_active_map\" not met");
    }
    //if (!currently_active_map) throw std::runtime_error("AAAAA");
    return currently_active_map->get_tile_mesh();
@@ -1475,9 +1475,9 @@ AllegroFlare::TileMaps::TileMap<int>* TileDemo::get_collision_tile_mesh()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::get_collision_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      error_message << "[WickedDemos::TileDemo::get_collision_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::get_collision_tile_mesh: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::get_collision_tile_mesh]: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_collision_tile_mesh();
 }
@@ -1487,9 +1487,9 @@ std::vector<Wicked::Entities::Basic2D*>& TileDemo::get_current_map_entities_ref(
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::get_current_map_entities_ref]: error: guard \"currently_active_map\" not met.";
+      error_message << "[WickedDemos::TileDemo::get_current_map_entities_ref]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::get_current_map_entities_ref: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::get_current_map_entities_ref]: error: guard \"currently_active_map\" not met");
    }
    return entities;
    //return currently_active_map->get_entities_ref();
@@ -1500,9 +1500,9 @@ std::vector<Wicked::Entities::Basic2D*> TileDemo::get_current_map_entities()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[TileDemo::get_current_map_entities]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[WickedDemos::TileDemo::get_current_map_entities]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileDemo::get_current_map_entities: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[WickedDemos::TileDemo::get_current_map_entities]: error: guard \"player_controlled_entity\" not met");
    }
    Wicked::Entities::CollectionHelper collection_helper(&get_current_map_entities_ref());
    //std::string on_map_name = player_controlled_entity->get(ON_MAP_NAME);

@@ -106,16 +106,16 @@ void RomanNumeralAnalysisSymbolRenderer::render()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[RomanNumeralAnalysisSymbolRenderer::render]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbolRenderer::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("RomanNumeralAnalysisSymbolRenderer::render: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbolRenderer::render]: error: guard \"font_bin\" not met");
    }
    if (!(symbol))
    {
       std::stringstream error_message;
-      error_message << "[RomanNumeralAnalysisSymbolRenderer::render]: error: guard \"symbol\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbolRenderer::render]: error: guard \"symbol\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("RomanNumeralAnalysisSymbolRenderer::render: error: guard \"symbol\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::RomanNumeralAnalysisSymbolRenderer::render]: error: guard \"symbol\" not met");
    }
    ALLEGRO_COLOR color = ALLEGRO_COLOR{1, 1, 1, 1};
 

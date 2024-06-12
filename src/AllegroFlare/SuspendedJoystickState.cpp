@@ -63,16 +63,16 @@ void SuspendedJoystickState::set_joystick(ALLEGRO_JOYSTICK* joystick)
    if (!((!initial_joystick_state_is_captured)))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::set_joystick]: error: guard \"(!initial_joystick_state_is_captured)\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::set_joystick]: error: guard \"(!initial_joystick_state_is_captured)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::set_joystick: error: guard \"(!initial_joystick_state_is_captured)\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::set_joystick]: error: guard \"(!initial_joystick_state_is_captured)\" not met");
    }
    if (!((!subsequent_joystick_state_is_captured)))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::set_joystick]: error: guard \"(!subsequent_joystick_state_is_captured)\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::set_joystick]: error: guard \"(!subsequent_joystick_state_is_captured)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::set_joystick: error: guard \"(!subsequent_joystick_state_is_captured)\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::set_joystick]: error: guard \"(!subsequent_joystick_state_is_captured)\" not met");
    }
    this->joystick = joystick;
    return;
@@ -96,9 +96,9 @@ std::vector<uint32_t> SuspendedJoystickState::get_buttons_pressed_in_initial_joy
    if (!(initial_joystick_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::get_buttons_pressed_in_initial_joystick_state]: error: guard \"initial_joystick_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::get_buttons_pressed_in_initial_joystick_state]: error: guard \"initial_joystick_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::get_buttons_pressed_in_initial_joystick_state: error: guard \"initial_joystick_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::get_buttons_pressed_in_initial_joystick_state]: error: guard \"initial_joystick_state_is_captured\" not met");
    }
    std::vector<uint32_t> buttons;
    int num_buttons = initial_joystick_state_num_buttons;
@@ -114,9 +114,9 @@ std::vector<uint32_t> SuspendedJoystickState::get_buttons_pressed_in_subsequent_
    if (!(subsequent_joystick_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::get_buttons_pressed_in_subsequent_joystick_state]: error: guard \"subsequent_joystick_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::get_buttons_pressed_in_subsequent_joystick_state]: error: guard \"subsequent_joystick_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::get_buttons_pressed_in_subsequent_joystick_state: error: guard \"subsequent_joystick_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::get_buttons_pressed_in_subsequent_joystick_state]: error: guard \"subsequent_joystick_state_is_captured\" not met");
    }
    std::vector<uint32_t> buttons;
    int num_buttons = subsequent_joystick_state_num_buttons;
@@ -132,9 +132,9 @@ std::map<std::pair<int, int>, std::pair<float, float>> SuspendedJoystickState::g
    if (!(initial_joystick_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::get_sticks_moved_in_initial_joystick_state]: error: guard \"initial_joystick_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::get_sticks_moved_in_initial_joystick_state]: error: guard \"initial_joystick_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::get_sticks_moved_in_initial_joystick_state: error: guard \"initial_joystick_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::get_sticks_moved_in_initial_joystick_state]: error: guard \"initial_joystick_state_is_captured\" not met");
    }
    // Calculate the change in axes
    std::map<std::pair<int, int>, std::pair<float, float>> sticks;
@@ -163,9 +163,9 @@ std::map<std::pair<int, int>, std::pair<float, float>> SuspendedJoystickState::g
    if (!(subsequent_joystick_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::get_sticks_moved_in_subsequent_joystick_state]: error: guard \"subsequent_joystick_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::get_sticks_moved_in_subsequent_joystick_state]: error: guard \"subsequent_joystick_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::get_sticks_moved_in_subsequent_joystick_state: error: guard \"subsequent_joystick_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::get_sticks_moved_in_subsequent_joystick_state]: error: guard \"subsequent_joystick_state_is_captured\" not met");
    }
    // Calculate the change in axes
    std::map<std::pair<int, int>, std::pair<float, float>> sticks;
@@ -194,9 +194,9 @@ std::vector<uint32_t> SuspendedJoystickState::get_buttons_pressed()
    if (!(joystick_state_changes_are_calculated))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::get_buttons_pressed]: error: guard \"joystick_state_changes_are_calculated\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::get_buttons_pressed]: error: guard \"joystick_state_changes_are_calculated\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::get_buttons_pressed: error: guard \"joystick_state_changes_are_calculated\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::get_buttons_pressed]: error: guard \"joystick_state_changes_are_calculated\" not met");
    }
    return buttons_pressed;
 }
@@ -206,9 +206,9 @@ std::vector<uint32_t> SuspendedJoystickState::get_buttons_released()
    if (!(joystick_state_changes_are_calculated))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::get_buttons_released]: error: guard \"joystick_state_changes_are_calculated\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::get_buttons_released]: error: guard \"joystick_state_changes_are_calculated\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::get_buttons_released: error: guard \"joystick_state_changes_are_calculated\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::get_buttons_released]: error: guard \"joystick_state_changes_are_calculated\" not met");
    }
    return buttons_released;
 }
@@ -218,9 +218,9 @@ std::map<std::pair<int, int>, std::pair<float, float>> SuspendedJoystickState::g
    if (!(joystick_state_changes_are_calculated))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::get_sticks_moved]: error: guard \"joystick_state_changes_are_calculated\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::get_sticks_moved]: error: guard \"joystick_state_changes_are_calculated\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::get_sticks_moved: error: guard \"joystick_state_changes_are_calculated\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::get_sticks_moved]: error: guard \"joystick_state_changes_are_calculated\" not met");
    }
    return sticks_moved;
 }
@@ -230,30 +230,30 @@ void SuspendedJoystickState::capture_initial_joystick_state()
    if (!((!initial_joystick_state_is_captured)))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"(!initial_joystick_state_is_captured)\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"(!initial_joystick_state_is_captured)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::capture_initial_joystick_state: error: guard \"(!initial_joystick_state_is_captured)\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"(!initial_joystick_state_is_captured)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::capture_initial_joystick_state: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_joystick_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"al_is_joystick_installed()\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"al_is_joystick_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::capture_initial_joystick_state: error: guard \"al_is_joystick_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"al_is_joystick_installed()\" not met");
    }
    if (!(joystick))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"joystick\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"joystick\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::capture_initial_joystick_state: error: guard \"joystick\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::capture_initial_joystick_state]: error: guard \"joystick\" not met");
    }
    if (!al_get_joystick_active(joystick))
    {
@@ -279,30 +279,30 @@ void SuspendedJoystickState::capture_subsequent_joystick_state()
    if (!((!subsequent_joystick_state_is_captured)))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"(!subsequent_joystick_state_is_captured)\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"(!subsequent_joystick_state_is_captured)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::capture_subsequent_joystick_state: error: guard \"(!subsequent_joystick_state_is_captured)\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"(!subsequent_joystick_state_is_captured)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::capture_subsequent_joystick_state: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_joystick_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"al_is_joystick_installed()\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"al_is_joystick_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::capture_subsequent_joystick_state: error: guard \"al_is_joystick_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"al_is_joystick_installed()\" not met");
    }
    if (!(joystick))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"joystick\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"joystick\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::capture_subsequent_joystick_state: error: guard \"joystick\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::capture_subsequent_joystick_state]: error: guard \"joystick\" not met");
    }
    if (!al_get_joystick_active(joystick))
    {
@@ -328,23 +328,23 @@ void SuspendedJoystickState::calculate_joystick_state_changes()
    if (!((!joystick_state_changes_are_calculated)))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"(!joystick_state_changes_are_calculated)\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"(!joystick_state_changes_are_calculated)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::calculate_joystick_state_changes: error: guard \"(!joystick_state_changes_are_calculated)\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"(!joystick_state_changes_are_calculated)\" not met");
    }
    if (!(initial_joystick_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"initial_joystick_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"initial_joystick_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::calculate_joystick_state_changes: error: guard \"initial_joystick_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"initial_joystick_state_is_captured\" not met");
    }
    if (!(subsequent_joystick_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"subsequent_joystick_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"subsequent_joystick_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedJoystickState::calculate_joystick_state_changes: error: guard \"subsequent_joystick_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedJoystickState::calculate_joystick_state_changes]: error: guard \"subsequent_joystick_state_is_captured\" not met");
    }
    if (initial_joystick_state_stick_and_axis_count != subsequent_joystick_state_stick_and_axis_count)
    {

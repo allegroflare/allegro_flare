@@ -299,9 +299,9 @@ void Standard::emit_route_event(uint32_t route_event, AllegroFlare::RouteEventDa
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Standard::emit_route_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Routers::Standard::emit_route_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Standard::emit_route_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Standard::emit_route_event]: error: guard \"event_emitter\" not met");
    }
    event_emitter->emit_router_event(route_event, route_event_data, time_now);
    return;
@@ -366,16 +366,16 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
    if (!((route_event != EVENT_UNDEFINED)))
    {
       std::stringstream error_message;
-      error_message << "[Standard::on_route_event]: error: guard \"(route_event != EVENT_UNDEFINED)\" not met.";
+      error_message << "[AllegroFlare::Routers::Standard::on_route_event]: error: guard \"(route_event != EVENT_UNDEFINED)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Standard::on_route_event: error: guard \"(route_event != EVENT_UNDEFINED)\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Standard::on_route_event]: error: guard \"(route_event != EVENT_UNDEFINED)\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Standard::on_route_event]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Routers::Standard::on_route_event]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Standard::on_route_event: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Standard::on_route_event]: error: guard \"event_emitter\" not met");
    }
    AllegroFlare::Logger::info_from(
       "AllegroFlare::Routers::Standard::on_route_event",

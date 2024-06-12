@@ -120,51 +120,51 @@ void Hud::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Hud::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Hud::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Hud::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Hud::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Hud::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(timer))
    {
       std::stringstream error_message;
-      error_message << "[Hud::initialize]: error: guard \"timer\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"timer\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::initialize: error: guard \"timer\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"timer\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[Hud::initialize]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::initialize: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::initialize]: error: guard \"al_get_current_display()\" not met");
    }
    // TODO: have a destroy mechanism, need to destory the backbuffer on destruction
    ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
@@ -213,9 +213,9 @@ void Hud::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Hud::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::render]: error: guard \"initialized\" not met");
    }
    ALLEGRO_STATE previous_state;
    al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
@@ -233,9 +233,9 @@ ALLEGRO_FONT* Hud::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Hud::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::HudHud::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::HudHud::obtain_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Bold.ttf -90");
 }

@@ -74,16 +74,16 @@ void Blinds::set_num_blinds(int num_blinds)
    if (!((num_blinds >= 1)))
    {
       std::stringstream error_message;
-      error_message << "[Blinds::set_num_blinds]: error: guard \"(num_blinds >= 1)\" not met.";
+      error_message << "[AllegroFlare::Shaders::PostProcessing::Blinds::set_num_blinds]: error: guard \"(num_blinds >= 1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Blinds::set_num_blinds: error: guard \"(num_blinds >= 1)\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::PostProcessing::Blinds::set_num_blinds]: error: guard \"(num_blinds >= 1)\" not met");
    }
    if (!((num_blinds < 100)))
    {
       std::stringstream error_message;
-      error_message << "[Blinds::set_num_blinds]: error: guard \"(num_blinds < 100)\" not met.";
+      error_message << "[AllegroFlare::Shaders::PostProcessing::Blinds::set_num_blinds]: error: guard \"(num_blinds < 100)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Blinds::set_num_blinds: error: guard \"(num_blinds < 100)\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::PostProcessing::Blinds::set_num_blinds]: error: guard \"(num_blinds < 100)\" not met");
    }
    this->num_blinds = num_blinds;
    // TODO: include this condition
@@ -110,9 +110,9 @@ void Blinds::activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Blinds::activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Shaders::PostProcessing::Blinds::activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Blinds::activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::PostProcessing::Blinds::activate]: error: guard \"initialized\" not met");
    }
    AllegroFlare::Shaders::Base::activate();
    set_vec2("surface_dimensions", surface_width, surface_height);

@@ -118,51 +118,51 @@ void Element::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Element::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Element::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Element::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Element::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Element::initialize]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::initialize: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Element::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Element::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::initialize]: error: guard \"font_bin\" not met");
    }
    //rap_sheets_pane = new CatDetective::Chronicle::Panes::RapSheets();
    //rap_sheets_pane->set_bitmap_bin(bitmap_bin);
@@ -194,9 +194,9 @@ void Element::refresh()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Element::refresh]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::refresh]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::refresh: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::refresh]: error: guard \"initialized\" not met");
    }
    // TODO: Refresh all panes. This might be used for example when inventory count changes during gameplay, but the
    // UI does not refresh in real-time in the subscreen as a consequence. UI may become stale if its not live-synced.
@@ -368,9 +368,9 @@ void Element::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Element::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::update]: error: guard \"initialized\" not met");
    }
    // update the camera position
    pane_camera.position.x = (pane_camera_dest_x_pos - pane_camera.position.x) * 0.16 + pane_camera.position.x;
@@ -387,9 +387,9 @@ void Element::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Element::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::render]: error: guard \"initialized\" not met");
    }
    ALLEGRO_STATE previous_render_state;
    al_store_state(&previous_render_state, ALLEGRO_STATE_TARGET_BITMAP);
@@ -407,9 +407,9 @@ void Element::render_background()
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[Element::render_background]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::render_background]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::render_background: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::render_background]: error: guard \"al_get_current_display()\" not met");
    }
    if (!background_bitmap) return;
    al_draw_scaled_bitmap(
@@ -432,9 +432,9 @@ void Element::render_panes()
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[Element::render_panes]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::render_panes]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::render_panes: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::render_panes]: error: guard \"al_get_current_display()\" not met");
    }
    // TODO: Obtain and use a render surface rather than a direct access to the backbuffer
 
@@ -478,9 +478,9 @@ void Element::render_tabs()
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[Element::render_tabs]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::render_tabs]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::render_tabs: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::render_tabs]: error: guard \"al_get_current_display()\" not met");
    }
    int num_tabs = infer_num_panes();
    if (num_tabs <= 0) return;
@@ -537,23 +537,23 @@ ALLEGRO_FONT* Element::obtain_tabs_font()
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Element::obtain_tabs_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::obtain_tabs_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::obtain_tabs_font: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::obtain_tabs_font]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Element::obtain_tabs_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::obtain_tabs_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::obtain_tabs_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::obtain_tabs_font]: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Element::obtain_tabs_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Element::obtain_tabs_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Element::obtain_tabs_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Element::obtain_tabs_font]: error: guard \"font_bin\" not met");
    }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);

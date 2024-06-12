@@ -75,16 +75,16 @@ void AllPass::set_gain(float gain)
    if (!((gain >= 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::set_gain]: error: guard \"(gain >= 0.0f)\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::set_gain]: error: guard \"(gain >= 0.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::set_gain: error: guard \"(gain >= 0.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::set_gain]: error: guard \"(gain >= 0.0f)\" not met");
    }
    if (!((gain <= 1.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::set_gain]: error: guard \"(gain <= 1.0f)\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::set_gain]: error: guard \"(gain <= 1.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::set_gain: error: guard \"(gain <= 1.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::set_gain]: error: guard \"(gain <= 1.0f)\" not met");
    }
    this->gain = gain;
    return;
@@ -95,16 +95,16 @@ void AllPass::set_wet(float wet)
    if (!((wet >= 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::set_wet]: error: guard \"(wet >= 0.0f)\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::set_wet]: error: guard \"(wet >= 0.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::set_wet: error: guard \"(wet >= 0.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::set_wet]: error: guard \"(wet >= 0.0f)\" not met");
    }
    if (!((wet <= 1.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::set_wet]: error: guard \"(wet <= 1.0f)\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::set_wet]: error: guard \"(wet <= 1.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::set_wet: error: guard \"(wet <= 1.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::set_wet]: error: guard \"(wet <= 1.0f)\" not met");
    }
    this->wet = wet;
    return;
@@ -115,16 +115,16 @@ void AllPass::set_dry(float dry)
    if (!((dry >= 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::set_dry]: error: guard \"(dry >= 0.0f)\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::set_dry]: error: guard \"(dry >= 0.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::set_dry: error: guard \"(dry >= 0.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::set_dry]: error: guard \"(dry >= 0.0f)\" not met");
    }
    if (!((dry <= 1.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::set_dry]: error: guard \"(dry <= 1.0f)\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::set_dry]: error: guard \"(dry <= 1.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::set_dry: error: guard \"(dry <= 1.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::set_dry]: error: guard \"(dry <= 1.0f)\" not met");
    }
    this->dry = dry;
    return;
@@ -135,9 +135,9 @@ ALLEGRO_MIXER* AllPass::get_al_mixer()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::get_al_mixer]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::get_al_mixer]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::get_al_mixer: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::get_al_mixer]: error: guard \"initialized\" not met");
    }
    return mixer.get_mixer();
 }
@@ -147,9 +147,9 @@ void AllPass::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::initialize]: error: guard \"(!initialized)\" not met");
    }
    // initialize the mixer
    mixer.initialize();
@@ -173,9 +173,9 @@ void AllPass::mixer_postprocess_callback(void* buf, unsigned int samples, void* 
    if (!(data))
    {
       std::stringstream error_message;
-      error_message << "[AllPass::mixer_postprocess_callback]: error: guard \"data\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::AllPass::mixer_postprocess_callback]: error: guard \"data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AllPass::mixer_postprocess_callback: error: guard \"data\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::AllPass::mixer_postprocess_callback]: error: guard \"data\" not met");
    }
    float *fbuf = (float *)buf;
    AllegroFlare::AudioProcessing::Filters::AllPass *all_pass= static_cast<AllegroFlare::AudioProcessing::Filters::AllPass*>(data);

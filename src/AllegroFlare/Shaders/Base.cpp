@@ -65,9 +65,9 @@ void Base::set_vertex_source_code(std::string vertex_source_code)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Base::set_vertex_source_code]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::set_vertex_source_code]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::set_vertex_source_code: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::set_vertex_source_code]: error: guard \"(!initialized)\" not met");
    }
    // TODO: Test this
    this->vertex_source_code = vertex_source_code;
@@ -79,9 +79,9 @@ void Base::set_fragment_source_code(std::string fragment_source_code)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Base::set_fragment_source_code]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::set_fragment_source_code]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::set_fragment_source_code: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::set_fragment_source_code]: error: guard \"(!initialized)\" not met");
    }
    // TODO: Test this
    this->fragment_source_code = fragment_source_code;
@@ -103,9 +103,9 @@ bool Base::display_is_opengl(ALLEGRO_DISPLAY* display)
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[Base::display_is_opengl]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::display_is_opengl]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::display_is_opengl: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::display_is_opengl]: error: guard \"display\" not met");
    }
    // TODO: Test this
    return (ALLEGRO_OPENGL == (al_get_display_flags(display) & ALLEGRO_OPENGL));
@@ -116,9 +116,9 @@ bool Base::display_is_programmable_pipeline(ALLEGRO_DISPLAY* display)
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[Base::display_is_programmable_pipeline]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::display_is_programmable_pipeline]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::display_is_programmable_pipeline: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::display_is_programmable_pipeline]: error: guard \"display\" not met");
    }
    // TODO: Test this
    return (ALLEGRO_PROGRAMMABLE_PIPELINE == (al_get_display_flags(display) & ALLEGRO_PROGRAMMABLE_PIPELINE));
@@ -129,37 +129,37 @@ bool Base::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Base::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Base::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[Base::initialize]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::initialize]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::initialize: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::initialize]: error: guard \"al_get_current_display()\" not met");
    }
    if (!(display_is_opengl(al_get_current_display())))
    {
       std::stringstream error_message;
-      error_message << "[Base::initialize]: error: guard \"display_is_opengl(al_get_current_display())\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::initialize]: error: guard \"display_is_opengl(al_get_current_display())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::initialize: error: guard \"display_is_opengl(al_get_current_display())\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::initialize]: error: guard \"display_is_opengl(al_get_current_display())\" not met");
    }
    if (!(display_is_programmable_pipeline(al_get_current_display())))
    {
       std::stringstream error_message;
-      error_message << "[Base::initialize]: error: guard \"display_is_programmable_pipeline(al_get_current_display())\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::initialize]: error: guard \"display_is_programmable_pipeline(al_get_current_display())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::initialize: error: guard \"display_is_programmable_pipeline(al_get_current_display())\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::initialize]: error: guard \"display_is_programmable_pipeline(al_get_current_display())\" not met");
    }
    al_shader = al_create_shader(ALLEGRO_SHADER_GLSL);
    if (!al_shader) throw std::runtime_error("Could not create Shader");
@@ -174,16 +174,16 @@ bool Base::attach_source_code(bool throw_on_error)
    if (!((!vertex_source_code_is_default())))
    {
       std::stringstream error_message;
-      error_message << "[Base::attach_source_code]: error: guard \"(!vertex_source_code_is_default())\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::attach_source_code]: error: guard \"(!vertex_source_code_is_default())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::attach_source_code: error: guard \"(!vertex_source_code_is_default())\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::attach_source_code]: error: guard \"(!vertex_source_code_is_default())\" not met");
    }
    if (!((!fragment_source_code_is_default())))
    {
       std::stringstream error_message;
-      error_message << "[Base::attach_source_code]: error: guard \"(!fragment_source_code_is_default())\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::attach_source_code]: error: guard \"(!fragment_source_code_is_default())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::attach_source_code: error: guard \"(!fragment_source_code_is_default())\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::attach_source_code]: error: guard \"(!fragment_source_code_is_default())\" not met");
    }
    if (!al_attach_shader_source(al_shader, ALLEGRO_VERTEX_SHADER, vertex_source_code.c_str()))
    {
@@ -238,9 +238,9 @@ void Base::destroy()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Base::destroy]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::destroy]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::destroy: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::destroy]: error: guard \"initialized\" not met");
    }
    // TODO: find a safer usage of this function.  Some examples
    //   - prevent function calls after destruction
@@ -253,9 +253,9 @@ void Base::activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Base::activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::activate]: error: guard \"initialized\" not met");
    }
    al_use_shader(al_shader);
    //set_values_to_activated_shader(); // TODO: <-- introduce this function here
@@ -346,9 +346,9 @@ void Base::hotload(std::string vertex_source_code, std::string fragment_source_c
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Base::hotload]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Shaders::Base::hotload]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::hotload: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Base::hotload]: error: guard \"initialized\" not met");
    }
    al_use_shader(nullptr); // TODO: only disable the shader if it is the currently active one. Restore otherwise
                            // TODO: consider doing the thing

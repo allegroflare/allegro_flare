@@ -71,9 +71,9 @@ std::vector<AllegroFlare::GraphicsPipelines::Basic3D::Entity> Scene::get_entitie
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Scene::get_entities_ref]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::Basic3D::Scene::get_entities_ref]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Scene::get_entities_ref: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::Basic3D::Scene::get_entities_ref]: error: guard \"initialized\" not met");
    }
    // TODO: Test this guard
    return entities;
@@ -84,23 +84,23 @@ void Scene::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Scene::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::Basic3D::Scene::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Scene::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::Basic3D::Scene::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[Scene::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::Basic3D::Scene::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Scene::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::Basic3D::Scene::initialize]: error: guard \"model_bin\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Scene::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::Basic3D::Scene::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Scene::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::Basic3D::Scene::initialize]: error: guard \"bitmap_bin\" not met");
    }
    // Position the camera 5 meters back while looking at the origin (0, 0, 0)
    camera.stepout = AllegroFlare::Vec3D(0, 0, 5);
@@ -132,9 +132,9 @@ void Scene::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Scene::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::Basic3D::Scene::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Scene::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::Basic3D::Scene::update]: error: guard \"initialized\" not met");
    }
    for (auto &entity : entities)
    {
@@ -150,9 +150,9 @@ void Scene::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Scene::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::Basic3D::Scene::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Scene::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::Basic3D::Scene::render]: error: guard \"initialized\" not met");
    }
    // TODO: Validate the render surface has depth
    // TODO: Clear the depth on the render surface

@@ -516,9 +516,9 @@ void TitleScreen::set_state(uint32_t state, bool override_if_busy)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::set_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::set_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::set_state]: error: guard \"is_valid_state(state)\" not met");
    }
    if (this->state == state) return;
    if (!override_if_busy && state_is_busy) return;
@@ -571,9 +571,9 @@ void TitleScreen::update(float time_now)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::update]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::update]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::update: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::update]: error: guard \"is_valid_state(state)\" not met");
    }
    float state_age = infer_age(state_changed_at, time_now);
 
@@ -644,9 +644,9 @@ float TitleScreen::infer_reveal_age_n(float time_now)
    if (!((reveal_duration != 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::infer_reveal_age_n]: error: guard \"(reveal_duration != 0.0f)\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::infer_reveal_age_n]: error: guard \"(reveal_duration != 0.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::infer_reveal_age_n: error: guard \"(reveal_duration != 0.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::infer_reveal_age_n]: error: guard \"(reveal_duration != 0.0f)\" not met");
    }
    return std::max(0.0f, std::min(1.0f, infer_reveal_age(time_now) / reveal_duration));
 }
@@ -706,9 +706,9 @@ void TitleScreen::activate_current_selected_menu_option()
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::activate_current_selected_menu_option]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::activate_current_selected_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::activate_current_selected_menu_option: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::activate_current_selected_menu_option]: error: guard \"event_emitter\" not met");
    }
    // TODO: Consider case where there is an emtpy list
    // TODO: Remove the emit_game_event as a technique here, rely on callback only
@@ -769,23 +769,23 @@ void TitleScreen::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    draw_title();
    if (showing_copyright) draw_copyright_text();
@@ -925,9 +925,9 @@ void TitleScreen::draw_menu()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::draw_menu]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::draw_menu]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::draw_menu: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::draw_menu]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
@@ -999,9 +999,9 @@ void TitleScreen::draw_confirmation_dialog()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::draw_confirmation_dialog]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::draw_confirmation_dialog]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::draw_confirmation_dialog: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::draw_confirmation_dialog]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // TODO: review guards on this function
    ALLEGRO_FONT *menu_font = obtain_menu_font();
@@ -1099,9 +1099,9 @@ void TitleScreen::play_menu_move_sound_effect()
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::play_menu_move_sound_effect]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::play_menu_move_sound_effect]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::play_menu_move_sound_effect: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::play_menu_move_sound_effect]: error: guard \"event_emitter\" not met");
    }
    event_emitter->emit_play_sound_effect_event(menu_move_sound_effect_identifier);
    return;
@@ -1112,9 +1112,9 @@ void TitleScreen::play_menu_select_option_sound_effect()
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::play_menu_select_option_sound_effect]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::play_menu_select_option_sound_effect]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::play_menu_select_option_sound_effect: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::play_menu_select_option_sound_effect]: error: guard \"event_emitter\" not met");
    }
    event_emitter->emit_play_sound_effect_event(menu_select_option_sound_effect_identifier);
    return;
@@ -1125,9 +1125,9 @@ ALLEGRO_FONT* TitleScreen::obtain_title_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::obtain_title_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::obtain_title_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::obtain_title_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << title_font_name << " " << title_font_size;
@@ -1139,9 +1139,9 @@ ALLEGRO_FONT* TitleScreen::obtain_menu_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::obtain_menu_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::obtain_menu_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::obtain_menu_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::obtain_menu_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << menu_font_name << " " << menu_font_size;
@@ -1153,9 +1153,9 @@ ALLEGRO_FONT* TitleScreen::obtain_copyright_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::obtain_copyright_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::obtain_copyright_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::obtain_copyright_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::obtain_copyright_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << copyright_font_name << " " << copyright_font_size;
@@ -1167,9 +1167,9 @@ ALLEGRO_BITMAP* TitleScreen::obtain_title_bitmap()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[TitleScreen::obtain_title_bitmap]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::TitleScreen::obtain_title_bitmap]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TitleScreen::obtain_title_bitmap: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::TitleScreen::obtain_title_bitmap]: error: guard \"bitmap_bin\" not met");
    }
    return bitmap_bin->auto_get(title_bitmap_name);
 }

@@ -62,9 +62,9 @@ void TMJTileMeshLoader::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::set_bitmap_bin]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::set_bitmap_bin]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::set_bitmap_bin: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::set_bitmap_bin]: error: guard \"(!loaded)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
 }
@@ -74,9 +74,9 @@ void TMJTileMeshLoader::set_tmj_filename(std::string tmj_filename)
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::set_tmj_filename]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::set_tmj_filename]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::set_tmj_filename: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::set_tmj_filename]: error: guard \"(!loaded)\" not met");
    }
    this->tmj_filename = tmj_filename;
 }
@@ -86,9 +86,9 @@ void TMJTileMeshLoader::set_tile_atlas_bitmap_identifier(std::string tile_atlas_
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::set_tile_atlas_bitmap_identifier]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::set_tile_atlas_bitmap_identifier]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::set_tile_atlas_bitmap_identifier: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::set_tile_atlas_bitmap_identifier]: error: guard \"(!loaded)\" not met");
    }
    this->tile_atlas_bitmap_identifier = tile_atlas_bitmap_identifier;
 }
@@ -98,9 +98,9 @@ AllegroFlare::TileMaps::PrimMeshAtlas* TMJTileMeshLoader::get_tile_atlas()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::get_tile_atlas]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_tile_atlas]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::get_tile_atlas: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_tile_atlas]: error: guard \"loaded\" not met");
    }
    return tile_atlas;
 }
@@ -110,9 +110,9 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::get_terrain_mesh()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::get_terrain_mesh]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_terrain_mesh]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::get_terrain_mesh: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_terrain_mesh]: error: guard \"loaded\" not met");
    }
    return terrain_mesh;
 }
@@ -122,9 +122,9 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::get_background_mesh()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::get_background_mesh]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_background_mesh]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::get_background_mesh: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_background_mesh]: error: guard \"loaded\" not met");
    }
    return background_mesh;
 }
@@ -134,9 +134,9 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::get_foreground_mesh()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::get_foreground_mesh]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_foreground_mesh]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::get_foreground_mesh: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_foreground_mesh]: error: guard \"loaded\" not met");
    }
    return foreground_mesh;
 }
@@ -146,9 +146,9 @@ AllegroFlare::TileMaps::TileMap<int>* TMJTileMeshLoader::get_collision_tile_map(
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::get_collision_tile_map]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_collision_tile_map]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::get_collision_tile_map: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_collision_tile_map]: error: guard \"loaded\" not met");
    }
    return collision_tile_map;
 }
@@ -158,16 +158,16 @@ bool TMJTileMeshLoader::load()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::load]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::load]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::load: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::load]: error: guard \"bitmap_bin\" not met");
    }
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::load]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::load]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::load: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::load]: error: guard \"(!loaded)\" not met");
    }
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader tmj_data_loader(tmj_filename);
    tmj_data_loader.load();
@@ -434,16 +434,16 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
    if (!(tile_atlas))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::create_mesh]: error: guard \"tile_atlas\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::create_mesh]: error: guard \"tile_atlas\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::create_mesh: error: guard \"tile_atlas\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::create_mesh]: error: guard \"tile_atlas\" not met");
    }
    if (!((tile_data.size() == num_rows * num_columns)))
    {
       std::stringstream error_message;
-      error_message << "[TMJTileMeshLoader::create_mesh]: error: guard \"(tile_data.size() == num_rows * num_columns)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::create_mesh]: error: guard \"(tile_data.size() == num_rows * num_columns)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJTileMeshLoader::create_mesh: error: guard \"(tile_data.size() == num_rows * num_columns)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::create_mesh]: error: guard \"(tile_data.size() == num_rows * num_columns)\" not met");
    }
    if (filter_out_flipped_tile_numbers)
    {

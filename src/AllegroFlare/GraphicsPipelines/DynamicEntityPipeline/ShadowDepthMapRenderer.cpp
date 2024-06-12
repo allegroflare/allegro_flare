@@ -91,9 +91,9 @@ void ShadowDepthMapRenderer::init_shader()
    if (!((!depth_map_shader)))
    {
       std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::init_shader]: error: guard \"(!depth_map_shader)\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer::init_shader]: error: guard \"(!depth_map_shader)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::init_shader: error: guard \"(!depth_map_shader)\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer::init_shader]: error: guard \"(!depth_map_shader)\" not met");
    }
    // TODO: Change this folder path
    std::string ROOT_PATH_TO_DATA_FOLDER = "/Users/markoates/Repos/allegro_flare/bin/";
@@ -141,9 +141,9 @@ void ShadowDepthMapRenderer::render()
    if (!(entity_pool))
    {
       std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::render]: error: guard \"entity_pool\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer::render]: error: guard \"entity_pool\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::render: error: guard \"entity_pool\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer::render]: error: guard \"entity_pool\" not met");
    }
    // TODO: store and restore states on glEnable/glCullFace, etc
    // https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glIsEnabled.xml
@@ -287,9 +287,9 @@ AllegroFlare::MultitextureModel3D* ShadowDepthMapRenderer::get_multitexture_mode
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[ShadowDepthMapRenderer::get_multitexture_model_3d]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer::get_multitexture_model_3d]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShadowDepthMapRenderer::get_multitexture_model_3d: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::ShadowDepthMapRenderer::get_multitexture_model_3d]: error: guard \"entity\" not met");
    }
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 

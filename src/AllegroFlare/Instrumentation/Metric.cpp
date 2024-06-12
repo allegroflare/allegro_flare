@@ -50,16 +50,16 @@ void Metric::set_size(int size)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Metric::set_size]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metric::set_size]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Metric::set_size: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metric::set_size]: error: guard \"(!initialized)\" not met");
    }
    if (!((size >= 32)))
    {
       std::stringstream error_message;
-      error_message << "[Metric::set_size]: error: guard \"(size >= 32)\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metric::set_size]: error: guard \"(size >= 32)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Metric::set_size: error: guard \"(size >= 32)\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metric::set_size]: error: guard \"(size >= 32)\" not met");
    }
    this->size = size;
    return;
@@ -70,9 +70,9 @@ void Metric::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Metric::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metric::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Metric::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metric::initialize]: error: guard \"(!initialized)\" not met");
    }
    metrics.reserve(size);
    metrics.resize(size);
@@ -86,9 +86,9 @@ void Metric::capture(double metric)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Metric::capture]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metric::capture]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Metric::capture: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metric::capture]: error: guard \"initialized\" not met");
    }
    head++;
    if (head >= metrics.size()) head = 0;
@@ -101,9 +101,9 @@ int Metric::head_delta(int delta)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Metric::head_delta]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metric::head_delta]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Metric::head_delta: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metric::head_delta]: error: guard \"initialized\" not met");
    }
    int pos = head + delta;
    while (pos < 0) pos += metrics.size();
@@ -116,9 +116,9 @@ double Metric::average_of_last_n_metrics(int count)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Metric::average_of_last_n_metrics]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metric::average_of_last_n_metrics]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Metric::average_of_last_n_metrics: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metric::average_of_last_n_metrics]: error: guard \"initialized\" not met");
    }
    double sum = 0.0;
    for (int i=0; i<count; i++)
@@ -134,9 +134,9 @@ std::vector<double> Metric::get_last_n_metrics(int count)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Metric::get_last_n_metrics]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metric::get_last_n_metrics]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Metric::get_last_n_metrics: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metric::get_last_n_metrics]: error: guard \"initialized\" not met");
    }
    // TODO: Test this
    std::vector<double> result;

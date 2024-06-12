@@ -118,9 +118,9 @@ void Storyboard::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Storyboard::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::Storyboard::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Storyboard::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Storyboard::initialize]: error: guard \"(!initialized)\" not met");
    }
    storyboard_element.set_font_bin(font_bin);
    initialized = true;
@@ -132,9 +132,9 @@ void Storyboard::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Storyboard::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Storyboard::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Storyboard::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Storyboard::on_activate]: error: guard \"initialized\" not met");
    }
    storyboard_element.reset();
    if (storyboard_element.infer_has_no_pages())
@@ -154,9 +154,9 @@ void Storyboard::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Storyboard::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Storyboard::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Storyboard::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Storyboard::on_deactivate]: error: guard \"initialized\" not met");
    }
    return;
 }
@@ -166,9 +166,9 @@ void Storyboard::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Storyboard::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Storyboard::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Storyboard::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Storyboard::primary_timer_func]: error: guard \"initialized\" not met");
    }
 
    storyboard_element.update();
@@ -210,16 +210,16 @@ void Storyboard::advance()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Storyboard::advance]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Storyboard::advance]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Storyboard::advance: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Storyboard::advance]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Storyboard::advance]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::Storyboard::advance]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Storyboard::advance: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Storyboard::advance]: error: guard \"event_emitter\" not met");
    }
    if (storyboard_element.get_finished()) return;
 
@@ -238,16 +238,16 @@ void Storyboard::virtual_control_button_down_func(AllegroFlare::Player* player, 
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Storyboard::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Storyboard::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Storyboard::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Storyboard::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Storyboard::virtual_control_button_down_func]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::Storyboard::virtual_control_button_down_func]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Storyboard::virtual_control_button_down_func: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Storyboard::virtual_control_button_down_func]: error: guard \"event_emitter\" not met");
    }
    if (storyboard_element.get_finished()) return;
 

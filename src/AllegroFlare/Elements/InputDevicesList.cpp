@@ -152,9 +152,9 @@ void InputDevicesList::set_input_devices(std::vector<std::tuple<AllegroFlare::Ph
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::set_input_devices]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDevicesList::set_input_devices]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::set_input_devices: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDevicesList::set_input_devices]: error: guard \"initialized\" not met");
    }
    this->input_devices = input_devices;
    cursor_pos = 0;
@@ -169,30 +169,30 @@ void InputDevicesList::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDevicesList::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDevicesList::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDevicesList::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDevicesList::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDevicesList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDevicesList::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDevicesList::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDevicesList::initialize]: error: guard \"font_bin\" not met");
    }
    selection_cursor_box.set_position(0, 0);
    selection_cursor_box.set_size(list_item_box_width, list_item_box_height);
@@ -314,9 +314,9 @@ void InputDevicesList::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDevicesList::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDevicesList::update]: error: guard \"initialized\" not met");
    }
    scrollbar_position = (scrollbar_position_destination - scrollbar_position)
                       * scrollbar_reposition_multiplier + scrollbar_position;
@@ -329,9 +329,9 @@ void InputDevicesList::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDevicesList::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDevicesList::render]: error: guard \"initialized\" not met");
    }
    draw_input_devices_list_items_and_scrollbar();
    draw_input_devices_list_title_text_and_completed_title_text();
@@ -519,9 +519,9 @@ float InputDevicesList::infer_container_contents_height_for_n_elements(int num_e
    if (!(num_elements >= 0))
    {
       std::stringstream error_message;
-      error_message << "[InputDevicesList::infer_container_contents_height_for_n_elements]: error: guard \"num_elements >= 0\" not met.";
+      error_message << "[AllegroFlare::Elements::InputDevicesList::infer_container_contents_height_for_n_elements]: error: guard \"num_elements >= 0\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDevicesList::infer_container_contents_height_for_n_elements: error: guard \"num_elements >= 0\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::InputDevicesList::infer_container_contents_height_for_n_elements]: error: guard \"num_elements >= 0\" not met");
    }
    if (num_elements == 0) return 0;
    return num_elements * infer_list_item_y_spacing() - box_gutter_y;

@@ -80,16 +80,16 @@ void Camera2D::setup_dimensional_projection(ALLEGRO_BITMAP* bitmap)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Camera2D::setup_dimensional_projection]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Camera2D::setup_dimensional_projection]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Camera2D::setup_dimensional_projection: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Camera2D::setup_dimensional_projection]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(bitmap))
    {
       std::stringstream error_message;
-      error_message << "[Camera2D::setup_dimensional_projection]: error: guard \"bitmap\" not met.";
+      error_message << "[AllegroFlare::Camera2D::setup_dimensional_projection]: error: guard \"bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Camera2D::setup_dimensional_projection: error: guard \"bitmap\" not met");
+      throw std::runtime_error("[AllegroFlare::Camera2D::setup_dimensional_projection]: error: guard \"bitmap\" not met");
    }
    // The goal here is to setup a projection transform that behaves as if normal 2D pixels were drawn for z=0
    // (i.e. as with the normal orthographic transform set up by Allegro), but allows some perspective effects for
@@ -144,9 +144,9 @@ void Camera2D::blend_with_other_camera(AllegroFlare::Camera2D* camera_b, float b
    if (!(camera_b))
    {
       std::stringstream error_message;
-      error_message << "[Camera2D::blend_with_other_camera]: error: guard \"camera_b\" not met.";
+      error_message << "[AllegroFlare::Camera2D::blend_with_other_camera]: error: guard \"camera_b\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Camera2D::blend_with_other_camera: error: guard \"camera_b\" not met");
+      throw std::runtime_error("[AllegroFlare::Camera2D::blend_with_other_camera]: error: guard \"camera_b\" not met");
    }
    // TODO: Improve tests on this
    blend(*camera_b, blend_factor);

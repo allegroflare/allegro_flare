@@ -63,9 +63,9 @@ void Hypersync::set_song_filename(std::string song_filename)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Hypersync::set_song_filename]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::Hypersync::set_song_filename]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hypersync::set_song_filename: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::Hypersync::set_song_filename]: error: guard \"(!initialized)\" not met");
    }
    this->song_filename = song_filename;
    return;
@@ -76,16 +76,16 @@ void Hypersync::set_song_bpm(float song_bpm)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Hypersync::set_song_bpm]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::Hypersync::set_song_bpm]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hypersync::set_song_bpm: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::Hypersync::set_song_bpm]: error: guard \"(!initialized)\" not met");
    }
    if (!((song_bpm >= MIN_SONG_BPM)))
    {
       std::stringstream error_message;
-      error_message << "[Hypersync::set_song_bpm]: error: guard \"(song_bpm >= MIN_SONG_BPM)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::Hypersync::set_song_bpm]: error: guard \"(song_bpm >= MIN_SONG_BPM)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hypersync::set_song_bpm: error: guard \"(song_bpm >= MIN_SONG_BPM)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::Hypersync::set_song_bpm]: error: guard \"(song_bpm >= MIN_SONG_BPM)\" not met");
    }
    this->song_bpm = song_bpm;
    return;
@@ -147,23 +147,23 @@ void Hypersync::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Hypersync::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::Hypersync::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hypersync::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::Hypersync::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_audio_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Hypersync::initialize]: error: guard \"al_is_audio_installed()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::Hypersync::initialize]: error: guard \"al_is_audio_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hypersync::initialize: error: guard \"al_is_audio_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::Hypersync::initialize]: error: guard \"al_is_audio_installed()\" not met");
    }
    if (!(al_is_acodec_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Hypersync::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::Hypersync::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hypersync::initialize: error: guard \"al_is_acodec_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::Hypersync::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met");
    }
    audio_voice = al_create_voice(44100, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
    if (!audio_voice) throw std::runtime_error("could not create voice!!");

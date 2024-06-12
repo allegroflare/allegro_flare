@@ -42,9 +42,9 @@ BeamPositionCalculator::StemDirection BeamPositionCalculator::infer_preferred_st
    if (!(notehead_staff_positions.size() >= 2))
    {
       std::stringstream error_message;
-      error_message << "[BeamPositionCalculator::infer_preferred_stem_direction]: error: guard \"notehead_staff_positions.size() >= 2\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::BeamPositionCalculator::infer_preferred_stem_direction]: error: guard \"notehead_staff_positions.size() >= 2\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BeamPositionCalculator::infer_preferred_stem_direction: error: guard \"notehead_staff_positions.size() >= 2\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::BeamPositionCalculator::infer_preferred_stem_direction]: error: guard \"notehead_staff_positions.size() >= 2\" not met");
    }
    BeamPositionCalculator::StemDirection result = BeamPositionCalculator::StemDirection::UNDEFINED;
 
@@ -75,9 +75,9 @@ int BeamPositionCalculator::get_first_staff_position()
    if (!((!notehead_staff_positions.empty())))
    {
       std::stringstream error_message;
-      error_message << "[BeamPositionCalculator::get_first_staff_position]: error: guard \"(!notehead_staff_positions.empty())\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::BeamPositionCalculator::get_first_staff_position]: error: guard \"(!notehead_staff_positions.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BeamPositionCalculator::get_first_staff_position: error: guard \"(!notehead_staff_positions.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::BeamPositionCalculator::get_first_staff_position]: error: guard \"(!notehead_staff_positions.empty())\" not met");
    }
    return notehead_staff_positions.front().second;
 }
@@ -87,9 +87,9 @@ int BeamPositionCalculator::get_last_staff_position()
    if (!((!notehead_staff_positions.empty())))
    {
       std::stringstream error_message;
-      error_message << "[BeamPositionCalculator::get_last_staff_position]: error: guard \"(!notehead_staff_positions.empty())\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::BeamPositionCalculator::get_last_staff_position]: error: guard \"(!notehead_staff_positions.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BeamPositionCalculator::get_last_staff_position: error: guard \"(!notehead_staff_positions.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::BeamPositionCalculator::get_last_staff_position]: error: guard \"(!notehead_staff_positions.empty())\" not met");
    }
    return notehead_staff_positions.back().second;
 }
@@ -139,9 +139,9 @@ int BeamPositionCalculator::get_min_interior_staff_position()
    if (!(notehead_staff_positions.size() >= 3))
    {
       std::stringstream error_message;
-      error_message << "[BeamPositionCalculator::get_min_interior_staff_position]: error: guard \"notehead_staff_positions.size() >= 3\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::BeamPositionCalculator::get_min_interior_staff_position]: error: guard \"notehead_staff_positions.size() >= 3\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BeamPositionCalculator::get_min_interior_staff_position: error: guard \"notehead_staff_positions.size() >= 3\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::BeamPositionCalculator::get_min_interior_staff_position]: error: guard \"notehead_staff_positions.size() >= 3\" not met");
    }
    int min_value = 0;
    auto min_element = std::min_element(notehead_staff_positions.begin()+1, notehead_staff_positions.end()-1, 
@@ -166,9 +166,9 @@ int BeamPositionCalculator::get_max_interior_staff_position()
    if (!(notehead_staff_positions.size() >= 3))
    {
       std::stringstream error_message;
-      error_message << "[BeamPositionCalculator::get_max_interior_staff_position]: error: guard \"notehead_staff_positions.size() >= 3\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::BeamPositionCalculator::get_max_interior_staff_position]: error: guard \"notehead_staff_positions.size() >= 3\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BeamPositionCalculator::get_max_interior_staff_position: error: guard \"notehead_staff_positions.size() >= 3\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::BeamPositionCalculator::get_max_interior_staff_position]: error: guard \"notehead_staff_positions.size() >= 3\" not met");
    }
    int min_value = 0;
    auto min_element = std::max_element(notehead_staff_positions.begin()+1, notehead_staff_positions.end()-1, 

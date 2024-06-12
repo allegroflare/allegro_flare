@@ -97,16 +97,16 @@ void ShaderSourcePoller::set_event_queue(ALLEGRO_EVENT_QUEUE* event_queue)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::set_event_queue]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::set_event_queue]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::set_event_queue: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::set_event_queue]: error: guard \"(!initialized)\" not met");
    }
    if (!(event_queue))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::set_event_queue]: error: guard \"event_queue\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::set_event_queue]: error: guard \"event_queue\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::set_event_queue: error: guard \"event_queue\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::set_event_queue]: error: guard \"event_queue\" not met");
    }
    this->event_queue = event_queue;
    return;
@@ -117,23 +117,23 @@ void ShaderSourcePoller::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(event_queue))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::initialize]: error: guard \"event_queue\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::initialize]: error: guard \"event_queue\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::initialize: error: guard \"event_queue\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::initialize]: error: guard \"event_queue\" not met");
    }
    polling_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(1)); // one poll per second
    initialized = true;
@@ -146,16 +146,16 @@ void ShaderSourcePoller::start_polling()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::start_polling]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::start_polling]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::start_polling: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::start_polling]: error: guard \"initialized\" not met");
    }
    if (!((!polling_active)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::start_polling]: error: guard \"(!polling_active)\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::start_polling]: error: guard \"(!polling_active)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::start_polling: error: guard \"(!polling_active)\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::start_polling]: error: guard \"(!polling_active)\" not met");
    }
    al_register_event_source(event_queue, al_get_timer_event_source(polling_timer));
    al_start_timer(polling_timer);
@@ -168,16 +168,16 @@ void ShaderSourcePoller::stop_polling()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::stop_polling]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::stop_polling]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::stop_polling: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::stop_polling]: error: guard \"initialized\" not met");
    }
    if (!(polling_active))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::stop_polling]: error: guard \"polling_active\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::stop_polling]: error: guard \"polling_active\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::stop_polling: error: guard \"polling_active\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::stop_polling]: error: guard \"polling_active\" not met");
    }
    al_stop_timer(polling_timer);
    al_unregister_event_source(event_queue, al_get_timer_event_source(polling_timer));
@@ -190,16 +190,16 @@ std::string ShaderSourcePoller::read_vertex_source_code_from_file()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::read_vertex_source_code_from_file]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::read_vertex_source_code_from_file]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::read_vertex_source_code_from_file: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::read_vertex_source_code_from_file]: error: guard \"initialized\" not met");
    }
    if (!(std::filesystem::exists(path + vertex_source_filename)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::read_vertex_source_code_from_file]: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::read_vertex_source_code_from_file]: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::read_vertex_source_code_from_file: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::read_vertex_source_code_from_file]: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met");
    }
    return AllegroFlare::php::file_get_contents(path + vertex_source_filename);
 }
@@ -209,16 +209,16 @@ std::string ShaderSourcePoller::read_fragment_source_code_from_file()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::read_fragment_source_code_from_file]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::read_fragment_source_code_from_file]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::read_fragment_source_code_from_file: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::read_fragment_source_code_from_file]: error: guard \"initialized\" not met");
    }
    if (!(std::filesystem::exists(path + fragment_source_filename)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::read_fragment_source_code_from_file]: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::read_fragment_source_code_from_file]: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::read_fragment_source_code_from_file: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::read_fragment_source_code_from_file]: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met");
    }
    return AllegroFlare::php::file_get_contents(path + fragment_source_filename);
 }
@@ -228,23 +228,23 @@ bool ShaderSourcePoller::poll()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::poll]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::poll]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::poll]: error: guard \"initialized\" not met");
    }
    if (!(std::filesystem::exists(path + vertex_source_filename)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(path + vertex_source_filename)\" not met");
    }
    if (!(std::filesystem::exists(path + fragment_source_filename)))
    {
       std::stringstream error_message;
-      error_message << "[ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met.";
+      error_message << "[AllegroFlare::ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ShaderSourcePoller::poll: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met");
+      throw std::runtime_error("[AllegroFlare::ShaderSourcePoller::poll]: error: guard \"std::filesystem::exists(path + fragment_source_filename)\" not met");
    }
    // TODO: consider adding better error messages on exists() that would also include the current path
    bool files_have_changed = false;

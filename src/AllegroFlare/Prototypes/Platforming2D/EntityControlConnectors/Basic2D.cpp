@@ -49,9 +49,9 @@ void Basic2D::update_player_controls_on_player_controlled_entity()
    if (!(basic_2d_entity))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::update_player_controls_on_player_controlled_entity]: error: guard \"basic_2d_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::update_player_controls_on_player_controlled_entity]: error: guard \"basic_2d_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::update_player_controls_on_player_controlled_entity: error: guard \"basic_2d_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::update_player_controls_on_player_controlled_entity]: error: guard \"basic_2d_entity\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -114,9 +114,9 @@ void Basic2D::key_down_func(ALLEGRO_EVENT* event)
    if (!(basic_2d_entity))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::key_down_func]: error: guard \"basic_2d_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::key_down_func]: error: guard \"basic_2d_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::key_down_func: error: guard \"basic_2d_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::key_down_func]: error: guard \"basic_2d_entity\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -156,9 +156,9 @@ void Basic2D::key_up_func(ALLEGRO_EVENT* event)
    if (!(basic_2d_entity))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::key_up_func]: error: guard \"basic_2d_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::key_up_func]: error: guard \"basic_2d_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::key_up_func: error: guard \"basic_2d_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::key_up_func]: error: guard \"basic_2d_entity\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -195,9 +195,9 @@ void Basic2D::attempt_jump()
    if (!(basic_2d_entity))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::attempt_jump]: error: guard \"basic_2d_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::attempt_jump]: error: guard \"basic_2d_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::attempt_jump: error: guard \"basic_2d_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D::attempt_jump]: error: guard \"basic_2d_entity\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 

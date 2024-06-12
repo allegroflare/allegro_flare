@@ -143,9 +143,9 @@ ALLEGRO_BITMAP* TileAtlasBuilder::build_scaled_and_extruded(ALLEGRO_BITMAP* orig
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[TileAtlasBuilder::build_scaled_and_extruded]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileAtlasBuilder::build_scaled_and_extruded: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded]: error: guard \"al_is_system_installed()\" not met");
    }
    // TODO: Confirm the lifecycle of this sprite sheet:
    //    - the original bitmap

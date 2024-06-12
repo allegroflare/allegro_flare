@@ -101,9 +101,9 @@ void Intertitle::advance()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Intertitle::advance]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxes::Intertitle::advance]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Intertitle::advance: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Intertitle::advance]: error: guard \"al_is_system_installed()\" not met");
    }
    if (get_finished()) return;
 
@@ -134,9 +134,9 @@ void Intertitle::reveal_all_characters()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Intertitle::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxes::Intertitle::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Intertitle::reveal_all_characters: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Intertitle::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met");
    }
    if (all_characters_are_revealed()) return;
 

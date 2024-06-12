@@ -56,16 +56,16 @@ void SceneIndex::add_scene(std::string name, AllegroFlare::DialogSystem::Scenes:
    if (!(scene))
    {
       std::stringstream error_message;
-      error_message << "[SceneIndex::add_scene]: error: guard \"scene\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::SceneIndex::add_scene]: error: guard \"scene\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneIndex::add_scene: error: guard \"scene\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::SceneIndex::add_scene]: error: guard \"scene\" not met");
    }
    if (!((!scene_exists_by_name(name))))
    {
       std::stringstream error_message;
-      error_message << "[SceneIndex::add_scene]: error: guard \"(!scene_exists_by_name(name))\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::SceneIndex::add_scene]: error: guard \"(!scene_exists_by_name(name))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneIndex::add_scene: error: guard \"(!scene_exists_by_name(name))\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::SceneIndex::add_scene]: error: guard \"(!scene_exists_by_name(name))\" not met");
    }
    scenes[name] = scene;
 }
@@ -80,9 +80,9 @@ AllegroFlare::DialogSystem::Scenes::Base* SceneIndex::find_scene_by_name(std::st
    if (!(scene_exists_by_name(name)))
    {
       std::stringstream error_message;
-      error_message << "[SceneIndex::find_scene_by_name]: error: guard \"scene_exists_by_name(name)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::SceneIndex::find_scene_by_name]: error: guard \"scene_exists_by_name(name)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneIndex::find_scene_by_name: error: guard \"scene_exists_by_name(name)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::SceneIndex::find_scene_by_name]: error: guard \"scene_exists_by_name(name)\" not met");
    }
    // TODO: This guard results in a double lookup. Might be faster to integrate it below.
    if (scenes.find(name) == scenes.end()) return nullptr;

@@ -122,16 +122,16 @@ std::string PersonalityDimension::get_descriptor_for_level(uint32_t ranking_leve
    if (!((ranking_level >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityDimension::get_descriptor_for_level]: error: guard \"(ranking_level >= 0)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityDimension::get_descriptor_for_level]: error: guard \"(ranking_level >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityDimension::get_descriptor_for_level: error: guard \"(ranking_level >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityDimension::get_descriptor_for_level]: error: guard \"(ranking_level >= 0)\" not met");
    }
    if (!((ranking_level < 5)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityDimension::get_descriptor_for_level]: error: guard \"(ranking_level < 5)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityDimension::get_descriptor_for_level]: error: guard \"(ranking_level < 5)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityDimension::get_descriptor_for_level: error: guard \"(ranking_level < 5)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityDimension::get_descriptor_for_level]: error: guard \"(ranking_level < 5)\" not met");
    }
    std::map<uint32_t, std::string> dictionary = {
       { 0, descriptor_very_low },

@@ -45,16 +45,16 @@ void EventEmitter::initialize()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!((!get_initialized())))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::initialize]: error: guard \"(!get_initialized())\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::initialize]: error: guard \"(!get_initialized())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::initialize: error: guard \"(!get_initialized())\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::initialize]: error: guard \"(!get_initialized())\" not met");
    }
    al_init_user_event_source(&event_source);
    initialized = true;
@@ -66,9 +66,9 @@ void EventEmitter::emit_event(uint32_t type, intptr_t data1, intptr_t data2, int
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_event]: error: guard \"initialized\" not met");
    }
    ALLEGRO_EVENT event;
    event.user.type = type; //SCREEN_MANAGER_SWITCH_SCREEN_EVENT;
@@ -85,9 +85,9 @@ void EventEmitter::emit_router_event(uint32_t router_event, AllegroFlare::RouteE
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_router_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_router_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_router_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_router_event]: error: guard \"initialized\" not met");
    }
    float *time_now_ptr = new float(time_now);
    emit_event(ALLEGRO_FLARE_EVENT_ROUTER, router_event, (intptr_t)route_event_data, (intptr_t)time_now_ptr);
@@ -99,9 +99,9 @@ void EventEmitter::emit_event_to_toggle_fullscreen()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_event_to_toggle_fullscreen]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_event_to_toggle_fullscreen]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_event_to_toggle_fullscreen: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_event_to_toggle_fullscreen]: error: guard \"initialized\" not met");
    }
    emit_event(ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN);
    return;
@@ -112,9 +112,9 @@ void EventEmitter::emit_event_to_enable_fullscreen()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_event_to_enable_fullscreen]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_event_to_enable_fullscreen]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_event_to_enable_fullscreen: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_event_to_enable_fullscreen]: error: guard \"initialized\" not met");
    }
    emit_event(ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN);
    return;
@@ -125,9 +125,9 @@ void EventEmitter::emit_event_to_disable_fullscreen()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_event_to_disable_fullscreen]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_event_to_disable_fullscreen]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_event_to_disable_fullscreen: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_event_to_disable_fullscreen]: error: guard \"initialized\" not met");
    }
    emit_event(ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN);
    return;
@@ -138,9 +138,9 @@ void EventEmitter::emit_event_to_set_display_size(int width, int height)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_event_to_set_display_size]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_event_to_set_display_size]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_event_to_set_display_size: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_event_to_set_display_size]: error: guard \"initialized\" not met");
    }
    emit_event(ALLEGRO_FLARE_EVENT_SET_DISPLAY_SIZE, width, height);
    return;
@@ -151,9 +151,9 @@ void EventEmitter::emit_dialog_open_event(std::string dialog_node_name_to_open)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_dialog_open_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_dialog_open_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_dialog_open_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_dialog_open_event]: error: guard \"initialized\" not met");
    }
    throw std::runtime_error("AllegroFlare::EventEmitter::emit_dialog_open_event: deprecation error: Using "
          "ALLEGRO_FLARE_EVENT_DIALOG_OPEN in this way is depreciated, update to ALLEGRO_FLARE_EVENT_DIALOG"
@@ -171,9 +171,9 @@ void EventEmitter::emit_screen_activated_event(std::string screen_identifier)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_screen_activated_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_screen_activated_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_screen_activated_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_screen_activated_event]: error: guard \"initialized\" not met");
    }
    emit_game_event(AllegroFlare::GameEvent(
          AllegroFlare::GameEventDatas::ScreenActivated::NAME,
@@ -187,9 +187,9 @@ void EventEmitter::emit_activate_dialog_node_by_name_event(std::string dialog_no
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_activate_dialog_node_by_name_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_activate_dialog_node_by_name_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_activate_dialog_node_by_name_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_activate_dialog_node_by_name_event]: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
@@ -207,9 +207,9 @@ void EventEmitter::emit_load_dialog_file(std::string dialog_yaml_filename_to_loa
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_load_dialog_file]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_load_dialog_file]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_load_dialog_file: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_load_dialog_file]: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    // TODO: Find location to destroy this data after use and destroy it, Use "destroy_dialog_open_event_data"
@@ -227,9 +227,9 @@ void EventEmitter::destroy_dialog_open_event_data(ALLEGRO_USER_EVENT* user_event
    if (!(user_event))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::destroy_dialog_open_event_data]: error: guard \"user_event\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::destroy_dialog_open_event_data]: error: guard \"user_event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::destroy_dialog_open_event_data: error: guard \"user_event\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::destroy_dialog_open_event_data]: error: guard \"user_event\" not met");
    }
    std::string *data = (std::string *)(user_event->data1);
    delete data;
@@ -241,9 +241,9 @@ void EventEmitter::emit_dialog_advance_event()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_dialog_advance_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_dialog_advance_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_dialog_advance_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_dialog_advance_event]: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE);
@@ -255,9 +255,9 @@ void EventEmitter::emit_dialog_close_event()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_dialog_close_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_dialog_close_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_dialog_close_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_dialog_close_event]: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG_CLOSE);
@@ -269,9 +269,9 @@ void EventEmitter::emit_dialog_switched_in_event()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_dialog_switched_in_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_dialog_switched_in_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_dialog_switched_in_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_dialog_switched_in_event]: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_IN);
@@ -283,9 +283,9 @@ void EventEmitter::emit_dialog_switched_out_event()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_dialog_switched_out_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_dialog_switched_out_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_dialog_switched_out_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_dialog_switched_out_event]: error: guard \"initialized\" not met");
    }
    // TODO: Add test for this emission
    emit_event(ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT);
@@ -297,9 +297,9 @@ void EventEmitter::emit_switch_screen_event(std::string screen_identifier_to_swi
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_switch_screen_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_switch_screen_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_switch_screen_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_switch_screen_event]: error: guard \"initialized\" not met");
    }
    // TODO: consider "disable screen", "enable screen", "shutdown screen", etc...
    intptr_t data_to_pass = (intptr_t)(void *)(new std::string(screen_identifier_to_switch_to));
@@ -312,9 +312,9 @@ void EventEmitter::emit_exit_game_event()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_exit_game_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_exit_game_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_exit_game_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_exit_game_event]: error: guard \"initialized\" not met");
    }
    emit_event(ALLEGRO_FLARE_EVENT_EXIT_GAME);
    return;
@@ -386,9 +386,9 @@ void EventEmitter::emit_unlock_achievement_event(std::string achievement_name)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_unlock_achievement_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_unlock_achievement_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_unlock_achievement_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_unlock_achievement_event]: error: guard \"initialized\" not met");
    }
    // TODO: Test this
    intptr_t data_to_pass = (intptr_t)(void *)(new std::string(achievement_name));
@@ -400,9 +400,9 @@ void EventEmitter::emit_achievement_unlocked_game_event(std::string achievement_
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_achievement_unlocked_game_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_achievement_unlocked_game_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_achievement_unlocked_game_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_achievement_unlocked_game_event]: error: guard \"initialized\" not met");
    }
    // NOTE: This event is used by the framework after an achievement successfully becomes unlocked. It's useful
    // for framework users who wish to perform some consequential action in their game after an achievement becomes
@@ -422,9 +422,9 @@ void EventEmitter::emit_post_unlocked_achievement_notification_event(std::string
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_post_unlocked_achievement_notification_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_post_unlocked_achievement_notification_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_post_unlocked_achievement_notification_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_post_unlocked_achievement_notification_event]: error: guard \"initialized\" not met");
    }
    intptr_t data_to_pass = (intptr_t)(void *)(new std::string(achievement_name));
    emit_event(ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION, data_to_pass);
@@ -435,9 +435,9 @@ void EventEmitter::emit_play_sound_effect_event(std::string sound_effect_identif
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_play_sound_effect_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_play_sound_effect_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_play_sound_effect_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_play_sound_effect_event]: error: guard \"initialized\" not met");
    }
    intptr_t data_to_pass = (intptr_t)(void *)(new std::string(sound_effect_identifier));
    emit_event(ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT, data_to_pass);
@@ -449,9 +449,9 @@ void EventEmitter::emit_play_music_track_event(std::string music_track_identifie
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_play_music_track_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_play_music_track_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_play_music_track_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_play_music_track_event]: error: guard \"initialized\" not met");
    }
    std::string *data_to_pass = new std::string(music_track_identifier);
    emit_event(ALLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK, (intptr_t)data_to_pass);
@@ -463,9 +463,9 @@ void EventEmitter::emit_stop_all_music_tracks_event()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_stop_all_music_tracks_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_stop_all_music_tracks_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_stop_all_music_tracks_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_stop_all_music_tracks_event]: error: guard \"initialized\" not met");
    }
    emit_event(ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS);
    return;
@@ -476,9 +476,9 @@ void EventEmitter::emit_game_event(AllegroFlare::GameEvent game_event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_game_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_game_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_game_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_game_event]: error: guard \"initialized\" not met");
    }
    AllegroFlare::GameEvent *game_event_copy = new AllegroFlare::GameEvent(game_event);
    emit_event(ALLEGRO_FLARE_EVENT_GAME_EVENT, (intptr_t)game_event_copy);
@@ -490,9 +490,9 @@ void EventEmitter::emit_offset_primary_timer_event(int microseconds)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EventEmitter::emit_offset_primary_timer_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::EventEmitter::emit_offset_primary_timer_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EventEmitter::emit_offset_primary_timer_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_offset_primary_timer_event]: error: guard \"initialized\" not met");
    }
    // NOTE: MICROSECONDS_PER_FRAME = 16670;
    // TODO: Test this

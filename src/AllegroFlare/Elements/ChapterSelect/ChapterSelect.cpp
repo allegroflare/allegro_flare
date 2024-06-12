@@ -105,9 +105,9 @@ void ChapterSelect::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    return;
@@ -118,9 +118,9 @@ void ChapterSelect::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -131,9 +131,9 @@ void ChapterSelect::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -144,9 +144,9 @@ void ChapterSelect::set_rotate_carousel_sound_effect_identifier(std::string rota
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::set_rotate_carousel_sound_effect_identifier]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::set_rotate_carousel_sound_effect_identifier]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::set_rotate_carousel_sound_effect_identifier: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::set_rotate_carousel_sound_effect_identifier]: error: guard \"(!initialized)\" not met");
    }
    carousel.set_rotate_carousel_sound_effect_identifier(rotate_carousel_sound_effect_identifier);
    return;
@@ -169,9 +169,9 @@ void ChapterSelect::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::initialize]: error: guard \"(!initialized)\" not met");
    }
    carousel.set_event_emitter(event_emitter);
    carousel.set_bitmap_bin(bitmap_bin);
@@ -185,9 +185,9 @@ void ChapterSelect::set_carousel_elements(std::vector<AllegroFlare::Elements::Ch
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::set_carousel_elements]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::set_carousel_elements]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::set_carousel_elements: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::set_carousel_elements]: error: guard \"initialized\" not met");
    }
    carousel.set_elements(carousel_elements);
    carousel.refresh_element_dimensions();
@@ -201,9 +201,9 @@ bool ChapterSelect::has_elements()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::has_elements]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::has_elements]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::has_elements: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::has_elements]: error: guard \"initialized\" not met");
    }
    return (carousel.get_num_elements() != 0);
 }
@@ -213,9 +213,9 @@ bool ChapterSelect::has_no_elements()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::has_no_elements]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::has_no_elements]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::has_no_elements: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::has_no_elements]: error: guard \"initialized\" not met");
    }
    return (carousel.get_num_elements() == 0);
 }
@@ -225,9 +225,9 @@ AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* ChapterSelect::ge
    if (!(has_elements()))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::get_focused_carousel_element]: error: guard \"has_elements()\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::get_focused_carousel_element]: error: guard \"has_elements()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::get_focused_carousel_element: error: guard \"has_elements()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::get_focused_carousel_element]: error: guard \"has_elements()\" not met");
    }
    // TODO: Test this method
    return carousel.get_element_at_focused_element_position();
@@ -238,9 +238,9 @@ void ChapterSelect::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::update]: error: guard \"initialized\" not met");
    }
    carousel.update();
    pagination_bar.update();
@@ -252,9 +252,9 @@ void ChapterSelect::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::render]: error: guard \"initialized\" not met");
    }
    // Draw the carousel
    AllegroFlare::Placement2D carousel_placement;
@@ -283,9 +283,9 @@ void ChapterSelect::rotate_carousel_right()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::rotate_carousel_right]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::rotate_carousel_right]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::rotate_carousel_right: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::rotate_carousel_right]: error: guard \"initialized\" not met");
    }
    carousel.rotate_carousel_right();
    refresh_cursor_position_on_pagination_bar();
@@ -297,9 +297,9 @@ void ChapterSelect::rotate_carousel_left()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::rotate_carousel_left]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::rotate_carousel_left]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::rotate_carousel_left: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::rotate_carousel_left]: error: guard \"initialized\" not met");
    }
    carousel.rotate_carousel_left();
    refresh_cursor_position_on_pagination_bar();
@@ -311,9 +311,9 @@ void ChapterSelect::set_pagination_bar_elements(std::vector<bool> elements)
    if (!((elements.size() == pagination_bar.get_num_elements())))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::set_pagination_bar_elements]: error: guard \"(elements.size() == pagination_bar.get_num_elements())\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::set_pagination_bar_elements]: error: guard \"(elements.size() == pagination_bar.get_num_elements())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::set_pagination_bar_elements: error: guard \"(elements.size() == pagination_bar.get_num_elements())\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::set_pagination_bar_elements]: error: guard \"(elements.size() == pagination_bar.get_num_elements())\" not met");
    }
    pagination_bar.set_elements(elements);
    return;
@@ -330,9 +330,9 @@ void ChapterSelect::draw_title_text()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::draw_title_text]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::draw_title_text]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::draw_title_text: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::draw_title_text]: error: guard \"initialized\" not met");
    }
    ALLEGRO_FONT *title_font = obtain_title_font();
    al_draw_text(title_font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 100, ALLEGRO_ALIGN_LEFT, "CHAPTER SELECT");
@@ -360,9 +360,9 @@ ALLEGRO_FONT* ChapterSelect::obtain_title_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[ChapterSelect::obtain_title_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelectChapterSelect::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterSelect::obtain_title_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelectChapterSelect::obtain_title_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get(title_font_identifier + " " + std::to_string(title_font_size));
 }

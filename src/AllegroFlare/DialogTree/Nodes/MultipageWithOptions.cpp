@@ -71,16 +71,16 @@ std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFla
    if (!((option_num >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[MultipageWithOptions::get_option_num]: error: guard \"(option_num >= 0)\" not met.";
+      error_message << "[AllegroFlare::DialogTree::Nodes::MultipageWithOptions::get_option_num]: error: guard \"(option_num >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultipageWithOptions::get_option_num: error: guard \"(option_num >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::Nodes::MultipageWithOptions::get_option_num]: error: guard \"(option_num >= 0)\" not met");
    }
    if (!((option_num < options.size())))
    {
       std::stringstream error_message;
-      error_message << "[MultipageWithOptions::get_option_num]: error: guard \"(option_num < options.size())\" not met.";
+      error_message << "[AllegroFlare::DialogTree::Nodes::MultipageWithOptions::get_option_num]: error: guard \"(option_num < options.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultipageWithOptions::get_option_num: error: guard \"(option_num < options.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::Nodes::MultipageWithOptions::get_option_num]: error: guard \"(option_num < options.size())\" not met");
    }
    return options[option_num];
 }
@@ -127,16 +127,16 @@ bool MultipageWithOptions::option_is_selectable(int option_num)
    if (!((option_num >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[MultipageWithOptions::option_is_selectable]: error: guard \"(option_num >= 0)\" not met.";
+      error_message << "[AllegroFlare::DialogTree::Nodes::MultipageWithOptions::option_is_selectable]: error: guard \"(option_num >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultipageWithOptions::option_is_selectable: error: guard \"(option_num >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::Nodes::MultipageWithOptions::option_is_selectable]: error: guard \"(option_num >= 0)\" not met");
    }
    if (!((option_num < options.size())))
    {
       std::stringstream error_message;
-      error_message << "[MultipageWithOptions::option_is_selectable]: error: guard \"(option_num < options.size())\" not met.";
+      error_message << "[AllegroFlare::DialogTree::Nodes::MultipageWithOptions::option_is_selectable]: error: guard \"(option_num < options.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultipageWithOptions::option_is_selectable: error: guard \"(option_num < options.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::Nodes::MultipageWithOptions::option_is_selectable]: error: guard \"(option_num < options.size())\" not met");
    }
    // TODO: Test guards
    AllegroFlare::BitFlags<uint32_t> &flags = std::get<2>(options[option_num]);

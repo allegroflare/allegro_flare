@@ -167,16 +167,16 @@ void PaginationBar::set_element_at(int position, bool value)
    if (!((position >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[PaginationBar::set_element_at]: error: guard \"(position >= 0)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::PaginationBar::set_element_at]: error: guard \"(position >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PaginationBar::set_element_at: error: guard \"(position >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::PaginationBar::set_element_at]: error: guard \"(position >= 0)\" not met");
    }
    if (!((position < elements.size())))
    {
       std::stringstream error_message;
-      error_message << "[PaginationBar::set_element_at]: error: guard \"(position < elements.size())\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::PaginationBar::set_element_at]: error: guard \"(position < elements.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PaginationBar::set_element_at: error: guard \"(position < elements.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::PaginationBar::set_element_at]: error: guard \"(position < elements.size())\" not met");
    }
    elements[position] = value;
    return;
@@ -187,16 +187,16 @@ void PaginationBar::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[PaginationBar::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::PaginationBar::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PaginationBar::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::PaginationBar::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PaginationBar::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::PaginationBar::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PaginationBar::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::PaginationBar::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    float h_thickness = bar_stroke_thickness * 0.5;
 

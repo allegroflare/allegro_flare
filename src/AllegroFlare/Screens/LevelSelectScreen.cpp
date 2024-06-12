@@ -69,9 +69,9 @@ void LevelSelectScreen::set_event_emitter(AllegroFlare::EventEmitter* event_emit
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    return;
@@ -82,9 +82,9 @@ void LevelSelectScreen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -95,9 +95,9 @@ void LevelSelectScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -114,51 +114,51 @@ void LevelSelectScreen::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::initialize]: error: guard \"font_bin\" not met");
    }
    initialized = true;
 
@@ -177,9 +177,9 @@ void LevelSelectScreen::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::on_activate]: error: guard \"initialized\" not met");
    }
    // TODO: emit_event_to_update_input_hints_bar();
    // TODO: emit_show_and_size_input_hints_bar_event();
@@ -213,9 +213,9 @@ void LevelSelectScreen::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::on_deactivate]: error: guard \"initialized\" not met");
    }
    // TODO: emit_hide_and_restore_size_input_hints_bar_event();
    return;
@@ -226,9 +226,9 @@ void LevelSelectScreen::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::update]: error: guard \"initialized\" not met");
    }
    return;
 }
@@ -238,9 +238,9 @@ void LevelSelectScreen::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::render]: error: guard \"initialized\" not met");
    }
    level_select_element.render();
    return;
@@ -251,9 +251,9 @@ void LevelSelectScreen::activate_selected_menu_option()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::activate_selected_menu_option]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::activate_selected_menu_option]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::activate_selected_menu_option: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::activate_selected_menu_option]: error: guard \"initialized\" not met");
    }
    level_select_element.activate_selected_menu_option();
    return;
@@ -264,9 +264,9 @@ std::string LevelSelectScreen::infer_current_menu_option_value()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::infer_current_menu_option_value]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::infer_current_menu_option_value]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::infer_current_menu_option_value: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::infer_current_menu_option_value]: error: guard \"initialized\" not met");
    }
    return level_select_element.infer_current_menu_option_value();
 }
@@ -276,9 +276,9 @@ void LevelSelectScreen::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::primary_timer_func]: error: guard \"initialized\" not met");
    }
    update();
    render();
@@ -338,9 +338,9 @@ void LevelSelectScreen::virtual_control_button_up_func(AllegroFlare::Player* pla
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::virtual_control_button_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::virtual_control_button_up_func]: error: guard \"initialized\" not met");
    }
    // TODO: this function
    return;
@@ -351,9 +351,9 @@ void LevelSelectScreen::virtual_control_button_down_func(AllegroFlare::Player* p
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    // TODO: Confirm usage of VirtualControllers::GenericController
 
@@ -389,9 +389,9 @@ void LevelSelectScreen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[LevelSelectScreen::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("LevelSelectScreen::virtual_control_axis_change_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::virtual_control_axis_change_func]: error: guard \"initialized\" not met");
    }
    // TODO: this function
    return;

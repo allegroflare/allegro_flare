@@ -34,16 +34,16 @@ void CameraProjectionChanges::callback(ALLEGRO_EVENT* event, void* user_data)
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[CameraProjectionChanges::callback]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Integrations::CameraProjectionChanges::callback]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CameraProjectionChanges::callback: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Integrations::CameraProjectionChanges::callback]: error: guard \"event\" not met");
    }
    if (!(user_data))
    {
       std::stringstream error_message;
-      error_message << "[CameraProjectionChanges::callback]: error: guard \"user_data\" not met.";
+      error_message << "[AllegroFlare::Integrations::CameraProjectionChanges::callback]: error: guard \"user_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CameraProjectionChanges::callback: error: guard \"user_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Integrations::CameraProjectionChanges::callback]: error: guard \"user_data\" not met");
    }
    if (event->type != ALLEGRO_EVENT_KEY_DOWN) return;
    AllegroFlare::Frameworks::Full &framework = *static_cast<AllegroFlare::Frameworks::Full*>(user_data);

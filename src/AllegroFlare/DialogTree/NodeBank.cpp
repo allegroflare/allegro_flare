@@ -47,9 +47,9 @@ void NodeBank::add_node(std::string name, AllegroFlare::DialogTree::Nodes::Base*
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[NodeBank::add_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogTree::NodeBank::add_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeBank::add_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::NodeBank::add_node]: error: guard \"node\" not met");
    }
    // TODO: Test this guard
    if (node_exists_by_name(name))
@@ -67,16 +67,16 @@ void NodeBank::replace_node(std::string name, AllegroFlare::DialogTree::Nodes::B
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[NodeBank::replace_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogTree::NodeBank::replace_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeBank::replace_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::NodeBank::replace_node]: error: guard \"node\" not met");
    }
    if (!(node_exists_by_name(name)))
    {
       std::stringstream error_message;
-      error_message << "[NodeBank::replace_node]: error: guard \"node_exists_by_name(name)\" not met.";
+      error_message << "[AllegroFlare::DialogTree::NodeBank::replace_node]: error: guard \"node_exists_by_name(name)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeBank::replace_node: error: guard \"node_exists_by_name(name)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::NodeBank::replace_node]: error: guard \"node_exists_by_name(name)\" not met");
    }
    // TODO: Test this
    nodes[name] = node;
@@ -110,9 +110,9 @@ void NodeBank::merge(AllegroFlare::DialogTree::NodeBank* other_node_bank)
    if (!(other_node_bank))
    {
       std::stringstream error_message;
-      error_message << "[NodeBank::merge]: error: guard \"other_node_bank\" not met.";
+      error_message << "[AllegroFlare::DialogTree::NodeBank::merge]: error: guard \"other_node_bank\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeBank::merge: error: guard \"other_node_bank\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::NodeBank::merge]: error: guard \"other_node_bank\" not met");
    }
    std::set<std::string> shared_node_names = find_shared_node_names(other_node_bank);
    if (!shared_node_names.empty())
@@ -134,9 +134,9 @@ std::set<std::string> NodeBank::find_shared_node_names(AllegroFlare::DialogTree:
    if (!(other_node_bank))
    {
       std::stringstream error_message;
-      error_message << "[NodeBank::find_shared_node_names]: error: guard \"other_node_bank\" not met.";
+      error_message << "[AllegroFlare::DialogTree::NodeBank::find_shared_node_names]: error: guard \"other_node_bank\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeBank::find_shared_node_names: error: guard \"other_node_bank\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::NodeBank::find_shared_node_names]: error: guard \"other_node_bank\" not met");
    }
    std::set<std::string> shared_names;
    for (auto &other_node : other_node_bank->get_nodes_ref())

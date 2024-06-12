@@ -62,9 +62,9 @@ std::vector<uint32_t> SuspendedKeyboardState::get_keys_pressed()
    if (!(keyboard_state_changes_are_calculated))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::get_keys_pressed]: error: guard \"keyboard_state_changes_are_calculated\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::get_keys_pressed]: error: guard \"keyboard_state_changes_are_calculated\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::get_keys_pressed: error: guard \"keyboard_state_changes_are_calculated\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::get_keys_pressed]: error: guard \"keyboard_state_changes_are_calculated\" not met");
    }
    return keys_pressed;
 }
@@ -74,9 +74,9 @@ std::vector<uint32_t> SuspendedKeyboardState::get_keys_released()
    if (!(keyboard_state_changes_are_calculated))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::get_keys_released]: error: guard \"keyboard_state_changes_are_calculated\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::get_keys_released]: error: guard \"keyboard_state_changes_are_calculated\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::get_keys_released: error: guard \"keyboard_state_changes_are_calculated\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::get_keys_released]: error: guard \"keyboard_state_changes_are_calculated\" not met");
    }
    return keys_released;
 }
@@ -86,9 +86,9 @@ std::vector<uint32_t> SuspendedKeyboardState::get_keys_pressed_in_initial_keyboa
    if (!(initial_keyboard_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::get_keys_pressed_in_initial_keyboard_state]: error: guard \"initial_keyboard_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::get_keys_pressed_in_initial_keyboard_state]: error: guard \"initial_keyboard_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::get_keys_pressed_in_initial_keyboard_state: error: guard \"initial_keyboard_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::get_keys_pressed_in_initial_keyboard_state]: error: guard \"initial_keyboard_state_is_captured\" not met");
    }
    std::vector<uint32_t> keys;
    uint32_t key_min = 0;
@@ -104,9 +104,9 @@ std::vector<uint32_t> SuspendedKeyboardState::get_keys_pressed_in_subsequent_key
    if (!(subsequent_keyboard_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::get_keys_pressed_in_subsequent_keyboard_state]: error: guard \"subsequent_keyboard_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::get_keys_pressed_in_subsequent_keyboard_state]: error: guard \"subsequent_keyboard_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::get_keys_pressed_in_subsequent_keyboard_state: error: guard \"subsequent_keyboard_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::get_keys_pressed_in_subsequent_keyboard_state]: error: guard \"subsequent_keyboard_state_is_captured\" not met");
    }
    std::vector<uint32_t> keys;
    uint32_t key_min = 0;
@@ -122,23 +122,23 @@ void SuspendedKeyboardState::capture_initial_keyboard_state()
    if (!((!initial_keyboard_state_is_captured)))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"(!initial_keyboard_state_is_captured)\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"(!initial_keyboard_state_is_captured)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::capture_initial_keyboard_state: error: guard \"(!initial_keyboard_state_is_captured)\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"(!initial_keyboard_state_is_captured)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::capture_initial_keyboard_state: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_keyboard_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"al_is_keyboard_installed()\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"al_is_keyboard_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::capture_initial_keyboard_state: error: guard \"al_is_keyboard_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::capture_initial_keyboard_state]: error: guard \"al_is_keyboard_installed()\" not met");
    }
    al_get_keyboard_state(&initial_keyboard_state);
    initial_keyboard_state_is_captured = true;
@@ -150,23 +150,23 @@ void SuspendedKeyboardState::capture_subsequent_keyboard_state()
    if (!((!subsequent_keyboard_state_is_captured)))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"(!subsequent_keyboard_state_is_captured)\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"(!subsequent_keyboard_state_is_captured)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::capture_subsequent_keyboard_state: error: guard \"(!subsequent_keyboard_state_is_captured)\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"(!subsequent_keyboard_state_is_captured)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::capture_subsequent_keyboard_state: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_keyboard_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"al_is_keyboard_installed()\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"al_is_keyboard_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::capture_subsequent_keyboard_state: error: guard \"al_is_keyboard_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::capture_subsequent_keyboard_state]: error: guard \"al_is_keyboard_installed()\" not met");
    }
    al_get_keyboard_state(&subsequent_keyboard_state);
    subsequent_keyboard_state_is_captured = true;
@@ -178,23 +178,23 @@ void SuspendedKeyboardState::calculate_keyboard_state_changes()
    if (!((!keyboard_state_changes_are_calculated)))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"(!keyboard_state_changes_are_calculated)\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"(!keyboard_state_changes_are_calculated)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::calculate_keyboard_state_changes: error: guard \"(!keyboard_state_changes_are_calculated)\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"(!keyboard_state_changes_are_calculated)\" not met");
    }
    if (!(initial_keyboard_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"initial_keyboard_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"initial_keyboard_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::calculate_keyboard_state_changes: error: guard \"initial_keyboard_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"initial_keyboard_state_is_captured\" not met");
    }
    if (!(subsequent_keyboard_state_is_captured))
    {
       std::stringstream error_message;
-      error_message << "[SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"subsequent_keyboard_state_is_captured\" not met.";
+      error_message << "[AllegroFlare::SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"subsequent_keyboard_state_is_captured\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SuspendedKeyboardState::calculate_keyboard_state_changes: error: guard \"subsequent_keyboard_state_is_captured\" not met");
+      throw std::runtime_error("[AllegroFlare::SuspendedKeyboardState::calculate_keyboard_state_changes]: error: guard \"subsequent_keyboard_state_is_captured\" not met");
    }
    uint32_t key_min = 0;
    for (int al_keycode=key_min; al_keycode<ALLEGRO_KEY_MAX; al_keycode++)

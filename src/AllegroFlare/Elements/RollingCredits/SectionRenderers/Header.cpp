@@ -124,16 +124,16 @@ float Header::render(bool only_calculate_height_dont_render)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Header::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Header::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Header::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Header::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Header::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Header::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Header::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Header::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    ALLEGRO_FONT *font = obtain_font();
    if (!text.empty())
@@ -151,9 +151,9 @@ ALLEGRO_FONT* Header::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Header::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Header::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Header::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Header::obtain_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier;
    font_identifier << font_name << " " << font_size;

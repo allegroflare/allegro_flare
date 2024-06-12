@@ -32,30 +32,30 @@ AllegroFlare::Prototypes::FixedRoom2D::Configuration ConfigurationFactory::load_
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[ConfigurationFactory::load_original_gametest_default]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::load_original_gametest_default]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ConfigurationFactory::load_original_gametest_default: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::load_original_gametest_default]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[ConfigurationFactory::load_original_gametest_default]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::load_original_gametest_default]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ConfigurationFactory::load_original_gametest_default: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::load_original_gametest_default]: error: guard \"font_bin\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[ConfigurationFactory::load_original_gametest_default]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::load_original_gametest_default]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ConfigurationFactory::load_original_gametest_default: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::load_original_gametest_default]: error: guard \"event_emitter\" not met");
    }
    if (!(entity_collection_helper))
    {
       std::stringstream error_message;
-      error_message << "[ConfigurationFactory::load_original_gametest_default]: error: guard \"entity_collection_helper\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::load_original_gametest_default]: error: guard \"entity_collection_helper\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ConfigurationFactory::load_original_gametest_default: error: guard \"entity_collection_helper\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::load_original_gametest_default]: error: guard \"entity_collection_helper\" not met");
    }
    AllegroFlare::Prototypes::FixedRoom2D::Configuration result;
 

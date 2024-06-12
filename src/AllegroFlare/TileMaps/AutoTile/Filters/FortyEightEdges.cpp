@@ -1320,9 +1320,9 @@ int FortyEightEdges::get_tile_for(uint32_t edge_tile_name)
    if (!((forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)))
    {
       std::stringstream error_message;
-      error_message << "[FortyEightEdges::get_tile_for]: error: guard \"(forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::Filters::FortyEightEdges::get_tile_for]: error: guard \"(forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FortyEightEdges::get_tile_for: error: guard \"(forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::Filters::FortyEightEdges::get_tile_for]: error: guard \"(forty_eight_edges_tiles_definition.count(edge_tile_name) != 0)\" not met");
    }
    return forty_eight_edges_tiles_definition[edge_tile_name];
 }

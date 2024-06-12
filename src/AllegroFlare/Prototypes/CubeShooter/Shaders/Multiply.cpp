@@ -99,9 +99,9 @@ void Multiply::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Multiply::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Shaders::Multiply::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multiply::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Shaders::Multiply::initialize]: error: guard \"(!initialized)\" not met");
    }
    AllegroFlare::Shaders::Base::initialize();
    initialized = true;

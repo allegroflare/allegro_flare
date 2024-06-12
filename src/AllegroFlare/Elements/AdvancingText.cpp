@@ -78,9 +78,9 @@ void AdvancingText::start()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AdvancingText::start]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::AdvancingText::start]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AdvancingText::start: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::AdvancingText::start]: error: guard \"al_is_system_installed()\" not met");
    }
    reveal_started_at = al_get_time(); // TODO: Replace with injected "time_now"
    reveal_ended_at = 0;
@@ -94,9 +94,9 @@ void AdvancingText::set_reveal_rate_characters_per_second(float reveal_rate_char
    if (!((reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND)))
    {
       std::stringstream error_message;
-      error_message << "[AdvancingText::set_reveal_rate_characters_per_second]: error: guard \"(reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND)\" not met.";
+      error_message << "[AllegroFlare::Elements::AdvancingText::set_reveal_rate_characters_per_second]: error: guard \"(reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AdvancingText::set_reveal_rate_characters_per_second: error: guard \"(reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::AdvancingText::set_reveal_rate_characters_per_second]: error: guard \"(reveal_rate_characters_per_second >= MIN_REVEAL_RATE_CHARACTERS_PER_SECOND)\" not met");
    }
    this->reveal_rate_characters_per_second = reveal_rate_characters_per_second;
    return;
@@ -107,9 +107,9 @@ void AdvancingText::update()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AdvancingText::update]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::AdvancingText::update]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AdvancingText::update: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::AdvancingText::update]: error: guard \"al_is_system_installed()\" not met");
    }
    if (all_characters_are_revealed) return;
 
@@ -131,9 +131,9 @@ void AdvancingText::reveal_all_characters()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AdvancingText::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::AdvancingText::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AdvancingText::reveal_all_characters: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::AdvancingText::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met");
    }
    revealed_characters_count = text.size();
    all_characters_are_revealed = true;

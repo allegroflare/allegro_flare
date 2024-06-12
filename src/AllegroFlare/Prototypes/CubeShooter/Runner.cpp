@@ -42,51 +42,51 @@ void Runner::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Runner::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[Runner::initialize]: error: guard \"framework\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::initialize: error: guard \"framework\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"framework\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Runner::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Runner::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Runner::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(sample_bin))
    {
       std::stringstream error_message;
-      error_message << "[Runner::initialize]: error: guard \"sample_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"sample_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::initialize: error: guard \"sample_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"sample_bin\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[Runner::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::initialize]: error: guard \"model_bin\" not met");
    }
    cube_shooter_screen.set_event_emitter(event_emitter);
    cube_shooter_screen.set_bitmap_bin(bitmap_bin);
@@ -108,16 +108,16 @@ void Runner::game_event_func(AllegroFlare::GameEvent* ev)
    if (!(ev))
    {
       std::stringstream error_message;
-      error_message << "[Runner::game_event_func]: error: guard \"ev\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::game_event_func]: error: guard \"ev\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::game_event_func: error: guard \"ev\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::game_event_func]: error: guard \"ev\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Runner::game_event_func]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::game_event_func]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::game_event_func: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::game_event_func]: error: guard \"event_emitter\" not met");
    }
    std::string event_name = ev->get_type();
    std::cout << "EVENT_EMITTED: \"" << event_name << "\"" << std::endl;
@@ -159,9 +159,9 @@ void Runner::RUN(std::string mode, bool disable_escape_key_will_shutdown)
    if (!(is_valid_mode(mode)))
    {
       std::stringstream error_message;
-      error_message << "[Runner::RUN]: error: guard \"is_valid_mode(mode)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Runner::RUN]: error: guard \"is_valid_mode(mode)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Runner::RUN: error: guard \"is_valid_mode(mode)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Runner::RUN]: error: guard \"is_valid_mode(mode)\" not met");
    }
    // setup the framework
    AllegroFlare::Frameworks::Full framework;

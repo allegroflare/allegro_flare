@@ -68,9 +68,9 @@ void Wipe::set_direction(std::string direction)
    if (!(is_valid_direction(direction)))
    {
       std::stringstream error_message;
-      error_message << "[Wipe::set_direction]: error: guard \"is_valid_direction(direction)\" not met.";
+      error_message << "[AllegroFlare::Shaders::PostProcessing::Wipe::set_direction]: error: guard \"is_valid_direction(direction)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Wipe::set_direction: error: guard \"is_valid_direction(direction)\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::PostProcessing::Wipe::set_direction]: error: guard \"is_valid_direction(direction)\" not met");
    }
    this->direction = direction;
    // TODO: include this condition
@@ -95,9 +95,9 @@ void Wipe::activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Wipe::activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Shaders::PostProcessing::Wipe::activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Wipe::activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::PostProcessing::Wipe::activate]: error: guard \"initialized\" not met");
    }
    AllegroFlare::Shaders::Base::activate();
    set_vec2("surface_dimensions", surface_width, surface_height);

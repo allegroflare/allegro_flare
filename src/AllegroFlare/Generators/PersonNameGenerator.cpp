@@ -36,9 +36,9 @@ void PersonNameGenerator::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[PersonNameGenerator::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Generators::PersonNameGenerator::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonNameGenerator::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Generators::PersonNameGenerator::initialize]: error: guard \"(!initialized)\" not met");
    }
    randomize();
    initialized = true;
@@ -63,9 +63,9 @@ std::string PersonNameGenerator::generate_boy_name()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[PersonNameGenerator::generate_boy_name]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Generators::PersonNameGenerator::generate_boy_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonNameGenerator::generate_boy_name: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Generators::PersonNameGenerator::generate_boy_name]: error: guard \"initialized\" not met");
    }
    if (next_boy_name_index >= victorian_boy_names.size()) return ""; return victorian_boy_names[next_boy_name_index++];
 }
@@ -75,9 +75,9 @@ std::string PersonNameGenerator::generate_girl_name()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[PersonNameGenerator::generate_girl_name]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Generators::PersonNameGenerator::generate_girl_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonNameGenerator::generate_girl_name: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Generators::PersonNameGenerator::generate_girl_name]: error: guard \"initialized\" not met");
    }
    if (next_girl_name_index >= victorian_girl_names.size()) return ""; return victorian_girl_names[next_girl_name_index++];
 }
@@ -87,9 +87,9 @@ std::string PersonNameGenerator::generate_double_consecutive_t_name()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[PersonNameGenerator::generate_double_consecutive_t_name]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Generators::PersonNameGenerator::generate_double_consecutive_t_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonNameGenerator::generate_double_consecutive_t_name: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Generators::PersonNameGenerator::generate_double_consecutive_t_name]: error: guard \"initialized\" not met");
    }
    if (double_consecutive_t_name_index >= double_consecutive_t_names.size()) return ""; return double_consecutive_t_names[double_consecutive_t_name_index++];
 }

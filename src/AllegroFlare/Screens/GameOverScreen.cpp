@@ -208,9 +208,9 @@ void GameOverScreen::activate_current_chosen_menu_option()
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::activate_current_chosen_menu_option]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::activate_current_chosen_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::activate_current_chosen_menu_option: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::activate_current_chosen_menu_option]: error: guard \"event_emitter\" not met");
    }
    // TODO: Test this callback
    // TODO: Consider if callback should override emission of game event
@@ -223,9 +223,9 @@ void GameOverScreen::choose_menu_option()
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::choose_menu_option]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::choose_menu_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::choose_menu_option: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::choose_menu_option]: error: guard \"event_emitter\" not met");
    }
    // TODO: Add a delay mechanism or spawn an animation prior to activating the menu option
    //activate_current_chosen_menu_option();
@@ -245,23 +245,23 @@ void GameOverScreen::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(get_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::render]: error: guard \"get_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::render]: error: guard \"get_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::render: error: guard \"get_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::render]: error: guard \"get_initialized()\" not met");
    }
    draw_primary_text();
    draw_menu();
@@ -396,9 +396,9 @@ void GameOverScreen::set_state(uint32_t state, bool override_if_busy)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::set_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::set_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::set_state]: error: guard \"is_valid_state(state)\" not met");
    }
    if (this->state == state) return;
    if (!override_if_busy && state_is_busy) return;
@@ -436,9 +436,9 @@ void GameOverScreen::update(float time_now)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::update]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::update]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::update: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::update]: error: guard \"is_valid_state(state)\" not met");
    }
    float age = infer_current_state_age(time_now);
 
@@ -505,9 +505,9 @@ ALLEGRO_FONT* GameOverScreen::obtain_title_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::obtain_title_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::obtain_title_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::obtain_title_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream title_font_identifier;
    title_font_identifier << title_font_name << " " << title_font_size;
@@ -519,9 +519,9 @@ ALLEGRO_FONT* GameOverScreen::obtain_menu_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[GameOverScreen::obtain_menu_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::GameOverScreen::obtain_menu_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameOverScreen::obtain_menu_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameOverScreen::obtain_menu_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream menu_font_identifier;
    menu_font_identifier << menu_font_name << " " << menu_font_size;

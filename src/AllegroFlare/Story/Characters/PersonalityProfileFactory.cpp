@@ -36,9 +36,9 @@ void PersonalityProfileFactory::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileFactory::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileFactory::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileFactory::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileFactory::initialize]: error: guard \"(!initialized)\" not met");
    }
    personality_profile_matrix =
       AllegroFlare::Story::Characters::PersonalityProfileMatrixFactory::build_standard_matrix();
@@ -53,23 +53,23 @@ AllegroFlare::Story::Characters::PersonalityProfile PersonalityProfileFactory::b
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileFactory::build_random_personality_profile]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileFactory::build_random_personality_profile]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileFactory::build_random_personality_profile: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileFactory::build_random_personality_profile]: error: guard \"initialized\" not met");
    }
    if (!((num_traits > 1)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileFactory::build_random_personality_profile]: error: guard \"(num_traits > 1)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileFactory::build_random_personality_profile]: error: guard \"(num_traits > 1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileFactory::build_random_personality_profile: error: guard \"(num_traits > 1)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileFactory::build_random_personality_profile]: error: guard \"(num_traits > 1)\" not met");
    }
    if (!((num_traits <= personality_profile_matrix.num_dimensions())))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileFactory::build_random_personality_profile]: error: guard \"(num_traits <= personality_profile_matrix.num_dimensions())\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileFactory::build_random_personality_profile]: error: guard \"(num_traits <= personality_profile_matrix.num_dimensions())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileFactory::build_random_personality_profile: error: guard \"(num_traits <= personality_profile_matrix.num_dimensions())\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileFactory::build_random_personality_profile]: error: guard \"(num_traits <= personality_profile_matrix.num_dimensions())\" not met");
    }
    // Select the random seed mechanism we'll use (typically either knowable or unpredictable)
    static AllegroFlare::Random static_random; // NOTE: if seed is 0, then an unpredictable random will be used
@@ -119,9 +119,9 @@ std::string PersonalityProfileFactory::build_writeup_for_dimension(std::string c
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileFactory::build_writeup_for_dimension]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileFactory::build_writeup_for_dimension]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileFactory::build_writeup_for_dimension: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileFactory::build_writeup_for_dimension]: error: guard \"initialized\" not met");
    }
    std::stringstream writeup;
 
@@ -137,16 +137,16 @@ std::string PersonalityProfileFactory::ranking_level_to_text(uint32_t ranking_le
    if (!((ranking_level >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileFactory::ranking_level_to_text]: error: guard \"(ranking_level >= 0)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileFactory::ranking_level_to_text]: error: guard \"(ranking_level >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileFactory::ranking_level_to_text: error: guard \"(ranking_level >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileFactory::ranking_level_to_text]: error: guard \"(ranking_level >= 0)\" not met");
    }
    if (!((ranking_level < 5)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileFactory::ranking_level_to_text]: error: guard \"(ranking_level < 5)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileFactory::ranking_level_to_text]: error: guard \"(ranking_level < 5)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileFactory::ranking_level_to_text: error: guard \"(ranking_level < 5)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileFactory::ranking_level_to_text]: error: guard \"(ranking_level < 5)\" not met");
    }
    std::map<uint32_t, std::string> dictionary = {
       { 0, "VERY_LOW" },

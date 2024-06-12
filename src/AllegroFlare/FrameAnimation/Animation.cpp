@@ -87,30 +87,30 @@ void Animation::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Animation::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(sprite_sheet))
    {
       std::stringstream error_message;
-      error_message << "[Animation::initialize]: error: guard \"sprite_sheet\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::initialize]: error: guard \"sprite_sheet\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::initialize: error: guard \"sprite_sheet\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::initialize]: error: guard \"sprite_sheet\" not met");
    }
    if (!(sprite_sheet->get_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Animation::initialize]: error: guard \"sprite_sheet->get_initialized()\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::initialize]: error: guard \"sprite_sheet->get_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::initialize: error: guard \"sprite_sheet->get_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::initialize]: error: guard \"sprite_sheet->get_initialized()\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Animation::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    initialized = true;
    return;
@@ -121,9 +121,9 @@ void Animation::start()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::start]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::start]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::start: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::start]: error: guard \"initialized\" not met");
    }
    playhead = 0.0f;
    finished = false;
@@ -136,9 +136,9 @@ void Animation::reset()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::reset]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::reset]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::reset: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::reset]: error: guard \"initialized\" not met");
    }
    // NOTE: Internally, this is functionally the same as start()
    playhead = 0.0f;
@@ -152,9 +152,9 @@ void Animation::set_playspeed_multiplier(float playspeed_multiplier)
    if (!((playspeed_multiplier >= 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "[Animation::set_playspeed_multiplier]: error: guard \"(playspeed_multiplier >= 0.0f)\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::set_playspeed_multiplier]: error: guard \"(playspeed_multiplier >= 0.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::set_playspeed_multiplier: error: guard \"(playspeed_multiplier >= 0.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::set_playspeed_multiplier]: error: guard \"(playspeed_multiplier >= 0.0f)\" not met");
    }
    this->playspeed_multiplier = playspeed_multiplier;
    return;
@@ -165,9 +165,9 @@ void Animation::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::update]: error: guard \"initialized\" not met");
    }
    // TODO: Pass in time_now (for capturing "finished_at")
 
@@ -207,9 +207,9 @@ void Animation::draw()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::draw]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::draw]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::draw: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw]: error: guard \"initialized\" not met");
    }
    ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
    if (!bitmap) return;
@@ -227,9 +227,9 @@ ALLEGRO_BITMAP* Animation::get_frame_bitmap_at_time(float time)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_bitmap_at_time]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_frame_bitmap_at_time]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_bitmap_at_time: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_frame_bitmap_at_time]: error: guard \"initialized\" not met");
    }
    int sprite_sheet_cell_index_num = get_sprite_sheet_cell_index_num_at(time);
    if (sprite_sheet_cell_index_num == -1) return nullptr;
@@ -241,9 +241,9 @@ ALLEGRO_BITMAP* Animation::get_frame_bitmap_now()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_bitmap_now]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_frame_bitmap_now]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_bitmap_now: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_frame_bitmap_now]: error: guard \"initialized\" not met");
    }
    return get_frame_bitmap_at_time(playhead);
 }
@@ -267,9 +267,9 @@ ALLEGRO_BITMAP* Animation::get_frame_alignment_and_anchors_at_time(float time)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_alignment_and_anchors_at_time]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_frame_alignment_and_anchors_at_time]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_alignment_and_anchors_at_time: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_frame_alignment_and_anchors_at_time]: error: guard \"initialized\" not met");
    }
    // HERE
    int sprite_sheet_cell_index_num = get_sprite_sheet_cell_index_num_at(time);
@@ -282,9 +282,9 @@ int Animation::get_sprite_sheet_cell_index_num_now()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_sprite_sheet_cell_index_num_now]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_sprite_sheet_cell_index_num_now]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_sprite_sheet_cell_index_num_now: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_sprite_sheet_cell_index_num_now]: error: guard \"initialized\" not met");
    }
    return get_sprite_sheet_cell_index_num_at(playhead);
 }
@@ -294,9 +294,9 @@ int Animation::get_frame_num_now()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_num_now]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_frame_num_now]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_num_now: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_frame_num_now]: error: guard \"initialized\" not met");
    }
    return get_frame_num_at(playhead);
 }
@@ -306,23 +306,23 @@ ALLEGRO_BITMAP* Animation::get_bitmap_at_frame_num(int frame_num)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_bitmap_at_frame_num]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_bitmap_at_frame_num]: error: guard \"initialized\" not met");
    }
    if (!((frame_num >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num >= 0)\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num >= 0)\" not met");
    }
    if (!((frame_num < frames.size())))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num < frames.size())\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num < frames.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_bitmap_at_frame_num: error: guard \"(frame_num < frames.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_bitmap_at_frame_num]: error: guard \"(frame_num < frames.size())\" not met");
    }
    int sprite_sheet_cell_index_num = frames[frame_num].get_index();
    return sprite_sheet->get_cell(sprite_sheet_cell_index_num);
@@ -333,23 +333,23 @@ std::tuple<float, float, float, float> Animation::get_alignment_and_anchors_at_f
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"initialized\" not met");
    }
    if (!((frame_num >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num >= 0)\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num >= 0)\" not met");
    }
    if (!((frame_num < frames.size())))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num < frames.size())\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num < frames.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_alignment_and_anchors_at_frame_num: error: guard \"(frame_num < frames.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_alignment_and_anchors_at_frame_num]: error: guard \"(frame_num < frames.size())\" not met");
    }
    // TODO: Never tested, never used
    std::tuple<float, float, float, float> result;
@@ -371,9 +371,9 @@ AllegroFlare::FrameAnimation::Frame* Animation::get_frame_at(float time)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_at]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_frame_at]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_at: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_frame_at]: error: guard \"initialized\" not met");
    }
    return std::get<0>(get_frame_info_at(time));
 }
@@ -383,9 +383,9 @@ int Animation::get_frame_num_at(float time)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_num_at]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_frame_num_at]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_num_at: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_frame_num_at]: error: guard \"initialized\" not met");
    }
    return std::get<1>(get_frame_info_at(time));
 }
@@ -395,9 +395,9 @@ int Animation::get_sprite_sheet_cell_index_num_at(float time)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_sprite_sheet_cell_index_num_at]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_sprite_sheet_cell_index_num_at]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_sprite_sheet_cell_index_num_at: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_sprite_sheet_cell_index_num_at]: error: guard \"initialized\" not met");
    }
    return std::get<2>(get_frame_info_at(time));
 }
@@ -407,9 +407,9 @@ std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::get_frame_info_at]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::get_frame_info_at]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::get_frame_info_at: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::get_frame_info_at]: error: guard \"initialized\" not met");
    }
    // Note the return value is std::pair<frame, current_animations_frame_number, sprite_sheet_frame_index>
 
@@ -515,9 +515,9 @@ float Animation::calculate_duration()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Animation::calculate_duration]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::Animation::calculate_duration]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Animation::calculate_duration: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::calculate_duration]: error: guard \"initialized\" not met");
    }
    float result = 0.0f;
    for (auto &frame : frames)

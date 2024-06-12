@@ -404,9 +404,9 @@ void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2
    if (!((also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_player_controlled_entity]: error: guard \"(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::set_player_controlled_entity]: error: guard \"(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_player_controlled_entity: error: guard \"(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::set_player_controlled_entity]: error: guard \"(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)\" not met");
    }
    // Consider that player_controlled_entity could be nullptr
    // Set the player controlled entity
@@ -455,9 +455,9 @@ void Screen::set_camera_control_strategy(AllegroFlare::CameraControlStrategies2D
    if (!((initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_camera_control_strategy]: error: guard \"(initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::set_camera_control_strategy]: error: guard \"(initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_camera_control_strategy: error: guard \"(initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::set_camera_control_strategy]: error: guard \"(initialized)\" not met");
    }
    // NOTE: Currently, the camera control strategy can only be set after initialization. This is because
    // the initialization will automatically create a camera control strategy to use.  This is just really for
@@ -474,9 +474,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Screen::fi
    if (!(maps_loaded))
    {
       std::stringstream error_message;
-      error_message << "[Screen::find_map_by_name]: error: guard \"maps_loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::find_map_by_name]: error: guard \"maps_loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::find_map_by_name: error: guard \"maps_loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::find_map_by_name]: error: guard \"maps_loaded\" not met");
    }
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&entity_pool);
    AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* found_map =
@@ -497,9 +497,9 @@ void Screen::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_activate]: error: guard \"initialized\" not met");
    }
    // nothing here
    return;
@@ -510,9 +510,9 @@ void Screen::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_deactivate]: error: guard \"initialized\" not met");
    }
    // nothing here
    return;
@@ -531,16 +531,16 @@ void Screen::load_maps_in_dictionary()
    if (!((!maps_loaded)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::load_maps_in_dictionary]: error: guard \"(!maps_loaded)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::load_maps_in_dictionary]: error: guard \"(!maps_loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::load_maps_in_dictionary: error: guard \"(!maps_loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::load_maps_in_dictionary]: error: guard \"(!maps_loaded)\" not met");
    }
    if (!((!map_dictionary.empty())))
    {
       std::stringstream error_message;
-      error_message << "[Screen::load_maps_in_dictionary]: error: guard \"(!map_dictionary.empty())\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::load_maps_in_dictionary]: error: guard \"(!map_dictionary.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::load_maps_in_dictionary: error: guard \"(!map_dictionary.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::load_maps_in_dictionary]: error: guard \"(!map_dictionary.empty())\" not met");
    }
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory factory;
    factory.set_bitmap_bin(bitmap_bin);
@@ -681,16 +681,16 @@ void Screen::initialize()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!((data_folder_path != DEFAULT_DATA_FOLDER_PATH)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::initialize]: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::initialize]: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met");
    }
    // TODO: Consider adding event_emitter in guards
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
@@ -723,9 +723,9 @@ void Screen::player_emit_projectile(float magnitude)
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::player_emit_projectile]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::player_emit_projectile]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::player_emit_projectile: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::player_emit_projectile]: error: guard \"player_controlled_entity\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -772,16 +772,16 @@ void Screen::on_entity_environment_collision_step(AllegroFlare::Prototypes::Plat
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_entity_environment_collision_step]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_entity_environment_collision_step]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_entity_environment_collision_step: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_entity_environment_collision_step]: error: guard \"entity\" not met");
    }
    if (!(collision_step_results))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_entity_environment_collision_step]: error: guard \"collision_step_results\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_entity_environment_collision_step]: error: guard \"collision_step_results\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_entity_environment_collision_step: error: guard \"collision_step_results\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_entity_environment_collision_step]: error: guard \"collision_step_results\" not met");
    }
    return;
 }
@@ -791,16 +791,16 @@ void Screen::update_entities()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update_entities]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update_entities]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_entities: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update_entities]: error: guard \"initialized\" not met");
    }
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update_entities]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update_entities]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_entities: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update_entities]: error: guard \"currently_active_map\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -1032,9 +1032,9 @@ void Screen::check_and_respond_if_player_death()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::check_and_respond_if_player_death]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::check_and_respond_if_player_death]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::check_and_respond_if_player_death: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::check_and_respond_if_player_death]: error: guard \"player_controlled_entity\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -1068,9 +1068,9 @@ void Screen::position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platform
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::position_entity_bottom_most_edge]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::position_entity_bottom_most_edge]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::position_entity_bottom_most_edge: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::position_entity_bottom_most_edge]: error: guard \"entity\" not met");
    }
    // TODO: Test this
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
@@ -1086,16 +1086,16 @@ void Screen::on_enter_door(AllegroFlare::Prototypes::Platforming2D::Entities::Do
    if (!(door))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_enter_door]: error: guard \"door\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_door]: error: guard \"door\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_enter_door: error: guard \"door\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_door]: error: guard \"door\" not met");
    }
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_enter_door]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_door]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_enter_door: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_door]: error: guard \"player_controlled_entity\" not met");
    }
    if (door->get_is_locked())
    {
@@ -1115,16 +1115,16 @@ void Screen::reposition_player_controlled_entity_to_door_destination(AllegroFlar
    if (!(door))
    {
       std::stringstream error_message;
-      error_message << "[Screen::reposition_player_controlled_entity_to_door_destination]: error: guard \"door\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::reposition_player_controlled_entity_to_door_destination]: error: guard \"door\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::reposition_player_controlled_entity_to_door_destination: error: guard \"door\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::reposition_player_controlled_entity_to_door_destination]: error: guard \"door\" not met");
    }
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::reposition_player_controlled_entity_to_door_destination]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::reposition_player_controlled_entity_to_door_destination]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::reposition_player_controlled_entity_to_door_destination: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::reposition_player_controlled_entity_to_door_destination]: error: guard \"player_controlled_entity\" not met");
    }
    std::string map_target_name = door->get_target_map_name();
    float target_spawn_x = door->get_target_spawn_x();
@@ -1153,16 +1153,16 @@ void Screen::check_player_collisions_with_doors()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::check_player_collisions_with_doors]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::check_player_collisions_with_doors]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::check_player_collisions_with_doors: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::check_player_collisions_with_doors]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Screen::check_player_collisions_with_doors]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::check_player_collisions_with_doors]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::check_player_collisions_with_doors: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::check_player_collisions_with_doors]: error: guard \"event_emitter\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -1214,16 +1214,16 @@ void Screen::on_player_controlled_entity_collision_with_entity(AllegroFlare::Pro
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_player_controlled_entity_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_player_controlled_entity_collision_with_entity: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1233,16 +1233,16 @@ void Screen::on_enter_player_controlled_entity_collision_with_entity(AllegroFlar
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_enter_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_enter_player_controlled_entity_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_enter_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_enter_player_controlled_entity_collision_with_entity: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1252,16 +1252,16 @@ void Screen::on_exit_player_controlled_entity_collision_with_entity(AllegroFlare
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_exit_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_exit_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_exit_player_controlled_entity_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_exit_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_exit_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_exit_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_exit_player_controlled_entity_collision_with_entity: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_exit_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1271,16 +1271,16 @@ void Screen::on_hold_player_controlled_entity_collision_with_entity(AllegroFlare
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_hold_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_hold_player_controlled_entity_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_collision_with_entity]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_hold_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_hold_player_controlled_entity_collision_with_entity: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_collision_with_entity]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1290,16 +1290,16 @@ void Screen::on_hold_player_controlled_entity_non_collision_with_entity(AllegroF
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_hold_player_controlled_entity_non_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_non_collision_with_entity]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_hold_player_controlled_entity_non_collision_with_entity: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_non_collision_with_entity]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_hold_player_controlled_entity_non_collision_with_entity]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_non_collision_with_entity]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_hold_player_controlled_entity_non_collision_with_entity: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_non_collision_with_entity]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1309,16 +1309,16 @@ void Screen::on_player_controlled_entity_collision_with_interactable(AllegroFlar
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_player_controlled_entity_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_player_controlled_entity_collision_with_interactable: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1328,16 +1328,16 @@ void Screen::on_enter_player_controlled_entity_collision_with_interactable(Alleg
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_enter_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_enter_player_controlled_entity_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_enter_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_enter_player_controlled_entity_collision_with_interactable: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_enter_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1347,16 +1347,16 @@ void Screen::on_exit_player_controlled_entity_collision_with_interactable(Allegr
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_exit_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_exit_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_exit_player_controlled_entity_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_exit_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_exit_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_exit_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_exit_player_controlled_entity_collision_with_interactable: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_exit_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1366,16 +1366,16 @@ void Screen::on_hold_player_controlled_entity_collision_with_interactable(Allegr
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_hold_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_hold_player_controlled_entity_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_collision_with_interactable]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_hold_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_hold_player_controlled_entity_collision_with_interactable: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_collision_with_interactable]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1385,16 +1385,16 @@ void Screen::on_hold_player_controlled_entity_non_collision_with_interactable(Al
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_hold_player_controlled_entity_non_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_non_collision_with_interactable]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_hold_player_controlled_entity_non_collision_with_interactable: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_non_collision_with_interactable]: error: guard \"player_controlled_entity\" not met");
    }
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_hold_player_controlled_entity_non_collision_with_interactable]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_non_collision_with_interactable]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_hold_player_controlled_entity_non_collision_with_interactable: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::on_hold_player_controlled_entity_non_collision_with_interactable]: error: guard \"entity\" not met");
    }
    return;
 }
@@ -1404,9 +1404,9 @@ void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER]: error: guard \"player_controlled_entity\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
@@ -1510,9 +1510,9 @@ void Screen::update_player_collisions_with_collectables()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update_player_collisions_with_collectables]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_collectables]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_player_collisions_with_collectables: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_collectables]: error: guard \"player_controlled_entity\" not met");
    }
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
@@ -1569,9 +1569,9 @@ void Screen::update_player_collisions_with_save_points()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update_player_collisions_with_save_points]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_save_points]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_player_collisions_with_save_points: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_save_points]: error: guard \"player_controlled_entity\" not met");
    }
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
@@ -1603,9 +1603,9 @@ void Screen::update_player_collisions_with_interactables()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update_player_collisions_with_interactables]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_interactables]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_player_collisions_with_interactables: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_interactables]: error: guard \"player_controlled_entity\" not met");
    }
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
@@ -1690,9 +1690,9 @@ void Screen::update_player_collisions_with_boss_zones()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update_player_collisions_with_boss_zones]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_boss_zones]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_player_collisions_with_boss_zones: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_boss_zones]: error: guard \"player_controlled_entity\" not met");
    }
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
@@ -1759,9 +1759,9 @@ void Screen::update_player_collisions_with_goalposts()
    if (!(player_controlled_entity))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update_player_collisions_with_goalposts]: error: guard \"player_controlled_entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_goalposts]: error: guard \"player_controlled_entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update_player_collisions_with_goalposts: error: guard \"player_controlled_entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update_player_collisions_with_goalposts]: error: guard \"player_controlled_entity\" not met");
    }
    // TODO: allow this function to run without being coupled with a "player_controlled_entity"
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
@@ -1813,9 +1813,9 @@ void Screen::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::update]: error: guard \"initialized\" not met");
    }
    if (!get_gameplay_suspended())
    {
@@ -1863,23 +1863,23 @@ void Screen::draw()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::draw]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::draw]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::draw: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::draw]: error: guard \"initialized\" not met");
    }
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::draw]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::draw]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::draw: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::draw]: error: guard \"currently_active_map\" not met");
    }
    if (!(get_terrain_tile_mesh()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::draw]: error: guard \"get_terrain_tile_mesh()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::draw]: error: guard \"get_terrain_tile_mesh()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::draw: error: guard \"get_terrain_tile_mesh()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::draw]: error: guard \"get_terrain_tile_mesh()\" not met");
    }
    //ALLEGRO_STATE previous_target_bitmap;
 
@@ -2054,16 +2054,16 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_char_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::key_char_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_char_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_char_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_char_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::key_char_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_char_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_char_func]: error: guard \"event\" not met");
    }
    switch (event->keyboard.keycode)
    {
@@ -2090,16 +2090,16 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::key_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_up_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::key_up_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_up_func]: error: guard \"event\" not met");
    }
    if (entity_control_connector) entity_control_connector->key_up_func(event);
 
@@ -2123,23 +2123,23 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::key_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_down_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::key_down_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_down_func]: error: guard \"event\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::key_down_func]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_down_func]: error: guard \"event_emitter\" not met");
    }
    if (!get_gameplay_suspended())
    {
@@ -2202,9 +2202,9 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    //int virtual_controller_button_num = event->user.data1;
 
@@ -2254,9 +2254,9 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::virtual_control_button_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met");
    }
    //int virtual_controller_button_num = event->user.data1;
 
@@ -2344,9 +2344,9 @@ void Screen::render_collision_tile_map()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::render_collision_tile_map]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::render_collision_tile_map]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::render_collision_tile_map: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::render_collision_tile_map]: error: guard \"currently_active_map\" not met");
    }
    AllegroFlare::TileMaps::TileMap<int> *tile_map = currently_active_map->get_collision_tile_map();
    float tile_width=16.0f;
@@ -2384,9 +2384,9 @@ AllegroFlare::TileMaps::PrimMeshAtlas* Screen::get_tile_atlas()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::get_tile_atlas]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::get_tile_atlas]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::get_tile_atlas: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::get_tile_atlas]: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_tile_atlas();
 }
@@ -2396,9 +2396,9 @@ AllegroFlare::TileMaps::TileMesh* Screen::get_terrain_tile_mesh()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::get_terrain_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::get_terrain_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::get_terrain_tile_mesh: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::get_terrain_tile_mesh]: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_terrain_tile_mesh();
 }
@@ -2408,9 +2408,9 @@ AllegroFlare::TileMaps::TileMesh* Screen::get_background_tile_mesh()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::get_background_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::get_background_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::get_background_tile_mesh: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::get_background_tile_mesh]: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_background_tile_mesh();
 }
@@ -2420,9 +2420,9 @@ bool Screen::background_tile_mesh_exists()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::background_tile_mesh_exists]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::background_tile_mesh_exists]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::background_tile_mesh_exists: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::background_tile_mesh_exists]: error: guard \"currently_active_map\" not met");
    }
    return (currently_active_map->get_background_tile_mesh() != nullptr);
 }
@@ -2432,9 +2432,9 @@ AllegroFlare::TileMaps::TileMesh* Screen::get_foreground_tile_mesh()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::get_foreground_tile_mesh]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::get_foreground_tile_mesh]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::get_foreground_tile_mesh: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::get_foreground_tile_mesh]: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_foreground_tile_mesh();
 }
@@ -2444,9 +2444,9 @@ bool Screen::foreground_tile_mesh_exists()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::foreground_tile_mesh_exists]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::foreground_tile_mesh_exists]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::foreground_tile_mesh_exists: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::foreground_tile_mesh_exists]: error: guard \"currently_active_map\" not met");
    }
    return (currently_active_map->get_foreground_tile_mesh() != nullptr);
 }
@@ -2456,9 +2456,9 @@ AllegroFlare::TileMaps::TileMap<int>* Screen::get_collision_tile_map()
    if (!(currently_active_map))
    {
       std::stringstream error_message;
-      error_message << "[Screen::get_collision_tile_map]: error: guard \"currently_active_map\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::get_collision_tile_map]: error: guard \"currently_active_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::get_collision_tile_map: error: guard \"currently_active_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::get_collision_tile_map]: error: guard \"currently_active_map\" not met");
    }
    return currently_active_map->get_collision_tile_map();
 }
@@ -2475,9 +2475,9 @@ ALLEGRO_FONT* Screen::obtain_debug_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::obtain_debug_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::obtain_debug_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::obtain_debug_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::obtain_debug_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Medium.ttf -32");
 }

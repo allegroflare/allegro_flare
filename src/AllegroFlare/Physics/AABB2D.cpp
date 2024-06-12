@@ -150,9 +150,9 @@ bool AABB2D::collides(AllegroFlare::Physics::AABB2D* other, AllegroFlare::Vec2D 
    if (!(other))
    {
       std::stringstream error_message;
-      error_message << "[AABB2D::collides]: error: guard \"other\" not met.";
+      error_message << "[AllegroFlare::Physics::AABB2D::collides]: error: guard \"other\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AABB2D::collides: error: guard \"other\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::AABB2D::collides]: error: guard \"other\" not met");
    }
    // TODO: consider less assignment, add values directly into the conditional
 

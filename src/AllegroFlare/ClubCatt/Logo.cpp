@@ -122,9 +122,9 @@ void Logo::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logo::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -135,9 +135,9 @@ void Logo::set_model_bin(AllegroFlare::ModelBin* model_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logo::set_model_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::set_model_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::set_model_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::set_model_bin]: error: guard \"(!initialized)\" not met");
    }
    this->model_bin = model_bin;
    return;
@@ -148,30 +148,30 @@ void Logo::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logo::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Logo::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[Logo::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::initialize]: error: guard \"model_bin\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[Logo::initialize]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::initialize]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::initialize: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::initialize]: error: guard \"al_get_current_display()\" not met");
    }
    // Setup the camera
    camera.stepout = {0, 0, 80}; // Step back from the origin, note 100 will clip past the far plane
@@ -234,9 +234,9 @@ void Logo::destroy()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Logo::destroy]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::destroy]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::destroy: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::destroy]: error: guard \"initialized\" not met");
    }
    // TODO: free up bin objects
    bitmap_bin->destroy(cube_texture1_identifier);
@@ -262,9 +262,9 @@ void Logo::reset()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Logo::reset]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::reset]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::reset: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::reset]: error: guard \"initialized\" not met");
    }
    // TODO: Test this function (it wouldn't be used anywhere as far as I known of)
    playing = false;
@@ -278,9 +278,9 @@ void Logo::play(float time_now)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Logo::play]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::play]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::play: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::play]: error: guard \"initialized\" not met");
    }
    playing = true;
    playing_started_at = time_now;
@@ -292,9 +292,9 @@ void Logo::update(float time_now)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Logo::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::update]: error: guard \"initialized\" not met");
    }
    float local_time_now = calc_local_time_now(time_now);
 
@@ -311,9 +311,9 @@ void Logo::draw(float time_now)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Logo::draw]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::ClubCatt::Logo::draw]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logo::draw: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::ClubCatt::Logo::draw]: error: guard \"initialized\" not met");
    }
    float local_time_now = calc_local_time_now(time_now);
 

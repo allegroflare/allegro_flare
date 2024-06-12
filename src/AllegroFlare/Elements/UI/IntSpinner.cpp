@@ -134,30 +134,30 @@ void IntSpinner::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[IntSpinner::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::IntSpinner::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntSpinner::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::IntSpinner::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[IntSpinner::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::IntSpinner::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntSpinner::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::IntSpinner::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[IntSpinner::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::IntSpinner::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntSpinner::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::IntSpinner::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[IntSpinner::render]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::IntSpinner::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntSpinner::render: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::IntSpinner::render]: error: guard \"font_bin\" not met");
    }
    // Draw the number
    std::stringstream ss;
@@ -241,9 +241,9 @@ void IntSpinner::set_state(uint32_t state, bool override_if_busy)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[IntSpinner::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::IntSpinner::set_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntSpinner::set_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::IntSpinner::set_state]: error: guard \"is_valid_state(state)\" not met");
    }
    if (this->state == state) return;
    if (!override_if_busy && state_is_busy) return;
@@ -276,9 +276,9 @@ void IntSpinner::update_state(float time_now)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[IntSpinner::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::IntSpinner::update_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntSpinner::update_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::IntSpinner::update_state]: error: guard \"is_valid_state(state)\" not met");
    }
    float age = infer_current_state_age(time_now);
 
@@ -327,9 +327,9 @@ ALLEGRO_FONT* IntSpinner::obtain_font(float _font_size)
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[IntSpinner::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::IntSpinner::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntSpinner::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::IntSpinner::obtain_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream ss;
    ss << "Inter-Medium.ttf " << _font_size;

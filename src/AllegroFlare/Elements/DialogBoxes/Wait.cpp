@@ -53,9 +53,9 @@ void Wait::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Wait::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxes::Wait::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Wait::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Wait::initialize]: error: guard \"(!initialized)\" not met");
    }
    started_at = al_get_time();
    return;
@@ -72,9 +72,9 @@ void Wait::update()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Wait::update]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxes::Wait::update]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Wait::update: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Wait::update]: error: guard \"al_is_system_installed()\" not met");
    }
    // TODO: Test this update
    // TODO: Use AllegroFlare::Time and speed up the advancing rate for a faster test

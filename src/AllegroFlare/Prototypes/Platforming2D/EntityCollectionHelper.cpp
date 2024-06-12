@@ -44,9 +44,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_collectable_by_player]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_collectable_by_player]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_collectable_by_player: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_collectable_by_player]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -63,9 +63,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_collectable_by_player_on_map]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_collectable_by_player_on_map]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_collectable_by_player_on_map: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_collectable_by_player_on_map]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -85,9 +85,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_collides_with_player]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_collides_with_player]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_collides_with_player: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_collides_with_player]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -104,9 +104,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_interactable_by_player]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_interactable_by_player]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_interactable_by_player: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_interactable_by_player]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -123,9 +123,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_all_interactable_by_player_currently_colliding_with_player]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_all_interactable_by_player_currently_colliding_with_player]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_all_interactable_by_player_currently_colliding_with_player: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_all_interactable_by_player_currently_colliding_with_player]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -145,9 +145,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_goalposts]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_goalposts]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_goalposts: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_goalposts]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -164,9 +164,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_save_points]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_save_points]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_save_points: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_save_points]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -183,9 +183,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_boss_zones]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_boss_zones]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_boss_zones: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_boss_zones]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -202,9 +202,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_doors]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_doors]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_doors: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_doors]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -221,9 +221,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* EntityCollectionHelp
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::find_first_entity_by_tmj_object_name]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_first_entity_by_tmj_object_name]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::find_first_entity_by_tmj_object_name: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_first_entity_by_tmj_object_name]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -242,9 +242,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* EntityCollectionHelp
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::find_entity_by_tmj_object_id]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_entity_by_tmj_object_id]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::find_entity_by_tmj_object_id: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_entity_by_tmj_object_id]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -263,9 +263,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* EntityCollectionHelp
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::find_entity_by_tmj_object_id_on_map_name]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_entity_by_tmj_object_id_on_map_name]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::find_entity_by_tmj_object_id_on_map_name: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_entity_by_tmj_object_id_on_map_name]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -288,9 +288,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* EntityCollect
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::find_door_by_tmj_object_id]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_door_by_tmj_object_id]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::find_door_by_tmj_object_id: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_door_by_tmj_object_id]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -315,9 +315,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D* EntityCollect
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::find_door_by_target_door_name]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_door_by_target_door_name]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::find_door_by_target_door_name: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_door_by_target_door_name]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -341,9 +341,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_on_map]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_on_map]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_on_map: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_on_map]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -360,9 +360,9 @@ std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> EntityC
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::select_on_map_y_sorted]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_on_map_y_sorted]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::select_on_map_y_sorted: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::select_on_map_y_sorted]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    using AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
@@ -387,9 +387,9 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* EntityColl
    if (!(entities))
    {
       std::stringstream error_message;
-      error_message << "[EntityCollectionHelper::find_map_by_name]: error: guard \"entities\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_map_by_name]: error: guard \"entities\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityCollectionHelper::find_map_by_name: error: guard \"entities\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper::find_map_by_name]: error: guard \"entities\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 

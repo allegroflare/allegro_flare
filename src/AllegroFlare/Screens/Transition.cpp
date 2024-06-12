@@ -87,30 +87,30 @@ void Transition::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Transition::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::Transition::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Transition::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Transition::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Transition::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::Transition::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Transition::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Transition::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[Transition::initialize]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::Screens::Transition::initialize]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Transition::initialize: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Transition::initialize]: error: guard \"al_get_current_display()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Transition::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::Transition::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Transition::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Transition::initialize]: error: guard \"event_emitter\" not met");
    }
    // IMPORTANT: Design does not currently work effectively in conjunction with AllegroFlare
    // TODO: this needs to be modified to expect and work with existing and active AllegroFlare rendering surface
@@ -127,16 +127,16 @@ void Transition::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Transition::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Transition::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Transition::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Transition::primary_timer_func]: error: guard \"initialized\" not met");
    }
    if (!(transition_fx))
    {
       std::stringstream error_message;
-      error_message << "[Transition::primary_timer_func]: error: guard \"transition_fx\" not met.";
+      error_message << "[AllegroFlare::Screens::Transition::primary_timer_func]: error: guard \"transition_fx\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Transition::primary_timer_func: error: guard \"transition_fx\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Transition::primary_timer_func]: error: guard \"transition_fx\" not met");
    }
    if (to_screen)
    {

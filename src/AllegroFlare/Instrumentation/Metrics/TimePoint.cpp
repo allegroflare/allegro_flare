@@ -52,16 +52,16 @@ void TimePoint::set_size(int size)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[TimePoint::set_size]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metrics::TimePoint::set_size]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TimePoint::set_size: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metrics::TimePoint::set_size]: error: guard \"(!initialized)\" not met");
    }
    if (!((size >= 32)))
    {
       std::stringstream error_message;
-      error_message << "[TimePoint::set_size]: error: guard \"(size >= 32)\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metrics::TimePoint::set_size]: error: guard \"(size >= 32)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TimePoint::set_size: error: guard \"(size >= 32)\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metrics::TimePoint::set_size]: error: guard \"(size >= 32)\" not met");
    }
    this->size = size;
    return;
@@ -72,9 +72,9 @@ void TimePoint::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[TimePoint::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metrics::TimePoint::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TimePoint::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metrics::TimePoint::initialize]: error: guard \"(!initialized)\" not met");
    }
    metrics.reserve(size);
    metrics.resize(size);
@@ -88,9 +88,9 @@ void TimePoint::capture(std::chrono::steady_clock::time_point metric)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TimePoint::capture]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metrics::TimePoint::capture]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TimePoint::capture: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metrics::TimePoint::capture]: error: guard \"initialized\" not met");
    }
    head++;
    if (head >= metrics.size()) head = 0;
@@ -103,9 +103,9 @@ int TimePoint::head_delta(int delta)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TimePoint::head_delta]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metrics::TimePoint::head_delta]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TimePoint::head_delta: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metrics::TimePoint::head_delta]: error: guard \"initialized\" not met");
    }
    int pos = head + delta;
    while (pos < 0) pos += metrics.size();
@@ -118,9 +118,9 @@ std::vector<std::chrono::steady_clock::time_point> TimePoint::get_last_n_metrics
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TimePoint::get_last_n_metrics]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Instrumentation::Metrics::TimePoint::get_last_n_metrics]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TimePoint::get_last_n_metrics: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Instrumentation::Metrics::TimePoint::get_last_n_metrics]: error: guard \"initialized\" not met");
    }
    // TODO: Test this
    std::vector<std::chrono::steady_clock::time_point> result;

@@ -53,9 +53,9 @@ ALLEGRO_BITMAP* SpriteStripAssembler::get_sprite_strip()
    if (!(assembled))
    {
       std::stringstream error_message;
-      error_message << "[SpriteStripAssembler::get_sprite_strip]: error: guard \"assembled\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::SpriteStripAssembler::get_sprite_strip]: error: guard \"assembled\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SpriteStripAssembler::get_sprite_strip: error: guard \"assembled\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::SpriteStripAssembler::get_sprite_strip]: error: guard \"assembled\" not met");
    }
    return sprite_strip;
 }
@@ -65,9 +65,9 @@ int SpriteStripAssembler::get_cell_width()
    if (!(assembled))
    {
       std::stringstream error_message;
-      error_message << "[SpriteStripAssembler::get_cell_width]: error: guard \"assembled\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::SpriteStripAssembler::get_cell_width]: error: guard \"assembled\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SpriteStripAssembler::get_cell_width: error: guard \"assembled\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::SpriteStripAssembler::get_cell_width]: error: guard \"assembled\" not met");
    }
    return cell_width;
 }
@@ -77,9 +77,9 @@ int SpriteStripAssembler::get_cell_height()
    if (!(assembled))
    {
       std::stringstream error_message;
-      error_message << "[SpriteStripAssembler::get_cell_height]: error: guard \"assembled\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::SpriteStripAssembler::get_cell_height]: error: guard \"assembled\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SpriteStripAssembler::get_cell_height: error: guard \"assembled\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::SpriteStripAssembler::get_cell_height]: error: guard \"assembled\" not met");
    }
    return cell_height;
 }
@@ -89,23 +89,23 @@ void SpriteStripAssembler::assemble()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SpriteStripAssembler::assemble]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SpriteStripAssembler::assemble: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!((!assembled)))
    {
       std::stringstream error_message;
-      error_message << "[SpriteStripAssembler::assemble]: error: guard \"(!assembled)\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble]: error: guard \"(!assembled)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SpriteStripAssembler::assemble: error: guard \"(!assembled)\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble]: error: guard \"(!assembled)\" not met");
    }
    if (!((!bitmaps.empty())))
    {
       std::stringstream error_message;
-      error_message << "[SpriteStripAssembler::assemble]: error: guard \"(!bitmaps.empty())\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble]: error: guard \"(!bitmaps.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SpriteStripAssembler::assemble: error: guard \"(!bitmaps.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::SpriteStripAssembler::assemble]: error: guard \"(!bitmaps.empty())\" not met");
    }
    // Validate all bitmaps are not nullptr
    for (auto &bitmap : bitmaps)

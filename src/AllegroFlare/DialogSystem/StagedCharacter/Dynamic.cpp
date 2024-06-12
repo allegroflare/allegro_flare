@@ -92,9 +92,9 @@ void Dynamic::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::StagedCharacter::Dynamic::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::StagedCharacter::Dynamic::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (is_hidden()) return;
    if (!expression_bitmap) return;
@@ -145,16 +145,16 @@ void Dynamic::set_state(uint32_t state, bool override_if_busy)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::set_state]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::StagedCharacter::Dynamic::set_state]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::set_state: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::StagedCharacter::Dynamic::set_state]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::StagedCharacter::Dynamic::set_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::set_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::StagedCharacter::Dynamic::set_state]: error: guard \"is_valid_state(state)\" not met");
    }
    if (this->state == state) return;
    if (!override_if_busy && state_is_busy) return;
@@ -192,9 +192,9 @@ void Dynamic::update_state(float time_now)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::StagedCharacter::Dynamic::update_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::update_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::StagedCharacter::Dynamic::update_state]: error: guard \"is_valid_state(state)\" not met");
    }
    float age = infer_current_state_age(time_now);
 

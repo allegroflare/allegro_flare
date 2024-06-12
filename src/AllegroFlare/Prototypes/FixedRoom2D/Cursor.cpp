@@ -81,9 +81,9 @@ void Cursor::draw()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Cursor::draw]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::Cursor::draw]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Cursor::draw: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::Cursor::draw]: error: guard \"font_bin\" not met");
    }
    AllegroFlare::Placement2D placement(x, y, 0, 0);
    placement.start_transform();
@@ -118,16 +118,16 @@ bool Cursor::clamp(float min_x, float min_y, float max_x, float max_y)
    if (!((min_x <= max_x)))
    {
       std::stringstream error_message;
-      error_message << "[Cursor::clamp]: error: guard \"(min_x <= max_x)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::Cursor::clamp]: error: guard \"(min_x <= max_x)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Cursor::clamp: error: guard \"(min_x <= max_x)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::Cursor::clamp]: error: guard \"(min_x <= max_x)\" not met");
    }
    if (!((min_y <= max_y)))
    {
       std::stringstream error_message;
-      error_message << "[Cursor::clamp]: error: guard \"(min_y <= max_y)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::Cursor::clamp]: error: guard \"(min_y <= max_y)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Cursor::clamp: error: guard \"(min_y <= max_y)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::Cursor::clamp]: error: guard \"(min_y <= max_y)\" not met");
    }
    float began_at_x = x;
    float began_at_y = y;
@@ -187,9 +187,9 @@ ALLEGRO_FONT* Cursor::obtain_cursor_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Cursor::obtain_cursor_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::Cursor::obtain_cursor_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Cursor::obtain_cursor_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::Cursor::obtain_cursor_font]: error: guard \"font_bin\" not met");
    }
    std::string font_name = "fa-solid-900.ttf";
    int cursor_font_size = 30;
@@ -204,9 +204,9 @@ ALLEGRO_FONT* Cursor::obtain_info_text_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Cursor::obtain_info_text_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::Cursor::obtain_info_text_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Cursor::obtain_info_text_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::Cursor::obtain_info_text_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf 20");
 }

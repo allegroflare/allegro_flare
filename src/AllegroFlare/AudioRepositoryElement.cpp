@@ -55,9 +55,9 @@ void AudioRepositoryElement::set_overplay_strategy(std::string overplay_strategy
    if (!(is_valid_overplay_strategy(overplay_strategy)))
    {
       std::stringstream error_message;
-      error_message << "[AudioRepositoryElement::set_overplay_strategy]: error: guard \"is_valid_overplay_strategy(overplay_strategy)\" not met.";
+      error_message << "[AllegroFlare::AudioRepositoryElement::set_overplay_strategy]: error: guard \"is_valid_overplay_strategy(overplay_strategy)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioRepositoryElement::set_overplay_strategy: error: guard \"is_valid_overplay_strategy(overplay_strategy)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioRepositoryElement::set_overplay_strategy]: error: guard \"is_valid_overplay_strategy(overplay_strategy)\" not met");
    }
    this->overplay_strategy = overplay_strategy;
    return;

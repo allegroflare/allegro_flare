@@ -45,16 +45,16 @@ void DisplayBackbuffer::set_display(ALLEGRO_DISPLAY* display)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::set_display]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::set_display]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::set_display: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::set_display]: error: guard \"(!initialized)\" not met");
    }
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::set_display]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::set_display]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::set_display: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::set_display]: error: guard \"display\" not met");
    }
    this->display = display;
    return;
@@ -65,16 +65,16 @@ void DisplayBackbuffer::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::initialize]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::initialize]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::initialize: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::initialize]: error: guard \"display\" not met");
    }
    display_backbuffer = al_get_backbuffer(display);
    initialized = true;
@@ -86,9 +86,9 @@ bool DisplayBackbuffer::set_as_target()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::set_as_target]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::set_as_target]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::set_as_target: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::set_as_target]: error: guard \"initialized\" not met");
    }
    al_set_target_bitmap(display_backbuffer);
    return true;
@@ -99,9 +99,9 @@ void DisplayBackbuffer::clear_surface()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::clear_surface]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::clear_surface]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::clear_surface: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::clear_surface]: error: guard \"initialized\" not met");
    }
    al_clear_to_color(AllegroFlare::Color::Eigengrau);
    al_clear_depth_buffer(1); // This clears on the display, but not necessarily the bitmap?
@@ -113,9 +113,9 @@ ALLEGRO_BITMAP* DisplayBackbuffer::obtain_surface()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::obtain_surface]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::obtain_surface]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::obtain_surface: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::obtain_surface]: error: guard \"initialized\" not met");
    }
    return display_backbuffer;
 }
@@ -125,9 +125,9 @@ int DisplayBackbuffer::get_width()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::get_width]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::get_width]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::get_width: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::get_width]: error: guard \"initialized\" not met");
    }
    return al_get_bitmap_width(display_backbuffer);
 }
@@ -137,9 +137,9 @@ int DisplayBackbuffer::get_height()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplayBackbuffer::get_height]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::DisplayBackbuffer::get_height]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplayBackbuffer::get_height: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::DisplayBackbuffer::get_height]: error: guard \"initialized\" not met");
    }
    return al_get_bitmap_height(display_backbuffer);
 }

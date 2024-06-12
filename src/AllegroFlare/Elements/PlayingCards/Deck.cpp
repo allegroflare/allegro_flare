@@ -59,9 +59,9 @@ AllegroFlare::Elements::PlayingCards::Card Deck::draw_card()
    if (!((!cards.empty())))
    {
       std::stringstream error_message;
-      error_message << "[Deck::draw_card]: error: guard \"(!cards.empty())\" not met.";
+      error_message << "[AllegroFlare::Elements::PlayingCards::Deck::draw_card]: error: guard \"(!cards.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Deck::draw_card: error: guard \"(!cards.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::PlayingCards::Deck::draw_card]: error: guard \"(!cards.empty())\" not met");
    }
    AllegroFlare::Elements::PlayingCards::Card card = cards.back();
    cards.pop_back();

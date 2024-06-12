@@ -69,9 +69,9 @@ void Database::set_global_identifier_prefix(std::string global_identifier_prefix
    if (!((!using_global_identifier_prefix)))
    {
       std::stringstream error_message;
-      error_message << "[Database::set_global_identifier_prefix]: error: guard \"(!using_global_identifier_prefix)\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::Database::set_global_identifier_prefix]: error: guard \"(!using_global_identifier_prefix)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Database::set_global_identifier_prefix: error: guard \"(!using_global_identifier_prefix)\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::set_global_identifier_prefix]: error: guard \"(!using_global_identifier_prefix)\" not met");
    }
    if (using_global_identifier_prefix) remove_global_identifier_prefixes();
    this->global_identifier_prefix = global_identifier_prefix;
@@ -84,9 +84,9 @@ void Database::remove_global_identifier_prefix()
    if (!(using_global_identifier_prefix))
    {
       std::stringstream error_message;
-      error_message << "[Database::remove_global_identifier_prefix]: error: guard \"using_global_identifier_prefix\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::Database::remove_global_identifier_prefix]: error: guard \"using_global_identifier_prefix\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Database::remove_global_identifier_prefix: error: guard \"using_global_identifier_prefix\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::remove_global_identifier_prefix]: error: guard \"using_global_identifier_prefix\" not met");
    }
    if (using_global_identifier_prefix) remove_global_identifier_prefixes();
    return;
@@ -105,9 +105,9 @@ void Database::remove_global_identifier_prefixes()
    if (!(using_global_identifier_prefix))
    {
       std::stringstream error_message;
-      error_message << "[Database::remove_global_identifier_prefixes]: error: guard \"using_global_identifier_prefix\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::Database::remove_global_identifier_prefixes]: error: guard \"using_global_identifier_prefix\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Database::remove_global_identifier_prefixes: error: guard \"using_global_identifier_prefix\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::remove_global_identifier_prefixes]: error: guard \"using_global_identifier_prefix\" not met");
    }
    int prefix_length = global_identifier_prefix.length();
 
@@ -136,9 +136,9 @@ void Database::prefix_global_identifier_prefix_to_identifiers(std::string prefix
    if (!((!using_global_identifier_prefix)))
    {
       std::stringstream error_message;
-      error_message << "[Database::prefix_global_identifier_prefix_to_identifiers]: error: guard \"(!using_global_identifier_prefix)\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::Database::prefix_global_identifier_prefix_to_identifiers]: error: guard \"(!using_global_identifier_prefix)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Database::prefix_global_identifier_prefix_to_identifiers: error: guard \"(!using_global_identifier_prefix)\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::prefix_global_identifier_prefix_to_identifiers]: error: guard \"(!using_global_identifier_prefix)\" not met");
    }
    // Pull out the keys first
    std::vector<std::string> asset_keys;

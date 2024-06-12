@@ -150,9 +150,9 @@ bool Basic::next_page()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Basic::next_page]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxes::Basic::next_page]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic::next_page: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Basic::next_page]: error: guard \"al_is_system_installed()\" not met");
    }
    //if (at_last_page()) return false;
    if (get_finished()) return false;
@@ -205,9 +205,9 @@ void Basic::reveal_all_characters()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Basic::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxes::Basic::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic::reveal_all_characters: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Basic::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met");
    }
    num_revealed_characters = 9999;
    page_finished = true;

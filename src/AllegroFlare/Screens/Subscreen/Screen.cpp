@@ -122,51 +122,51 @@ void Screen::initialize()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(subscreen_element))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"subscreen_element\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"subscreen_element\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"subscreen_element\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::initialize]: error: guard \"subscreen_element\" not met");
    }
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    initialized = true;
@@ -178,9 +178,9 @@ void Screen::refresh()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::refresh]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::refresh]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::refresh: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::refresh]: error: guard \"initialized\" not met");
    }
    subscreen_element->refresh();
    return;
@@ -191,9 +191,9 @@ void Screen::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::on_activate]: error: guard \"initialized\" not met");
    }
    emit_event_to_update_input_hints_bar();
    emit_show_and_size_input_hints_bar_event();
@@ -205,9 +205,9 @@ void Screen::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::on_deactivate]: error: guard \"initialized\" not met");
    }
    // TODO: this should be a push/pop style to restore the previous input hints bar state, rather than
    // turning it off. This might be an option to add to the framework
@@ -220,9 +220,9 @@ void Screen::set_background_bitmap(ALLEGRO_BITMAP* background_bitmap)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_background_bitmap]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::set_background_bitmap]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_background_bitmap: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::set_background_bitmap]: error: guard \"initialized\" not met");
    }
    subscreen_element->set_background_bitmap(background_bitmap); // Not sure what this method is needed for, I might
                                                                 // assume the background is controlled as a part of
@@ -251,9 +251,9 @@ void Screen::emit_event_to_update_input_hints_bar()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::emit_event_to_update_input_hints_bar]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::emit_event_to_update_input_hints_bar]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::emit_event_to_update_input_hints_bar: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::emit_event_to_update_input_hints_bar]: error: guard \"initialized\" not met");
    }
    // TODO: Figure out how to handle subscreen-related control hints here.
 
@@ -338,9 +338,9 @@ void Screen::primary_update_func(double time_now, double delta_time)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::primary_update_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::primary_update_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::primary_update_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::primary_update_func]: error: guard \"initialized\" not met");
    }
    // Update stuff here (take into account delta_time)
    subscreen_element->update();
@@ -352,9 +352,9 @@ void Screen::primary_render_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::primary_render_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::primary_render_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::primary_render_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::primary_render_func]: error: guard \"initialized\" not met");
    }
    // Render stuff here
    al_clear_to_color(al_color_html("16161d")); // TODO: Not sure if should clear here, probably rely on screen's
@@ -370,9 +370,9 @@ void Screen::xprimary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::xprimary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::xprimary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::xprimary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::xprimary_timer_func]: error: guard \"initialized\" not met");
    }
    // NOTE: this color clear may be redundant if the framework is clearing prior to rendering screens
    // NOTE: Enable configuring this background color, disabling it, relying on the screen's owned background, or
@@ -391,16 +391,16 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::key_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::key_up_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::key_up_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::key_up_func]: error: guard \"event\" not met");
    }
    bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
    switch(event->keyboard.keycode)
@@ -429,16 +429,16 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::key_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::key_down_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::key_down_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::key_down_func]: error: guard \"event\" not met");
    }
    bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
    switch(event->keyboard.keycode)
@@ -479,16 +479,16 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_char_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::key_char_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_char_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::key_char_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_char_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Screens::Subscreen::Screen::key_char_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_char_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::key_char_func]: error: guard \"event\" not met");
    }
    bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
    switch(event->keyboard.keycode)

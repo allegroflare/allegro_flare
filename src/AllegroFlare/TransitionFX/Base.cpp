@@ -40,9 +40,9 @@ void Base::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Base::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::TransitionFX::Base::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::TransitionFX::Base::initialize]: error: guard \"(!initialized)\" not met");
    }
 
    // IMPORTANT: Design does not currently work effectively in conjunction with AllegroFlare
@@ -61,9 +61,9 @@ ALLEGRO_BITMAP* Base::get_pasteboard_a()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Base::get_pasteboard_a]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TransitionFX::Base::get_pasteboard_a]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::get_pasteboard_a: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TransitionFX::Base::get_pasteboard_a]: error: guard \"initialized\" not met");
    }
    return pasteboard_a;
 }
@@ -73,9 +73,9 @@ ALLEGRO_BITMAP* Base::get_pasteboard_b()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Base::get_pasteboard_b]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TransitionFX::Base::get_pasteboard_b]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::get_pasteboard_b: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TransitionFX::Base::get_pasteboard_b]: error: guard \"initialized\" not met");
    }
    return pasteboard_b;
 }
@@ -85,9 +85,9 @@ void Base::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Base::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TransitionFX::Base::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TransitionFX::Base::update]: error: guard \"initialized\" not met");
    }
    position += 1.0 / 60.0;
    if (position >= duration_sec) finished = true;
@@ -99,9 +99,9 @@ void Base::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Base::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TransitionFX::Base::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TransitionFX::Base::render]: error: guard \"initialized\" not met");
    }
    float alpha = 1.0 - (duration_sec - position) / duration_sec;
    if (alpha >= 1.0) alpha = 1.0f;

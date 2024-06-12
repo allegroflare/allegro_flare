@@ -43,9 +43,9 @@ void FilterMatrix::set_matrix(std::vector<std::vector<int>> matrix)
    if (!((STATIC_is_valid(matrix))))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::set_matrix]: error: guard \"(STATIC_is_valid(matrix))\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_matrix]: error: guard \"(STATIC_is_valid(matrix))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::set_matrix: error: guard \"(STATIC_is_valid(matrix))\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_matrix]: error: guard \"(STATIC_is_valid(matrix))\" not met");
    }
    this->matrix = matrix;
    return;
@@ -73,16 +73,16 @@ void FilterMatrix::resize(int width, int height)
    if (!((width > 1)))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::resize]: error: guard \"(width > 1)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::resize]: error: guard \"(width > 1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::resize: error: guard \"(width > 1)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::resize]: error: guard \"(width > 1)\" not met");
    }
    if (!((height > 1)))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::resize]: error: guard \"(height > 1)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::resize]: error: guard \"(height > 1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::resize: error: guard \"(height > 1)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::resize]: error: guard \"(height > 1)\" not met");
    }
    matrix.resize(height);
    for (auto &row : matrix)
@@ -108,30 +108,30 @@ int FilterMatrix::get_tile(int x, int y)
    if (!((x < get_width())))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::get_tile]: error: guard \"(x < get_width())\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::get_tile]: error: guard \"(x < get_width())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::get_tile: error: guard \"(x < get_width())\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::get_tile]: error: guard \"(x < get_width())\" not met");
    }
    if (!((y < get_height())))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::get_tile]: error: guard \"(y < get_height())\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::get_tile]: error: guard \"(y < get_height())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::get_tile: error: guard \"(y < get_height())\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::get_tile]: error: guard \"(y < get_height())\" not met");
    }
    if (!((x >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::get_tile]: error: guard \"(x >= 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::get_tile]: error: guard \"(x >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::get_tile: error: guard \"(x >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::get_tile]: error: guard \"(x >= 0)\" not met");
    }
    if (!((y >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::get_tile]: error: guard \"(y >= 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::get_tile]: error: guard \"(y >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::get_tile: error: guard \"(y >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::get_tile]: error: guard \"(y >= 0)\" not met");
    }
    return matrix[y][x];
 }
@@ -141,30 +141,30 @@ void FilterMatrix::set_tile(int x, int y, int tile_value)
    if (!((x < get_width())))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::set_tile]: error: guard \"(x < get_width())\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile]: error: guard \"(x < get_width())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::set_tile: error: guard \"(x < get_width())\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile]: error: guard \"(x < get_width())\" not met");
    }
    if (!((y < get_height())))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::set_tile]: error: guard \"(y < get_height())\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile]: error: guard \"(y < get_height())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::set_tile: error: guard \"(y < get_height())\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile]: error: guard \"(y < get_height())\" not met");
    }
    if (!((x >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::set_tile]: error: guard \"(x >= 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile]: error: guard \"(x >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::set_tile: error: guard \"(x >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile]: error: guard \"(x >= 0)\" not met");
    }
    if (!((y >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[FilterMatrix::set_tile]: error: guard \"(y >= 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile]: error: guard \"(y >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("FilterMatrix::set_tile: error: guard \"(y >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile]: error: guard \"(y >= 0)\" not met");
    }
    matrix[y][x] = tile_value;
 }

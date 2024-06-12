@@ -65,16 +65,16 @@ void Hud::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Hud::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[Wicked::Hud::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[Wicked::Hud::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Hud::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[Wicked::Hud::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[Wicked::Hud::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    draw_health();
    draw_score();
@@ -105,9 +105,9 @@ ALLEGRO_FONT* Hud::obtain_hud_text_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Hud::obtain_hud_text_font]: error: guard \"font_bin\" not met.";
+      error_message << "[Wicked::Hud::obtain_hud_text_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hud::obtain_hud_text_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[Wicked::Hud::obtain_hud_text_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf -48");
    //NOTE: previously return font_bin->auto_get("Manrope-Light.ttf -48");

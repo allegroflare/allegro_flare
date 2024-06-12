@@ -98,9 +98,9 @@ int PhysicalInputDeviceToVirtualControllerMapping::get_mapping(uint32_t physical
    if (!(mapping_exists_on_physical_device_button(physical_input_button_id)))
    {
       std::stringstream error_message;
-      error_message << "[PhysicalInputDeviceToVirtualControllerMapping::get_mapping]: error: guard \"mapping_exists_on_physical_device_button(physical_input_button_id)\" not met.";
+      error_message << "[AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping::get_mapping]: error: guard \"mapping_exists_on_physical_device_button(physical_input_button_id)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PhysicalInputDeviceToVirtualControllerMapping::get_mapping: error: guard \"mapping_exists_on_physical_device_button(physical_input_button_id)\" not met");
+      throw std::runtime_error("[AllegroFlare::PhysicalInputDeviceToVirtualControllerMapping::get_mapping]: error: guard \"mapping_exists_on_physical_device_button(physical_input_button_id)\" not met");
    }
    // TODO: Add optional throw on guard or ignore
    return mapping[physical_input_button_id];

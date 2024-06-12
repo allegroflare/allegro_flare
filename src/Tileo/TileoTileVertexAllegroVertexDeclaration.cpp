@@ -44,16 +44,16 @@ ALLEGRO_VERTEX_DECL* TileoTileVertexAllegroVertexDeclaration::get_vertex_declara
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::get_vertex_declaration]: error: guard \"initialized\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::get_vertex_declaration]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::get_vertex_declaration: error: guard \"initialized\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::get_vertex_declaration]: error: guard \"initialized\" not met");
    }
    if (!((!destroyed)))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::get_vertex_declaration]: error: guard \"(!destroyed)\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::get_vertex_declaration]: error: guard \"(!destroyed)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::get_vertex_declaration: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::get_vertex_declaration]: error: guard \"(!destroyed)\" not met");
    }
    return vertex_declaration;
 }
@@ -75,37 +75,37 @@ void TileoTileVertexAllegroVertexDeclaration::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::initialize: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"al_get_current_display()\" not met");
    }
    if (!((al_get_display_flags(al_get_current_display()) & ALLEGRO_PROGRAMMABLE_PIPELINE)))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"(al_get_display_flags(al_get_current_display()) & ALLEGRO_PROGRAMMABLE_PIPELINE)\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"(al_get_display_flags(al_get_current_display()) & ALLEGRO_PROGRAMMABLE_PIPELINE)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::initialize: error: guard \"(al_get_display_flags(al_get_current_display()) & ALLEGRO_PROGRAMMABLE_PIPELINE)\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::initialize]: error: guard \"(al_get_display_flags(al_get_current_display()) & ALLEGRO_PROGRAMMABLE_PIPELINE)\" not met");
    }
    // TODO: guard a display created with ALLEGRO_OPENGL flag.  OPENGL will be expected, specifically
    // for using a GLSL shader when rendering
@@ -146,16 +146,16 @@ void TileoTileVertexAllegroVertexDeclaration::destroy()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::destroy]: error: guard \"initialized\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::destroy]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::destroy: error: guard \"initialized\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::destroy]: error: guard \"initialized\" not met");
    }
    if (!((!destroyed)))
    {
       std::stringstream error_message;
-      error_message << "[TileoTileVertexAllegroVertexDeclaration::destroy]: error: guard \"(!destroyed)\" not met.";
+      error_message << "[Tileo::TileoTileVertexAllegroVertexDeclaration::destroy]: error: guard \"(!destroyed)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileoTileVertexAllegroVertexDeclaration::destroy: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[Tileo::TileoTileVertexAllegroVertexDeclaration::destroy]: error: guard \"(!destroyed)\" not met");
    }
    if (!vertex_declaration)
    {

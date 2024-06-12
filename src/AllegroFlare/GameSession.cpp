@@ -61,9 +61,9 @@ void GameSession::start_session(float started_at)
    if (!((!active)))
    {
       std::stringstream error_message;
-      error_message << "[GameSession::start_session]: error: guard \"(!active)\" not met.";
+      error_message << "[AllegroFlare::GameSession::start_session]: error: guard \"(!active)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameSession::start_session: error: guard \"(!active)\" not met");
+      throw std::runtime_error("[AllegroFlare::GameSession::start_session]: error: guard \"(!active)\" not met");
    }
    AllegroFlare::Logger::info_from("AllegroFlare::GameSession::start_session", "Starting session.");
    active = true;
@@ -76,9 +76,9 @@ void GameSession::end_session(float ended_at)
    if (!(active))
    {
       std::stringstream error_message;
-      error_message << "[GameSession::end_session]: error: guard \"active\" not met.";
+      error_message << "[AllegroFlare::GameSession::end_session]: error: guard \"active\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameSession::end_session: error: guard \"active\" not met");
+      throw std::runtime_error("[AllegroFlare::GameSession::end_session]: error: guard \"active\" not met");
    }
    AllegroFlare::Logger::info_from("AllegroFlare::GameSession::start_session", "Ending session.");
    active = false;

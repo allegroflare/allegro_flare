@@ -36,16 +36,16 @@ ALLEGRO_BITMAP* ScreenCapture::create_capture(bool flip_display_for_capture)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::create_capture]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::ScreenCapture::create_capture]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::create_capture: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::ScreenCapture::create_capture]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::create_capture]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::ScreenCapture::create_capture]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::create_capture: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::ScreenCapture::create_capture]: error: guard \"al_get_current_display()\" not met");
    }
    if (flip_display_for_capture) al_flip_display();
    ALLEGRO_BITMAP *captured_screen = al_clone_bitmap(al_get_backbuffer(al_get_current_display()));
@@ -68,30 +68,30 @@ ALLEGRO_BITMAP* ScreenCapture::create_capture_as_scaled_bitmap(int destination_w
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::create_capture_as_scaled_bitmap: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::create_capture_as_scaled_bitmap: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"al_get_current_display()\" not met");
    }
    if (!(destination_width >= 1))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"destination_width >= 1\" not met.";
+      error_message << "[AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"destination_width >= 1\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::create_capture_as_scaled_bitmap: error: guard \"destination_width >= 1\" not met");
+      throw std::runtime_error("[AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"destination_width >= 1\" not met");
    }
    if (!(destination_height >= 1))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"destination_height >= 1\" not met.";
+      error_message << "[AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"destination_height >= 1\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::create_capture_as_scaled_bitmap: error: guard \"destination_height >= 1\" not met");
+      throw std::runtime_error("[AllegroFlare::ScreenCapture::create_capture_as_scaled_bitmap]: error: guard \"destination_height >= 1\" not met");
    }
    ALLEGRO_BITMAP *capture = create_capture(flip_display_for_capture);
    // TODO: consider new bitmap flags

@@ -140,16 +140,16 @@ void MultiList::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[MultiList::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::MultiList::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiList::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::MultiList::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[MultiList::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::MultiList::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiList::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::MultiList::initialize]: error: guard \"font_bin\" not met");
    }
    selection_cursor_box.set_size_quietly(list_item_width, list_item_height);
    move_cursor_box_position_to_cursor_location(); // TODO: See if this is necessary
@@ -253,30 +253,30 @@ void MultiList::set_cursor_position(int cursor_x, int cursor_y)
    if (!((cursor_x >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[MultiList::set_cursor_position]: error: guard \"(cursor_x >= 0)\" not met.";
+      error_message << "[AllegroFlare::Elements::MultiList::set_cursor_position]: error: guard \"(cursor_x >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiList::set_cursor_position: error: guard \"(cursor_x >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::MultiList::set_cursor_position]: error: guard \"(cursor_x >= 0)\" not met");
    }
    if (!((cursor_x < lists.size())))
    {
       std::stringstream error_message;
-      error_message << "[MultiList::set_cursor_position]: error: guard \"(cursor_x < lists.size())\" not met.";
+      error_message << "[AllegroFlare::Elements::MultiList::set_cursor_position]: error: guard \"(cursor_x < lists.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiList::set_cursor_position: error: guard \"(cursor_x < lists.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::MultiList::set_cursor_position]: error: guard \"(cursor_x < lists.size())\" not met");
    }
    if (!((cursor_y >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[MultiList::set_cursor_position]: error: guard \"(cursor_y >= 0)\" not met.";
+      error_message << "[AllegroFlare::Elements::MultiList::set_cursor_position]: error: guard \"(cursor_y >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiList::set_cursor_position: error: guard \"(cursor_y >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::MultiList::set_cursor_position]: error: guard \"(cursor_y >= 0)\" not met");
    }
    if (!((cursor_y < lists[cursor_x].size())))
    {
       std::stringstream error_message;
-      error_message << "[MultiList::set_cursor_position]: error: guard \"(cursor_y < lists[cursor_x].size())\" not met.";
+      error_message << "[AllegroFlare::Elements::MultiList::set_cursor_position]: error: guard \"(cursor_y < lists[cursor_x].size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiList::set_cursor_position: error: guard \"(cursor_y < lists[cursor_x].size())\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::MultiList::set_cursor_position]: error: guard \"(cursor_y < lists[cursor_x].size())\" not met");
    }
    this->cursor_x = cursor_x;
    this->cursor_y = cursor_y;

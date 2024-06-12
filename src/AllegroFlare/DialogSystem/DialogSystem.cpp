@@ -194,9 +194,9 @@ void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
 }
@@ -206,9 +206,9 @@ void DialogSystem::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
 }
@@ -218,9 +218,9 @@ void DialogSystem::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
 }
@@ -266,9 +266,9 @@ void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
    if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::load_dialog_node_bank_from_file]: error: guard \"driver\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::load_dialog_node_bank_from_file]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::load_dialog_node_bank_from_file: error: guard \"driver\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::load_dialog_node_bank_from_file]: error: guard \"driver\" not met");
    }
    // TODO: Validate a dialog is not currently running (or something)
 
@@ -297,51 +297,51 @@ void DialogSystem::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::initialize]: error: guard \"event_emitter\" not met");
    }
    initialized = true;
    return;
@@ -361,9 +361,9 @@ void DialogSystem::switch_in()
    if (!((!switched_in)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::switch_in]: error: guard \"(!switched_in)\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::switch_in]: error: guard \"(!switched_in)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::switch_in: error: guard \"(!switched_in)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::switch_in]: error: guard \"(!switched_in)\" not met");
    }
    switched_in = true;
    if (driver) driver->on_switch_in();
@@ -382,16 +382,16 @@ void DialogSystem::switch_out()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::switch_out]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::switch_out]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::switch_out: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::switch_out]: error: guard \"initialized\" not met");
    }
    if (!(switched_in))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::switch_out]: error: guard \"switched_in\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::switch_out]: error: guard \"switched_in\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::switch_out: error: guard \"switched_in\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::switch_out]: error: guard \"switched_in\" not met");
    }
    if (active_dialog_box)
    {
@@ -415,9 +415,9 @@ void DialogSystem::activate_EmitGameEvent_dialog_node(AllegroFlare::DialogTree::
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_EmitGameEvent_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_EmitGameEvent_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_EmitGameEvent_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_EmitGameEvent_dialog_node]: error: guard \"node\" not met");
    }
    active_dialog_node = node; // TODO: Test this line
    // For now, nullptr data
@@ -441,9 +441,9 @@ void DialogSystem::activate_RawScriptLine_dialog_node(AllegroFlare::DialogTree::
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_RawScriptLine_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_RawScriptLine_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_RawScriptLine_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_RawScriptLine_dialog_node]: error: guard \"node\" not met");
    }
    active_dialog_node = node; // TODO: Test this line
    // TODO: Investigate why no properties from RawScriptLine are used in this command
@@ -461,9 +461,9 @@ void DialogSystem::activate_Wait_dialog_node(AllegroFlare::DialogTree::Nodes::Wa
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_Wait_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_Wait_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_Wait_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_Wait_dialog_node]: error: guard \"node\" not met");
    }
    active_dialog_node = node;
    float duration_seconds = node->get_duration_sec();
@@ -476,9 +476,9 @@ void DialogSystem::activate_ChapterTitle_dialog_node(AllegroFlare::DialogTree::N
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_ChapterTitle_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_ChapterTitle_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_ChapterTitle_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_ChapterTitle_dialog_node]: error: guard \"node\" not met");
    }
    active_dialog_node = node;
    spawn_chapter_title_dialog(node->get_title_text(), node->get_duration());
@@ -490,9 +490,9 @@ void DialogSystem::activate_ExitDialog_dialog_node(AllegroFlare::DialogTree::Nod
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_ExitDialog_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_ExitDialog_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_ExitDialog_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_ExitDialog_dialog_node]: error: guard \"node\" not met");
    }
    active_dialog_node = node; // Mostly redundant (shutdown_dialog will clear this value anyway)
    shutdown(); // TODO: See if this is a correct action for this event, e.g.
@@ -505,9 +505,9 @@ void DialogSystem::activate_ExitProgram_dialog_node(AllegroFlare::DialogTree::No
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_ExitProgram_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_ExitProgram_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_ExitProgram_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_ExitProgram_dialog_node]: error: guard \"node\" not met");
    }
    active_dialog_node = node;
    get_event_emitter()->emit_exit_game_event();
@@ -519,9 +519,9 @@ void DialogSystem::activate_YouGotAnItemDialog_dialog_node(AllegroFlare::DialogT
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_YouGotAnItemDialog_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_YouGotAnItemDialog_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_YouGotAnItemDialog_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_YouGotAnItemDialog_dialog_node]: error: guard \"node\" not met");
    }
    active_dialog_node = node;
    std::string item_name = node->get_item_name();
@@ -535,9 +535,9 @@ void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::Dialo
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_MultipageWithOptions_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_MultipageWithOptions_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_MultipageWithOptions_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_MultipageWithOptions_dialog_node]: error: guard \"node\" not met");
    }
    active_dialog_node = node; // TODO: Test this line
    // NOTE: The actual technique used to handle the "MutlipageWithOptions" node will vary depending on the
@@ -616,9 +616,9 @@ void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* d
    if (!(dialog_node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_dialog_node]: error: guard \"dialog_node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_dialog_node]: error: guard \"dialog_node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_dialog_node: error: guard \"dialog_node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_dialog_node]: error: guard \"dialog_node\" not met");
    }
    // TODO: Conaider that "active_dialog_node" is assigned inside each of the activate_TypeOfNode... methods and
    // this seems like a lot of duplicate logic (and also a bit brittle for refactoring and modification). Possibly
@@ -718,30 +718,30 @@ void DialogSystem::advance_MultipageWithOptions_dialog_node(AllegroFlare::Dialog
    if (!(node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"node\" not met");
    }
    if (!(node->has_options()))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"node->has_options()\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"node->has_options()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"node->has_options()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"node->has_options()\" not met");
    }
    if (!((cursor_position >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"(cursor_position >= 0)\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"(cursor_position >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"(cursor_position >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"(cursor_position >= 0)\" not met");
    }
    if (!((cursor_position < node->num_options())))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"(cursor_position < node->num_options())\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"(cursor_position < node->num_options())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::advance_MultipageWithOptions_dialog_node: error: guard \"(cursor_position < node->num_options())\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::advance_MultipageWithOptions_dialog_node]: error: guard \"(cursor_position < node->num_options())\" not met");
    }
    activate_dialog_option(cursor_position);
    return;
@@ -752,16 +752,16 @@ void DialogSystem::dialog_advance()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_advance]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::dialog_advance]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::dialog_advance]: error: guard \"initialized\" not met");
    }
    if (!(active_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_advance]: error: guard \"active_dialog_box\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::dialog_advance]: error: guard \"active_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_advance: error: guard \"active_dialog_box\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::dialog_advance]: error: guard \"active_dialog_box\" not met");
    }
    active_dialog_box->advance();
    if (!active_dialog_box->get_finished()) return;
@@ -866,16 +866,16 @@ void DialogSystem::activate_dialog_option(int selection_choice)
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_dialog_option]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_dialog_option]: error: guard \"event_emitter\" not met");
    }
    if (!(active_dialog_node))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::activate_dialog_option]: error: guard \"active_dialog_node\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::activate_dialog_option]: error: guard \"active_dialog_node\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::activate_dialog_option: error: guard \"active_dialog_node\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::activate_dialog_option]: error: guard \"active_dialog_node\" not met");
    }
    if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
@@ -1111,16 +1111,16 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
    if (!((cursor_position_on_spawn >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::spawn_choice_dialog]: error: guard \"(cursor_position_on_spawn >= 0)\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::spawn_choice_dialog]: error: guard \"(cursor_position_on_spawn >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::spawn_choice_dialog: error: guard \"(cursor_position_on_spawn >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::spawn_choice_dialog]: error: guard \"(cursor_position_on_spawn >= 0)\" not met");
    }
    if (!((cursor_position_on_spawn < options.size())))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::spawn_choice_dialog]: error: guard \"(cursor_position_on_spawn < options.size())\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::spawn_choice_dialog]: error: guard \"(cursor_position_on_spawn < options.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::spawn_choice_dialog: error: guard \"(cursor_position_on_spawn < options.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::spawn_choice_dialog]: error: guard \"(cursor_position_on_spawn < options.size())\" not met");
    }
    switch_in_if_not();
 
@@ -1175,9 +1175,9 @@ void DialogSystem::update(float time_now)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::update]: error: guard \"initialized\" not met");
    }
    // TODO: Ensure time_now does not accidentally become 0 by not being noticed as an argument
    // TODO: Ensure time_now is passed down to active dialog updates()
@@ -1198,16 +1198,16 @@ void DialogSystem::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::render]: error: guard \"initialized\" not met");
    }
    if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::render]: error: guard \"driver\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::render]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::render: error: guard \"driver\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::render]: error: guard \"driver\" not met");
    }
    if (driver) driver->on_render();
 
@@ -1239,16 +1239,16 @@ bool DialogSystem::dialog_is_finished()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_is_finished]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::dialog_is_finished]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_is_finished: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::dialog_is_finished]: error: guard \"initialized\" not met");
    }
    if (!(active_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::dialog_is_finished]: error: guard \"active_dialog_box\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::dialog_is_finished]: error: guard \"active_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::dialog_is_finished: error: guard \"active_dialog_box\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::dialog_is_finished]: error: guard \"active_dialog_box\" not met");
    }
    return active_dialog_box->get_finished();
 }
@@ -1258,23 +1258,23 @@ bool DialogSystem::shutdown()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::shutdown]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::shutdown]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::shutdown: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::shutdown]: error: guard \"initialized\" not met");
    }
    if (!(driver))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::shutdown]: error: guard \"driver\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::shutdown]: error: guard \"driver\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::shutdown: error: guard \"driver\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::shutdown]: error: guard \"driver\" not met");
    }
    if (!(switched_in))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::shutdown]: error: guard \"switched_in\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::shutdown]: error: guard \"switched_in\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::shutdown: error: guard \"switched_in\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::shutdown]: error: guard \"switched_in\" not met");
    }
    switch_out();
    return true;
@@ -1285,9 +1285,9 @@ void DialogSystem::move_dialog_cursor_position_up()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::move_dialog_cursor_position_up]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::move_dialog_cursor_position_up]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::move_dialog_cursor_position_up: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::move_dialog_cursor_position_up]: error: guard \"initialized\" not met");
    }
    if (!active_dialog_box) return;
    active_dialog_box->move_cursor_position_up();
@@ -1318,9 +1318,9 @@ void DialogSystem::move_dialog_cursor_position_down()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::move_dialog_cursor_position_down]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::move_dialog_cursor_position_down]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::move_dialog_cursor_position_down: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::move_dialog_cursor_position_down]: error: guard \"initialized\" not met");
    }
    if (!active_dialog_box) return;
    active_dialog_box->move_cursor_position_down();
@@ -1352,16 +1352,16 @@ void DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ALLEGRO_EVENT* 
    if (!(ev))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event]: error: guard \"ev\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event]: error: guard \"ev\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event: error: guard \"ev\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event]: error: guard \"ev\" not met");
    }
    if (!(data))
    {
       std::stringstream error_message;
-      error_message << "[DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event]: error: guard \"data\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event]: error: guard \"data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event: error: guard \"data\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDialogSystem::handle_raw_ALLEGRO_EVENT_that_is_dialog_event]: error: guard \"data\" not met");
    }
    // TODO: Update this to a map caller pattern (static const)
    if (data->is_type(AllegroFlare::DialogSystem::DialogEventDatas::LoadDialogNodeBankFromFile::TYPE))

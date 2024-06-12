@@ -70,23 +70,23 @@ void EntityFactory::initialize()
    if (!(scene_root))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::initialize]: error: guard \"scene_root\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::EntityFactory::initialize]: error: guard \"scene_root\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::initialize: error: guard \"scene_root\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::EntityFactory::initialize]: error: guard \"scene_root\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::EntityFactory::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::EntityFactory::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::EntityFactory::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::EntityFactory::initialize]: error: guard \"model_bin\" not met");
    }
    initialized = true;
    return;
@@ -97,9 +97,9 @@ AllegroFlare::Prototypes::CubeShooter::Entity* EntityFactory::add_cube(float x, 
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::add_cube]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::EntityFactory::add_cube]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::add_cube: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::EntityFactory::add_cube]: error: guard \"initialized\" not met");
    }
    AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
    result->reassign_parent(scene_root);
@@ -120,9 +120,9 @@ AllegroFlare::Prototypes::CubeShooter::Entity* EntityFactory::add_player_bullet(
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::add_player_bullet]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::EntityFactory::add_player_bullet]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::add_player_bullet: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::EntityFactory::add_player_bullet]: error: guard \"initialized\" not met");
    }
    AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
    result->reassign_parent(scene_root);
@@ -153,9 +153,9 @@ AllegroFlare::Prototypes::CubeShooter::Entity* EntityFactory::add_player_ship(fl
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::add_player_ship]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::EntityFactory::add_player_ship]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::add_player_ship: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::EntityFactory::add_player_ship]: error: guard \"initialized\" not met");
    }
    static bool loaded_already = false;
    AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
@@ -181,9 +181,9 @@ AllegroFlare::Prototypes::CubeShooter::Entity* EntityFactory::add_world_mesh()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::add_world_mesh]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::EntityFactory::add_world_mesh]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::add_world_mesh: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::EntityFactory::add_world_mesh]: error: guard \"initialized\" not met");
    }
    AllegroFlare::Prototypes::CubeShooter::Entity* result = new AllegroFlare::Prototypes::CubeShooter::Entity;
    result->reassign_parent(scene_root);

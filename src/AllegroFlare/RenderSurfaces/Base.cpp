@@ -60,9 +60,9 @@ bool Base::is_a_display_surface()
    if (!((obtain_surface() != nullptr)))
    {
       std::stringstream error_message;
-      error_message << "[Base::is_a_display_surface]: error: guard \"(obtain_surface() != nullptr)\" not met.";
+      error_message << "[AllegroFlare::RenderSurfaces::Base::is_a_display_surface]: error: guard \"(obtain_surface() != nullptr)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::is_a_display_surface: error: guard \"(obtain_surface() != nullptr)\" not met");
+      throw std::runtime_error("[AllegroFlare::RenderSurfaces::Base::is_a_display_surface]: error: guard \"(obtain_surface() != nullptr)\" not met");
    }
    ALLEGRO_BITMAP *parent = al_get_parent_bitmap(obtain_surface());
    ALLEGRO_BITMAP *sanitized = parent ? parent : obtain_surface();

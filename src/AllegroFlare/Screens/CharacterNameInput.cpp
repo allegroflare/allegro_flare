@@ -124,23 +124,23 @@ void CharacterNameInput::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::initialize]: error: guard \"font_bin\" not met");
    }
    software_keyboard.set_event_emitter(event_emitter);
    software_keyboard.set_font_bin(font_bin);
@@ -164,16 +164,16 @@ void CharacterNameInput::on_software_keyboard_on_submit_callback_func(AllegroFla
    if (!(software_keyboard))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::on_software_keyboard_on_submit_callback_func]: error: guard \"software_keyboard\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::on_software_keyboard_on_submit_callback_func]: error: guard \"software_keyboard\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::on_software_keyboard_on_submit_callback_func: error: guard \"software_keyboard\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::on_software_keyboard_on_submit_callback_func]: error: guard \"software_keyboard\" not met");
    }
    if (!(user_data))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::on_software_keyboard_on_submit_callback_func]: error: guard \"user_data\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::on_software_keyboard_on_submit_callback_func]: error: guard \"user_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::on_software_keyboard_on_submit_callback_func: error: guard \"user_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::on_software_keyboard_on_submit_callback_func]: error: guard \"user_data\" not met");
    }
    // TODO: Test this callback
    AllegroFlare::Screens::CharacterNameInput *as =
@@ -190,9 +190,9 @@ void CharacterNameInput::set_result_string(std::string result_string)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::set_result_string]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::set_result_string]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::set_result_string: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::set_result_string]: error: guard \"initialized\" not met");
    }
    // TODO: Test this
    software_keyboard.set_result_string(result_string);
@@ -204,9 +204,9 @@ std::string CharacterNameInput::get_result_string()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::get_result_string]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::get_result_string]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::get_result_string: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::get_result_string]: error: guard \"initialized\" not met");
    }
    // TODO: Test this
    return software_keyboard.get_result_string();
@@ -217,16 +217,16 @@ void CharacterNameInput::silently_position_cursor_over_key_by_name(std::string k
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::silently_position_cursor_over_key_by_name]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::silently_position_cursor_over_key_by_name]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::silently_position_cursor_over_key_by_name: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::silently_position_cursor_over_key_by_name]: error: guard \"initialized\" not met");
    }
    if (!(software_keyboard.key_exists(key_name)))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::silently_position_cursor_over_key_by_name]: error: guard \"software_keyboard.key_exists(key_name)\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::silently_position_cursor_over_key_by_name]: error: guard \"software_keyboard.key_exists(key_name)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::silently_position_cursor_over_key_by_name: error: guard \"software_keyboard.key_exists(key_name)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::silently_position_cursor_over_key_by_name]: error: guard \"software_keyboard.key_exists(key_name)\" not met");
    }
    // TODO: Test this
    // TODO: Create and use a different method in the SoftwareKeyboard that would silently reposition the cursor
@@ -239,9 +239,9 @@ void CharacterNameInput::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::on_activate]: error: guard \"initialized\" not met");
    }
    // TODO: Considider a "reset_on_activate" boolean option
    software_keyboard.reset_with_defaults(
@@ -256,9 +256,9 @@ void CharacterNameInput::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::on_deactivate]: error: guard \"initialized\" not met");
    }
    return;
 }
@@ -268,9 +268,9 @@ void CharacterNameInput::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::primary_timer_func]: error: guard \"initialized\" not met");
    }
    render();
    return;
@@ -323,9 +323,9 @@ void CharacterNameInput::virtual_control_button_down_func(AllegroFlare::Player* 
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
 
@@ -366,16 +366,16 @@ void CharacterNameInput::key_char_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::key_char_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::key_char_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::key_char_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::key_char_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::key_char_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::key_char_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::key_char_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::key_char_func]: error: guard \"event\" not met");
    }
    if (mode != MODE_USING_KEYBOARD) return;
 
@@ -427,9 +427,9 @@ void CharacterNameInput::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[CharacterNameInput::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::CharacterNameInput::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterNameInput::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::CharacterNameInput::render]: error: guard \"initialized\" not met");
    }
    software_keyboard_placement.start_transform();
    software_keyboard.render();

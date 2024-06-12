@@ -95,16 +95,16 @@ void Basic::add_expression(std::string expression_name, std::string image_identi
    if (!((!expression_exists(expression_name))))
    {
       std::stringstream error_message;
-      error_message << "[Basic::add_expression]: error: guard \"(!expression_exists(expression_name))\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::Characters::Basic::add_expression]: error: guard \"(!expression_exists(expression_name))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic::add_expression: error: guard \"(!expression_exists(expression_name))\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::Characters::Basic::add_expression]: error: guard \"(!expression_exists(expression_name))\" not met");
    }
    if (!((!image_identifier.empty())))
    {
       std::stringstream error_message;
-      error_message << "[Basic::add_expression]: error: guard \"(!image_identifier.empty())\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::Characters::Basic::add_expression]: error: guard \"(!image_identifier.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic::add_expression: error: guard \"(!image_identifier.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::Characters::Basic::add_expression]: error: guard \"(!image_identifier.empty())\" not met");
    }
    // TODO: Consider improving the error message if a node does not exist
    expressions[expression_name] = image_identifier;
@@ -116,9 +116,9 @@ void Basic::remove_expression(std::string expression_name)
    if (!((!expression_exists(expression_name))))
    {
       std::stringstream error_message;
-      error_message << "[Basic::remove_expression]: error: guard \"(!expression_exists(expression_name))\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::Characters::Basic::remove_expression]: error: guard \"(!expression_exists(expression_name))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic::remove_expression: error: guard \"(!expression_exists(expression_name))\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::Characters::Basic::remove_expression]: error: guard \"(!expression_exists(expression_name))\" not met");
    }
    // TODO: Consider improving the error message if a node does not exist
    expressions.erase(expression_name);
