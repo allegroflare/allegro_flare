@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <Tileo/TMJDataLoader.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 // TODO: improve this:
 #if defined(_WIN32) || defined(_WIN64)
@@ -83,7 +84,10 @@ TEST(Tileo_TMJDataLoaderTest, load__if_load_has_already_been_called__throws_an_e
    Tileo::TMJDataLoader loader(filename);
    loader.load();
 
-   std::string expected_error_message = "TMJDataLoader::load: error: guard \"(!loaded)\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::TMJDataLoader::load",
+      "(!loaded)"
+   );
 
    EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
@@ -178,7 +182,10 @@ std::string expected_error_message = R"(TMJMeshLoader: error: collision_tilelaye
 TEST(Tileo_TMJDataLoaderTest, get_num_columns__before_load_has_been_called__will_throw_an_error)
 {
    Tileo::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_num_columns: error: guard \"loaded\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::TMJDataLoader::get_num_columns",
+      "loaded"
+   );
    EXPECT_THROW_WITH_MESSAGE(loader.get_num_columns(), std::runtime_error, expected_error_message);
 }
 
@@ -186,7 +193,10 @@ TEST(Tileo_TMJDataLoaderTest, get_num_columns__before_load_has_been_called__will
 TEST(Tileo_TMJDataLoaderTest, get_num_rows__before_load_has_been_called__will_throw_an_error)
 {
    Tileo::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_num_rows: error: guard \"loaded\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::TMJDataLoader::get_num_rows",
+      "loaded"
+   );
    EXPECT_THROW_WITH_MESSAGE(loader.get_num_rows(), std::runtime_error, expected_error_message);
 }
 
@@ -194,7 +204,10 @@ TEST(Tileo_TMJDataLoaderTest, get_num_rows__before_load_has_been_called__will_th
 TEST(Tileo_TMJDataLoaderTest, get_tile_width__before_load_has_been_called__will_throw_an_error)
 {
    Tileo::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_tile_width: error: guard \"loaded\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::TMJDataLoader::get_tile_width",
+      "loaded"
+   );
    EXPECT_THROW_WITH_MESSAGE(loader.get_tile_width(), std::runtime_error, expected_error_message);
 }
 
@@ -202,7 +215,10 @@ TEST(Tileo_TMJDataLoaderTest, get_tile_width__before_load_has_been_called__will_
 TEST(Tileo_TMJDataLoaderTest, get_tile_height__before_load_has_been_called__will_throw_an_error)
 {
    Tileo::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_tile_height: error: guard \"loaded\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::TMJDataLoader::get_tile_height",
+      "loaded"
+   );
    EXPECT_THROW_WITH_MESSAGE(loader.get_tile_height(), std::runtime_error, expected_error_message);
 }
 
@@ -210,7 +226,10 @@ TEST(Tileo_TMJDataLoaderTest, get_tile_height__before_load_has_been_called__will
 TEST(Tileo_TMJDataLoaderTest, get_layer_num_columns__before_load_has_been_called__will_throw_an_error)
 {
    Tileo::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_layer_num_columns: error: guard \"loaded\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::TMJDataLoader::get_layer_num_columns",
+      "loaded"
+   );
    EXPECT_THROW_WITH_MESSAGE(loader.get_layer_num_columns(), std::runtime_error, expected_error_message);
 }
 
@@ -218,7 +237,10 @@ TEST(Tileo_TMJDataLoaderTest, get_layer_num_columns__before_load_has_been_called
 TEST(Tileo_TMJDataLoaderTest, get_layer_num_rows__before_load_has_been_called__will_throw_an_error)
 {
    Tileo::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_layer_num_rows: error: guard \"loaded\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::TMJDataLoader::get_layer_num_rows",
+      "loaded"
+   );
    EXPECT_THROW_WITH_MESSAGE(loader.get_layer_num_rows(), std::runtime_error, expected_error_message);
 }
 
@@ -226,7 +248,10 @@ TEST(Tileo_TMJDataLoaderTest, get_layer_num_rows__before_load_has_been_called__w
 TEST(Tileo_TMJDataLoaderTest, get_layer_tile_data__before_load_has_been_called__will_throw_an_error)
 {
    Tileo::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::TMJDataLoader::get_layer_tile_data",
+      "loaded"
+   );
    EXPECT_THROW_WITH_MESSAGE(loader.get_layer_tile_data(), std::runtime_error, expected_error_message);
 }
 

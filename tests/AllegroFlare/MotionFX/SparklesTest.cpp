@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 class AllegroFlare_MotionFX_SparklesTest : public ::testing::Test
@@ -25,8 +26,10 @@ TEST_F(AllegroFlare_MotionFX_SparklesTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_MotionFX_SparklesTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::MotionFX::Sparkles sparkles;
-   std::string expected_error_message =
-      "Sparkles::render: error: guard \"al_is_system_installed()\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::MotionFX::Sparkles::render",
+      "al_is_system_installed()"
+   );
    EXPECT_THROW_WITH_MESSAGE(sparkles.render(), std::runtime_error, expected_error_message);
 }
 

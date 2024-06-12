@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Obfuscators/Rotate.hpp>
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 TEST(AllegroFlare_Obfuscators_RotateTest, can_be_created_without_blowing_up)
@@ -24,11 +25,11 @@ TEST(AllegroFlare_Obfuscators_RotateTest, encode__when_the_rotation_set_contains
 {
    AllegroFlare::Obfuscators::Rotate obfuscator;
    obfuscator.set_rotation_set("aa");
-   EXPECT_THROW_WITH_MESSAGE(
-      obfuscator.encode("some irrelevant text"),
-      std::runtime_error,
-      "Rotate::encode: error: guard \"rotation_set_contains_unique_characters()\" not met"
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::Obfuscators::Rotate::encode",
+      "rotation_set_contains_unique_characters()"
    );
+   EXPECT_THROW_WITH_MESSAGE(obfuscator.encode("some irrelevant text"), std::runtime_error, expected_error_message);
 }
 
 
@@ -36,10 +37,14 @@ TEST(AllegroFlare_Obfuscators_RotateTest, decode__when_the_rotation_set_contains
 {
    AllegroFlare::Obfuscators::Rotate obfuscator;
    obfuscator.set_rotation_set("aa");
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::Obfuscators::Rotate::decode",
+      "rotation_set_contains_unique_characters()"
+   );
    EXPECT_THROW_WITH_MESSAGE(
       obfuscator.decode("some irrelevant text"),
       std::runtime_error,
-      "Rotate::decode: error: guard \"rotation_set_contains_unique_characters()\" not met"
+      expected_error_message
    );
 }
 
