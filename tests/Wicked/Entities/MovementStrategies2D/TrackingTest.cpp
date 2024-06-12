@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/CustomComparison.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 #include <Wicked/Entities/MovementStrategies2D/Tracking.hpp>
@@ -17,7 +18,10 @@ TEST(Wicked_Entities_MovementStrategies2D_TrackingTest, can_be_created_without_b
 TEST(Wicked_Entities_MovementStrategies2D_TrackingTest, update__without_an_entity__throws_an_error)
 {
    Wicked::Entities::MovementStrategies2D::Tracking strategy;
-   std::string expected_error_message = "Tracking::update: error: guard \"entity\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Wicked::Entities::MovementStrategies2D::Tracking::update",
+      "entity"
+   );
    EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
 }
 
@@ -26,7 +30,10 @@ TEST(Wicked_Entities_MovementStrategies2D_TrackingTest, update__without_a_tracke
 {
    Wicked::Entities::Basic2D basic2d_entity;
    Wicked::Entities::MovementStrategies2D::Tracking strategy(&basic2d_entity);
-   std::string expected_error_message = "Tracking::update: error: guard \"tracked_entity\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Wicked::Entities::MovementStrategies2D::Tracking::update",
+      "tracked_entity"
+   );
    EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
 }
 

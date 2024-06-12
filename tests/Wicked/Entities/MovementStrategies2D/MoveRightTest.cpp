@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <Wicked/Entities/MovementStrategies2D/MoveRight.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 TEST(Wicked_Entities_MovementStrategies2D_MoveRightTest, can_be_created_without_blowing_up)
@@ -14,7 +15,10 @@ TEST(Wicked_Entities_MovementStrategies2D_MoveRightTest, can_be_created_without_
 TEST(Wicked_Entities_MovementStrategies2D_MoveRightTest, update__without_an_entity__throws_an_error)
 {
    Wicked::Entities::MovementStrategies2D::MoveRight strategy;
-   std::string expected_error_message = "MoveRight::update: error: guard \"entity\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Wicked::Entities::MovementStrategies2D::MoveRight::update",
+      "entity"
+   );
    EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
 }
 
