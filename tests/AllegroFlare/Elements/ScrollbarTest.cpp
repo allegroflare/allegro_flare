@@ -30,7 +30,7 @@ TEST_F(AllegroFlare_Elements_ScrollbarTest, render__without_allegro_initialized_
 {
    AllegroFlare::Elements::Scrollbar scrollbar;
    std::string expected_error_message =
-      "Scrollbar::render: error: guard \"al_is_system_installed()\" not met";
+      "[AllegroFlare::Elements::Scrollbar::render]: error: guard \"al_is_system_installed()\" not met";
    EXPECT_THROW_WITH_MESSAGE(scrollbar.render(), std::runtime_error, expected_error_message);
 }
 
@@ -40,7 +40,7 @@ TEST_F(AllegroFlare_Elements_ScrollbarTest, render__without_the_primitives_addon
    al_init();
    AllegroFlare::Elements::Scrollbar scrollbar;
    std::string expected_error_message =
-      "Scrollbar::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
+      "[AllegroFlare::Elements::Scrollbar::render]: error: guard \"al_is_primitives_addon_initialized()\" not met";
    EXPECT_THROW_WITH_MESSAGE(scrollbar.render(), std::runtime_error, expected_error_message);
    al_uninstall_system();
 }

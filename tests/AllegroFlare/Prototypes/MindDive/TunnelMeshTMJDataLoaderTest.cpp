@@ -1,12 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader.hpp>
 
 // TODO: improve this:
@@ -55,7 +50,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest, load__on_a_fi
    std::string expected_error_message = "[MindDive::TunnelMeshTMJDataLoader] load() error: the file \""
                                         + filename + "\" does not exist.";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
 
 
@@ -71,7 +66,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest, load__on_a_fi
       "JSON. The following error was thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line "
       "1, column 10: syntax error while parsing value - unexpected '}'; expected '[', '{', or a literal\"";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message.str());
+   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message.str());
 }
 
 
@@ -93,7 +88,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 
    std::string expected_error_message = "TunnelMeshTMJDataLoader::load: error: guard \"(!loaded)\" not met";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
 
 
@@ -157,7 +152,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 {
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader;
    std::string expected_error_message = "TunnelMeshTMJDataLoader::get_num_columns: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_num_columns(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.get_num_columns(), std::runtime_error, expected_error_message);
 }
 
 
@@ -166,7 +161,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 {
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader;
    std::string expected_error_message = "TunnelMeshTMJDataLoader::get_num_rows: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_num_rows(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.get_num_rows(), std::runtime_error, expected_error_message);
 }
 
 
@@ -175,7 +170,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 {
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader;
    std::string expected_error_message = "TunnelMeshTMJDataLoader::get_tile_width: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_tile_width(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.get_tile_width(), std::runtime_error, expected_error_message);
 }
 
 
@@ -184,7 +179,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 {
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader;
    std::string expected_error_message = "TunnelMeshTMJDataLoader::get_tile_height: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_tile_height(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.get_tile_height(), std::runtime_error, expected_error_message);
 }
 
 
@@ -193,7 +188,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 {
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader;
    std::string expected_error_message = "TunnelMeshTMJDataLoader::get_layer_num_columns: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_layer_num_columns(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.get_layer_num_columns(), std::runtime_error, expected_error_message);
 }
 
 
@@ -202,7 +197,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 {
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader;
    std::string expected_error_message = "TunnelMeshTMJDataLoader::get_layer_num_rows: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_layer_num_rows(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.get_layer_num_rows(), std::runtime_error, expected_error_message);
 }
 
 
@@ -211,7 +206,7 @@ TEST(AllegroFlare_Prototypes_MindDive_TunnelMeshTMJDataLoaderTest,
 {
    AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader loader;
    std::string expected_error_message = "TunnelMeshTMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_layer_tile_data(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.get_layer_tile_data(), std::runtime_error, expected_error_message);
 }
 
 

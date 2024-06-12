@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 
@@ -46,7 +42,7 @@ TEST_F(AllegroFlare_Screens_GameOverScreenTest, render__without_allegro_initiali
    AllegroFlare::Screens::GameOverScreen game_over_screen;
    std::string expected_error_message =
       "GameOverScreen::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(game_over_screen.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(game_over_screen.render(), std::runtime_error, expected_error_message);
 }
 
 

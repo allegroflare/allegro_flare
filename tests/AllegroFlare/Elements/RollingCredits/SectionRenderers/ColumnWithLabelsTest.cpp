@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
@@ -32,7 +28,7 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_ColumnWithLabelsTes
    AllegroFlare::Elements::RollingCredits::SectionRenderers::ColumnWithLabels column_with_labels_section_renderer;
    std::string expected_error_message =
       "ColumnWithLabels::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(column_with_labels_section_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(column_with_labels_section_renderer.render(), std::runtime_error, expected_error_message);
 }
 
 

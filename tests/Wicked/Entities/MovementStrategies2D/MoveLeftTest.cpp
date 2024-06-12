@@ -1,12 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <Wicked/Entities/MovementStrategies2D/MoveLeft.hpp>
 
 
@@ -20,7 +15,7 @@ TEST(Wicked_Entities_MovementStrategies2D_MoveLeftTest, update__without_an_entit
 {
    Wicked::Entities::MovementStrategies2D::MoveLeft strategy;
    std::string expected_error_message = "MoveLeft::update: error: guard \"entity\" not met";
-   ASSERT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
 }
 
 

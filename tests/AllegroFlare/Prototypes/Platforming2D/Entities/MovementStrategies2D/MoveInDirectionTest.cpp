@@ -1,12 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/MoveInDirection.hpp>
 
 
@@ -20,7 +15,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_MoveInD
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::MoveInDirection strategy;
    std::string expected_error_message = "MoveInDirection::update: error: guard \"entity\" not met";
-   ASSERT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
 }
 
 
