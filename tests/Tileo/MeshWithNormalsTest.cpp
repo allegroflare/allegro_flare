@@ -1,13 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <Tileo/MeshWithNormals.hpp>
 
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Random.hpp>
@@ -72,7 +68,10 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, initialize__works_without_blow
 TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, initialize__with_num_columns_less_than_zero__throws_an_error)
 {
    Tileo::MeshWithNormals mesh_with_normals(-1, 4, 16, 16);
-   std::string expected_error_message = "MeshWithNormals::initialize: error: guard \"(num_columns >= 0)\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::MeshWithNormals::initialize",
+      "(num_columns >= 0)"
+   );
    EXPECT_THROW_WITH_MESSAGE(mesh_with_normals.initialize(), std::runtime_error, expected_error_message);
 }
 
@@ -80,7 +79,10 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, initialize__with_num_columns_l
 TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, initialize__with_num_rows_less_than_zero__throws_an_error)
 {
    Tileo::MeshWithNormals mesh_with_normals(6, -1, 16, 16);
-   std::string expected_error_message = "MeshWithNormals::initialize: error: guard \"(num_rows >= 0)\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::MeshWithNormals::initialize",
+      "(num_rows >= 0)"
+   );
    EXPECT_THROW_WITH_MESSAGE(mesh_with_normals.initialize(), std::runtime_error, expected_error_message);
 }
 
@@ -89,7 +91,10 @@ TEST_F(Tileo_MeshWithNormalsRenderingFixtureTest, initialize__if_called_more_tha
 {
    Tileo::MeshWithNormals mesh_with_normals(6, 4, 16, 16);
    mesh_with_normals.initialize();
-   std::string expected_error_message = "MeshWithNormals::initialize: error: guard \"(!initialized)\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::MeshWithNormals::initialize",
+      "(!initialized)"
+   );
    EXPECT_THROW_WITH_MESSAGE(mesh_with_normals.initialize(), std::runtime_error, expected_error_message);
    mesh_with_normals.destroy();
 }

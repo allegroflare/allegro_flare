@@ -1,14 +1,8 @@
 
 #include <gtest/gtest.h>
 
-
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
 #include <Tileo/Shaders/MeshWithNormals.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_color.h>
 #include <AllegroFlare/Placement2D.hpp>
@@ -69,8 +63,11 @@ TEST_F(Tileo_Shaders_MeshWithNormalsTest, can_be_created_without_blowing_up)
 TEST_F(Tileo_Shaders_MeshWithNormalsTest, activate__before_being_initialized_raises_an_exception)
 {
    Tileo::Shaders::MeshWithNormals flat_color_shader;
-   std::string expected_error_message = "MeshWithNormals::activate: error: guard \"initialized\" not met";
-   ASSERT_THROW_WITH_MESSAGE(flat_color_shader.activate(), std::runtime_error, expected_error_message);
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Tileo::Shaders::MeshWithNormals::activate",
+      "initialized"
+   );
+   EXPECT_THROW_WITH_MESSAGE(flat_color_shader.activate(), std::runtime_error, expected_error_message);
 }
 
 
