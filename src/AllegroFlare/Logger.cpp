@@ -236,6 +236,13 @@ std::string Logger::build_warning_message(std::string from, std::string message,
    return result.str();
 }
 
+std::string Logger::build_guard_error_message(std::string from, std::string guard_statement)
+{
+   std::stringstream result;
+   result << "[" << from << "]: error: guard \"" << guard_statement << "\" not met";
+   return result.str();
+}
+
 std::string Logger::build_not_included_message(std::string element_not_present, std::vector<std::string> valid_elements)
 {
    std::stringstream result;

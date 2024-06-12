@@ -271,6 +271,25 @@ methods:
       - std::stringstream
 
 
+  - name: build_guard_error_message
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: guard_statement
+        type: std::string
+        default_argument: '"[unset-guard_statement]"'
+    type: std::string
+    body: |
+      std::stringstream result;
+      result << "[" << from << "]: error: guard \"" << guard_statement << "\" not met";
+      return result.str();
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::stringstream
+
+
   - name: build_not_included_message
     type: std::string
     static: true
