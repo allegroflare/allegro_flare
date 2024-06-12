@@ -227,18 +227,6 @@ std::string Logger::build_error_message(std::string from, std::string message)
    return result.str();
 }
 
-std::string Logger::build_guard_error_message(std::string from, std::string guard_statement)
-{
-   std::stringstream result;
-
-   // TODO: I don't think there should be a newline at the end of this statement, but it exists in the blast error
-   // message, and should probably be removed. Consider modifying the blast error message and removing it.
-   result << CONSOLE_COLOR_RED << "[" << from << "]: error: guard \"" << guard_statement << "\" not met. "
-          << "An exception will be thrown to halt the program." << CONSOLE_COLOR_DEFAULT
-          << std::endl;
-   return result.str();
-}
-
 std::string Logger::build_warning_message(std::string from, std::string message, bool is_warn_once)
 {
    std::stringstream result;

@@ -247,30 +247,6 @@ methods:
       - std::stringstream
 
 
-  - name: build_guard_error_message
-    static: true
-    parameters:
-      - name: from
-        type: std::string
-        default_argument: '"[unset-from]"'
-      - name: guard_statement
-        type: std::string
-        default_argument: '"[unset-guard_statement]"'
-    type: std::string
-    body: |
-      std::stringstream result;
-
-      // TODO: I don't think there should be a newline at the end of this statement, but it exists in the blast error
-      // message, and should probably be removed. Consider modifying the blast error message and removing it.
-      result << CONSOLE_COLOR_RED << "[" << from << "]: error: guard \"" << guard_statement << "\" not met. "
-             << "An exception will be thrown to halt the program." << CONSOLE_COLOR_DEFAULT
-             << std::endl;
-      return result.str();
-    body_dependency_symbols:
-      - AllegroFlare::ConsoleColors
-      - std::stringstream
-
-
   - name: build_warning_message
     static: true
     parameters:
