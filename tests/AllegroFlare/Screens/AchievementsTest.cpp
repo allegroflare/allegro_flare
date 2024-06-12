@@ -29,32 +29,24 @@ TEST_F(AllegroFlare_Screens_AchievementsTest, can_be_created_without_blowing_up)
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTest,
-   // TODO: This test began failing at CaptureStdout()
-   DISABLED__initialize__without_allegro_initialized__raises_an_error)
+   // TODO: This test began failing at CaptureStdout(), happened after yaml change that expanded the error message
+   initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Screens::Achievements achievements_screen;
    std::string expected_thrown_error_message =
-      "Achievements::initialize: error: guard \"al_is_system_installed()\" not met";
-
-   std::cout << "AAAA" << std::endl;
+      "[AllegroFlare::Screens::Achievements::initialize]: error: guard \"al_is_system_installed()\" not met";
 
    testing::internal::CaptureStdout();
-   std::cout << "BBB" << std::endl;
    testing::internal::CaptureStderr();
 
-   std::cout << "BBB" << std::endl;
-
    ASSERT_THROW_WITH_MESSAGE(achievements_screen.initialize(), std::runtime_error, expected_thrown_error_message);
-   std::cout << "CCC" << std::endl;
 
    std::string actual_cout_output = testing::internal::GetCapturedStdout();
    std::string actual_cerr_output = testing::internal::GetCapturedStderr();
-   std::cout << "DDD" << std::endl;
 
    std::string expected_cerr_error_message = AllegroFlare::Logger::build_guard_error_message(
-      "Achievements::initialize", "al_is_system_installed()");
+      "AllegroFlare::Screens::Achievements::initialize", "al_is_system_installed()");
    std::string expected_cerr_output = expected_cerr_error_message;
-   std::cout << "EEE" << std::endl;
 
    // TODO: replace below with something like "EXPECT_THAT(expected_cout_output.empty(), ::testing::IsEmpty());"
    EXPECT_EQ(true, actual_cout_output.empty());
@@ -108,11 +100,12 @@ TEST_F(AllegroFlare_Screens_AchievementsTest,
 
 
 TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
+   // TODO: This test began failing at CaptureStdout(), happened after yaml change that expanded the error message
    primary_timer_func__before_initialization__will_raise_an_exception)
 {
    AllegroFlare::Screens::Achievements achievements_screen;
    std::string expected_thrown_error_message =
-      "Achievements::primary_timer_func: error: guard \"initialized\" not met";
+      "[AllegroFlare::Screens::Achievements::primary_timer_func]: error: guard \"initialized\" not met";
 
    testing::internal::CaptureStdout();
    testing::internal::CaptureStderr();
@@ -123,7 +116,7 @@ TEST_F(AllegroFlare_Screens_AchievementsTestWithAllegroRenderingFixture,
    std::string actual_cerr_output = testing::internal::GetCapturedStderr();
 
    std::string expected_cerr_error_message = AllegroFlare::Logger::build_guard_error_message(
-      "Achievements::primary_timer_func", "initialized");
+      "AllegroFlare::Screens::Achievements::primary_timer_func", "initialized");
    std::string expected_cerr_output = expected_cerr_error_message;
 
    // TODO: replace below with something like "EXPECT_THAT(expected_cout_output.empty(), ::testing::IsEmpty());"
