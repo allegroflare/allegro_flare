@@ -52,9 +52,9 @@ void Logger::set_instance(AllegroFlare::Logger* instance_to_use)
    if (!((!instance)))
    {
       std::stringstream error_message;
-      error_message << "[Logger::set_instance]: error: guard \"(!instance)\" not met.";
+      error_message << "[AllegroFlare::Logger::set_instance]: error: guard \"(!instance)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::set_instance: error: guard \"(!instance)\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::set_instance]: error: guard \"(!instance)\" not met");
    }
    instance = instance_to_use;
    return;
@@ -76,9 +76,9 @@ void Logger::set_log_filename(std::string log_filename)
    if (!((!log_file_initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logger::set_log_filename]: error: guard \"(!log_file_initialized)\" not met.";
+      error_message << "[AllegroFlare::Logger::set_log_filename]: error: guard \"(!log_file_initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::set_log_filename: error: guard \"(!log_file_initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::set_log_filename]: error: guard \"(!log_file_initialized)\" not met");
    }
    this->log_filename = log_filename;
    return;
@@ -89,9 +89,9 @@ void Logger::initialize_log_file()
    if (!((!log_file_initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logger::initialize_log_file]: error: guard \"(!log_file_initialized)\" not met.";
+      error_message << "[AllegroFlare::Logger::initialize_log_file]: error: guard \"(!log_file_initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::initialize_log_file: error: guard \"(!log_file_initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::initialize_log_file]: error: guard \"(!log_file_initialized)\" not met");
    }
    log_file.open(log_filename);
    if (!log_file.is_open()) {
@@ -110,9 +110,9 @@ void Logger::close_log_file()
    if (!((log_file_initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logger::close_log_file]: error: guard \"(log_file_initialized)\" not met.";
+      error_message << "[AllegroFlare::Logger::close_log_file]: error: guard \"(log_file_initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::close_log_file: error: guard \"(log_file_initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::close_log_file]: error: guard \"(log_file_initialized)\" not met");
    }
    log_file.close();
    if (log_file.is_open()) {
@@ -131,9 +131,9 @@ void Logger::set_instrumentation_log_filename(std::string instrumentation_log_fi
    if (!((!instrumentation_log_file_initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logger::set_instrumentation_log_filename]: error: guard \"(!instrumentation_log_file_initialized)\" not met.";
+      error_message << "[AllegroFlare::Logger::set_instrumentation_log_filename]: error: guard \"(!instrumentation_log_file_initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::set_instrumentation_log_filename: error: guard \"(!instrumentation_log_file_initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::set_instrumentation_log_filename]: error: guard \"(!instrumentation_log_file_initialized)\" not met");
    }
    this->instrumentation_log_filename = instrumentation_log_filename;
    return;
@@ -144,9 +144,9 @@ void Logger::initialize_instrumentation_log_file()
    if (!((!instrumentation_log_file_initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logger::initialize_instrumentation_log_file]: error: guard \"(!instrumentation_log_file_initialized)\" not met.";
+      error_message << "[AllegroFlare::Logger::initialize_instrumentation_log_file]: error: guard \"(!instrumentation_log_file_initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::initialize_instrumentation_log_file: error: guard \"(!instrumentation_log_file_initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::initialize_instrumentation_log_file]: error: guard \"(!instrumentation_log_file_initialized)\" not met");
    }
    instrumentation_log_file.open(instrumentation_log_filename, std::ofstream::out | std::ofstream::app);
    if (!instrumentation_log_file.is_open()) {
@@ -165,9 +165,9 @@ void Logger::close_instrumentation_log_file()
    if (!((instrumentation_log_file_initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Logger::close_instrumentation_log_file]: error: guard \"(instrumentation_log_file_initialized)\" not met.";
+      error_message << "[AllegroFlare::Logger::close_instrumentation_log_file]: error: guard \"(instrumentation_log_file_initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::close_instrumentation_log_file: error: guard \"(instrumentation_log_file_initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::close_instrumentation_log_file]: error: guard \"(instrumentation_log_file_initialized)\" not met");
    }
    instrumentation_log_file.close();
    if (instrumentation_log_file.is_open()) {
@@ -186,23 +186,23 @@ void Logger::outstream_instrumentation_metric(AllegroFlare::Instrumentation::Pri
    if (!(instance))
    {
       std::stringstream error_message;
-      error_message << "[Logger::outstream_instrumentation_metric]: error: guard \"instance\" not met.";
+      error_message << "[AllegroFlare::Logger::outstream_instrumentation_metric]: error: guard \"instance\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::outstream_instrumentation_metric: error: guard \"instance\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::outstream_instrumentation_metric]: error: guard \"instance\" not met");
    }
    if (!(instance->instrumentation_log_file_initialized))
    {
       std::stringstream error_message;
-      error_message << "[Logger::outstream_instrumentation_metric]: error: guard \"instance->instrumentation_log_file_initialized\" not met.";
+      error_message << "[AllegroFlare::Logger::outstream_instrumentation_metric]: error: guard \"instance->instrumentation_log_file_initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::outstream_instrumentation_metric: error: guard \"instance->instrumentation_log_file_initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::outstream_instrumentation_metric]: error: guard \"instance->instrumentation_log_file_initialized\" not met");
    }
    if (!(metric))
    {
       std::stringstream error_message;
-      error_message << "[Logger::outstream_instrumentation_metric]: error: guard \"metric\" not met.";
+      error_message << "[AllegroFlare::Logger::outstream_instrumentation_metric]: error: guard \"metric\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Logger::outstream_instrumentation_metric: error: guard \"metric\" not met");
+      throw std::runtime_error("[AllegroFlare::Logger::outstream_instrumentation_metric]: error: guard \"metric\" not met");
    }
    static const std::string div = "\t";
    //if (instance && instance->instrumentation_log_file_initialized)
@@ -227,24 +227,19 @@ std::string Logger::build_error_message(std::string from, std::string message)
    return result.str();
 }
 
-std::string Logger::build_guard_error_message(std::string from, std::string guard_statement)
-{
-   std::stringstream result;
-
-   // TODO: I don't think there should be a newline at the end of this statement, but it exists in the blast error
-   // message, and should probably be removed. Consider modifying the blast error message and removing it.
-   result << CONSOLE_COLOR_RED << "[" << from << "]: error: guard \"" << guard_statement << "\" not met. "
-          << "An exception will be thrown to halt the program." << CONSOLE_COLOR_DEFAULT
-          << std::endl;
-   return result.str();
-}
-
 std::string Logger::build_warning_message(std::string from, std::string message, bool is_warn_once)
 {
    std::stringstream result;
-   result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning";
+   result << "[" << from << "]: warning";
    if (is_warn_once) result << " (once)";
-   result << ": " << message << CONSOLE_COLOR_DEFAULT;
+   result << ": " << message;
+   return result.str();
+}
+
+std::string Logger::build_guard_error_message(std::string from, std::string guard_statement)
+{
+   std::stringstream result;
+   result << "[" << from << "]: error: guard \"" << guard_statement << "\" not met";
    return result.str();
 }
 
@@ -313,13 +308,15 @@ void Logger::info_from(std::string from, std::string message)
 
 void Logger::warn_from(std::string from, std::string message)
 {
+   // TODO: Test this, there's a test in AudioController that uses this and and requires revision
    std::string warning_message = build_warning_message(from, message);
-   std::cout << warning_message << std::endl;
+   std::cout << CONSOLE_COLOR_YELLOW << warning_message << CONSOLE_COLOR_DEFAULT << std::endl;
    if (instance && instance->log_file_initialized) instance->log_file << warning_message << std::endl;
 }
 
 void Logger::warn_from_once(std::string from, std::string message)
 {
+   // TODO: Test this, there's a test in AudioController that uses this and and requires revision
    std::string composite_message = build_warning_message(from, message, true);
    bool message_already_emitted = once_emitted_warnings.find(composite_message) != once_emitted_warnings.end();
    if (!message_already_emitted)

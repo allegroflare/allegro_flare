@@ -59,9 +59,9 @@ ALLEGRO_MIXER* Delay::get_al_mixer()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Delay::get_al_mixer]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::Delay::get_al_mixer]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Delay::get_al_mixer: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::Delay::get_al_mixer]: error: guard \"initialized\" not met");
    }
    return mixer.get_mixer();
 }
@@ -71,9 +71,9 @@ void Delay::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Delay::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::Delay::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Delay::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::Delay::initialize]: error: guard \"(!initialized)\" not met");
    }
    // initialize the mixer
    mixer.initialize();
@@ -97,9 +97,9 @@ void Delay::mixer_postprocess_callback(void* buf, unsigned int samples, void* da
    if (!(data))
    {
       std::stringstream error_message;
-      error_message << "[Delay::mixer_postprocess_callback]: error: guard \"data\" not met.";
+      error_message << "[AllegroFlare::AudioProcessing::Filters::Delay::mixer_postprocess_callback]: error: guard \"data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Delay::mixer_postprocess_callback: error: guard \"data\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioProcessing::Filters::Delay::mixer_postprocess_callback]: error: guard \"data\" not met");
    }
    float *fbuf = (float *)buf;
    AllegroFlare::AudioProcessing::Filters::Delay *delay = static_cast<AllegroFlare::AudioProcessing::Filters::Delay*>(data);

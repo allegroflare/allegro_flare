@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Random.hpp>
 
@@ -31,8 +27,8 @@ TEST_F(AllegroFlare_MusicMesh_MusicMeshTest, render__without_allegro_initialized
 {
    AllegroFlare::MusicMesh::MusicMesh music_mesh;
    std::string expected_error_message =
-      "MusicMesh::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(music_mesh.render(), std::runtime_error, expected_error_message);
+      "[AllegroFlare::MusicMesh::MusicMesh::render]: error: guard \"al_is_system_installed()\" not met";
+   EXPECT_THROW_WITH_MESSAGE(music_mesh.render(), std::runtime_error, expected_error_message);
 }
 
 

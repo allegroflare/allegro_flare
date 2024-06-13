@@ -62,9 +62,9 @@ std::string Rotate::encode(std::string text)
    if (!(rotation_set_contains_unique_characters()))
    {
       std::stringstream error_message;
-      error_message << "[Rotate::encode]: error: guard \"rotation_set_contains_unique_characters()\" not met.";
+      error_message << "[AllegroFlare::Obfuscators::Rotate::encode]: error: guard \"rotation_set_contains_unique_characters()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rotate::encode: error: guard \"rotation_set_contains_unique_characters()\" not met");
+      throw std::runtime_error("[AllegroFlare::Obfuscators::Rotate::encode]: error: guard \"rotation_set_contains_unique_characters()\" not met");
    }
    std::string result;
 
@@ -89,9 +89,9 @@ std::string Rotate::decode(std::string text)
    if (!(rotation_set_contains_unique_characters()))
    {
       std::stringstream error_message;
-      error_message << "[Rotate::decode]: error: guard \"rotation_set_contains_unique_characters()\" not met.";
+      error_message << "[AllegroFlare::Obfuscators::Rotate::decode]: error: guard \"rotation_set_contains_unique_characters()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Rotate::decode: error: guard \"rotation_set_contains_unique_characters()\" not met");
+      throw std::runtime_error("[AllegroFlare::Obfuscators::Rotate::decode]: error: guard \"rotation_set_contains_unique_characters()\" not met");
    }
    std::string result;
 

@@ -247,9 +247,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, can_be_created_without_blowin
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::DialogSystem::DialogSystem::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -258,9 +260,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
 {
    al_init();
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::DialogSystem::DialogSystem::initialize",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -271,9 +275,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest,
    al_init();
    al_init_primitives_addon();
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::DialogSystem::DialogSystem::initialize",
+      "al_is_font_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -285,9 +291,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, initialize__without_a_bitmap_
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"bitmap_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::DialogSystem::DialogSystem::initialize",
+      "bitmap_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();
@@ -302,9 +310,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, initialize__without_a_font_bi
    AllegroFlare::BitmapBin bitmap_bin;
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
    dialog_system.set_bitmap_bin(&bitmap_bin);
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::DialogSystem::DialogSystem::initialize",
+      "font_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();
@@ -321,9 +331,11 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTest, initialize__without_an_event_
    AllegroFlare::DialogSystem::DialogSystem dialog_system;
    dialog_system.set_bitmap_bin(&bitmap_bin);
    dialog_system.set_font_bin(&font_bin);
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::DialogSystem::DialogSystem::initialize",
+      "event_emitter"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();

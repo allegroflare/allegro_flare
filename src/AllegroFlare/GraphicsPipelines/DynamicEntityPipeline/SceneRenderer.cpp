@@ -100,23 +100,23 @@ void SceneRenderer::render()
    if (!(entity_pool))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer::render]: error: guard \"entity_pool\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::render]: error: guard \"entity_pool\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer::render: error: guard \"entity_pool\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::render]: error: guard \"entity_pool\" not met");
    }
    if (!(cubemap_shader))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer::render]: error: guard \"cubemap_shader\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::render]: error: guard \"cubemap_shader\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer::render: error: guard \"cubemap_shader\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::render]: error: guard \"cubemap_shader\" not met");
    }
    if (!(multitexture_shader))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer::render]: error: guard \"multitexture_shader\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::render]: error: guard \"multitexture_shader\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer::render: error: guard \"multitexture_shader\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::render]: error: guard \"multitexture_shader\" not met");
    }
    // Draw the shadow_depth_map_render
    if (shadow_depth_map_renderer) shadow_depth_map_renderer->render();
@@ -261,9 +261,9 @@ AllegroFlare::MultitextureModel3D* SceneRenderer::get_multitexture_model_3d(Alle
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer::get_multitexture_model_3d]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_multitexture_model_3d]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer::get_multitexture_model_3d: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_multitexture_model_3d]: error: guard \"entity\" not met");
    }
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 
@@ -282,9 +282,9 @@ AllegroFlare::Model3D* SceneRenderer::get_model_3d(AllegroFlare::GraphicsPipelin
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer::get_model_3d]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_model_3d]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer::get_model_3d: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_model_3d]: error: guard \"entity\" not met");
    }
    // TODO: Optimize this lookup
    // TODO: Consider throw on unhandled type
@@ -306,9 +306,9 @@ AllegroFlare::Placement3D* SceneRenderer::get_placement_3d(AllegroFlare::Graphic
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer::get_placement_3d]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_placement_3d]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer::get_placement_3d: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_placement_3d]: error: guard \"entity\" not met");
    }
    // TODO: Optimize this lookup
    // TODO: Consider throw on unhandled type
@@ -330,9 +330,9 @@ ALLEGRO_BITMAP* SceneRenderer::get_texture(AllegroFlare::GraphicsPipelines::Dyna
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer::get_texture]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_texture]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer::get_texture: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_texture]: error: guard \"entity\" not met");
    }
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 
@@ -361,9 +361,9 @@ ALLEGRO_BITMAP* SceneRenderer::get_texture_2(AllegroFlare::GraphicsPipelines::Dy
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[SceneRenderer::get_texture_2]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_texture_2]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SceneRenderer::get_texture_2: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::SceneRenderer::get_texture_2]: error: guard \"entity\" not met");
    }
    using namespace AllegroFlare::GraphicsPipelines::DynamicEntityPipeline;
 

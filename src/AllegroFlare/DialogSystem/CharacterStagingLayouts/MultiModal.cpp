@@ -67,9 +67,9 @@ void MultiModal::set_staged_character_expression(std::string staged_character_id
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[MultiModal::set_staged_character_expression]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::set_staged_character_expression]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiModal::set_staged_character_expression: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::set_staged_character_expression]: error: guard \"bitmap_bin\" not met");
    }
    // NOTE: Assume that "expression" in in fact a bitmap identifier in this case
    ALLEGRO_BITMAP *bmp = bitmap_bin->auto_get(expression);
@@ -85,9 +85,9 @@ void MultiModal::__set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_charac
    if (!(speaking_character_bitmap))
    {
       std::stringstream error_message;
-      error_message << "[MultiModal::__set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::__set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiModal::__set_speaking_character_bitmap: error: guard \"speaking_character_bitmap\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::__set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met");
    }
    // TODO: Test this method
    if (speaking_character_bitmap == this->speaking_character_bitmap) return;
@@ -127,9 +127,9 @@ void MultiModal::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[MultiModal::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("MultiModal::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!speaking_character_bitmap) return;
    AllegroFlare::Placement2D character_bitmap_placement_transform(

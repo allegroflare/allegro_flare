@@ -27,9 +27,9 @@ AllegroFlare::Elements::Backgrounds::Monoplex* BackgroundFactory::create_monople
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[BackgroundFactory::create_monoplex]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::BackgroundFactory::create_monoplex]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BackgroundFactory::create_monoplex: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::BackgroundFactory::create_monoplex]: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Elements::Backgrounds::Monoplex* monoplex_background =
       new AllegroFlare::Elements::Backgrounds::Monoplex(bitmap_bin);
@@ -41,9 +41,9 @@ AllegroFlare::Elements::Backgrounds::Image* BackgroundFactory::create_image(std:
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[BackgroundFactory::create_image]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::BackgroundFactory::create_image]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BackgroundFactory::create_image: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::BackgroundFactory::create_image]: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Elements::Backgrounds::Image* image_background =
       new AllegroFlare::Elements::Backgrounds::Image(bitmap_bin, image_identifier);
@@ -55,9 +55,9 @@ AllegroFlare::Elements::Backgrounds::Parallax* BackgroundFactory::create_paralla
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[BackgroundFactory::create_parallax]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::BackgroundFactory::create_parallax]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BackgroundFactory::create_parallax: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::BackgroundFactory::create_parallax]: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Elements::Backgrounds::Parallax* background =
       new AllegroFlare::Elements::Backgrounds::Parallax(layers, offset_x, offset_y);

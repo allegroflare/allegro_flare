@@ -60,9 +60,9 @@ void BasicCentered::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_chara
    if (!(speaking_character_bitmap))
    {
       std::stringstream error_message;
-      error_message << "[BasicCentered::set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCentered::set_speaking_character_bitmap: error: guard \"speaking_character_bitmap\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::set_speaking_character_bitmap]: error: guard \"speaking_character_bitmap\" not met");
    }
    throw std::runtime_error("This class is obaabaabasolete");
    // TODO: Test this method
@@ -103,9 +103,9 @@ void BasicCentered::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[BasicCentered::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCentered::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::BasicCentered::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!speaking_character_bitmap) return;
    AllegroFlare::Placement2D character_bitmap_placement_transform(

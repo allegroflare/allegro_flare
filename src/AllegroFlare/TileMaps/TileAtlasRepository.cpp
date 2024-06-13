@@ -67,16 +67,16 @@ void TileAtlasRepository::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[TileAtlasRepository::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileAtlasRepository::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileAtlasRepository::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasRepository::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!((data_path != DEFAULT_DATA_PATH)))
    {
       std::stringstream error_message;
-      error_message << "[TileAtlasRepository::initialize]: error: guard \"(data_path != DEFAULT_DATA_PATH)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileAtlasRepository::initialize]: error: guard \"(data_path != DEFAULT_DATA_PATH)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileAtlasRepository::initialize: error: guard \"(data_path != DEFAULT_DATA_PATH)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasRepository::initialize]: error: guard \"(data_path != DEFAULT_DATA_PATH)\" not met");
    }
    tile_atlas_bitmap_bin.set_path(data_path + asset_subdirectory); // NOTE: Will implicitly init when setting path
    initialized = true;
@@ -116,9 +116,9 @@ void TileAtlasRepository::load(std::string identifier, std::string source_bitmap
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileAtlasRepository::load]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileAtlasRepository::load]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileAtlasRepository::load: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasRepository::load]: error: guard \"initialized\" not met");
    }
    if (exists(identifier))
    {

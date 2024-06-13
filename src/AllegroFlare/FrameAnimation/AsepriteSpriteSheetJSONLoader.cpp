@@ -179,9 +179,9 @@ std::vector<AllegroFlare::FrameAnimation::Frame> AsepriteSpriteSheetJSONLoader::
    if (!(end_frame >= start_frame))
    {
       std::stringstream error_message;
-      error_message << "[AsepriteSpriteSheetJSONLoader::_build_animation_frames_for]: error: guard \"end_frame >= start_frame\" not met.";
+      error_message << "[AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader::_build_animation_frames_for]: error: guard \"end_frame >= start_frame\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AsepriteSpriteSheetJSONLoader::_build_animation_frames_for: error: guard \"end_frame >= start_frame\" not met");
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::AsepriteSpriteSheetJSONLoader::_build_animation_frames_for]: error: guard \"end_frame >= start_frame\" not met");
    }
    std::vector<AllegroFlare::FrameAnimation::Frame> result;
    for (uint32_t frame=start_frame; frame<=end_frame; frame++)

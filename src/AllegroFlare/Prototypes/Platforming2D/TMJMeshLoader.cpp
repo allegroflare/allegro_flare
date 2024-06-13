@@ -45,9 +45,9 @@ AllegroFlare::TileMaps::PrimMeshAtlas* TMJMeshLoader::get_tile_atlas()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJMeshLoader::get_tile_atlas]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_tile_atlas]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJMeshLoader::get_tile_atlas: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_tile_atlas]: error: guard \"loaded\" not met");
    }
    return tile_atlas;
 }
@@ -57,9 +57,9 @@ AllegroFlare::TileMaps::PrimMesh* TMJMeshLoader::get_mesh()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJMeshLoader::get_mesh]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_mesh]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJMeshLoader::get_mesh: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_mesh]: error: guard \"loaded\" not met");
    }
    return mesh;
 }
@@ -69,9 +69,9 @@ AllegroFlare::TileMaps::PrimMesh* TMJMeshLoader::get_background_mesh()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJMeshLoader::get_background_mesh]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_background_mesh]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJMeshLoader::get_background_mesh: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_background_mesh]: error: guard \"loaded\" not met");
    }
    return background_mesh;
 }
@@ -81,9 +81,9 @@ AllegroFlare::TileMaps::PrimMesh* TMJMeshLoader::get_foreground_mesh()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJMeshLoader::get_foreground_mesh]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_foreground_mesh]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJMeshLoader::get_foreground_mesh: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_foreground_mesh]: error: guard \"loaded\" not met");
    }
    return foreground_mesh;
 }
@@ -93,9 +93,9 @@ AllegroFlare::TileMaps::TileMap<int>* TMJMeshLoader::get_collision_tile_map()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TMJMeshLoader::get_collision_tile_map]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_collision_tile_map]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJMeshLoader::get_collision_tile_map: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::get_collision_tile_map]: error: guard \"loaded\" not met");
    }
    return collision_tile_map;
 }
@@ -105,16 +105,16 @@ bool TMJMeshLoader::load()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[TMJMeshLoader::load]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::load]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJMeshLoader::load: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::load]: error: guard \"bitmap_bin\" not met");
    }
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[TMJMeshLoader::load]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::load]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TMJMeshLoader::load: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJMeshLoader::load]: error: guard \"(!loaded)\" not met");
    }
    // 1
    // load and validate the json data to variables

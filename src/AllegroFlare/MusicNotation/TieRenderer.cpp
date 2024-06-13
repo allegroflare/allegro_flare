@@ -107,16 +107,16 @@ void TieRenderer::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[TieRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::TieRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TieRenderer::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::TieRenderer::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TieRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::TieRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TieRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::TieRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    float h_thickness = thick_line_thickness * 0.5;
    // TODO: Render multiple arcs for thickness

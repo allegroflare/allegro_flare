@@ -146,23 +146,23 @@ void Hearts::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Hearts::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::HealthBars::Hearts::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hearts::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::HealthBars::Hearts::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Hearts::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::HealthBars::Hearts::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hearts::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::HealthBars::Hearts::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Hearts::render]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::HealthBars::Hearts::render]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hearts::render: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::HealthBars::Hearts::render]: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    ALLEGRO_FONT *font_awesome_solid_font = obtain_font_awesome_solid_font();
    ALLEGRO_FONT *font_awesome_outline_font = obtain_font_awesome_outline_font();
@@ -232,9 +232,9 @@ ALLEGRO_FONT* Hearts::obtain_font_awesome_solid_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Hearts::obtain_font_awesome_solid_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::HealthBars::Hearts::obtain_font_awesome_solid_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hearts::obtain_font_awesome_solid_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::HealthBars::Hearts::obtain_font_awesome_solid_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier_and_size;
    font_identifier_and_size << font_awesome_solid_font_name << " " << heart_size;
@@ -246,9 +246,9 @@ ALLEGRO_FONT* Hearts::obtain_font_awesome_outline_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Hearts::obtain_font_awesome_outline_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::HealthBars::Hearts::obtain_font_awesome_outline_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Hearts::obtain_font_awesome_outline_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::HealthBars::Hearts::obtain_font_awesome_outline_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier_and_size;
    font_identifier_and_size << font_awesome_outline_font_name << " " << (heart_size+2);

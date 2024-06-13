@@ -1,11 +1,7 @@
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_TileMaps_Basic2DTest : public ::testing::Test {};
@@ -28,9 +24,11 @@ TEST_F(AllegroFlare_TileMaps_Basic2DTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_TileMaps_Basic2DTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::TileMaps::Basic2D basic2d_tile_map;
-   std::string expected_error_message =
-      "Basic2D::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(basic2d_tile_map.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      basic2d_tile_map.initialize(),
+      "AllegroFlare::TileMaps::Basic2D::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -38,9 +36,11 @@ TEST_F(AllegroFlare_TileMaps_Basic2DTest, render__before_being_initialized__rais
 {
    al_init();
    AllegroFlare::TileMaps::Basic2D basic2d_tile_map;
-   std::string expected_error_message =
-      "Basic2D::render: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(basic2d_tile_map.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      basic2d_tile_map.render(),
+      "AllegroFlare::TileMaps::Basic2D::render",
+      "initialized"
+   );
    al_uninstall_system();
 }
 

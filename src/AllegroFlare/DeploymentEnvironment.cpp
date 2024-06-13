@@ -51,9 +51,9 @@ void DeploymentEnvironment::set_environment(std::string environment)
    if (!(_is_valid(environment)))
    {
       std::stringstream error_message;
-      error_message << "[DeploymentEnvironment::set_environment]: error: guard \"_is_valid(environment)\" not met.";
+      error_message << "[AllegroFlare::DeploymentEnvironment::set_environment]: error: guard \"_is_valid(environment)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DeploymentEnvironment::set_environment: error: guard \"_is_valid(environment)\" not met");
+      throw std::runtime_error("[AllegroFlare::DeploymentEnvironment::set_environment]: error: guard \"_is_valid(environment)\" not met");
    }
    // TODO: If an invalid argument is passed, include the argument value in an error message
    this->environment = environment;
@@ -95,16 +95,16 @@ void DeploymentEnvironment::setup_current_working_directory()
    if (!((!working_directory_has_been_setup)))
    {
       std::stringstream error_message;
-      error_message << "[DeploymentEnvironment::setup_current_working_directory]: error: guard \"(!working_directory_has_been_setup)\" not met.";
+      error_message << "[AllegroFlare::DeploymentEnvironment::setup_current_working_directory]: error: guard \"(!working_directory_has_been_setup)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DeploymentEnvironment::setup_current_working_directory: error: guard \"(!working_directory_has_been_setup)\" not met");
+      throw std::runtime_error("[AllegroFlare::DeploymentEnvironment::setup_current_working_directory]: error: guard \"(!working_directory_has_been_setup)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[DeploymentEnvironment::setup_current_working_directory]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::DeploymentEnvironment::setup_current_working_directory]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DeploymentEnvironment::setup_current_working_directory: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::DeploymentEnvironment::setup_current_working_directory]: error: guard \"al_is_system_installed()\" not met");
    }
    if (is_undefined())
    {
@@ -199,9 +199,9 @@ std::string DeploymentEnvironment::get_data_folder_path()
    if (!(is_valid()))
    {
       std::stringstream error_message;
-      error_message << "[DeploymentEnvironment::get_data_folder_path]: error: guard \"is_valid()\" not met.";
+      error_message << "[AllegroFlare::DeploymentEnvironment::get_data_folder_path]: error: guard \"is_valid()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DeploymentEnvironment::get_data_folder_path: error: guard \"is_valid()\" not met");
+      throw std::runtime_error("[AllegroFlare::DeploymentEnvironment::get_data_folder_path]: error: guard \"is_valid()\" not met");
    }
    if (environment == ENVIRONMENT_TEST)
    {

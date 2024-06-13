@@ -80,10 +80,10 @@ TEST(AllegroFlare_Elements_ListBoxTest, set_cursor_position__will_set_the_cursor
 TEST(AllegroFlare_Elements_ListBoxTest, set_cursor_position__if_less_than_zero__will_throw_an_error)
 {
    AllegroFlare::Elements::ListBox list_box;
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       list_box.set_cursor_position(-1),
-      std::runtime_error,
-      "ListBox::set_cursor_position: error: guard \"(cursor_position >= 0)\" not met"
+      "AllegroFlare::Elements::ListBox::set_cursor_position",
+      "(cursor_position >= 0)"
    );
 }
 
@@ -95,7 +95,7 @@ TEST(AllegroFlare_Elements_ListBoxTest,
    list_box.set_items(build_food_test_data());
    int num_items = list_box.num_items();
 
-   std::string expected_error_message = "ListBox::set_cursor_position: error: guard \"((cursor_position < "
+   std::string expected_error_message = "[AllegroFlare::Elements::ListBox::set_cursor_position]: error: guard \"((cursor_position < "
                                         "items.size()) || (cursor_position == 0))\" not met";
     
    EXPECT_THROW_WITH_MESSAGE(list_box.set_cursor_position(num_items), std::runtime_error, expected_error_message);

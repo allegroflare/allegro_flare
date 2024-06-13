@@ -415,23 +415,23 @@ void Complete::save_game_progress_and_state_info(AllegroFlare::GameSession* game
    if (!(game_session))
    {
       std::stringstream error_message;
-      error_message << "[Complete::save_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::save_game_progress_and_state_info]: error: guard \"game_session\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::save_game_progress_and_state_info: error: guard \"game_session\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::save_game_progress_and_state_info]: error: guard \"game_session\" not met");
    }
    if (!(game_session->is_active()))
    {
       std::stringstream error_message;
-      error_message << "[Complete::save_game_progress_and_state_info]: error: guard \"game_session->is_active()\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::save_game_progress_and_state_info]: error: guard \"game_session->is_active()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::save_game_progress_and_state_info: error: guard \"game_session->is_active()\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::save_game_progress_and_state_info]: error: guard \"game_session->is_active()\" not met");
    }
    if (!(game_session->get_game_progress_and_state_info()))
    {
       std::stringstream error_message;
-      error_message << "[Complete::save_game_progress_and_state_info]: error: guard \"game_session->get_game_progress_and_state_info()\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::save_game_progress_and_state_info]: error: guard \"game_session->get_game_progress_and_state_info()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::save_game_progress_and_state_info: error: guard \"game_session->get_game_progress_and_state_info()\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::save_game_progress_and_state_info]: error: guard \"game_session->get_game_progress_and_state_info()\" not met");
    }
    // NOTE: Not sure if this is an appropriate design to put this method here
    AllegroFlare::Logger::throw_error(
@@ -446,16 +446,16 @@ void Complete::load_game_progress_and_state_info(AllegroFlare::GameSession* game
    if (!(game_session))
    {
       std::stringstream error_message;
-      error_message << "[Complete::load_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::load_game_progress_and_state_info]: error: guard \"game_session\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::load_game_progress_and_state_info: error: guard \"game_session\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::load_game_progress_and_state_info]: error: guard \"game_session\" not met");
    }
    if (!(game_session->get_game_progress_and_state_info()))
    {
       std::stringstream error_message;
-      error_message << "[Complete::load_game_progress_and_state_info]: error: guard \"game_session->get_game_progress_and_state_info()\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::load_game_progress_and_state_info]: error: guard \"game_session->get_game_progress_and_state_info()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::load_game_progress_and_state_info: error: guard \"game_session->get_game_progress_and_state_info()\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::load_game_progress_and_state_info]: error: guard \"game_session->get_game_progress_and_state_info()\" not met");
    }
    // NOTE: Not sure if this is an appropriate design to put this method here
    // TODO: Should "game_session->is_active" be a guard here?
@@ -469,9 +469,9 @@ void Complete::setup_new_game_progress_and_state_info(AllegroFlare::GameSession*
    if (!(game_session))
    {
       std::stringstream error_message;
-      error_message << "[Complete::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::setup_new_game_progress_and_state_info: error: guard \"game_session\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met");
    }
    // TODO: This method
    AllegroFlare::Logger::throw_error(
@@ -488,9 +488,9 @@ void Complete::load_last_played_session_or_start_new(AllegroFlare::GameSession* 
    if (!(game_session))
    {
       std::stringstream error_message;
-      error_message << "[Complete::load_last_played_session_or_start_new]: error: guard \"game_session\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::load_last_played_session_or_start_new]: error: guard \"game_session\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::load_last_played_session_or_start_new: error: guard \"game_session\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::load_last_played_session_or_start_new]: error: guard \"game_session\" not met");
    }
    // TODO: This method
    AllegroFlare::Logger::throw_error(
@@ -546,9 +546,9 @@ std::string Complete::build_copyright_text(ReleaseInfo* release_info)
    if (!(release_info))
    {
       std::stringstream error_message;
-      error_message << "[Complete::build_copyright_text]: error: guard \"release_info\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::build_copyright_text]: error: guard \"release_info\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::build_copyright_text: error: guard \"release_info\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::build_copyright_text]: error: guard \"release_info\" not met");
    }
    AllegroFlare::TemplatedText templated_text(
       "[[COPYRIGHT_SYMBOL]] 2024 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]",

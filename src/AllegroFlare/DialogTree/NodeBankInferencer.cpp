@@ -57,9 +57,9 @@ std::vector<std::string> NodeBankInferencer::obtain_list_of_speaking_characters(
    if (!(node_bank))
    {
       std::stringstream error_message;
-      error_message << "[NodeBankInferencer::obtain_list_of_speaking_characters]: error: guard \"node_bank\" not met.";
+      error_message << "[AllegroFlare::DialogTree::NodeBankInferencer::obtain_list_of_speaking_characters]: error: guard \"node_bank\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("NodeBankInferencer::obtain_list_of_speaking_characters: error: guard \"node_bank\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::NodeBankInferencer::obtain_list_of_speaking_characters]: error: guard \"node_bank\" not met");
    }
    std::vector<std::string> speakers;
 

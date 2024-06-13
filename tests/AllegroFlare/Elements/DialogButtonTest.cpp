@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
@@ -31,9 +27,11 @@ TEST_F(AllegroFlare_Elements_DialogButtonTest, can_be_created_without_blowing_up
 TEST_F(AllegroFlare_Elements_DialogButtonTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::DialogButton dialog_button;
-   std::string expected_error_message =
-      "DialogButton::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_button.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_button.render(),
+      "AllegroFlare::Elements::DialogButton::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -41,9 +39,11 @@ TEST_F(AllegroFlare_Elements_DialogButtonTest, render__without_font_addon_initia
 {
    al_init();
    AllegroFlare::Elements::DialogButton dialog_button;
-   std::string expected_error_message =
-      "DialogButton::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_button.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_button.render(),
+      "AllegroFlare::Elements::DialogButton::render",
+      "al_is_font_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -53,9 +53,11 @@ TEST_F(AllegroFlare_Elements_DialogButtonTest, DISABLED__render__without_primiti
    al_init();
    al_init_font_addon();
    AllegroFlare::Elements::DialogButton dialog_button;
-   std::string expected_error_message =
-      "DialogButton::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_button.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_button.render(),
+      "AllegroFlare::Elements::DialogButton::render",
+      "al_is_primitives_addon_initialized()"
+   );
    al_shutdown_font_addon();
    al_uninstall_system();
 }
@@ -67,9 +69,11 @@ TEST_F(AllegroFlare_Elements_DialogButtonTest, render__without_ttf_addon_initial
    al_init_font_addon();
    al_init_primitives_addon();
    AllegroFlare::Elements::DialogButton dialog_button;
-   std::string expected_error_message =
-      "DialogButton::render: error: guard \"al_is_ttf_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_button.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_button.render(),
+      "AllegroFlare::Elements::DialogButton::render",
+      "al_is_ttf_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_shutdown_font_addon();
    al_uninstall_system();
@@ -83,9 +87,11 @@ TEST_F(AllegroFlare_Elements_DialogButtonTest, render__without_a_font_bin__raise
    al_init_ttf_addon();
    al_init_primitives_addon();
    AllegroFlare::Elements::DialogButton dialog_button;
-   std::string expected_error_message =
-      "DialogButton::render: error: guard \"font_bin\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_button.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_button.render(),
+      "AllegroFlare::Elements::DialogButton::render",
+      "font_bin"
+   );
    al_shutdown_primitives_addon();
    al_shutdown_ttf_addon();
    al_shutdown_font_addon();
@@ -140,6 +146,12 @@ TEST_F(AllegroFlare_Elements_DialogButtonTestWithAllegroRenderingFixture,
 
       sleep_for_frame();
    }
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogButtonTest, test_suite_ends_without_allegro_initialized)
+{
+   EXPECT_EQ(false, al_is_system_installed());
 }
 
 

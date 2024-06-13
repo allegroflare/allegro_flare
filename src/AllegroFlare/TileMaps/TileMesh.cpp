@@ -138,23 +138,23 @@ void TileMesh::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    initialized = true;
    resize(num_columns, num_rows);
@@ -166,9 +166,9 @@ void TileMesh::set_num_rows(int num_rows)
    if (!((num_rows >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::set_num_rows]: error: guard \"(num_rows >= 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::set_num_rows]: error: guard \"(num_rows >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::set_num_rows: error: guard \"(num_rows >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::set_num_rows]: error: guard \"(num_rows >= 0)\" not met");
    }
    this->num_rows = num_rows;
    if (initialized) resize(num_columns, num_rows);
@@ -179,9 +179,9 @@ void TileMesh::set_num_columns(int num_columns)
    if (!((num_columns >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::set_num_columns]: error: guard \"(num_columns >= 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::set_num_columns]: error: guard \"(num_columns >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::set_num_columns: error: guard \"(num_columns >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::set_num_columns]: error: guard \"(num_columns >= 0)\" not met");
    }
    this->num_columns = num_columns;
    if (initialized) resize(num_columns, num_rows);
@@ -225,30 +225,30 @@ std::vector<int> TileMesh::vertex_indices_for_tile_xy(int tile_x, int tile_y)
    if (!((tile_x >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_x >= 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_x >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::vertex_indices_for_tile_xy: error: guard \"(tile_x >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_x >= 0)\" not met");
    }
    if (!((tile_x < num_columns)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_x < num_columns)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_x < num_columns)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::vertex_indices_for_tile_xy: error: guard \"(tile_x < num_columns)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_x < num_columns)\" not met");
    }
    if (!((tile_y >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_y >= 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_y >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::vertex_indices_for_tile_xy: error: guard \"(tile_y >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_y >= 0)\" not met");
    }
    if (!((tile_y < num_rows)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_y < num_rows)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_y < num_rows)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::vertex_indices_for_tile_xy: error: guard \"(tile_y < num_rows)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::vertex_indices_for_tile_xy]: error: guard \"(tile_y < num_rows)\" not met");
    }
    // TODO: Test and try using this method
    int first_vertex_index = (tile_x + tile_y * num_columns) * 6;
@@ -280,9 +280,9 @@ void TileMesh::resize(int num_columns, int num_rows)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::resize]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::resize]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::resize: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::resize]: error: guard \"initialized\" not met");
    }
    this->num_columns = num_columns;
    this->num_rows = num_rows;
@@ -364,23 +364,23 @@ void TileMesh::render(bool draw_outline)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"initialized\" not met");
    }
    if (!(atlas))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::render]: error: guard \"atlas\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"atlas\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::render: error: guard \"atlas\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"atlas\" not met");
    }
    if (!((!vertex_buffer_is_dirty)))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::render]: error: guard \"(!vertex_buffer_is_dirty)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"(!vertex_buffer_is_dirty)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::render: error: guard \"(!vertex_buffer_is_dirty)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"(!vertex_buffer_is_dirty)\" not met");
    }
    al_draw_indexed_buffer(
       vertex_buffer,
@@ -404,16 +404,16 @@ bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, boo
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::set_tile_id]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::set_tile_id]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::set_tile_id: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::set_tile_id]: error: guard \"initialized\" not met");
    }
    if (!(atlas))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::set_tile_id]: error: guard \"atlas\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::set_tile_id]: error: guard \"atlas\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::set_tile_id: error: guard \"atlas\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::set_tile_id]: error: guard \"atlas\" not met");
    }
    if (tile_id >= (int)atlas->get_tile_index_size()) return false;
 
@@ -503,30 +503,30 @@ void TileMesh::h_flip_vertices(int* u1, int* v1, int* u2, int* v2)
    if (!(u1))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::h_flip_vertices]: error: guard \"u1\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::h_flip_vertices]: error: guard \"u1\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::h_flip_vertices: error: guard \"u1\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::h_flip_vertices]: error: guard \"u1\" not met");
    }
    if (!(v1))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::h_flip_vertices]: error: guard \"v1\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::h_flip_vertices]: error: guard \"v1\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::h_flip_vertices: error: guard \"v1\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::h_flip_vertices]: error: guard \"v1\" not met");
    }
    if (!(u2))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::h_flip_vertices]: error: guard \"u2\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::h_flip_vertices]: error: guard \"u2\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::h_flip_vertices: error: guard \"u2\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::h_flip_vertices]: error: guard \"u2\" not met");
    }
    if (!(v2))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::h_flip_vertices]: error: guard \"v2\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::h_flip_vertices]: error: guard \"v2\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::h_flip_vertices: error: guard \"v2\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::h_flip_vertices]: error: guard \"v2\" not met");
    }
    // NOTE: Should the uv coordinates be floats?
    int swap = *u1;
@@ -540,30 +540,30 @@ void TileMesh::v_flip_vertices(int* u1, int* v1, int* u2, int* v2)
    if (!(u1))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::v_flip_vertices]: error: guard \"u1\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::v_flip_vertices]: error: guard \"u1\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::v_flip_vertices: error: guard \"u1\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::v_flip_vertices]: error: guard \"u1\" not met");
    }
    if (!(v1))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::v_flip_vertices]: error: guard \"v1\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::v_flip_vertices]: error: guard \"v1\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::v_flip_vertices: error: guard \"v1\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::v_flip_vertices]: error: guard \"v1\" not met");
    }
    if (!(u2))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::v_flip_vertices]: error: guard \"u2\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::v_flip_vertices]: error: guard \"u2\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::v_flip_vertices: error: guard \"u2\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::v_flip_vertices]: error: guard \"u2\" not met");
    }
    if (!(v2))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::v_flip_vertices]: error: guard \"v2\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::v_flip_vertices]: error: guard \"v2\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::v_flip_vertices: error: guard \"v2\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::v_flip_vertices]: error: guard \"v2\" not met");
    }
    // NOTE: Should the uv coordinates be floats?
    int swap = *v1;
@@ -736,9 +736,9 @@ void TileMesh::swap_yz()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TileMesh::swap_yz]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileMesh::swap_yz]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TileMesh::swap_yz: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::swap_yz]: error: guard \"initialized\" not met");
    }
    for (auto &vertex : vertices)
    {

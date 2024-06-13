@@ -41,16 +41,16 @@ void ScreenCapture::set_inv_scale(int inv_scale)
    if (!((inv_scale >= 1)))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::set_inv_scale]: error: guard \"(inv_scale >= 1)\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::ScreenCapture::set_inv_scale]: error: guard \"(inv_scale >= 1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::set_inv_scale: error: guard \"(inv_scale >= 1)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::ScreenCapture::set_inv_scale]: error: guard \"(inv_scale >= 1)\" not met");
    }
    if (!((inv_scale <= 20)))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::set_inv_scale]: error: guard \"(inv_scale <= 20)\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::ScreenCapture::set_inv_scale]: error: guard \"(inv_scale <= 20)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::set_inv_scale: error: guard \"(inv_scale <= 20)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::ScreenCapture::set_inv_scale]: error: guard \"(inv_scale <= 20)\" not met");
    }
    this->inv_scale = inv_scale;
    if (initialized) refresh_capture();
@@ -62,9 +62,9 @@ void ScreenCapture::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ScreenCapture::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::ScreenCapture::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ScreenCapture::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::ScreenCapture::initialize]: error: guard \"(!initialized)\" not met");
    }
    refresh_capture();
    initialized = true;

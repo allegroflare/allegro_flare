@@ -242,6 +242,7 @@ functions:
 
   - name: render
     type: void
+    guards: [ al_is_system_installed() ]
     body: |
       rolling_credits_component.set_y_offset(-y_offset);
       rolling_credits_component.render();

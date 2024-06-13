@@ -75,16 +75,16 @@ void Base::register_screen(std::string screen_identifier, AllegroFlare::Screens:
    if (!(screen_manager))
    {
       std::stringstream error_message;
-      error_message << "[Base::register_screen]: error: guard \"screen_manager\" not met.";
+      error_message << "[AllegroFlare::Routers::Base::register_screen]: error: guard \"screen_manager\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::register_screen: error: guard \"screen_manager\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Base::register_screen]: error: guard \"screen_manager\" not met");
    }
    if (!(screen))
    {
       std::stringstream error_message;
-      error_message << "[Base::register_screen]: error: guard \"screen\" not met.";
+      error_message << "[AllegroFlare::Routers::Base::register_screen]: error: guard \"screen\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::register_screen: error: guard \"screen\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Base::register_screen]: error: guard \"screen\" not met");
    }
    screen_manager->add(screen_identifier, screen);
    return;
@@ -95,16 +95,16 @@ void Base::unregister_screen(AllegroFlare::Screens::Base* screen)
    if (!(screen_manager))
    {
       std::stringstream error_message;
-      error_message << "[Base::unregister_screen]: error: guard \"screen_manager\" not met.";
+      error_message << "[AllegroFlare::Routers::Base::unregister_screen]: error: guard \"screen_manager\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::unregister_screen: error: guard \"screen_manager\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Base::unregister_screen]: error: guard \"screen_manager\" not met");
    }
    if (!(screen))
    {
       std::stringstream error_message;
-      error_message << "[Base::unregister_screen]: error: guard \"screen\" not met.";
+      error_message << "[AllegroFlare::Routers::Base::unregister_screen]: error: guard \"screen\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::unregister_screen: error: guard \"screen\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Base::unregister_screen]: error: guard \"screen\" not met");
    }
    screen_manager->remove(screen);
    return;
@@ -115,9 +115,9 @@ void Base::activate_screen(std::string screen_identifier)
    if (!(screen_manager))
    {
       std::stringstream error_message;
-      error_message << "[Base::activate_screen]: error: guard \"screen_manager\" not met.";
+      error_message << "[AllegroFlare::Routers::Base::activate_screen]: error: guard \"screen_manager\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::activate_screen: error: guard \"screen_manager\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Base::activate_screen]: error: guard \"screen_manager\" not met");
    }
    if (on_before_activate_screen_func)
    {
@@ -138,9 +138,9 @@ void Base::on_route_event(uint32_t route_event, AllegroFlare::RouteEventDatas::B
    if (!((route_event != 0)))
    {
       std::stringstream error_message;
-      error_message << "[Base::on_route_event]: error: guard \"(route_event != 0)\" not met.";
+      error_message << "[AllegroFlare::Routers::Base::on_route_event]: error: guard \"(route_event != 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::on_route_event: error: guard \"(route_event != 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Routers::Base::on_route_event]: error: guard \"(route_event != 0)\" not met");
    }
    // TODO: consider making this function pure virutal instead of throwing an error
    AllegroFlare::Logger::throw_error(

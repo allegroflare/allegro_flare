@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
@@ -32,9 +28,11 @@ TEST_F(AllegroFlare_Screens_RollingCreditsTest, can_be_created_without_blowing_u
 TEST_F(AllegroFlare_Screens_RollingCreditsTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Screens::RollingCredits rolling_credits;
-   std::string expected_error_message =
-      "RollingCredits::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(rolling_credits.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      rolling_credits.render(),
+      "AllegroFlare::Screens::RollingCredits::render",
+      "al_is_system_installed()"
+   );
 }
 
 

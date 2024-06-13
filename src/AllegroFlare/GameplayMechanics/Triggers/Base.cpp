@@ -44,9 +44,9 @@ void Base::trigger()
    if (!((!get_triggered())))
    {
       std::stringstream error_message;
-      error_message << "[Base::trigger]: error: guard \"(!get_triggered())\" not met.";
+      error_message << "[AllegroFlare::GameplayMechanics::Triggers::Base::trigger]: error: guard \"(!get_triggered())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::trigger: error: guard \"(!get_triggered())\" not met");
+      throw std::runtime_error("[AllegroFlare::GameplayMechanics::Triggers::Base::trigger]: error: guard \"(!get_triggered())\" not met");
    }
    on_trigger();
    triggered = true;
@@ -63,9 +63,9 @@ void Base::on_trigger()
    if (!((!get_triggered())))
    {
       std::stringstream error_message;
-      error_message << "[Base::on_trigger]: error: guard \"(!get_triggered())\" not met.";
+      error_message << "[AllegroFlare::GameplayMechanics::Triggers::Base::on_trigger]: error: guard \"(!get_triggered())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::on_trigger: error: guard \"(!get_triggered())\" not met");
+      throw std::runtime_error("[AllegroFlare::GameplayMechanics::Triggers::Base::on_trigger]: error: guard \"(!get_triggered())\" not met");
    }
    // to be implemented by the derived class
    return;
@@ -76,9 +76,9 @@ void Base::on_reset()
    if (!((get_triggered())))
    {
       std::stringstream error_message;
-      error_message << "[Base::on_reset]: error: guard \"(get_triggered())\" not met.";
+      error_message << "[AllegroFlare::GameplayMechanics::Triggers::Base::on_reset]: error: guard \"(get_triggered())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::on_reset: error: guard \"(get_triggered())\" not met");
+      throw std::runtime_error("[AllegroFlare::GameplayMechanics::Triggers::Base::on_reset]: error: guard \"(get_triggered())\" not met");
    }
    // to be implemented by the derived class
    return;

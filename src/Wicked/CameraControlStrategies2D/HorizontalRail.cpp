@@ -42,16 +42,16 @@ void HorizontalRail::initialize()
    if (!((!get_initialized())))
    {
       std::stringstream error_message;
-      error_message << "[HorizontalRail::initialize]: error: guard \"(!get_initialized())\" not met.";
+      error_message << "[Wicked::CameraControlStrategies2D::HorizontalRail::initialize]: error: guard \"(!get_initialized())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("HorizontalRail::initialize: error: guard \"(!get_initialized())\" not met");
+      throw std::runtime_error("[Wicked::CameraControlStrategies2D::HorizontalRail::initialize]: error: guard \"(!get_initialized())\" not met");
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "[HorizontalRail::initialize]: error: guard \"get_camera()\" not met.";
+      error_message << "[Wicked::CameraControlStrategies2D::HorizontalRail::initialize]: error: guard \"get_camera()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("HorizontalRail::initialize: error: guard \"get_camera()\" not met");
+      throw std::runtime_error("[Wicked::CameraControlStrategies2D::HorizontalRail::initialize]: error: guard \"get_camera()\" not met");
    }
    float assumed_tile_width = 16.0f;
    float assumed_tile_height = 16.0f;
@@ -70,16 +70,16 @@ void HorizontalRail::update()
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "[HorizontalRail::update]: error: guard \"get_camera()\" not met.";
+      error_message << "[Wicked::CameraControlStrategies2D::HorizontalRail::update]: error: guard \"get_camera()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("HorizontalRail::update: error: guard \"get_camera()\" not met");
+      throw std::runtime_error("[Wicked::CameraControlStrategies2D::HorizontalRail::update]: error: guard \"get_camera()\" not met");
    }
    if (!(entity_to_follow))
    {
       std::stringstream error_message;
-      error_message << "[HorizontalRail::update]: error: guard \"entity_to_follow\" not met.";
+      error_message << "[Wicked::CameraControlStrategies2D::HorizontalRail::update]: error: guard \"entity_to_follow\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("HorizontalRail::update: error: guard \"entity_to_follow\" not met");
+      throw std::runtime_error("[Wicked::CameraControlStrategies2D::HorizontalRail::update]: error: guard \"entity_to_follow\" not met");
    }
    //camera->position = {width/2, height/2};
 

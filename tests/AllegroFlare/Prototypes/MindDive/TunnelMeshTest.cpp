@@ -1,11 +1,7 @@
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_Prototypes_MindDive_TunnelMeshTest : public ::testing::Test {};
@@ -25,12 +21,15 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, can_be_created_without_b
 }
 
 
-TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, DISABLED__initialize__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest,
+   initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
-   std::string expected_error_message =
-      "TunnelMesh::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(tunnel_mesh.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      tunnel_mesh.initialize(),
+      "AllegroFlare::Prototypes::MindDive::TunnelMesh::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -38,9 +37,11 @@ TEST_F(AllegroFlare_Prototypes_MindDive_TunnelMeshTest, render__before_being_ini
 {
    al_init();
    AllegroFlare::Prototypes::MindDive::TunnelMesh tunnel_mesh;
-   std::string expected_error_message =
-      "TunnelMesh::render: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(tunnel_mesh.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      tunnel_mesh.render(),
+      "AllegroFlare::Prototypes::MindDive::TunnelMesh::render",
+      "initialized"
+   );
    al_uninstall_system();
 }
 

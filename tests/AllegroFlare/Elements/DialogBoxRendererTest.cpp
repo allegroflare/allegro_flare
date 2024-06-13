@@ -1,12 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -45,8 +41,11 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, can_be_created_without_blowing
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_allegro_is_not_installed__raises_an_exception)
 {
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer;
-   std::string expected_error_message = "DialogBoxRenderer::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxRenderer::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -56,9 +55,11 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
    al_init();
 
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer;
-   std::string expected_error_message =
-      "DialogBoxRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxRenderer::render",
+      "al_is_primitives_addon_initialized()"
+   );
 
    al_uninstall_system();
 }
@@ -70,9 +71,11 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_alleg
    al_init_primitives_addon();
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer;
 
-   std::string expected_error_message =
-      "DialogBoxRenderer::render: error: guard \"al_get_current_display()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxRenderer::render",
+      "al_get_current_display()"
+   );
 
    al_uninstall_system();
 }
@@ -89,9 +92,11 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
    dialog_box.set_pages({ { "Some test dialog text." } });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(nullptr, nullptr, &dialog_box);
 
-   std::string expected_error_message =
-      "DialogBoxRenderer::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxRenderer::render",
+      "al_is_font_addon_initialized()"
+   );
 
    al_destroy_display(display);
    al_uninstall_system();
@@ -104,15 +109,16 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
    al_init();
    al_init_primitives_addon();
    al_init_font_addon();
-   al_init_ttf_addon();
    ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
    AllegroFlare::Elements::DialogBoxes::Basic dialog_box;
    dialog_box.set_pages({ { "Some test dialog text." } });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(nullptr, nullptr, &dialog_box);
 
-   std::string expected_error_message =
-      "DialogBoxRenderer::render: error: guard \"font_bin\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxRenderer::render",
+      "al_is_ttf_addon_initialized()"
+   );
 
    al_destroy_display(display);
    al_uninstall_system();
@@ -130,9 +136,11 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_font_
    dialog_box.set_pages({ { "Some test dialog text." } });
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(nullptr, nullptr, &dialog_box);
 
-   std::string expected_error_message =
-      "DialogBoxRenderer::render: error: guard \"font_bin\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxRenderer::render",
+      "font_bin"
+   );
 
    al_destroy_display(display);
    al_uninstall_system();
@@ -150,9 +158,11 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_dialo
    AllegroFlare::BitmapBin bitmap_bin;
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(nullptr, &bitmap_bin);
 
-   std::string expected_error_message =
-      "DialogBoxRenderer::render: error: guard \"dialog_box\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxRenderer::render",
+      "dialog_box"
+   );
 
    al_destroy_display(display);
    al_uninstall_system();

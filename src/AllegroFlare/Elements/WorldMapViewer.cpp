@@ -290,9 +290,9 @@ void WorldMapViewer::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -303,9 +303,9 @@ void WorldMapViewer::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -316,51 +316,51 @@ void WorldMapViewer::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::initialize]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::initialize: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::initialize]: error: guard \"font_bin\" not met");
    }
    // set the "name" property (as expected by the Panes::Base class)
    // HERE: Base::set_name("Crime Summary");
@@ -385,9 +385,9 @@ void WorldMapViewer::fit_and_position_map()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::fit_and_position_map]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::fit_and_position_map]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::fit_and_position_map: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::fit_and_position_map]: error: guard \"bitmap_bin\" not met");
    }
    if (!map) return;
 
@@ -710,23 +710,23 @@ void WorldMapViewer::render_map()
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render_map]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::render_map]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render_map: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::render_map]: error: guard \"al_get_current_display()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render_map]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::render_map]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render_map: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::render_map]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render_map]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::render_map]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render_map: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::render_map]: error: guard \"font_bin\" not met");
    }
    if (infer_no_pages_are_present())
    {
@@ -824,9 +824,9 @@ void WorldMapViewer::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::update]: error: guard \"initialized\" not met");
    }
    update_state();
    // NOTE: Order of transformations is important, for example, velocity is relative to zoom
@@ -897,9 +897,9 @@ void WorldMapViewer::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::render]: error: guard \"initialized\" not met");
    }
    if (infer_no_pages_are_present())
    {
@@ -929,9 +929,9 @@ std::pair<bool, std::string> WorldMapViewer::infer_focused_location_label()
    if (!(map))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::infer_focused_location_label]: error: guard \"map\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::infer_focused_location_label]: error: guard \"map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::infer_focused_location_label: error: guard \"map\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::infer_focused_location_label]: error: guard \"map\" not met");
    }
    std::string location_id = map->location_id_at(cursor.x, cursor.y);
    if (location_id.empty()) return { false, "" };
@@ -978,9 +978,9 @@ void WorldMapViewer::render_page_numbers()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render_page_numbers]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::render_page_numbers]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render_page_numbers: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::render_page_numbers]: error: guard \"initialized\" not met");
    }
    bool currently_over_location;
    std::string focused_location_label;
@@ -1032,9 +1032,9 @@ void WorldMapViewer::render_coordinates()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::render_coordinates]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::render_coordinates]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::render_coordinates: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::render_coordinates]: error: guard \"initialized\" not met");
    }
    //bool currently_over_location;
    std::stringstream coordinates;
@@ -1121,16 +1121,16 @@ void WorldMapViewer::draw_empty_state(AllegroFlare::FontBin* font_bin, std::stri
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::draw_empty_state]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::draw_empty_state]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::draw_empty_state: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::draw_empty_state]: error: guard \"font_bin\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::draw_empty_state]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::draw_empty_state]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::draw_empty_state: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::draw_empty_state]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    static constexpr float frame_width = 1920;
    static constexpr float frame_height = 1080;
@@ -1175,9 +1175,9 @@ void WorldMapViewer::set_state(uint32_t state, bool override_if_busy)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::set_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::set_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::set_state]: error: guard \"is_valid_state(state)\" not met");
    }
    if (this->state == state) return;
    if (!override_if_busy && state_is_busy) return;
@@ -1207,9 +1207,9 @@ void WorldMapViewer::update_state(float time_now)
    if (!(is_valid_state(state)))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::update_state]: error: guard \"is_valid_state(state)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::update_state: error: guard \"is_valid_state(state)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::update_state]: error: guard \"is_valid_state(state)\" not met");
    }
    float age = infer_current_state_age(time_now);
 
@@ -1269,23 +1269,23 @@ ALLEGRO_FONT* WorldMapViewer::obtain_font()
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::obtain_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::obtain_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::obtain_font: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::obtain_font]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::obtain_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::obtain_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::obtain_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::obtain_font]: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::obtain_font]: error: guard \"font_bin\" not met");
    }
    static const std::string FONT_IDENTIFIER = "Inter-Medium.ttf -36";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);
@@ -1297,23 +1297,23 @@ ALLEGRO_FONT* WorldMapViewer::obtain_small_ui_font()
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::obtain_small_ui_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::obtain_small_ui_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::obtain_small_ui_font: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::obtain_small_ui_font]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::obtain_small_ui_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::obtain_small_ui_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::obtain_small_ui_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::obtain_small_ui_font]: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapViewer::obtain_small_ui_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::WorldMapViewer::obtain_small_ui_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapViewer::obtain_small_ui_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::WorldMapViewer::obtain_small_ui_font]: error: guard \"font_bin\" not met");
    }
    static const std::string FONT_IDENTIFIER = "Inter-Regular.ttf -28";
    ALLEGRO_FONT* result_font = font_bin->operator[](FONT_IDENTIFIER);

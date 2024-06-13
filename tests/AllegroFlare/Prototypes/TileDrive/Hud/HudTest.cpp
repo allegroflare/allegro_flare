@@ -1,11 +1,8 @@
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_Prototypes_TileDrive_Hud_HudTest : public ::testing::Test {};
@@ -27,9 +24,11 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTest, can_be_created_without_blo
 TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
-   std::string expected_error_message =
-      "Hud::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(hud.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      hud.initialize(),
+      "AllegroFlare::Prototypes::TileDrive::Hud::Hud::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -37,9 +36,11 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTest, initialize__without_primit
 {
    al_init();
    AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
-   std::string expected_error_message =
-      "Hud::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(hud.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      hud.initialize(),
+      "AllegroFlare::Prototypes::TileDrive::Hud::Hud::initialize",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -49,9 +50,11 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTest, initialize__without_font_a
    al_init();
    al_init_primitives_addon();
    AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
-   std::string expected_error_message =
-      "Hud::initialize: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(hud.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      hud.initialize(),
+      "AllegroFlare::Prototypes::TileDrive::Hud::Hud::initialize",
+      "al_is_font_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -63,9 +66,11 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_Hud_HudTest, initialize__without_a_font
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::Prototypes::TileDrive::Hud::Hud hud;
-   std::string expected_error_message =
-      "Hud::initialize: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(hud.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      hud.initialize(),
+      "AllegroFlare::Prototypes::TileDrive::Hud::Hud::initialize",
+      "font_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();

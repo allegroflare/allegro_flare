@@ -76,16 +76,16 @@ AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D*
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::create_static_model_3d]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory::create_static_model_3d]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::create_static_model_3d: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory::create_static_model_3d]: error: guard \"model_bin\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[EntityFactory::create_static_model_3d]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory::create_static_model_3d]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("EntityFactory::create_static_model_3d: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::EntityFactory::create_static_model_3d]: error: guard \"bitmap_bin\" not met");
    }
    // TODO: Add test for this
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::StaticModel3D *result =

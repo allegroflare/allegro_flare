@@ -88,9 +88,9 @@ void TerrainMesh::set_atlas_configuration(std::string atlas_bitmap_filename, int
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::set_atlas_configuration]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::set_atlas_configuration]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::set_atlas_configuration: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::set_atlas_configuration]: error: guard \"(!initialized)\" not met");
    }
    this->atlas_bitmap_filename = atlas_bitmap_filename;
    this->atlas_bitmap_tile_width = atlas_bitmap_tile_width;
@@ -103,30 +103,30 @@ void TerrainMesh::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize]: error: guard \"bitmap_bin\" not met");
    }
    ALLEGRO_BITMAP *source_bitmap = bitmap_bin->auto_get(atlas_bitmap_filename);
    atlas.duplicate_bitmap_and_load(source_bitmap, atlas_bitmap_tile_width, atlas_bitmap_tile_height, 0);
@@ -146,9 +146,9 @@ void TerrainMesh::resize(int num_columns, int num_rows)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::resize]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::resize]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::resize: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::resize]: error: guard \"initialized\" not met");
    }
    prim_mesh.resize(num_columns, num_rows);
    collision_tile_map.resize(num_columns, num_rows);
@@ -160,23 +160,23 @@ void TerrainMesh::rescale_tile_dimensions_to(float tile_width, float tile_height
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::rescale_tile_dimensions_to]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::rescale_tile_dimensions_to]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::rescale_tile_dimensions_to: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::rescale_tile_dimensions_to]: error: guard \"initialized\" not met");
    }
    if (!((tile_width > 0)))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::rescale_tile_dimensions_to]: error: guard \"(tile_width > 0)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::rescale_tile_dimensions_to]: error: guard \"(tile_width > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::rescale_tile_dimensions_to: error: guard \"(tile_width > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::rescale_tile_dimensions_to]: error: guard \"(tile_width > 0)\" not met");
    }
    if (!((tile_height > 0)))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::rescale_tile_dimensions_to]: error: guard \"(tile_height > 0)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::rescale_tile_dimensions_to]: error: guard \"(tile_height > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::rescale_tile_dimensions_to: error: guard \"(tile_height > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::rescale_tile_dimensions_to]: error: guard \"(tile_height > 0)\" not met");
    }
    prim_mesh.rescale_tile_dimensions_to(tile_width, tile_height);
    return;
@@ -217,9 +217,9 @@ void TerrainMesh::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMesh::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMesh::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMesh::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMesh::render]: error: guard \"initialized\" not met");
    }
    prim_mesh.render();
    return;

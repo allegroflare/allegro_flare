@@ -45,9 +45,9 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_cla
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMeshFactory::create_classic_random]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::create_classic_random]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMeshFactory::create_classic_random: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::create_classic_random]: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
    result->set_bitmap_bin(bitmap_bin);
@@ -64,9 +64,9 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_ran
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMeshFactory::create_random_with_walls]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::create_random_with_walls]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMeshFactory::create_random_with_walls: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::create_random_with_walls]: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMesh *result = new AllegroFlare::Prototypes::TileDrive::TerrainMesh;
    result->set_bitmap_bin(bitmap_bin);
@@ -86,9 +86,9 @@ AllegroFlare::Prototypes::TileDrive::TerrainMesh* TerrainMeshFactory::create_fro
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMeshFactory::create_from_tmj]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::create_from_tmj]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMeshFactory::create_from_tmj: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::create_from_tmj]: error: guard \"bitmap_bin\" not met");
    }
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader tmj_data_loader(tmj_filename);
    tmj_data_loader.load();
@@ -147,16 +147,16 @@ void TerrainMeshFactory::random_fill_from(AllegroFlare::Prototypes::TileDrive::T
    if (!(terrain_mesh))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMeshFactory::random_fill_from]: error: guard \"terrain_mesh\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::random_fill_from]: error: guard \"terrain_mesh\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMeshFactory::random_fill_from: error: guard \"terrain_mesh\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::random_fill_from]: error: guard \"terrain_mesh\" not met");
    }
    if (!((!inclusion_list.empty())))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMeshFactory::random_fill_from]: error: guard \"(!inclusion_list.empty())\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::random_fill_from]: error: guard \"(!inclusion_list.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMeshFactory::random_fill_from: error: guard \"(!inclusion_list.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::random_fill_from]: error: guard \"(!inclusion_list.empty())\" not met");
    }
    AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
    AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();
@@ -196,9 +196,9 @@ void TerrainMeshFactory::random_fill_excluding(AllegroFlare::Prototypes::TileDri
    if (!(terrain_mesh))
    {
       std::stringstream error_message;
-      error_message << "[TerrainMeshFactory::random_fill_excluding]: error: guard \"terrain_mesh\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::random_fill_excluding]: error: guard \"terrain_mesh\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TerrainMeshFactory::random_fill_excluding: error: guard \"terrain_mesh\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TerrainMeshFactory::random_fill_excluding]: error: guard \"terrain_mesh\" not met");
    }
    AllegroFlare::TileMaps::PrimMesh &prim_mesh = terrain_mesh->get_prim_mesh_ref();
    AllegroFlare::TileMaps::TileMap<int> &collision_tile_map = terrain_mesh->get_collision_tile_map_ref();

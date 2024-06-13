@@ -49,9 +49,9 @@ void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    return;
@@ -62,9 +62,9 @@ void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -75,9 +75,9 @@ void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -88,9 +88,9 @@ void Screen::set_sample_bin(AllegroFlare::SampleBin* sample_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_sample_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::set_sample_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_sample_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::set_sample_bin]: error: guard \"(!initialized)\" not met");
    }
    this->sample_bin = sample_bin;
 }
@@ -100,9 +100,9 @@ void Screen::set_model_bin(AllegroFlare::ModelBin* model_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_model_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::set_model_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_model_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::set_model_bin]: error: guard \"(!initialized)\" not met");
    }
    this->model_bin = model_bin;
    return;
@@ -114,65 +114,65 @@ void Screen::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(sample_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"sample_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"sample_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"sample_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"sample_bin\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::initialize]: error: guard \"model_bin\" not met");
    }
    entity_factory.set_scene_root(&scene_root);
    entity_factory.set_bitmap_bin(bitmap_bin);
@@ -195,9 +195,9 @@ void Screen::load_level()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::load_level]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::load_level]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::load_level: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::load_level]: error: guard \"initialized\" not met");
    }
    player_controlled_entity = entity_factory.add_player_ship(0, 1, 0);
    entity_factory.add_world_mesh();
@@ -213,9 +213,9 @@ void Screen::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::on_activate]: error: guard \"initialized\" not met");
    }
    // for now:
    load_level();
@@ -229,9 +229,9 @@ void Screen::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::on_deactivate]: error: guard \"initialized\" not met");
    }
    //emit_hide_and_restore_size_input_hints_bar_event();
    return;
@@ -416,9 +416,9 @@ void Screen::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::primary_timer_func]: error: guard \"initialized\" not met");
    }
    update();
    render();
@@ -430,16 +430,16 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::key_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::key_down_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::key_down_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::key_down_func]: error: guard \"event\" not met");
    }
    switch(event->keyboard.keycode)
    {
@@ -480,23 +480,23 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::key_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::key_up_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::key_up_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::key_up_func]: error: guard \"event\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Prototypes::CubeShooter::Screen::key_up_func]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::CubeShooter::Screen::key_up_func]: error: guard \"event_emitter\" not met");
    }
    switch(event->keyboard.keycode)
    {

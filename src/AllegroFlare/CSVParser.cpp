@@ -64,9 +64,9 @@ int CSVParser::num_raw_rows()
    if (!(parsed))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::num_raw_rows]: error: guard \"parsed\" not met.";
+      error_message << "[AllegroFlare::CSVParser::num_raw_rows]: error: guard \"parsed\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::num_raw_rows: error: guard \"parsed\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::num_raw_rows]: error: guard \"parsed\" not met");
    }
    return parsed_content.size();
 }
@@ -76,9 +76,9 @@ int CSVParser::num_rows()
    if (!(parsed))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::num_rows]: error: guard \"parsed\" not met.";
+      error_message << "[AllegroFlare::CSVParser::num_rows]: error: guard \"parsed\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::num_rows: error: guard \"parsed\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::num_rows]: error: guard \"parsed\" not met");
    }
    return num_records();
 }
@@ -88,9 +88,9 @@ int CSVParser::num_records()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::num_records]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::CSVParser::num_records]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::num_records: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::num_records]: error: guard \"loaded\" not met");
    }
    return num_raw_rows() - num_header_rows;
 }
@@ -100,9 +100,9 @@ int CSVParser::num_columns()
    if (!(parsed))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::num_columns]: error: guard \"parsed\" not met.";
+      error_message << "[AllegroFlare::CSVParser::num_columns]: error: guard \"parsed\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::num_columns: error: guard \"parsed\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::num_columns]: error: guard \"parsed\" not met");
    }
    if (parsed_content.empty()) return 0;
    return parsed_content[0].size();
@@ -113,9 +113,9 @@ std::vector<std::vector<std::string>> CSVParser::get_parsed_content()
    if (!(parsed))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::get_parsed_content]: error: guard \"parsed\" not met.";
+      error_message << "[AllegroFlare::CSVParser::get_parsed_content]: error: guard \"parsed\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::get_parsed_content: error: guard \"parsed\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::get_parsed_content]: error: guard \"parsed\" not met");
    }
    return parsed_content;
 }
@@ -125,9 +125,9 @@ void CSVParser::parse()
    if (!((!parsed)))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::parse]: error: guard \"(!parsed)\" not met.";
+      error_message << "[AllegroFlare::CSVParser::parse]: error: guard \"(!parsed)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::parse: error: guard \"(!parsed)\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::parse]: error: guard \"(!parsed)\" not met");
    }
    parsed_content.clear();
    std::stringstream ss;
@@ -204,16 +204,16 @@ int CSVParser::get_num_header_rows()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::get_num_header_rows]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::CSVParser::get_num_header_rows]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::get_num_header_rows: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::get_num_header_rows]: error: guard \"loaded\" not met");
    }
    if (!(column_headers_assembled))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::get_num_header_rows]: error: guard \"column_headers_assembled\" not met.";
+      error_message << "[AllegroFlare::CSVParser::get_num_header_rows]: error: guard \"column_headers_assembled\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::get_num_header_rows: error: guard \"column_headers_assembled\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::get_num_header_rows]: error: guard \"column_headers_assembled\" not met");
    }
    return num_header_rows;
 }
@@ -223,9 +223,9 @@ int CSVParser::get_column_header_column_num_or_throw(std::string column_header_n
    if (!(column_header_exists(column_header_name)))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::get_column_header_column_num_or_throw]: error: guard \"column_header_exists(column_header_name)\" not met.";
+      error_message << "[AllegroFlare::CSVParser::get_column_header_column_num_or_throw]: error: guard \"column_header_exists(column_header_name)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::get_column_header_column_num_or_throw: error: guard \"column_header_exists(column_header_name)\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::get_column_header_column_num_or_throw]: error: guard \"column_header_exists(column_header_name)\" not met");
    }
    return column_headers[column_header_name];
 }
@@ -235,16 +235,16 @@ bool CSVParser::column_header_exists(std::string column_header_name)
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::column_header_exists]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::CSVParser::column_header_exists]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::column_header_exists: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::column_header_exists]: error: guard \"loaded\" not met");
    }
    if (!(column_headers_assembled))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::column_header_exists]: error: guard \"column_headers_assembled\" not met.";
+      error_message << "[AllegroFlare::CSVParser::column_header_exists]: error: guard \"column_headers_assembled\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::column_header_exists: error: guard \"column_headers_assembled\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::column_header_exists]: error: guard \"column_headers_assembled\" not met");
    }
    return (column_headers.count(column_header_name) > 0);
 }
@@ -254,16 +254,16 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_all_rows(std:
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::extract_all_rows]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::CSVParser::extract_all_rows]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::extract_all_rows: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::extract_all_rows]: error: guard \"loaded\" not met");
    }
    if (!(column_headers_assembled))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::extract_all_rows]: error: guard \"column_headers_assembled\" not met.";
+      error_message << "[AllegroFlare::CSVParser::extract_all_rows]: error: guard \"column_headers_assembled\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::extract_all_rows: error: guard \"column_headers_assembled\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::extract_all_rows]: error: guard \"column_headers_assembled\" not met");
    }
    AllegroFlare::CSVParser &parser = *this;
 
@@ -291,16 +291,16 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_key(s
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::extract_rows_by_key]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::CSVParser::extract_rows_by_key]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::extract_rows_by_key: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::extract_rows_by_key]: error: guard \"loaded\" not met");
    }
    if (!(column_headers_assembled))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::extract_rows_by_key]: error: guard \"column_headers_assembled\" not met.";
+      error_message << "[AllegroFlare::CSVParser::extract_rows_by_key]: error: guard \"column_headers_assembled\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::extract_rows_by_key: error: guard \"column_headers_assembled\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::extract_rows_by_key]: error: guard \"column_headers_assembled\" not met");
    }
    AllegroFlare::CSVParser &parser = *this;
 
@@ -341,16 +341,16 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_keys(
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::extract_rows_by_keys]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::CSVParser::extract_rows_by_keys]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::extract_rows_by_keys: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::extract_rows_by_keys]: error: guard \"loaded\" not met");
    }
    if (!(column_headers_assembled))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::extract_rows_by_keys]: error: guard \"column_headers_assembled\" not met.";
+      error_message << "[AllegroFlare::CSVParser::extract_rows_by_keys]: error: guard \"column_headers_assembled\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::extract_rows_by_keys: error: guard \"column_headers_assembled\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::extract_rows_by_keys]: error: guard \"column_headers_assembled\" not met");
    }
    AllegroFlare::CSVParser &parser = *this;
 
@@ -393,23 +393,23 @@ void CSVParser::assemble_column_headers(int num_rows_of_column_headers)
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::assemble_column_headers]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::CSVParser::assemble_column_headers]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::assemble_column_headers]: error: guard \"loaded\" not met");
    }
    if (!((num_rows_of_column_headers <= num_raw_rows())))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers <= num_raw_rows())\" not met.";
+      error_message << "[AllegroFlare::CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers <= num_raw_rows())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"(num_rows_of_column_headers <= num_raw_rows())\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers <= num_raw_rows())\" not met");
    }
    if (!((num_rows_of_column_headers > 0)))
    {
       std::stringstream error_message;
-      error_message << "[CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers > 0)\" not met.";
+      error_message << "[AllegroFlare::CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CSVParser::assemble_column_headers: error: guard \"(num_rows_of_column_headers > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::CSVParser::assemble_column_headers]: error: guard \"(num_rows_of_column_headers > 0)\" not met");
    }
    AllegroFlare::CSVParser &parser = *this;
    //(num_rows_of_column_headers <= parser.num_rows()), (num_rows_of_column_headers <= 2) ]

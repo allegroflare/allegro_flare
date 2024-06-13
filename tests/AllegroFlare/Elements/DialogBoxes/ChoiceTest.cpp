@@ -1,12 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, can_be_created_without_blowing_up)
@@ -25,8 +21,11 @@ TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_type__returns_the_expecte
 TEST(AllegroFlare_Elements_DialogBoxes_ChoiceTest, get_prompt_full_text__when_not_initialized__raises_an_exception)
 {
    AllegroFlare::Elements::DialogBoxes::Choice choice;
-   std::string expected_error_message = "Choice::get_prompt_full_text: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(choice.get_prompt_full_text(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      choice.get_prompt_full_text(),
+      "AllegroFlare::Elements::DialogBoxes::Choice::get_prompt_full_text",
+      "initialized"
+   );
 }
 
 

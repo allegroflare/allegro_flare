@@ -59,23 +59,23 @@ void ClubCattLogo::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[ClubCattLogo::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::StoryboardPages::ClubCattLogo::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ClubCattLogo::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::ClubCattLogo::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[ClubCattLogo::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::StoryboardPages::ClubCattLogo::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ClubCattLogo::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::ClubCattLogo::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[ClubCattLogo::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::StoryboardPages::ClubCattLogo::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ClubCattLogo::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::ClubCattLogo::initialize]: error: guard \"model_bin\" not met");
    }
    set_finished(false);
    clubcatt_logo.set_bitmap_bin(bitmap_bin);

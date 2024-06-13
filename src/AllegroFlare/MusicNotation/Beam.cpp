@@ -165,37 +165,37 @@ void Beam::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Beam::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::Beam::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Beam::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::Beam::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Beam::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::Beam::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Beam::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::Beam::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(staff_line_distance > 0))
    {
       std::stringstream error_message;
-      error_message << "[Beam::render]: error: guard \"staff_line_distance > 0\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::Beam::render]: error: guard \"staff_line_distance > 0\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Beam::render: error: guard \"staff_line_distance > 0\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::Beam::render]: error: guard \"staff_line_distance > 0\" not met");
    }
    if (!(start_alignment != Beam::Alignment::UNDEFINED))
    {
       std::stringstream error_message;
-      error_message << "[Beam::render]: error: guard \"start_alignment != Beam::Alignment::UNDEFINED\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::Beam::render]: error: guard \"start_alignment != Beam::Alignment::UNDEFINED\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Beam::render: error: guard \"start_alignment != Beam::Alignment::UNDEFINED\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::Beam::render]: error: guard \"start_alignment != Beam::Alignment::UNDEFINED\" not met");
    }
    if (!(end_alignment != Beam::Alignment::UNDEFINED))
    {
       std::stringstream error_message;
-      error_message << "[Beam::render]: error: guard \"end_alignment != Beam::Alignment::UNDEFINED\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::Beam::render]: error: guard \"end_alignment != Beam::Alignment::UNDEFINED\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Beam::render: error: guard \"end_alignment != Beam::Alignment::UNDEFINED\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::Beam::render]: error: guard \"end_alignment != Beam::Alignment::UNDEFINED\" not met");
    }
    float staff_line_h_distance = staff_line_distance * 0.5;
    float centering_y_offset = staff_line_h_distance * 0.5;
@@ -309,9 +309,9 @@ float Beam::alignment_vertical_offset_for(Beam::Alignment alignment)
    if (!(alignment != Beam::Alignment::UNDEFINED))
    {
       std::stringstream error_message;
-      error_message << "[Beam::alignment_vertical_offset_for]: error: guard \"alignment != Beam::Alignment::UNDEFINED\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::Beam::alignment_vertical_offset_for]: error: guard \"alignment != Beam::Alignment::UNDEFINED\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Beam::alignment_vertical_offset_for: error: guard \"alignment != Beam::Alignment::UNDEFINED\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::Beam::alignment_vertical_offset_for]: error: guard \"alignment != Beam::Alignment::UNDEFINED\" not met");
    }
    if (alignment == Beam::Alignment::TOP) return -1.0;
    else if (alignment == Beam::Alignment::BOTTOM) return 0.0;

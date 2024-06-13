@@ -54,9 +54,9 @@ const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPosit
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::get_positions]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::get_positions]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::get_positions: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::get_positions]: error: guard \"solved\" not met");
    }
    return positions;
 }
@@ -66,9 +66,9 @@ bool ChordNoteheadPositionResolver::get_seconds_exist()
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::get_seconds_exist]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::get_seconds_exist]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::get_seconds_exist: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::get_seconds_exist]: error: guard \"solved\" not met");
    }
    return seconds_exist;
 }
@@ -78,9 +78,9 @@ int ChordNoteheadPositionResolver::lowest_staff_position_on_position_type(Allegr
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::lowest_staff_position_on_position_type]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::lowest_staff_position_on_position_type]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_staff_position_on_position_type: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::lowest_staff_position_on_position_type]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    bool left_position_exists = false;
@@ -104,9 +104,9 @@ int ChordNoteheadPositionResolver::highest_staff_position_on_position_type(Alleg
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::highest_staff_position_on_position_type]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::highest_staff_position_on_position_type]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::highest_staff_position_on_position_type: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::highest_staff_position_on_position_type]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    bool left_position_exists = false;
@@ -131,9 +131,9 @@ int ChordNoteheadPositionResolver::lowest_staff_position_on_right_column()
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::lowest_staff_position_on_right_column]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::lowest_staff_position_on_right_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_staff_position_on_right_column: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::lowest_staff_position_on_right_column]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return lowest_staff_position_on_position_type(
@@ -146,9 +146,9 @@ int ChordNoteheadPositionResolver::highest_staff_position_on_right_column()
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::highest_staff_position_on_right_column]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::highest_staff_position_on_right_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::highest_staff_position_on_right_column: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::highest_staff_position_on_right_column]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return highest_staff_position_on_position_type(
@@ -161,9 +161,9 @@ int ChordNoteheadPositionResolver::lowest_staff_position_on_left_column()
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::lowest_staff_position_on_left_column]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::lowest_staff_position_on_left_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_staff_position_on_left_column: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::lowest_staff_position_on_left_column]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return lowest_staff_position_on_position_type(
@@ -176,9 +176,9 @@ int ChordNoteheadPositionResolver::highest_staff_position_on_left_column()
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::highest_staff_position_on_left_column]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::highest_staff_position_on_left_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::highest_staff_position_on_left_column: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::highest_staff_position_on_left_column]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return highest_staff_position_on_position_type(
@@ -191,9 +191,9 @@ int ChordNoteheadPositionResolver::lowest_staff_position_on_stemside_column()
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::lowest_staff_position_on_stemside_column]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::lowest_staff_position_on_stemside_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::lowest_staff_position_on_stemside_column: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::lowest_staff_position_on_stemside_column]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return lowest_staff_position_on_position_type(
@@ -206,9 +206,9 @@ int ChordNoteheadPositionResolver::highest_staff_position_on_stemside_column()
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::highest_staff_position_on_stemside_column]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::highest_staff_position_on_stemside_column]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::highest_staff_position_on_stemside_column: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::highest_staff_position_on_stemside_column]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    return highest_staff_position_on_position_type(
@@ -221,9 +221,9 @@ const std::vector<std::pair<int, AllegroFlare::MusicNotation::ChordNoteheadPosit
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::noteheads_exist_on_both_sides]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::noteheads_exist_on_both_sides]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::noteheads_exist_on_both_sides: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::noteheads_exist_on_both_sides]: error: guard \"solved\" not met");
    }
    return positions;
 }
@@ -233,9 +233,9 @@ void ChordNoteheadPositionResolver::solve()
    if (!((!solved)))
    {
       std::stringstream error_message;
-      error_message << "[ChordNoteheadPositionResolver::solve]: error: guard \"(!solved)\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::solve]: error: guard \"(!solved)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChordNoteheadPositionResolver::solve: error: guard \"(!solved)\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::ChordNoteheadPositionResolver::solve]: error: guard \"(!solved)\" not met");
    }
    // Sort notes for this operation
    // TODO: Test context where notes must be sorted and made unique

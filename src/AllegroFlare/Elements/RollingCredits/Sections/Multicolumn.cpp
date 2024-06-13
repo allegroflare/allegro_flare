@@ -46,9 +46,9 @@ std::vector<std::vector<std::string>> Multicolumn::split_into_columns(std::vecto
    if (!((num_columns >= 1)))
    {
       std::stringstream error_message;
-      error_message << "[Multicolumn::split_into_columns]: error: guard \"(num_columns >= 1)\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::split_into_columns]: error: guard \"(num_columns >= 1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multicolumn::split_into_columns: error: guard \"(num_columns >= 1)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::Sections::Multicolumn::split_into_columns]: error: guard \"(num_columns >= 1)\" not met");
    }
    std::vector<std::vector<std::string>> result;
 

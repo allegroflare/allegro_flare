@@ -20,8 +20,11 @@ TEST(AllegroFlare_Elements_DialogBoxFrameTest, can_be_created_without_blowing_up
 TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__when_allegro_is_not_installed__raises_an_exception)
 {
    AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
-   std::string expected_error_message = "DialogBoxFrame::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxFrame::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -30,9 +33,11 @@ TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__when_allegro_primitives_a
    al_init();
 
    AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
-   std::string expected_error_message =
-      "DialogBoxFrame::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxFrame::render",
+      "al_is_primitives_addon_initialized()"
+   );
 
    al_uninstall_system();
 }
@@ -44,9 +49,11 @@ TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__when_there_is_no_allegro_
    al_init_primitives_addon();
    AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
 
-   std::string expected_error_message =
-      "DialogBoxFrame::render: error: guard \"al_get_current_display()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(dialog_box_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_box_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxFrame::render",
+      "al_get_current_display()"
+   );
 
    al_uninstall_system();
 }

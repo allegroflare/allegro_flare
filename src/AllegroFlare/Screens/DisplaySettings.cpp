@@ -125,9 +125,9 @@ void DisplaySettings::set_event_emitter(AllegroFlare::EventEmitter* event_emitte
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    return;
@@ -138,9 +138,9 @@ void DisplaySettings::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -151,9 +151,9 @@ void DisplaySettings::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -164,9 +164,9 @@ void DisplaySettings::set_model_bin(AllegroFlare::ModelBin* model_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::set_model_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::set_model_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::set_model_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::set_model_bin]: error: guard \"(!initialized)\" not met");
    }
    this->model_bin = model_bin;
    return;
@@ -177,9 +177,9 @@ void DisplaySettings::set_display_settings_interface(AllegroFlare::DisplaySettin
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::set_display_settings_interface]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::set_display_settings_interface]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::set_display_settings_interface: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::set_display_settings_interface]: error: guard \"(!initialized)\" not met");
    }
    this->display_settings_interface = display_settings_interface;
    return;
@@ -190,65 +190,65 @@ void DisplaySettings::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"model_bin\" not met");
    }
    if (!(display_settings_interface))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::initialize]: error: guard \"display_settings_interface\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"display_settings_interface\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::initialize: error: guard \"display_settings_interface\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::initialize]: error: guard \"display_settings_interface\" not met");
    }
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    initialized = true;
@@ -277,9 +277,9 @@ void DisplaySettings::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::on_activate]: error: guard \"initialized\" not met");
    }
    cursor_x = 0;
    cursor_y = 0;
@@ -302,9 +302,9 @@ void DisplaySettings::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::on_deactivate]: error: guard \"initialized\" not met");
    }
    // Hide input hints:
    {
@@ -645,9 +645,9 @@ void DisplaySettings::primary_update_func(double time_now, double delta_time)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::primary_update_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::primary_update_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::primary_update_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::primary_update_func]: error: guard \"initialized\" not met");
    }
    update();
    return;
@@ -658,9 +658,9 @@ void DisplaySettings::primary_render_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::primary_render_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::primary_render_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::primary_render_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::primary_render_func]: error: guard \"initialized\" not met");
    }
    render();
    return;
@@ -681,9 +681,9 @@ void DisplaySettings::draw_label(std::string label, float x, float y)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::draw_label]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::draw_label]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::draw_label: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::draw_label]: error: guard \"initialized\" not met");
    }
    ALLEGRO_FONT *label_font = obtain_label_font();
    int h_line_height = al_get_font_line_height(label_font) / 2;
@@ -703,9 +703,9 @@ void DisplaySettings::draw_helper_text(std::string text, float x, float y, float
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::draw_helper_text]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::draw_helper_text]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::draw_helper_text: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::draw_helper_text]: error: guard \"initialized\" not met");
    }
    ALLEGRO_FONT *label_font = obtain_label_font();
    int h_line_height = al_get_font_line_height(label_font) / 2;
@@ -727,9 +727,9 @@ void DisplaySettings::draw_slider_toggle_box(bool onoff, float x, float y)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::draw_slider_toggle_box]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::draw_slider_toggle_box]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::draw_slider_toggle_box: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::draw_slider_toggle_box]: error: guard \"initialized\" not met");
    }
    AllegroFlare::Elements::UI::SliderToggle slider_toggle;
    //float width = slider_toggle.get_width();
@@ -748,9 +748,9 @@ void DisplaySettings::draw_int_spinner(int number, bool selected, float x, float
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::draw_int_spinner]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::draw_int_spinner]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::draw_int_spinner: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::draw_int_spinner]: error: guard \"initialized\" not met");
    }
    // TODO: Improve the arguments for "selected" and "disabled"
    AllegroFlare::Elements::UI::IntSpinner int_spinner;
@@ -771,9 +771,9 @@ void DisplaySettings::virtual_control_button_up_func(AllegroFlare::Player* playe
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::virtual_control_button_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::virtual_control_button_up_func]: error: guard \"initialized\" not met");
    }
    switch(virtual_controller_button_num)
    {
@@ -801,9 +801,9 @@ void DisplaySettings::virtual_control_button_down_func(AllegroFlare::Player* pla
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    switch(virtual_controller_button_num)
    {
@@ -848,9 +848,9 @@ void DisplaySettings::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::virtual_control_axis_change_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::virtual_control_axis_change_func]: error: guard \"initialized\" not met");
    }
    // TODO: this function
    return;
@@ -886,9 +886,9 @@ ALLEGRO_FONT* DisplaySettings::obtain_heading_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::obtain_heading_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::obtain_heading_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::obtain_heading_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::obtain_heading_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Oswald-Medium.ttf -82");
 }
@@ -898,9 +898,9 @@ ALLEGRO_FONT* DisplaySettings::obtain_label_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[DisplaySettings::obtain_label_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::DisplaySettings::obtain_label_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DisplaySettings::obtain_label_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::DisplaySettings::obtain_label_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream ss;
    ss << "Inter-Regular.ttf " << base_font_size;

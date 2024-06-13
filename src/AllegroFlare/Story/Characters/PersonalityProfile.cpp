@@ -62,9 +62,9 @@ void PersonalityProfile::add_personality_dimension(AllegroFlare::Story::Characte
    if (!((!personality_dimension_with_title_exists(personality_dimension.get_title()))))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfile::add_personality_dimension]: error: guard \"(!personality_dimension_with_title_exists(personality_dimension.get_title()))\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfile::add_personality_dimension]: error: guard \"(!personality_dimension_with_title_exists(personality_dimension.get_title()))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfile::add_personality_dimension: error: guard \"(!personality_dimension_with_title_exists(personality_dimension.get_title()))\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfile::add_personality_dimension]: error: guard \"(!personality_dimension_with_title_exists(personality_dimension.get_title()))\" not met");
    }
    // TODO: Add tests for this functionality
    personality_dimensions.push_back(personality_dimension);
@@ -86,16 +86,16 @@ AllegroFlare::Story::Characters::PersonalityProfileDimension PersonalityProfile:
    if (!((index >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfile::get_personality_dimension_by_index]: error: guard \"(index >= 0)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfile::get_personality_dimension_by_index]: error: guard \"(index >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfile::get_personality_dimension_by_index: error: guard \"(index >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfile::get_personality_dimension_by_index]: error: guard \"(index >= 0)\" not met");
    }
    if (!((index < personality_dimensions.size())))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfile::get_personality_dimension_by_index]: error: guard \"(index < personality_dimensions.size())\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfile::get_personality_dimension_by_index]: error: guard \"(index < personality_dimensions.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfile::get_personality_dimension_by_index: error: guard \"(index < personality_dimensions.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfile::get_personality_dimension_by_index]: error: guard \"(index < personality_dimensions.size())\" not met");
    }
    return personality_dimensions[index];
 }
@@ -158,16 +158,16 @@ std::string PersonalityProfile::ranking_level_to_text(uint32_t ranking_level)
    if (!((ranking_level >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfile::ranking_level_to_text]: error: guard \"(ranking_level >= 0)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfile::ranking_level_to_text]: error: guard \"(ranking_level >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfile::ranking_level_to_text: error: guard \"(ranking_level >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfile::ranking_level_to_text]: error: guard \"(ranking_level >= 0)\" not met");
    }
    if (!((ranking_level < 5)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfile::ranking_level_to_text]: error: guard \"(ranking_level < 5)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfile::ranking_level_to_text]: error: guard \"(ranking_level < 5)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfile::ranking_level_to_text: error: guard \"(ranking_level < 5)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfile::ranking_level_to_text]: error: guard \"(ranking_level < 5)\" not met");
    }
    std::map<uint32_t, std::string> dictionary = {
       { 0, "VERY_LOW" },

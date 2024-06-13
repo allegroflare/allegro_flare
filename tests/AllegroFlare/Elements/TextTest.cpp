@@ -26,8 +26,11 @@ TEST_F(AllegroFlare_Elements_TextTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_Elements_TextTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::Text text;
-   std::string expected_error_message = "Text::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(text.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      text.render(),
+      "AllegroFlare::Elements::Text::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -35,8 +38,11 @@ TEST_F(AllegroFlare_Elements_TextTestWithAllegroRenderingFixture,
    render__without_a_font_bin__will_throw_an_error)
 {
    AllegroFlare::Elements::Text text;
-   std::string expected_error_message = "Text::obtain_font: error: guard \"font_bin\" not met";
-   ASSERT_THROW_WITH_MESSAGE(text.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      text.render(),
+      "AllegroFlare::Elements::Text::obtain_font",
+      "font_bin"
+   );
 }
 
 

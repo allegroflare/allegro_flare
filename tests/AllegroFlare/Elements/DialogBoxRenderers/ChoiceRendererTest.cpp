@@ -23,8 +23,11 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest,
 {
    al_init();
    AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer;
-   std::string expected_error_message = "ChoiceRenderer::render: error: guard \"choice_dialog_box\" not met";
-   ASSERT_THROW_WITH_MESSAGE(choice_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      choice_renderer.render(),
+      "AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::render",
+      "choice_dialog_box"
+   );
    al_uninstall_system();
 }
 

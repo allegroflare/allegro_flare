@@ -64,9 +64,9 @@ void BackAndForthHorizontal::update()
    if (!(entity))
    {
       std::stringstream error_message;
-      error_message << "[BackAndForthHorizontal::update]: error: guard \"entity\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::BackAndForthHorizontal::update]: error: guard \"entity\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BackAndForthHorizontal::update: error: guard \"entity\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::BackAndForthHorizontal::update]: error: guard \"entity\" not met");
    }
    timer -= (1.0/60.0);
 

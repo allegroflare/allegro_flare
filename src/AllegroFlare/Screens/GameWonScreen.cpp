@@ -157,16 +157,16 @@ void GameWonScreen::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[GameWonScreen::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::GameWonScreen::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameWonScreen::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameWonScreen::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[GameWonScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::GameWonScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameWonScreen::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameWonScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    draw_primary_text();
    draw_instruction_text();
@@ -218,9 +218,9 @@ ALLEGRO_FONT* GameWonScreen::obtain_title_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[GameWonScreen::obtain_title_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::GameWonScreen::obtain_title_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameWonScreen::obtain_title_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameWonScreen::obtain_title_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream title_font_identifier;
    title_font_identifier << title_font_name << " " << title_font_size;
@@ -232,9 +232,9 @@ ALLEGRO_FONT* GameWonScreen::obtain_instruction_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[GameWonScreen::obtain_instruction_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::GameWonScreen::obtain_instruction_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("GameWonScreen::obtain_instruction_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::GameWonScreen::obtain_instruction_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream instruction_font_identifier;
    instruction_font_identifier << instruction_font_name << " " << instruction_font_size;

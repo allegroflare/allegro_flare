@@ -175,9 +175,9 @@ void Multicolumn::set_element_alignment(std::string element_alignment)
    if (!(valid_element_alignment(element_alignment)))
    {
       std::stringstream error_message;
-      error_message << "[Multicolumn::set_element_alignment]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::set_element_alignment]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multicolumn::set_element_alignment: error: guard \"valid_element_alignment(element_alignment)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::set_element_alignment]: error: guard \"valid_element_alignment(element_alignment)\" not met");
    }
    this->element_alignment = element_alignment;
    return;
@@ -198,9 +198,9 @@ int Multicolumn::infer_al_text_alignment(std::string element_alignment)
    if (!(valid_element_alignment(element_alignment)))
    {
       std::stringstream error_message;
-      error_message << "[Multicolumn::infer_al_text_alignment]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::infer_al_text_alignment]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multicolumn::infer_al_text_alignment: error: guard \"valid_element_alignment(element_alignment)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::infer_al_text_alignment]: error: guard \"valid_element_alignment(element_alignment)\" not met");
    }
    std::map<std::string, int> al_element_alignments = {
       { "left",     ALLEGRO_ALIGN_LEFT },
@@ -216,9 +216,9 @@ float Multicolumn::infer_text_alignment_x_offset(std::string element_alignment)
    if (!(valid_element_alignment(element_alignment)))
    {
       std::stringstream error_message;
-      error_message << "[Multicolumn::infer_text_alignment_x_offset]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::infer_text_alignment_x_offset]: error: guard \"valid_element_alignment(element_alignment)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multicolumn::infer_text_alignment_x_offset: error: guard \"valid_element_alignment(element_alignment)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::infer_text_alignment_x_offset]: error: guard \"valid_element_alignment(element_alignment)\" not met");
    }
    std::map<std::string, float> element_alignment_offsets = {
       { "left",     0.0f },
@@ -234,23 +234,23 @@ float Multicolumn::render(bool only_calculate_height_dont_render)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Multicolumn::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multicolumn::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Multicolumn::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multicolumn::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Multicolumn::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multicolumn::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    bool is_rendering = (!only_calculate_height_dont_render);
    ALLEGRO_FONT *font = obtain_font();
@@ -319,9 +319,9 @@ ALLEGRO_FONT* Multicolumn::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Multicolumn::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Multicolumn::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::obtain_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier;
    font_identifier << font_name << " " << font_size;

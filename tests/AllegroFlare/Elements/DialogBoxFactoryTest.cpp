@@ -1,12 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Elements/DialogBoxFactory.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 #include <allegro5/allegro.h>
 
@@ -20,9 +16,11 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest, can_be_created_without_blowing_
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, build_basic_test_dialog__without_allegro_initialized__throws_an_error)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   std::string expected_error_message =
-      "DialogBoxFactory::build_basic_test_dialog: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_factory.build_basic_test_dialog(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_factory.build_basic_test_dialog(),
+      "AllegroFlare::Elements::DialogBoxFactory::build_basic_test_dialog",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -48,9 +46,11 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_basic_test_dialog__without_allegro_initialized__throws_an_error)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   std::string expected_error_message =
-      "DialogBoxFactory::create_basic_test_dialog: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_factory.create_basic_test_dialog(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_factory.create_basic_test_dialog(),
+      "AllegroFlare::Elements::DialogBoxFactory::create_basic_test_dialog",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -75,9 +75,11 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, build_basic_dialog__without_allegro_initialized__throws_an_error)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   std::string expected_error_message =
-      "DialogBoxFactory::build_basic_dialog: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_factory.build_basic_dialog(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_factory.build_basic_dialog(),
+      "AllegroFlare::Elements::DialogBoxFactory::build_basic_dialog",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -103,9 +105,11 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest, build_basic_dialog__sets_the_li
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_basic_dialog__without_allegro_initialized__throws_an_error)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   std::string expected_error_message =
-      "DialogBoxFactory::create_basic_dialog: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_factory.create_basic_dialog(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_factory.create_basic_dialog(),
+      "AllegroFlare::Elements::DialogBoxFactory::create_basic_dialog",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -128,9 +132,11 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_basic_dialog__sets_the_l
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_choice_dialog__without_allegro_initialized__throws_an_error)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   std::string expected_error_message =
-      "DialogBoxFactory::create_choice_dialog: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_factory.create_choice_dialog(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_factory.create_choice_dialog(),
+      "AllegroFlare::Elements::DialogBoxFactory::create_choice_dialog",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -164,9 +170,11 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
 TEST(AllegroFlare_Elements_DialogBoxFactoryTest, create_wait_dialog__without_allegro_initialized__throws_an_error)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   std::string expected_error_message =
-      "DialogBoxFactory::create_wait_dialog: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_factory.create_wait_dialog(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_factory.create_wait_dialog(),
+      "AllegroFlare::Elements::DialogBoxFactory::create_wait_dialog",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -186,9 +194,11 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
    create_chapter_title_dialog__without_allegro_initialized__throws_an_error)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   std::string expected_error_message =
-      "DialogBoxFactory::create_chapter_title_dialog: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_factory.create_chapter_title_dialog(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_factory.create_chapter_title_dialog(),
+      "AllegroFlare::Elements::DialogBoxFactory::create_chapter_title_dialog",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -213,12 +223,10 @@ TEST(AllegroFlare_Elements_DialogBoxFactoryTest,
    create_character_feature_dialog__without_allegro_initialized__throws_an_error)
 {
    AllegroFlare::Elements::DialogBoxFactory dialog_factory;
-   std::string expected_error_message =
-      "DialogBoxFactory::create_character_feature_dialog: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       dialog_factory.create_character_feature_dialog(),
-      std::runtime_error,
-      expected_error_message
+      "AllegroFlare::Elements::DialogBoxFactory::create_character_feature_dialog",
+      "al_is_system_installed()"
    );
 }
 

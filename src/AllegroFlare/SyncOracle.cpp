@@ -101,9 +101,9 @@ void SyncOracle::set_display(ALLEGRO_DISPLAY* display)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_display]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_display]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_display: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_display]: error: guard \"(!initialized)\" not met");
    }
    this->display = display;
    return;
@@ -114,9 +114,9 @@ int SyncOracle::get_display_refresh_rate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::get_display_refresh_rate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::get_display_refresh_rate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::get_display_refresh_rate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::get_display_refresh_rate]: error: guard \"initialized\" not met");
    }
    return display_refresh_rate;
 }
@@ -126,9 +126,9 @@ void SyncOracle::set_primary_event_queue(ALLEGRO_EVENT_QUEUE* primary_event_queu
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_primary_event_queue]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_primary_event_queue]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_primary_event_queue: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_primary_event_queue]: error: guard \"(!initialized)\" not met");
    }
    this->primary_event_queue = primary_event_queue;
    return;
@@ -139,23 +139,23 @@ void SyncOracle::set_target_fps(int target_fps)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_target_fps]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_target_fps]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_target_fps: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_target_fps]: error: guard \"(!initialized)\" not met");
    }
    if (!((target_fps > 0)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_target_fps]: error: guard \"(target_fps > 0)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_target_fps]: error: guard \"(target_fps > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_target_fps: error: guard \"(target_fps > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_target_fps]: error: guard \"(target_fps > 0)\" not met");
    }
    if (!((target_fps <= 240)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_target_fps]: error: guard \"(target_fps <= 240)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_target_fps]: error: guard \"(target_fps <= 240)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_target_fps: error: guard \"(target_fps <= 240)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_target_fps]: error: guard \"(target_fps <= 240)\" not met");
    }
    // NOTE: < 240 is just a safety limit, has not been tested at high values
    // TODO: Handle re-creation of timers when this changes
@@ -168,16 +168,16 @@ void SyncOracle::set_num_nudge_notches(int num_nudge_notches)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_num_nudge_notches]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_num_nudge_notches: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(!initialized)\" not met");
    }
    if (!((num_nudge_notches > 2) && (num_nudge_notches < 32)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_num_nudge_notches]: error: guard \"(num_nudge_notches > 2) && (num_nudge_notches < 32)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(num_nudge_notches > 2) && (num_nudge_notches < 32)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_num_nudge_notches: error: guard \"(num_nudge_notches > 2) && (num_nudge_notches < 32)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(num_nudge_notches > 2) && (num_nudge_notches < 32)\" not met");
    }
    // NOTE: < 32 is just for sanity, it's never been used/tested at numbers higher
    // TODO: Handle re-creation of timers when this changes
@@ -190,23 +190,23 @@ void SyncOracle::set_num_hyper_primary_timer_units(int num_hyper_primary_timer_u
    if (!((!hyper_primary_timer_is_active)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(!hyper_primary_timer_is_active)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(!hyper_primary_timer_is_active)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_num_hyper_primary_timer_units: error: guard \"(!hyper_primary_timer_is_active)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(!hyper_primary_timer_is_active)\" not met");
    }
    if (!((num_hyper_primary_timer_units > 2)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(num_hyper_primary_timer_units > 2)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(num_hyper_primary_timer_units > 2)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_num_hyper_primary_timer_units: error: guard \"(num_hyper_primary_timer_units > 2)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(num_hyper_primary_timer_units > 2)\" not met");
    }
    if (!((num_hyper_primary_timer_units < 128)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(num_hyper_primary_timer_units < 128)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(num_hyper_primary_timer_units < 128)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_num_hyper_primary_timer_units: error: guard \"(num_hyper_primary_timer_units < 128)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(num_hyper_primary_timer_units < 128)\" not met");
    }
    // NOTE: < 128 is just for sanity, it's never been used/tested at numbers higher
    // TODO: Handle re-creation of timers when this changes
@@ -219,16 +219,16 @@ void SyncOracle::set_num_measurer_samples(int num_measurer_samples)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_num_measurer_samples]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_num_measurer_samples]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_num_measurer_samples: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_measurer_samples]: error: guard \"(!initialized)\" not met");
    }
    if (!((num_measurer_samples > 0) && (num_measurer_samples < 64*8)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::set_num_measurer_samples]: error: guard \"(num_measurer_samples > 0) && (num_measurer_samples < 64*8)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::set_num_measurer_samples]: error: guard \"(num_measurer_samples > 0) && (num_measurer_samples < 64*8)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::set_num_measurer_samples: error: guard \"(num_measurer_samples > 0) && (num_measurer_samples < 64*8)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_measurer_samples]: error: guard \"(num_measurer_samples > 0) && (num_measurer_samples < 64*8)\" not met");
    }
    // NOTE: < 64*8 is just for sanity, it's never been used/tested at numbers higher
    // TODO: Handle re-creation of timers when this changes
@@ -241,37 +241,37 @@ void SyncOracle::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::initialize]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::initialize]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::initialize: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::initialize]: error: guard \"display\" not met");
    }
    if (!(primary_event_queue))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::initialize]: error: guard \"primary_event_queue\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::initialize]: error: guard \"primary_event_queue\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::initialize: error: guard \"primary_event_queue\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::initialize]: error: guard \"primary_event_queue\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    // Setup the timer
    primary_timer = al_create_timer(calculate_frame_duration_sec());
@@ -302,9 +302,9 @@ void SyncOracle::activate_primary_timer()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::activate_primary_timer]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::activate_primary_timer]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::activate_primary_timer: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::activate_primary_timer]: error: guard \"initialized\" not met");
    }
    if (primary_timer_is_active) return;
    al_start_timer(primary_timer);
@@ -317,9 +317,9 @@ void SyncOracle::deactivate_primary_timer()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::deactivate_primary_timer]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::deactivate_primary_timer]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::deactivate_primary_timer: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::deactivate_primary_timer]: error: guard \"initialized\" not met");
    }
    if (!primary_timer_is_active) return;
    al_stop_timer(primary_timer);
@@ -332,9 +332,9 @@ void SyncOracle::shutdown()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::shutdown]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::shutdown]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::shutdown: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::shutdown]: error: guard \"initialized\" not met");
    }
    if (primary_timer)
    {
@@ -416,9 +416,9 @@ bool SyncOracle::is_primary_timer_event(ALLEGRO_EVENT* al_event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::is_primary_timer_event]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::is_primary_timer_event]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::is_primary_timer_event: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::is_primary_timer_event]: error: guard \"initialized\" not met");
    }
    if (!al_event) return false;
    return (al_event->type == ALLEGRO_EVENT_TIMER && al_event->timer.source == primary_timer);
@@ -509,9 +509,9 @@ void SyncOracle::nudge_primary_timer(int num_nudge_notches_to_move)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::nudge_primary_timer]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::nudge_primary_timer]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::nudge_primary_timer: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::nudge_primary_timer]: error: guard \"initialized\" not met");
    }
    // TODO: Test this
    bool primary_timer_is_running = al_get_timer_started(primary_timer);
@@ -654,23 +654,23 @@ void SyncOracle::draw_metric(std::vector<double>* samples, ALLEGRO_COLOR color, 
    if (!(al_get_current_display()))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::draw_metric]: error: guard \"al_get_current_display()\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::draw_metric]: error: guard \"al_get_current_display()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::draw_metric: error: guard \"al_get_current_display()\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::draw_metric]: error: guard \"al_get_current_display()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::draw_metric]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::draw_metric]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::draw_metric: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::draw_metric]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(samples))
    {
       std::stringstream error_message;
-      error_message << "[SyncOracle::draw_metric]: error: guard \"samples\" not met.";
+      error_message << "[AllegroFlare::SyncOracle::draw_metric]: error: guard \"samples\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SyncOracle::draw_metric: error: guard \"samples\" not met");
+      throw std::runtime_error("[AllegroFlare::SyncOracle::draw_metric]: error: guard \"samples\" not met");
    }
    //float x_scale = 4.0; //w / num_samples; //3.0f; // IMPORTANT: Consider keeping this as an integer for visual
                                                    // pixel alignment making the motion smoother to read

@@ -30,9 +30,9 @@ std::string PromptTemplateYAMLLoader::load_yaml(std::string yaml_as_string, std:
    if (!((!yaml_as_string.empty())))
    {
       std::stringstream error_message;
-      error_message << "[PromptTemplateYAMLLoader::load_yaml]: error: guard \"(!yaml_as_string.empty())\" not met.";
+      error_message << "[AllegroFlare::AI::PromptTemplateYAMLLoader::load_yaml]: error: guard \"(!yaml_as_string.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PromptTemplateYAMLLoader::load_yaml: error: guard \"(!yaml_as_string.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::AI::PromptTemplateYAMLLoader::load_yaml]: error: guard \"(!yaml_as_string.empty())\" not met");
    }
    std::string result;
 

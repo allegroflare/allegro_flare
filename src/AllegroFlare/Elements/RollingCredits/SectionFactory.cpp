@@ -49,9 +49,9 @@ void SectionFactory::set_spacer_width(int spacer_width)
    if (!((spacer_width >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[SectionFactory::set_spacer_width]: error: guard \"(spacer_width >= 0)\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionFactory::set_spacer_width]: error: guard \"(spacer_width >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SectionFactory::set_spacer_width: error: guard \"(spacer_width >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionFactory::set_spacer_width]: error: guard \"(spacer_width >= 0)\" not met");
    }
    this->spacer_width = spacer_width;
    return;
@@ -62,9 +62,9 @@ void SectionFactory::set_section_spacer_width(int section_spacer_width)
    if (!((section_spacer_width >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[SectionFactory::set_section_spacer_width]: error: guard \"(section_spacer_width >= 0)\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionFactory::set_section_spacer_width]: error: guard \"(section_spacer_width >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SectionFactory::set_section_spacer_width: error: guard \"(section_spacer_width >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionFactory::set_section_spacer_width]: error: guard \"(section_spacer_width >= 0)\" not met");
    }
    this->section_spacer_width = section_spacer_width;
    return;
@@ -110,9 +110,9 @@ AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* SectionFactory::c
    if (!((num_columns > 0)))
    {
       std::stringstream error_message;
-      error_message << "[SectionFactory::create_allegro5_contributors_list]: error: guard \"(num_columns > 0)\" not met.";
+      error_message << "[AllegroFlare::Elements::RollingCredits::SectionFactory::create_allegro5_contributors_list]: error: guard \"(num_columns > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SectionFactory::create_allegro5_contributors_list: error: guard \"(num_columns > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::RollingCredits::SectionFactory::create_allegro5_contributors_list]: error: guard \"(num_columns > 0)\" not met");
    }
    AllegroFlare::Elements::RollingCredits::Sections::Multicolumn* section =
      new AllegroFlare::Elements::RollingCredits::Sections::Multicolumn();

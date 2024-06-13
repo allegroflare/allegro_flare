@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 
@@ -43,9 +39,11 @@ TEST_F(AllegroFlare_Screens_TitleScreenTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_Screens_TitleScreenTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Screens::TitleScreen title_screen;
-   std::string expected_error_message =
-      "TitleScreen::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(title_screen.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      title_screen.render(),
+      "AllegroFlare::Screens::TitleScreen::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -53,9 +51,11 @@ TEST_F(AllegroFlare_Screens_TitleScreenTest, render__without_primitives_addon_in
 {
    al_init();
    AllegroFlare::Screens::TitleScreen title_screen;
-   std::string expected_error_message =
-      "TitleScreen::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(title_screen.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      title_screen.render(),
+      "AllegroFlare::Screens::TitleScreen::render",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 

@@ -95,9 +95,9 @@ bool StringFormatValidator::contains_none(std::vector<std::string> strings_to_ma
    if (!((!strings_to_match.empty())))
    {
       std::stringstream error_message;
-      error_message << "[StringFormatValidator::contains_none]: error: guard \"(!strings_to_match.empty())\" not met.";
+      error_message << "[AllegroFlare::StringFormatValidator::contains_none]: error: guard \"(!strings_to_match.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("StringFormatValidator::contains_none: error: guard \"(!strings_to_match.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::StringFormatValidator::contains_none]: error: guard \"(!strings_to_match.empty())\" not met");
    }
    for (const std::string& str : strings_to_match)
    {

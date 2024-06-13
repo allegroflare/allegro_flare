@@ -51,9 +51,9 @@ AllegroFlare::StringTransformer& StringTransformer::expand(int num_spaces)
    if (!((num_spaces >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[StringTransformer::expand]: error: guard \"(num_spaces >= 0)\" not met.";
+      error_message << "[AllegroFlare::StringTransformer::expand]: error: guard \"(num_spaces >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("StringTransformer::expand: error: guard \"(num_spaces >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::StringTransformer::expand]: error: guard \"(num_spaces >= 0)\" not met");
    }
    std::string interpolate_string(num_spaces, ' ');
    std::stringstream result;
@@ -78,9 +78,9 @@ std::string StringTransformer::join_with_commas(std::set<std::string>* elements)
    if (!(elements))
    {
       std::stringstream error_message;
-      error_message << "[StringTransformer::join_with_commas]: error: guard \"elements\" not met.";
+      error_message << "[AllegroFlare::StringTransformer::join_with_commas]: error: guard \"elements\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("StringTransformer::join_with_commas: error: guard \"elements\" not met");
+      throw std::runtime_error("[AllegroFlare::StringTransformer::join_with_commas]: error: guard \"elements\" not met");
    }
    std::ostringstream result;
    for (auto it = elements->begin(); it != elements->end(); ++it)
@@ -96,9 +96,9 @@ std::string StringTransformer::join(std::vector<std::string>* elements, std::str
    if (!(elements))
    {
       std::stringstream error_message;
-      error_message << "[StringTransformer::join]: error: guard \"elements\" not met.";
+      error_message << "[AllegroFlare::StringTransformer::join]: error: guard \"elements\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("StringTransformer::join: error: guard \"elements\" not met");
+      throw std::runtime_error("[AllegroFlare::StringTransformer::join]: error: guard \"elements\" not met");
    }
    std::ostringstream result;
    for (auto it = elements->begin(); it != elements->end(); ++it)

@@ -60,9 +60,9 @@ AllegroFlare::GraphicsPipelines::Basic3D::Scene& Basic3D::get_scene_ref()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Basic3D::get_scene_ref]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Basic3D::get_scene_ref]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic3D::get_scene_ref: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Basic3D::get_scene_ref]: error: guard \"initialized\" not met");
    }
    // TODO: Test this guard
    return scene;
@@ -73,23 +73,23 @@ void Basic3D::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Basic3D::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Basic3D::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic3D::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Basic3D::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[Basic3D::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Basic3D::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic3D::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Basic3D::initialize]: error: guard \"model_bin\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Basic3D::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Basic3D::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic3D::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Basic3D::initialize]: error: guard \"bitmap_bin\" not met");
    }
    scene.set_bitmap_bin(bitmap_bin);
    scene.set_model_bin(model_bin);
@@ -103,9 +103,9 @@ void Basic3D::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Basic3D::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Basic3D::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic3D::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Basic3D::render]: error: guard \"initialized\" not met");
    }
    scene.render();
    return;

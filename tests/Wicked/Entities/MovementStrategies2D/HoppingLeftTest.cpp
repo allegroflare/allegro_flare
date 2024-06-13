@@ -1,13 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <Wicked/Entities/MovementStrategies2D/HoppingLeft.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, can_be_created_without_blowing_up)
@@ -19,7 +15,10 @@ TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, can_be_created_withou
 TEST(Wicked_Entities_MovementStrategies2D_HoppingLeftTest, update__without_an_entity__throws_an_error)
 {
    Wicked::Entities::MovementStrategies2D::HoppingLeft strategy;
-   std::string expected_error_message = "HoppingLeft::update: error: guard \"entity\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Wicked::Entities::MovementStrategies2D::HoppingLeft::update",
+      "entity"
+   );
    EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
 }
 

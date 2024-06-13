@@ -103,9 +103,9 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[WithAllegroFlareFrameworksFullFixture::SetUp]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::SetUp]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::SetUp: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::SetUp]: error: guard \"(!initialized)\" not met");
    }
    test_prefix_tokens = extract_test_prefix_tokens();
 
@@ -143,9 +143,9 @@ void WithAllegroFlareFrameworksFullFixture::TearDown()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WithAllegroFlareFrameworksFullFixture::TearDown]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::TearDown]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::TearDown: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::TearDown]: error: guard \"initialized\" not met");
    }
    // TODO: Test this screenshot inference and action logic
    if (test_name_indicates_it_wants_a_screenshot())
@@ -173,9 +173,9 @@ void WithAllegroFlareFrameworksFullFixture::framework_register_and_activate_scre
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WithAllegroFlareFrameworksFullFixture::framework_register_and_activate_screen]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::framework_register_and_activate_screen]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::framework_register_and_activate_screen: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::framework_register_and_activate_screen]: error: guard \"initialized\" not met");
    }
    framework.register_and_activate_screen(name, screen);
    return;
@@ -186,9 +186,9 @@ void WithAllegroFlareFrameworksFullFixture::framework_register_screen(std::strin
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WithAllegroFlareFrameworksFullFixture::framework_register_screen]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::framework_register_screen]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::framework_register_screen: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::framework_register_screen]: error: guard \"initialized\" not met");
    }
    // TODO: Test this method
    framework.register_screen(name, screen);
@@ -200,9 +200,9 @@ void WithAllegroFlareFrameworksFullFixture::framework_activate_screen(std::strin
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WithAllegroFlareFrameworksFullFixture::framework_activate_screen]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::framework_activate_screen]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::framework_activate_screen: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::framework_activate_screen]: error: guard \"initialized\" not met");
    }
    // TODO: Test this method
    framework.activate_screen(name);
@@ -214,9 +214,9 @@ void WithAllegroFlareFrameworksFullFixture::framework_run_loop(float num_seconds
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WithAllegroFlareFrameworksFullFixture::framework_run_loop]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::framework_run_loop]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WithAllegroFlareFrameworksFullFixture::framework_run_loop: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::framework_run_loop]: error: guard \"initialized\" not met");
    }
    framework.run_loop(num_seconds_to_auto_abort);
    return;

@@ -197,9 +197,9 @@ std::string YAMLValidator::get_type_string(YAML::Node* node_ptr)
    if (!(node_ptr))
    {
       std::stringstream error_message;
-      error_message << "[YAMLValidator::get_type_string]: error: guard \"node_ptr\" not met.";
+      error_message << "[AllegroFlare::YAMLValidator::get_type_string]: error: guard \"node_ptr\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLValidator::get_type_string: error: guard \"node_ptr\" not met");
+      throw std::runtime_error("[AllegroFlare::YAMLValidator::get_type_string]: error: guard \"node_ptr\" not met");
    }
    // TODO: Test this function
    YAML::Node &node = (*node_ptr);

@@ -89,9 +89,9 @@ void CarouselElementRenderer::render(AllegroFlare::Elements::ChapterSelect::Caro
    if (!(element))
    {
       std::stringstream error_message;
-      error_message << "[CarouselElementRenderer::render]: error: guard \"element\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::render]: error: guard \"element\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CarouselElementRenderer::render: error: guard \"element\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::render]: error: guard \"element\" not met");
    }
    render_or_calculate_dimensions(element, false);
    return;
@@ -102,9 +102,9 @@ std::pair<float, float> CarouselElementRenderer::calculate_dimensions(AllegroFla
    if (!(element))
    {
       std::stringstream error_message;
-      error_message << "[CarouselElementRenderer::calculate_dimensions]: error: guard \"element\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::calculate_dimensions]: error: guard \"element\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CarouselElementRenderer::calculate_dimensions: error: guard \"element\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::calculate_dimensions]: error: guard \"element\" not met");
    }
    return render_or_calculate_dimensions(element, true);
 }
@@ -114,9 +114,9 @@ std::pair<float, float> CarouselElementRenderer::render_or_calculate_dimensions(
    if (!(element))
    {
       std::stringstream error_message;
-      error_message << "[CarouselElementRenderer::render_or_calculate_dimensions]: error: guard \"element\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::render_or_calculate_dimensions]: error: guard \"element\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CarouselElementRenderer::render_or_calculate_dimensions: error: guard \"element\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::render_or_calculate_dimensions]: error: guard \"element\" not met");
    }
    std::pair<float, float> result_dimensions{0, 0}; 
 
@@ -179,9 +179,9 @@ std::pair<float, float> CarouselElementRenderer::render_or_calculate_dimensions_
    if (!(element))
    {
       std::stringstream error_message;
-      error_message << "[CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabel]: error: guard \"element\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabel]: error: guard \"element\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabel: error: guard \"element\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabel]: error: guard \"element\" not met");
    }
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer renderer;
    renderer.set_bitmap_bin(bitmap_bin);
@@ -206,9 +206,9 @@ std::pair<float, float> CarouselElementRenderer::render_or_calculate_dimensions_
    if (!(element))
    {
       std::stringstream error_message;
-      error_message << "[CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabelUnlockable]: error: guard \"element\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabelUnlockable]: error: guard \"element\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabelUnlockable: error: guard \"element\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::CarouselElementRenderer::render_or_calculate_dimensions_for__ThumbnailWithLabelUnlockable]: error: guard \"element\" not met");
    }
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelUnlockableRenderer renderer;
    renderer.set_bitmap_bin(bitmap_bin);

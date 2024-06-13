@@ -22,9 +22,11 @@ TEST_F(AllegroFlare_WorldMapRendererTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_WorldMapRendererTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::WorldMapRenderer world_map_renderer;
-   std::string expected_error_message =
-      "WorldMapRenderer::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(world_map_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      world_map_renderer.render(),
+      "AllegroFlare::WorldMapRenderer::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -32,9 +34,11 @@ TEST_F(AllegroFlare_WorldMapRendererTest, render__without_primitives_addon_initi
 {
    al_init();
    AllegroFlare::WorldMapRenderer world_map_renderer;
-   std::string expected_error_message =
-      "WorldMapRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(world_map_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      world_map_renderer.render(),
+      "AllegroFlare::WorldMapRenderer::render",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -44,9 +48,11 @@ TEST_F(AllegroFlare_WorldMapRendererTest, render__without_font_addon_initialized
    al_init();
    al_init_primitives_addon();
    AllegroFlare::WorldMapRenderer world_map_renderer;
-   std::string expected_error_message =
-      "WorldMapRenderer::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(world_map_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      world_map_renderer.render(),
+      "AllegroFlare::WorldMapRenderer::render",
+      "al_is_font_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -58,9 +64,11 @@ TEST_F(AllegroFlare_WorldMapRendererTest, render__without_a_font_bin__raises_an_
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::WorldMapRenderer world_map_renderer;
-   std::string expected_error_message =
-      "WorldMapRenderer::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(world_map_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      world_map_renderer.render(),
+      "AllegroFlare::WorldMapRenderer::render",
+      "font_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();

@@ -186,9 +186,9 @@ void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
    if (!(game_event))
    {
       std::stringstream error_message;
-      error_message << "[Complete::game_event_func]: error: guard \"game_event\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::game_event_func]: error: guard \"game_event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::game_event_func: error: guard \"game_event\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::game_event_func]: error: guard \"game_event\" not met");
    }
    game_configuration->handle_game_event(game_event);
    return;
@@ -199,51 +199,51 @@ void Complete::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Complete::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(framework))
    {
       std::stringstream error_message;
-      error_message << "[Complete::initialize]: error: guard \"framework\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"framework\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::initialize: error: guard \"framework\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"framework\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Complete::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Complete::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Complete::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"font_bin\" not met");
    }
    if (!(model_bin))
    {
       std::stringstream error_message;
-      error_message << "[Complete::initialize]: error: guard \"model_bin\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"model_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::initialize: error: guard \"model_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"model_bin\" not met");
    }
    if (!(game_configuration))
    {
       std::stringstream error_message;
-      error_message << "[Complete::initialize]: error: guard \"game_configuration\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"game_configuration\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::initialize: error: guard \"game_configuration\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"game_configuration\" not met");
    }
    // Create some references for convenience
    AllegroFlare::Achievements &achievements = framework->get_achievements_ref();
@@ -435,16 +435,16 @@ bool Complete::on_route_event_unhandled_func(uint32_t unhandled_event, AllegroFl
    if (!(router))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_route_event_unhandled_func]: error: guard \"router\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_route_event_unhandled_func]: error: guard \"router\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_route_event_unhandled_func: error: guard \"router\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_route_event_unhandled_func]: error: guard \"router\" not met");
    }
    if (!(user_data))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_route_event_unhandled_func]: error: guard \"user_data\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_route_event_unhandled_func]: error: guard \"user_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_route_event_unhandled_func: error: guard \"user_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_route_event_unhandled_func]: error: guard \"user_data\" not met");
    }
    // TODO: Consider removing this method and having all Routers/Standard events be internal
    AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
@@ -467,16 +467,16 @@ bool Complete::on_gameplay_paused_func(AllegroFlare::Routers::Standard* router, 
    if (!(router))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_gameplay_paused_func]: error: guard \"router\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_gameplay_paused_func]: error: guard \"router\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_gameplay_paused_func: error: guard \"router\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_gameplay_paused_func]: error: guard \"router\" not met");
    }
    if (!(user_data))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_gameplay_paused_func]: error: guard \"user_data\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_gameplay_paused_func]: error: guard \"user_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_gameplay_paused_func: error: guard \"user_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_gameplay_paused_func]: error: guard \"user_data\" not met");
    }
    AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
    this_runner->game_configuration->handle_primary_gameplay_screen_paused();
@@ -488,16 +488,16 @@ bool Complete::on_gameplay_unpaused_func(AllegroFlare::Routers::Standard* router
    if (!(router))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_gameplay_unpaused_func]: error: guard \"router\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_gameplay_unpaused_func]: error: guard \"router\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_gameplay_unpaused_func: error: guard \"router\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_gameplay_unpaused_func]: error: guard \"router\" not met");
    }
    if (!(user_data))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_gameplay_unpaused_func]: error: guard \"user_data\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_gameplay_unpaused_func]: error: guard \"user_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_gameplay_unpaused_func: error: guard \"user_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_gameplay_unpaused_func]: error: guard \"user_data\" not met");
    }
    AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
    this_runner->game_configuration->handle_primary_gameplay_screen_unpaused();
@@ -509,16 +509,16 @@ bool Complete::on_primary_gameplay_screen_finished_func(AllegroFlare::Routers::S
    if (!(router))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_primary_gameplay_screen_finished_func]: error: guard \"router\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_primary_gameplay_screen_finished_func]: error: guard \"router\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_primary_gameplay_screen_finished_func: error: guard \"router\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_primary_gameplay_screen_finished_func]: error: guard \"router\" not met");
    }
    if (!(user_data))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_primary_gameplay_screen_finished_func]: error: guard \"user_data\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_primary_gameplay_screen_finished_func]: error: guard \"user_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_primary_gameplay_screen_finished_func: error: guard \"user_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_primary_gameplay_screen_finished_func]: error: guard \"user_data\" not met");
    }
    AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
    this_runner->game_configuration->handle_primary_gameplay_screen_finished();
@@ -530,16 +530,16 @@ bool Complete::on_arbitrary_storyboard_screen_finished_func(AllegroFlare::Router
    if (!(router))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_arbitrary_storyboard_screen_finished_func]: error: guard \"router\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_arbitrary_storyboard_screen_finished_func]: error: guard \"router\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_arbitrary_storyboard_screen_finished_func: error: guard \"router\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_arbitrary_storyboard_screen_finished_func]: error: guard \"router\" not met");
    }
    if (!(user_data))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_arbitrary_storyboard_screen_finished_func]: error: guard \"user_data\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_arbitrary_storyboard_screen_finished_func]: error: guard \"user_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_arbitrary_storyboard_screen_finished_func: error: guard \"user_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_arbitrary_storyboard_screen_finished_func]: error: guard \"user_data\" not met");
    }
    AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
    this_runner->game_configuration->handle_arbitrary_storyboard_screen_finished();
@@ -551,16 +551,16 @@ bool Complete::on_arbitrary_storyboard_screen_activated_func(AllegroFlare::Route
    if (!(router))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_arbitrary_storyboard_screen_activated_func]: error: guard \"router\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_arbitrary_storyboard_screen_activated_func]: error: guard \"router\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_arbitrary_storyboard_screen_activated_func: error: guard \"router\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_arbitrary_storyboard_screen_activated_func]: error: guard \"router\" not met");
    }
    if (!(user_data))
    {
       std::stringstream error_message;
-      error_message << "[Complete::on_arbitrary_storyboard_screen_activated_func]: error: guard \"user_data\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::on_arbitrary_storyboard_screen_activated_func]: error: guard \"user_data\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::on_arbitrary_storyboard_screen_activated_func: error: guard \"user_data\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::on_arbitrary_storyboard_screen_activated_func]: error: guard \"user_data\" not met");
    }
    AllegroFlare::Runners::Complete* this_runner = static_cast<AllegroFlare::Runners::Complete*>(user_data);
    //this_runner->game_configuration->handle_arbitrary_storyboard_screen_activated(); // TODO: Is this necessary?
@@ -580,9 +580,9 @@ void Complete::setup_router()
    if (!(primary_gameplay_screen))
    {
       std::stringstream error_message;
-      error_message << "[Complete::setup_router]: error: guard \"primary_gameplay_screen\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::setup_router]: error: guard \"primary_gameplay_screen\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::setup_router: error: guard \"primary_gameplay_screen\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::setup_router]: error: guard \"primary_gameplay_screen\" not met");
    }
    router.set_screen_manager(&framework->get_screen_manager_ref());
    router.set_event_emitter(event_emitter);
@@ -1043,9 +1043,9 @@ void Complete::run(AllegroFlare::GameConfigurations::Complete* game_configuratio
    if (!(game_configuration))
    {
       std::stringstream error_message;
-      error_message << "[Complete::run]: error: guard \"game_configuration\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::run]: error: guard \"game_configuration\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Complete::run: error: guard \"game_configuration\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::run]: error: guard \"game_configuration\" not met");
    }
    // setup the framework
    AllegroFlare::Frameworks::Full *framework = new AllegroFlare::Frameworks::Full();

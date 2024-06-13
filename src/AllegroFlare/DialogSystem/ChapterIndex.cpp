@@ -56,9 +56,9 @@ void ChapterIndex::add_chapter(std::string identifier, AllegroFlare::DialogSyste
    if (!((!chapter_exists_by_identifier(identifier))))
    {
       std::stringstream error_message;
-      error_message << "[ChapterIndex::add_chapter]: error: guard \"(!chapter_exists_by_identifier(identifier))\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::ChapterIndex::add_chapter]: error: guard \"(!chapter_exists_by_identifier(identifier))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterIndex::add_chapter: error: guard \"(!chapter_exists_by_identifier(identifier))\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::ChapterIndex::add_chapter]: error: guard \"(!chapter_exists_by_identifier(identifier))\" not met");
    }
    chapters[identifier] = chapter;
 }
@@ -73,9 +73,9 @@ AllegroFlare::DialogSystem::Chapters::Base* ChapterIndex::find_chapter_by_identi
    if (!(chapter_exists_by_identifier(identifier)))
    {
       std::stringstream error_message;
-      error_message << "[ChapterIndex::find_chapter_by_identifier]: error: guard \"chapter_exists_by_identifier(identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::ChapterIndex::find_chapter_by_identifier]: error: guard \"chapter_exists_by_identifier(identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChapterIndex::find_chapter_by_identifier: error: guard \"chapter_exists_by_identifier(identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::ChapterIndex::find_chapter_by_identifier]: error: guard \"chapter_exists_by_identifier(identifier)\" not met");
    }
    // TODO: This guard results in a double lookup. Might be faster to integrate it below.
    if (chapters.find(identifier) == chapters.end()) return nullptr;

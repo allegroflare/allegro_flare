@@ -2,7 +2,6 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
@@ -28,9 +27,11 @@ TEST_F(AllegroFlare_Elements_AdvancingTextRendererTest, can_be_created_without_b
 TEST_F(AllegroFlare_Elements_AdvancingTextRendererTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::AdvancingTextRenderer advancing_text_renderer;
-   std::string expected_error_message =
-      "AdvancingTextRenderer::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(advancing_text_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      advancing_text_renderer.render(),
+      "AllegroFlare::Elements::AdvancingTextRenderer::render",
+      "al_is_system_installed()"
+   );
 }
 
 

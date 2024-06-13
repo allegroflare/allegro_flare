@@ -1,12 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.hpp>
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -54,7 +49,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
 
    std::string expected_error_message = "[UPDATE-THIS]";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
 
 
@@ -70,7 +65,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__on_a_file_wi
       "JSON. The following error was thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line "
       "1, column 10: syntax error while parsing value - unexpected '}'; expected '[', '{', or a literal\"";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message.str());
+   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message.str());
 }
 
 
@@ -89,9 +84,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__if_load_has_
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
    loader.load();
 
-   std::string expected_error_message = "TMJDataLoader::load: error: guard \"(!loaded)\" not met";
-
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.load(),
+      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+      "(!loaded)"
+   );
 }
 
 
@@ -179,7 +176,7 @@ std::string expected_error_message = R"(TMJMeshLoader: error: collision_tilelaye
     - name: ""Object Layer 1""
 )";
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
 
 
@@ -187,8 +184,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    get_num_columns__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_num_columns: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_num_columns(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_num_columns(),
+      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_num_columns",
+      "loaded"
+   );
 }
 
 
@@ -196,8 +196,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    get_num_rows__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_num_rows: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_num_rows(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_num_rows(),
+      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_num_rows",
+      "loaded"
+   );
 }
 
 
@@ -205,8 +208,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    get_tile_width__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_tile_width: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_tile_width(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_tile_width(),
+      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_tile_width",
+      "loaded"
+   );
 }
 
 
@@ -214,8 +220,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    get_tile_height__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_tile_height: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_tile_height(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_tile_height(),
+      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_tile_height",
+      "loaded"
+   );
 }
 
 
@@ -223,8 +232,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    get_layer_num_columns__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_layer_num_columns: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_layer_num_columns(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_layer_num_columns(),
+      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_layer_num_columns",
+      "loaded"
+   );
 }
 
 
@@ -232,8 +244,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    get_layer_num_rows__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_layer_num_rows: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_layer_num_rows(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_layer_num_rows(),
+      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_layer_num_rows",
+      "loaded"
+   );
 }
 
 
@@ -241,7 +256,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    get_layer_tile_data__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader;
-   std::string expected_error_message = "TMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met";
-   ASSERT_THROW_WITH_MESSAGE(loader.get_layer_tile_data(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_layer_tile_data(),
+      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_layer_tile_data",
+      "loaded"
+   );
 }
+
 

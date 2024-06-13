@@ -29,7 +29,11 @@ TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest, type__has_the_expecte
 TEST(AllegroFlare_PhysicalInputDevices_Joysticks_BaseTest, setup__without_an_al_joystick__will_throw_an_error)
 {
    AllegroFlare::PhysicalInputDevices::Joysticks::Base generic_joystick;
-   EXPECT_THROW_GUARD_ERROR(generic_joystick.setup(), "Base::setup", "al_joystick");
+   EXPECT_THROW_GUARD_ERROR(
+      generic_joystick.setup(),
+      "AllegroFlare::PhysicalInputDevices::Joysticks::Base::setup",
+      "al_joystick"
+   );
 }
 
 

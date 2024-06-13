@@ -54,9 +54,9 @@ void AABB3D::expand(float amount)
    if (!((amount > 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AABB3D::expand]: error: guard \"(amount > 0.0f)\" not met.";
+      error_message << "[AllegroFlare::Physics::AABB3D::expand]: error: guard \"(amount > 0.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AABB3D::expand: error: guard \"(amount > 0.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::AABB3D::expand]: error: guard \"(amount > 0.0f)\" not met");
    }
    min.x -= amount;
    min.y -= amount;
@@ -72,9 +72,9 @@ bool AABB3D::collides(AllegroFlare::Physics::AABB3D* other, AllegroFlare::Vec3D 
    if (!(other))
    {
       std::stringstream error_message;
-      error_message << "[AABB3D::collides]: error: guard \"other\" not met.";
+      error_message << "[AllegroFlare::Physics::AABB3D::collides]: error: guard \"other\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AABB3D::collides: error: guard \"other\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::AABB3D::collides]: error: guard \"other\" not met");
    }
    // TODO: consider less assignment, add values directly into the conditional
 

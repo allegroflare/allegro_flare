@@ -1,13 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <Wicked/Entities/MovementStrategies2D/ReflectOffWalls.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 TEST(Wicked_Entities_MovementStrategies2D_ReflectOffWallsTest, can_be_created_without_blowing_up)
@@ -19,8 +15,11 @@ TEST(Wicked_Entities_MovementStrategies2D_ReflectOffWallsTest, can_be_created_wi
 TEST(Wicked_Entities_MovementStrategies2D_ReflectOffWallsTest, update__without_an_entity__throws_an_error)
 {
    Wicked::Entities::MovementStrategies2D::ReflectOffWalls strategy;
-   std::string expected_error_message = "ReflectOffWalls::update: error: guard \"entity\" not met";
-   ASSERT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "Wicked::Entities::MovementStrategies2D::ReflectOffWalls::update",
+      "entity"
+   );
+   EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
 }
 
 

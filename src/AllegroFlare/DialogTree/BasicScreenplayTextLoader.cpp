@@ -40,9 +40,9 @@ void BasicScreenplayTextLoader::set_text(std::string text)
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[BasicScreenplayTextLoader::set_text]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::DialogTree::BasicScreenplayTextLoader::set_text]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicScreenplayTextLoader::set_text: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::BasicScreenplayTextLoader::set_text]: error: guard \"(!loaded)\" not met");
    }
    this->text = text;
    return;
@@ -53,9 +53,9 @@ AllegroFlare::DialogTree::NodeBank BasicScreenplayTextLoader::get_node_bank()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[BasicScreenplayTextLoader::get_node_bank]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::DialogTree::BasicScreenplayTextLoader::get_node_bank]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicScreenplayTextLoader::get_node_bank: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::BasicScreenplayTextLoader::get_node_bank]: error: guard \"loaded\" not met");
    }
    return node_bank;
 }
@@ -65,16 +65,16 @@ void BasicScreenplayTextLoader::load_file(std::string filename)
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[BasicScreenplayTextLoader::load_file]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::DialogTree::BasicScreenplayTextLoader::load_file]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicScreenplayTextLoader::load_file: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::BasicScreenplayTextLoader::load_file]: error: guard \"(!loaded)\" not met");
    }
    if (!((AllegroFlare::php::file_exists(filename))))
    {
       std::stringstream error_message;
-      error_message << "[BasicScreenplayTextLoader::load_file]: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met.";
+      error_message << "[AllegroFlare::DialogTree::BasicScreenplayTextLoader::load_file]: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicScreenplayTextLoader::load_file: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::BasicScreenplayTextLoader::load_file]: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met");
    }
    // TODO: Test this method
    // TODO: Remove "file_exists" using php as dependency, consider alternative that outputs name of missing file
@@ -87,9 +87,9 @@ const AllegroFlare::DialogTree::NodeBank& BasicScreenplayTextLoader::load()
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[BasicScreenplayTextLoader::load]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::DialogTree::BasicScreenplayTextLoader::load]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicScreenplayTextLoader::load: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::BasicScreenplayTextLoader::load]: error: guard \"(!loaded)\" not met");
    }
    std::vector<std::string> chunks = split(text, "\n\n");
    int node_id = 0;

@@ -61,37 +61,37 @@ void AudioController::initialize()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::AudioController::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_audio_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::initialize]: error: guard \"al_is_audio_installed()\" not met.";
+      error_message << "[AllegroFlare::AudioController::initialize]: error: guard \"al_is_audio_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::initialize: error: guard \"al_is_audio_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::initialize]: error: guard \"al_is_audio_installed()\" not met");
    }
    if (!(al_is_acodec_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::AudioController::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::initialize: error: guard \"al_is_acodec_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::initialize]: error: guard \"al_is_acodec_addon_initialized()\" not met");
    }
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::AudioController::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(sample_bin))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::initialize]: error: guard \"sample_bin\" not met.";
+      error_message << "[AllegroFlare::AudioController::initialize]: error: guard \"sample_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::initialize: error: guard \"sample_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::initialize]: error: guard \"sample_bin\" not met");
    }
    // TODO: improve these couts
    if (output_loading_debug_to_cout) std::cout << "Loading assets in AudioController... " << std::endl;
@@ -116,9 +116,9 @@ void AudioController::set_and_load_sound_effect_elements(std::map<std::string, A
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::set_and_load_sound_effect_elements]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::AudioController::set_and_load_sound_effect_elements]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::set_and_load_sound_effect_elements: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::set_and_load_sound_effect_elements]: error: guard \"initialized\" not met");
    }
    destruct_all_sound_effects();
 
@@ -132,9 +132,9 @@ void AudioController::set_and_load_music_track_elements(std::map<std::string, Al
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::set_and_load_music_track_elements]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::AudioController::set_and_load_music_track_elements]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::set_and_load_music_track_elements: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::set_and_load_music_track_elements]: error: guard \"initialized\" not met");
    }
    destruct_all_music_tracks();
 
@@ -246,9 +246,9 @@ void AudioController::stop_all()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::stop_all]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::AudioController::stop_all]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::stop_all: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::stop_all]: error: guard \"initialized\" not met");
    }
    stop_all_sound_effects();
    stop_all_music_tracks();
@@ -273,9 +273,9 @@ void AudioController::set_global_volume(float volume)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::set_global_volume]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::AudioController::set_global_volume]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::set_global_volume: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::set_global_volume]: error: guard \"initialized\" not met");
    }
    // TODO: tweak this so that calling this function will not overwrite custom volumes
    // that exist on the repository elements
@@ -289,9 +289,9 @@ void AudioController::play_sound_effect(std::string identifier)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::play_sound_effect]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::AudioController::play_sound_effect]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::play_sound_effect: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::play_sound_effect]: error: guard \"initialized\" not met");
    }
    Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
    AudioRepositoryElement element = find_sound_effect_element_by_identifier(identifier);
@@ -322,9 +322,9 @@ void AudioController::play_music_track(std::string identifier)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AudioController::play_music_track]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::AudioController::play_music_track]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AudioController::play_music_track: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::AudioController::play_music_track]: error: guard \"initialized\" not met");
    }
    Sound *sound = find_music_track_sound_object_by_identifier(identifier);
    AudioRepositoryElement element = find_music_track_element_by_identifier(identifier);

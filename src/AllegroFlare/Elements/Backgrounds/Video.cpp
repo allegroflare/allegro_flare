@@ -73,9 +73,9 @@ void Video::set_video_bin(AllegroFlare::VideoBin* video_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Video::set_video_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Video::set_video_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Video::set_video_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Video::set_video_bin]: error: guard \"(!initialized)\" not met");
    }
    this->video_bin = video_bin;
    return;
@@ -86,9 +86,9 @@ void Video::set_video_identifier(std::string video_identifier)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Video::set_video_identifier]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Video::set_video_identifier]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Video::set_video_identifier: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Video::set_video_identifier]: error: guard \"(!initialized)\" not met");
    }
    this->video_identifier = video_identifier;
    return;
@@ -99,16 +99,16 @@ void Video::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Video::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Video::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Video::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Video::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(video_bin))
    {
       std::stringstream error_message;
-      error_message << "[Video::initialize]: error: guard \"video_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Video::initialize]: error: guard \"video_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Video::initialize: error: guard \"video_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Video::initialize]: error: guard \"video_bin\" not met");
    }
    initialized = true;
    return;
@@ -119,9 +119,9 @@ void Video::activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Video::activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Video::activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Video::activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Video::activate]: error: guard \"initialized\" not met");
    }
    ALLEGRO_VIDEO *video = obtain_video();
    if (video)
@@ -139,9 +139,9 @@ void Video::deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Video::deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Video::deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Video::deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Video::deactivate]: error: guard \"initialized\" not met");
    }
    ALLEGRO_VIDEO *video = obtain_video();
    if (video) al_set_video_playing(video, false);
@@ -153,9 +153,9 @@ void Video::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Video::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Video::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Video::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Video::render]: error: guard \"initialized\" not met");
    }
    if (!video_is_playing) return;
 
@@ -187,9 +187,9 @@ ALLEGRO_VIDEO* Video::obtain_video()
    if (!(video_bin))
    {
       std::stringstream error_message;
-      error_message << "[Video::obtain_video]: error: guard \"video_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Video::obtain_video]: error: guard \"video_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Video::obtain_video: error: guard \"video_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Video::obtain_video]: error: guard \"video_bin\" not met");
    }
    return video_bin->auto_get(video_identifier);
 }

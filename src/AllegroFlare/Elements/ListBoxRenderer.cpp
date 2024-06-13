@@ -247,16 +247,16 @@ void ListBoxRenderer::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    draw_frame();
    draw_choices_with_cursor_and_current_selection();
@@ -285,16 +285,16 @@ float ListBoxRenderer::calculate_content_width()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_content_width]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::calculate_content_width]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_content_width: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::calculate_content_width]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_content_width]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::calculate_content_width]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_content_width: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::calculate_content_width]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // TODO: Add more tests for this function
    ALLEGRO_FONT* text_font = obtain_text_font();
@@ -319,16 +319,16 @@ float ListBoxRenderer::calculate_content_height()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_content_height]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::calculate_content_height]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::calculate_content_height]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_content_height]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::calculate_content_height]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_content_height: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::calculate_content_height]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    int num_items = list_items.size();
    if (num_items == 0) return 0;
@@ -372,9 +372,9 @@ void ListBoxRenderer::set_width_to_fit_content_or_max_and_min(float max, float m
    if (!((max >= min)))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::set_width_to_fit_content_or_max_and_min]: error: guard \"(max >= min)\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::set_width_to_fit_content_or_max_and_min]: error: guard \"(max >= min)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::set_width_to_fit_content_or_max_and_min: error: guard \"(max >= min)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::set_width_to_fit_content_or_max_and_min]: error: guard \"(max >= min)\" not met");
    }
    // TODO: Test this method
    float max_content_width = max - (text_padding_x * 2);
@@ -461,23 +461,23 @@ std::tuple<float, float, float, float> ListBoxRenderer::calculate_dimensions_for
    if (!((!list_items.empty())))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(!list_items.empty())\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(!list_items.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_dimensions_for_list_item_at_position: error: guard \"(!list_items.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(!list_items.empty())\" not met");
    }
    if (!((list_item_position >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position >= 0)\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_dimensions_for_list_item_at_position: error: guard \"(list_item_position >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position >= 0)\" not met");
    }
    if (!((list_item_position < list_items.size())))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position < list_items.size())\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position < list_items.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::calculate_dimensions_for_list_item_at_position: error: guard \"(list_item_position < list_items.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::calculate_dimensions_for_list_item_at_position]: error: guard \"(list_item_position < list_items.size())\" not met");
    }
    ALLEGRO_FONT* text_font = obtain_text_font();
    float item_max_width = calculate_list_item_max_width();
@@ -582,23 +582,23 @@ ALLEGRO_FONT* ListBoxRenderer::obtain_text_font()
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_text_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::obtain_text_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_text_font: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::obtain_text_font]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_text_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::obtain_text_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_text_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::obtain_text_font]: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[ListBoxRenderer::obtain_text_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::ListBoxRenderer::obtain_text_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ListBoxRenderer::obtain_text_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ListBoxRenderer::obtain_text_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier;
    font_identifier << font_name << " " << font_size;

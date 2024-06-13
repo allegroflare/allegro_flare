@@ -5,6 +5,7 @@
 
 #include <AllegroFlare/InputDevicesList.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Color.hpp> // for AllegroFlare::Color::Aquamarine as test result
 
 
@@ -34,9 +35,11 @@ TEST_F(AllegroFlare_InputDevicesListTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_InputDevicesListTest, initialize__without_allegro_installed__will_throw_an_error)
 {
    AllegroFlare::InputDevicesList physical_input_device_list;
-   std::string expected_error_message =
-      "InputDevicesList::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(physical_input_device_list.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      physical_input_device_list.initialize(),
+      "AllegroFlare::InputDevicesList::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 

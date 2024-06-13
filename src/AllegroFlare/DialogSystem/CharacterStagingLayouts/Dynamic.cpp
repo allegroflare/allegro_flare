@@ -166,9 +166,9 @@ void Dynamic::add_staged_character(std::string staged_character_identifier, Alle
    if (!((!staged_character_exists(staged_character_identifier))))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::add_staged_character]: error: guard \"(!staged_character_exists(staged_character_identifier))\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::add_staged_character]: error: guard \"(!staged_character_exists(staged_character_identifier))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::add_staged_character: error: guard \"(!staged_character_exists(staged_character_identifier))\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::add_staged_character]: error: guard \"(!staged_character_exists(staged_character_identifier))\" not met");
    }
    staged_characters.push_back({ staged_character_identifier, staged_character });
    return;
@@ -201,9 +201,9 @@ void Dynamic::set_staged_character_placement(std::string staged_character_identi
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::set_staged_character_placement]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::set_staged_character_placement]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::set_staged_character_placement: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::set_staged_character_placement]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    find_staged_character(staged_character_identifier)->set_placement(placement);
    return;
@@ -214,9 +214,9 @@ void Dynamic::move_staged_character_to_front(std::string staged_character_identi
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::move_staged_character_to_front]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::move_staged_character_to_front]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::move_staged_character_to_front: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::move_staged_character_to_front]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    // TODO
    return;
@@ -227,9 +227,9 @@ void Dynamic::move_staged_character_to_back(std::string staged_character_identif
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::move_staged_character_to_back]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::move_staged_character_to_back]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::move_staged_character_to_back: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::move_staged_character_to_back]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    // TODO
    return;
@@ -240,9 +240,9 @@ void Dynamic::move_staged_character_forward(std::string staged_character_identif
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::move_staged_character_forward]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::move_staged_character_forward]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::move_staged_character_forward: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::move_staged_character_forward]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    // TODO
    return;
@@ -253,9 +253,9 @@ void Dynamic::move_staged_character_backward(std::string staged_character_identi
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::move_staged_character_backward]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::move_staged_character_backward]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::move_staged_character_backward: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::move_staged_character_backward]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    // TODO
    return;
@@ -287,9 +287,9 @@ void Dynamic::show_character(std::string staged_character_identifier)
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::show_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::show_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::show_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::show_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    find_staged_character(staged_character_identifier)->show();
    return;
@@ -300,9 +300,9 @@ void Dynamic::hide_character(std::string staged_character_identifier)
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::hide_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::hide_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::hide_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::hide_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    find_staged_character(staged_character_identifier)->hide();
    return;
@@ -313,9 +313,9 @@ void Dynamic::enter_character(std::string staged_character_identifier)
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::enter_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::enter_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::enter_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::enter_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    find_staged_character(staged_character_identifier)->enter();
    return;
@@ -326,9 +326,9 @@ void Dynamic::exit_character(std::string staged_character_identifier)
    if (!(staged_character_exists(staged_character_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::exit_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::exit_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::exit_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::exit_character]: error: guard \"staged_character_exists(staged_character_identifier)\" not met");
    }
    find_staged_character(staged_character_identifier)->exit();
    return;
@@ -339,16 +339,16 @@ void Dynamic::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Dynamic::render]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::render]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Dynamic::render: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::render]: error: guard \"bitmap_bin\" not met");
    }
    if (hidden) return;
 

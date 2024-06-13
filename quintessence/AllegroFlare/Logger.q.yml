@@ -247,30 +247,6 @@ methods:
       - std::stringstream
 
 
-  - name: build_guard_error_message
-    static: true
-    parameters:
-      - name: from
-        type: std::string
-        default_argument: '"[unset-from]"'
-      - name: guard_statement
-        type: std::string
-        default_argument: '"[unset-guard_statement]"'
-    type: std::string
-    body: |
-      std::stringstream result;
-
-      // TODO: I don't think there should be a newline at the end of this statement, but it exists in the blast error
-      // message, and should probably be removed. Consider modifying the blast error message and removing it.
-      result << CONSOLE_COLOR_RED << "[" << from << "]: error: guard \"" << guard_statement << "\" not met. "
-             << "An exception will be thrown to halt the program." << CONSOLE_COLOR_DEFAULT
-             << std::endl;
-      return result.str();
-    body_dependency_symbols:
-      - AllegroFlare::ConsoleColors
-      - std::stringstream
-
-
   - name: build_warning_message
     static: true
     parameters:
@@ -286,9 +262,28 @@ methods:
     type: std::string
     body: |
       std::stringstream result;
-      result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning";
+      result << "[" << from << "]: warning";
       if (is_warn_once) result << " (once)";
-      result << ": " << message << CONSOLE_COLOR_DEFAULT;
+      result << ": " << message;
+      return result.str();
+    body_dependency_symbols:
+      - AllegroFlare::ConsoleColors
+      - std::stringstream
+
+
+  - name: build_guard_error_message
+    static: true
+    parameters:
+      - name: from
+        type: std::string
+        default_argument: '"[unset-from]"'
+      - name: guard_statement
+        type: std::string
+        default_argument: '"[unset-guard_statement]"'
+    type: std::string
+    body: |
+      std::stringstream result;
+      result << "[" << from << "]: error: guard \"" << guard_statement << "\" not met";
       return result.str();
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
@@ -440,8 +435,9 @@ methods:
         type: std::string
         default_argument: '"[unset-message]"'
     body: |
+      // TODO: Test this, there's a test in AudioController that uses this and and requires revision
       std::string warning_message = build_warning_message(from, message);
-      std::cout << warning_message << std::endl;
+      std::cout << CONSOLE_COLOR_YELLOW << warning_message << CONSOLE_COLOR_DEFAULT << std::endl;
       if (instance && instance->log_file_initialized) instance->log_file << warning_message << std::endl;
     body_dependency_symbols:
       - AllegroFlare::ConsoleColors
@@ -459,6 +455,7 @@ methods:
         type: std::string
         default_argument: '"[unset-message]"'
     body: |
+      // TODO: Test this, there's a test in AudioController that uses this and and requires revision
       std::string composite_message = build_warning_message(from, message, true);
       bool message_already_emitted = once_emitted_warnings.find(composite_message) != once_emitted_warnings.end();
       if (!message_already_emitted)

@@ -82,9 +82,9 @@ AllegroFlare::Prototypes::FixedRoom2D::Room* RoomFactory::create_room(float widt
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[RoomFactory::create_room]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::RoomFactory::create_room]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("RoomFactory::create_room: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::RoomFactory::create_room]: error: guard \"font_bin\" not met");
    }
    AllegroFlare::Prototypes::FixedRoom2D::Room* result = new AllegroFlare::Prototypes::FixedRoom2D::Room();
 

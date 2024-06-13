@@ -51,16 +51,16 @@ void PanningGrid::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::initialize]: error: guard \"font_bin\" not met");
    }
    initialized = true;
    return;
@@ -71,9 +71,9 @@ void PanningGrid::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::update]: error: guard \"initialized\" not met");
    }
    return;
 }
@@ -83,9 +83,9 @@ void PanningGrid::render()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::render]: error: guard \"initialized\" not met");
    }
    ALLEGRO_COLOR color = al_color_html("b8e8e8");
 
@@ -221,9 +221,9 @@ void PanningGrid::draw_triangle(AllegroFlare::Vec3D v0, AllegroFlare::Vec3D v1, 
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::draw_triangle]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::draw_triangle]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::draw_triangle: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::draw_triangle]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    ALLEGRO_VERTEX vtx[3];
    vtx[0] = AllegroFlare::build_vertex(v0.x, v0.y, v0.z, color, 0, 0);
@@ -238,9 +238,9 @@ void PanningGrid::draw_l_bracket(float x, float y, float size, ALLEGRO_COLOR col
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::draw_l_bracket]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::draw_l_bracket]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::draw_l_bracket: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::draw_l_bracket]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    float s = size / 2;
 
@@ -284,16 +284,16 @@ void PanningGrid::draw_3d_dimensional_grid(float x, float y, float z, float spac
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::draw_3d_dimensional_grid]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::draw_3d_dimensional_grid]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::draw_3d_dimensional_grid: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::draw_3d_dimensional_grid]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::draw_3d_dimensional_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::draw_3d_dimensional_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::draw_3d_dimensional_grid: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::draw_3d_dimensional_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    for (int zz=-10; zz<10; zz++)
       for (int xx=-10; xx<10; xx++)
@@ -325,16 +325,16 @@ void PanningGrid::draw_2d_grid(float x, float y, float size, float spacing)
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::draw_2d_grid]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::draw_2d_grid]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::draw_2d_grid: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::draw_2d_grid]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::draw_2d_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::draw_2d_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::draw_2d_grid: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::draw_2d_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    for (int xx=-10; xx<10; xx++)
       for (int yy=-10; yy<10; yy++)
@@ -411,9 +411,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::build_bracket(float x, float y, float w
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::build_bracket]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::build_bracket]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::build_bracket: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::build_bracket]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // Create the segments
    std::vector<ALLEGRO_VERTEX> built_segments;
@@ -498,9 +498,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::build_tab(float x, float y, float width
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::build_tab]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::build_tab]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::build_tab: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::build_tab]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // Create the segments
    std::vector<ALLEGRO_VERTEX> built_segments;
@@ -581,9 +581,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::build_grid(float x, float y, float line
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::build_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::build_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::build_grid: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::build_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // TODO: Work out what to do when grid is 0 rows, 0 columns, currently it's missing the top "tick"
 
@@ -721,9 +721,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::build_window_frame(float x, float y, fl
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::build_window_frame]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::build_window_frame]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::build_window_frame: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::build_window_frame]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    std::vector<ALLEGRO_VERTEX> built_segments;
    bool t = true;
@@ -803,9 +803,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::build_rectangle_frame_segments(float x,
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::build_rectangle_frame_segments]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::build_rectangle_frame_segments]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::build_rectangle_frame_segments: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::build_rectangle_frame_segments]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    std::vector<ALLEGRO_VERTEX> built_segments;
    std::vector<ALLEGRO_VERTEX> result;
@@ -945,9 +945,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::build_tall_cross_segments(float x, floa
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::build_tall_cross_segments]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::build_tall_cross_segments]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::build_tall_cross_segments: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::build_tall_cross_segments]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // TODO: Revise this method's arguments for clarity and practical application
    float t = line_size; // "t" means "thickness"
@@ -1031,9 +1031,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::draw_tall_cross(float x, float y, float
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::draw_tall_cross]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::draw_tall_cross]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::draw_tall_cross: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::draw_tall_cross]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // TODO: Is this method copy/pasta? Is it used anywhere?
    // TODO: Revise this method's arguments for clarity and practical application
@@ -1109,9 +1109,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::draw_cross(float x, float y, float line
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::draw_cross]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::draw_cross]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::draw_cross: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::draw_cross]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    float segment_length = 6;
 
@@ -1181,9 +1181,9 @@ std::vector<ALLEGRO_VERTEX> PanningGrid::build_vertical_ruler(float x, float y, 
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::build_vertical_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::build_vertical_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::build_vertical_ruler: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::build_vertical_ruler]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    ALLEGRO_VERTEX vtx_a = AllegroFlare::build_vertex(0, 0, 0, color, 0, 0);
    ALLEGRO_VERTEX vtx_b = AllegroFlare::build_vertex(1, 0, 0, color, 0, 0);
@@ -1230,9 +1230,9 @@ ALLEGRO_FONT* PanningGrid::obtain_small_hud_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::obtain_small_hud_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::obtain_small_hud_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::obtain_small_hud_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::obtain_small_hud_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream result_font_identifier;
    result_font_identifier << "Orbitron-Medium.ttf" << " " << -13;
@@ -1244,9 +1244,9 @@ ALLEGRO_FONT* PanningGrid::obtain_sized_font(int size)
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[PanningGrid::obtain_sized_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::FUI::PanningGrid::obtain_sized_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PanningGrid::obtain_sized_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::FUI::PanningGrid::obtain_sized_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream result_font_identifier;
    result_font_identifier << "Orbitron-Medium.ttf" << " " << size;

@@ -52,9 +52,9 @@ std::vector<std::pair<AllegroFlare::MusicNotation::AccidentalStacker::Accidental
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[AccidentalStacker::get_stack]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::AccidentalStacker::get_stack]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AccidentalStacker::get_stack: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::AccidentalStacker::get_stack]: error: guard \"solved\" not met");
    }
    return stack;
 }
@@ -64,9 +64,9 @@ int AccidentalStacker::calculate_num_columns()
    if (!(solved))
    {
       std::stringstream error_message;
-      error_message << "[AccidentalStacker::calculate_num_columns]: error: guard \"solved\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::AccidentalStacker::calculate_num_columns]: error: guard \"solved\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AccidentalStacker::calculate_num_columns: error: guard \"solved\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::AccidentalStacker::calculate_num_columns]: error: guard \"solved\" not met");
    }
    // TODO: Test this method
    if (stack.empty()) return 0;
@@ -93,9 +93,9 @@ void AccidentalStacker::solve_one_from_top(int column_to_place_on)
    if (!((!pitches.empty())))
    {
       std::stringstream error_message;
-      error_message << "[AccidentalStacker::solve_one_from_top]: error: guard \"(!pitches.empty())\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::AccidentalStacker::solve_one_from_top]: error: guard \"(!pitches.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AccidentalStacker::solve_one_from_top: error: guard \"(!pitches.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::AccidentalStacker::solve_one_from_top]: error: guard \"(!pitches.empty())\" not met");
    }
    auto &pitch = pitches.front();
 
@@ -150,9 +150,9 @@ void AccidentalStacker::solve_one_from_bottom(int column_to_place_on)
    if (!((!pitches.empty())))
    {
       std::stringstream error_message;
-      error_message << "[AccidentalStacker::solve_one_from_bottom]: error: guard \"(!pitches.empty())\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::AccidentalStacker::solve_one_from_bottom]: error: guard \"(!pitches.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AccidentalStacker::solve_one_from_bottom: error: guard \"(!pitches.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::AccidentalStacker::solve_one_from_bottom]: error: guard \"(!pitches.empty())\" not met");
    }
    auto &pitch = pitches.back();
 
@@ -308,9 +308,9 @@ int AccidentalStacker::collapse_column_into_previous(int target_column)
    if (!(target_column < 0))
    {
       std::stringstream error_message;
-      error_message << "[AccidentalStacker::collapse_column_into_previous]: error: guard \"target_column < 0\" not met.";
+      error_message << "[AllegroFlare::MusicNotation::AccidentalStacker::collapse_column_into_previous]: error: guard \"target_column < 0\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AccidentalStacker::collapse_column_into_previous: error: guard \"target_column < 0\" not met");
+      throw std::runtime_error("[AllegroFlare::MusicNotation::AccidentalStacker::collapse_column_into_previous]: error: guard \"target_column < 0\" not met");
    }
    int num_items_moved = 0;
    for (auto &stack_item : stack)

@@ -62,6 +62,7 @@ functions:
     override: true
     guards: [ al_is_system_installed(), al_get_current_display() ]
     body: |
+      // TODO: Is al_get_current_display() required here? Consider removing it.
       if (!bitmap) return;
 
       AllegroFlare::Placement2D image_place;

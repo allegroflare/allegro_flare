@@ -42,16 +42,16 @@ void Snap::update()
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "[Snap::update]: error: guard \"get_camera()\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::Snap::update]: error: guard \"get_camera()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Snap::update: error: guard \"get_camera()\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::Snap::update]: error: guard \"get_camera()\" not met");
    }
    if (!(entity_to_follow))
    {
       std::stringstream error_message;
-      error_message << "[Snap::update]: error: guard \"entity_to_follow\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::Snap::update]: error: guard \"entity_to_follow\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Snap::update: error: guard \"entity_to_follow\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::Snap::update]: error: guard \"entity_to_follow\" not met");
    }
    float assumed_tile_width = 16.0f;
    float assumed_tile_height = 16.0f;

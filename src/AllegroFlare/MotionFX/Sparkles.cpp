@@ -80,9 +80,9 @@ void Sparkles::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Sparkles::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::MotionFX::Sparkles::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Sparkles::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionFX::Sparkles::initialize]: error: guard \"(!initialized)\" not met");
    }
    static const float TAU = 6.28318531;
    float num_particles = 7;
@@ -109,9 +109,9 @@ void Sparkles::update()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Sparkles::update]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::MotionFX::Sparkles::update]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Sparkles::update: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionFX::Sparkles::update]: error: guard \"initialized\" not met");
    }
    float rotation_speed = -0.04;
 
@@ -132,23 +132,23 @@ void Sparkles::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Sparkles::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::MotionFX::Sparkles::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Sparkles::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionFX::Sparkles::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Sparkles::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::MotionFX::Sparkles::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Sparkles::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionFX::Sparkles::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Sparkles::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::MotionFX::Sparkles::render]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Sparkles::render: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionFX::Sparkles::render]: error: guard \"initialized\" not met");
    }
    ALLEGRO_COLOR star_color = AllegroFlare::Color::Gold;
 
@@ -189,9 +189,9 @@ ALLEGRO_FONT* Sparkles::obtain_icon_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Sparkles::obtain_icon_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::MotionFX::Sparkles::obtain_icon_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Sparkles::obtain_icon_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionFX::Sparkles::obtain_icon_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("fa-solid-900.ttf -50");
 }
@@ -201,9 +201,9 @@ ALLEGRO_FONT* Sparkles::obtain_mini_icon_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Sparkles::obtain_mini_icon_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::MotionFX::Sparkles::obtain_mini_icon_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Sparkles::obtain_mini_icon_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::MotionFX::Sparkles::obtain_mini_icon_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("fa-solid-900.ttf -30");
 }

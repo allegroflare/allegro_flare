@@ -216,23 +216,23 @@ void IntertitleRenderer::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[IntertitleRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntertitleRenderer::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[IntertitleRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntertitleRenderer::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[IntertitleRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntertitleRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    ALLEGRO_COLOR transparent_color = ALLEGRO_COLOR{0, 0, 0, 0};
    ALLEGRO_COLOR backfill_color = ALLEGRO_COLOR{0, 0, 0, 0.7};
@@ -294,16 +294,16 @@ void IntertitleRenderer::draw_gradient_prim(float y1, float y2, ALLEGRO_COLOR to
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[IntertitleRenderer::draw_gradient_prim]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::draw_gradient_prim]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntertitleRenderer::draw_gradient_prim: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::draw_gradient_prim]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!((y2 > y1)))
    {
       std::stringstream error_message;
-      error_message << "[IntertitleRenderer::draw_gradient_prim]: error: guard \"(y2 > y1)\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::draw_gradient_prim]: error: guard \"(y2 > y1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntertitleRenderer::draw_gradient_prim: error: guard \"(y2 > y1)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::draw_gradient_prim]: error: guard \"(y2 > y1)\" not met");
    }
    ALLEGRO_VERTEX v[4];
    float padding = 0;
@@ -330,9 +330,9 @@ ALLEGRO_FONT* IntertitleRenderer::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[IntertitleRenderer::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntertitleRenderer::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::obtain_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
@@ -344,9 +344,9 @@ ALLEGRO_FONT* IntertitleRenderer::obtain_next_button_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[IntertitleRenderer::obtain_next_button_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::obtain_next_button_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("IntertitleRenderer::obtain_next_button_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::obtain_next_button_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size+20;

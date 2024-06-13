@@ -167,9 +167,9 @@ void BasicCharacterDialogDriver::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::initialize]: error: guard \"(!initialized)\" not met");
    }
    //active_character_staging_layout = new AllegroFlare::DialogSystem::CharacterStagingLayouts::MultiModal();
    initialized = true;
@@ -181,9 +181,9 @@ void BasicCharacterDialogDriver::destroy()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::destroy]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::destroy]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::destroy: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::destroy]: error: guard \"initialized\" not met");
    }
    // TODO: consider where delete character_roster, scene_index should occour
    //if (active_character_staging_layout) delete active_character_staging_layout;
@@ -207,9 +207,9 @@ bool BasicCharacterDialogDriver::on_load_node_bank_from_file(std::string filenam
    if (!(node_bank_to_load_into))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::on_load_node_bank_from_file]: error: guard \"node_bank_to_load_into\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::on_load_node_bank_from_file]: error: guard \"node_bank_to_load_into\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::on_load_node_bank_from_file: error: guard \"node_bank_to_load_into\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::on_load_node_bank_from_file]: error: guard \"node_bank_to_load_into\" not met");
    }
    bool handled = true;
    if (handle_load_node_bank_from_file_func)
@@ -329,23 +329,23 @@ AllegroFlare::DialogSystem::Characters::Basic* BasicCharacterDialogDriver::find_
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::find_character_by_identifier_as_Basic: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"initialized\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::find_character_by_identifier_as_Basic: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"bitmap_bin\" not met");
    }
    if (!(character_roster))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"character_roster\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"character_roster\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::find_character_by_identifier_as_Basic: error: guard \"character_roster\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::find_character_by_identifier_as_Basic]: error: guard \"character_roster\" not met");
    }
    // TOOD: Review guards
 
@@ -426,16 +426,16 @@ std::string BasicCharacterDialogDriver::lookup_speaking_character_avatar(std::st
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::lookup_speaking_character_avatar]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::lookup_speaking_character_avatar]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::lookup_speaking_character_avatar: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::lookup_speaking_character_avatar]: error: guard \"initialized\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::lookup_speaking_character_avatar]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::lookup_speaking_character_avatar]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::lookup_speaking_character_avatar: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::lookup_speaking_character_avatar]: error: guard \"bitmap_bin\" not met");
    }
    auto _driver = this;
    // TODO: Review guards
@@ -511,9 +511,9 @@ void BasicCharacterDialogDriver::append_to_dialog_roll(std::string speaking_char
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[BasicCharacterDialogDriver::append_to_dialog_roll]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::append_to_dialog_roll]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("BasicCharacterDialogDriver::append_to_dialog_roll: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver::append_to_dialog_roll]: error: guard \"initialized\" not met");
    }
    dialog_roll.append_log(speaking_character, dialog);
    return;

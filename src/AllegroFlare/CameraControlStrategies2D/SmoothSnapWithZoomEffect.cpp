@@ -48,30 +48,30 @@ void SmoothSnapWithZoomEffect::initialize()
    if (!((!get_initialized())))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnapWithZoomEffect::initialize]: error: guard \"(!get_initialized())\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::initialize]: error: guard \"(!get_initialized())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnapWithZoomEffect::initialize: error: guard \"(!get_initialized())\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::initialize]: error: guard \"(!get_initialized())\" not met");
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnapWithZoomEffect::initialize]: error: guard \"get_camera()\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::initialize]: error: guard \"get_camera()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnapWithZoomEffect::initialize: error: guard \"get_camera()\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::initialize]: error: guard \"get_camera()\" not met");
    }
    if (!((room_width > 0)))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnapWithZoomEffect::initialize]: error: guard \"(room_width > 0)\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::initialize]: error: guard \"(room_width > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnapWithZoomEffect::initialize: error: guard \"(room_width > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::initialize]: error: guard \"(room_width > 0)\" not met");
    }
    if (!((room_height > 0)))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnapWithZoomEffect::initialize]: error: guard \"(room_height > 0)\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::initialize]: error: guard \"(room_height > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnapWithZoomEffect::initialize: error: guard \"(room_height > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::initialize]: error: guard \"(room_height > 0)\" not met");
    }
    // TODO: only allow setting "room_width" and "room_height" to positive values
 
@@ -87,16 +87,16 @@ void SmoothSnapWithZoomEffect::update()
    if (!(get_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnapWithZoomEffect::update]: error: guard \"get_initialized()\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::update]: error: guard \"get_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnapWithZoomEffect::update: error: guard \"get_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::update]: error: guard \"get_initialized()\" not met");
    }
    if (!(get_camera()))
    {
       std::stringstream error_message;
-      error_message << "[SmoothSnapWithZoomEffect::update]: error: guard \"get_camera()\" not met.";
+      error_message << "[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::update]: error: guard \"get_camera()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SmoothSnapWithZoomEffect::update: error: guard \"get_camera()\" not met");
+      throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnapWithZoomEffect::update]: error: guard \"get_camera()\" not met");
    }
    // If the camera loses track of the "entity_to_follow" (the tracking target dies for example), this logic will
    // retain the last coordinate that had been tracked, and use it until a new tracking target is introduced.

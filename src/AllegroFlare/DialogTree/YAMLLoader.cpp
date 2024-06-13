@@ -46,9 +46,9 @@ AllegroFlare::DialogTree::NodeBank YAMLLoader::get_node_bank()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[YAMLLoader::get_node_bank]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::DialogTree::YAMLLoader::get_node_bank]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::get_node_bank: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::YAMLLoader::get_node_bank]: error: guard \"loaded\" not met");
    }
    return node_bank;
 }
@@ -58,16 +58,16 @@ void YAMLLoader::load_file(std::string filename)
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[YAMLLoader::load_file]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::DialogTree::YAMLLoader::load_file]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::load_file: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::YAMLLoader::load_file]: error: guard \"(!loaded)\" not met");
    }
    if (!((AllegroFlare::php::file_exists(filename))))
    {
       std::stringstream error_message;
-      error_message << "[YAMLLoader::load_file]: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met.";
+      error_message << "[AllegroFlare::DialogTree::YAMLLoader::load_file]: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::load_file: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::YAMLLoader::load_file]: error: guard \"(AllegroFlare::php::file_exists(filename))\" not met");
    }
    // TODO: Test this method
    // TODO: Refactor to use YAML's native YAML::LoadFile
@@ -81,16 +81,16 @@ void YAMLLoader::load(std::string yaml_as_string)
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[YAMLLoader::load]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::DialogTree::YAMLLoader::load]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::load: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::YAMLLoader::load]: error: guard \"(!loaded)\" not met");
    }
    if (!((!yaml_as_string.empty())))
    {
       std::stringstream error_message;
-      error_message << "[YAMLLoader::load]: error: guard \"(!yaml_as_string.empty())\" not met.";
+      error_message << "[AllegroFlare::DialogTree::YAMLLoader::load]: error: guard \"(!yaml_as_string.empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::load: error: guard \"(!yaml_as_string.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::YAMLLoader::load]: error: guard \"(!yaml_as_string.empty())\" not met");
    }
    // TODO: Test guards
    AllegroFlare::DialogTree::NodeBank result;
@@ -263,9 +263,9 @@ AllegroFlare::DialogTree::NodeOptions::Base* YAMLLoader::parse_and_create_result
    if (!(data_node_ptr))
    {
       std::stringstream error_message;
-      error_message << "[YAMLLoader::parse_and_create_result_option]: error: guard \"data_node_ptr\" not met.";
+      error_message << "[AllegroFlare::DialogTree::YAMLLoader::parse_and_create_result_option]: error: guard \"data_node_ptr\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::parse_and_create_result_option: error: guard \"data_node_ptr\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::YAMLLoader::parse_and_create_result_option]: error: guard \"data_node_ptr\" not met");
    }
    AllegroFlare::DialogTree::NodeOptions::Base* result = nullptr;
 
@@ -312,9 +312,9 @@ AllegroFlare::DialogTree::NodeOptions::GoToNode* YAMLLoader::parse_and_create_Go
    if (!(data_node_ptr))
    {
       std::stringstream error_message;
-      error_message << "[YAMLLoader::parse_and_create_GoToNode_option]: error: guard \"data_node_ptr\" not met.";
+      error_message << "[AllegroFlare::DialogTree::YAMLLoader::parse_and_create_GoToNode_option]: error: guard \"data_node_ptr\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("YAMLLoader::parse_and_create_GoToNode_option: error: guard \"data_node_ptr\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogTree::YAMLLoader::parse_and_create_GoToNode_option]: error: guard \"data_node_ptr\" not met");
    }
    YAML::Node &node = *data_node_ptr;
    AllegroFlare::DialogTree::NodeOptions::GoToNode* result = new AllegroFlare::DialogTree::NodeOptions::GoToNode;

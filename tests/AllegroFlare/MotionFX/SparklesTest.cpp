@@ -1,12 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 class AllegroFlare_MotionFX_SparklesTest : public ::testing::Test
@@ -29,9 +26,11 @@ TEST_F(AllegroFlare_MotionFX_SparklesTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_MotionFX_SparklesTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::MotionFX::Sparkles sparkles;
-   std::string expected_error_message =
-      "Sparkles::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(sparkles.render(), std::runtime_error, expected_error_message);
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::MotionFX::Sparkles::render",
+      "al_is_system_installed()"
+   );
+   EXPECT_THROW_WITH_MESSAGE(sparkles.render(), std::runtime_error, expected_error_message);
 }
 
 

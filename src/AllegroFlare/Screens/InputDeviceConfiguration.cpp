@@ -108,9 +108,9 @@ void InputDeviceConfiguration::set_event_emitter(AllegroFlare::EventEmitter* eve
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    return;
@@ -121,9 +121,9 @@ void InputDeviceConfiguration::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bi
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -134,9 +134,9 @@ void InputDeviceConfiguration::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    input_device_configuration_element.set_font_bin(font_bin);
    input_devices_list_element.set_font_bin(font_bin);
@@ -149,9 +149,9 @@ void InputDeviceConfiguration::set_input_devices_list(AllegroFlare::InputDevices
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::set_input_devices_list]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::set_input_devices_list]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::set_input_devices_list: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::set_input_devices_list]: error: guard \"(!initialized)\" not met");
    }
    this->input_devices_list = input_devices_list;
    return;
@@ -162,51 +162,51 @@ void InputDeviceConfiguration::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::initialize]: error: guard \"font_bin\" not met");
    }
    input_device_configuration_element.initialize();
    input_devices_list_element.initialize();
@@ -220,9 +220,9 @@ void InputDeviceConfiguration::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::on_activate]: error: guard \"initialized\" not met");
    }
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
@@ -234,9 +234,9 @@ void InputDeviceConfiguration::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::on_deactivate]: error: guard \"initialized\" not met");
    }
    //emit_hide_and_restore_size_input_hints_bar_event();
    return;
@@ -259,9 +259,9 @@ void InputDeviceConfiguration::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::primary_timer_func]: error: guard \"initialized\" not met");
    }
    update();
    render();
@@ -280,9 +280,9 @@ void InputDeviceConfiguration::virtual_control_button_up_func(AllegroFlare::Play
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::virtual_control_button_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::virtual_control_button_up_func]: error: guard \"initialized\" not met");
    }
    // TODO: consider if this function needs implementing
    return;
@@ -293,9 +293,9 @@ void InputDeviceConfiguration::virtual_control_button_down_func(AllegroFlare::Pl
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    // TODO: Have this function account for state of the input_device_configuration_element
    switch(virtual_controller_button_num)
@@ -321,9 +321,9 @@ void InputDeviceConfiguration::virtual_control_axis_change_func(ALLEGRO_EVENT* e
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[InputDeviceConfiguration::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::InputDeviceConfiguration::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("InputDeviceConfiguration::virtual_control_axis_change_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::InputDeviceConfiguration::virtual_control_axis_change_func]: error: guard \"initialized\" not met");
    }
    // TODO: this function
    return;

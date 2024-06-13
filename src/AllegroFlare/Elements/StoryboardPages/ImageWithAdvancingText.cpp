@@ -282,23 +282,23 @@ void ImageWithAdvancingText::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ImageWithAdvancingText::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ImageWithAdvancingText::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ImageWithAdvancingText::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ImageWithAdvancingText::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[ImageWithAdvancingText::render]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::render]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ImageWithAdvancingText::render: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::render]: error: guard \"bitmap_bin\" not met");
    }
    // Draw the image
    if (!image_identifier.empty())
@@ -394,9 +394,9 @@ ALLEGRO_FONT* ImageWithAdvancingText::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[ImageWithAdvancingText::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ImageWithAdvancingText::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::obtain_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size;
@@ -408,9 +408,9 @@ ALLEGRO_FONT* ImageWithAdvancingText::obtain_next_button_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[ImageWithAdvancingText::obtain_next_button_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::obtain_next_button_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ImageWithAdvancingText::obtain_next_button_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::ImageWithAdvancingText::obtain_next_button_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
    composite_font_str << font_name << " " << font_size+20;

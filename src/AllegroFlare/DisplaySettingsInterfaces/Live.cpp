@@ -86,9 +86,9 @@ void Live::activate_fullscreen()
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[Live::activate_fullscreen]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::DisplaySettingsInterfaces::Live::activate_fullscreen]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Live::activate_fullscreen: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::DisplaySettingsInterfaces::Live::activate_fullscreen]: error: guard \"display\" not met");
    }
    if (is_fullscreen()) return;
 
@@ -118,9 +118,9 @@ void Live::deactivate_fullscreen()
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[Live::deactivate_fullscreen]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::DisplaySettingsInterfaces::Live::deactivate_fullscreen]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Live::deactivate_fullscreen: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::DisplaySettingsInterfaces::Live::deactivate_fullscreen]: error: guard \"display\" not met");
    }
    if (!is_fullscreen()) return;
 
@@ -150,9 +150,9 @@ void Live::toggle_fullscreen()
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[Live::toggle_fullscreen]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::DisplaySettingsInterfaces::Live::toggle_fullscreen]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Live::toggle_fullscreen: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::DisplaySettingsInterfaces::Live::toggle_fullscreen]: error: guard \"display\" not met");
    }
    if (is_fullscreen()) deactivate_fullscreen();
    else activate_fullscreen();
@@ -164,9 +164,9 @@ bool Live::is_fullscreen()
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[Live::is_fullscreen]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::DisplaySettingsInterfaces::Live::is_fullscreen]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Live::is_fullscreen: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::DisplaySettingsInterfaces::Live::is_fullscreen]: error: guard \"display\" not met");
    }
    // TODO: Add test
    int flags = al_get_display_flags(display);
@@ -178,16 +178,16 @@ void Live::set_window_size(int width, int height)
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[Live::set_window_size]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::DisplaySettingsInterfaces::Live::set_window_size]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Live::set_window_size: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::DisplaySettingsInterfaces::Live::set_window_size]: error: guard \"display\" not met");
    }
    if (!((!is_fullscreen())))
    {
       std::stringstream error_message;
-      error_message << "[Live::set_window_size]: error: guard \"(!is_fullscreen())\" not met.";
+      error_message << "[AllegroFlare::DisplaySettingsInterfaces::Live::set_window_size]: error: guard \"(!is_fullscreen())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Live::set_window_size: error: guard \"(!is_fullscreen())\" not met");
+      throw std::runtime_error("[AllegroFlare::DisplaySettingsInterfaces::Live::set_window_size]: error: guard \"(!is_fullscreen())\" not met");
    }
    bool resize_was_successful = al_resize_display(display, width, height);
    if (!resize_was_successful)
@@ -207,9 +207,9 @@ std::pair<int, int> Live::get_window_size()
    if (!(display))
    {
       std::stringstream error_message;
-      error_message << "[Live::get_window_size]: error: guard \"display\" not met.";
+      error_message << "[AllegroFlare::DisplaySettingsInterfaces::Live::get_window_size]: error: guard \"display\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Live::get_window_size: error: guard \"display\" not met");
+      throw std::runtime_error("[AllegroFlare::DisplaySettingsInterfaces::Live::get_window_size]: error: guard \"display\" not met");
    }
    return std::pair<int, int>(
       windowed_mode_width,

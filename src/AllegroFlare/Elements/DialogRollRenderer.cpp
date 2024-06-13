@@ -109,16 +109,16 @@ void DialogRollRenderer::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[DialogRollRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogRollRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogRollRenderer::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogRollRenderer::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[DialogRollRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogRollRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogRollRenderer::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogRollRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    float y_offset = 0;
    float cursor_y = 0 + y_offset;
@@ -178,9 +178,9 @@ ALLEGRO_FONT* DialogRollRenderer::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[DialogRollRenderer::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogRollRenderer::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogRollRenderer::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogRollRenderer::obtain_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf -48");
 }
@@ -190,9 +190,9 @@ ALLEGRO_FONT* DialogRollRenderer::obtain_internal_dialog_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[DialogRollRenderer::obtain_internal_dialog_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogRollRenderer::obtain_internal_dialog_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DialogRollRenderer::obtain_internal_dialog_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogRollRenderer::obtain_internal_dialog_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get("Inter-Regular.ttf -48");
 }

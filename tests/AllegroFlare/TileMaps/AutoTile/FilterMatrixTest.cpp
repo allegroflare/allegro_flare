@@ -75,10 +75,26 @@ TEST(AllegroFlare_TileMaps_AutoTile_FilterMatrixTest,
    AllegroFlare::TileMaps::AutoTile::FilterMatrix filter_matrix;
    filter_matrix.resize(4, 3);
 
-   EXPECT_THROW_GUARD_ERROR(filter_matrix.set_tile(-1, 0, 999), "FilterMatrix::set_tile", "(x >= 0)");
-   EXPECT_THROW_GUARD_ERROR(filter_matrix.set_tile(4, 0, 999), "FilterMatrix::set_tile", "(x < get_width())");
-   EXPECT_THROW_GUARD_ERROR(filter_matrix.set_tile(0, -1, 999), "FilterMatrix::set_tile", "(y >= 0)");
-   EXPECT_THROW_GUARD_ERROR(filter_matrix.set_tile(0, 3, 999), "FilterMatrix::set_tile", "(y < get_height())");
+   EXPECT_THROW_GUARD_ERROR(
+      filter_matrix.set_tile(-1, 0, 999),
+      "AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile",
+      "(x >= 0)"
+   );
+   EXPECT_THROW_GUARD_ERROR(
+      filter_matrix.set_tile(4, 0, 999),
+      "AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile",
+      "(x < get_width())"
+   );
+   EXPECT_THROW_GUARD_ERROR(
+      filter_matrix.set_tile(0, -1, 999),
+      "AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile",
+      "(y >= 0)"
+   );
+   EXPECT_THROW_GUARD_ERROR(
+      filter_matrix.set_tile(0, 3, 999),
+      "AllegroFlare::TileMaps::AutoTile::FilterMatrix::set_tile",
+      "(y < get_height())"
+   );
 }
 
 

@@ -78,9 +78,9 @@ void DipToBlack::activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[DipToBlack::activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Shaders::PostProcessing::DipToBlack::activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("DipToBlack::activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::PostProcessing::DipToBlack::activate]: error: guard \"initialized\" not met");
    }
    AllegroFlare::Shaders::Base::activate();
    set_vec2("surface_dimensions", surface_width, surface_height);

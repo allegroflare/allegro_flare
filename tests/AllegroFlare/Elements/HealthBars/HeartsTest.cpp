@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
@@ -29,8 +25,11 @@ TEST_F(AllegroFlare_Elements_HealthBars_HeartsTest, can_be_created_without_blowi
 TEST_F(AllegroFlare_Elements_HealthBars_HeartsTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::HealthBars::Hearts health_bar;
-   std::string expected_error_message = "Hearts::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(health_bar.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      health_bar.render(),
+      "AllegroFlare::Elements::HealthBars::Hearts::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -38,8 +37,11 @@ TEST_F(AllegroFlare_Elements_HealthBars_HeartsTest, render__without_font_addon_i
 {
    al_init();
    AllegroFlare::Elements::HealthBars::Hearts health_bar;
-   std::string expected_error_message = "Hearts::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(health_bar.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      health_bar.render(),
+      "AllegroFlare::Elements::HealthBars::Hearts::render",
+      "al_is_font_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -49,8 +51,11 @@ TEST_F(AllegroFlare_Elements_HealthBars_HeartsTest, render__without_ttf_addon_in
    al_init();
    al_init_font_addon();
    AllegroFlare::Elements::HealthBars::Hearts health_bar;
-   std::string expected_error_message = "Hearts::render: error: guard \"al_is_ttf_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(health_bar.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      health_bar.render(),
+      "AllegroFlare::Elements::HealthBars::Hearts::render",
+      "al_is_ttf_addon_initialized()"
+   );
    al_shutdown_ttf_addon();
    al_uninstall_system();
 }

@@ -96,19 +96,27 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTest, before_initialization__some_se
 {
    // Trying this fancy EXPECT_GUARD out here
    // TODO: Clean up the alignment
-   EXPECT_THROW_GUARD_ERROR(Animation().start(), "Animation::start", "initialized");
-   EXPECT_THROW_GUARD_ERROR(Animation().update(), "Animation::update", "initialized");
-   EXPECT_THROW_GUARD_ERROR(Animation().draw(), "Animation::draw", "initialized");
-   EXPECT_THROW_GUARD_ERROR(Animation().get_frame_bitmap_now(), "Animation::get_frame_bitmap_now", "initialized");
-   EXPECT_THROW_GUARD_ERROR(Animation().get_bitmap_at_frame_num(), "Animation::get_bitmap_at_frame_num", "initialized");
+   EXPECT_THROW_GUARD_ERROR(Animation().start(), "AllegroFlare::FrameAnimation::Animation::start", "initialized");
+   EXPECT_THROW_GUARD_ERROR(Animation().update(), "AllegroFlare::FrameAnimation::Animation::update", "initialized");
+   EXPECT_THROW_GUARD_ERROR(Animation().draw(), "AllegroFlare::FrameAnimation::Animation::draw", "initialized");
+   EXPECT_THROW_GUARD_ERROR(
+         Animation().get_frame_bitmap_now(),
+         "AllegroFlare::FrameAnimation::Animation::get_frame_bitmap_now",
+         "initialized"
+      );
+   EXPECT_THROW_GUARD_ERROR(
+         Animation().get_bitmap_at_frame_num(),
+         "AllegroFlare::FrameAnimation::Animation::get_bitmap_at_frame_num",
+         "initialized"
+      );
    EXPECT_THROW_GUARD_ERROR(
          Animation().get_sprite_sheet_cell_index_num_now(),
-         "Animation::get_sprite_sheet_cell_index_num_now",
+         "AllegroFlare::FrameAnimation::Animation::get_sprite_sheet_cell_index_num_now",
          "initialized"
       );
    EXPECT_THROW_GUARD_ERROR(
          Animation().get_frame_bitmap_at_time(),
-         "Animation::get_frame_bitmap_at_time",
+         "AllegroFlare::FrameAnimation::Animation::get_frame_bitmap_at_time",
          "initialized"
       );
    // TODO: Consider more checks here
@@ -119,10 +127,10 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTest,
    set_playspeed_multiplier__with_a_value_less_than_0__will_throw_an_error)
 {
    AllegroFlare::FrameAnimation::Animation animation;
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       animation.set_playspeed_multiplier(-0.0001),
-      std::runtime_error,
-      "Animation::set_playspeed_multiplier: error: guard \"(playspeed_multiplier >= 0.0f)\" not met"
+      "AllegroFlare::FrameAnimation::Animation::set_playspeed_multiplier",
+      "(playspeed_multiplier >= 0.0f)"
    );
 }
 

@@ -26,9 +26,11 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWit
 {
    al_init();
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer thumbnail_with_label_renderer;
-   std::string expected_error_message =
-      "ThumbnailWithLabelRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(thumbnail_with_label_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      thumbnail_with_label_renderer.render(),
+      "AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer::render",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -41,9 +43,11 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_CarouselElementRenderers_ThumbnailWit
    al_init_font_addon();
    AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer
          thumbnail_with_label_renderer;
-   std::string expected_error_message =
-      "ThumbnailWithLabelRenderer::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(thumbnail_with_label_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      thumbnail_with_label_renderer.render(),
+      "AllegroFlare::Elements::ChapterSelect::CarouselElementRenderers::ThumbnailWithLabelRenderer::render",
+      "font_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();

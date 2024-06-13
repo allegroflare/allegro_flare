@@ -44,9 +44,9 @@ void Base::on_collision_update(AllegroFlare::Vec2D previous_place_position, Alle
    if (!(collision_step_result))
    {
       std::stringstream error_message;
-      error_message << "[Base::on_collision_update]: error: guard \"collision_step_result\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base::on_collision_update]: error: guard \"collision_step_result\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::on_collision_update: error: guard \"collision_step_result\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::Base::on_collision_update]: error: guard \"collision_step_result\" not met");
    }
    return;
 }

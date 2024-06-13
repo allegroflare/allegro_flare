@@ -48,9 +48,9 @@ int TunnelMeshTMJDataLoader::get_num_columns()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TunnelMeshTMJDataLoader::get_num_columns]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_num_columns]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TunnelMeshTMJDataLoader::get_num_columns: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_num_columns]: error: guard \"loaded\" not met");
    }
    return num_columns;
 }
@@ -60,9 +60,9 @@ int TunnelMeshTMJDataLoader::get_num_rows()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TunnelMeshTMJDataLoader::get_num_rows]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_num_rows]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TunnelMeshTMJDataLoader::get_num_rows: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_num_rows]: error: guard \"loaded\" not met");
    }
    return num_rows;
 }
@@ -72,9 +72,9 @@ int TunnelMeshTMJDataLoader::get_tile_width()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TunnelMeshTMJDataLoader::get_tile_width]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_tile_width]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TunnelMeshTMJDataLoader::get_tile_width: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_tile_width]: error: guard \"loaded\" not met");
    }
    return tile_width;
 }
@@ -84,9 +84,9 @@ int TunnelMeshTMJDataLoader::get_tile_height()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TunnelMeshTMJDataLoader::get_tile_height]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_tile_height]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TunnelMeshTMJDataLoader::get_tile_height: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_tile_height]: error: guard \"loaded\" not met");
    }
    return tile_height;
 }
@@ -96,9 +96,9 @@ int TunnelMeshTMJDataLoader::get_layer_num_columns()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TunnelMeshTMJDataLoader::get_layer_num_columns]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_layer_num_columns]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TunnelMeshTMJDataLoader::get_layer_num_columns: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_layer_num_columns]: error: guard \"loaded\" not met");
    }
    return layer_num_columns;
 }
@@ -108,9 +108,9 @@ int TunnelMeshTMJDataLoader::get_layer_num_rows()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TunnelMeshTMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TunnelMeshTMJDataLoader::get_layer_num_rows: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met");
    }
    return layer_num_rows;
 }
@@ -120,9 +120,9 @@ std::vector<int> TunnelMeshTMJDataLoader::get_layer_tile_data()
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[TunnelMeshTMJDataLoader::get_layer_tile_data]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_layer_tile_data]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TunnelMeshTMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::get_layer_tile_data]: error: guard \"loaded\" not met");
    }
    return layer_tile_data;
 }
@@ -132,9 +132,9 @@ bool TunnelMeshTMJDataLoader::load()
    if (!((!loaded)))
    {
       std::stringstream error_message;
-      error_message << "[TunnelMeshTMJDataLoader::load]: error: guard \"(!loaded)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::load]: error: guard \"(!loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("TunnelMeshTMJDataLoader::load: error: guard \"(!loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::MindDive::TunnelMeshTMJDataLoader::load]: error: guard \"(!loaded)\" not met");
    }
    if (!file_exists(filename))
    {

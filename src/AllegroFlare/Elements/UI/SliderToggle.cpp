@@ -150,30 +150,30 @@ void SliderToggle::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[SliderToggle::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::SliderToggle::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SliderToggle::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::SliderToggle::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[SliderToggle::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::SliderToggle::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SliderToggle::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::SliderToggle::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[SliderToggle::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::SliderToggle::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SliderToggle::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::SliderToggle::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[SliderToggle::render]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::SliderToggle::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SliderToggle::render: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::SliderToggle::render]: error: guard \"font_bin\" not met");
    }
    float padding = 6;
    float pill_width = 112;
@@ -245,9 +245,9 @@ ALLEGRO_FONT* SliderToggle::obtain_font(float _font_size)
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[SliderToggle::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::UI::SliderToggle::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SliderToggle::obtain_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::UI::SliderToggle::obtain_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream ss;
    ss << "Inter-Medium.ttf " << _font_size;

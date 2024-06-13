@@ -314,16 +314,16 @@ void ChoiceRenderer::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::render]: error: guard \"choice_dialog_box\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::render]: error: guard \"choice_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::render: error: guard \"choice_dialog_box\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::render]: error: guard \"choice_dialog_box\" not met");
    }
    if (is_finished)
    {
@@ -357,9 +357,9 @@ void ChoiceRenderer::helper__reposition_selection_cursor_box_dimensions_to(Alleg
    if (!(selection_cursor_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::helper__reposition_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::helper__reposition_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::helper__reposition_selection_cursor_box_dimensions_to: error: guard \"selection_cursor_box\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::helper__reposition_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met");
    }
    float &x = std::get<0>(dimensions);
    float &y = std::get<1>(dimensions);
@@ -375,9 +375,9 @@ void ChoiceRenderer::helper__set_selection_cursor_box_dimensions_to(AllegroFlare
    if (!(selection_cursor_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::helper__set_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::helper__set_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::helper__set_selection_cursor_box_dimensions_to: error: guard \"selection_cursor_box\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::helper__set_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met");
    }
    float &x = std::get<0>(dimensions);
    float &y = std::get<1>(dimensions);
@@ -398,9 +398,9 @@ AllegroFlare::Elements::ListBoxRenderer ChoiceRenderer::build_list_box_renderer(
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::build_list_box_renderer]: error: guard \"choice_dialog_box\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::build_list_box_renderer]: error: guard \"choice_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::build_list_box_renderer: error: guard \"choice_dialog_box\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::build_list_box_renderer]: error: guard \"choice_dialog_box\" not met");
    }
    // Design some custom colors for the breakout box
    ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;
@@ -540,9 +540,9 @@ std::string ChoiceRenderer::obtain_choice_dialog_box_prompt()
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::obtain_choice_dialog_box_prompt]: error: guard \"choice_dialog_box\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_choice_dialog_box_prompt]: error: guard \"choice_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::obtain_choice_dialog_box_prompt: error: guard \"choice_dialog_box\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_choice_dialog_box_prompt]: error: guard \"choice_dialog_box\" not met");
    }
    return choice_dialog_box->get_prompt_revealed_text();
 }
@@ -552,9 +552,9 @@ std::vector<std::pair<std::string, std::string>> ChoiceRenderer::obtain_choice_d
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::obtain_choice_dialog_box_options]: error: guard \"choice_dialog_box\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_choice_dialog_box_options]: error: guard \"choice_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::obtain_choice_dialog_box_options: error: guard \"choice_dialog_box\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_choice_dialog_box_options]: error: guard \"choice_dialog_box\" not met");
    }
    return choice_dialog_box->get_options();
 }
@@ -564,9 +564,9 @@ std::vector<std::string> ChoiceRenderer::obtain_choice_dialog_box_option_labels(
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::obtain_choice_dialog_box_option_labels]: error: guard \"choice_dialog_box\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_choice_dialog_box_option_labels]: error: guard \"choice_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::obtain_choice_dialog_box_option_labels: error: guard \"choice_dialog_box\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_choice_dialog_box_option_labels]: error: guard \"choice_dialog_box\" not met");
    }
    return choice_dialog_box->get_options_labels();
 }
@@ -576,9 +576,9 @@ int ChoiceRenderer::obtain_choice_dialog_box_cursor_position()
    if (!(choice_dialog_box))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::obtain_choice_dialog_box_cursor_position]: error: guard \"choice_dialog_box\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_choice_dialog_box_cursor_position]: error: guard \"choice_dialog_box\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::obtain_choice_dialog_box_cursor_position: error: guard \"choice_dialog_box\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_choice_dialog_box_cursor_position]: error: guard \"choice_dialog_box\" not met");
    }
    return choice_dialog_box->get_cursor_position();
 }
@@ -588,23 +588,23 @@ ALLEGRO_FONT* ChoiceRenderer::obtain_dialog_font()
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::obtain_dialog_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_dialog_font]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::obtain_dialog_font: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_dialog_font]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(al_is_ttf_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::obtain_dialog_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_dialog_font]: error: guard \"al_is_ttf_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::obtain_dialog_font: error: guard \"al_is_ttf_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_dialog_font]: error: guard \"al_is_ttf_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[ChoiceRenderer::obtain_dialog_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_dialog_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ChoiceRenderer::obtain_dialog_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer::obtain_dialog_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier;
    font_identifier << font_name << " " << font_size;

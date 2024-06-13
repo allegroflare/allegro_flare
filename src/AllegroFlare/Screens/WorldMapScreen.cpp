@@ -87,9 +87,9 @@ void WorldMapScreen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    map_viewer.set_bitmap_bin(bitmap_bin);
@@ -101,9 +101,9 @@ void WorldMapScreen::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    map_viewer.set_font_bin(font_bin);
@@ -115,44 +115,44 @@ void WorldMapScreen::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::initialize]: error: guard \"font_bin\" not met");
    }
    initialized = true;
 
@@ -169,9 +169,9 @@ void WorldMapScreen::set_map(AllegroFlare::WorldMaps::Maps::Basic* map)
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::set_map]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::set_map]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::set_map: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::set_map]: error: guard \"bitmap_bin\" not met");
    }
    map_viewer.set_map(map);
    return;
@@ -182,9 +182,9 @@ void WorldMapScreen::on_activate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::on_activate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::on_activate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::on_activate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::on_activate]: error: guard \"initialized\" not met");
    }
    map_viewer.on_switch_in();
    //emit_event_to_update_input_hints_bar(); // Requires event_emitter
@@ -197,9 +197,9 @@ void WorldMapScreen::on_deactivate()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::on_deactivate]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::on_deactivate]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::on_deactivate: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::on_deactivate]: error: guard \"initialized\" not met");
    }
    map_viewer.on_switch_out();
    //emit_hide_and_restore_size_input_hints_bar_event();
@@ -211,9 +211,9 @@ void WorldMapScreen::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::primary_timer_func]: error: guard \"initialized\" not met");
    }
    map_viewer.update();
    map_viewer.render();
@@ -237,9 +237,9 @@ void WorldMapScreen::virtual_control_button_up_func(AllegroFlare::Player* player
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::virtual_control_button_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::virtual_control_button_up_func]: error: guard \"initialized\" not met");
    }
    switch(virtual_controller_button_num)
    {
@@ -261,9 +261,9 @@ void WorldMapScreen::virtual_control_button_down_func(AllegroFlare::Player* play
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    //if (mode != MODE_USING_VIRTUAL_CONTROLS) return;
 
@@ -317,9 +317,9 @@ void WorldMapScreen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[WorldMapScreen::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Screens::WorldMapScreen::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("WorldMapScreen::virtual_control_axis_change_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Screens::WorldMapScreen::virtual_control_axis_change_func]: error: guard \"initialized\" not met");
    }
    // TODO: this function
    return;

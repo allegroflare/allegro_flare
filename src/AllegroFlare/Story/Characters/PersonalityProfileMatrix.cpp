@@ -48,16 +48,16 @@ AllegroFlare::Story::Characters::PersonalityDimension PersonalityProfileMatrix::
    if (!((index >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileMatrix::get_personality_dimension_by_index]: error: guard \"(index >= 0)\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileMatrix::get_personality_dimension_by_index]: error: guard \"(index >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileMatrix::get_personality_dimension_by_index: error: guard \"(index >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileMatrix::get_personality_dimension_by_index]: error: guard \"(index >= 0)\" not met");
    }
    if (!((index < dimensions.size())))
    {
       std::stringstream error_message;
-      error_message << "[PersonalityProfileMatrix::get_personality_dimension_by_index]: error: guard \"(index < dimensions.size())\" not met.";
+      error_message << "[AllegroFlare::Story::Characters::PersonalityProfileMatrix::get_personality_dimension_by_index]: error: guard \"(index < dimensions.size())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("PersonalityProfileMatrix::get_personality_dimension_by_index: error: guard \"(index < dimensions.size())\" not met");
+      throw std::runtime_error("[AllegroFlare::Story::Characters::PersonalityProfileMatrix::get_personality_dimension_by_index]: error: guard \"(index < dimensions.size())\" not met");
    }
    return dimensions[index];
 }

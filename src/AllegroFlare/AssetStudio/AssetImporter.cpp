@@ -82,9 +82,9 @@ void AssetImporter::import()
    if (!(asset_studio_database))
    {
       std::stringstream error_message;
-      error_message << "[AssetImporter::import]: error: guard \"asset_studio_database\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::AssetImporter::import]: error: guard \"asset_studio_database\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("AssetImporter::import: error: guard \"asset_studio_database\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::AssetImporter::import]: error: guard \"asset_studio_database\" not met");
    }
    // Check the presence of the source_directory
    if (!std::filesystem::exists(source_directory))

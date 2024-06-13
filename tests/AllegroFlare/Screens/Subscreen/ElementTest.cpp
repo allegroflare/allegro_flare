@@ -107,9 +107,11 @@ TEST_F(AllegroFlare_Screens_Subscreen_ElementTest,
    initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Screens::Subscreen::Element subscreen_element;
-   std::string expected_error_message =
-      "Element::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(subscreen_element.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      subscreen_element.initialize(),
+      "AllegroFlare::Screens::Subscreen::Element::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -118,9 +120,11 @@ TEST_F(AllegroFlare_Screens_Subscreen_ElementTest,
 {
    al_init();
    AllegroFlare::Screens::Subscreen::Element subscreen_element;
-   std::string expected_error_message =
-      "Element::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(subscreen_element.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      subscreen_element.initialize(),
+      "AllegroFlare::Screens::Subscreen::Element::initialize",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -131,9 +135,11 @@ TEST_F(AllegroFlare_Screens_Subscreen_ElementTest,
    al_init();
    al_init_primitives_addon();
    AllegroFlare::Screens::Subscreen::Element subscreen_element;
-   std::string expected_error_message =
-      "Element::initialize: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(subscreen_element.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      subscreen_element.initialize(),
+      "AllegroFlare::Screens::Subscreen::Element::initialize",
+      "al_is_font_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -146,9 +152,11 @@ TEST_F(AllegroFlare_Screens_Subscreen_ElementTest,
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::Screens::Subscreen::Element subscreen_element;
-   std::string expected_error_message =
-      "Element::initialize: error: guard \"al_is_ttf_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(subscreen_element.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      subscreen_element.initialize(),
+      "AllegroFlare::Screens::Subscreen::Element::initialize",
+      "al_is_ttf_addon_initialized()"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();
@@ -159,9 +167,11 @@ TEST_F(AllegroFlare_Screens_Subscreen_ElementTestWithAllegroRenderingFixture,
    render__without_initialization__will_throw_an_error)
 {
    AllegroFlare::Screens::Subscreen::Element subscreen_element;
-   std::string expected_error_message =
-      "Element::render: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(subscreen_element.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      subscreen_element.render(),
+      "AllegroFlare::Screens::Subscreen::Element::render",
+      "initialized"
+   );
 }
 
 

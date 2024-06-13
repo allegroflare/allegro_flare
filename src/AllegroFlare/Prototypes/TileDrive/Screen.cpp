@@ -43,9 +43,9 @@ void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    tile_drive.set_bitmap_bin(bitmap_bin);
@@ -57,9 +57,9 @@ void Screen::set_sample_bin(AllegroFlare::SampleBin* sample_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_sample_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::set_sample_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_sample_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::set_sample_bin]: error: guard \"(!initialized)\" not met");
    }
    this->sample_bin = sample_bin;
    tile_drive.set_sample_bin(sample_bin);
@@ -71,9 +71,9 @@ void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    tile_drive.set_font_bin(font_bin);
@@ -85,9 +85,9 @@ void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    tile_drive.set_event_emitter(event_emitter);
@@ -99,9 +99,9 @@ void Screen::set_maps_folder(std::string maps_folder)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_maps_folder]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::set_maps_folder]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_maps_folder: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::set_maps_folder]: error: guard \"(!initialized)\" not met");
    }
    tile_drive.set_maps_folder(maps_folder);
    return;
@@ -112,9 +112,9 @@ void Screen::set_terrain_mesh_dictionary(std::map<std::string, AllegroFlare::Pro
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_terrain_mesh_dictionary]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::set_terrain_mesh_dictionary]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_terrain_mesh_dictionary: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::set_terrain_mesh_dictionary]: error: guard \"(!initialized)\" not met");
    }
    tile_drive.set_terrain_mesh_dictionary(terrain_mesh_dictionary);
    return;
@@ -125,9 +125,9 @@ void Screen::set_current_map_identifier(std::string current_map_identifier)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_current_map_identifier]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::set_current_map_identifier]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_current_map_identifier: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::set_current_map_identifier]: error: guard \"(!initialized)\" not met");
    }
    tile_drive.set_current_map_identifier(current_map_identifier);
    return;
@@ -138,9 +138,9 @@ void Screen::set_collision_stepper_step_result_callback(std::function<void(Alleg
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_collision_stepper_step_result_callback]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::set_collision_stepper_step_result_callback]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_collision_stepper_step_result_callback: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::set_collision_stepper_step_result_callback]: error: guard \"(!initialized)\" not met");
    }
    tile_drive.set_collision_stepper_step_result_callback(collision_stepper_step_result_callback);
    tile_drive.set_collision_stepper_step_result_callback_user_data(collision_stepper_step_result_callback_user_data);
@@ -152,9 +152,9 @@ void Screen::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::initialize]: error: guard \"(!initialized)\" not met");
    }
    // initialize tile_drive
    tile_drive.set_bitmap_bin(bitmap_bin);
@@ -175,9 +175,9 @@ void Screen::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::primary_timer_func]: error: guard \"initialized\" not met");
    }
    tile_drive.update();
    tile_drive.render();
@@ -189,16 +189,16 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::key_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::key_down_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_down_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::key_down_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_down_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::key_down_func]: error: guard \"event\" not met");
    }
    switch(event->keyboard.keycode)
    {
@@ -237,16 +237,16 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::key_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::key_up_func]: error: guard \"initialized\" not met");
    }
    if (!(event))
    {
       std::stringstream error_message;
-      error_message << "[Screen::key_up_func]: error: guard \"event\" not met.";
+      error_message << "[AllegroFlare::Prototypes::TileDrive::Screen::key_up_func]: error: guard \"event\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::key_up_func: error: guard \"event\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::Screen::key_up_func]: error: guard \"event\" not met");
    }
    switch(event->keyboard.keycode)
    {

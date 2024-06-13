@@ -2,11 +2,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Network2/Message.hpp>
 
 
@@ -65,7 +61,7 @@ TEST(AllegroFlare_Network2_MessageTest,
 
    std::size_t size_too_big = AllegroFlare::Network2::Message::MAX_BODY_LENGTH + 1;
 
-   std::string expected_error_message = "Message::set_body_length: error: "
+   std::string expected_error_message = "[AllegroFlare::Network2::Message::set_body_length]: error: "
                                         "guard \"(!(new_length > MAX_BODY_LENGTH))\" not met";
    EXPECT_THROW_WITH_MESSAGE(message.set_body_length(size_too_big), std::runtime_error, expected_error_message);
 }
@@ -79,7 +75,7 @@ TEST(AllegroFlare_Network2_MessageTest,
    std::size_t size_too_big = AllegroFlare::Network2::Message::MAX_BODY_LENGTH + 1;
    std::string content_too_big(size_too_big, 'x');
 
-   std::string expected_error_message = "Message::set_body: error: "
+   std::string expected_error_message = "[AllegroFlare::Network2::Message::set_body]: error: "
                                         "guard \"(!(content.size() > MAX_BODY_LENGTH))\" not met";
    EXPECT_THROW_WITH_MESSAGE(message.set_body(content_too_big), std::runtime_error, expected_error_message);
 }

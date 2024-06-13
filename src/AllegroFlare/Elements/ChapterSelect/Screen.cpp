@@ -131,9 +131,9 @@ void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_event_emitter: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::set_event_emitter]: error: guard \"(!initialized)\" not met");
    }
    this->event_emitter = event_emitter;
    return;
@@ -144,9 +144,9 @@ void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_bitmap_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
    }
    this->bitmap_bin = bitmap_bin;
    return;
@@ -157,9 +157,9 @@ void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_font_bin: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::set_font_bin]: error: guard \"(!initialized)\" not met");
    }
    this->font_bin = font_bin;
    return;
@@ -200,51 +200,51 @@ void Screen::initialize()
    if (!((!initialized)))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"(!initialized)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"(!initialized)\" not met");
    }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"event_emitter\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[Screen::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::initialize: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::initialize]: error: guard \"font_bin\" not met");
    }
    chapter_select_element.set_event_emitter(event_emitter);
    chapter_select_element.set_bitmap_bin(bitmap_bin);
@@ -259,9 +259,9 @@ void Screen::set_elements(std::vector<AllegroFlare::Elements::ChapterSelect::Car
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::set_elements]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::set_elements]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::set_elements: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::set_elements]: error: guard \"initialized\" not met");
    }
    // TODO: Introduce a mechanism where each chapter and its status is stored
    chapter_select_element.set_carousel_elements(elements);
@@ -307,9 +307,9 @@ AllegroFlare::Elements::ChapterSelect::CarouselElements::Base* Screen::get_focus
    if (!(chapter_select_element.has_elements()))
    {
       std::stringstream error_message;
-      error_message << "[Screen::get_focused_carousel_element]: error: guard \"chapter_select_element.has_elements()\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::get_focused_carousel_element]: error: guard \"chapter_select_element.has_elements()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::get_focused_carousel_element: error: guard \"chapter_select_element.has_elements()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::get_focused_carousel_element]: error: guard \"chapter_select_element.has_elements()\" not met");
    }
    // TODO: Test this method
    return chapter_select_element.get_focused_carousel_element();
@@ -399,9 +399,9 @@ void Screen::exit_screen()
    if (!(on_exit_screen_callback_func))
    {
       std::stringstream error_message;
-      error_message << "[Screen::exit_screen]: error: guard \"on_exit_screen_callback_func\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::exit_screen]: error: guard \"on_exit_screen_callback_func\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::exit_screen: error: guard \"on_exit_screen_callback_func\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::exit_screen]: error: guard \"on_exit_screen_callback_func\" not met");
    }
    on_exit_screen_callback_func(this, on_exit_screen_callback_func_user_data);
    return;
@@ -412,9 +412,9 @@ void Screen::primary_timer_func()
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::primary_timer_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::primary_timer_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::primary_timer_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::primary_timer_func]: error: guard \"initialized\" not met");
    }
    if (background) background->update();
    update();
@@ -428,9 +428,9 @@ void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, Allegr
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::virtual_control_button_up_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met");
    }
    // TODO: this function
    return;
@@ -441,9 +441,9 @@ void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, Alle
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::virtual_control_button_down_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met");
    }
    // TODO: Consider validating the controller is GenericController
    if (!is_processing_user_input()) return;
@@ -474,9 +474,9 @@ void Screen::emit_select_menu_sound_effect()
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Screen::emit_select_menu_sound_effect]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::emit_select_menu_sound_effect]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::emit_select_menu_sound_effect: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::emit_select_menu_sound_effect]: error: guard \"event_emitter\" not met");
    }
    // TODO: test this event emission
    event_emitter->emit_play_sound_effect_event(select_menu_sound_effect_identifier);
@@ -488,9 +488,9 @@ void Screen::emit_failed_select_menu_sound_effect()
    if (!(event_emitter))
    {
       std::stringstream error_message;
-      error_message << "[Screen::emit_failed_select_menu_sound_effect]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::emit_failed_select_menu_sound_effect]: error: guard \"event_emitter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::emit_failed_select_menu_sound_effect: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::emit_failed_select_menu_sound_effect]: error: guard \"event_emitter\" not met");
    }
    // TODO: test this event emission
    event_emitter->emit_play_sound_effect_event(failed_select_menu_sound_effect_identifier);
@@ -502,9 +502,9 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[Screen::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Elements::ChapterSelect::Screen::virtual_control_axis_change_func]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Screen::virtual_control_axis_change_func: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::ChapterSelect::Screen::virtual_control_axis_change_func]: error: guard \"initialized\" not met");
    }
    // TODO: this function
    return;

@@ -134,9 +134,9 @@ void SimpleConfiguration::setup_new_game_progress_and_state_info(AllegroFlare::G
    if (!(game_session))
    {
       std::stringstream error_message;
-      error_message << "[SimpleConfiguration::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      error_message << "[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SimpleConfiguration::setup_new_game_progress_and_state_info: error: guard \"game_session\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met");
    }
    // Nothing to do
    return;
@@ -147,9 +147,9 @@ void SimpleConfiguration::load_last_played_session_or_start_new(AllegroFlare::Ga
    if (!(game_session))
    {
       std::stringstream error_message;
-      error_message << "[SimpleConfiguration::load_last_played_session_or_start_new]: error: guard \"game_session\" not met.";
+      error_message << "[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::load_last_played_session_or_start_new]: error: guard \"game_session\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SimpleConfiguration::load_last_played_session_or_start_new: error: guard \"game_session\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::load_last_played_session_or_start_new]: error: guard \"game_session\" not met");
    }
    // Nothing to do
    return;
@@ -166,9 +166,9 @@ std::string SimpleConfiguration::build_copyright_text(ReleaseInfo* release_info)
    if (!(release_info))
    {
       std::stringstream error_message;
-      error_message << "[SimpleConfiguration::build_copyright_text]: error: guard \"release_info\" not met.";
+      error_message << "[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::build_copyright_text]: error: guard \"release_info\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("SimpleConfiguration::build_copyright_text: error: guard \"release_info\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::build_copyright_text]: error: guard \"release_info\" not met");
    }
    AllegroFlare::TemplatedText templated_text(
       "[[COPYRIGHT_SYMBOL]] 2024 CLUBCATT Games         clubcatt.com         version [[VERSION_NUMBER]]",

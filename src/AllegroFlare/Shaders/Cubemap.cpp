@@ -77,9 +77,9 @@ void Cubemap::set_object_placement(AllegroFlare::Placement3D* object_placement)
    if (!(object_placement))
    {
       std::stringstream error_message;
-      error_message << "[Cubemap::set_object_placement]: error: guard \"object_placement\" not met.";
+      error_message << "[AllegroFlare::Shaders::Cubemap::set_object_placement]: error: guard \"object_placement\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Cubemap::set_object_placement: error: guard \"object_placement\" not met");
+      throw std::runtime_error("[AllegroFlare::Shaders::Cubemap::set_object_placement]: error: guard \"object_placement\" not met");
    }
    object_placement->build_transform(&object_placement_transform);
 

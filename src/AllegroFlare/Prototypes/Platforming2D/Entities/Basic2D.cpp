@@ -440,9 +440,9 @@ void Basic2D::on_collision_update(AllegroFlare::Vec2D previous_placement_positio
    if (!(collision_step_result))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::on_collision_update]: error: guard \"collision_step_result\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::on_collision_update]: error: guard \"collision_step_result\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::on_collision_update: error: guard \"collision_step_result\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::on_collision_update]: error: guard \"collision_step_result\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
@@ -569,9 +569,9 @@ void Basic2D::draw()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::draw: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
    // TODO: add some reasonable guards
@@ -697,9 +697,9 @@ void Basic2D::fit_to_bitmap()
    if (!(bitmap))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::fit_to_bitmap]: error: guard \"bitmap\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::fit_to_bitmap]: error: guard \"bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::fit_to_bitmap: error: guard \"bitmap\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::fit_to_bitmap]: error: guard \"bitmap\" not met");
    }
    placement.size.x = al_get_bitmap_width(bitmap);
    placement.size.y = al_get_bitmap_height(bitmap);
@@ -717,44 +717,44 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
    if (!(parent_placement))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"parent_placement\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"parent_placement\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"parent_placement\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"parent_placement\" not met");
    }
    if (!(bitmap))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap\" not met");
    }
    if (!(bitmap_x))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_x\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_x\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_x\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_x\" not met");
    }
    if (!(bitmap_y))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_y\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_y\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_y\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_y\" not met");
    }
    if (!(bitmap_align_x))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_align_x\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_align_x\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_align_x\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_align_x\" not met");
    }
    if (!(bitmap_align_y))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_align_y\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_align_y\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_align_y\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_align_y\" not met");
    }
    if (bitmap_alignment_strategy == "top_left")
    {
@@ -834,9 +834,9 @@ void Basic2D::set_animation(std::string animation_name)
    if (!((animation_book || asset_studio_database)))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::set_animation]: error: guard \"(animation_book || asset_studio_database)\" not met.";
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation]: error: guard \"(animation_book || asset_studio_database)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::set_animation: error: guard \"(animation_book || asset_studio_database)\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D::set_animation]: error: guard \"(animation_book || asset_studio_database)\" not met");
    }
    //if (animation_book && asset_studio_database)
    //{

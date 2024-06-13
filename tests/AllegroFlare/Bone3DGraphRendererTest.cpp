@@ -1,12 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 class AllegroFlare_Bone3DGraphRendererTest : public ::testing::Test
 {};
@@ -28,18 +25,22 @@ TEST_F(AllegroFlare_Bone3DGraphRendererTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_Bone3DGraphRendererTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Bone3DGraphRenderer bone_graph_renderer;
-   std::string expected_error_message =
-      "Bone3DGraphRenderer::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(bone_graph_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      bone_graph_renderer.render(),
+      "AllegroFlare::Bone3DGraphRenderer::render",
+      "al_is_system_installed()"
+   );
 }
 
 
 TEST_F(AllegroFlare_Bone3DGraphRendererTestWithAllegroRenderingFixture, render__without_a_root_bone__raises_an_error)
 {
    AllegroFlare::Bone3DGraphRenderer bone_graph_renderer;
-   std::string expected_error_message =
-      "Bone3DGraphRenderer::render: error: guard \"root_bone\" not met";
-   ASSERT_THROW_WITH_MESSAGE(bone_graph_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      bone_graph_renderer.render(),
+      "AllegroFlare::Bone3DGraphRenderer::render",
+      "root_bone"
+   );
 }
 
 

@@ -147,9 +147,9 @@ bool ConfigurationLoader::load_from_source_configuration()
    if (!(source_configuration))
    {
       std::stringstream error_message;
-      error_message << "[ConfigurationLoader::load_from_source_configuration]: error: guard \"source_configuration\" not met.";
+      error_message << "[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader::load_from_source_configuration]: error: guard \"source_configuration\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("ConfigurationLoader::load_from_source_configuration: error: guard \"source_configuration\" not met");
+      throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::ConfigurationLoader::load_from_source_configuration]: error: guard \"source_configuration\" not met");
    }
    *destination_inventory_index = source_configuration->get_inventory_index_ref();
    *destination_af_inventory = source_configuration->get_af_inventory();

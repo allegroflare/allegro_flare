@@ -178,44 +178,44 @@ void CharacterFeatureRenderer::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::render]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"font_bin\" not met");
    }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::render]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"bitmap_bin\" not met");
    }
    if (!((duration >= 0.1)))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::render]: error: guard \"(duration >= 0.1)\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"(duration >= 0.1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::render: error: guard \"(duration >= 0.1)\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::render]: error: guard \"(duration >= 0.1)\" not met");
    }
    float title_x = 875;
    float title_y = 500;
@@ -293,9 +293,9 @@ ALLEGRO_FONT* CharacterFeatureRenderer::obtain_character_name_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::obtain_character_name_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::obtain_character_name_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::obtain_character_name_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::obtain_character_name_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier;
    font_identifier << character_name_font_name << " " << character_name_font_size;
@@ -308,9 +308,9 @@ ALLEGRO_FONT* CharacterFeatureRenderer::obtain_description_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::obtain_description_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::obtain_description_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::obtain_description_font: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::obtain_description_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream font_identifier;
    font_identifier << description_font_name << " " << description_font_size;
@@ -323,9 +323,9 @@ ALLEGRO_BITMAP* CharacterFeatureRenderer::obtain_character_image()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[CharacterFeatureRenderer::obtain_character_image]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::obtain_character_image]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterFeatureRenderer::obtain_character_image: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer::obtain_character_image]: error: guard \"bitmap_bin\" not met");
    }
    if (character_image_identifier.empty()) return nullptr;
    return bitmap_bin->auto_get(character_image_identifier);

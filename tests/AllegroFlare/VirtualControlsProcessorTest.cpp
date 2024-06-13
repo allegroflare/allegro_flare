@@ -57,7 +57,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest, initialize__when_allegro_is_no
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.initialize(),
-      "VirtualControlsProcessor::initialize",
+      "AllegroFlare::VirtualControlsProcessor::initialize",
       "al_is_system_installed()"
    );
 }
@@ -70,7 +70,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.initialize(),
-      "VirtualControlsProcessor::initialize",
+      "AllegroFlare::VirtualControlsProcessor::initialize",
       "al_is_joystick_installed()"
    );
    al_uninstall_system();
@@ -83,7 +83,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.initialize(),
-      "VirtualControlsProcessor::initialize",
+      "AllegroFlare::VirtualControlsProcessor::initialize",
       "input_devices_list"
    );
 }
@@ -97,7 +97,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
    virtual_control_processor.set_input_devices_list(&input_devices_list);
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.initialize(),
-      "VirtualControlsProcessor::initialize",
+      "AllegroFlare::VirtualControlsProcessor::initialize",
       "event_emitter"
    );
 }
@@ -167,7 +167,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorWithAllegroJoystickInstallTest,
 
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.initialize(),
-      "VirtualControlsProcessor::initialize",
+      "AllegroFlare::VirtualControlsProcessor::initialize",
       "(!initialized)"
    );
 }
@@ -179,7 +179,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_joystick_button_down_event(),
-      "VirtualControlsProcessor::handle_raw_joystick_button_down_event",
+      "AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_down_event",
       "initialized"
    );
 }
@@ -191,7 +191,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_joystick_button_up_event(),
-      "VirtualControlsProcessor::handle_raw_joystick_button_up_event",
+      "AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_button_up_event",
       "initialized"
    );
 }
@@ -203,7 +203,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_joystick_axis_change_event(),
-      "VirtualControlsProcessor::handle_raw_joystick_axis_change_event",
+      "AllegroFlare::VirtualControlsProcessor::handle_raw_joystick_axis_change_event",
       "initialized"
    );
 }
@@ -215,7 +215,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_keyboard_key_down_event(),
-      "VirtualControlsProcessor::handle_raw_keyboard_key_down_event",
+      "AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_down_event",
       "initialized"
    );
 }
@@ -227,7 +227,7 @@ TEST_F(AllegroFlare_VirtualControlsProcessorTest,
    AllegroFlare::VirtualControlsProcessor virtual_control_processor;
    EXPECT_THROW_GUARD_ERROR(
       virtual_control_processor.handle_raw_keyboard_key_up_event(),
-      "VirtualControlsProcessor::handle_raw_keyboard_key_up_event",
+      "AllegroFlare::VirtualControlsProcessor::handle_raw_keyboard_key_up_event",
       "initialized"
    );
 }

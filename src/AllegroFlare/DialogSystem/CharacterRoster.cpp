@@ -56,16 +56,16 @@ void CharacterRoster::add_character(std::string name, AllegroFlare::DialogSystem
    if (!(character))
    {
       std::stringstream error_message;
-      error_message << "[CharacterRoster::add_character]: error: guard \"character\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterRoster::add_character]: error: guard \"character\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterRoster::add_character: error: guard \"character\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterRoster::add_character]: error: guard \"character\" not met");
    }
    if (!((!character_exists_by_name(name))))
    {
       std::stringstream error_message;
-      error_message << "[CharacterRoster::add_character]: error: guard \"(!character_exists_by_name(name))\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterRoster::add_character]: error: guard \"(!character_exists_by_name(name))\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterRoster::add_character: error: guard \"(!character_exists_by_name(name))\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterRoster::add_character]: error: guard \"(!character_exists_by_name(name))\" not met");
    }
    characters[name] = character;
 }
@@ -80,9 +80,9 @@ AllegroFlare::DialogSystem::Characters::Base* CharacterRoster::find_character_by
    if (!(character_exists_by_name(name)))
    {
       std::stringstream error_message;
-      error_message << "[CharacterRoster::find_character_by_name]: error: guard \"character_exists_by_name(name)\" not met.";
+      error_message << "[AllegroFlare::DialogSystem::CharacterRoster::find_character_by_name]: error: guard \"character_exists_by_name(name)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("CharacterRoster::find_character_by_name: error: guard \"character_exists_by_name(name)\" not met");
+      throw std::runtime_error("[AllegroFlare::DialogSystem::CharacterRoster::find_character_by_name]: error: guard \"character_exists_by_name(name)\" not met");
    }
    // TODO: This guard results in a double lookup. Might be faster to integrate it below.
    if (characters.find(name) == characters.end()) return nullptr;

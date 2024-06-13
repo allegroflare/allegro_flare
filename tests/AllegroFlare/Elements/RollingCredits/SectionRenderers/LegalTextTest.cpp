@@ -1,11 +1,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { ASSERT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 
@@ -49,9 +45,11 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_LegalTextTest,
    render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::LegalText legal_text_section_renderer;
-   std::string expected_error_message =
-      "LegalText::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(legal_text_section_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      legal_text_section_renderer.render(),
+      "AllegroFlare::Elements::RollingCredits::SectionRenderers::LegalText::render",
+      "al_is_system_installed()"
+   );
 }
 
 

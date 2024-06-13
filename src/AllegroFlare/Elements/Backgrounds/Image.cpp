@@ -58,9 +58,9 @@ void Image::render()
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[Image::render]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Elements::Backgrounds::Image::render]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Image::render: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Backgrounds::Image::render]: error: guard \"bitmap_bin\" not met");
    }
    int surface_width = 1920; // TDOO: Consider having this value be a property on the class
    int surface_height = 1080; // TDOO: Consider having this value be a property on the class

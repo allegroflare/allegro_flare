@@ -132,9 +132,9 @@ void Basic2D::draw()
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[Wicked::Entities::Basic2D::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::draw: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[Wicked::Entities::Basic2D::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    // TODO: add some reasonable guards
    //if (bitmap)
@@ -217,9 +217,9 @@ void Basic2D::fit_to_bitmap()
    if (!(bitmap))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::fit_to_bitmap]: error: guard \"bitmap\" not met.";
+      error_message << "[Wicked::Entities::Basic2D::fit_to_bitmap]: error: guard \"bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::fit_to_bitmap: error: guard \"bitmap\" not met");
+      throw std::runtime_error("[Wicked::Entities::Basic2D::fit_to_bitmap]: error: guard \"bitmap\" not met");
    }
    place.size.x = al_get_bitmap_width(bitmap);
    place.size.y = al_get_bitmap_height(bitmap);
@@ -231,30 +231,30 @@ void Basic2D::assign_alignment_strategy_values(AllegroFlare::Placement2D* parent
    if (!(parent_placement))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"parent_placement\" not met.";
+      error_message << "[Wicked::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"parent_placement\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"parent_placement\" not met");
+      throw std::runtime_error("[Wicked::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"parent_placement\" not met");
    }
    if (!(bitmap))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap\" not met.";
+      error_message << "[Wicked::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap\" not met");
+      throw std::runtime_error("[Wicked::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap\" not met");
    }
    if (!(bitmap_x))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_x\" not met.";
+      error_message << "[Wicked::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_x\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_x\" not met");
+      throw std::runtime_error("[Wicked::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_x\" not met");
    }
    if (!(bitmap_y))
    {
       std::stringstream error_message;
-      error_message << "[Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_y\" not met.";
+      error_message << "[Wicked::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_y\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Basic2D::assign_alignment_strategy_values: error: guard \"bitmap_y\" not met");
+      throw std::runtime_error("[Wicked::Entities::Basic2D::assign_alignment_strategy_values]: error: guard \"bitmap_y\" not met");
    }
    if (bitmap_alignment_strategy == "top_left")
    {

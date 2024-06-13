@@ -76,16 +76,16 @@ void Base::iterate_through_input_and_apply_to_result_if_match(std::vector<std::v
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
    {
       std::stringstream error_message;
-      error_message << "[Base::iterate_through_input_and_apply_to_result_if_match]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::Filters::Base::iterate_through_input_and_apply_to_result_if_match]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::iterate_through_input_and_apply_to_result_if_match: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::Filters::Base::iterate_through_input_and_apply_to_result_if_match]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met");
    }
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(apply_matrix)))
    {
       std::stringstream error_message;
-      error_message << "[Base::iterate_through_input_and_apply_to_result_if_match]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(apply_matrix)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::Filters::Base::iterate_through_input_and_apply_to_result_if_match]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(apply_matrix)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::iterate_through_input_and_apply_to_result_if_match: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(apply_matrix)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::Filters::Base::iterate_through_input_and_apply_to_result_if_match]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(apply_matrix)\" not met");
    }
    // TODO: come up with a better name for this function
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
@@ -145,9 +145,9 @@ bool Base::matrix_matches(std::vector<std::vector<int>> match_matrix, int at_coo
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)))
    {
       std::stringstream error_message;
-      error_message << "[Base::matrix_matches]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::Filters::Base::matrix_matches]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::matrix_matches: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::Filters::Base::matrix_matches]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(match_matrix)\" not met");
    }
    // TODO: un-hardcode this function (note is done, just leaving commented code preserved in case of needed revert)
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &input_matrix = get_input_matrix_ref();
@@ -211,9 +211,9 @@ void Base::stamp_to_result(std::vector<std::vector<int>> stamp_matrix, int at_co
    if (!(AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)))
    {
       std::stringstream error_message;
-      error_message << "[Base::stamp_to_result]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::Filters::Base::stamp_to_result]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::stamp_to_result: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::Filters::Base::stamp_to_result]: error: guard \"AllegroFlare::TileMaps::AutoTile::FilterMatrix::STATIC_is_valid(stamp_matrix)\" not met");
    }
    // TODO: consider removing "STATIC_is_valid" guard for performance
    AllegroFlare::TileMaps::AutoTile::FilterMatrix &result_matrix = get_result_matrix_ref();
@@ -257,16 +257,16 @@ int Base::tile_coord_to_contiguous(int tile_x, int tile_y, int tile_atlas_num_co
    if (!((tile_atlas_num_columns > 0)))
    {
       std::stringstream error_message;
-      error_message << "[Base::tile_coord_to_contiguous]: error: guard \"(tile_atlas_num_columns > 0)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous]: error: guard \"(tile_atlas_num_columns > 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::tile_coord_to_contiguous: error: guard \"(tile_atlas_num_columns > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous]: error: guard \"(tile_atlas_num_columns > 0)\" not met");
    }
    if (!((tile_x < tile_atlas_num_columns)))
    {
       std::stringstream error_message;
-      error_message << "[Base::tile_coord_to_contiguous]: error: guard \"(tile_x < tile_atlas_num_columns)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous]: error: guard \"(tile_x < tile_atlas_num_columns)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("Base::tile_coord_to_contiguous: error: guard \"(tile_x < tile_atlas_num_columns)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::AutoTile::Filters::Base::tile_coord_to_contiguous]: error: guard \"(tile_x < tile_atlas_num_columns)\" not met");
    }
    return tile_x + tile_y * tile_atlas_num_columns;
 }
