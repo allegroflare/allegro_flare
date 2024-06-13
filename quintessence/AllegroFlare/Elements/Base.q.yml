@@ -23,7 +23,6 @@ methods:
   - name: render
     virtual: true
     type: void
-    guards: [ al_is_system_installed() ]
     body: |
       return;
 

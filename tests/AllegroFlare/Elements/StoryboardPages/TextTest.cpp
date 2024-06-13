@@ -32,9 +32,11 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_TextTest, has_the_expected_type)
 TEST_F(AllegroFlare_Elements_StoryboardPages_TextTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::StoryboardPages::Text text;
-   std::string expected_error_message =
-      "Text::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(text.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      text.render(),
+      "AllegroFlare::Elements::StoryboardPages::Text::render",
+      "al_is_system_installed()"
+   );
 }
 
 
