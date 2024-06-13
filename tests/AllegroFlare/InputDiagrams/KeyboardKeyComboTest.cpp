@@ -27,9 +27,11 @@ TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTest, can_be_created_without_b
 TEST_F(AllegroFlare_InputDiagrams_KeyboardKeyComboTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::InputDiagrams::KeyboardKeyCombo keyboard_key;
-   std::string expected_error_message =
-      "KeyboardKeyCombo::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(keyboard_key.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      keyboard_key.render(),
+      "AllegroFlare::InputDiagrams::KeyboardKeyCombo::render",
+      "al_is_system_installed()"
+   );
 }
 
 

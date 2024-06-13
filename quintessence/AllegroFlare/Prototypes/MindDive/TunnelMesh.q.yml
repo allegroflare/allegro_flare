@@ -46,7 +46,7 @@ properties:
     init_with: false
 
 
-functions:
+methods:
 
 
   - name: set_atlas_configuration
