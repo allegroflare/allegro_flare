@@ -1,12 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/AudioProcessing/AudioDataBlock.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 TEST(AllegroFlare_AudioProcessing_AudioDataBlockTest, can_be_created_without_blowing_up)
@@ -50,8 +46,11 @@ TEST(AllegroFlare_AudioProcessing_AudioDataBlockTest, sample_count__before_being
    // NOTE: At the time of writing, this guard is only needed because the "channel_count" has not yet been set
 {
    AllegroFlare::AudioProcessing::AudioDataBlock audio_data_block;
-   std::string expected_error_message = "AudioDataBlock::set_sample_count: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(audio_data_block.set_sample_count(256), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      audio_data_block.set_sample_count(256),
+      "AllegroFlare::AudioProcessing::AudioDataBlock::set_sample_count",
+      "initialized"
+   );
 }
 
 
@@ -59,8 +58,11 @@ TEST(AllegroFlare_AudioProcessing_AudioDataBlockTest, sample_count__when_setting
 {
    AllegroFlare::AudioProcessing::AudioDataBlock audio_data_block;
    audio_data_block.initialize();
-   std::string expected_error_message = "AudioDataBlock::set_sample_count: error: guard \"(sample_count > 0)\" not met";
-   EXPECT_THROW_WITH_MESSAGE(audio_data_block.set_sample_count(0), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      audio_data_block.set_sample_count(0),
+      "AllegroFlare::AudioProcessing::AudioDataBlock::set_sample_count",
+      "(sample_count > 0)"
+   );
 }
 
 

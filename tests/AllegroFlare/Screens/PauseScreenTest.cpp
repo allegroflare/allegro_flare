@@ -28,9 +28,11 @@ TEST_F(AllegroFlare_Screens_PauseScreenTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_Screens_PauseScreenTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Screens::PauseScreen pause_screen;
-   std::string expected_error_message =
-      "PauseScreen::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(pause_screen.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      pause_screen.render(),
+      "AllegroFlare::Screens::PauseScreen::render",
+      "al_is_system_installed()"
+   );
 }
 
 

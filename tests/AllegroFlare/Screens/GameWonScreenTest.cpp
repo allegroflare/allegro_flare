@@ -19,25 +19,27 @@ class AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture :
 
 TEST_F(AllegroFlare_Screens_GameWonScreenTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Screens::GameWonScreen game_over_screen;
+   AllegroFlare::Screens::GameWonScreen game_won_screen;
 }
 
 
 TEST_F(AllegroFlare_Screens_GameWonScreenTest, render__without_allegro_initialized__raises_an_error)
 {
-   AllegroFlare::Screens::GameWonScreen game_over_screen;
-   std::string expected_error_message =
-      "GameWonScreen::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(game_over_screen.render(), std::runtime_error, expected_error_message);
+   AllegroFlare::Screens::GameWonScreen game_won_screen;
+   EXPECT_THROW_GUARD_ERROR(
+      game_won_screen.render(),
+      "AllegroFlare::Screens::GameWonScreen::render",
+      "al_is_system_installed()"
+   );
 }
 
 
 TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Screens::GameWonScreen game_over_screen;
-   game_over_screen.set_font_bin(&get_font_bin_ref());
+   AllegroFlare::Screens::GameWonScreen game_won_screen;
+   game_won_screen.set_font_bin(&get_font_bin_ref());
 
-   game_over_screen.render();
+   game_won_screen.render();
 
    al_flip_display();
    SUCCEED();
@@ -47,17 +49,17 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture, CAPTUR
 TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
    CAPTURE__render__with_customized_fonts_and_text__will_render_as_expected)
 {
-   AllegroFlare::Screens::GameWonScreen game_over_screen;
-   game_over_screen.set_font_bin(&get_font_bin_ref());
+   AllegroFlare::Screens::GameWonScreen game_won_screen;
+   game_won_screen.set_font_bin(&get_font_bin_ref());
 
-   game_over_screen.set_title_text("You Have Already Won");
-   game_over_screen.set_title_font_name("Lora-MediumItalic.ttf");
-   game_over_screen.set_title_font_size(-74);
-   game_over_screen.set_instruction_text("Press any key to continue");
-   game_over_screen.set_instruction_font_name("Lora-Medium.ttf");
-   game_over_screen.set_instruction_font_size(-34);
+   game_won_screen.set_title_text("You Have Already Won");
+   game_won_screen.set_title_font_name("Lora-MediumItalic.ttf");
+   game_won_screen.set_title_font_size(-74);
+   game_won_screen.set_instruction_text("Press any key to continue");
+   game_won_screen.set_instruction_font_name("Lora-Medium.ttf");
+   game_won_screen.set_instruction_font_size(-34);
 
-   game_over_screen.render();
+   game_won_screen.render();
 
    al_flip_display();
    SUCCEED();
@@ -111,9 +113,9 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // initialize test subject
-   AllegroFlare::Screens::GameWonScreen game_over_screen;
-   game_over_screen.set_font_bin(&get_font_bin_ref());
-   game_over_screen.set_event_emitter(&event_emitter);
+   AllegroFlare::Screens::GameWonScreen game_won_screen;
+   game_won_screen.set_font_bin(&get_font_bin_ref());
+   game_won_screen.set_event_emitter(&event_emitter);
 
    // run the interactive test
    al_start_timer(primary_timer);
@@ -133,13 +135,13 @@ TEST_F(AllegroFlare_Screens_GameWonScreenTestWithAllegroRenderingFixture,
             if (event.keyboard.keycode == ALLEGRO_KEY_ENTER)
                button_num = AllegroFlare::VirtualControllers::GenericController::BUTTON_A;
             if (button_num != 0)
-               game_over_screen.virtual_control_button_down_func(nullptr, nullptr, button_num, event.keyboard.repeat);
+               game_won_screen.virtual_control_button_down_func(nullptr, nullptr, button_num, event.keyboard.repeat);
          }
          break;
 
          case ALLEGRO_EVENT_TIMER:
             al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
-            game_over_screen.primary_timer_func();
+            game_won_screen.primary_timer_func();
             al_flip_display();
          break;
 

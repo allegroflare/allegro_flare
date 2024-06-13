@@ -23,9 +23,11 @@ TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRendererTest, can_be_created_without_
 TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRendererTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::LoadASavedGame::SaveSlotRenderer save_slot_renderer;
-   std::string expected_error_message =
-      "SaveSlotRenderer::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(save_slot_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      save_slot_renderer.render(),
+      "AllegroFlare::LoadASavedGame::SaveSlotRenderer::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -33,9 +35,11 @@ TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRendererTest, render__without_primiti
 {
    al_init();
    AllegroFlare::LoadASavedGame::SaveSlotRenderer save_slot_renderer;
-   std::string expected_error_message =
-      "SaveSlotRenderer::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(save_slot_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      save_slot_renderer.render(),
+      "AllegroFlare::LoadASavedGame::SaveSlotRenderer::render",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -45,9 +49,11 @@ TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRendererTest, render__without_font_ad
    al_init();
    al_init_primitives_addon();
    AllegroFlare::LoadASavedGame::SaveSlotRenderer save_slot_renderer;
-   std::string expected_error_message =
-      "SaveSlotRenderer::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(save_slot_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      save_slot_renderer.render(),
+      "AllegroFlare::LoadASavedGame::SaveSlotRenderer::render",
+      "al_is_font_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -59,9 +65,11 @@ TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRendererTest, render__without_a_font_
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::LoadASavedGame::SaveSlotRenderer save_slot_renderer;
-   std::string expected_error_message =
-      "SaveSlotRenderer::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(save_slot_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      save_slot_renderer.render(),
+      "AllegroFlare::LoadASavedGame::SaveSlotRenderer::render",
+      "font_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();

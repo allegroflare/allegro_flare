@@ -1,11 +1,7 @@
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_Screens_CharacterNameInputTest : public ::testing::Test {};
@@ -28,9 +24,11 @@ TEST_F(AllegroFlare_Screens_CharacterNameInputTest, can_be_created_without_blowi
 TEST_F(AllegroFlare_Screens_CharacterNameInputTest, render__before_initialized__raises_an_error)
 {
    AllegroFlare::Screens::CharacterNameInput character_name_input;
-   std::string expected_error_message =
-      "CharacterNameInput::render: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(character_name_input.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      character_name_input.render(),
+      "AllegroFlare::Screens::CharacterNameInput::render",
+      "initialized"
+   );
 }
 
 

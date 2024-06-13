@@ -326,6 +326,13 @@ void RollingCredits::emit_completion_event()
 
 void RollingCredits::render()
 {
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Screens::RollingCredits::render]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Screens::RollingCredits::render]: error: guard \"al_is_system_installed()\" not met");
+   }
    rolling_credits_component.set_y_offset(-y_offset);
    rolling_credits_component.render();
    return;

@@ -1,12 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 #include <AllegroFlare/UnicodeFontViewer.hpp>
@@ -33,9 +29,11 @@ TEST_F(AllegroFlare_UnicodeFontViewerTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_UnicodeFontViewerTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::UnicodeFontViewer unicode_font_viewer;
-   std::string expected_error_message =
-      "UnicodeFontViewer::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(unicode_font_viewer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      unicode_font_viewer.render(),
+      "AllegroFlare::UnicodeFontViewer::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -43,9 +41,11 @@ TEST_F(AllegroFlare_UnicodeFontViewerTest, render__without_font_addon_initialize
 {
    al_init();
    AllegroFlare::UnicodeFontViewer unicode_font_viewer;
-   std::string expected_error_message =
-      "UnicodeFontViewer::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(unicode_font_viewer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      unicode_font_viewer.render(),
+      "AllegroFlare::UnicodeFontViewer::render",
+      "al_is_font_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -55,9 +55,11 @@ TEST_F(AllegroFlare_UnicodeFontViewerTest, render__without_ttf_addon_initialized
    al_init();
    al_init_font_addon();
    AllegroFlare::UnicodeFontViewer unicode_font_viewer;
-   std::string expected_error_message =
-      "UnicodeFontViewer::render: error: guard \"al_is_ttf_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(unicode_font_viewer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      unicode_font_viewer.render(),
+      "AllegroFlare::UnicodeFontViewer::render",
+      "al_is_ttf_addon_initialized()"
+   );
    al_shutdown_font_addon();
    al_uninstall_system();
 }
@@ -69,9 +71,11 @@ TEST_F(AllegroFlare_UnicodeFontViewerTest, render__without_primitives_addon_init
    al_init_font_addon();
    al_init_ttf_addon();
    AllegroFlare::UnicodeFontViewer unicode_font_viewer;
-   std::string expected_error_message =
-      "UnicodeFontViewer::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(unicode_font_viewer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      unicode_font_viewer.render(),
+      "AllegroFlare::UnicodeFontViewer::render",
+      "al_is_primitives_addon_initialized()"
+   );
    al_shutdown_ttf_addon();
    al_shutdown_font_addon();
    al_uninstall_system();
@@ -85,9 +89,11 @@ TEST_F(AllegroFlare_UnicodeFontViewerTest, render__without_a_font_bin__raises_an
    al_init_ttf_addon();
    al_init_primitives_addon();
    AllegroFlare::UnicodeFontViewer unicode_font_viewer;
-   std::string expected_error_message =
-      "UnicodeFontViewer::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(unicode_font_viewer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      unicode_font_viewer.render(),
+      "AllegroFlare::UnicodeFontViewer::render",
+      "font_bin"
+   );
    al_shutdown_primitives_addon();
    al_shutdown_ttf_addon();
    al_shutdown_font_addon();

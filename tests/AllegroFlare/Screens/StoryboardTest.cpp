@@ -1,13 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 #include <AllegroFlare/EventNames.hpp>
 
@@ -136,9 +132,11 @@ TEST_F(AllegroFlare_Screens_StoryboardTestWithAllegroRenderingFixture,
 {
    AllegroFlare::Screens::Storyboard storyboard;
    storyboard.initialize();
-   std::string expected_error_message =
-      "Storyboard::virtual_control_button_down_func: error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(storyboard.virtual_control_button_down_func(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      storyboard.virtual_control_button_down_func(),
+      "AllegroFlare::Screens::Storyboard::virtual_control_button_down_func",
+      "event_emitter"
+   );
 }
 
 

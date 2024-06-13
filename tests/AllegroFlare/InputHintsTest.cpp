@@ -25,9 +25,11 @@ TEST_F(AllegroFlare_InputHintsTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_InputHintsTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::InputHints input_hints;
-   std::string expected_error_message =
-      "InputHints::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(input_hints.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      input_hints.render(),
+      "AllegroFlare::InputHints::render",
+      "al_is_system_installed()"
+   );
 }
 
 
