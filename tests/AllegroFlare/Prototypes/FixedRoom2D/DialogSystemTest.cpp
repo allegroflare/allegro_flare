@@ -1,11 +1,7 @@
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest : public ::testing::Test {};
@@ -28,9 +24,11 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest, can_be_created_with
 TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -39,9 +37,11 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest,
 {
    al_init();
    AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::initialize",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -52,9 +52,11 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest,
    al_init();
    al_init_primitives_addon();
    AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::initialize",
+      "al_is_font_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -66,9 +68,11 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest, initialize__without
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"bitmap_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::initialize",
+      "bitmap_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();
@@ -83,9 +87,11 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest, initialize__without
    AllegroFlare::BitmapBin bitmap_bin;
    AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
    dialog_system.set_bitmap_bin(&bitmap_bin);
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::initialize",
+      "font_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();
@@ -102,9 +108,11 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_DialogSystemTest, initialize__without
    AllegroFlare::Prototypes::FixedRoom2D::DialogSystem dialog_system;
    dialog_system.set_bitmap_bin(&bitmap_bin);
    dialog_system.set_font_bin(&font_bin);
-   std::string expected_error_message =
-      "DialogSystem::initialize: error: guard \"event_emitter\" not met";
-   EXPECT_THROW_WITH_MESSAGE(dialog_system.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      dialog_system.initialize(),
+      "AllegroFlare::Prototypes::FixedRoom2D::DialogSystem::initialize",
+      "event_emitter"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();

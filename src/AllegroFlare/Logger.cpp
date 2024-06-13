@@ -230,9 +230,9 @@ std::string Logger::build_error_message(std::string from, std::string message)
 std::string Logger::build_warning_message(std::string from, std::string message, bool is_warn_once)
 {
    std::stringstream result;
-   result << CONSOLE_COLOR_YELLOW << "[" << from << "]: warning";
+   result << "[" << from << "]: warning";
    if (is_warn_once) result << " (once)";
-   result << ": " << message << CONSOLE_COLOR_DEFAULT;
+   result << ": " << message;
    return result.str();
 }
 
@@ -308,13 +308,15 @@ void Logger::info_from(std::string from, std::string message)
 
 void Logger::warn_from(std::string from, std::string message)
 {
+   // TODO: Test this, there's a test in AudioController that uses this and and requires revision
    std::string warning_message = build_warning_message(from, message);
-   std::cout << warning_message << std::endl;
+   std::cout << CONSOLE_COLOR_YELLOW << warning_message << CONSOLE_COLOR_DEFAULT << std::endl;
    if (instance && instance->log_file_initialized) instance->log_file << warning_message << std::endl;
 }
 
 void Logger::warn_from_once(std::string from, std::string message)
 {
+   // TODO: Test this, there's a test in AudioController that uses this and and requires revision
    std::string composite_message = build_warning_message(from, message, true);
    bool message_already_emitted = once_emitted_warnings.find(composite_message) != once_emitted_warnings.end();
    if (!message_already_emitted)
