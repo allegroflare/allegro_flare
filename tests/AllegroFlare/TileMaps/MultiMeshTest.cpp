@@ -1,13 +1,8 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
-
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 class AllegroFlare_TileMaps_MultiMeshTest : public ::testing::Test
 {};
@@ -29,9 +24,11 @@ TEST_F(AllegroFlare_TileMaps_MultiMeshTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_TileMaps_MultiMeshTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::TileMaps::MultiMesh multi_mesh;
-   std::string expected_error_message =
-      "MultiMesh::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(multi_mesh.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      multi_mesh.initialize(),
+      "AllegroFlare::TileMaps::MultiMesh::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 

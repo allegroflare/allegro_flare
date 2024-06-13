@@ -100,10 +100,10 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest, render__wi
 {
    AllegroFlare::TileMaps::TileMesh mesh;
 
-   ASSERT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       mesh.render(),
-      std::runtime_error,
-      "TileMesh::render: error: guard \"initialized\" not met"
+      "AllegroFlare::TileMaps::TileMesh::render",
+      "initialized"
    );
 }
 

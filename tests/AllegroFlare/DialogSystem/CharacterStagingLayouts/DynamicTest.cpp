@@ -3,7 +3,6 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic.hpp>
-//#include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
@@ -88,9 +87,11 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTest,
    render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging;
-   std::string expected_error_message =
-      "Dynamic::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(staging.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      staging.render(),
+      "AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -98,9 +99,11 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTest, render__wi
 {
    al_init();
    AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic staging;
-   std::string expected_error_message =
-      "Dynamic::render: error: guard \"bitmap_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(staging.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      staging.render(),
+      "AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::render",
+      "bitmap_bin"
+   );
    al_uninstall_system();
 }
 
@@ -153,10 +156,10 @@ TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithStagedCh
 TEST_F(AllegroFlare_DialogSystem_CharacterStagingLayouts_DynamicTestWithStagedCharacters,
    CAPTURE__exit_character__on_a_character_that_does_not_exist__will_blow_up)
 {
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       staging.exit_character("A_CHARACTER_THAT_DOES_NOT_EXIST"),
-      std::runtime_error,
-      "Dynamic::exit_character: error: guard \"staged_character_exists(staged_character_identifier)\" not met"
+      "AllegroFlare::DialogSystem::CharacterStagingLayouts::Dynamic::exit_character",
+      "staged_character_exists(staged_character_identifier)"
    );
 }
 
