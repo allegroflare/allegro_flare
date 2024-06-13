@@ -1,15 +1,10 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-
 #include <AllegroFlare/AudioController.hpp>
 
 #include <allegro5/allegro_acodec.h>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Logger.hpp>
 
 #define TEST_FIXTURE_FOLDER_NAME "./tests/fixtures/"
@@ -27,9 +22,11 @@ TEST(AllegroFlare_AudioControllerTest, can_be_created_without_blowing_up)
 TEST(AllegroFlare_AudioControllerTest, initialize__without_allegro_initialized__raises_an_exception)
 {
    AllegroFlare::AudioController audio_controller;
-   std::string expected_error_message =
-      "AudioController::initialize: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::AudioController::initialize",
+      "al_is_system_installed()"
+   );
+   EXPECT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
 }
 
 
@@ -38,16 +35,18 @@ TEST(AllegroFlare_AudioControllerTest, initialized__without_allegro_audio_initia
    al_init();
 
    AllegroFlare::AudioController audio_controller;
-   std::string expected_error_message =
-      "AudioController::initialize: error: guard \"al_is_audio_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::AudioController::initialize",
+      "al_is_audio_installed()"
+   );
+   EXPECT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
 
    al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   DISABLED__initialized__without_allegro_acodec_addon_initialized__raises_an_exception)
+   initialized__without_allegro_acodec_addon_initialized__raises_an_exception)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -55,16 +54,18 @@ TEST(AllegroFlare_AudioControllerTest,
    al_install_audio();
 
    AllegroFlare::AudioController audio_controller;
-   std::string expected_error_message =
-      "AudioController::initialize: error: guard \"al_is_acodec_addon_initialized()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::AudioController::initialize",
+      "al_is_acodec_addon_initialized()"
+   );
+   EXPECT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
 
    al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   DISABLED__play_sound_effect__without_initialization__raises_an_exception)
+   play_sound_effect__without_initialization__raises_an_exception)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -73,10 +74,12 @@ TEST(AllegroFlare_AudioControllerTest,
    al_init_acodec_addon();
 
    AllegroFlare::AudioController audio_controller;
-   std::string expected_error_message =
-      "AudioController::play_sound_effect: error: guard \"initialized\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::AudioController::play_sound_effect",
+      "initialized"
+   );
 
-   ASSERT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_WITH_MESSAGE(
       audio_controller.play_sound_effect(),
       std::runtime_error,
       expected_error_message
@@ -87,7 +90,7 @@ TEST(AllegroFlare_AudioControllerTest,
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   DISABLED__play_music_track__without_initialization__raises_an_exception)
+   play_music_track__without_initialization__raises_an_exception)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -96,10 +99,12 @@ TEST(AllegroFlare_AudioControllerTest,
    al_init_acodec_addon();
 
    AllegroFlare::AudioController audio_controller;
-   std::string expected_error_message =
-      "AudioController::play_music_track: error: guard \"initialized\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::AudioController::play_music_track",
+      "initialized"
+   );
 
-   ASSERT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_WITH_MESSAGE(
       audio_controller.play_music_track(),
       std::runtime_error,
       expected_error_message
@@ -110,7 +115,7 @@ TEST(AllegroFlare_AudioControllerTest,
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   DISABLED__initialize__without_a_sample_bin__raises_an_exception)
+   initialize__without_a_sample_bin__raises_an_exception)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -119,17 +124,19 @@ TEST(AllegroFlare_AudioControllerTest,
    al_init_acodec_addon();
 
    AllegroFlare::AudioController audio_controller;
-   std::string expected_error_message =
-      "AudioController::initialize: error: guard \"sample_bin\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::AudioController::initialize",
+      "sample_bin"
+   );
 
-   ASSERT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_WITH_MESSAGE(audio_controller.initialize(), std::runtime_error, expected_error_message);
 
    al_uninstall_system();
 }
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   DISABLED__initialize__works__and_sets_initialized_to_true)
+   initialize__works__and_sets_initialized_to_true)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -142,7 +149,7 @@ TEST(AllegroFlare_AudioControllerTest,
 
    audio_controller.initialize();
 
-   ASSERT_EQ(true, audio_controller.get_initialized());
+   EXPECT_EQ(true, audio_controller.get_initialized());
 
    al_uninstall_system();
 }
@@ -168,9 +175,9 @@ TEST(AllegroFlare_AudioControllerTest,
    std::string expected_cout_error_message =
    AllegroFlare::Logger::build_warning_message(
          "AllegroFlare::AudioController::find_music_track_sound_object_by_identifier",
-         "unable to find element with identifier \"music-track-identifier-that-does-not-exist\""
+         "Unable to find element with identifier \"music-track-identifier-that-does-not-exist\"."
       );
-   ASSERT_EQ(expected_cout_error_message, cout_message);
+   EXPECT_EQ(expected_cout_error_message, cout_message);
 
    al_uninstall_system();
 }

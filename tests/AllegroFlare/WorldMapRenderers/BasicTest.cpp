@@ -6,6 +6,7 @@
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/WorldMaps/Maps/Basic.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 class AllegroFlare_WorldMapRenderers_BasicTest : public ::testing::Test {};
@@ -62,8 +63,10 @@ TEST_F(AllegroFlare_WorldMapRenderers_BasicTest, can_be_created_without_blowing_
 TEST_F(AllegroFlare_WorldMapRenderers_BasicTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::WorldMapRenderers::Basic basic;
-   std::string expected_error_message =
-      "Basic::render: error: guard \"al_is_system_installed()\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::WorldMapRenderers::Basic::render",
+      "al_is_system_installed()"
+   );
    EXPECT_THROW_WITH_MESSAGE(basic.render(), std::runtime_error, expected_error_message);
 }
 
@@ -72,8 +75,10 @@ TEST_F(AllegroFlare_WorldMapRenderers_BasicTest, render__without_primitives_addo
 {
    al_init();
    AllegroFlare::WorldMapRenderers::Basic basic;
-   std::string expected_error_message =
-      "Basic::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::WorldMapRenderers::Basic::render",
+      "al_is_primitives_addon_initialized()"
+   );
    EXPECT_THROW_WITH_MESSAGE(basic.render(), std::runtime_error, expected_error_message);
    al_uninstall_system();
 }
@@ -84,8 +89,10 @@ TEST_F(AllegroFlare_WorldMapRenderers_BasicTest, render__without_font_addon_init
    al_init();
    al_init_primitives_addon();
    AllegroFlare::WorldMapRenderers::Basic basic;
-   std::string expected_error_message =
-      "Basic::render: error: guard \"al_is_font_addon_initialized()\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::WorldMapRenderers::Basic::render",
+      "al_is_font_addon_initialized()"
+   );
    EXPECT_THROW_WITH_MESSAGE(basic.render(), std::runtime_error, expected_error_message);
    al_shutdown_primitives_addon();
    al_uninstall_system();
