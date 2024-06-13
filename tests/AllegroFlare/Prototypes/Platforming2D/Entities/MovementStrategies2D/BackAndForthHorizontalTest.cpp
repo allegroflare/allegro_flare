@@ -16,8 +16,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_BackAnd
    update__without_an_entity__throws_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::BackAndForthHorizontal strategy;
-   std::string expected_error_message = "BackAndForthHorizontal::update: error: guard \"entity\" not met";
-   EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      strategy.update(),
+      "AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::BackAndForthHorizontal::update",
+      "entity"
+   );
 }
 
 
