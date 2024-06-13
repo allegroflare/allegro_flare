@@ -46,7 +46,7 @@ TEST(AllegroFlare_AudioControllerTest, initialized__without_allegro_audio_initia
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   initialized__without_allegro_acodec_addon_initialized__raises_an_exception)
+   DISABLED__initialized__without_allegro_acodec_addon_initialized__raises_an_exception)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -65,7 +65,7 @@ TEST(AllegroFlare_AudioControllerTest,
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   play_sound_effect__without_initialization__raises_an_exception)
+   DISABLED__play_sound_effect__without_initialization__raises_an_exception)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -90,7 +90,7 @@ TEST(AllegroFlare_AudioControllerTest,
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   play_music_track__without_initialization__raises_an_exception)
+   DISABLED__play_music_track__without_initialization__raises_an_exception)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -115,7 +115,7 @@ TEST(AllegroFlare_AudioControllerTest,
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   initialize__without_a_sample_bin__raises_an_exception)
+   DISABLED__initialize__without_a_sample_bin__raises_an_exception)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {
@@ -136,7 +136,7 @@ TEST(AllegroFlare_AudioControllerTest,
 
 
 TEST(AllegroFlare_AudioControllerTest,
-   initialize__works__and_sets_initialized_to_true)
+   DISABLED__initialize__works__and_sets_initialized_to_true)
    // this test works, but is disabled due to a leaky condition with Allegro that never causes al_codec_addon
    // to actually shutdown.
 {

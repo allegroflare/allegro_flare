@@ -14,8 +14,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_MoveInD
 TEST(AllegroFlare_Prototypes_Platforming2D_Entities_MovementStrategies2D_MoveInDirectionTest, update__without_an_entity__throws_an_error)
 {
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::MoveInDirection strategy;
-   std::string expected_error_message = "MoveInDirection::update: error: guard \"entity\" not met";
-   EXPECT_THROW_WITH_MESSAGE(strategy.update(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      strategy.update(),
+      "AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::MoveInDirection::update",
+      "entity"
+   );
 }
 
 
