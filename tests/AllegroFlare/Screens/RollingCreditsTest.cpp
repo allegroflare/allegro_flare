@@ -25,12 +25,9 @@ TEST_F(AllegroFlare_Screens_RollingCreditsTest, can_be_created_without_blowing_u
 }
 
 
-TEST_F(AllegroFlare_Screens_RollingCreditsTest, FOCUS__render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Screens_RollingCreditsTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Screens::RollingCredits rolling_credits;
-   //std::string expected_error_message =
-      //"RollingCredits::render: error: guard \"al_is_system_installed()\" not met";
-   //EXPECT_THROW_WITH_MESSAGE(rolling_credits.render(), std::runtime_error, expected_error_message);
    EXPECT_THROW_GUARD_ERROR(
       rolling_credits.render(),
       "AllegroFlare::Screens::RollingCredits::render",
