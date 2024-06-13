@@ -1,13 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/EventNames.hpp>
 
 
@@ -38,9 +34,11 @@ TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTest, has_the_expected
 TEST_F(AllegroFlare_Elements_StoryboardPages_AdvancingTextTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::StoryboardPages::AdvancingText storyboard;
-   std::string expected_error_message =
-      "AdvancingText::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(storyboard.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      storyboard.render(),
+      "AllegroFlare::Elements::StoryboardPages::AdvancingText::render",
+      "al_is_system_installed()"
+   );
 }
 
 
