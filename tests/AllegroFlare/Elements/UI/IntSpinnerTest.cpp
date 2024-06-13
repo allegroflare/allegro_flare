@@ -22,9 +22,11 @@ TEST_F(AllegroFlare_Elements_UI_IntSpinnerTest, can_be_created_without_blowing_u
 TEST_F(AllegroFlare_Elements_UI_IntSpinnerTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::UI::IntSpinner int_spinner;
-   std::string expected_error_message =
-      "IntSpinner::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(int_spinner.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      int_spinner.render(),
+      "AllegroFlare::Elements::UI::IntSpinner::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -32,9 +34,11 @@ TEST_F(AllegroFlare_Elements_UI_IntSpinnerTest, render__without_primitives_addon
 {
    al_init();
    AllegroFlare::Elements::UI::IntSpinner int_spinner;
-   std::string expected_error_message =
-      "IntSpinner::render: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(int_spinner.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      int_spinner.render(),
+      "AllegroFlare::Elements::UI::IntSpinner::render",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -44,9 +48,11 @@ TEST_F(AllegroFlare_Elements_UI_IntSpinnerTest, render__without_font_addon_initi
    al_init();
    al_init_primitives_addon();
    AllegroFlare::Elements::UI::IntSpinner int_spinner;
-   std::string expected_error_message =
-      "IntSpinner::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(int_spinner.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      int_spinner.render(),
+      "AllegroFlare::Elements::UI::IntSpinner::render",
+      "al_is_font_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -58,9 +64,11 @@ TEST_F(AllegroFlare_Elements_UI_IntSpinnerTest, render__without_a_font_bin__rais
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::Elements::UI::IntSpinner int_spinner;
-   std::string expected_error_message =
-      "IntSpinner::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(int_spinner.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      int_spinner.render(),
+      "AllegroFlare::Elements::UI::IntSpinner::render",
+      "font_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();

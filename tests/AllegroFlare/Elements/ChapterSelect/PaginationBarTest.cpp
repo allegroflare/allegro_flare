@@ -16,6 +16,9 @@ class AllegroFlare_Elements_ChapterSelect_PaginationBarTestWithAllegroRenderingF
 #include <AllegroFlare/Elements/ChapterSelect/PaginationBar.hpp>
 
 
+// TODO: Rename "health_bar" to "pagination_bar" in all variables
+
+
 TEST_F(AllegroFlare_Elements_ChapterSelect_PaginationBarTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::ChapterSelect::PaginationBar health_bar;
@@ -32,8 +35,11 @@ TEST_F(AllegroFlare_Elements_ChapterSelect_PaginationBarTest, cursor_position__i
 TEST_F(AllegroFlare_Elements_ChapterSelect_PaginationBarTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::ChapterSelect::PaginationBar health_bar;
-   std::string expected_error_message = "PaginationBar::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(health_bar.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      health_bar.render(),
+      "AllegroFlare::Elements::ChapterSelect::PaginationBar::render",
+      "al_is_system_installed()"
+   );
 }
 
 

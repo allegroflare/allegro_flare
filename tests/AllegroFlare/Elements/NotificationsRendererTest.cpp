@@ -27,9 +27,11 @@ TEST_F(AllegroFlare_Elements_NotificationsRendererTest, can_be_created_without_b
 TEST_F(AllegroFlare_Elements_NotificationsRendererTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::NotificationsRenderer notifications_renderer;
-   std::string expected_error_message =
-      "NotificationsRenderer::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(notifications_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      notifications_renderer.render(),
+      "AllegroFlare::Elements::NotificationsRenderer::render",
+      "al_is_system_installed()"
+   );
 }
 
 

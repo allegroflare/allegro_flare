@@ -27,9 +27,11 @@ TEST_F(AllegroFlare_Elements_InputDevicesListTest, can_be_created_without_blowin
 TEST_F(AllegroFlare_Elements_InputDevicesListTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::InputDevicesList input_devices_list;
-   std::string expected_error_message =
-      "InputDevicesList::render: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(input_devices_list.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      input_devices_list.render(),
+      "AllegroFlare::Elements::InputDevicesList::render",
+      "initialized"
+   );
 }
 
 

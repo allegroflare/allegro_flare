@@ -28,9 +28,11 @@ TEST_F(AllegroFlare_Elements_InputDeviceConfigurationListTest, can_be_created_wi
 TEST_F(AllegroFlare_Elements_InputDeviceConfigurationListTest, render__before_initialization__raises_an_error)
 {
    AllegroFlare::Elements::InputDeviceConfigurationList achievements;
-   std::string expected_error_message =
-      "InputDeviceConfigurationList::render: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(achievements.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      achievements.render(),
+      "AllegroFlare::Elements::InputDeviceConfigurationList::render",
+      "initialized"
+   );
 }
 
 

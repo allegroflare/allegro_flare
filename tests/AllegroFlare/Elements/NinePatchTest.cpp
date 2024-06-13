@@ -22,9 +22,11 @@ TEST_F(AllegroFlare_Elements_NinePatchTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_Elements_NinePatchTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::NinePatch nine_patch;
-   std::string expected_error_message =
-      "NinePatch::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(nine_patch.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      nine_patch.initialize(),
+      "AllegroFlare::Elements::NinePatch::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -32,9 +34,11 @@ TEST_F(AllegroFlare_Elements_NinePatchTest, initialize__without_primitives_addon
 {
    al_init();
    AllegroFlare::Elements::NinePatch nine_patch;
-   std::string expected_error_message =
-      "NinePatch::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(nine_patch.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      nine_patch.initialize(),
+      "AllegroFlare::Elements::NinePatch::initialize",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
