@@ -113,6 +113,7 @@ void Image::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::StoryboardPages::Image::render]: error: guard \"al_get_current_display()\" not met");
    }
+   // TODO: Is al_get_current_display() required here? Consider removing it.
    if (!bitmap) return;
 
    AllegroFlare::Placement2D image_place;

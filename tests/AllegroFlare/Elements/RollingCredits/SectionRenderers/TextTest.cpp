@@ -42,9 +42,11 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_TextTest,
    render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::Text text_section_renderer;
-   std::string expected_error_message =
-      "Text::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(text_section_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      text_section_renderer.render(),
+      "AllegroFlare::Elements::RollingCredits::SectionRenderers::Text::render",
+      "al_is_system_installed()"
+   );
 }
 
 

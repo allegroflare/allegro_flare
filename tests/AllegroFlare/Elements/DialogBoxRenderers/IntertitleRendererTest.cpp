@@ -25,9 +25,11 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_IntertitleRendererTest,
    render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer storyboard;
-   std::string expected_error_message =
-      "IntertitleRenderer::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(storyboard.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      storyboard.render(),
+      "AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer::render",
+      "al_is_system_installed()"
+   );
 }
 
 

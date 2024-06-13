@@ -1,11 +1,7 @@
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 #include <AllegroFlare/Elements/WorldMapViewer.hpp>
 #include <AllegroFlare/WorldMaps/Locations/Basic.hpp>
@@ -80,9 +76,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTest, can_be_created_without_blowing_
 TEST_F(AllegroFlare_Elements_WorldMapViewerTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::WorldMapViewer crime_summary;
-   std::string expected_error_message =
-      "WorldMapViewer::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(crime_summary.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      crime_summary.initialize(),
+      "AllegroFlare::Elements::WorldMapViewer::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -90,9 +88,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTest, initialize__without_primitives_
 {
    al_init();
    AllegroFlare::Elements::WorldMapViewer crime_summary;
-   std::string expected_error_message =
-      "WorldMapViewer::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(crime_summary.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      crime_summary.initialize(),
+      "AllegroFlare::Elements::WorldMapViewer::initialize",
+      "al_is_primitives_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -102,9 +102,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTest, initialize__without_font_addon_
    al_init();
    al_init_primitives_addon();
    AllegroFlare::Elements::WorldMapViewer crime_summary;
-   std::string expected_error_message =
-      "WorldMapViewer::initialize: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(crime_summary.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      crime_summary.initialize(),
+      "AllegroFlare::Elements::WorldMapViewer::initialize",
+      "al_is_font_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -116,9 +118,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTest, initialize__without_ttf_addon_i
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::Elements::WorldMapViewer crime_summary;
-   std::string expected_error_message =
-      "WorldMapViewer::initialize: error: guard \"al_is_ttf_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(crime_summary.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      crime_summary.initialize(),
+      "AllegroFlare::Elements::WorldMapViewer::initialize",
+      "al_is_ttf_addon_initialized()"
+   );
    al_shutdown_primitives_addon();
    al_uninstall_system();
 }
@@ -131,9 +135,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTest, initialize__without_a_bitmap_bi
    al_init_font_addon();
    al_init_ttf_addon();
    AllegroFlare::Elements::WorldMapViewer crime_summary;
-   std::string expected_error_message =
-      "WorldMapViewer::initialize: error: guard \"bitmap_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(crime_summary.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      crime_summary.initialize(),
+      "AllegroFlare::Elements::WorldMapViewer::initialize",
+      "bitmap_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();
@@ -148,9 +154,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTest, initialize__without_a_font_bin_
    al_init_ttf_addon();
    AllegroFlare::BitmapBin bitmap_bin;
    AllegroFlare::Elements::WorldMapViewer crime_summary(&bitmap_bin);
-   std::string expected_error_message =
-      "WorldMapViewer::initialize: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(crime_summary.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      crime_summary.initialize(),
+      "AllegroFlare::Elements::WorldMapViewer::initialize",
+      "font_bin"
+   );
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
    al_uninstall_system();
@@ -161,9 +169,11 @@ TEST_F(AllegroFlare_Elements_WorldMapViewerTestWithAllegroRenderingFixture,
    render__before_initialization__witl_throw_an_error)
 {
    AllegroFlare::Elements::WorldMapViewer crime_summary(&get_bitmap_bin_ref(), &get_font_bin_ref());
-   std::string expected_error_message =
-      "WorldMapViewer::render: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(crime_summary.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      crime_summary.render(),
+      "AllegroFlare::Elements::WorldMapViewer::render",
+      "initialized"
+   );
 }
 
 

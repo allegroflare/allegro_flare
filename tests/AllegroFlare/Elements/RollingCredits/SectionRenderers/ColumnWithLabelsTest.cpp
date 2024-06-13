@@ -26,9 +26,11 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_ColumnWithLabelsTes
    render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::ColumnWithLabels column_with_labels_section_renderer;
-   std::string expected_error_message =
-      "ColumnWithLabels::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(column_with_labels_section_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      column_with_labels_section_renderer.render(),
+      "AllegroFlare::Elements::RollingCredits::SectionRenderers::ColumnWithLabels::render",
+      "al_is_system_installed()"
+   );
 }
 
 

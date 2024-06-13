@@ -42,9 +42,11 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_MulticolumnTest,
    render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn column_with_labels_section_renderer;
-   std::string expected_error_message =
-      "Multicolumn::render: error: guard \"al_is_system_installed()\" not met";
-   ASSERT_THROW_WITH_MESSAGE(column_with_labels_section_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      column_with_labels_section_renderer.render(),
+      "AllegroFlare::Elements::RollingCredits::SectionRenderers::Multicolumn::render",
+      "al_is_system_installed()"
+   );
 }
 
 

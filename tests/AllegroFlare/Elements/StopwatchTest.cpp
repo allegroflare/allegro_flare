@@ -26,9 +26,11 @@ TEST_F(AllegroFlare_Elements_StopwatchTest, can_be_created_without_blowing_up)
 TEST_F(AllegroFlare_Elements_StopwatchTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::Stopwatch stopwatch;
-   std::string expected_error_message =
-      "Stopwatch::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(stopwatch.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      stopwatch.render(),
+      "AllegroFlare::Elements::Stopwatch::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -36,8 +38,11 @@ TEST_F(AllegroFlare_Elements_StopwatchTest, render__without_font_addon_initializ
 {
    al_init();
    AllegroFlare::Elements::Stopwatch stopwatch;
-   std::string expected_error_message = "Stopwatch::render: error: guard \"al_is_font_addon_initialized()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(stopwatch.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      stopwatch.render(),
+      "AllegroFlare::Elements::Stopwatch::render",
+      "al_is_font_addon_initialized()"
+   );
    al_uninstall_system();
 }
 
@@ -45,8 +50,11 @@ TEST_F(AllegroFlare_Elements_StopwatchTest, render__without_font_addon_initializ
 TEST_F(AllegroFlare_Elements_StopwatchTestWithAllegroRenderingFixture, render__without_a_font_bin__will_raise_an_error)
 {
    AllegroFlare::Elements::Stopwatch stopwatch;
-   std::string expected_error_message = "Stopwatch::render: error: guard \"font_bin\" not met";
-   EXPECT_THROW_WITH_MESSAGE(stopwatch.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      stopwatch.render(),
+      "AllegroFlare::Elements::Stopwatch::render",
+      "font_bin"
+   );
 }
 
 

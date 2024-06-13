@@ -26,9 +26,11 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTest,
    render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::Header header_section_renderer;
-   std::string expected_error_message =
-      "Header::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(header_section_renderer.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      header_section_renderer.render(),
+      "AllegroFlare::Elements::RollingCredits::SectionRenderers::Header::render",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -37,6 +39,17 @@ TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTestWithAlleg
 {
    AllegroFlare::Elements::RollingCredits::SectionRenderers::Header header_section_renderer(&get_font_bin_ref());
    header_section_renderer.render();
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Elements_RollingCredits_SectionRenderers_HeaderTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_appear_as_expected)
+{
+   // TODO: Move subject to center of screen and add positioning crosshairs
+   AllegroFlare::Elements::RollingCredits::SectionRenderers::Header header_section_renderer(&get_font_bin_ref());
+   header_section_renderer.render();
+   al_flip_display();
    SUCCEED();
 }
 
