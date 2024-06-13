@@ -1,16 +1,14 @@
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.hpp>
+
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <allegro5/allegro_color.h> // for al_color_name();
 #include <AllegroFlare/EventEmitter.hpp> // for al_color_name();
 #include <AllegroFlare/EventNames.hpp> // for ALLEGRO_FLARE_EVENT_GAME_EVENT
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 class AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest : public ::testing::Test {};
@@ -70,11 +68,13 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 }
 
 
-TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, initialized__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
-   std::string expected_error_message =
-      "SoftwareKeyboard::initialize: error: guard \"al_is_system_installed()\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::initialize",
+      "al_is_system_installed()"
+   );
    EXPECT_THROW_WITH_MESSAGE(software_keyboard.initialize(), std::runtime_error, expected_error_message);
 }
 
@@ -84,8 +84,10 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest,
 {
    al_init();
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
-   std::string expected_error_message =
-      "SoftwareKeyboard::initialize: error: guard \"al_is_primitives_addon_initialized()\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::initialize",
+      "al_is_primitives_addon_initialized()"
+   );
    EXPECT_THROW_WITH_MESSAGE(software_keyboard.initialize(), std::runtime_error, expected_error_message);
    al_uninstall_system();
 }
@@ -96,8 +98,10 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, initialize__without_f
    al_init();
    al_init_primitives_addon();
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
-   std::string expected_error_message =
-      "SoftwareKeyboard::initialize: error: guard \"al_is_font_addon_initialized()\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::initialize",
+      "al_is_font_addon_initialized()"
+   );
    EXPECT_THROW_WITH_MESSAGE(software_keyboard.initialize(), std::runtime_error, expected_error_message);
    al_shutdown_primitives_addon();
    al_uninstall_system();
@@ -110,8 +114,10 @@ TEST_F(AllegroFlare_SoftwareKeyboard_SoftwareKeyboardTest, initialize__without_a
    al_init_primitives_addon();
    al_init_font_addon();
    AllegroFlare::SoftwareKeyboard::SoftwareKeyboard software_keyboard;
-   std::string expected_error_message =
-      "SoftwareKeyboard::initialize: error: guard \"font_bin\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::SoftwareKeyboard::SoftwareKeyboard::initialize",
+      "font_bin"
+   );
    EXPECT_THROW_WITH_MESSAGE(software_keyboard.initialize(), std::runtime_error, expected_error_message);
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();

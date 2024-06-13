@@ -60,10 +60,10 @@ TEST_F(AllegroFlare_Shaders_BaseTest, derived_classes_will_have_the_expected_typ
 TEST_F(AllegroFlare_Shaders_BaseTest, attach_source_code__when_vertex_source_code_is_default__throws_an_error)
 {
    AllegroFlare::Shaders::Base shader;
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       shader.attach_source_code(),
-      std::runtime_error,
-      "Base::attach_source_code: error: guard \"(!vertex_source_code_is_default())\" not met"
+      "AllegroFlare::Shaders::Base::attach_source_code",
+      "(!vertex_source_code_is_default())"
    );
 }
 
@@ -78,10 +78,10 @@ TEST_F(AllegroFlare_Shaders_BaseTest, attach_source_code__when_fragment_source_c
       "  gl_Position = vPosition; \n"
       "}                          \n";
    shader.set_vertex_source_code(vertex_source_code);
-   EXPECT_THROW_WITH_MESSAGE(
+   EXPECT_THROW_GUARD_ERROR(
       shader.attach_source_code(),
-      std::runtime_error,
-      "Base::attach_source_code: error: guard \"(!fragment_source_code_is_default())\" not met"
+      "AllegroFlare::Shaders::Base::attach_source_code",
+      "(!fragment_source_code_is_default())"
    );
 }
 

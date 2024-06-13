@@ -90,9 +90,14 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader(filename);
    loader.load();
 
-   std::string expected_error_message = "TerrainMeshTMJDataLoader::load: error: guard \"(!loaded)\" not met";
+   //std::string expected_error_message = "TerrainMeshTMJDataLoader::load: error: guard \"(!loaded)\" not met";
+   EXPECT_THROW_GUARD_ERROR(
+      loader.load(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::load",
+      "(!loaded)"
+   );
 
-   EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   //EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
 
 
@@ -155,8 +160,11 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_num_columns__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message = "TerrainMeshTMJDataLoader::get_num_columns: error: guard \"loaded\" not met";
-   EXPECT_THROW_WITH_MESSAGE(loader.get_num_columns(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_num_columns(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::get_num_columns",
+      "loaded"
+   );
 }
 
 
@@ -164,8 +172,11 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_num_rows__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message = "TerrainMeshTMJDataLoader::get_num_rows: error: guard \"loaded\" not met";
-   EXPECT_THROW_WITH_MESSAGE(loader.get_num_rows(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_num_rows(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::get_num_rows",
+      "loaded"
+   );
 }
 
 
@@ -173,8 +184,11 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_tile_width__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message = "TerrainMeshTMJDataLoader::get_tile_width: error: guard \"loaded\" not met";
-   EXPECT_THROW_WITH_MESSAGE(loader.get_tile_width(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_tile_width(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::get_tile_width",
+      "loaded"
+   );
 }
 
 
@@ -182,8 +196,11 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_tile_height__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message = "TerrainMeshTMJDataLoader::get_tile_height: error: guard \"loaded\" not met";
-   EXPECT_THROW_WITH_MESSAGE(loader.get_tile_height(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_tile_height(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::get_tile_height",
+      "loaded"
+   );
 }
 
 
@@ -191,9 +208,11 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_layer_num_columns__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message =
-      "TerrainMeshTMJDataLoader::get_layer_num_columns: error: guard \"loaded\" not met";
-   EXPECT_THROW_WITH_MESSAGE(loader.get_layer_num_columns(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_layer_num_columns(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::get_layer_num_columns",
+      "loaded"
+   );
 }
 
 
@@ -201,8 +220,11 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_layer_num_rows__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message = "TerrainMeshTMJDataLoader::get_layer_num_rows: error: guard \"loaded\" not met";
-   EXPECT_THROW_WITH_MESSAGE(loader.get_layer_num_rows(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_layer_num_rows(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::get_layer_num_rows",
+      "loaded"
+   );
 }
 
 
@@ -210,9 +232,11 @@ TEST(AllegroFlare_Prototypes_TileDrive_TerrainMeshTMJDataLoaderTest,
    get_layer_tile_data__before_load_has_been_called__will_throw_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader loader;
-   std::string expected_error_message =
-      "TerrainMeshTMJDataLoader::get_layer_tile_data: error: guard \"loaded\" not met";
-   EXPECT_THROW_WITH_MESSAGE(loader.get_layer_tile_data(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      loader.get_layer_tile_data(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMeshTMJDataLoader::get_layer_tile_data",
+      "loaded"
+   );
 }
 
 

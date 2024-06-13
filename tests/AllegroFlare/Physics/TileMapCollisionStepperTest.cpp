@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 class AllegroFlare_Physics_TileMapCollisionStepperTest : public ::testing::Test
 {};
@@ -186,21 +187,25 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, can_be_created_without_
 
 
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
-   render__without_a_collision_tile_map__initialized__raises_an_error)
+   step__without_a_collision_tile_map__initialized__raises_an_error)
 {
    AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper;
-   std::string expected_error_message =
-      "TileMapCollisionStepper::step: error: guard \"collision_tile_map\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::Physics::TileMapCollisionStepper::step",
+      "collision_tile_map"
+   );
    EXPECT_THROW_WITH_MESSAGE(tile_map_collision_stepper.step(), std::runtime_error, expected_error_message);
 }
 
 
-TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, render__without_an_aabb2d__raises_an_error)
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest, step__without_an_aabb2d__raises_an_error)
 {
    AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
    AllegroFlare::Physics::TileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map);
-   std::string expected_error_message =
-      "TileMapCollisionStepper::step: error: guard \"aabb2d\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::Physics::TileMapCollisionStepper::step",
+      "aabb2d"
+   );
    EXPECT_THROW_WITH_MESSAGE(tile_map_collision_stepper.step(), std::runtime_error, expected_error_message);
 }
 

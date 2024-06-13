@@ -1,11 +1,8 @@
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_Prototypes_TileDrive_TerrainMeshTest : public ::testing::Test {};
@@ -25,12 +22,15 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TerrainMeshTest, can_be_created_without
 }
 
 
-TEST_F(AllegroFlare_Prototypes_TileDrive_TerrainMeshTest, DISABLED__initialize__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_Prototypes_TileDrive_TerrainMeshTest,
+   initialize__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Prototypes::TileDrive::TerrainMesh terrain_mesh;
-   std::string expected_error_message =
-      "TerrainMesh::initialize: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(terrain_mesh.initialize(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      terrain_mesh.initialize(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMesh::initialize",
+      "al_is_system_installed()"
+   );
 }
 
 
@@ -38,9 +38,11 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TerrainMeshTest, render__before_being_i
 {
    al_init();
    AllegroFlare::Prototypes::TileDrive::TerrainMesh terrain_mesh;
-   std::string expected_error_message =
-      "TerrainMesh::render: error: guard \"initialized\" not met";
-   EXPECT_THROW_WITH_MESSAGE(terrain_mesh.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      terrain_mesh.render(),
+      "AllegroFlare::Prototypes::TileDrive::TerrainMesh::render",
+      "initialized"
+   );
    al_uninstall_system();
 }
 

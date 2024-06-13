@@ -1,15 +1,10 @@
 
 #include <gtest/gtest.h>
 
-#define EXPECT_THROW_WITH_MESSAGE(code, raised_exception_type, expected_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(std::string(expected_exception_message), err.what()); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-#define ERROR_MESSAGE_FOR(klass, method, guard) klass ## "::" ## method ## ": error \"" ## guard ## "\" not met"
-
-
 #include <AllegroFlare/Generators/PersonNameGenerator.hpp>
+
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 TEST(AllegroFlare_Generators_PersonNameGeneratorTest, can_be_created_without_blowing_up)
@@ -21,8 +16,10 @@ TEST(AllegroFlare_Generators_PersonNameGeneratorTest, can_be_created_without_blo
 TEST(AllegroFlare_Generators_PersonNameGeneratorTest, generate_boy_name__without_initialization__will_throw_an_error)
 {
    AllegroFlare::Generators::PersonNameGenerator person_name_generator;
-   std::string expected_error_message =
-      "PersonNameGenerator::generate_boy_name: error: guard \"initialized\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::Generators::PersonNameGenerator::generate_boy_name",
+      "initialized"
+   );
    EXPECT_THROW_WITH_MESSAGE(person_name_generator.generate_boy_name(), std::runtime_error, expected_error_message);
 }
 
@@ -30,8 +27,10 @@ TEST(AllegroFlare_Generators_PersonNameGeneratorTest, generate_boy_name__without
 TEST(AllegroFlare_Generators_PersonNameGeneratorTest, generate_girl_name__without_initialization__will_throw_an_error)
 {
    AllegroFlare::Generators::PersonNameGenerator person_name_generator;
-   std::string expected_error_message =
-      "PersonNameGenerator::generate_girl_name: error: guard \"initialized\" not met";
+   std::string expected_error_message = AllegroFlare::Logger::build_guard_error_message(
+      "AllegroFlare::Generators::PersonNameGenerator::generate_girl_name",
+      "initialized"
+   );
    EXPECT_THROW_WITH_MESSAGE(person_name_generator.generate_girl_name(), std::runtime_error, expected_error_message);
 }
 
