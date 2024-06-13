@@ -26,9 +26,11 @@ TEST_F(AllegroFlare_Elements_NotificationRenderers_AchievementUnlockedTest,
    render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked achievement_unlocked;
-   std::string expected_error_message =
-      "AchievementUnlocked::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(achievement_unlocked.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      achievement_unlocked.render(),
+      "AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked::render",
+      "al_is_system_installed()"
+   );
 }
 
 

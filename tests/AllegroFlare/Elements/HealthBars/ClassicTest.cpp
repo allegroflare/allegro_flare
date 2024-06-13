@@ -25,8 +25,11 @@ TEST_F(AllegroFlare_Elements_HealthBars_ClassicTest, can_be_created_without_blow
 TEST_F(AllegroFlare_Elements_HealthBars_ClassicTest, render__without_allegro_initialized__raises_an_error)
 {
    AllegroFlare::Elements::HealthBars::Classic health_bar;
-   std::string expected_error_message = "Classic::render: error: guard \"al_is_system_installed()\" not met";
-   EXPECT_THROW_WITH_MESSAGE(health_bar.render(), std::runtime_error, expected_error_message);
+   EXPECT_THROW_GUARD_ERROR(
+      health_bar.render(),
+      "AllegroFlare::Elements::HealthBars::Classic::render",
+      "al_is_system_installed()"
+   );
 }
 
 
