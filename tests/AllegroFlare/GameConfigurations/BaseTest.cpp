@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/GameConfigurations/Base.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 
 class GameConfigurationsBaseTestClass : public AllegroFlare::GameConfigurations::Base
@@ -39,6 +41,20 @@ TEST(AllegroFlare_GameConfigurations_BaseTest, derived_classes_will_have_the_exp
 {
    GameConfigurationsBaseTestClass test_class;
    EXPECT_EQ("GameConfigurationsBaseTestClass", test_class.get_type());
+}
+
+
+TEST(AllegroFlare_GameConfigurations_BaseTest, load_level_by_identifier__without_implementation__will_throw_an_error)
+{
+   GameConfigurationsBaseTestClass test_class;
+   EXPECT_THROW_WITH_MESSAGE(
+      test_class.load_level_by_identifier(),
+      std::runtime_error,
+      "[AllegroFlare::GameConfigurations::Base::load_level_by_identifier]: error: "
+         "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+
+   // TODO: Add similar tests for other methods that require override
 }
 
 

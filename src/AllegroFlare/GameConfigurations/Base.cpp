@@ -32,7 +32,7 @@ AllegroFlare::Levels::Base* Base::load_level_by_identifier(std::string level_ide
 {
    // TODO: Add tests for this method or consider making it a pure virtual
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::load_level_by_identifier"
+      "AllegroFlare::GameConfigurations::Base::load_level_by_identifier",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return nullptr;
@@ -42,7 +42,7 @@ std::vector<std::pair<std::string, std::string>> Base::build_level_list_for_leve
 {
    // TODO: Add tests for this method or consider making it a pure virtual
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::build_level_list_for_level_select_screen_by_identifier"
+      "AllegroFlare::GameConfigurations::Base::build_level_list_for_level_select_screen_by_identifier",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return {};

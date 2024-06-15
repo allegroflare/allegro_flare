@@ -75,6 +75,15 @@ void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy
 {
    if (!surface) throw std::runtime_error("BBb");
 
+   /*
+   // set the target bitmap
+   al_set_target_bitmap(surface);
+
+   // setup the render settings
+   al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+   al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
+   */
 
    // Build up our transform
 
