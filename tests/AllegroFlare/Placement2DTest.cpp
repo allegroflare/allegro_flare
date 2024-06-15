@@ -55,6 +55,29 @@ TEST_F(AllegroFlare_Placement2DTest,
 }
 
 
+TEST_F(AllegroFlare_Placement2DTest, assignment_operator__will_work_as_expected)
+{
+   AllegroFlare::Placement2D placement_1;
+   placement_1.position = { 7, 21 };
+   placement_1.size = { 11, 13 };
+   placement_1.align = { 73, 79 }; // TODO: Use a more realistic number for this test data
+   placement_1.scale = { 7, 3 };
+   placement_1.anchor = { 0.125, 0.875 };
+   placement_1.flip = { true, true };
+   placement_1.rotation = { 0.75 };
+
+   AllegroFlare::Placement2D placement_2 = placement_1;
+
+   EXPECT_EQ(placement_2.position, placement_1.position);
+   EXPECT_EQ(placement_2.size, placement_1.size);
+   EXPECT_EQ(placement_2.align, placement_1.align);
+   EXPECT_EQ(placement_2.scale, placement_1.scale);
+   EXPECT_EQ(placement_2.anchor, placement_1.anchor);
+   //EXPECT_EQ(placement_2.flip, placement_1.flip ); // TODO: Add comparison for this value
+   EXPECT_EQ(placement_2.rotation, placement_1.rotation);
+}
+
+
 TEST_F(AllegroFlare_Placement2DTest, scale_to_fit_width__will_modify_the_scale_to_fit_the_width)
 {
    //void scale_to_fit_width(float target_width);
