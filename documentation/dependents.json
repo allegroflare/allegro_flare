@@ -140,6 +140,7 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/FrameAnimation/SpriteStripAssembler",
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameConfigurations/Complete",
@@ -175,7 +176,6 @@
   "AllegroFlare/Errors": [
     "AllegroFlare/AssetStudio/Database",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/AssetStudio/Asset": [

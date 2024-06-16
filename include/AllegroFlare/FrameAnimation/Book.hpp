@@ -6,6 +6,7 @@
 #include <allegro5/allegro.h>
 #include <map>
 #include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -46,6 +47,7 @@ namespace AllegroFlare
          ALLEGRO_BITMAP* get_still_frame(std::string tag_name="[unset-tag_name]");
          bool animation_exists(std::string name="[unset-name]");
          AllegroFlare::FrameAnimation::Animation find_animation_by_name(std::string name="[unset-name]");
+         std::vector<std::string> build_list_of_dictionary_identifiers();
       };
    }
 }

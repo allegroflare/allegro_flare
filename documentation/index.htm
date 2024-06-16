@@ -16453,7 +16453,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/FrameAnimation/Book.q.yml">quintessence/AllegroFlare/FrameAnimation/Book.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"todos"=>["move \"sprite_sheet_scale\" property to be listed after \"sprite_sheet_cell_width\" and \"sprite_sheet_cell_height\"", "rename this class to AnimationBook"]}</p>    <h3>Properties</h3>
+    <p>{"todos"=>["move \"sprite_sheet_scale\" property to be listed after \"sprite_sheet_cell_width\" and \"sprite_sheet_cell_height\"", "rename this class to AnimationBook", "consider renaming \"name\" to \"identifier\""]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">png_source_filename</td>
@@ -16534,6 +16534,10 @@ table td
   <td class="private_method">void</td>
   <td class="private_method"><b>_build_placeholder_dictionary</b>()</td>
 </tr>
+<tr>
+  <td class="method">std::vector&lt;std::string&gt;</td>
+  <td class="method"><b>build_list_of_dictionary_identifiers</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -16544,7 +16548,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteSheet&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteSheet.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Errors&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Errors.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::UsefulPHP&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/UsefulPHP.hpp&quot;]}</td>
@@ -43840,6 +43844,7 @@ table td
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/FrameAnimation/SpriteStripAssembler",
     "AllegroFlare/GameConfigurations/Base",
     "AllegroFlare/GameConfigurations/Complete",
@@ -43875,7 +43880,6 @@ table td
   "AllegroFlare/Errors": [
     "AllegroFlare/AssetStudio/Database",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
   ],
   "AllegroFlare/AssetStudio/Asset": [

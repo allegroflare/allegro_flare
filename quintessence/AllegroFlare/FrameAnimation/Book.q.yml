@@ -55,6 +55,7 @@ documentation:
   - todos:
      - move "sprite_sheet_scale" property to be listed after "sprite_sheet_cell_width" and "sprite_sheet_cell_height"
      - rename this class to AnimationBook
+     - consider renaming "name" to "identifier"
 
 
 methods:
@@ -129,9 +130,10 @@ methods:
       // build the sprite sheet
       if (!AllegroFlare::php::file_exists(png_source_filename))
       {
-         AllegroFlare::Errors::throw_missing_file_error("AllegroFlare::FrameAnimation::Book::initialize",
-               png_source_filename,
-               "png"
+         AllegroFlare::Logger::throw_missing_file_error(
+            "AllegroFlare::FrameAnimation::Book::initialize",
+            png_source_filename,
+            "png"
          );
       }
 
@@ -191,16 +193,13 @@ methods:
     body: |
       if (dictionary.count(name) == 0)
       {
-         std::stringstream error_message;
-         error_message << "No animation exists for name \"" << name << "\"";
-         AllegroFlare::Errors::throw_error(
-            "AllegroFlare::FrameAnimation::Book::find_animation_by_name",
-            error_message.str()
-         );
+         std::vector<std::string> dictionary_identifiers = build_list_of_dictionary_identifiers();
+         std::string error_message = AllegroFlare::Logger::build_not_included_message(name, dictionary_identifiers);
+         AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::Book::find_animation_by_name", error_message);
       }
       return dictionary[name];
     body_dependency_symbols:
-      - AllegroFlare::Errors
+      - AllegroFlare::Logger
 
 
   - name: _build_placeholder_dictionary
@@ -220,6 +219,18 @@ methods:
       return;
 
 
+  - name: build_list_of_dictionary_identifiers
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> result;
+      result.reserve(dictionary.size());
+      for (auto &dictionary_item : dictionary)
+      {
+         result.push_back(dictionary_item.first);
+      }
+      return result;
+
+
 dependencies:
 
 
@@ -227,8 +238,8 @@ dependencies:
     headers: [ AllegroFlare/FrameAnimation/Animation.hpp ]
   - symbol: AllegroFlare::FrameAnimation::SpriteSheet
     headers: [ AllegroFlare/FrameAnimation/SpriteSheet.hpp ]
-  - symbol: AllegroFlare::Errors
-    headers: [ AllegroFlare/Errors.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::UsefulPHP
     headers: [ AllegroFlare/UsefulPHP.hpp ]
   - symbol: ALLEGRO_BITMAP

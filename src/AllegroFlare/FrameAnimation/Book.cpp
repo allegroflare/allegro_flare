@@ -2,8 +2,8 @@
 
 #include <AllegroFlare/FrameAnimation/Book.hpp>
 
-#include <AllegroFlare/Errors.hpp>
 #include <AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <iostream>
 #include <sstream>
@@ -176,9 +176,10 @@ void Book::initialize()
    // build the sprite sheet
    if (!AllegroFlare::php::file_exists(png_source_filename))
    {
-      AllegroFlare::Errors::throw_missing_file_error("AllegroFlare::FrameAnimation::Book::initialize",
-            png_source_filename,
-            "png"
+      AllegroFlare::Logger::throw_missing_file_error(
+         "AllegroFlare::FrameAnimation::Book::initialize",
+         png_source_filename,
+         "png"
       );
    }
 
@@ -238,12 +239,9 @@ AllegroFlare::FrameAnimation::Animation Book::find_animation_by_name(std::string
    }
    if (dictionary.count(name) == 0)
    {
-      std::stringstream error_message;
-      error_message << "No animation exists for name \"" << name << "\"";
-      AllegroFlare::Errors::throw_error(
-         "AllegroFlare::FrameAnimation::Book::find_animation_by_name",
-         error_message.str()
-      );
+      std::vector<std::string> dictionary_identifiers = build_list_of_dictionary_identifiers();
+      std::string error_message = AllegroFlare::Logger::build_not_included_message(name, dictionary_identifiers);
+      AllegroFlare::Logger::throw_error("AllegroFlare::FrameAnimation::Book::find_animation_by_name", error_message);
    }
    return dictionary[name];
 }
@@ -262,6 +260,17 @@ void Book::_build_placeholder_dictionary()
       )},
    };
    return;
+}
+
+std::vector<std::string> Book::build_list_of_dictionary_identifiers()
+{
+   std::vector<std::string> result;
+   result.reserve(dictionary.size());
+   for (auto &dictionary_item : dictionary)
+   {
+      result.push_back(dictionary_item.first);
+   }
+   return result;
 }
 
 
