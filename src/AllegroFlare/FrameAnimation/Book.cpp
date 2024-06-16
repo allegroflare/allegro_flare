@@ -240,7 +240,10 @@ AllegroFlare::FrameAnimation::Animation Book::find_animation_by_name(std::string
    {
       std::stringstream error_message;
       error_message << "No animation exists for name \"" << name << "\"";
-      AllegroFlare::Errors::throw_error("DungeonPlus::AnimationBook::find_animation_by_name", error_message.str());
+      AllegroFlare::Errors::throw_error(
+         "AllegroFlare::FrameAnimation::Book::find_animation_by_name",
+         error_message.str()
+      );
    }
    return dictionary[name];
 }

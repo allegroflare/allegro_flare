@@ -54,6 +54,7 @@ documentation:
 
   - todos:
      - move "sprite_sheet_scale" property to be listed after "sprite_sheet_cell_width" and "sprite_sheet_cell_height"
+     - rename this class to AnimationBook
 
 
 methods:
@@ -192,7 +193,10 @@ methods:
       {
          std::stringstream error_message;
          error_message << "No animation exists for name \"" << name << "\"";
-         AllegroFlare::Errors::throw_error("DungeonPlus::AnimationBook::find_animation_by_name", error_message.str());
+         AllegroFlare::Errors::throw_error(
+            "AllegroFlare::FrameAnimation::Book::find_animation_by_name",
+            error_message.str()
+         );
       }
       return dictionary[name];
     body_dependency_symbols:
