@@ -206,7 +206,7 @@ ALLEGRO_BITMAP* TileAtlasBuilder::create_pixel_perfect_scaled_render(ALLEGRO_BIT
             "bitmap cannot be a nullptr."
          );
    }
-   if (scale <= 1 || scale >= max_valid_scale_value)
+   if (scale < 1 || scale > max_valid_scale_value) // TODO: Test this condition
    {
       AllegroFlare::Logger::throw_error(
             "TileAtlasBuilder::create_pixel_perfect_scaled_render",
