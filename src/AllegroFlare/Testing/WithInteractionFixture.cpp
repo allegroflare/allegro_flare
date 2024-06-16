@@ -51,6 +51,9 @@ void WithInteractionFixture::SetUp()
    al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    al_register_event_source(event_queue, al_get_keyboard_event_source());
 
+   al_install_mouse();
+   al_register_event_source(event_queue, al_get_mouse_event_source());
+
    // Start the interactive loop
    al_start_timer(primary_timer);
 
@@ -61,6 +64,10 @@ void WithInteractionFixture::TearDown()
 {
    al_stop_timer(primary_timer);
    al_destroy_timer(primary_timer);
+
+   al_unregister_event_source(event_queue, al_get_mouse_event_source());
+   al_uninstall_mouse();
+
    primary_timer = nullptr;
    al_unregister_event_source(event_queue, al_get_timer_event_source(primary_timer));
    al_unregister_event_source(event_queue, al_get_keyboard_event_source());
@@ -117,7 +124,7 @@ void WithInteractionFixture::handle_interactive_test_event(ALLEGRO_EVENT* curren
          }
       } break;
 
-      // TODO: Include other forms of input, joystics, mouse
+      // TODO: Include other forms of input, joystics
       case ALLEGRO_EVENT_KEY_CHAR:
       case ALLEGRO_EVENT_KEY_UP:
       case ALLEGRO_EVENT_KEY_DOWN: {
@@ -127,6 +134,11 @@ void WithInteractionFixture::handle_interactive_test_event(ALLEGRO_EVENT* curren
          if (current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE && (!shift)) abort();
       } break;
 
+      case ALLEGRO_EVENT_MOUSE_AXES:
+      case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+      case ALLEGRO_EVENT_MOUSE_BUTTON_UP: {
+         halt_auto_abort();
+      } break;
    }
    return;
 }
