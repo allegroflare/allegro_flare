@@ -101,19 +101,17 @@ TEST_F(AllegroFlare_UnicodeFontViewerTest, render__without_a_font_bin__raises_an
 }
 
 
-TEST_F(AllegroFlare_UnicodeFontViewerTestWithAllegroRenderingFixture, render__will_not_blow_up)
+TEST_F(AllegroFlare_UnicodeFontViewerTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    AllegroFlare::UnicodeFontViewer unicode_font_viewer(&font_bin, "Bravura.otf", 0x1D100);
 
-   al_clear_to_color({0});
+   al_clear_to_color(ALLEGRO_COLOR{0.04, 0.05, 0.08, 1});
 
    unicode_font_viewer.render();
 
    al_flip_display();
    //sleep_for(3);
-
-   SUCCEED();
 }
 
 
