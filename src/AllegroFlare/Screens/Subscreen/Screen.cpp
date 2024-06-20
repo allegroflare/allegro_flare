@@ -490,15 +490,16 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::key_char_func]: error: guard \"event\" not met");
    }
+   // TODO: Review these keyboard commands and/or map them to virtual controls, joysticks, etc
    bool shift = event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
    switch(event->keyboard.keycode)
    {
      case ALLEGRO_KEY_UP:
-       //chronicle_element.move_cursor_up();
+       //subscreen_element->move_cursor_up();
        break;
 
      case ALLEGRO_KEY_DOWN:
-       //chronicle_element.move_cursor_down();
+       //subscreen_element->move_cursor_down();
        break;
 
      case ALLEGRO_KEY_N:
@@ -514,11 +515,12 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
        break;
 
      case ALLEGRO_KEY_LEFT:
-       //shift ? move_pane_left() : chronicle_element.move_cursor_left();
+       //shift ? move_pane_left() : subscreen_element->move_cursor_left();
        break;
 
      case ALLEGRO_KEY_RIGHT:
-       //shift ? move_pane_right() : chronicle_element.move_cursor_right();
+       //suscreen_element.move_cursor_down();
+       //shift ? move_pane_right() : subscreen_element->move_cursor_right();
        break;
 
      case ALLEGRO_KEY_PAD_MINUS:
