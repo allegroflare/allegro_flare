@@ -7,6 +7,7 @@
 #include <AllegroFlare/Screens/Subscreen/Panes/Base.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <string>
 #include <vector>
 
 
@@ -61,6 +62,7 @@ namespace AllegroFlare
             std::vector<AllegroFlare::Screens::Subscreen::Panes::Base*> &get_panes_ref();
             virtual void initialize();
             void refresh();
+            AllegroFlare::Screens::Subscreen::Panes::Base* find_pane_by_name(std::string pane_name="[unset-pane_name]");
             bool move_pane_right();
             bool move_pane_left();
             void move_cursor_up();

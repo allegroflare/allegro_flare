@@ -33640,7 +33640,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/Subscreen/Element.q.yml">quintessence/AllegroFlare/Screens/Subscreen/Element.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"notes"=>["This element should act as a parent class for your game's final subscreen, and is thus used by the AllegroFlare/Screens/Subscreen/Screen as the \"subscreen_element\" member.", "The \"pane_camera\" is the viewing camera that moves between the tabs (aka panes)."]}</p>    <p>{"todos"=>["Create a typical subscreen Element class, for example like a AllegroFlare/Screens/Subscreens/Complete - There is now a AllegroFlare/Screens/SubscreenFactory that might be useful, Subscreens/Complete still sounds good, too", "Might consider renaming to AllegroFlare/Screens/SubscreenPanes/Base rather than having it in Subscreen/, you got some options there.", {"Some examples of panes"=>["Inventory", "World Map", "Display Settings", "Controller Settings", "Audio Settings", "Save/Load"]}, "Will need to decide how to dispatch user controls to the panes. Right now there are \"move_cursor_up\", \"move_cursor_down\", etc. style functions."]}</p>    <h3>Properties</h3>
+    <p>{"notes"=>["This element should act as a parent class for your game's final subscreen, and is thus used by the AllegroFlare/Screens/Subscreen/Screen as the \"subscreen_element\" member.", "The \"pane_camera\" is the viewing camera that moves between the tabs (aka panes)."]}</p>    <p>{"todos"=>["Create a typical subscreen Element class, for example like a AllegroFlare/Screens/Subscreens/Complete - There is now a AllegroFlare/Screens/SubscreenFactory that might be useful, Subscreens/Complete still sounds good, too", "Might consider renaming to AllegroFlare/Screens/SubscreenPanes/Base rather than having it in Subscreen/, you got some options there.", {"Some examples of panes"=>["Inventory", "World Map", "Compendium", "Display Settings", "Controller Settings", "Audio Settings", "Save/Load"]}, "Will need to decide how to dispatch user controls to the panes. Right now there are \"move_cursor_up\", \"move_cursor_down\", etc. style functions."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">bitmap_bin</td>
@@ -33700,6 +33700,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>refresh</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Screens::Subscreen::Panes::Base*</td>
+  <td class="method"><b>find_pane_by_name</b>(std::string pane_name=&quot;[unset-pane_name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -33809,6 +33813,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InventoryDictionaryItems::WithAttributes&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -43867,6 +43874,7 @@ table td
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
+    "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/TileMaps/TileAtlasBuilder",

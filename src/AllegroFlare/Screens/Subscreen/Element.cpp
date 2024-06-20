@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Screens/Subscreen/Element.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Screens/Subscreen/Panes/Base.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -205,6 +206,28 @@ void Element::refresh()
    //evidence_sheet_pane->refresh();
    //crime_summary_pane->reset();
    return;
+}
+
+AllegroFlare::Screens::Subscreen::Panes::Base* Element::find_pane_by_name(std::string pane_name)
+{
+   // TODO: This technique currently works to find the pane by the name (e.g. same variable for title currently).
+   // This would break in different languages, eventually an identifier should be used instead, however it's unclear
+   // if the identifier should be stored on the pane, or here in the panes<> by changing it to a tsl::ordered_map
+   std::vector<AllegroFlare::Screens::Subscreen::Panes::Base*> matching_panes;
+   for (auto &pane : panes)
+   {
+      if (pane->get_name() == pane_name) matching_panes.push_back(pane);
+   }
+   if (matching_panes.empty()) return nullptr;
+   if (matching_panes.size() > 1)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Subscreen::Screen",
+         "When looking for the pane named \"" + pane_name + "\", there was more than one. It's expected that "
+            "only one should be present."
+      );
+   }
+   return matching_panes[0];
 }
 
 bool Element::move_pane_right()

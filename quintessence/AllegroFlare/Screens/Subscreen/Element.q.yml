@@ -82,6 +82,7 @@ documentation:
       - Some examples of panes:
          - Inventory
          - World Map
+         - Compendium
          - Display Settings
          - Controller Settings
          - Audio Settings
@@ -142,6 +143,35 @@ methods:
       //evidence_sheet_pane->refresh();
       //crime_summary_pane->reset();
       return;
+
+
+  - name: find_pane_by_name
+    type: AllegroFlare::Screens::Subscreen::Panes::Base*
+    parameters:
+      - name: pane_name
+        type: std::string
+        default_argument: '"[unset-pane_name]"'
+    body: |
+      // TODO: This technique currently works to find the pane by the name (e.g. same variable for title currently).
+      // This would break in different languages, eventually an identifier should be used instead, however it's unclear
+      // if the identifier should be stored on the pane, or here in the panes<> by changing it to a tsl::ordered_map
+      std::vector<AllegroFlare::Screens::Subscreen::Panes::Base*> matching_panes;
+      for (auto &pane : panes)
+      {
+         if (pane->get_name() == pane_name) matching_panes.push_back(pane);
+      }
+      if (matching_panes.empty()) return nullptr;
+      if (matching_panes.size() > 1)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Screens::Subscreen::Screen",
+            "When looking for the pane named \"" + pane_name + "\", there was more than one. It's expected that "
+               "only one should be present."
+         );
+      }
+      return matching_panes[0];
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: move_pane_right
@@ -481,5 +511,7 @@ dependencies:
     headers: [ AllegroFlare/InventoryDictionary.hpp ]
   - symbol: AllegroFlare::InventoryDictionaryItems::WithAttributes
     headers: [ AllegroFlare/InventoryDictionaryItems/WithAttributes.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
