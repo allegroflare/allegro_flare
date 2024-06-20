@@ -365,27 +365,6 @@ void Screen::primary_render_func()
    return;
 }
 
-void Screen::xprimary_timer_func()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Screens::Subscreen::Screen::xprimary_timer_func]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Screens::Subscreen::Screen::xprimary_timer_func]: error: guard \"initialized\" not met");
-   }
-   // NOTE: this color clear may be redundant if the framework is clearing prior to rendering screens
-   // NOTE: Enable configuring this background color, disabling it, relying on the screen's owned background, or
-   // using a background technique handled by the pane.
-   al_clear_to_color(al_color_html("16161d"));
-
-   // TODO: Note that this screen is using the AllegroFlare::Screens::Base::LEGACY_SINGLE_PRIMARY_TIMER_FUNC by
-   // default and should probably be updated to use AllegroFlare::Screens::Base::SEPARATE_UPDATE_AND_RENDER_FUNCS
-   subscreen_element->update();
-   subscreen_element->render();
-   return;
-}
-
 void Screen::key_up_func(ALLEGRO_EVENT* event)
 {
    if (!(initialized))
