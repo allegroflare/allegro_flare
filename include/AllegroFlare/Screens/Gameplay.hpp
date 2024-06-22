@@ -45,7 +45,7 @@ namespace AllegroFlare
          void resume_suspended_gameplay();
          void toggle_suspend_gameplay();
          void call_on_finished_callback_func();
-         virtual void load_level_by_identifier(std::string possible_type="");
+         virtual bool load_level_by_identifier(std::string possible_type="");
       };
    }
 }

@@ -133,6 +133,7 @@ methods:
 
 
   - name: load_level_by_identifier
+    type: bool
     virtual: true
     parameters:
       - name: possible_type
@@ -143,7 +144,7 @@ methods:
          "AllegroFlare::Screens::Gameplay::load_level_by_identifier",
          "Not implemented in the base class. This method must be implemented in the derived class"
       );
-      return;
+      return false;
     body_dependency_symbols:
       - AllegroFlare::Logger
 

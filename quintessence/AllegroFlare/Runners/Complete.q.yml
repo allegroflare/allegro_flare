@@ -535,17 +535,49 @@ methods:
 
          std::string level_identifier_to_load = as_start_level->get_level_identifier();
 
-         // TODO: Modify this design to emit a level loading event, instead of loading here explicitly.
-         if (!primary_gameplay_screen)
+         // NOTE: Here, legacy systems will load_level_by_identifer as a call to the primary_gameplay_screen. Newer
+         // systems will manage loading from the game_configuration. The latter system is preferible so that the list
+         // of levels can be managed at the game_configuration level, and level-specific classes, (something like
+         // YourGame::Levels:MyUndergroundLevel) do not become dependencies with the logic in the primary gameplay
+         // screen. In a lot of cases (all?) the former legacy technique simply routes to the game_configuration
+         // anyway. Updating them could be good. This design remains in flux.
+
+         bool level_was_loaded_via_the_legacy_method = false;
          {
-            AllegroFlare::Logger::throw_error(
-               "AllegroFlare::Runners::Complete::setup_router",
-               "primary_gameplay_screen is nullptr"
-            );
+            if (!primary_gameplay_screen)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Runners::Complete::setup_router",
+                  "primary_gameplay_screen is nullptr"
+               );
+            }
+
+            // TODO: Consider adding a begin_gameplay() after this step
+            bool loaded_level = primary_gameplay_screen->load_level_by_identifier(level_identifier_to_load);
+            if (loaded_level == true)
+            {
+               level_was_loaded_via_the_legacy_method = true;
+               AllegroFlare::Logger::warn_from_once(
+                 "AllegroFlare::Runners::Complete::setup_router",
+                 "In the load_level_handler callback, the primary_gameplay_screen returned a created level after "
+                    "calling load_level_by_identifier. This is legacy behavior. Consider moving the level loading "
+                    "logic to the game_configuration instead, and have "
+                    "primary_gameplay_screen->load_level_by_identifier return "
+                    "false."
+               );
+            }
          }
 
-         // TODO: Consider adding a begin_gameplay() after this step
-         primary_gameplay_screen->load_level_by_identifier(level_identifier_to_load);
+         if (!level_was_loaded_via_the_legacy_method)
+         {
+            AllegroFlare::Logger::info_from(
+              "AllegroFlare::Runners::Complete::setup_router",
+              "In the load_level_handler callback, proceeding to load the level \"" + level_identifier_to_load + "\" "
+                 "through game_configuration."
+            );
+
+            this->game_configuration->load_level_by_identifier(level_identifier_to_load);
+         }
 
          // TODO: Improve design and address a "return false" if the level did not load or does not exist
          // TODO: Address concern that return type of lambda may not be the same signature of the load_level_handler
