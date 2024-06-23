@@ -73,7 +73,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    scene_renderer.set_multitexture_shader(&multitexture_shader);
    scene_renderer.set_entity_pool(&entity_pool);
 
-   // TODO: Use an EntityFactory for this setup
+   // Create the iridescent cube
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *item = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    item->set_model_3d(model_bin.auto_get("rounded_unit_cube-01.obj"));
@@ -83,7 +83,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    item->get_placement_ref().rotation.z = 0.03547;
    entity_pool.add(item);
 
-   // TODO: Use an EntityFactory for this setup
+   // Create another dynamic object, a rounded cube with a simple texture
    AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D *dynamic_cube = 
       new AllegroFlare::GraphicsPipelines::DynamicEntityPipeline::Entities::DynamicModel3D();
    dynamic_cube->set_model_3d(model_bin.auto_get("rounded_unit_cube-01.obj"));
@@ -92,7 +92,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    dynamic_cube->get_placement_ref().position.y = 0.5;
    entity_pool.add(dynamic_cube);
 
-   // TODO: Use an EntityFactory for this setup
+   // Create the environment mesh
    std::string TEST_FIXTURES_FOLDER = get_fixtures_path();
    std::string base_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01.obj";
    std::string uv2_obj_filename = TEST_FIXTURES_FOLDER + "models/simple_scene-01-ao-01.obj";
@@ -108,7 +108,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    entity_pool.add(environment_mesh);
 
    // Render the scene
-   int frames = 10;
+   int frames = 90;
    for (int i=0; i<frames; i++)
    {
       item->get_placement_ref().rotation.x += 0.005;
@@ -210,7 +210,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWit
    entity_pool.add(environment_mesh);
 
    // Render the scene
-   int frames = 90;
+   int frames = 10;
    for (int i=0; i<frames; i++)
    {
       // Spin our shadow casted light
