@@ -142,10 +142,10 @@ methods:
     body: |
       AllegroFlare::Logger::warn_from(
          "AllegroFlare::Screens::Gameplay::load_level_by_identifier",
-         "Nothing to do here, returning true. Consider removing this method and have loading occur outside of this "
-            "screen class."
+         "Nothing to do here, returning false (false indicates that no level was loaded as a result of this method "
+            "call. Consider removing this method and have loading occur outside of this screen class."
       );
-      return true;
+      return false; // NOTE: false indicates that no level was loaded as a result of this method call
     body_dependency_symbols:
       - AllegroFlare::Logger
 
