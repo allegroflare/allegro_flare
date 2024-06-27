@@ -141,11 +141,12 @@ void Gameplay::call_on_finished_callback_func()
 
 bool Gameplay::load_level_by_identifier(std::string possible_type)
 {
-   AllegroFlare::Logger::throw_error(
+   AllegroFlare::Logger::warn_from(
       "AllegroFlare::Screens::Gameplay::load_level_by_identifier",
-      "Not implemented in the base class. This method must be implemented in the derived class"
+      "Nothing to do here, returning true. Consider removing this method and have loading occur outside of this "
+         "screen class."
    );
-   return false;
+   return true;
 }
 
 
