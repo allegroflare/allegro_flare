@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
@@ -30,6 +31,7 @@ namespace AllegroFlare
          AllegroFlare::SampleBin* framework_sample_bin;
          AllegroFlare::ModelBin* framework_model_bin;
          AllegroFlare::VideoBin* framework_video_bin;
+         AllegroFlare::DialogSystem::DialogSystem* framework_dialog_system;
          AllegroFlare::Profiler* framework_profiler;
          std::string framework_data_folder_path;
          AllegroFlare::RenderSurfaces::Base* framework_primary_render_surface;
@@ -50,6 +52,7 @@ namespace AllegroFlare
          AllegroFlare::SampleBin* get_framework_sample_bin() const;
          AllegroFlare::ModelBin* get_framework_model_bin() const;
          AllegroFlare::VideoBin* get_framework_video_bin() const;
+         AllegroFlare::DialogSystem::DialogSystem* get_framework_dialog_system() const;
          AllegroFlare::Profiler* get_framework_profiler() const;
          std::string get_framework_data_folder_path() const;
          AllegroFlare::RenderSurfaces::Base* get_framework_primary_render_surface() const;

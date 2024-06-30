@@ -23,6 +23,7 @@ WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    , framework_sample_bin(nullptr)
    , framework_model_bin(nullptr)
    , framework_video_bin(nullptr)
+   , framework_dialog_system(nullptr)
    , framework_profiler(nullptr)
    , framework_data_folder_path("[unset-framework_data_folder_path]")
    , framework_primary_render_surface(nullptr)
@@ -74,6 +75,12 @@ AllegroFlare::VideoBin* WithAllegroFlareFrameworksFullFixture::get_framework_vid
 }
 
 
+AllegroFlare::DialogSystem::DialogSystem* WithAllegroFlareFrameworksFullFixture::get_framework_dialog_system() const
+{
+   return framework_dialog_system;
+}
+
+
 AllegroFlare::Profiler* WithAllegroFlareFrameworksFullFixture::get_framework_profiler() const
 {
    return framework_profiler;
@@ -119,6 +126,7 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
    this->framework_font_bin = &framework.get_font_bin_ref();
    this->framework_model_bin = &framework.get_model_bin_ref();
    this->framework_video_bin = &framework.get_video_bin_ref();
+   this->framework_dialog_system = &framework.get_dialog_system_ref();
    this->framework_sample_bin = &framework.get_sample_bin_ref();
    this->framework_data_folder_path = framework.get_data_folder_path();
    this->framework_profiler = &framework.get_profiler_ref();
