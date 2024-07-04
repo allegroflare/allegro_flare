@@ -48,6 +48,8 @@ documentation:
         body: |
           When set to true, the material being rendered will act as a solid, reflecting the world around it.  When set
           to false, the material will be rendered as if it were a skybox.
+  - todos:
+      - Have "reflecting" be false by default
 
 
 functions:
