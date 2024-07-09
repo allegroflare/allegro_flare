@@ -260,6 +260,19 @@ bool LevelSelect::is_locked(std::string level_identifier)
    return locked_list.find(level_identifier) != locked_list.end();
 }
 
+bool LevelSelect::unlock(std::string level_identifier)
+{
+   if (!((!is_locked(level_identifier))))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::unlock]: error: guard \"(!is_locked(level_identifier))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::unlock]: error: guard \"(!is_locked(level_identifier))\" not met");
+   }
+   // TODO: Test this
+   return locked_list.erase(level_identifier);
+}
+
 ALLEGRO_COLOR LevelSelect::opaquify(ALLEGRO_COLOR color, float opacity)
 {
    color.r *= opacity;
@@ -568,6 +581,14 @@ void LevelSelect::activate_selected_menu_option()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::activate_selected_menu_option]: error: guard \"event_emitter\" not met");
    }
+   if (ignore_on_invalid_selection)
+   {
+      if (list_is_empty()) return;
+      if (!cursor_selection_is_valid()) return;
+      std::string current_menu_option_value = infer_current_menu_option_value();
+      if (is_locked(current_menu_option_value)) return;
+   }
+
    if (list_is_empty())
    {
       AllegroFlare::Logger::throw_error(

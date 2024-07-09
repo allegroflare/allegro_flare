@@ -124,6 +124,8 @@ documentation:
      - Make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0
      - Output a warning when the number of levels is greater than the number of selection boxes
      - Consider renaming "selection_box_" to something else
+     - Add a "menu_option_can_be_selected"
+     - Rename "ignore_on_invalid_selection" because it is used as early return if the item cannot be activated
 
 
 methods:
@@ -149,6 +151,18 @@ methods:
     body: |
       // TODO: Test
       return locked_list.find(level_identifier) != locked_list.end();
+
+
+  - name: unlock
+    type: bool
+    parameters:
+      - name: level_identifier
+        type: std::string
+        default_argument: '"[unset-level_identifier]"'
+    guards: [ (!is_locked(level_identifier)) ]
+    body: |
+      // TODO: Test this
+      return locked_list.erase(level_identifier);
 
 
   - name: opaquify
@@ -482,6 +496,14 @@ methods:
     xprivate: true
     guards: [ event_emitter ]
     body: |
+      if (ignore_on_invalid_selection)
+      {
+         if (list_is_empty()) return;
+         if (!cursor_selection_is_valid()) return;
+         std::string current_menu_option_value = infer_current_menu_option_value();
+         if (is_locked(current_menu_option_value)) return;
+      }
+
       if (list_is_empty())
       {
          AllegroFlare::Logger::throw_error(

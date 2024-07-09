@@ -94,6 +94,7 @@ namespace AllegroFlare
          bool get_ignore_on_invalid_selection() const;
          void add_to_locked_list(std::string level_identifier="[unset-level_identifier]");
          bool is_locked(std::string level_identifier="[unset-level_identifier]");
+         bool unlock(std::string level_identifier="[unset-level_identifier]");
          void disable_drawing_backfill_and_frame();
          void disable_drawing_title_text();
          void enable_drawing_backfill_and_frame();

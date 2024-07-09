@@ -11756,7 +11756,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"todos"=>["Make dimension setters (set_selection_box_width, set_selection_box_spacing_y, etc) explicit and require diminensions > 0", "Make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0", "Output a warning when the number of levels is greater than the number of selection boxes", "Consider renaming \"selection_box_\" to something else"]}</p>    <h3>Properties</h3>
+    <p>{"todos"=>["Make dimension setters (set_selection_box_width, set_selection_box_spacing_y, etc) explicit and require diminensions > 0", "Make row, column size setters (set_num_columns, set_num_rows, etc) explicit and require size > 0", "Output a warning when the number of levels is greater than the number of selection boxes", "Consider renaming \"selection_box_\" to something else", "Add a \"menu_option_can_be_selected\""]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">event_emitter</td>
@@ -11844,6 +11844,10 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>is_locked</b>(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>unlock</b>(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">ALLEGRO_COLOR</td>
