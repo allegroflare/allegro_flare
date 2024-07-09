@@ -225,6 +225,25 @@ functions:
       return;
 
 
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ ev ]
+    body: |
+      // TODO: Add a feature where you can press KEY_U to unlock all the levels when in non-production mode.
+      switch (ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_U:
+            level_select_element.unlock_all();
+         break;
+      }
+      return;
+
+
   - name: joy_axis_func
     virtual: true
     override: true

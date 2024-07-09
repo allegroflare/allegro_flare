@@ -165,6 +165,12 @@ methods:
       return locked_list.erase(level_identifier);
 
 
+  - name: unlock_all
+    body: |
+      // TODO: Test this
+      return locked_list.clear();
+
+
   - name: opaquify
     type: ALLEGRO_COLOR
     private: true

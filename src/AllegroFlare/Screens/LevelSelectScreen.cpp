@@ -298,6 +298,25 @@ void LevelSelectScreen::joy_button_down_func(ALLEGRO_EVENT* ev)
    return;
 }
 
+void LevelSelectScreen::key_down_func(ALLEGRO_EVENT* ev)
+{
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Screens::LevelSelectScreen::key_down_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Screens::LevelSelectScreen::key_down_func]: error: guard \"ev\" not met");
+   }
+   // TODO: Add a feature where you can press KEY_U to unlock all the levels when in non-production mode.
+   switch (ev->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_U:
+         level_select_element.unlock_all();
+      break;
+   }
+   return;
+}
+
 void LevelSelectScreen::joy_axis_func(ALLEGRO_EVENT* ev)
 {
    static float axis_x = 0;

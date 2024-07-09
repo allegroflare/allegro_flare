@@ -273,6 +273,12 @@ bool LevelSelect::unlock(std::string level_identifier)
    return locked_list.erase(level_identifier);
 }
 
+void LevelSelect::unlock_all()
+{
+   // TODO: Test this
+   return locked_list.clear();
+}
+
 ALLEGRO_COLOR LevelSelect::opaquify(ALLEGRO_COLOR color, float opacity)
 {
    color.r *= opacity;
