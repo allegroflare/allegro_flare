@@ -49,7 +49,7 @@ properties:
     constexpr: true
 
 
-functions:
+methods:
 
 
   - name: set_environment
