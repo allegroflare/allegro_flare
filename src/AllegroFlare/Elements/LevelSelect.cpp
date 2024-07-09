@@ -20,10 +20,11 @@ namespace Elements
 {
 
 
-LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> levels_list)
+LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> levels_list, std::set<std::string> locked_list)
    : event_emitter(event_emitter)
    , font_bin(font_bin)
    , levels_list(levels_list)
+   , locked_list(locked_list)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
    , place({ 1920/2, 1080/2, 1300, 700 })
@@ -35,9 +36,10 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , selection_box_spacing_y(30)
    , num_columns(5)
    , num_rows(3)
+   , hide_title_when_locked(true)
    , drawing_backfill_and_frame(true)
    , drawing_title_text(true)
-   , ignore_on_invalid_selection(false)
+   , ignore_on_invalid_selection(true)
 {
 }
 
@@ -62,6 +64,12 @@ void LevelSelect::set_font_bin(AllegroFlare::FontBin* font_bin)
 void LevelSelect::set_levels_list(std::vector<std::pair<std::string, std::string>> levels_list)
 {
    this->levels_list = levels_list;
+}
+
+
+void LevelSelect::set_locked_list(std::set<std::string> locked_list)
+{
+   this->locked_list = locked_list;
 }
 
 
@@ -113,6 +121,12 @@ void LevelSelect::set_num_rows(int num_rows)
 }
 
 
+void LevelSelect::set_hide_title_when_locked(bool hide_title_when_locked)
+{
+   this->hide_title_when_locked = hide_title_when_locked;
+}
+
+
 void LevelSelect::set_drawing_backfill_and_frame(bool drawing_backfill_and_frame)
 {
    this->drawing_backfill_and_frame = drawing_backfill_and_frame;
@@ -134,6 +148,12 @@ void LevelSelect::set_ignore_on_invalid_selection(bool ignore_on_invalid_selecti
 std::vector<std::pair<std::string, std::string>> LevelSelect::get_levels_list() const
 {
    return levels_list;
+}
+
+
+std::set<std::string> LevelSelect::get_locked_list() const
+{
+   return locked_list;
 }
 
 
@@ -203,6 +223,12 @@ int LevelSelect::get_num_rows() const
 }
 
 
+bool LevelSelect::get_hide_title_when_locked() const
+{
+   return hide_title_when_locked;
+}
+
+
 bool LevelSelect::get_drawing_backfill_and_frame() const
 {
    return drawing_backfill_and_frame;
@@ -221,8 +247,25 @@ bool LevelSelect::get_ignore_on_invalid_selection() const
 }
 
 
-ALLEGRO_COLOR LevelSelect::opaquify(ALLEGRO_COLOR color)
+void LevelSelect::add_to_locked_list(std::string level_identifier)
 {
+   // TODO: Ensure item exists in list of levels
+   locked_list.insert(level_identifier);
+   return;
+}
+
+bool LevelSelect::is_locked(std::string level_identifier)
+{
+   // TODO: Test
+   return locked_list.find(level_identifier) != locked_list.end();
+}
+
+ALLEGRO_COLOR LevelSelect::opaquify(ALLEGRO_COLOR color, float opacity)
+{
+   color.r *= opacity;
+   color.g *= opacity;
+   color.b *= opacity;
+   color.a *= opacity;
    return color;
 }
 
@@ -334,15 +377,22 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
       {
          int list_item_num = row * num_columns + column;
          std::string label = "";
+         bool locked = false;
          if (list_item_num >= levels_list.size()) {}
-         else label = std::get<0>(levels_list[list_item_num]);
+         else
+         {
+            label = std::get<0>(levels_list[list_item_num]);
+            std::string identifier = std::get<1>(levels_list[list_item_num]);
+            locked = is_locked(identifier);
+         }
 
          draw_level_list_item_box(
             column * (selection_box_width + selection_box_spacing_x),
             row * (selection_box_height + selection_box_spacing_y),
             selection_box_width,
             selection_box_height,
-            label
+            label,
+            locked
          );
       }
    }
@@ -473,16 +523,26 @@ void LevelSelect::draw_selection_cursor(float x, float y)
    return;
 }
 
-void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, std::string label)
+void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, std::string label, bool locked)
 {
    ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
-   ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+   ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.4f : 1.0f);
    float roundness = 6.0f;
    ALLEGRO_FONT *font = obtain_level_label_font();
    float line_height = al_get_font_line_height(font);
 
    al_draw_filled_rounded_rectangle(x+0, y+0, x+w, y+h, roundness, roundness, backfill_color);
-   al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, label.c_str());
+   if (locked)
+   {
+      al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
+      // TODO: Draw lock icon
+      //ALLEGRO_FONT *icon_font = obtain_lock_icon_font();
+      //al_draw_text(icon_font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
+   }
+   else
+   {
+      al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, label.c_str());
+   }
 
    return;
 }
@@ -500,7 +560,7 @@ void LevelSelect::activate_selected_menu_option()
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
-         "can not select a level, the list of levels is empty."
+         "Can not select a level, the list of levels is empty."
       );
       return;
    }
@@ -510,7 +570,7 @@ void LevelSelect::activate_selected_menu_option()
    {
       AllegroFlare::Logger::warn_from(
          "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
-         "can not select the currently highlighted option, the cursor is not over a valid selection."
+         "Can not select the currently highlighted option, the cursor is not over a valid selection."
       );
       return;
    }
@@ -521,7 +581,15 @@ void LevelSelect::activate_selected_menu_option()
    {
       AllegroFlare::Logger::warn_from(
          "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
-         "can not select the currently highlighted option, it contains an empty value."
+         "Can not select the currently highlighted option, it contains an empty value."
+      );
+      return;
+   }
+   else if (is_locked(current_menu_option_value))
+   {
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+         "Can not select the currently highlighted option. It is locked."
       );
       return;
    }

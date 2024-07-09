@@ -11771,6 +11771,10 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">locked_list</td>
+  <td class="property">std::set&lt;std::string&gt;</td>
+</tr>
+<tr>
   <td class="property">on_menu_choice_callback_func</td>
   <td class="property">std::function&lt;void(AllegroFlare::Elements::LevelSelect*, void*)&gt;</td>
 </tr>
@@ -11815,6 +11819,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">hide_title_when_locked</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">drawing_backfill_and_frame</td>
   <td class="property">bool</td>
 </tr>
@@ -11830,8 +11838,16 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_to_locked_list</b>(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_locked</b>(std::string level_identifier=&quot;[unset-level_identifier]&quot;)</td>
+</tr>
+<tr>
   <td class="private_method">ALLEGRO_COLOR</td>
-  <td class="private_method"><b>opaquify</b>(ALLEGRO_COLOR color={0,0,0,0})</td>
+  <td class="private_method"><b>opaquify</b>(ALLEGRO_COLOR color={0,0,0,0}, float opacity=1.0f)</td>
 </tr>
 <tr>
   <td class="private_method">ALLEGRO_COLOR</td>
@@ -11899,7 +11915,7 @@ table td
 </tr>
 <tr>
   <td class="private_method">void</td>
-  <td class="private_method"><b>draw_level_list_item_box</b>(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label=&quot;[unlabeled]&quot;)</td>
+  <td class="private_method"><b>draw_level_list_item_box</b>(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label=&quot;[unlabeled]&quot;, bool locked=false)</td>
 </tr>
 <tr>
   <td class="method">void</td>

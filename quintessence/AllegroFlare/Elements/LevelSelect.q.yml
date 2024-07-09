@@ -20,6 +20,13 @@ properties:
     getter: true
     setter: true
 
+  - name: locked_list
+    type: std::set<std::string>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: on_menu_choice_callback_func
     type: std::function<void(AllegroFlare::Elements::LevelSelect*, void*)>
     init_with: ''
@@ -83,6 +90,12 @@ properties:
     getter: true
     setter: true
 
+  - name: hide_title_when_locked
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
   - name: drawing_backfill_and_frame
     type: bool
     init_with: true
@@ -97,7 +110,7 @@ properties:
 
   - name: ignore_on_invalid_selection
     type: bool
-    init_with: false
+    init_with: true
     getter: true
     setter: true
 
@@ -116,6 +129,28 @@ documentation:
 methods:
 
 
+  - name: add_to_locked_list
+    parameters:
+      - name: level_identifier
+        type: std::string
+        default_argument: '"[unset-level_identifier]"'
+    body: |
+      // TODO: Ensure item exists in list of levels
+      locked_list.insert(level_identifier);
+      return;
+
+
+  - name: is_locked
+    type: bool
+    parameters:
+      - name: level_identifier
+        type: std::string
+        default_argument: '"[unset-level_identifier]"'
+    body: |
+      // TODO: Test
+      return locked_list.find(level_identifier) != locked_list.end();
+
+
   - name: opaquify
     type: ALLEGRO_COLOR
     private: true
@@ -123,7 +158,14 @@ methods:
       - name: color
         type: ALLEGRO_COLOR
         default_argument: '{0,0,0,0}'
+      - name: opacity
+        type: float
+        default_argument: 1.0f
     body: |
+      color.r *= opacity;
+      color.g *= opacity;
+      color.b *= opacity;
+      color.a *= opacity;
       return color;
 
 
@@ -243,15 +285,22 @@ methods:
          {
             int list_item_num = row * num_columns + column;
             std::string label = "";
+            bool locked = false;
             if (list_item_num >= levels_list.size()) {}
-            else label = std::get<0>(levels_list[list_item_num]);
+            else
+            {
+               label = std::get<0>(levels_list[list_item_num]);
+               std::string identifier = std::get<1>(levels_list[list_item_num]);
+               locked = is_locked(identifier);
+            }
 
             draw_level_list_item_box(
                column * (selection_box_width + selection_box_spacing_x),
                row * (selection_box_height + selection_box_spacing_y),
                selection_box_width,
                selection_box_height,
-               label
+               label,
+               locked
             );
          }
       }
@@ -391,15 +440,28 @@ methods:
       - name: label
         type: std::string
         default_argument: '"[unlabeled]"'
+      - name: locked
+        type: bool
+        default_argument: false
     body: |
       ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
-      ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+      ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.4f : 1.0f);
       float roundness = 6.0f;
       ALLEGRO_FONT *font = obtain_level_label_font();
       float line_height = al_get_font_line_height(font);
 
       al_draw_filled_rounded_rectangle(x+0, y+0, x+w, y+h, roundness, roundness, backfill_color);
-      al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, label.c_str());
+      if (locked)
+      {
+         al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
+         // TODO: Draw lock icon
+         //ALLEGRO_FONT *icon_font = obtain_lock_icon_font();
+         //al_draw_text(icon_font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
+      }
+      else
+      {
+         al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, label.c_str());
+      }
 
       return;
 
@@ -412,7 +474,7 @@ methods:
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
-            "can not select a level, the list of levels is empty."
+            "Can not select a level, the list of levels is empty."
          );
          return;
       }
@@ -422,7 +484,7 @@ methods:
       {
          AllegroFlare::Logger::warn_from(
             "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
-            "can not select the currently highlighted option, the cursor is not over a valid selection."
+            "Can not select the currently highlighted option, the cursor is not over a valid selection."
          );
          return;
       }
@@ -433,7 +495,15 @@ methods:
       {
          AllegroFlare::Logger::warn_from(
             "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
-            "can not select the currently highlighted option, it contains an empty value."
+            "Can not select the currently highlighted option, it contains an empty value."
+         );
+         return;
+      }
+      else if (is_locked(current_menu_option_value))
+      {
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+            "Can not select the currently highlighted option. It is locked."
          );
          return;
       }
@@ -517,7 +587,6 @@ dependencies:
     headers: [ cmath ]
   - symbol: ALLEGRO_FLARE_EVENT_SELECT_LEVEL
     headers: [ AllegroFlare/EventNames.hpp ]
-
   - symbol: AllegroFlare::EventEmitter
     headers: [ AllegroFlare/EventEmitter.hpp ]
   - symbol: AllegroFlare::FontBin
