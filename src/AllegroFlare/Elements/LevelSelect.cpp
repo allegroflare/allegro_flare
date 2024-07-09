@@ -335,7 +335,7 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
          int list_item_num = row * num_columns + column;
          std::string label = "";
          if (list_item_num >= levels_list.size()) {}
-         else label = levels_list[list_item_num].first;
+         else label = std::get<0>(levels_list[list_item_num]);
 
          draw_level_list_item_box(
             column * (selection_box_width + selection_box_spacing_x),

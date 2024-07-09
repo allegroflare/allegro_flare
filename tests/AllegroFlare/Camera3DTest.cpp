@@ -101,6 +101,7 @@ TEST(AllegroFlare_Camera3DTest,
 TEST(AllegroFlare_Camera3DTest, get_viewing_direction__will_return_the_direction_that_the_camera_is_facing)
 {
    // TODO: Add some rigorous tests for this function
+   // TODO: Test if these numbers include tilt, stepout, etc.
    AllegroFlare::Camera3D camera3d;
 
    //camera3d.tilt = 0.0;
