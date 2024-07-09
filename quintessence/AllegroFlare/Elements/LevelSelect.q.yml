@@ -445,7 +445,7 @@ methods:
         default_argument: false
     body: |
       ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
-      ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.4f : 1.0f);
+      ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.2f : 1.0f);
       float roundness = 6.0f;
       ALLEGRO_FONT *font = obtain_level_label_font();
       float line_height = al_get_font_line_height(font);
@@ -453,10 +453,22 @@ methods:
       al_draw_filled_rounded_rectangle(x+0, y+0, x+w, y+h, roundness, roundness, backfill_color);
       if (locked)
       {
+         // Draw the text "Locked"
          al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
-         // TODO: Draw lock icon
-         //ALLEGRO_FONT *icon_font = obtain_lock_icon_font();
-         //al_draw_text(icon_font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
+
+         // Draw lock icon
+         ALLEGRO_FONT *icon_font = obtain_lock_icon_font();
+         ALLEGRO_COLOR icon_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, 0.6f);
+         float icon_font_line_height = al_get_font_line_height(icon_font);
+         uint32_t icon = 0xf023;
+         draw_unicode_character(
+            icon_font,
+            icon_color,
+            icon,
+            ALLEGRO_ALIGN_CENTER,
+            x+w-22, y+h-37  // Bottom right (use font-size -23)
+            //x+w/2, y+h/2-icon_font_line_height/2 // centered (use font-size -52 or so)
+         );
       }
       else
       {
@@ -554,6 +566,34 @@ methods:
       return (cursor_position >= 0 && cursor_position < levels_list.size());
 
 
+  - name: draw_unicode_character
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: icon
+        type: int32_t
+        default_argument: 61444
+      - name: flags
+        type: int
+        default_argument: 0
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+    body: |
+      static ALLEGRO_USTR *ustr = NULL;
+      if (!ustr) ustr = al_ustr_new("");
+      al_ustr_set_chr(ustr, 0, icon);
+      al_draw_ustr(font, color, x, y, flags, ustr);
+      return;
+
+
   - name: obtain_title_font
     private: true
     type: ALLEGRO_FONT*
@@ -566,6 +606,15 @@ methods:
     type: ALLEGRO_FONT*
     body: |
       return font_bin->auto_get("Inter-Regular.ttf -32");
+
+
+  - name: obtain_lock_icon_font
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream font_identifier_and_size;
+      font_identifier_and_size << "fa-solid-900.ttf " << -23; // -64
+      return font_bin->auto_get(font_identifier_and_size.str());
 
 
 dependencies:

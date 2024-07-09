@@ -7,6 +7,7 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <cstdint>
 #include <functional>
 #include <set>
 #include <string>
@@ -107,6 +108,8 @@ namespace AllegroFlare
          std::string infer_current_menu_option_value();
          int infer_cursor_position();
          bool cursor_selection_is_valid();
+         void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
+         ALLEGRO_FONT* obtain_lock_icon_font();
       };
    }
 }

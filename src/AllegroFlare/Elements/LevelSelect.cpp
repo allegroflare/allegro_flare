@@ -526,7 +526,7 @@ void LevelSelect::draw_selection_cursor(float x, float y)
 void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, std::string label, bool locked)
 {
    ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
-   ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.4f : 1.0f);
+   ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.2f : 1.0f);
    float roundness = 6.0f;
    ALLEGRO_FONT *font = obtain_level_label_font();
    float line_height = al_get_font_line_height(font);
@@ -534,10 +534,22 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
    al_draw_filled_rounded_rectangle(x+0, y+0, x+w, y+h, roundness, roundness, backfill_color);
    if (locked)
    {
+      // Draw the text "Locked"
       al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
-      // TODO: Draw lock icon
-      //ALLEGRO_FONT *icon_font = obtain_lock_icon_font();
-      //al_draw_text(icon_font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
+
+      // Draw lock icon
+      ALLEGRO_FONT *icon_font = obtain_lock_icon_font();
+      ALLEGRO_COLOR icon_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, 0.6f);
+      float icon_font_line_height = al_get_font_line_height(icon_font);
+      uint32_t icon = 0xf023;
+      draw_unicode_character(
+         icon_font,
+         icon_color,
+         icon,
+         ALLEGRO_ALIGN_CENTER,
+         x+w-22, y+h-37  // Bottom right (use font-size -23)
+         //x+w/2, y+h/2-icon_font_line_height/2 // centered (use font-size -52 or so)
+      );
    }
    else
    {
@@ -634,6 +646,15 @@ bool LevelSelect::cursor_selection_is_valid()
    return (cursor_position >= 0 && cursor_position < levels_list.size());
 }
 
+void LevelSelect::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color, int32_t icon, int flags, float x, float y)
+{
+   static ALLEGRO_USTR *ustr = NULL;
+   if (!ustr) ustr = al_ustr_new("");
+   al_ustr_set_chr(ustr, 0, icon);
+   al_draw_ustr(font, color, x, y, flags, ustr);
+   return;
+}
+
 ALLEGRO_FONT* LevelSelect::obtain_title_font()
 {
    return font_bin->auto_get("Inter-Regular.ttf -46");
@@ -642,6 +663,20 @@ ALLEGRO_FONT* LevelSelect::obtain_title_font()
 ALLEGRO_FONT* LevelSelect::obtain_level_label_font()
 {
    return font_bin->auto_get("Inter-Regular.ttf -32");
+}
+
+ALLEGRO_FONT* LevelSelect::obtain_lock_icon_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::obtain_lock_icon_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::obtain_lock_icon_font]: error: guard \"font_bin\" not met");
+   }
+   std::stringstream font_identifier_and_size;
+   font_identifier_and_size << "fa-solid-900.ttf " << -23; // -64
+   return font_bin->auto_get(font_identifier_and_size.str());
 }
 
 
