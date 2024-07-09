@@ -18,6 +18,7 @@
 #include <AllegroFlare/Screens/PauseScreen.hpp>
 #include <AllegroFlare/Screens/Subscreen/Screen.hpp>
 #include <ReleaseInfo.hpp>
+#include <set>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -56,6 +57,7 @@ namespace AllegroFlare
          virtual void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
          virtual AllegroFlare::Levels::Base* load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
          virtual std::vector<std::pair<std::string, std::string>> build_level_list_for_level_select_screen_by_identifier(std::string identifier="[unset-identifier]");
+         virtual std::set<std::string> build_locked_list_for_level_select_screen();
          virtual AllegroFlare::DialogTree::NodeBank build_dialog_bank_by_identifier(std::string identifier="[unset-identifier]");
          virtual std::vector<std::tuple<std::string, AllegroFlare::Achievement*, bool, bool>> build_achievements();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_logos_storyboard_pages();

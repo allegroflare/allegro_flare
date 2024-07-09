@@ -331,6 +331,9 @@ methods:
          // NOTE: if this list is empty, then the screen will automatically submit on activate
          game_configuration->build_level_list_for_level_select_screen_by_identifier("discarded-for-now")
       );
+      level_select_screen.set_locked_list(
+         game_configuration->build_locked_list_for_level_select_screen()
+      );
       level_select_screen.set_foreground(shared_foreground);
       level_select_screen.set_background(shared_background);
       level_select_screen.initialize();

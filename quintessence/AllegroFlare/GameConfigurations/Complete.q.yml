@@ -184,6 +184,20 @@ methods:
      - AllegroFlare::Logger
 
 
+  - name: build_locked_list_for_level_select_screen
+    virtual: true
+    type: std::set<std::string>
+    body: |
+      std::set<std::string> result = {
+         //{ "space_station" },
+         //{ "catwalk" },
+         //{ "forest-01" },
+         //{ "tunnels-01" },
+         //{ "subway_car" },
+      };
+      return result;
+
+
   - name: build_dialog_bank_by_identifier
     virtual: true
     type: AllegroFlare::DialogTree::NodeBank

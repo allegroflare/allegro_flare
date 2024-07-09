@@ -158,6 +158,18 @@ std::vector<std::pair<std::string, std::string>> Complete::build_level_list_for_
    return {};
 }
 
+std::set<std::string> Complete::build_locked_list_for_level_select_screen()
+{
+   std::set<std::string> result = {
+      //{ "space_station" },
+      //{ "catwalk" },
+      //{ "forest-01" },
+      //{ "tunnels-01" },
+      //{ "subway_car" },
+   };
+   return result;
+}
+
 AllegroFlare::DialogTree::NodeBank Complete::build_dialog_bank_by_identifier(std::string identifier)
 {
    // TODO: Add tests for this method or consider making it a pure virtual

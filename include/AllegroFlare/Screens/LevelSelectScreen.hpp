@@ -11,6 +11,7 @@
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
 #include <functional>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -50,6 +51,7 @@ namespace AllegroFlare
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_levels_list(std::vector<std::pair<std::string, std::string>> levels_list={});
+         void set_locked_list(std::set<std::string> locked_list={});
          void initialize();
          virtual void on_activate() override;
          virtual void on_deactivate() override;

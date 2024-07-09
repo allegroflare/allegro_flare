@@ -98,6 +98,17 @@ functions:
       return;
 
 
+  - name: set_locked_list
+    parameters:
+      - name: locked_list
+        type: std::set<std::string>
+        default_argument: '{}'
+    body: |
+      // TODO: Test this
+      level_select_element.set_locked_list(locked_list);
+      return;
+
+
   - name: initialize
     guards:
       - (!initialized)

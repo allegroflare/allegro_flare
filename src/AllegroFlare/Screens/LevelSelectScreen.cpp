@@ -109,6 +109,13 @@ void LevelSelectScreen::set_levels_list(std::vector<std::pair<std::string, std::
    return;
 }
 
+void LevelSelectScreen::set_locked_list(std::set<std::string> locked_list)
+{
+   // TODO: Test this
+   level_select_element.set_locked_list(locked_list);
+   return;
+}
+
 void LevelSelectScreen::initialize()
 {
    if (!((!initialized)))
