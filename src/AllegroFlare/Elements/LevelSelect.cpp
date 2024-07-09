@@ -262,12 +262,12 @@ bool LevelSelect::is_locked(std::string level_identifier)
 
 bool LevelSelect::unlock(std::string level_identifier)
 {
-   if (!((!is_locked(level_identifier))))
+   if (!(is_locked(level_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Elements::LevelSelect::unlock]: error: guard \"(!is_locked(level_identifier))\" not met.";
+      error_message << "[AllegroFlare::Elements::LevelSelect::unlock]: error: guard \"is_locked(level_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::unlock]: error: guard \"(!is_locked(level_identifier))\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::unlock]: error: guard \"is_locked(level_identifier)\" not met");
    }
    // TODO: Test this
    return locked_list.erase(level_identifier);

@@ -89,6 +89,7 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
    level_select.set_selection_box_height(100);
    level_select.set_num_columns(3);
    level_select.set_locked_list(locked_levels_list);
+   level_select.unlock("8");
 
    clear();
    level_select.render();

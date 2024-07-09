@@ -159,7 +159,7 @@ methods:
       - name: level_identifier
         type: std::string
         default_argument: '"[unset-level_identifier]"'
-    guards: [ (!is_locked(level_identifier)) ]
+    guards: [ is_locked(level_identifier) ]
     body: |
       // TODO: Test this
       return locked_list.erase(level_identifier);
