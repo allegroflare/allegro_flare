@@ -26,6 +26,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* font_bin;
          std::vector<std::pair<std::string, std::string>> levels_list;
          std::set<std::string> locked_list;
+         std::set<std::string> completed_list;
          std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
          AllegroFlare::Placement2D place;
@@ -48,21 +49,23 @@ namespace AllegroFlare
          void draw_level_select_boxes_and_cursor();
          bool has_valid_size();
          void draw_selection_cursor(float x=0.0f, float y=0.0f);
-         void draw_level_list_item_box(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label="[unlabeled]", bool locked=false);
+         void draw_level_list_item_box(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label="[unlabeled]", bool locked=false, bool completed=false);
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_level_label_font();
+         ALLEGRO_FONT* obtain_small_label_font();
 
       protected:
 
 
       public:
-         LevelSelect(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> levels_list={}, std::set<std::string> locked_list={});
+         LevelSelect(AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::vector<std::pair<std::string, std::string>> levels_list={}, std::set<std::string> locked_list={}, std::set<std::string> completed_list={});
          ~LevelSelect();
 
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_levels_list(std::vector<std::pair<std::string, std::string>> levels_list);
          void set_locked_list(std::set<std::string> locked_list);
+         void set_completed_list(std::set<std::string> completed_list);
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
          void set_selection_box_width(int selection_box_width);
@@ -77,6 +80,7 @@ namespace AllegroFlare
          void set_ignore_on_invalid_selection(bool ignore_on_invalid_selection);
          std::vector<std::pair<std::string, std::string>> get_levels_list() const;
          std::set<std::string> get_locked_list() const;
+         std::set<std::string> get_completed_list() const;
          std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> get_on_menu_choice_callback_func() const;
          void* get_on_menu_choice_callback_func_user_data() const;
          AllegroFlare::Placement2D get_place() const;
@@ -93,9 +97,12 @@ namespace AllegroFlare
          bool get_drawing_title_text() const;
          bool get_ignore_on_invalid_selection() const;
          void add_to_locked_list(std::string level_identifier="[unset-level_identifier]");
+         void add_to_completed_list(std::string level_identifier="[unset-level_identifier]");
          bool is_locked(std::string level_identifier="[unset-level_identifier]");
+         bool is_completed(std::string level_identifier="[unset-level_identifier]");
          bool unlock(std::string level_identifier="[unset-level_identifier]");
          void unlock_all();
+         bool mark_as_completed(std::string level_identifier="[unset-level_identifier]");
          void disable_drawing_backfill_and_frame();
          void disable_drawing_title_text();
          void enable_drawing_backfill_and_frame();
@@ -112,6 +119,7 @@ namespace AllegroFlare
          bool cursor_selection_is_valid();
          void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
          ALLEGRO_FONT* obtain_lock_icon_font();
+         ALLEGRO_FONT* obtain_small_lock_icon_font();
       };
    }
 }

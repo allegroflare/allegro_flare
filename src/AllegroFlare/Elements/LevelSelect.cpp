@@ -20,11 +20,12 @@ namespace Elements
 {
 
 
-LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> levels_list, std::set<std::string> locked_list)
+LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::FontBin* font_bin, std::vector<std::pair<std::string, std::string>> levels_list, std::set<std::string> locked_list, std::set<std::string> completed_list)
    : event_emitter(event_emitter)
    , font_bin(font_bin)
    , levels_list(levels_list)
    , locked_list(locked_list)
+   , completed_list(completed_list)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
    , place({ 1920/2, 1080/2, 1300, 700 })
@@ -70,6 +71,12 @@ void LevelSelect::set_levels_list(std::vector<std::pair<std::string, std::string
 void LevelSelect::set_locked_list(std::set<std::string> locked_list)
 {
    this->locked_list = locked_list;
+}
+
+
+void LevelSelect::set_completed_list(std::set<std::string> completed_list)
+{
+   this->completed_list = completed_list;
 }
 
 
@@ -154,6 +161,12 @@ std::vector<std::pair<std::string, std::string>> LevelSelect::get_levels_list() 
 std::set<std::string> LevelSelect::get_locked_list() const
 {
    return locked_list;
+}
+
+
+std::set<std::string> LevelSelect::get_completed_list() const
+{
+   return completed_list;
 }
 
 
@@ -254,10 +267,23 @@ void LevelSelect::add_to_locked_list(std::string level_identifier)
    return;
 }
 
+void LevelSelect::add_to_completed_list(std::string level_identifier)
+{
+   // TODO: Ensure item exists in list of levels
+   completed_list.insert(level_identifier);
+   return;
+}
+
 bool LevelSelect::is_locked(std::string level_identifier)
 {
    // TODO: Test
    return locked_list.find(level_identifier) != locked_list.end();
+}
+
+bool LevelSelect::is_completed(std::string level_identifier)
+{
+   // TODO: Test
+   return completed_list.find(level_identifier) != completed_list.end();
 }
 
 bool LevelSelect::unlock(std::string level_identifier)
@@ -277,6 +303,19 @@ void LevelSelect::unlock_all()
 {
    // TODO: Test this
    return locked_list.clear();
+}
+
+bool LevelSelect::mark_as_completed(std::string level_identifier)
+{
+   if (!(is_locked(level_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::mark_as_completed]: error: guard \"is_locked(level_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::mark_as_completed]: error: guard \"is_locked(level_identifier)\" not met");
+   }
+   // TODO: Test this
+   return completed_list.erase(level_identifier);
 }
 
 ALLEGRO_COLOR LevelSelect::opaquify(ALLEGRO_COLOR color, float opacity)
@@ -397,12 +436,14 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
          int list_item_num = row * num_columns + column;
          std::string label = "";
          bool locked = false;
+         bool completed = false;
          if (list_item_num >= levels_list.size()) {}
          else
          {
             label = std::get<0>(levels_list[list_item_num]);
             std::string identifier = std::get<1>(levels_list[list_item_num]);
             locked = is_locked(identifier);
+            completed = is_completed(identifier);
          }
 
          draw_level_list_item_box(
@@ -411,13 +452,15 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
             selection_box_width,
             selection_box_height,
             label,
-            locked
+            locked,
+            completed
          );
       }
    }
 
    // draw the selection cursor
    ALLEGRO_COLOR color_a = al_color_name("cyan");
+   //ALLEGRO_COLOR color_a = al_color_name("bisque");
    ALLEGRO_COLOR color_b = AllegroFlare::color::transparent;
    float speed_multiplier = 0.9;
    float mix_factor = AllegroFlare::interpolator::slow_in(fmod(al_get_time() * speed_multiplier, 1.0));
@@ -542,7 +585,7 @@ void LevelSelect::draw_selection_cursor(float x, float y)
    return;
 }
 
-void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, std::string label, bool locked)
+void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, std::string label, bool locked, bool completed)
 {
    ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
    ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.2f : 1.0f);
@@ -558,7 +601,7 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
 
       // Draw lock icon
       ALLEGRO_FONT *icon_font = obtain_lock_icon_font();
-      ALLEGRO_COLOR icon_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, 0.6f);
+      ALLEGRO_COLOR icon_color = text_color; //opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, 0.6f);
       float icon_font_line_height = al_get_font_line_height(icon_font);
       uint32_t icon = 0xf023;
       draw_unicode_character(
@@ -566,13 +609,32 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
          icon_color,
          icon,
          ALLEGRO_ALIGN_CENTER,
-         x+w-22, y+h-37  // Bottom right (use font-size -23)
+         x+w-22, y+h-36  // Bottom right (use font-size -23)
          //x+w/2, y+h/2-icon_font_line_height/2 // centered (use font-size -52 or so)
       );
    }
    else
    {
       al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, label.c_str());
+
+      if (completed)
+      {
+         // Draw lock icon
+         ALLEGRO_FONT *icon_font = obtain_small_lock_icon_font();
+         ALLEGRO_FONT *small_label_font = obtain_small_label_font();
+         ALLEGRO_COLOR icon_color = opaquify(ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}, 1.0f);
+         float icon_font_line_height = al_get_font_line_height(icon_font);
+         uint32_t icon = 0xf058;
+         draw_unicode_character(
+            icon_font,
+            icon_color,
+            icon,
+            ALLEGRO_ALIGN_CENTER,
+            x+w-22, y+h-36+6  // Bottom right (use font-size -23)
+            //x+w/2, y+h/2-icon_font_line_height/2 // centered (use font-size -52 or so)
+         );
+         al_draw_text(small_label_font, icon_color, x+w-22-18, y+h-36, ALLEGRO_ALIGN_RIGHT, "completed");
+      }
    }
 
    return;
@@ -704,6 +766,25 @@ ALLEGRO_FONT* LevelSelect::obtain_lock_icon_font()
    std::stringstream font_identifier_and_size;
    font_identifier_and_size << "fa-solid-900.ttf " << -23; // -64
    return font_bin->auto_get(font_identifier_and_size.str());
+}
+
+ALLEGRO_FONT* LevelSelect::obtain_small_lock_icon_font()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::obtain_small_lock_icon_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::obtain_small_lock_icon_font]: error: guard \"font_bin\" not met");
+   }
+   std::stringstream font_identifier_and_size;
+   font_identifier_and_size << "fa-solid-900.ttf " << -18; // -64
+   return font_bin->auto_get(font_identifier_and_size.str());
+}
+
+ALLEGRO_FONT* LevelSelect::obtain_small_label_font()
+{
+   return font_bin->auto_get("Inter-Regular.ttf -28");
 }
 
 

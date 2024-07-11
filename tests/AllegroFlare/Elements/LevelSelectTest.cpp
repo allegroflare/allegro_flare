@@ -83,12 +83,14 @@ TEST_F(AllegroFlare_Elements_LevelSelectWithAllegroRenderingFixtureTest,
    };
 
    std::set<std::string> locked_levels_list = { "6", "7", "8", "9" };
+   std::set<std::string> completed_levels_list = { "1", "2" };
 
    AllegroFlare::Elements::LevelSelect level_select(&event_emitter, &get_font_bin_ref(), levels_list);
    level_select.set_selection_box_width(300);
    level_select.set_selection_box_height(100);
    level_select.set_num_columns(3);
    level_select.set_locked_list(locked_levels_list);
+   level_select.set_completed_list(completed_levels_list);
    level_select.unlock("8");
 
    clear();
