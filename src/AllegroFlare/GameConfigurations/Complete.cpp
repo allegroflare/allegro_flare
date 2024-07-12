@@ -142,7 +142,7 @@ AllegroFlare::Levels::Base* Complete::load_level_by_identifier(std::string level
 {
    // TODO: Add tests for this method or consider making it a pure virtual
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::load_level_by_identifier"
+      "AllegroFlare::GameConfigurations::Base::load_level_by_identifier",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return nullptr;
@@ -152,7 +152,7 @@ std::vector<std::pair<std::string, std::string>> Complete::build_level_list_for_
 {
    // TODO: Add tests for this method or consider making it a pure virtual
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::build_level_list_for_level_select_screen_by_identifier"
+      "AllegroFlare::GameConfigurations::Base::build_level_list_for_level_select_screen_by_identifier",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return {};
@@ -261,7 +261,7 @@ void Complete::handle_primary_gameplay_screen_paused()
 {
    // NOTE: Implementation to be managed by the derived class
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_paused"
+      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_paused",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    // NOTE: Typically:
@@ -280,7 +280,7 @@ void Complete::handle_primary_gameplay_screen_unpaused()
 {
    // NOTE: Implementation to be managed by the derived class
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_unpaused"
+      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_unpaused",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    // NOTE: Typically:
@@ -298,7 +298,7 @@ void Complete::handle_primary_gameplay_screen_unpaused()
 void Complete::handle_primary_gameplay_screen_finished()
 {
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_finished"
+      "AllegroFlare::GameConfigurations::Base::handle_primary_gameplay_screen_finished",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    // NOTE: Typically:
@@ -313,7 +313,7 @@ void Complete::handle_primary_gameplay_screen_finished()
 AllegroFlare::Screens::Subscreen::Screen* Complete::create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner)
 {
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::create_primary_gameplay_subscreen"
+      "AllegroFlare::GameConfigurations::Base::create_primary_gameplay_subscreen",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return nullptr;
@@ -322,7 +322,7 @@ AllegroFlare::Screens::Subscreen::Screen* Complete::create_primary_gameplay_subs
 AllegroFlare::Screens::PauseScreen* Complete::create_pause_screen(AllegroFlare::Runners::Complete* runner)
 {
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::create_pause_screen"
+      "AllegroFlare::GameConfigurations::Base::create_pause_screen",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return nullptr;
@@ -331,7 +331,7 @@ AllegroFlare::Screens::PauseScreen* Complete::create_pause_screen(AllegroFlare::
 void Complete::handle_arbitrary_storyboard_screen_finished()
 {
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::handle_arbitrary_storyboard_screen_finished"
+      "AllegroFlare::GameConfigurations::Base::handle_arbitrary_storyboard_screen_finished",
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    // NOTE: Typically:
