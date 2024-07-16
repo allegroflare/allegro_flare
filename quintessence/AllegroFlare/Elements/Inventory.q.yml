@@ -554,14 +554,24 @@ methods:
       - name: inventory_position
         type: int
         default_argument: 0
-    guards: [ inventory_index ]
+    guards: [ (inventory_index || inventory_dictionary) ]
     body: |
       bool draw_items_in_fixed_inventory_box_slot = true; // TODO: Move this to a configuration option
       if (draw_items_in_fixed_inventory_box_slot)
       {
          // Assume that inventory item "0" does not exist or is a null item
          int possible_item_in_this_inventory_slot = (inventory_position + 1);
-         if (inventory_index->exists(possible_item_in_this_inventory_slot)) return possible_item_in_this_inventory_slot;
+         bool item_exists_in_dictionary = false;
+         if (inventory_index && inventory_index->exists(possible_item_in_this_inventory_slot))
+         {
+            item_exists_in_dictionary = true;
+         }
+         else if (inventory_dictionary && inventory_dictionary->exists(possible_item_in_this_inventory_slot))
+         {
+            item_exists_in_dictionary = true;
+         }
+
+         if (item_exists_in_dictionary) return possible_item_in_this_inventory_slot;
          return 0;
       }
 

@@ -755,19 +755,29 @@ std::vector<int> Inventory::make_sorted_list_unique(std::vector<int> items_in_in
 
 int Inventory::infer_item_id_at_position(int inventory_position)
 {
-   if (!(inventory_index))
+   if (!((inventory_index || inventory_dictionary)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Elements::Inventory::infer_item_id_at_position]: error: guard \"inventory_index\" not met.";
+      error_message << "[AllegroFlare::Elements::Inventory::infer_item_id_at_position]: error: guard \"(inventory_index || inventory_dictionary)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Elements::Inventory::infer_item_id_at_position]: error: guard \"inventory_index\" not met");
+      throw std::runtime_error("[AllegroFlare::Elements::Inventory::infer_item_id_at_position]: error: guard \"(inventory_index || inventory_dictionary)\" not met");
    }
    bool draw_items_in_fixed_inventory_box_slot = true; // TODO: Move this to a configuration option
    if (draw_items_in_fixed_inventory_box_slot)
    {
       // Assume that inventory item "0" does not exist or is a null item
       int possible_item_in_this_inventory_slot = (inventory_position + 1);
-      if (inventory_index->exists(possible_item_in_this_inventory_slot)) return possible_item_in_this_inventory_slot;
+      bool item_exists_in_dictionary = false;
+      if (inventory_index && inventory_index->exists(possible_item_in_this_inventory_slot))
+      {
+         item_exists_in_dictionary = true;
+      }
+      else if (inventory_dictionary && inventory_dictionary->exists(possible_item_in_this_inventory_slot))
+      {
+         item_exists_in_dictionary = true;
+      }
+
+      if (item_exists_in_dictionary) return possible_item_in_this_inventory_slot;
       return 0;
    }
 
