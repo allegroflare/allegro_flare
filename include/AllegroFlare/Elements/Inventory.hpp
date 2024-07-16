@@ -14,6 +14,7 @@
 #include <functional>
 #include <string>
 #include <tuple>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -157,6 +158,8 @@ namespace AllegroFlare
          void render();
          void draw_selectable_items();
          void draw_background();
+         static std::vector<int> sort_inventory_items(std::vector<int> items_in_inventory={});
+         static std::vector<int> make_sorted_list_unique(std::vector<int> items_in_inventory={});
          int infer_item_to_draw_at_position(int inventory_position=0);
          void draw_details_item_name(float x=0, float y=0, ALLEGRO_FONT* font=nullptr);
          void draw_details_item_description(float x=0, float y=0, float width=1, ALLEGRO_FONT* font=nullptr);
@@ -164,6 +167,8 @@ namespace AllegroFlare
          std::tuple<std::string, std::string, std::string> get_item_definition(int index=0);
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_description_font();
+         ALLEGRO_FONT* obtain_item_details_font();
+         ALLEGRO_FONT* obtain_item_count_font();
          ALLEGRO_FONT* obtain_item_name_font();
          ALLEGRO_FONT* obtain_details_header_font();
          float infer_item_boxes_width();

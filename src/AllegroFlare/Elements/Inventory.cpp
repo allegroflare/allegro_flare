@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Interpolators.hpp>
+#include <algorithm>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <cmath>
@@ -738,10 +739,41 @@ void Inventory::draw_title_text()
    return;
 }
 
+std::vector<int> Inventory::sort_inventory_items(std::vector<int> items_in_inventory)
+{
+   std::sort(items_in_inventory.begin(), items_in_inventory.end());
+   return items_in_inventory;
+}
+
+std::vector<int> Inventory::make_sorted_list_unique(std::vector<int> items_in_inventory)
+{
+   auto new_end = std::unique(items_in_inventory.begin(), items_in_inventory.end());
+   items_in_inventory.erase(new_end, items_in_inventory.end());
+   return items_in_inventory;
+}
+
 int Inventory::infer_item_to_draw_at_position(int inventory_position)
 {
-   std::vector<int> &items_in_inventory = af_inventory->get_items_ref();
+   bool draw_items_in_fixed_inventory_box_slot = true; // TODO: Move this to a configuration option
+   if (draw_items_in_fixed_inventory_box_slot)
+   {
+      // Assume that inventory item "0" does not exist or is a null item
+      int possible_item_in_this_inventory_slot = (inventory_position + 1);
+      if (af_inventory->has_item(possible_item_in_this_inventory_slot)) return possible_item_in_this_inventory_slot;
+      return 0;
+   }
+
+   std::vector<int> items_in_inventory = af_inventory->get_items_ref();
+   bool items_are_sorted = true; // TODO: Move this to a configuation option
+   if (items_are_sorted)
+   {
+      items_in_inventory = sort_inventory_items(items_in_inventory);
+      bool remove_duplicates = true; // TODO: Move this to a configuation option
+      if (remove_duplicates) items_in_inventory = make_sorted_list_unique(items_in_inventory);
+   }
+
    int item_to_draw = 0;
+
    if (inventory_position >= items_in_inventory.size()) {}
    else { item_to_draw = items_in_inventory[inventory_position]; }
    // TODO: This method
@@ -999,6 +1031,8 @@ void Inventory::draw_inventory_box(float x, float y)
 void Inventory::draw_inventory_item(float x, float y, int item)
 {
    ALLEGRO_COLOR revealed_white = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+   bool show_item_number = true;
+   bool show_item_count = true;
 
    std::tuple<std::string, std::string, std::string> item_definition = get_item_definition(item);
    bool contains_item = !std::get<0>(item_definition).empty();
@@ -1007,6 +1041,8 @@ void Inventory::draw_inventory_item(float x, float y, int item)
       std::string item_name = std::get<0>(item_definition);
       std::string item_bitmap_identifier = std::get<1>(item_definition); //"watch-01.png";
       ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(item_bitmap_identifier);
+      int item_number = item;
+      int item_count = af_inventory->count_item(item);
 
       if (!bitmap) return; // TODO: draw a [?] placeholder graphic
 
@@ -1033,6 +1069,40 @@ void Inventory::draw_inventory_item(float x, float y, int item)
       box_place.start_transform();
       al_draw_tinted_bitmap(bitmap, revealed_white, 0, 0, 0);
       box_place.restore_transform();
+
+      // Render the text, without scaling
+      // TODO: Make the scale re-assignment less confusing
+      box_place.scale.x = 1.0;
+      box_place.scale.y = 1.0;
+      box_place.size.x = (inventory_items_box_size_x);
+      box_place.size.y = (inventory_items_box_size_y);
+      box_place.start_transform();
+      if (show_item_number)
+      {
+         ALLEGRO_FONT *item_details_font = obtain_item_details_font();
+         al_draw_textf(
+            item_details_font,
+            ALLEGRO_COLOR{0.5, 0.51, 0.53, 0.53},
+            8,
+            box_place.size.y-al_get_font_line_height(item_details_font)-5,
+            ALLEGRO_ALIGN_LEFT,
+            "%d", item_number
+         );
+      }
+      if (show_item_count && (item_count > 1))
+      {
+         ALLEGRO_FONT *item_count_font = obtain_item_count_font();
+         al_draw_textf(
+            item_count_font,
+            ALLEGRO_COLOR{1, 1, 1, 1},
+            box_place.size.x-7,
+            box_place.size.y-al_get_font_line_height(item_count_font)-2,
+            ALLEGRO_ALIGN_RIGHT,
+            "x%d", item_count
+         );
+      }
+      box_place.restore_transform();
+
    }
    return;
 }
@@ -1053,6 +1123,16 @@ ALLEGRO_FONT* Inventory::obtain_title_font()
 ALLEGRO_FONT* Inventory::obtain_description_font()
 {
    return font_bin->auto_get("Inter-Regular.ttf -36");
+}
+
+ALLEGRO_FONT* Inventory::obtain_item_details_font()
+{
+   return font_bin->auto_get("Inter-Regular.ttf -20");
+}
+
+ALLEGRO_FONT* Inventory::obtain_item_count_font()
+{
+   return font_bin->auto_get("Inter-Bold.ttf -36");
 }
 
 ALLEGRO_FONT* Inventory::obtain_item_name_font()

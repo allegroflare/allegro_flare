@@ -518,6 +518,35 @@ methods:
       return;
 
 
+  - name: sort_inventory_items
+    type: std::vector<int>
+    parameters:
+      - name: items_in_inventory
+        type: std::vector<int>
+        default_argument: '{}'
+    static: true
+    body: |
+      std::sort(items_in_inventory.begin(), items_in_inventory.end());
+      return items_in_inventory;
+    body_dependency_symbols:
+      - std::sort
+
+
+  - name: make_sorted_list_unique
+    type: std::vector<int>
+    parameters:
+      - name: items_in_inventory
+        type: std::vector<int>
+        default_argument: '{}'
+    static: true
+    body: |
+      auto new_end = std::unique(items_in_inventory.begin(), items_in_inventory.end());
+      items_in_inventory.erase(new_end, items_in_inventory.end());
+      return items_in_inventory;
+    body_dependency_symbols:
+      - std::unique
+
+
   - name: infer_item_to_draw_at_position
     type: int
     parameters:
@@ -525,8 +554,26 @@ methods:
         type: int
         default_argument: 0
     body: |
-      std::vector<int> &items_in_inventory = af_inventory->get_items_ref();
+      bool draw_items_in_fixed_inventory_box_slot = true; // TODO: Move this to a configuration option
+      if (draw_items_in_fixed_inventory_box_slot)
+      {
+         // Assume that inventory item "0" does not exist or is a null item
+         int possible_item_in_this_inventory_slot = (inventory_position + 1);
+         if (af_inventory->has_item(possible_item_in_this_inventory_slot)) return possible_item_in_this_inventory_slot;
+         return 0;
+      }
+
+      std::vector<int> items_in_inventory = af_inventory->get_items_ref();
+      bool items_are_sorted = true; // TODO: Move this to a configuation option
+      if (items_are_sorted)
+      {
+         items_in_inventory = sort_inventory_items(items_in_inventory);
+         bool remove_duplicates = true; // TODO: Move this to a configuation option
+         if (remove_duplicates) items_in_inventory = make_sorted_list_unique(items_in_inventory);
+      }
+
       int item_to_draw = 0;
+
       if (inventory_position >= items_in_inventory.size()) {}
       else { item_to_draw = items_in_inventory[inventory_position]; }
       // TODO: This method
@@ -835,6 +882,8 @@ methods:
         default_argument: 0
     body: |
       ALLEGRO_COLOR revealed_white = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+      bool show_item_number = true;
+      bool show_item_count = true;
 
       std::tuple<std::string, std::string, std::string> item_definition = get_item_definition(item);
       bool contains_item = !std::get<0>(item_definition).empty();
@@ -843,6 +892,8 @@ methods:
          std::string item_name = std::get<0>(item_definition);
          std::string item_bitmap_identifier = std::get<1>(item_definition); //"watch-01.png";
          ALLEGRO_BITMAP *bitmap = bitmap_bin->auto_get(item_bitmap_identifier);
+         int item_number = item;
+         int item_count = af_inventory->count_item(item);
 
          if (!bitmap) return; // TODO: draw a [?] placeholder graphic
 
@@ -869,6 +920,40 @@ methods:
          box_place.start_transform();
          al_draw_tinted_bitmap(bitmap, revealed_white, 0, 0, 0);
          box_place.restore_transform();
+
+         // Render the text, without scaling
+         // TODO: Make the scale re-assignment less confusing
+         box_place.scale.x = 1.0;
+         box_place.scale.y = 1.0;
+         box_place.size.x = (inventory_items_box_size_x);
+         box_place.size.y = (inventory_items_box_size_y);
+         box_place.start_transform();
+         if (show_item_number)
+         {
+            ALLEGRO_FONT *item_details_font = obtain_item_details_font();
+            al_draw_textf(
+               item_details_font,
+               ALLEGRO_COLOR{0.5, 0.51, 0.53, 0.53},
+               8,
+               box_place.size.y-al_get_font_line_height(item_details_font)-5,
+               ALLEGRO_ALIGN_LEFT,
+               "%d", item_number
+            );
+         }
+         if (show_item_count && (item_count > 1))
+         {
+            ALLEGRO_FONT *item_count_font = obtain_item_count_font();
+            al_draw_textf(
+               item_count_font,
+               ALLEGRO_COLOR{1, 1, 1, 1},
+               box_place.size.x-7,
+               box_place.size.y-al_get_font_line_height(item_count_font)-2,
+               ALLEGRO_ALIGN_RIGHT,
+               "x%d", item_count
+            );
+         }
+         box_place.restore_transform();
+
       }
       return;
 
@@ -896,6 +981,18 @@ methods:
     type: ALLEGRO_FONT*
     body: |
       return font_bin->auto_get("Inter-Regular.ttf -36");
+
+
+  - name: obtain_item_details_font
+    type: ALLEGRO_FONT*
+    body: |
+      return font_bin->auto_get("Inter-Regular.ttf -20");
+
+
+  - name: obtain_item_count_font
+    type: ALLEGRO_FONT*
+    body: |
+      return font_bin->auto_get("Inter-Bold.ttf -36");
 
 
   - name: obtain_item_name_font
@@ -1025,5 +1122,9 @@ dependencies:
     headers: [ functional ]
   - symbol: std::optional
     headers: [ optional ]
+  - symbol: std::sort
+    headers: [ algorithm ]
+  - symbol: std::unique
+    headers: [ algorithm ]
 
 

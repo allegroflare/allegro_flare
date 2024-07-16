@@ -342,7 +342,7 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
 
 #include <AllegroFlare/EventNames.hpp>
 TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
-   TIMED_INTERACTIVE__will_work_as_expected)
+   FOCUS__CAPTURE__TIMED_INTERACTIVE__will_work_as_expected)
 {
    al_install_keyboard();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
@@ -364,10 +364,15 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       &event_emitter
    );
 
-   af_inventory.add_item(1);
-   af_inventory.add_item(2);
-   af_inventory.add_item(3);
+   // NOTE: Items are added out of order
    af_inventory.add_item(4);
+   af_inventory.add_item(1);
+   //af_inventory.add_item(3);
+   //af_inventory.add_item(3);
+   //af_inventory.add_item(3);
+   af_inventory.add_item(2);
+   //af_inventory.add_item(3);
+   //af_inventory.add_item(4);
 
    float duration_to_auto_abort_sec = 6;
    bool auto_abort_halted = false;

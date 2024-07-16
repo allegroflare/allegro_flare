@@ -11612,6 +11612,14 @@ table td
   <td class="private_method"><b>draw_title_text</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::vector&lt;int&gt;</td>
+  <td class="method"><b>sort_inventory_items</b>(std::vector&lt;int&gt; items_in_inventory={})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;int&gt;</td>
+  <td class="method"><b>make_sorted_list_unique</b>(std::vector&lt;int&gt; items_in_inventory={})</td>
+</tr>
+<tr>
   <td class="method">int</td>
   <td class="method"><b>infer_item_to_draw_at_position</b>(int inventory_position=0)</td>
 </tr>
@@ -11662,6 +11670,14 @@ table td
 <tr>
   <td class="method">ALLEGRO_FONT*</td>
   <td class="method"><b>obtain_description_font</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_FONT*</td>
+  <td class="method"><b>obtain_item_details_font</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_FONT*</td>
+  <td class="method"><b>obtain_item_count_font</b>()</td>
 </tr>
 <tr>
   <td class="method">ALLEGRO_FONT*</td>
@@ -11753,6 +11769,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::optional&quot;, &quot;headers&quot;=&gt;[&quot;optional&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::sort&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::unique&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46029,6 +46051,13 @@ table td
   "std/optional": [
     "AllegroFlare/Elements/Inventory"
   ],
+  "std/sort": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Notifications"
+  ],
+  "std/unique": [
+    "AllegroFlare/Elements/Inventory"
+  ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
   ],
@@ -46802,9 +46831,6 @@ table td
     "AllegroFlare/Network2/URLTokenizer"
   ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
-    "AllegroFlare/Notifications"
-  ],
-  "std/sort": [
     "AllegroFlare/Notifications"
   ],
   "std/copy_if": [

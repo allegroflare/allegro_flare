@@ -2240,6 +2240,13 @@
   "std/optional": [
     "AllegroFlare/Elements/Inventory"
   ],
+  "std/sort": [
+    "AllegroFlare/Elements/Inventory",
+    "AllegroFlare/Notifications"
+  ],
+  "std/unique": [
+    "AllegroFlare/Elements/Inventory"
+  ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"
   ],
@@ -3013,9 +3020,6 @@
     "AllegroFlare/Network2/URLTokenizer"
   ],
   "std/vector<AllegroFlare/Elements/Notifications/Base>": [
-    "AllegroFlare/Notifications"
-  ],
-  "std/sort": [
     "AllegroFlare/Notifications"
   ],
   "std/copy_if": [
