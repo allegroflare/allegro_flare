@@ -625,8 +625,9 @@ void Inventory::set_details_pane()
 {
    if (!af_inventory) return;
    int cursor_position_abs = cursor_y * num_columns + cursor_x;
-   if (cursor_position_abs >= af_inventory->get_items_ref().size()) item_in_details_pane = 0;
-   else item_in_details_pane = af_inventory->get_items_ref()[cursor_position_abs];
+   int item_at_cursor_position = infer_item_id_at_position(cursor_position_abs);
+   if (af_inventory->has_item(item_at_cursor_position)) item_in_details_pane = item_at_cursor_position;
+   else item_in_details_pane = 0;
    item_in_details_pane_set_at = al_get_time();
    return;
 }
@@ -752,14 +753,14 @@ std::vector<int> Inventory::make_sorted_list_unique(std::vector<int> items_in_in
    return items_in_inventory;
 }
 
-int Inventory::infer_item_to_draw_at_position(int inventory_position)
+int Inventory::infer_item_id_at_position(int inventory_position)
 {
    bool draw_items_in_fixed_inventory_box_slot = true; // TODO: Move this to a configuration option
    if (draw_items_in_fixed_inventory_box_slot)
    {
       // Assume that inventory item "0" does not exist or is a null item
       int possible_item_in_this_inventory_slot = (inventory_position + 1);
-      if (af_inventory->has_item(possible_item_in_this_inventory_slot)) return possible_item_in_this_inventory_slot;
+      if (inventory_index->exists(possible_item_in_this_inventory_slot)) return possible_item_in_this_inventory_slot;
       return 0;
    }
 
@@ -803,7 +804,7 @@ void Inventory::draw_inventory_items()
    {
       for (unsigned column=0; column<num_columns; column++)
       {
-         int item_to_draw = infer_item_to_draw_at_position(inventory_position);
+         int item_to_draw = infer_item_id_at_position(inventory_position);
 
          if (draw_inventory_item_func)
          {
@@ -1066,9 +1067,15 @@ void Inventory::draw_inventory_item(float x, float y, int item)
       box_place.scale.x = fit_scale;
       box_place.scale.y = fit_scale;
 
-      box_place.start_transform();
-      al_draw_tinted_bitmap(bitmap, revealed_white, 0, 0, 0);
-      box_place.restore_transform();
+      if (item_count == 0) // TODO: Turn this into a flag (hide item if not in inventory)
+      {
+      }
+      else
+      {
+         box_place.start_transform();
+         al_draw_tinted_bitmap(bitmap, revealed_white, 0, 0, 0);
+         box_place.restore_transform();
+      }
 
       // Render the text, without scaling
       // TODO: Make the scale re-assignment less confusing

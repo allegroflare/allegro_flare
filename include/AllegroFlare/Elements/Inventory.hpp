@@ -160,7 +160,7 @@ namespace AllegroFlare
          void draw_background();
          static std::vector<int> sort_inventory_items(std::vector<int> items_in_inventory={});
          static std::vector<int> make_sorted_list_unique(std::vector<int> items_in_inventory={});
-         int infer_item_to_draw_at_position(int inventory_position=0);
+         int infer_item_id_at_position(int inventory_position=0);
          void draw_details_item_name(float x=0, float y=0, ALLEGRO_FONT* font=nullptr);
          void draw_details_item_description(float x=0, float y=0, float width=1, ALLEGRO_FONT* font=nullptr);
          void draw_item_selection_cursor();

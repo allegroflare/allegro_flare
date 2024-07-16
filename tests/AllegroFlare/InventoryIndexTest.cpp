@@ -91,6 +91,7 @@ TEST(AllegroFlare_InventoryIndexTest,
      { 2, { "Blaster", "blaster-02.png", "Standard issue weaponry." } },
      { 3, { "Toy Train", "toy-train-02.png", "It sure has a lot of detail." } },
      { 4, { "Metal Pipe", "metal-pipe-01.png", "Made of galvanized metal, this pipe is very sturdy." } },
+     { 5, { "Robot Helmet", "robot_helmet-01.png", "Features integrated sensors and communication modules." } },
    };
 
    AllegroFlare::InventoryIndex built_placeholder_inventory_index =

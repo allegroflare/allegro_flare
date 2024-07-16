@@ -364,13 +364,15 @@ TEST_F(AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest,
       &event_emitter
    );
 
-   // NOTE: Items are added out of order
+   // NOTE: Items are added out of order. This is to test the inventory object sorting
    af_inventory.add_item(4);
    af_inventory.add_item(1);
    //af_inventory.add_item(3);
    //af_inventory.add_item(3);
    //af_inventory.add_item(3);
    af_inventory.add_item(2);
+   af_inventory.add_item(5);
+   af_inventory.add_item(5);
    //af_inventory.add_item(3);
    //af_inventory.add_item(4);
 
