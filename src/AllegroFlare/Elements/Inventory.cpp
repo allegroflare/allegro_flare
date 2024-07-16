@@ -738,6 +738,25 @@ void Inventory::draw_title_text()
    return;
 }
 
+int Inventory::infer_item_to_draw_at_position(int inventory_position)
+{
+   std::vector<int> &items_in_inventory = af_inventory->get_items_ref();
+   int item_to_draw = 0;
+   if (inventory_position >= items_in_inventory.size()) {}
+   else { item_to_draw = items_in_inventory[inventory_position]; }
+   // TODO: This method
+   // This method will take into account the sorting and organizing style of this inventory and return the
+   // appropriate item number given a position.
+   // For style "stack_more_than_one" - items are only shown once when there is more than one
+   // For style "show_count" - items are only shown once when there is more than one
+   // For style "show_inventory_number" - items are only shown once when there is more than one
+   // For sorting "alphabetical_by_name"
+   // For sorting "alphabetical_by_identifier"
+   // For sorting "item_number"
+   // For sorting "collected_at"
+   return item_to_draw;
+}
+
 void Inventory::draw_inventory_items()
 {
    std::vector<int> items_in_inventory = af_inventory->get_items_ref();
@@ -752,9 +771,9 @@ void Inventory::draw_inventory_items()
    {
       for (unsigned column=0; column<num_columns; column++)
       {
-         int item_to_draw = 0;
-         if (inventory_position >= items_in_inventory.size()) {}
-         else { item_to_draw = items_in_inventory[inventory_position]; }
+         int item_to_draw = infer_item_to_draw_at_position(inventory_position);
+         //if (inventory_position >= items_in_inventory.size()) {}
+         //else { item_to_draw = items_in_inventory[inventory_position]; }
 
          if (draw_inventory_item_func)
          {
@@ -1022,6 +1041,7 @@ void Inventory::draw_inventory_item(float x, float y, int item)
 
 std::tuple<std::string, std::string, std::string> Inventory::get_item_definition(int index)
 {
+   // TODO: Consider if "inventory_index" should throw here
    if (!inventory_index) return {};
    if (!inventory_index->exists(index)) return {};
    return inventory_index->at(index).to_tuple();

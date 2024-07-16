@@ -157,6 +157,7 @@ namespace AllegroFlare
          void render();
          void draw_selectable_items();
          void draw_background();
+         int infer_item_to_draw_at_position(int inventory_position=0);
          void draw_details_item_name(float x=0, float y=0, ALLEGRO_FONT* font=nullptr);
          void draw_details_item_description(float x=0, float y=0, float width=1, ALLEGRO_FONT* font=nullptr);
          void draw_item_selection_cursor();
