@@ -554,6 +554,7 @@ methods:
       - name: inventory_position
         type: int
         default_argument: 0
+    guards: [ inventory_index ]
     body: |
       bool draw_items_in_fixed_inventory_box_slot = true; // TODO: Move this to a configuration option
       if (draw_items_in_fixed_inventory_box_slot)

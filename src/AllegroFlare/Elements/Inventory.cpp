@@ -755,6 +755,13 @@ std::vector<int> Inventory::make_sorted_list_unique(std::vector<int> items_in_in
 
 int Inventory::infer_item_id_at_position(int inventory_position)
 {
+   if (!(inventory_index))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::Inventory::infer_item_id_at_position]: error: guard \"inventory_index\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::Inventory::infer_item_id_at_position]: error: guard \"inventory_index\" not met");
+   }
    bool draw_items_in_fixed_inventory_box_slot = true; // TODO: Move this to a configuration option
    if (draw_items_in_fixed_inventory_box_slot)
    {
