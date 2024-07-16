@@ -11612,6 +11612,10 @@ table td
   <td class="private_method"><b>draw_title_text</b>()</td>
 </tr>
 <tr>
+  <td class="method">int</td>
+  <td class="method"><b>infer_item_to_draw_at_position</b>(int inventory_position=0)</td>
+</tr>
+<tr>
   <td class="private_method">void</td>
   <td class="private_method"><b>draw_inventory_items</b>()</td>
 </tr>
@@ -11746,6 +11750,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::function&quot;, &quot;headers&quot;=&gt;[&quot;functional&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::optional&quot;, &quot;headers&quot;=&gt;[&quot;optional&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46018,6 +46025,9 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "std/optional": [
+    "AllegroFlare/Elements/Inventory"
   ],
   "ALLEGRO_FLARE_EVENT_SELECT_LEVEL": [
     "AllegroFlare/Elements/LevelSelect"

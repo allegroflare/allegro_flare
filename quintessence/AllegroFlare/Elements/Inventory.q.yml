@@ -558,8 +558,6 @@ methods:
          for (unsigned column=0; column<num_columns; column++)
          {
             int item_to_draw = infer_item_to_draw_at_position(inventory_position);
-            //if (inventory_position >= items_in_inventory.size()) {}
-            //else { item_to_draw = items_in_inventory[inventory_position]; }
 
             if (draw_inventory_item_func)
             {
