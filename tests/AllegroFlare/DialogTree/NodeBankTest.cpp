@@ -46,14 +46,19 @@ TEST(AllegroFlare_DialogTree_NodeBankTest,
 {
    AllegroFlare::DialogTree::NodeBank node_bank;
    node_bank.add_node("my_node_with_non_unique_name", new AllegroFlare::DialogTree::Nodes::Base());
+   node_bank.add_node("another_non_unique_name", new AllegroFlare::DialogTree::Nodes::Base());
+   node_bank.add_node("a_unique_name", new AllegroFlare::DialogTree::Nodes::Base());
    AllegroFlare::DialogTree::NodeBank other_node_bank;
    other_node_bank.add_node("my_node_with_non_unique_name", new AllegroFlare::DialogTree::Nodes::Base());
+   other_node_bank.add_node("another_non_unique_name", new AllegroFlare::DialogTree::Nodes::Base());
+   node_bank.add_node("a_different_name_that_is_unique", new AllegroFlare::DialogTree::Nodes::Base());
 
    EXPECT_THROW_WITH_MESSAGE(
       node_bank.merge(&other_node_bank),
       std::runtime_error,
-      "[AllegroFlare::DialogTree::NodeBank::merge]: error: Cannot merge two node_bank objects that do not have "
-         "node names that are the same"
+      "[AllegroFlare::DialogTree::NodeBank::merge]: error: Cannot merge two node_bank objects because they contain "
+         "duplicate node identifiers. The node identifiers that are shared between the merging node_banks are "
+         "[\"another_non_unique_name\", \"my_node_with_non_unique_name\"]."
    );
 }
 

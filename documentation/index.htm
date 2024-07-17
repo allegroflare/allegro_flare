@@ -4727,6 +4727,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StringTransformer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StringTransformer.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -36725,6 +36728,10 @@ table td
 </tr>
 <tr>
   <td class="method">std::string</td>
+  <td class="method"><b>join_quoted_with_commas</b>(std::set&lt;std::string&gt;* elements=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
   <td class="method"><b>join_with_commas</b>(std::set&lt;std::string&gt;* elements=nullptr)</td>
 </tr>
 <tr>
@@ -36734,6 +36741,14 @@ table td
 <tr>
   <td class="method">std::string</td>
   <td class="method"><b>remove_non_alphanumeric</b>(std::string input=&quot;[unset-input]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">std::string</td>
+  <td class="private_method"><b>quote_and_escape_inner_quotes</b>(std::string subject=&quot;[unset-subject]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">std::string</td>
+  <td class="private_method"><b>replace</b>(std::string subject=&quot;[unset-subject]&quot;, std::string search=&quot;[unset-search]&quot;, std::string replace=&quot;[unset-replace]&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -44582,6 +44597,7 @@ table td
   ],
   "AllegroFlare/StringTransformer": [
     "AllegroFlare/CSVParser",
+    "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/StringTransformer"

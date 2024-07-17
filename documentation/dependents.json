@@ -771,6 +771,7 @@
   ],
   "AllegroFlare/StringTransformer": [
     "AllegroFlare/CSVParser",
+    "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/StringTransformer"

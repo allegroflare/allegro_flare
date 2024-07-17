@@ -3,6 +3,7 @@
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/StringTransformer.hpp>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -117,9 +118,12 @@ void NodeBank::merge(AllegroFlare::DialogTree::NodeBank* other_node_bank)
    std::set<std::string> shared_node_names = find_shared_node_names(other_node_bank);
    if (!shared_node_names.empty())
    {
+      std::string shared_node_names_str =
+         AllegroFlare::StringTransformer::join_quoted_with_commas(&shared_node_names);
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::DialogTree::NodeBank::merge",
-         "Cannot merge two node_bank objects that do not have node names that are the same"
+         "Cannot merge two node_bank objects because they contain duplicate node identifiers. The node identifiers "
+            "that are shared between the merging node_banks are [" + shared_node_names_str + "]."
       );
    }
 

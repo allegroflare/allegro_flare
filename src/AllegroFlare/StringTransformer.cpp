@@ -73,6 +73,24 @@ AllegroFlare::StringTransformer& StringTransformer::expand(int num_spaces)
    return *this;
 }
 
+std::string StringTransformer::join_quoted_with_commas(std::set<std::string>* elements)
+{
+   if (!(elements))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::StringTransformer::join_quoted_with_commas]: error: guard \"elements\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::StringTransformer::join_quoted_with_commas]: error: guard \"elements\" not met");
+   }
+   std::ostringstream result;
+   for (auto it = elements->begin(); it != elements->end(); ++it)
+   {
+       if (it != elements->begin()) result << ", ";
+       result << quote_and_escape_inner_quotes(*it);
+   }
+   return result.str();
+}
+
 std::string StringTransformer::join_with_commas(std::set<std::string>* elements)
 {
    if (!(elements))
@@ -121,6 +139,40 @@ std::string StringTransformer::remove_non_alphanumeric(std::string input)
        //}
    }
    return output;
+}
+
+std::string StringTransformer::quote_and_escape_inner_quotes(std::string subject)
+{
+   // TODO: Test this
+   return "\"" + replace(subject, "\"", "\\\"") + "\"";
+}
+
+std::string StringTransformer::replace(std::string subject, std::string search, std::string replace)
+{
+   std::string buffer;
+
+   int sealeng = search.length();
+   int strleng = subject.length();
+
+   if (sealeng==0)
+      return subject;//no change
+
+   for(int i=0, j=0; i<strleng; j=0 )
+   {
+      while (i+j<strleng && j<sealeng && subject[i+j]==search[j])
+         j++;
+      if (j==sealeng)//found 'search'
+      {
+         buffer.append(replace);
+         i+=sealeng;
+      }
+      else
+      {
+         buffer.append( &subject[i++], 1);
+      }
+   }
+   subject = buffer;
+   return subject;
 }
 
 

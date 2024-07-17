@@ -67,6 +67,26 @@ methods:
       - std::stringstream
 
 
+  - name: join_quoted_with_commas
+    static: true
+    type: std::string
+    parameters:
+      - name: elements
+        type: std::set<std::string>*
+        default_argument: nullptr
+    guards: [ elements ]
+    body: |
+      std::ostringstream result;
+      for (auto it = elements->begin(); it != elements->end(); ++it)
+      {
+          if (it != elements->begin()) result << ", ";
+          result << quote_and_escape_inner_quotes(*it);
+      }
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
   - name: join_with_commas
     static: true
     type: std::string
@@ -132,6 +152,62 @@ methods:
       - isalnum
       - isspace
       - isalnum
+
+
+  - name: quote_and_escape_inner_quotes
+    private: true
+    static: true
+    type: std::string
+    parameters:
+      - name: subject
+        type: std::string
+        default_argument: '"[unset-subject]"'
+    body: |
+      // TODO: Test this
+      return "\"" + replace(subject, "\"", "\\\"") + "\"";
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: replace
+    private: true
+    static: true
+    type: std::string
+    parameters:
+      - name: subject
+        type: std::string
+        default_argument: '"[unset-subject]"'
+      - name: search
+        type: std::string
+        default_argument: '"[unset-search]"'
+      - name: replace
+        type: std::string
+        default_argument: '"[unset-replace]"'
+    body: |
+      std::string buffer;
+
+      int sealeng = search.length();
+      int strleng = subject.length();
+
+      if (sealeng==0)
+         return subject;//no change
+
+      for(int i=0, j=0; i<strleng; j=0 )
+      {
+         while (i+j<strleng && j<sealeng && subject[i+j]==search[j])
+            j++;
+         if (j==sealeng)//found 'search'
+         {
+            buffer.append(replace);
+            i+=sealeng;
+         }
+         else
+         {
+            buffer.append( &subject[i++], 1);
+         }
+      }
+      subject = buffer;
+      return subject;
 
 
 dependencies:
