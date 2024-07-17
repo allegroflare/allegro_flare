@@ -88,6 +88,13 @@ AllegroFlare::SceneGraph::Entities::Base* EntityPool::find_with_attribute(std::s
    return nullptr;
 }
 
+AllegroFlare::SceneGraph::Entities::Base* EntityPool::find_with_attribute_and_value(std::string attribute, std::string value)
+{
+   // TODO: Test this function
+   for (auto &entity : entity_pool) if (entity->exists(attribute, value)) return entity;
+   return nullptr;
+}
+
 std::vector<AllegroFlare::SceneGraph::Entities::Base*> EntityPool::select_A(std::string attribute)
 {
    std::vector<AllegroFlare::SceneGraph::Entities::Base*> result;

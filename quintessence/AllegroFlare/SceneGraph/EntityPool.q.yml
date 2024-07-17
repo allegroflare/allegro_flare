@@ -91,6 +91,21 @@ functions:
       return nullptr;
 
 
+  - name: find_with_attribute_and_value
+    type: AllegroFlare::SceneGraph::Entities::Base*
+    parameters:
+      - name: attribute
+        type: std::string
+        default_argument: '"[unset-attribute]"'
+      - name: value
+        type: std::string
+        default_argument: '"[unset-value]"'
+    body: |
+      // TODO: Test this function
+      for (auto &entity : entity_pool) if (entity->exists(attribute, value)) return entity;
+      return nullptr;
+
+
   - name: select_A
     type: std::vector<AllegroFlare::SceneGraph::Entities::Base*>
     parameters:
