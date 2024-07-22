@@ -77,7 +77,7 @@ Full::Full()
    , primary_display(nullptr)
    , primary_display_icon_image_identifier("allegro-flare-generic-icon-1024.png")
    //, primary_display_sub_bitmap_for_overlay(nullptr)
-   //, primary_timer(nullptr)
+   , high_frequency_timer(nullptr)
    , camera_2d()
    , showing_dialog_switched_in_debug_text(false)
    , display_backbuffer()
@@ -361,6 +361,7 @@ bool Full::initialize_core_system()
    srand(time(NULL));
 
    //primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   high_frequency_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60 * 16)); // TODO: Look into if this is reasonable
 
    if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
@@ -370,6 +371,7 @@ bool Full::initialize_core_system()
    al_register_event_source(event_queue, al_get_joystick_event_source());
    //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    al_register_event_source(event_queue, al_get_default_menu_event_source());
+   al_register_event_source(event_queue, al_get_timer_event_source(high_frequency_timer));
 
 
    // Register our higher level objects
@@ -1060,6 +1062,10 @@ bool Full::shutdown()
          //throw std::runtime_error("in test: Could not destroy _driver");
       //}
    //}
+   al_stop_timer(high_frequency_timer);
+   al_unregister_event_source(event_queue, al_get_timer_event_source(high_frequency_timer));
+   al_destroy_timer(high_frequency_timer);
+   //al_unregister_(high_frequency_timer);
    sync_oracle.shutdown();
    delete display_settings_interface;
 
@@ -1654,8 +1660,14 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
       switch(this_event.type)
       {
-      case ALLEGRO_EVENT_TIMER:
-         if (sync_oracle.is_primary_timer_event(&this_event))
+      case ALLEGRO_EVENT_TIMER: {
+         bool is_primary_timer_event = sync_oracle.is_primary_timer_event(&this_event);
+
+         if (!is_primary_timer_event)
+         {
+            screens.timer_funcs();
+         }
+         else
          {
             sync_oracle.capture_primary_timer_event_time(this_event.any.timestamp);
             draw = true;
@@ -1666,23 +1678,23 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             //primary_update();
             //sync_oracle.end_update_measure();
 
-         if (drain_sequential_timer_events)
-         {
-            ALLEGRO_EVENT next_event;
-            while (
-               al_peek_next_event(event_queue, &next_event)
-               && sync_oracle.is_primary_timer_event(&next_event)
-               //&& next_event.type == ALLEGRO_EVENT_TIMER
-               //&& next_event.timer.source == this_event.timer.source)
-               )
+            if (drain_sequential_timer_events)
             {
-               // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
-               // problems as experienced on some machines.
-               al_drop_next_event(event_queue);
-               //metric.primary_timer_events_dropped++;
-               // HERE: Track when and how often events are dropped and see if there is a correlation 
+               ALLEGRO_EVENT next_event;
+               while (
+                  al_peek_next_event(event_queue, &next_event)
+                  && sync_oracle.is_primary_timer_event(&next_event)
+                  //&& next_event.type == ALLEGRO_EVENT_TIMER
+                  //&& next_event.timer.source == this_event.timer.source)
+                  )
+               {
+                  // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
+                  // problems as experienced on some machines.
+                  al_drop_next_event(event_queue);
+                  //metric.primary_timer_events_dropped++;
+                  // HERE: Track when and how often events are dropped and see if there is a correlation 
+               }
             }
-         }
 
             /*
             if (draw)
@@ -1708,10 +1720,10 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          //{
             //event_emitter.emit_poll_hotload_shader_source_for_change_event();
          //}
-         else
-         {
-            screens.timer_funcs();
-         }
+         //else
+         //{
+            //screens.timer_funcs();
+         //}
 
          //if (drain_sequential_timer_events)
          //{
@@ -1727,7 +1739,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                // HERE: Track when and how often events are dropped and see if there is a correlation 
             //}
          //}
-      break;
+      } break;
 
       case ALLEGRO_EVENT_DISPLAY_RESIZE: {
          std::cout << "Acknowledging resize on display " << this_event.display.source << ": ("

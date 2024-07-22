@@ -79,6 +79,7 @@ namespace AllegroFlare
          std::string primary_display_icon_image_identifier;
          //ALLEGRO_BITMAP *primary_display_sub_bitmap_for_overlay;
          //ALLEGRO_TIMER *primary_timer;
+         ALLEGRO_TIMER *high_frequency_timer;
          Camera2D camera_2d;
          bool showing_dialog_switched_in_debug_text; // TODO: Add methods to enable/disable this option
 
