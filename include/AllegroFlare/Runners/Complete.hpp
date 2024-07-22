@@ -13,6 +13,7 @@
 #include <AllegroFlare/LoadASavedGame/Screen.hpp>
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
+#include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Screens/Achievements.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Screens/DisplaySettings.hpp>
@@ -48,6 +49,7 @@ namespace AllegroFlare
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
+         AllegroFlare::SampleBin* sample_bin;
          AllegroFlare::ModelBin* model_bin;
          AllegroFlare::GameConfigurations::Complete* game_configuration;
          AllegroFlare::Routers::Standard router;
@@ -78,13 +80,14 @@ namespace AllegroFlare
 
 
       public:
-         Complete(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, AllegroFlare::GameConfigurations::Complete* game_configuration=nullptr);
+         Complete(AllegroFlare::Frameworks::Full* framework=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::SampleBin* sample_bin=nullptr, AllegroFlare::ModelBin* model_bin=nullptr, AllegroFlare::GameConfigurations::Complete* game_configuration=nullptr);
          virtual ~Complete();
 
          AllegroFlare::Frameworks::Full* get_framework() const;
          AllegroFlare::EventEmitter* get_event_emitter() const;
          AllegroFlare::BitmapBin* get_bitmap_bin() const;
          AllegroFlare::FontBin* get_font_bin() const;
+         AllegroFlare::SampleBin* get_sample_bin() const;
          AllegroFlare::ModelBin* get_model_bin() const;
          AllegroFlare::Screens::Storyboard &get_intro_logos_screen_ref();
          AllegroFlare::Screens::Storyboard &get_intro_storyboard_screen_ref();

@@ -324,6 +324,7 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],

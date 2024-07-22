@@ -21,12 +21,13 @@ namespace Runners
 {
 
 
-Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin, AllegroFlare::GameConfigurations::Complete* game_configuration)
+Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::SampleBin* sample_bin, AllegroFlare::ModelBin* model_bin, AllegroFlare::GameConfigurations::Complete* game_configuration)
    : AllegroFlare::Screens::Base(AllegroFlare::Runners::Complete::TYPE)
    , framework(framework)
    , event_emitter(event_emitter)
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
+   , sample_bin(sample_bin)
    , model_bin(model_bin)
    , game_configuration(game_configuration)
    , router()
@@ -82,6 +83,12 @@ AllegroFlare::BitmapBin* Complete::get_bitmap_bin() const
 AllegroFlare::FontBin* Complete::get_font_bin() const
 {
    return font_bin;
+}
+
+
+AllegroFlare::SampleBin* Complete::get_sample_bin() const
+{
+   return sample_bin;
 }
 
 
@@ -230,6 +237,13 @@ void Complete::initialize()
       error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"font_bin\" not met");
+   }
+   if (!(sample_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"sample_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"sample_bin\" not met");
    }
    if (!(model_bin))
    {
@@ -1094,6 +1108,7 @@ void Complete::run(AllegroFlare::GameConfigurations::Complete* game_configuratio
       &framework->get_event_emitter_ref(),
       &framework->get_bitmap_bin_ref(),
       &framework->get_font_bin_ref(),
+      &framework->get_sample_bin_ref(),
       &framework->get_model_bin_ref(),
       game_configuration
    );

@@ -33,6 +33,12 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: sample_bin
+    type: AllegroFlare::SampleBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+
   - name: model_bin
     type: AllegroFlare::ModelBin*
     init_with: nullptr
@@ -196,6 +202,7 @@ methods:
       - event_emitter
       - bitmap_bin
       - font_bin
+      - sample_bin
       - model_bin
       - game_configuration
     body: |
@@ -1032,6 +1039,7 @@ methods:
          &framework->get_event_emitter_ref(),
          &framework->get_bitmap_bin_ref(),
          &framework->get_font_bin_ref(),
+         &framework->get_sample_bin_ref(),
          &framework->get_model_bin_ref(),
          game_configuration
       );
@@ -1059,6 +1067,8 @@ dependencies:
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: AllegroFlare::SampleBin
+    headers: [ AllegroFlare/SampleBin.hpp ]
   - symbol: AllegroFlare::ModelBin
     headers: [ AllegroFlare/ModelBin.hpp ]
   - symbol: AllegroFlare::GameEvent
