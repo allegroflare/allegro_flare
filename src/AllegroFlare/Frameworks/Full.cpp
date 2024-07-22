@@ -77,7 +77,7 @@ Full::Full()
    , primary_display(nullptr)
    , primary_display_icon_image_identifier("allegro-flare-generic-icon-1024.png")
    //, primary_display_sub_bitmap_for_overlay(nullptr)
-   , high_frequency_timer(nullptr)
+   //, high_frequency_timer(nullptr)
    , camera_2d()
    , showing_dialog_switched_in_debug_text(false)
    , display_backbuffer()
@@ -361,7 +361,7 @@ bool Full::initialize_core_system()
    srand(time(NULL));
 
    //primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
-   high_frequency_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60 * 16)); // TODO: Look into if this is reasonable
+   //high_frequency_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60 * 16)); // TODO: Look into if this is reasonable
 
    if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
@@ -371,7 +371,7 @@ bool Full::initialize_core_system()
    al_register_event_source(event_queue, al_get_joystick_event_source());
    //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
    al_register_event_source(event_queue, al_get_default_menu_event_source());
-   al_register_event_source(event_queue, al_get_timer_event_source(high_frequency_timer));
+   //al_register_event_source(event_queue, al_get_timer_event_source(high_frequency_timer));
 
 
    // Register our higher level objects
@@ -1062,10 +1062,9 @@ bool Full::shutdown()
          //throw std::runtime_error("in test: Could not destroy _driver");
       //}
    //}
-   al_stop_timer(high_frequency_timer);
-   al_unregister_event_source(event_queue, al_get_timer_event_source(high_frequency_timer));
-   al_destroy_timer(high_frequency_timer);
-   //al_unregister_(high_frequency_timer);
+   //al_stop_timer(high_frequency_timer);
+   //al_unregister_event_source(event_queue, al_get_timer_event_source(high_frequency_timer));
+   //al_destroy_timer(high_frequency_timer);
    sync_oracle.shutdown();
    delete display_settings_interface;
 
@@ -1665,7 +1664,18 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
 
          if (!is_primary_timer_event)
          {
-            screens.timer_funcs();
+            //while (
+                  //al_peek_next_event(event_queue, &next_event)
+                  //&& sync_oracle.is_primary_timer_event(&next_event)
+                  //&& next_event.type == ALLEGRO_EVENT_TIMER
+                  //&& (next_event.timer.source == this_event.timer.source)
+               //)
+            //{
+               // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
+               // problems as experienced on some machines.
+               //al_drop_next_event(event_queue);
+            //}
+            //screens.timer_funcs();
          }
          else
          {
@@ -2570,6 +2580,8 @@ void Full::run_loop(float auto_shutdown_after_seconds)
    sync_oracle.activate_hyper_timer();
    sync_oracle.activate_auto_nudge();
 
+
+   //al_start_timer(high_frequency_timer);
 
    float loop_started_at = al_get_time();
 
