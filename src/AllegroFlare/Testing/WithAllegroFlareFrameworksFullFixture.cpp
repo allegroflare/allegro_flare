@@ -24,6 +24,7 @@ WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    , framework_model_bin(nullptr)
    , framework_video_bin(nullptr)
    , framework_dialog_system(nullptr)
+   , framework_audio_controller(nullptr)
    , framework_profiler(nullptr)
    , framework_data_folder_path("[unset-framework_data_folder_path]")
    , framework_primary_render_surface(nullptr)
@@ -81,6 +82,12 @@ AllegroFlare::DialogSystem::DialogSystem* WithAllegroFlareFrameworksFullFixture:
 }
 
 
+AllegroFlare::AudioController* WithAllegroFlareFrameworksFullFixture::get_framework_audio_controller() const
+{
+   return framework_audio_controller;
+}
+
+
 AllegroFlare::Profiler* WithAllegroFlareFrameworksFullFixture::get_framework_profiler() const
 {
    return framework_profiler;
@@ -127,6 +134,7 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
    this->framework_model_bin = &framework.get_model_bin_ref();
    this->framework_video_bin = &framework.get_video_bin_ref();
    this->framework_dialog_system = &framework.get_dialog_system_ref();
+   this->framework_audio_controller = &framework.get_audio_controller_ref();
    this->framework_sample_bin = &framework.get_sample_bin_ref();
    this->framework_data_folder_path = framework.get_data_folder_path();
    this->framework_profiler = &framework.get_profiler_ref();

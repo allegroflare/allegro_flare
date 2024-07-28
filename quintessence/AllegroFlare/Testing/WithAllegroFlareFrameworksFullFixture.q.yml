@@ -49,6 +49,11 @@ properties:
     init_with: nullptr
     getter: true
 
+  - name: framework_audio_controller
+    type: AllegroFlare::AudioController*
+    init_with: nullptr
+    getter: true
+
   - name: framework_profiler
     type: AllegroFlare::Profiler*
     init_with: nullptr
@@ -99,6 +104,7 @@ functions:
       this->framework_model_bin = &framework.get_model_bin_ref();
       this->framework_video_bin = &framework.get_video_bin_ref();
       this->framework_dialog_system = &framework.get_dialog_system_ref();
+      this->framework_audio_controller = &framework.get_audio_controller_ref();
       this->framework_sample_bin = &framework.get_sample_bin_ref();
       this->framework_data_folder_path = framework.get_data_folder_path();
       this->framework_profiler = &framework.get_profiler_ref();
@@ -321,5 +327,7 @@ dependencies:
     headers: [ AllegroFlare/Testing/TestNameInference.hpp ]
   - symbol: AllegroFlare::DialogSystem::DialogSystem
     headers: [ AllegroFlare/DialogSystem/DialogSystem.hpp ]
+  - symbol: AllegroFlare::AudioController
+    headers: [ AllegroFlare/AudioController.hpp ]
 
 

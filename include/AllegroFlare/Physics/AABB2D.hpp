@@ -47,6 +47,7 @@ namespace AllegroFlare
          void set_top_edge(float y=0.0f);
          void set_bottom_edge(float y=0.0f);
          bool collides(AllegroFlare::Physics::AABB2D* other=nullptr, AllegroFlare::Vec2D self_offset=AllegroFlare::Vec2D(), AllegroFlare::Vec2D other_offset=AllegroFlare::Vec2D());
+         bool collides_with_point(AllegroFlare::Vec2D position={});
       };
    }
 }

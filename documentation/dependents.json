@@ -2633,7 +2633,8 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete": [
     "AllegroFlare/GameConfigurations/Complete",

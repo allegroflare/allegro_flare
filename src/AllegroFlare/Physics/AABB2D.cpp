@@ -169,6 +169,21 @@ bool AABB2D::collides(AllegroFlare::Physics::AABB2D* other, AllegroFlare::Vec2D 
    );
 }
 
+bool AABB2D::collides_with_point(AllegroFlare::Vec2D position)
+{
+   // TODO: Test this
+
+   AllegroFlare::Vec2D a_min = AllegroFlare::Vec2D(x, y);
+   AllegroFlare::Vec2D a_max = AllegroFlare::Vec2D(x+w, y+h);
+
+   return (
+      a_min.x <= position.x &&
+      a_max.x >= position.x &&
+      a_min.y <= position.y &&
+      a_max.y >= position.y
+   );
+}
+
 
 } // namespace Physics
 } // namespace AllegroFlare

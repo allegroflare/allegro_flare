@@ -58,3 +58,9 @@ TEST(AllegroFlare_Physics_AABB2DTest, set_bottom_edge__sets_the_bottom_edge_of_t
 }
 
 
+TEST(AllegroFlare_Physics_AABB2DTest, collides__with_a_vec2d__will_work_as_expected)
+{
+   // TODO
+}
+
+

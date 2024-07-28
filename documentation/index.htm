@@ -22500,6 +22500,10 @@ table td
   <td class="method">bool</td>
   <td class="method"><b>collides</b>(AllegroFlare::Physics::AABB2D* other=nullptr, AllegroFlare::Vec2D self_offset=AllegroFlare::Vec2D(), AllegroFlare::Vec2D other_offset=AllegroFlare::Vec2D())</td>
 </tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>collides_with_point</b>(AllegroFlare::Vec2D position={})</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -37794,6 +37798,10 @@ table td
   <td class="property">AllegroFlare::DialogSystem::DialogSystem*</td>
 </tr>
 <tr>
+  <td class="property">framework_audio_controller</td>
+  <td class="property">AllegroFlare::AudioController*</td>
+</tr>
+<tr>
   <td class="property">framework_profiler</td>
   <td class="property">AllegroFlare::Profiler*</td>
 </tr>
@@ -37919,6 +37927,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogSystem&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogSystem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46470,7 +46481,8 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
-    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
   ],
   "AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete": [
     "AllegroFlare/GameConfigurations/Complete",
