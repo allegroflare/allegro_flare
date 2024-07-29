@@ -97,3 +97,17 @@ TEST(AllegroFlare_TileMaps_TileMapTest, resize__will_clear_all_the_tiles_to_0)
 }
 
 
+TEST(AllegroFlare_TileMaps_TileMapTest, resize__with_a_fill_value__will_clear_all_the_tiles_to_the_fill_value)
+{
+   // TODO
+   AllegroFlare::TileMaps::TileMap<float> tile_map;
+   tile_map.resize_with_fill(4, 3, 16.0f);
+   EXPECT_EQ(4, tile_map.get_num_columns());
+   EXPECT_EQ(3, tile_map.get_num_rows());
+   for (auto &tile : tile_map.get_tiles())
+   {
+      EXPECT_EQ(16.0f, tile);
+   }
+}
+
+
