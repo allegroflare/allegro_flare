@@ -34,7 +34,7 @@ TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTest, c
 
 
 TEST_F(AllegroFlare_GraphicsPipelines_DynamicEntityPipeline_SceneRendererTestWithAllegroRenderingFixtureTest,
-   CAPTURE__VISUAL__render__renders_the_iridescent)
+   FOCUS__CAPTURE__VISUAL__render__renders_the_iridescent)
 {
    AllegroFlare::ModelBin model_bin;
    model_bin.set_full_path(get_fixtures_path() + "models");
