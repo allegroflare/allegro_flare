@@ -23,6 +23,7 @@ namespace AllegroFlare
       Placement3D(AllegroFlare::Vec3D position);
 
       void start_transform();
+      void start_reverse_transform();
       void restore_transform();
       void build_transform(ALLEGRO_TRANSFORM *transform);
       void build_reverse_transform(ALLEGRO_TRANSFORM *transform);
