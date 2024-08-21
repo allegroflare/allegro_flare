@@ -39,12 +39,6 @@ void Gameplay::set_on_finished_callback_func_user_data(void* on_finished_callbac
 }
 
 
-void Gameplay::set_player_input_controller(AllegroFlare::PlayerInputControllers::Base* player_input_controller)
-{
-   this->player_input_controller = player_input_controller;
-}
-
-
 std::function<void(AllegroFlare::Screens::Gameplay*, void*)> Gameplay::get_on_finished_callback_func() const
 {
    return on_finished_callback_func;
@@ -80,6 +74,25 @@ AllegroFlare::SuspendedKeyboardState &Gameplay::get_suspended_keyboard_state_ref
    return suspended_keyboard_state;
 }
 
+
+void Gameplay::set_player_input_controller(AllegroFlare::PlayerInputControllers::Base* player_input_controller)
+{
+   if (player_input_controller)
+   {
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Screens::Gameplay::set_player_input_controller",
+         "deactivating current player_input_controller"
+      );
+      player_input_controller->on_deactivate();
+   }
+   this->player_input_controller = player_input_controller;
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::Screens::Gameplay::set_player_input_controller",
+      "activating new player_input_controller"
+   );
+   this->player_input_controller->on_activate();
+   return;
+}
 
 void Gameplay::dialog_system_switch_in_func()
 {

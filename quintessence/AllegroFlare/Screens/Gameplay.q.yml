@@ -25,7 +25,7 @@ properties:
     type: AllegroFlare::PlayerInputControllers::Base*
     init_with: nullptr
     getter: true
-    setter: true
+    setter: explicit
 
   - name: gameplay_suspended
     type: bool
@@ -52,6 +52,7 @@ documentation:
      - Note that TYPE is not used from this class. Ideally, quintessence would have a "passthrough" and type would be
        passed along to the base class
      - Ideally would like to remove "load_level_by_identifier" from this class
+     - Note that using "set_player_input_controller" will deactivate and activate the current controller
   - todos:
      - Include SuspendedJoystickState as well (find a way to inject the joystick)
      - Finish integrating the player_input_controller by routing the remaining events to it
@@ -59,6 +60,31 @@ documentation:
 
 
 methods:
+
+
+  - name: set_player_input_controller
+    parameters:
+      - name: player_input_controller
+        type: AllegroFlare::PlayerInputControllers::Base*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller)
+      {
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Screens::Gameplay::set_player_input_controller",
+            "deactivating current player_input_controller"
+         );
+         player_input_controller->on_deactivate();
+      }
+      this->player_input_controller = player_input_controller;
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Screens::Gameplay::set_player_input_controller",
+         "activating new player_input_controller"
+      );
+      this->player_input_controller->on_activate();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: dialog_system_switch_in_func

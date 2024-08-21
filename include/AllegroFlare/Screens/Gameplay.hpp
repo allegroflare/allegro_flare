@@ -37,13 +37,13 @@ namespace AllegroFlare
 
          void set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func);
          void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data);
-         void set_player_input_controller(AllegroFlare::PlayerInputControllers::Base* player_input_controller);
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
          AllegroFlare::PlayerInputControllers::Base* get_player_input_controller() const;
          bool get_gameplay_suspended() const;
          AllegroFlare::SuspendedKeyboardState get_suspended_keyboard_state() const;
          AllegroFlare::SuspendedKeyboardState &get_suspended_keyboard_state_ref();
+         void set_player_input_controller(AllegroFlare::PlayerInputControllers::Base* player_input_controller=nullptr);
          virtual void dialog_system_switch_in_func() override;
          virtual void dialog_system_switch_out_func() override;
          void suspend_gameplay();
