@@ -859,6 +859,7 @@
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -1160,6 +1161,8 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/LoadASavedGame/Screen",
+    "AllegroFlare/PlayerInputControllers/Base",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
@@ -1170,6 +1173,7 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -1932,12 +1936,15 @@
     "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/PlayerInputControllers/Base",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -1957,12 +1964,15 @@
     "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/PlayerInputControllers/Base",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -1982,6 +1992,7 @@
   "AllegroFlare/VirtualControllers/GenericController": [
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -2150,6 +2161,7 @@
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -3090,6 +3102,22 @@
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo/CollidingBlockEdge": [
     "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
+  ],
+  "AllegroFlare/Prototypes/TileFPS/PlayerInputControllers/Base": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
+  "std/fabs": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
+  "AllegroFlare/PlayerInputControllers/Base": [
+    "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Screens/Gameplay"
+  ],
+  "std/cos": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
+  "std/sin": [
+    "AllegroFlare/PlayerInputControllers/Generic"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",

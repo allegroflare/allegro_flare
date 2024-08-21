@@ -340,6 +340,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Player.q.yml">quintessence/AllegroFlare/Player.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PlayerInputControllers/Base.q.yml">quintessence/AllegroFlare/PlayerInputControllers/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PlayerInputControllers/Generic.q.yml">quintessence/AllegroFlare/PlayerInputControllers/Generic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ProfilerRenderer.q.yml">quintessence/AllegroFlare/ProfilerRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml</a></li>
@@ -22932,6 +22934,250 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/PlayerInputControllers/Base.q.yml">quintessence/AllegroFlare/PlayerInputControllers/Base.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update_player_controlled_entity_velocity_from_player_input</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_activate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_deactivate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>gameplay_suspend_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>gameplay_resume_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_up_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_down_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_down_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_up_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>joy_axis_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>mouse_down_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>mouse_axes_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_type</b>(std::string possible_type=&quot;&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/PlayerInputControllers/Generic.q.yml">quintessence/AllegroFlare/PlayerInputControllers/Generic.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This Generic class is essentially a generic control system that holds/manages player up, down, left, and right controls, the effect of which are determined by a callback.", {"The controller's features include"=>["a union of keyboard and joystick controls.", "stopping player control movement on suspend and unsuspend", "a callback, specific to this class, on_time_step_update that can be used to handle the affect of the buttons on time steps."]}, {"To use"=>["Be sure a PlayerInputControllers/Base class is properly wired into the game, and assign a new Generic() to it.", "create an on_time_step_update, and define the time-step behavior of the controls."]}]}</p>    <p>{"todos"=>["enhance the player control stopping to handle suspended controls so that suspends and resumes are seamless. Look into Screens/Gameplay to see how suspended keyboard state is integrated."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">entity</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">on_time_step_update</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Vec2D)&gt;</td>
+</tr>
+<tr>
+  <td class="property">player_control_move_velocity</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">player_control_look_velocity</td>
+  <td class="property">AllegroFlare::Vec2D</td>
+</tr>
+<tr>
+  <td class="property">player_right_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">player_left_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">player_up_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">player_down_pressed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>player_stop_moving</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>player_spin_change</b>(float delta=0.0f)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>player_tilt_change</b>(float delta=0.0f)</td>
+</tr>
+<tr>
+  <td class="private_method">AllegroFlare::Vec2D</td>
+  <td class="private_method"><b>infer_player_control_move_velocity_from_keypress</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update_player_controlled_entity_velocity_from_player_input</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>gameplay_suspend_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>gameplay_resume_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_up_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_down_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_down_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_up_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>joy_axis_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>mouse_down_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>mouse_axes_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">AllegroFlare::Vec3D</td>
+  <td class="private_method"><b>calculate_strafe_xy</b>(float spin=0.0f, float displacement=0.0f)</td>
+</tr>
+<tr>
+  <td class="private_method">AllegroFlare::Vec3D</td>
+  <td class="private_method"><b>calculate_forward_back_xy</b>(float spin=0.0f, float displacement=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::TileFPS::PlayerInputControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/TileFPS/PlayerInputControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::fabs&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::GenericController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/GenericController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PlayerInputControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PlayerInputControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::cos&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/ProfilerRenderer.q.yml">quintessence/AllegroFlare/ProfilerRenderer.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -32613,7 +32859,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/Gameplay.q.yml">quintessence/AllegroFlare/Screens/Gameplay.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"notes"=>["Note that TYPE is not used from this class. Ideally, quintessence would have a \"passthrough\" and type would be passed along to the base class", "Ideally would like to remove \"load_level_by_identifier\" from this class"]}</p>    <p>{"todos"=>["Include SuspendedJoystickState as well (find a way to inject the joystick)"]}</p>    <h3>Properties</h3>
+    <p>{"notes"=>["Note that TYPE is not used from this class. Ideally, quintessence would have a \"passthrough\" and type would be passed along to the base class", "Ideally would like to remove \"load_level_by_identifier\" from this class"]}</p>    <p>{"todos"=>["Include SuspendedJoystickState as well (find a way to inject the joystick)", "Finish integrating the player_input_controller by routing the remaining events to it", "Have a shutdown, so the player_input_controller needs to have on_deactivate() called"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">on_finished_callback_func</td>
@@ -32622,6 +32868,10 @@ table td
 <tr>
   <td class="property">on_finished_callback_func_user_data</td>
   <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">player_input_controller</td>
+  <td class="property">AllegroFlare::PlayerInputControllers::Base*</td>
 </tr>
 <tr>
   <td class="property">gameplay_suspended</td>
@@ -32674,6 +32924,22 @@ table td
   <td class="method">bool</td>
   <td class="method"><b>load_level_by_identifier</b>(std::string possible_type=&quot;&quot;)</td>
 </tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_down_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>joy_axis_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>mouse_down_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>mouse_axes_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -32688,6 +32954,18 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SuspendedKeyboardState&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SuspendedKeyboardState.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PlayerInputControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PlayerInputControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -44707,6 +44985,7 @@ table td
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -45008,6 +45287,8 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/LoadASavedGame/Screen",
+    "AllegroFlare/PlayerInputControllers/Base",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
@@ -45018,6 +45299,7 @@ table td
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -45780,12 +46062,15 @@ table td
     "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/PlayerInputControllers/Base",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -45805,12 +46090,15 @@ table td
     "AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
+    "AllegroFlare/PlayerInputControllers/Base",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -45830,6 +46118,7 @@ table td
   "AllegroFlare/VirtualControllers/GenericController": [
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMappingFactory",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -45998,6 +46287,7 @@ table td
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -46938,6 +47228,22 @@ table td
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo/CollidingBlockEdge": [
     "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
+  ],
+  "AllegroFlare/Prototypes/TileFPS/PlayerInputControllers/Base": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
+  "std/fabs": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
+  "AllegroFlare/PlayerInputControllers/Base": [
+    "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Screens/Gameplay"
+  ],
+  "std/cos": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
+  "std/sin": [
+    "AllegroFlare/PlayerInputControllers/Generic"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",

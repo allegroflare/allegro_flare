@@ -21,6 +21,12 @@ properties:
     getter: true
     setter: true
 
+  - name: player_input_controller
+    type: AllegroFlare::PlayerInputControllers::Base*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: gameplay_suspended
     type: bool
     init_with: false
@@ -48,6 +54,8 @@ documentation:
      - Ideally would like to remove "load_level_by_identifier" from this class
   - todos:
      - Include SuspendedJoystickState as well (find a way to inject the joystick)
+     - Finish integrating the player_input_controller by routing the remaining events to it
+     - Have a shutdown, so the player_input_controller needs to have on_deactivate() called
 
 
 methods:
@@ -79,6 +87,10 @@ methods:
       suspended_keyboard_state.capture_initial_keyboard_state(); // TODO: Add guard if state cannot be captured
       gameplay_suspended = true;
       gameplay_suspend_func();
+
+      // Suspend the player input controls
+      if (player_input_controller) player_input_controller->gameplay_suspend_func();
+
       return;
 
 
@@ -90,6 +102,10 @@ methods:
       suspended_keyboard_state.calculate_keyboard_state_changes(); // TODO: Add guard if state cannot be captured
       gameplay_resume_func();
       suspended_keyboard_state.reset();
+
+      // Resume the player input controls
+      if (player_input_controller) player_input_controller->gameplay_resume_func();
+
       return;
 
 
@@ -107,7 +123,8 @@ methods:
       // Function that is called immediately after the gameplay is suspended.
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
-         "Not implemented in the base class. This method must be implemented in the derived class"
+         "Not implemented in the base class. This method must be implemented in the derived class. Take into account "
+            "the AllegroFlare/Screens/Gameplay class has a suspend_gameplay func"
       );
       return;
 
@@ -118,7 +135,8 @@ methods:
       // Function that is called immediately after the gameplay is resumed.
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
-         "Not implemented in the base class. This method must be implemented in the derived class"
+         "Not implemented in the base class. This method must be implemented in the derived class. Take into account "
+            "the AllegroFlare/Screens/Gameplay class has a resume_gameplay func"
       );
       return;
 
@@ -150,6 +168,71 @@ methods:
       - AllegroFlare::Logger
 
 
+  - name: virtual_control_button_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: false
+    body: |
+      if (player_input_controller)
+      {
+         player_input_controller->virtual_control_button_down_func(
+            player,
+            virtual_controller,
+            virtual_controller_button_num,
+            is_repeat
+         );
+      }
+      return;
+
+
+  - name: joy_axis_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller) player_input_controller->joy_axis_func(ev);
+      return;
+
+
+  - name: mouse_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller) player_input_controller->mouse_down_func(ev);
+      return;
+
+
+  - name: mouse_axes_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller) player_input_controller->mouse_axes_func(ev);
+      return;
+
+
 dependencies:
 
 
@@ -161,5 +244,13 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::SuspendedKeyboardState
     headers: [ AllegroFlare/SuspendedKeyboardState.hpp ]
+  - symbol: AllegroFlare::PlayerInputControllers::Base
+    headers: [ AllegroFlare/PlayerInputControllers/Base.hpp ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
 
 

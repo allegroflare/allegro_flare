@@ -72,7 +72,8 @@ documentation:
         - Be sure a PlayerInputControllers/Base class is properly wired into the game, and assign a new Generic() to it.
         - create an on_time_step_update, and define the time-step behavior of the controls.
   - todos:
-      - enhance the player control stopping to handle suspended controls so that suspends and resumes are seamless.
+      - enhance the player control stopping to handle suspended controls so that suspends and resumes are seamless. Look
+        into Screens/Gameplay to see how suspended keyboard state is integrated.
 
 
 methods:
