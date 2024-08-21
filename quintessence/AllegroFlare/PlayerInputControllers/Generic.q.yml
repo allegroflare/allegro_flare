@@ -10,7 +10,7 @@ properties:
 
 
   - name: on_time_step_update
-    type: std::function<void(AllegroFlare::Vec2D)>
+    type: std::function<void(AllegroFlare::Vec2D, double, double)>
     init_with: '{}'
     getter: true
     setter: true
@@ -129,15 +129,27 @@ methods:
       return result;
 
 
-  - name: update_player_controlled_entity_velocity_from_player_input
+  - name: update_time_step
     virtual: true
     override: true
+    parameters:
+      - name: time_now
+        type: double
+        default_argument: '(al_is_system_installed() ? al_get_time() : throw std::runtime_error("asxjxdxfio"))'
+        default_argument_dependency_symbols: [ al_get_time() ]
+      - name: delta_time
+        type: double
+        default_argument: 1.0 / 60.0
     body: |
+      // NOTE: This method should likely be renamed, it's equivelent to an update on a time step. It's processed
+      // along with the update in the TileFPS/Screen update method, but before physics are applied on entities
+      // TODO: Update the above comment to remove TileFPS/Screen reference
+
       //player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
       if (on_time_step_update)
       {
          player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
-         on_time_step_update(player_control_move_velocity);
+         on_time_step_update(player_control_move_velocity, time_now, delta_time);
       }
 
       //kiosk_entity->move_rotor_position(player_control_move_velocity.x * 0.05);
@@ -605,6 +617,8 @@ methods:
 dependencies:
 
 
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_EVENT
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Prototypes::TileFPS::PlayerInputControllers::Base

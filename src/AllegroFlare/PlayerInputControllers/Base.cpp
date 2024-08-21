@@ -30,7 +30,7 @@ std::string Base::get_type() const
 }
 
 
-void Base::update_player_controlled_entity_velocity_from_player_input()
+void Base::update_time_step(double time_now, double delta_time)
 {
    // NOTE: This method should likely be renamed, it's equivelent to an update on a time step. It's processed
    // along with the update in the TileFPS/Screen update method, but before physics are applied on entities

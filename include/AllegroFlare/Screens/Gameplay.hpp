@@ -52,6 +52,8 @@ namespace AllegroFlare
          virtual void gameplay_suspend_func();
          virtual void gameplay_resume_func();
          virtual void primary_timer_func() override;
+         virtual void primary_update_func(double time_now=al_get_time(), double delta_time=1.0 / 60.0) override;
+         virtual void primary_render_func() override;
          void call_on_finished_callback_func();
          virtual bool load_level_by_identifier(std::string possible_type="");
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;

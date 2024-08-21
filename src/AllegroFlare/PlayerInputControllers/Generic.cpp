@@ -33,13 +33,13 @@ Generic::~Generic()
 }
 
 
-void Generic::set_on_time_step_update(std::function<void(AllegroFlare::Vec2D)> on_time_step_update)
+void Generic::set_on_time_step_update(std::function<void(AllegroFlare::Vec2D, double, double)> on_time_step_update)
 {
    this->on_time_step_update = on_time_step_update;
 }
 
 
-std::function<void(AllegroFlare::Vec2D)> Generic::get_on_time_step_update() const
+std::function<void(AllegroFlare::Vec2D, double, double)> Generic::get_on_time_step_update() const
 {
    return on_time_step_update;
 }
@@ -93,13 +93,17 @@ AllegroFlare::Vec2D Generic::infer_player_control_move_velocity_from_keypress()
    return result;
 }
 
-void Generic::update_player_controlled_entity_velocity_from_player_input()
+void Generic::update_time_step(double time_now, double delta_time)
 {
+   // NOTE: This method should likely be renamed, it's equivelent to an update on a time step. It's processed
+   // along with the update in the TileFPS/Screen update method, but before physics are applied on entities
+   // TODO: Update the above comment to remove TileFPS/Screen reference
+
    //player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
    if (on_time_step_update)
    {
       player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
-      on_time_step_update(player_control_move_velocity);
+      on_time_step_update(player_control_move_velocity, time_now, delta_time);
    }
 
    //kiosk_entity->move_rotor_position(player_control_move_velocity.x * 0.05);

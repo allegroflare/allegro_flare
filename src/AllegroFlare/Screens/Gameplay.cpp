@@ -172,9 +172,26 @@ void Gameplay::primary_timer_func()
 {
    if (player_input_controller)
    {
-      player_input_controller->update_player_controlled_entity_velocity_from_player_input();
+      double time_now = al_get_time();
+      double placeholder_fps = 1.0/60.0;
+      player_input_controller->update_time_step(time_now, placeholder_fps);
    }
 
+   return;
+}
+
+void Gameplay::primary_update_func(double time_now, double delta_time)
+{
+   if (player_input_controller) player_input_controller->update_time_step(time_now, delta_time);
+   return;
+}
+
+void Gameplay::primary_render_func()
+{
+   //if (player_input_controller)
+   //{
+      //player_input_controller->update_player_controlled_entity_velocity_from_player_input();
+   //}
    return;
 }
 

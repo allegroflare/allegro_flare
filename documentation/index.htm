@@ -22951,7 +22951,7 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>update_player_controlled_entity_velocity_from_player_input</b>()</td>
+  <td class="method"><b>update_time_step</b>(double time_now=(al_is_system_installed() ? al_get_time() : throw std::runtime_error(&quot;asjdfio&quot;)), double delta_time=1.0 / 60.0)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -23013,6 +23013,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -23026,7 +23029,7 @@ table td
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">on_time_step_update</td>
-  <td class="property">std::function&lt;void(AllegroFlare::Vec2D)&gt;</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Vec2D, double, double)&gt;</td>
 </tr>
 <tr>
   <td class="property">player_control_move_velocity</td>
@@ -23077,7 +23080,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>update_player_controlled_entity_velocity_from_player_input</b>()</td>
+  <td class="method"><b>update_time_step</b>(double time_now=(al_is_system_installed() ? al_get_time() : throw std::runtime_error(&quot;asxjxdxfio&quot;)), double delta_time=1.0 / 60.0)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -23126,6 +23129,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
@@ -32847,7 +32853,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/Gameplay.q.yml">quintessence/AllegroFlare/Screens/Gameplay.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"notes"=>["Note that TYPE is not used from this class. Ideally, quintessence would have a \"passthrough\" and type would be passed along to the base class", "Ideally would like to remove \"load_level_by_identifier\" from this class", "Note that using \"set_player_input_controller\" will deactivate and activate the current controller"]}</p>    <p>{"todos"=>["Include SuspendedJoystickState as well (find a way to inject the joystick)", "Finish integrating the player_input_controller by routing the remaining events to it", "Have a shutdown, so the player_input_controller needs to have on_deactivate() called", "Migrate this class to use \"primary_update_func\" and \"primary_render_func\" with that required update strategy"]}</p>    <h3>Properties</h3>
+    <p>{"notes"=>["Note that TYPE is not used from this class. Ideally, quintessence would have a \"passthrough\" and type would be passed along to the base class", "Ideally would like to remove \"load_level_by_identifier\" from this class", "Note that using \"set_player_input_controller\" will deactivate and activate the current controller"]}</p>    <p>{"todos"=>["Include SuspendedJoystickState as well (find a way to inject the joystick)", "Finish integrating the player_input_controller by routing the remaining events to it", "Have a shutdown, so the player_input_controller needs to have on_deactivate() called", "Migrate this class to use \"primary_update_func\" and \"primary_render_func\" with that required update strategy, e.g. set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">on_finished_callback_func</td>
@@ -32914,6 +32920,14 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>primary_update_func</b>(double time_now=al_get_time(), double delta_time=1.0 / 60.0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_render_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>call_on_finished_callback_func</b>()</td>
 </tr>
 <tr>
@@ -32943,6 +32957,9 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_time&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
 </tr>
@@ -45066,7 +45083,10 @@ table td
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base",
+    "AllegroFlare/PlayerInputControllers/Base",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/ModelBin": [

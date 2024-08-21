@@ -57,7 +57,8 @@ documentation:
      - Include SuspendedJoystickState as well (find a way to inject the joystick)
      - Finish integrating the player_input_controller by routing the remaining events to it
      - Have a shutdown, so the player_input_controller needs to have on_deactivate() called
-     - Migrate this class to use "primary_update_func" and "primary_render_func" with that required update strategy
+     - Migrate this class to use "primary_update_func" and "primary_render_func" with that required update strategy,
+       e.g. set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
 
 
 methods:
@@ -174,9 +175,38 @@ methods:
     body: |
       if (player_input_controller)
       {
-         player_input_controller->update_player_controlled_entity_velocity_from_player_input();
+         double time_now = al_get_time();
+         double placeholder_fps = 1.0/60.0;
+         player_input_controller->update_time_step(time_now, placeholder_fps);
       }
 
+      return;
+
+
+  - name: primary_update_func
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: double
+        default_argument: al_get_time()
+        default_argument_dependency_symbols: [ al_get_time ]
+      - name: delta_time
+        type: double
+        default_argument: 1.0 / 60.0
+    body: |
+      if (player_input_controller) player_input_controller->update_time_step(time_now, delta_time);
+      return;
+
+
+  - name: primary_render_func
+    virtual: true
+    override: true
+    body: |
+      //if (player_input_controller)
+      //{
+         //player_input_controller->update_player_controlled_entity_velocity_from_player_input();
+      //}
       return;
 
 
@@ -304,6 +334,8 @@ methods:
 dependencies:
 
 
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Screens::Base
     headers: [ AllegroFlare/Screens/Base.hpp ]
   - symbol: AllegroFlare::Screens::Gameplay

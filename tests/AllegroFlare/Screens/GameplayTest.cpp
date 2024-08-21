@@ -22,23 +22,23 @@ public:
      , generic_player_input_controller(nullptr)
    {
       auto generic_player_input_controller = new AllegroFlare::PlayerInputControllers::Generic();
-      generic_player_input_controller->set_on_time_step_update([this](AllegroFlare::Vec2D value) {
-         player_position.x += value.x; // * 0.1;
-         player_position.y += value.y; // * 0.1;
-      });
+      generic_player_input_controller->set_on_time_step_update(
+         [this](AllegroFlare::Vec2D value, double time_now, double time_step) {
+            player_position.x += value.x; // * 0.1;
+            player_position.y += value.y; // * 0.1;
+         }
+      );
       set_player_input_controller(generic_player_input_controller);
+      set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    }
    ~MyGameplayScreenTestClass()
    {
       delete generic_player_input_controller;
    }
-   void primary_timer_func() override
+   void primary_render_func() override
    {
-      AllegroFlare::Screens::Gameplay::primary_timer_func();
-
       al_clear_to_color(ALLEGRO_COLOR{0.2, 0.2, 0.24, 1.0});
       al_clear_depth_buffer(1);
-
       al_draw_filled_rectangle(
          player_position.x,
          player_position.y,
@@ -79,6 +79,7 @@ TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, w
 
 TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, when_derived__will_work_as_expected)
    // TODO: Make this test more specific
+   // TODO: Make this an interactive test
 {
    MyGameplayScreenTestClass gameplay;
    framework_register_and_activate_screen("gameplay", &gameplay);

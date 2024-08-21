@@ -17,8 +17,16 @@ properties:
 methods:
 
 
-  - name: update_player_controlled_entity_velocity_from_player_input
+  - name: update_time_step
     virtual: true
+    parameters:
+      - name: time_now
+        type: double
+        default_argument: '(al_is_system_installed() ? al_get_time() : throw std::runtime_error("asjdfio"))'
+        default_argument_dependency_symbols: [ al_get_time() ]
+      - name: delta_time
+        type: double
+        default_argument: 1.0 / 60.0
     body: |
       // NOTE: This method should likely be renamed, it's equivelent to an update on a time step. It's processed
       // along with the update in the TileFPS/Screen update method, but before physics are applied on entities
@@ -173,5 +181,7 @@ dependencies:
     headers: [ AllegroFlare/Player.hpp ]
   - symbol: AllegroFlare::VirtualControllers::Base
     headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
 
 

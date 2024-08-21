@@ -940,7 +940,10 @@
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/GameSession",
     "AllegroFlare/PhysicalInputDevices/Base",
+    "AllegroFlare/PlayerInputControllers/Base",
+    "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/FixedRoom2D/Room",
+    "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/ModelBin": [
