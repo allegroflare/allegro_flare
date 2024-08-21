@@ -58,7 +58,8 @@ documentation:
      - Finish integrating the player_input_controller by routing the remaining events to it
      - Have a shutdown, so the player_input_controller needs to have on_deactivate() called
      - Migrate this class to use "primary_update_func" and "primary_render_func" with that required update strategy,
-       e.g. set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+       e.g. set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);. For now
+       you should be able to use either and the player_input_controller should work
 
 
 methods:
