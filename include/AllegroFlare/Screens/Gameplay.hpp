@@ -39,11 +39,11 @@ namespace AllegroFlare
          AllegroFlare::SuspendedKeyboardState &get_suspended_keyboard_state_ref();
          virtual void dialog_system_switch_in_func() override;
          virtual void dialog_system_switch_out_func() override;
-         virtual void gameplay_suspend_func();
-         virtual void gameplay_resume_func();
          void suspend_gameplay();
          void resume_suspended_gameplay();
          void toggle_suspend_gameplay();
+         virtual void gameplay_suspend_func();
+         virtual void gameplay_resume_func();
          void call_on_finished_callback_func();
          virtual bool load_level_by_identifier(std::string possible_type="");
       };

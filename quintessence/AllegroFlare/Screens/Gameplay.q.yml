@@ -73,28 +73,6 @@ methods:
       return;
 
 
-  - name: gameplay_suspend_func
-    virtual: true
-    body: |
-      // Function that is called immediately after the gameplay is suspended.
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
-      return;
-
-
-  - name: gameplay_resume_func
-    virtual: true
-    body: |
-      // Function that is called immediately after the gameplay is resumed.
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
-         "Not implemented in the base class. This method must be implemented in the derived class"
-      );
-      return;
-
-
   - name: suspend_gameplay
     body: |
       if (gameplay_suspended) return; // TODO: Should this throw? (it caused an issue in a Routers/Standard test)
@@ -120,6 +98,28 @@ methods:
       gameplay_suspended = !gameplay_suspended;
       if (gameplay_suspended) gameplay_suspend_func();
       else gameplay_resume_func();
+      return;
+
+
+  - name: gameplay_suspend_func
+    virtual: true
+    body: |
+      // Function that is called immediately after the gameplay is suspended.
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
+
+
+  - name: gameplay_resume_func
+    virtual: true
+    body: |
+      // Function that is called immediately after the gameplay is resumed.
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
       return;
 
 
