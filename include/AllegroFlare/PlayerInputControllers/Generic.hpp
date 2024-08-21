@@ -20,7 +20,6 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/PlayerInputControllers/Generic";
 
       private:
-         void* entity;
          std::function<void(AllegroFlare::Vec2D)> on_time_step_update;
          AllegroFlare::Vec2D player_control_move_velocity;
          AllegroFlare::Vec2D player_control_look_velocity;
@@ -28,7 +27,6 @@ namespace AllegroFlare
          bool player_left_pressed;
          bool player_up_pressed;
          bool player_down_pressed;
-         bool initialized;
          void player_stop_moving();
          void player_spin_change(float delta=0.0f);
          void player_tilt_change(float delta=0.0f);
@@ -40,14 +38,11 @@ namespace AllegroFlare
 
 
       public:
-         Generic(void* entity=nullptr);
+         Generic();
          virtual ~Generic();
 
-         void set_entity(void* entity);
          void set_on_time_step_update(std::function<void(AllegroFlare::Vec2D)> on_time_step_update);
-         void* get_entity() const;
          std::function<void(AllegroFlare::Vec2D)> get_on_time_step_update() const;
-         void initialize();
          virtual void update_player_controlled_entity_velocity_from_player_input() override;
          virtual void gameplay_suspend_func() override;
          virtual void gameplay_resume_func() override;

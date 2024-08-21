@@ -57,6 +57,7 @@ documentation:
      - Include SuspendedJoystickState as well (find a way to inject the joystick)
      - Finish integrating the player_input_controller by routing the remaining events to it
      - Have a shutdown, so the player_input_controller needs to have on_deactivate() called
+     - Migrate this class to use "primary_update_func" and "primary_render_func" with that required update strategy
 
 
 methods:
@@ -164,6 +165,18 @@ methods:
          "Not implemented in the base class. This method must be implemented in the derived class. Take into account "
             "the AllegroFlare/Screens/Gameplay class has a resume_gameplay func"
       );
+      return;
+
+
+  - name: primary_timer_func
+    virtual: true
+    override: true
+    body: |
+      if (player_input_controller)
+      {
+         player_input_controller->update_player_controlled_entity_velocity_from_player_input();
+      }
+
       return;
 
 

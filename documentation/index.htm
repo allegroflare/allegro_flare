@@ -23025,10 +23025,6 @@ table td
     <p>{"notes"=>["This Generic class is essentially a generic control system that holds/manages player up, down, left, and right controls, the effect of which are determined by a callback.", {"The controller's features include"=>["a union of keyboard and joystick controls.", "stopping player control movement on suspend and unsuspend", "a callback, specific to this class, on_time_step_update that can be used to handle the affect of the buttons on time steps."]}, {"To use"=>["Be sure a PlayerInputControllers/Base class is properly wired into the game, and assign a new Generic() to it.", "create an on_time_step_update, and define the time-step behavior of the controls."]}]}</p>    <p>{"todos"=>["enhance the player control stopping to handle suspended controls so that suspends and resumes are seamless. Look into Screens/Gameplay to see how suspended keyboard state is integrated."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">entity</td>
-  <td class="property">void*</td>
-</tr>
-<tr>
   <td class="property">on_time_step_update</td>
   <td class="property">std::function&lt;void(AllegroFlare::Vec2D)&gt;</td>
 </tr>
@@ -23057,20 +23053,12 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">initialized</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
-<tr>
-  <td class="method">void</td>
-  <td class="method"><b>initialize</b>()</td>
-</tr>
 <tr>
   <td class="private_method">void</td>
   <td class="private_method"><b>player_stop_moving</b>()</td>
@@ -32859,7 +32847,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Screens/Gameplay.q.yml">quintessence/AllegroFlare/Screens/Gameplay.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"notes"=>["Note that TYPE is not used from this class. Ideally, quintessence would have a \"passthrough\" and type would be passed along to the base class", "Ideally would like to remove \"load_level_by_identifier\" from this class", "Note that using \"set_player_input_controller\" will deactivate and activate the current controller"]}</p>    <p>{"todos"=>["Include SuspendedJoystickState as well (find a way to inject the joystick)", "Finish integrating the player_input_controller by routing the remaining events to it", "Have a shutdown, so the player_input_controller needs to have on_deactivate() called"]}</p>    <h3>Properties</h3>
+    <p>{"notes"=>["Note that TYPE is not used from this class. Ideally, quintessence would have a \"passthrough\" and type would be passed along to the base class", "Ideally would like to remove \"load_level_by_identifier\" from this class", "Note that using \"set_player_input_controller\" will deactivate and activate the current controller"]}</p>    <p>{"todos"=>["Include SuspendedJoystickState as well (find a way to inject the joystick)", "Finish integrating the player_input_controller by routing the remaining events to it", "Have a shutdown, so the player_input_controller needs to have on_deactivate() called", "Migrate this class to use \"primary_update_func\" and \"primary_render_func\" with that required update strategy"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">on_finished_callback_func</td>
@@ -32919,6 +32907,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>gameplay_resume_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_timer_func</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>

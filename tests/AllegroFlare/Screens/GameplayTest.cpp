@@ -15,19 +15,37 @@ class AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture :
 class MyGameplayScreenTestClass : public AllegroFlare::Screens::Gameplay
 {
 public:
-   AllegroFlare::PlayerInputControllers::Base* player_input_controller;
+   AllegroFlare::Vec2D player_position;
+   AllegroFlare::PlayerInputControllers::Base* generic_player_input_controller;
    MyGameplayScreenTestClass()
-     : player_input_controller(nullptr)
+     : player_position()
+     , generic_player_input_controller(nullptr)
    {
-      player_input_controller = new AllegroFlare::PlayerInputControllers::Generic();
+      auto generic_player_input_controller = new AllegroFlare::PlayerInputControllers::Generic();
+      generic_player_input_controller->set_on_time_step_update([this](AllegroFlare::Vec2D value) {
+         player_position.x += value.x; // * 0.1;
+         player_position.y += value.y; // * 0.1;
+      });
+      set_player_input_controller(generic_player_input_controller);
    }
    ~MyGameplayScreenTestClass()
    {
-      delete player_input_controller;
+      delete generic_player_input_controller;
    }
    void primary_timer_func() override
    {
-      al_draw_filled_rectangle(20, 20, 50, 50, ALLEGRO_COLOR{1, 0.4, 0.9, 1.0});
+      AllegroFlare::Screens::Gameplay::primary_timer_func();
+
+      al_clear_to_color(ALLEGRO_COLOR{0.2, 0.2, 0.24, 1.0});
+      al_clear_depth_buffer(1);
+
+      al_draw_filled_rectangle(
+         player_position.x,
+         player_position.y,
+         player_position.x+50,
+         player_position.y+50,
+         ALLEGRO_COLOR{1, 0.4, 0.9, 1.0}
+      );
    }
 };
 

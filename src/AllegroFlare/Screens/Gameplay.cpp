@@ -168,6 +168,16 @@ void Gameplay::gameplay_resume_func()
    return;
 }
 
+void Gameplay::primary_timer_func()
+{
+   if (player_input_controller)
+   {
+      player_input_controller->update_player_controlled_entity_velocity_from_player_input();
+   }
+
+   return;
+}
+
 void Gameplay::call_on_finished_callback_func()
 {
    // TODO: Test this callback call

@@ -15,9 +15,8 @@ namespace PlayerInputControllers
 {
 
 
-Generic::Generic(void* entity)
+Generic::Generic()
    : AllegroFlare::PlayerInputControllers::Base(AllegroFlare::PlayerInputControllers::Generic::TYPE)
-   , entity(entity)
    , on_time_step_update({})
    , player_control_move_velocity({})
    , player_control_look_velocity({})
@@ -25,7 +24,6 @@ Generic::Generic(void* entity)
    , player_left_pressed(false)
    , player_up_pressed(false)
    , player_down_pressed(false)
-   , initialized(false)
 {
 }
 
@@ -35,21 +33,9 @@ Generic::~Generic()
 }
 
 
-void Generic::set_entity(void* entity)
-{
-   this->entity = entity;
-}
-
-
 void Generic::set_on_time_step_update(std::function<void(AllegroFlare::Vec2D)> on_time_step_update)
 {
    this->on_time_step_update = on_time_step_update;
-}
-
-
-void* Generic::get_entity() const
-{
-   return entity;
 }
 
 
@@ -58,26 +44,6 @@ std::function<void(AllegroFlare::Vec2D)> Generic::get_on_time_step_update() cons
    return on_time_step_update;
 }
 
-
-void Generic::initialize()
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::PlayerInputControllers::Generic::initialize]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::initialize]: error: guard \"(!initialized)\" not met");
-   }
-   if (!(entity))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::PlayerInputControllers::Generic::initialize]: error: guard \"entity\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::initialize]: error: guard \"entity\" not met");
-   }
-   initialized = true;
-   return;
-}
 
 void Generic::player_stop_moving()
 {
@@ -92,13 +58,6 @@ void Generic::player_stop_moving()
 
 void Generic::player_spin_change(float delta)
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::PlayerInputControllers::Generic::player_spin_change]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::player_spin_change]: error: guard \"initialized\" not met");
-   }
    //AllegroFlare::Prototypes::TileFPS::Entities::Camera3D* as_camera = camera_entity;
    //as_camera->spin += delta;
    return;
@@ -106,13 +65,6 @@ void Generic::player_spin_change(float delta)
 
 void Generic::player_tilt_change(float delta)
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::PlayerInputControllers::Generic::player_tilt_change]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::player_tilt_change]: error: guard \"initialized\" not met");
-   }
    //AllegroFlare::Prototypes::TileFPS::Entities::Camera3D* as_camera = camera_entity; //find_primary_camera();
 
    //float tilt = as_camera->tilt;
@@ -128,11 +80,11 @@ void Generic::player_tilt_change(float delta)
 AllegroFlare::Vec2D Generic::infer_player_control_move_velocity_from_keypress()
 {
    AllegroFlare::Vec2D result = { 0, 0 };
-   float speed = 0.05; // Running is like 0.1
+   float speed = 1.0; // Running is like 0.1, walking like 0.05
 
    if (player_left_pressed && player_right_pressed) result.x = 0.0f;
-   else if (player_left_pressed) result.x = speed; // + is counterclockwise
-   else if (player_right_pressed) result.x = -speed; // - is clockwise
+   else if (player_left_pressed) result.x = -speed;
+   else if (player_right_pressed) result.x = speed;
 
    if (player_up_pressed && player_down_pressed) result.y = 0.0f;
    else if (player_up_pressed) result.y = -speed;
@@ -143,13 +95,6 @@ AllegroFlare::Vec2D Generic::infer_player_control_move_velocity_from_keypress()
 
 void Generic::update_player_controlled_entity_velocity_from_player_input()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::PlayerInputControllers::Generic::update_player_controlled_entity_velocity_from_player_input]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::update_player_controlled_entity_velocity_from_player_input]: error: guard \"initialized\" not met");
-   }
    //player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
    if (on_time_step_update)
    {
@@ -192,13 +137,6 @@ void Generic::gameplay_resume_func()
 
 void Generic::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::PlayerInputControllers::Generic::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::virtual_control_button_up_func]: error: guard \"initialized\" not met");
-   }
 
    switch(virtual_controller_button_num)
    {
@@ -230,13 +168,6 @@ void Generic::virtual_control_button_up_func(AllegroFlare::Player* player, Alleg
 
 void Generic::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::PlayerInputControllers::Generic::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::virtual_control_button_down_func]: error: guard \"initialized\" not met");
-   }
    // TODO: validate virtual controller type
 
    switch(virtual_controller_button_num)

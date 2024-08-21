@@ -9,13 +9,6 @@ parent_classes:
 properties:
 
 
-  - name: entity
-    type: void*
-    constructor_arg: true
-    init_with: nullptr
-    getter: true
-    setter: true
-
   - name: on_time_step_update
     type: std::function<void(AllegroFlare::Vec2D)>
     init_with: '{}'
@@ -43,10 +36,6 @@ properties:
     init_with: false
 
   - name: player_down_pressed
-    type: bool
-    init_with: false
-
-  - name: initialized
     type: bool
     init_with: false
 
@@ -79,13 +68,6 @@ documentation:
 methods:
 
 
-  - name: initialize
-    guards: [ (!initialized), entity ]
-    body: |
-      initialized = true;
-      return;
-
-
   - name: player_stop_moving
     private: true
     body: |
@@ -104,7 +86,6 @@ methods:
       - name: delta
         type: float
         default_argument: 0.0f
-    guards: [ initialized ]
     body: |
       //AllegroFlare::Prototypes::TileFPS::Entities::Camera3D* as_camera = camera_entity;
       //as_camera->spin += delta;
@@ -117,7 +98,6 @@ methods:
       - name: delta
         type: float
         default_argument: 0.0f
-    guards: [ initialized ]
     body: |
       //AllegroFlare::Prototypes::TileFPS::Entities::Camera3D* as_camera = camera_entity; //find_primary_camera();
 
@@ -136,11 +116,11 @@ methods:
     type: AllegroFlare::Vec2D
     body: |
       AllegroFlare::Vec2D result = { 0, 0 };
-      float speed = 0.05; // Running is like 0.1
+      float speed = 1.0; // Running is like 0.1, walking like 0.05
 
       if (player_left_pressed && player_right_pressed) result.x = 0.0f;
-      else if (player_left_pressed) result.x = speed; // + is counterclockwise
-      else if (player_right_pressed) result.x = -speed; // - is clockwise
+      else if (player_left_pressed) result.x = -speed;
+      else if (player_right_pressed) result.x = speed;
 
       if (player_up_pressed && player_down_pressed) result.y = 0.0f;
       else if (player_up_pressed) result.y = -speed;
@@ -152,7 +132,6 @@ methods:
   - name: update_player_controlled_entity_velocity_from_player_input
     virtual: true
     override: true
-    guards: [ initialized ]
     body: |
       //player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
       if (on_time_step_update)
@@ -214,7 +193,6 @@ methods:
       - name: is_repeat
         type: bool
         default_argument: false
-    guards: [ initialized ]
     body: |
 
       switch(virtual_controller_button_num)
@@ -261,7 +239,6 @@ methods:
       - name: is_repeat
         type: bool
         default_argument: false
-    guards: [ initialized ]
     body: |
       // TODO: validate virtual controller type
 
