@@ -3,14 +3,32 @@
 
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
+#include <AllegroFlare/PlayerInputControllers/Generic.hpp>
 
 
 class AllegroFlare_Screens_GameplayTest : public ::testing::Test {};
 class AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture :
    public AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture
+{};
+
+
+class MyGameplayScreenTestClass : public AllegroFlare::Screens::Gameplay
 {
 public:
-   //AllegroFlare_Screens_GameplayTestWithAllegroRenderingFixture
+   AllegroFlare::PlayerInputControllers::Base* player_input_controller;
+   MyGameplayScreenTestClass()
+     : player_input_controller(nullptr)
+   {
+      player_input_controller = new AllegroFlare::PlayerInputControllers::Generic();
+   }
+   ~MyGameplayScreenTestClass()
+   {
+      delete player_input_controller;
+   }
+   void primary_timer_func() override
+   {
+      al_draw_filled_rectangle(20, 20, 50, 50, ALLEGRO_COLOR{1, 0.4, 0.9, 1.0});
+   }
 };
 
 
@@ -36,6 +54,15 @@ TEST_F(AllegroFlare_Screens_GameplayTest, type__has_the_expected_value_matching_
 TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, will_work_in_a_framework_context)
 {
    AllegroFlare::Screens::Gameplay gameplay;
+   framework_register_and_activate_screen("gameplay", &gameplay);
+   framework_run_loop();
+}
+
+
+TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, when_derived__will_work_as_expected)
+   // TODO: Make this test more specific
+{
+   MyGameplayScreenTestClass gameplay;
    framework_register_and_activate_screen("gameplay", &gameplay);
    framework_run_loop();
 }
