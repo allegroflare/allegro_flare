@@ -236,6 +236,35 @@ methods:
       return;
 
 
+  - name: virtual_control_button_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: false
+    body: |
+      if (player_input_controller)
+      {
+         player_input_controller->virtual_control_button_up_func(
+            player,
+            virtual_controller,
+            virtual_controller_button_num,
+            is_repeat
+         );
+      }
+      return;
+
+
   - name: joy_axis_func
     virtual: true
     override: true

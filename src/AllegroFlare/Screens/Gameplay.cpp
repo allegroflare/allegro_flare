@@ -209,6 +209,20 @@ void Gameplay::virtual_control_button_down_func(AllegroFlare::Player* player, Al
    return;
 }
 
+void Gameplay::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
+{
+   if (player_input_controller)
+   {
+      player_input_controller->virtual_control_button_up_func(
+         player,
+         virtual_controller,
+         virtual_controller_button_num,
+         is_repeat
+      );
+   }
+   return;
+}
+
 void Gameplay::joy_axis_func(ALLEGRO_EVENT* ev)
 {
    if (player_input_controller) player_input_controller->joy_axis_func(ev);
