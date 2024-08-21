@@ -1,0 +1,177 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::PlayerInputControllers::Base::TYPE
+    constructor_arg: true
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/PlayerInputControllers/Base"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: update_player_controlled_entity_velocity_from_player_input
+    virtual: true
+    body: |
+      // NOTE: This method should likely be renamed, it's equivelent to an update on a time step. It's processed
+      // along with the update in the TileFPS/Screen update method, but before physics are applied on entities
+      return;
+
+
+  - name: on_activate
+    virtual: true
+    body: |
+      // Override this in the derived class
+      // NOTE: Will be called when the controls are connected to be currently in use
+      return;
+
+
+  - name: on_deactivate
+    virtual: true
+    body: |
+      // Override this in the derived class
+      // NOTE: Will be called when the controls are disconnected from being currently used
+      return;
+
+
+  - name: gameplay_suspend_func
+    virtual: true
+    body: |
+      // Override this in the derived class
+      // NOTE: Called when the gameplay is suspended, for example for a pause, dialog, opening of a menu screen, etc
+      return;
+
+
+  - name: gameplay_resume_func
+    virtual: true
+    body: |
+      // Override this in the derived class
+      // NOTE: Called when the gameplay is unsuspended, for example from a pause, closing dialog, closing of a menu
+      // screen.
+      return;
+
+
+  - name: virtual_control_button_up_func
+    virtual: true
+    parameters:
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: false
+    body: |
+      // Override this in the derived class
+      return;
+
+
+  - name: virtual_control_button_down_func
+    virtual: true
+    parameters:
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: false
+    body: |
+      // Override this in the derived class
+      return;
+
+
+  - name: key_down_func
+    virtual: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // Override this in the derived class
+      return;
+
+
+  - name: key_up_func
+    virtual: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // Override this in the derived class
+      return;
+
+
+  - name: joy_axis_func
+    virtual: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // Override this in the derived class
+      return;
+
+
+  - name: mouse_down_func
+    virtual: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ ev ]
+    body: |
+      // Override this in the derived class
+      return;
+
+
+  - name: mouse_axes_func
+    virtual: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // Override this in the derived class
+      return;
+
+
+  - name: is_type
+    type: bool
+    parameters:
+      - name: possible_type
+        type: std::string
+        default_argument: '""'
+    body: |
+      return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+
+

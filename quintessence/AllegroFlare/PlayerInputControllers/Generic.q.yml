@@ -1,0 +1,653 @@
+parent_classes:
+
+
+  - class: AllegroFlare::PlayerInputControllers::Base
+    scope: public
+    init_with: AllegroFlare::PlayerInputControllers::Generic::TYPE
+
+
+properties:
+
+
+  - name: entity
+    type: void*
+    constructor_arg: true
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: on_time_step_update
+    type: std::function<void(AllegroFlare::Vec2D)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: player_control_move_velocity
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
+  - name: player_control_look_velocity
+    type: AllegroFlare::Vec2D
+    init_with: '{}'
+
+  - name: player_right_pressed
+    type: bool
+    init_with: false
+
+  - name: player_left_pressed
+    type: bool
+    init_with: false
+
+  - name: player_up_pressed
+    type: bool
+    init_with: false
+
+  - name: player_down_pressed
+    type: bool
+    init_with: false
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/PlayerInputControllers/Generic"'
+    static: true
+    constexpr: true
+
+
+documentation:
+
+
+  - notes:
+      - This Generic class is essentially a generic control system that holds/manages player up, down, left, and
+        right controls, the effect of which are determined by a callback.
+      - The controller's features include:
+        - a union of keyboard and joystick controls.
+        - stopping player control movement on suspend and unsuspend
+        - a callback, specific to this class, on_time_step_update that can be used to handle the affect of the buttons
+          on time steps.
+      - To use:
+        - Be sure a PlayerInputControllers/Base class is properly wired into the game, and assign a new Generic() to it.
+        - create an on_time_step_update, and define the time-step behavior of the controls.
+  - todos:
+      - enhance the player control stopping to handle suspended controls so that suspends and resumes are seamless.
+
+
+methods:
+
+
+  - name: initialize
+    guards: [ (!initialized), entity ]
+    body: |
+      initialized = true;
+      return;
+
+
+  - name: player_stop_moving
+    private: true
+    body: |
+      player_up_pressed = false;
+      player_down_pressed = false;
+      player_left_pressed = false;
+      player_right_pressed = false;
+      player_control_move_velocity.x = 0;
+      player_control_move_velocity.y = 0;
+      return;
+
+
+  - name: player_spin_change
+    private: true
+    parameters:
+      - name: delta
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      //AllegroFlare::Prototypes::TileFPS::Entities::Camera3D* as_camera = camera_entity;
+      //as_camera->spin += delta;
+      return;
+
+
+  - name: player_tilt_change
+    private: true
+    parameters:
+      - name: delta
+        type: float
+        default_argument: 0.0f
+    guards: [ initialized ]
+    body: |
+      //AllegroFlare::Prototypes::TileFPS::Entities::Camera3D* as_camera = camera_entity; //find_primary_camera();
+
+      //float tilt = as_camera->tilt;
+
+      //tilt += delta;
+      //float max_tilt = 3.14 / 2;
+      //if (tilt < -max_tilt) tilt = -max_tilt;
+      //if (tilt > max_tilt) tilt = max_tilt;
+      //as_camera->tilt = tilt;
+      return;
+
+
+  - name: infer_player_control_move_velocity_from_keypress
+    private: true
+    type: AllegroFlare::Vec2D
+    body: |
+      AllegroFlare::Vec2D result = { 0, 0 };
+      float speed = 0.05; // Running is like 0.1
+
+      if (player_left_pressed && player_right_pressed) result.x = 0.0f;
+      else if (player_left_pressed) result.x = speed; // + is counterclockwise
+      else if (player_right_pressed) result.x = -speed; // - is clockwise
+
+      if (player_up_pressed && player_down_pressed) result.y = 0.0f;
+      else if (player_up_pressed) result.y = -speed;
+      else if (player_down_pressed) result.y = speed;
+
+      return result;
+
+
+  - name: update_player_controlled_entity_velocity_from_player_input
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      //player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
+      if (on_time_step_update)
+      {
+         player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
+         on_time_step_update(player_control_move_velocity);
+      }
+
+      //kiosk_entity->move_rotor_position(player_control_move_velocity.x * 0.05);
+      //float spin_multiplier = 0.05;
+      //float tilt_multiplier = 0.05;
+      //player_spin_change(player_control_look_velocity.x * spin_multiplier);
+      //player_tilt_change(player_control_look_velocity.y * tilt_multiplier);
+
+      //player_control_move_velocity = infer_player_control_move_velocity_from_keypress();
+      //AllegroFlare::Vec3D camera_strafe_speed = calculate_strafe_xy(
+            //camera_entity->spin,
+            //player_control_move_velocity.x
+         //);
+      //AllegroFlare::Vec3D camera_forward_back_speed = calculate_forward_back_xy(
+            //camera_entity->spin,
+            //player_control_move_velocity.y
+         //);
+      //camera_entity->get_velocity_ref().position = camera_strafe_speed + camera_forward_back_speed;
+      return;
+
+
+  - name: gameplay_suspend_func
+    virtual: true
+    override: true
+    body: |
+      player_stop_moving();
+      // NOTE: This function is called immediately after the gameplay is suspended.
+      // TODO: Consider setting states on entities, checking their state timers, etc
+      return;
+
+
+  - name: gameplay_resume_func
+    virtual: true
+    override: true
+    body: |
+      player_stop_moving();
+      return;
+
+
+  - name: virtual_control_button_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: false
+    guards: [ initialized ]
+    body: |
+
+      switch(virtual_controller_button_num)
+      {
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT: {
+            player_left_pressed = false;
+         } break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT: {
+            player_right_pressed = false;
+         } break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP: {
+            player_up_pressed = false;
+         } break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN: {
+            player_down_pressed = false;
+         } break;
+
+         default: {
+            // TODO: IMPORTANT: There is currently no escape from gameplay/screen
+            //call_on_finished_callback_func();
+         } break;
+      };
+
+      //player_stop_moving(); // TODO: Improve this movement
+      return;
+
+
+  - name: virtual_control_button_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: player
+        type: AllegroFlare::Player*
+        default_argument: nullptr
+      - name: virtual_controller
+        type: AllegroFlare::VirtualControllers::Base*
+        default_argument: nullptr
+      - name: virtual_controller_button_num
+        type: int
+        default_argument: 0
+      - name: is_repeat
+        type: bool
+        default_argument: false
+    guards: [ initialized ]
+    body: |
+      // TODO: validate virtual controller type
+
+      switch(virtual_controller_button_num)
+      {
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT: {
+            player_left_pressed = true;
+         } break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT: {
+            player_right_pressed = true;
+         } break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_UP: {
+            player_up_pressed = true;
+         } break;
+
+         case AllegroFlare::VirtualControllers::GenericController::BUTTON_DOWN: {
+            player_down_pressed = true;
+         } break;
+
+         default: {
+            // TODO: IMPORTANT: There is currently no escape from gameplay/screen
+            //call_on_finished_callback_func();
+         } break;
+      };
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::VirtualControllers::GenericController
+
+
+
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // This method is DEBUGGING
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_W:
+         case ALLEGRO_KEY_UP: {
+            player_up_pressed = true;
+         } break;
+
+         case ALLEGRO_KEY_A:
+         case ALLEGRO_KEY_LEFT: {
+            player_left_pressed = true;
+         } break;
+
+         case ALLEGRO_KEY_S:
+         case ALLEGRO_KEY_DOWN: {
+            player_down_pressed = true;
+         } break;
+
+         case ALLEGRO_KEY_D:
+         case ALLEGRO_KEY_RIGHT: {
+            player_right_pressed = true;
+         } break;
+
+         case ALLEGRO_KEY_SPACE:
+         case ALLEGRO_KEY_E:
+         case ALLEGRO_KEY_I: {
+            //interact_with_focused_object();
+         } break;
+
+         case ALLEGRO_KEY_ESCAPE: {
+            // NOTE: For production, you will want to emit the EVENT_PAUSE_GAME. This will crash during test because
+            // there is no router. Externally, the body for on_paused_callback might be:
+            //event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
+
+            // NOTE: For testing, previously the call_on_finished_callback_func was called:
+            // call_on_finished_callback_func();
+
+            //call_on_paused_callback_func();
+         } break;
+
+         default: {
+            // Nothing here
+         } break;
+      }
+
+      return;
+
+
+  - name: key_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      switch(ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+         case ALLEGRO_KEY_W: {
+            player_up_pressed = false;
+         } break;
+
+         case ALLEGRO_KEY_LEFT:
+         case ALLEGRO_KEY_A: {
+            player_left_pressed = false;
+         } break;
+
+         case ALLEGRO_KEY_DOWN:
+         case ALLEGRO_KEY_S: {
+            player_down_pressed = false;
+         } break;
+
+         case ALLEGRO_KEY_RIGHT:
+         case ALLEGRO_KEY_D: {
+            player_right_pressed = false;
+         } break;
+
+         default: {
+            // Nothing here
+         } break;
+      }
+
+      return;
+
+
+  - name: joy_axis_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      float axis_min_movement_threshold = 0.1f; // 0.05 is not enough for red joystick
+      //float spin_multiplier = 0.01;
+      //float tilt_multiplier = 0.01;
+      // The "look" stick
+      switch(ev->joystick.stick)
+      {
+         case 0: { // The "look" stick (spin, along the x axis)
+            //float spin_delta = 0.0f;
+            switch(ev->joystick.axis)
+            {
+               case 2:
+                  if (std::fabs(ev->joystick.pos) < axis_min_movement_threshold)
+                  {
+                     player_control_look_velocity.x = 0.0f;
+                  }
+                  else
+                  {
+                     player_control_look_velocity.x = ev->joystick.pos;
+                  }
+               break;
+            }
+            //player_control_look_velocity.x = spin_delta;
+            //player_spin_change(spin_delta * spin_multiplier);
+         } break;
+         case 1: { // The "look" stick (tilt, along the y axis)
+            //float tilt_delta = 0.0f;
+            switch(ev->joystick.axis)
+            {
+               case 0:
+                  if (std::fabs(ev->joystick.pos) < axis_min_movement_threshold)
+                  {
+                     player_control_look_velocity.y = 0.0f;
+                  }
+                  else
+                  {
+                     player_control_look_velocity.y = ev->joystick.pos;
+                  }
+               break;
+            }
+            //player_control_look_velocity.y = tilt_delta;
+            //player_tilt_change(tilt_delta * tilt_multiplier);
+         } break;
+      }
+
+      switch(ev->joystick.stick)
+      {
+         case 0: { // The "move" stick
+            switch(ev->joystick.axis)
+            {
+               case 0:
+                  if (ev->joystick.pos > 0.2)
+                  {
+                     player_right_pressed = true;
+                     player_left_pressed = false;
+                  }
+                  else if (ev->joystick.pos < -0.2)
+                  {
+                     player_left_pressed = true;
+                     player_right_pressed = false;
+                  }
+                  else
+                  {
+                     player_left_pressed = false;
+                     player_right_pressed = false;
+                  }
+               break;
+               case 1:
+                  if (ev->joystick.pos > 0.2)
+                  {
+                     player_down_pressed = true;
+                     player_up_pressed = false;
+                  }
+                  else if (ev->joystick.pos < -0.2)
+                  {
+                     player_up_pressed = true;
+                     player_down_pressed = false;
+                  }
+                  else
+                  {
+                     player_up_pressed = false;
+                     player_down_pressed = false;
+                  }
+               break;
+            }
+         } break;
+      }
+
+      return;
+    body_dependency_symbols:
+      - std::fabs
+
+
+  - name: mouse_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ ev ]
+    body: |
+      switch(ev->mouse.button)
+      {
+         //case 1: {
+            //interact_with_focused_object();
+         //} break;
+      }
+      return;
+
+
+  - name: mouse_axes_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // TODO: Validate spin change
+      ///*
+      float spin_delta = ev->mouse.dx;
+      float tilt_delta = ev->mouse.dy;
+      float spin_multiplier = 0.001;
+      float tilt_multiplier = 0.001;
+      player_spin_change(spin_delta * spin_multiplier);
+      player_tilt_change(tilt_delta * tilt_multiplier);
+
+
+      // HACK
+      /*
+      ALLEGRO_DISPLAY *current_display = al_get_current_display();
+      int current_display_flags = al_get_display_flags(current_display);
+      bool this_display_is_fullscreen = current_display_flags & ALLEGRO_FULLSCREEN_WINDOW;
+      bool this_display_is_windowed = !this_display_is_fullscreen;
+
+      //if (this_display_is_fullscreen)
+      //{
+         //throw std::runtime_error("this_display_is_fullscreen");
+      //}
+      //else
+      //{
+         //throw std::runtime_error("this_display_is_not_fullscreen");
+      //}
+
+
+      //ALLEGRO_FULLSCREEN_WINDOW
+
+      // TODO: Look into what/why this HACK_sysname is needed
+      bool this_system_is_a_mac = (HACK_sysname == "Darwin");
+
+      if (this_display_is_windowed && this_system_is_a_mac)
+      {
+         if (current_display)
+         {
+            al_set_mouse_xy(
+               current_display,
+               al_get_display_width(current_display)*0.5,
+               al_get_display_height(current_display)*0.5
+            );
+         }
+      }
+
+      if (!this_display_is_windowed && !this_system_is_a_mac)
+      {
+         // Warp on windows in fullscreen
+         if (current_display)
+         {
+            al_set_mouse_xy(
+               current_display,
+               al_get_display_width(current_display)*0.5,
+               al_get_display_height(current_display)*0.5
+            );
+         }
+      }
+      */
+
+
+      //float x_delta = ev->mouse->dx;
+      //result->tilt = 0.13;            // look up(-)/down(+)
+      //result->spin = 0.2;             // set a good start initial spin
+      // TODO: this function
+      return;
+
+
+  - name: calculate_strafe_xy
+    type: AllegroFlare::Vec3D
+    private: true
+    parameters:
+      - name: spin
+        type: float
+        default_argument: 0.0f
+      - name: displacement
+        type: float
+        default_argument: 0.0f
+    body: |
+      type: AllegroFlare::Vec3D result;
+      AllegroFlare::Vec2D move_vec(std::cos(spin), std::sin(spin));
+      result.x = move_vec.x * displacement;
+      result.y = 0;
+      result.z = move_vec.y * displacement;
+      return result;
+    body_dependency_symbols:
+      - std::cos
+      - std::sin
+        
+
+  - name: calculate_forward_back_xy
+    type: AllegroFlare::Vec3D
+    private: true
+    parameters:
+      - name: spin
+        type: float
+        default_argument: 0.0f
+      - name: displacement
+        type: float
+        default_argument: 0.0f
+    body: |
+      type: AllegroFlare::Vec3D result;
+      AllegroFlare::Vec2D move_vec(-std::sin(spin), std::cos(spin));
+      result.x = move_vec.x * displacement;
+      result.y = 0;
+      result.z = move_vec.y * displacement;
+      return result;
+    body_dependency_symbols:
+      - std::cos
+      - std::sin
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Prototypes::TileFPS::PlayerInputControllers::Base
+    headers: [ AllegroFlare/Prototypes/TileFPS/PlayerInputControllers/Base.hpp ]
+  - symbol: std::fabs
+    headers: [ cmath ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::GenericController
+    headers: [ AllegroFlare/VirtualControllers/GenericController.hpp ]
+  - symbol: AllegroFlare::Player
+    headers: [ AllegroFlare/Player.hpp ]
+  - symbol: AllegroFlare::VirtualControllers::Base
+    headers: [ AllegroFlare/VirtualControllers/Base.hpp ]
+  - symbol: AllegroFlare::PlayerInputControllers::Base
+    headers: [ AllegroFlare/PlayerInputControllers/Base.hpp ]
+  - symbol: std::cos
+    headers: [ cmath ]
+  - symbol: std::sin
+    headers: [ cmath ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+
+
