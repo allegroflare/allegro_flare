@@ -21,6 +21,7 @@ namespace AllegroFlare
 
       private:
          std::function<void(AllegroFlare::Vec2D, double, double)> on_time_step_update;
+         std::function<void(int)> on_key_pressed;
          AllegroFlare::Vec2D player_control_move_velocity;
          AllegroFlare::Vec2D player_control_look_velocity;
          bool player_right_pressed;
@@ -42,7 +43,9 @@ namespace AllegroFlare
          virtual ~Generic();
 
          void set_on_time_step_update(std::function<void(AllegroFlare::Vec2D, double, double)> on_time_step_update);
+         void set_on_key_pressed(std::function<void(int)> on_key_pressed);
          std::function<void(AllegroFlare::Vec2D, double, double)> get_on_time_step_update() const;
+         std::function<void(int)> get_on_key_pressed() const;
          virtual void update_time_step(double time_now=(al_is_system_installed() ? al_get_time() : throw std::runtime_error("asxjxdxfio")), double delta_time=1.0 / 60.0) override;
          virtual void gameplay_suspend_func() override;
          virtual void gameplay_resume_func() override;

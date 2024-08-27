@@ -15,6 +15,13 @@ properties:
     getter: true
     setter: true
 
+# // TODO: Expand on this method
+  - name: on_key_pressed
+    type: std::function<void(int)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: player_control_move_velocity
     type: AllegroFlare::Vec2D
     init_with: '{}'
@@ -292,6 +299,8 @@ methods:
         type: ALLEGRO_EVENT*
         default_argument: nullptr
     body: |
+      if (on_key_pressed) on_key_pressed(ev->keyboard.keycode);
+
       // This method is DEBUGGING
       switch(ev->keyboard.keycode)
       {

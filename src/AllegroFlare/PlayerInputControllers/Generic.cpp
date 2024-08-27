@@ -18,6 +18,7 @@ namespace PlayerInputControllers
 Generic::Generic()
    : AllegroFlare::PlayerInputControllers::Base(AllegroFlare::PlayerInputControllers::Generic::TYPE)
    , on_time_step_update({})
+   , on_key_pressed({})
    , player_control_move_velocity({})
    , player_control_look_velocity({})
    , player_right_pressed(false)
@@ -39,9 +40,21 @@ void Generic::set_on_time_step_update(std::function<void(AllegroFlare::Vec2D, do
 }
 
 
+void Generic::set_on_key_pressed(std::function<void(int)> on_key_pressed)
+{
+   this->on_key_pressed = on_key_pressed;
+}
+
+
 std::function<void(AllegroFlare::Vec2D, double, double)> Generic::get_on_time_step_update() const
 {
    return on_time_step_update;
+}
+
+
+std::function<void(int)> Generic::get_on_key_pressed() const
+{
+   return on_key_pressed;
 }
 
 
@@ -203,6 +216,8 @@ void Generic::virtual_control_button_down_func(AllegroFlare::Player* player, All
 
 void Generic::key_down_func(ALLEGRO_EVENT* ev)
 {
+   if (on_key_pressed) on_key_pressed(ev->keyboard.keycode);
+
    // This method is DEBUGGING
    switch(ev->keyboard.keycode)
    {
