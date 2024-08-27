@@ -240,6 +240,24 @@ void Gameplay::virtual_control_button_up_func(AllegroFlare::Player* player, Alle
    return;
 }
 
+void Gameplay::key_down_func(ALLEGRO_EVENT* ev)
+{
+   if (player_input_controller) player_input_controller->key_down_func(ev);
+   return;
+}
+
+void Gameplay::key_up_func(ALLEGRO_EVENT* ev)
+{
+   if (player_input_controller) player_input_controller->key_up_func(ev);
+   return;
+}
+
+void Gameplay::key_char_func(ALLEGRO_EVENT* ev)
+{
+   if (player_input_controller) player_input_controller->key_char_func(ev);
+   return;
+}
+
 void Gameplay::joy_axis_func(ALLEGRO_EVENT* ev)
 {
    if (player_input_controller) player_input_controller->joy_axis_func(ev);

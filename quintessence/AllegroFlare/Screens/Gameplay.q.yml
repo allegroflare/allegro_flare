@@ -296,6 +296,42 @@ methods:
       return;
 
 
+  - name: key_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller) player_input_controller->key_down_func(ev);
+      return;
+
+
+  - name: key_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller) player_input_controller->key_up_func(ev);
+      return;
+
+
+  - name: key_char_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller) player_input_controller->key_char_func(ev);
+      return;
+
+
   - name: joy_axis_func
     virtual: true
     override: true

@@ -58,6 +58,9 @@ namespace AllegroFlare
          virtual bool load_level_by_identifier(std::string possible_type="");
          virtual void virtual_control_button_down_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;
+         virtual void key_down_func(ALLEGRO_EVENT* ev=nullptr) override;
+         virtual void key_up_func(ALLEGRO_EVENT* ev=nullptr) override;
+         virtual void key_char_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void joy_axis_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void mouse_down_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void mouse_axes_func(ALLEGRO_EVENT* ev=nullptr) override;
