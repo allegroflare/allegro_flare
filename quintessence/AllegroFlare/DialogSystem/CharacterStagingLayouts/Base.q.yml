@@ -95,6 +95,13 @@ methods:
       return;
 
 
+  - name: exit_all_characters
+    virtual: true
+    body: |
+      // To Implement
+      return;
+
+
   - name: set_speaking_character_bitmap
     virtual: true
     parameters:

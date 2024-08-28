@@ -282,6 +282,16 @@ void Dynamic::hide_all_characters()
    return;
 }
 
+void Dynamic::exit_all_characters()
+{
+   // TODO: Modify the passed in value to be a list
+   for (auto &staged_character : staged_characters)
+   {
+      staged_character.second.exit();
+   }
+   return;
+}
+
 void Dynamic::show_character(std::string staged_character_identifier)
 {
    if (!(staged_character_exists(staged_character_identifier)))

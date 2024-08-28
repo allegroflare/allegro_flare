@@ -67,6 +67,7 @@ namespace AllegroFlare
             void move_staged_character_backward(std::string staged_character_identifier="[unset-staged_character_identifier]");
             virtual void hide_characters_not_of(std::string staged_character_identifier="[unset-staged_character_identifier]") override;
             virtual void hide_all_characters() override;
+            virtual void exit_all_characters() override;
             virtual void show_character(std::string staged_character_identifier="[unset-staged_character_identifier]") override;
             virtual void hide_character(std::string staged_character_identifier="[unset-staged_character_identifier]") override;
             virtual void enter_character(std::string staged_character_identifier="[unset-staged_character_identifier]") override;

@@ -71,6 +71,12 @@ void Base::exit_character(std::string staged_character_identifier)
    return;
 }
 
+void Base::exit_all_characters()
+{
+   // To Implement
+   return;
+}
+
 void Base::set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap, float time_now)
 {
    AllegroFlare::Logger::throw_error(

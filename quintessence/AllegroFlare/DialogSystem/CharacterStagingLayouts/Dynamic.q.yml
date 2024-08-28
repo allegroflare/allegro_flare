@@ -300,6 +300,18 @@ methods:
       return;
 
 
+  - name: exit_all_characters
+    virtual: true
+    override: true
+    body: |
+      // TODO: Modify the passed in value to be a list
+      for (auto &staged_character : staged_characters)
+      {
+         staged_character.second.exit();
+      }
+      return;
+
+
   - name: show_character
     virtual: true
     override: true

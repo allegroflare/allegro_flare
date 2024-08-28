@@ -34,6 +34,7 @@ namespace AllegroFlare
             virtual void hide_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
             virtual void enter_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
             virtual void exit_character(std::string staged_character_identifier="[unset-staged_character_identifier]");
+            virtual void exit_all_characters();
             virtual void set_speaking_character_bitmap(ALLEGRO_BITMAP* speaking_character_bitmap=nullptr, float time_now=0.0f);
             virtual void update(float time_now=0.0f);
             virtual void show(float time_now=0.0f);
