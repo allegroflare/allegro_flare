@@ -36,6 +36,18 @@ bool MotionKit::strobe(float start_time, float time_now, float strobes_per_secon
    return (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
 }
 
+std::pair<bool, bool> MotionKit::counted_strobe(float start_time, float time_now, float strobes_per_second, int num_strobes)
+{
+   // TODO: Test this
+   // Return value is <strobe_is_on, strobes_are_finished>
+   float strobe_frequency = 1.0 / strobes_per_second;
+   float age = (time_now - start_time);
+   bool finished = (age >= num_strobes * strobe_frequency);
+   if (finished) return { false, true };
+   bool on = (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
+   return { on, false };
+}
+
 bool MotionKit::smooth_strobe(float start_time, float time_now, float strobes_per_second)
 {
    // TODO: Update this method to actually be smooth (it's a copy of "strobe")

@@ -44,6 +44,35 @@ functions:
       - fmod
 
 
+  - name: counted_strobe
+    static: true
+    type: std::pair<bool, bool>
+    parameters:
+      - name: start_time
+        type: float
+        default_argument: 0.0f
+      - name: time_now
+        type: float
+        default_argument: 0.0f
+      - name: strobes_per_second
+        type: float
+        default_argument: 10.0f
+      - name: num_strobes
+        type: int
+        default_argument: 2
+    body: |
+      // TODO: Test this
+      // Return value is <strobe_is_on, strobes_are_finished>
+      float strobe_frequency = 1.0 / strobes_per_second;
+      float age = (time_now - start_time);
+      bool finished = (age >= num_strobes * strobe_frequency);
+      if (finished) return { false, true };
+      bool on = (fmod(age, strobe_frequency) < (strobe_frequency * 0.5));
+      return { on, false };
+    body_dependency_symbols:
+      - fmod
+
+
   - name: smooth_strobe
     static: true
     type: bool
