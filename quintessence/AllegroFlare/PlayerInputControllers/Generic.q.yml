@@ -22,6 +22,12 @@ properties:
     getter: true
     setter: true
 
+  - name: on_joy_button_pressed
+    type: std::function<void(int)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: player_control_move_velocity
     type: AllegroFlare::Vec2D
     init_with: '{}'
@@ -384,6 +390,19 @@ methods:
          } break;
       }
 
+      return;
+
+
+  - name: joy_button_down_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // TODO: Test this
+      if (on_joy_button_pressed) on_joy_button_pressed(ev->joystick.button);
       return;
 
 

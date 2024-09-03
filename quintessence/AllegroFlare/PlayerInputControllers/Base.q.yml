@@ -150,6 +150,17 @@ methods:
       return;
 
 
+  - name: joy_button_down_func
+    virtual: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      // Override this in the derived class
+      return;
+
+
   - name: mouse_down_func
     virtual: true
     parameters:
