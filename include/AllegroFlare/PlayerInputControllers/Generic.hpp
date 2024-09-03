@@ -49,7 +49,7 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::Vec2D, double, double)> get_on_time_step_update() const;
          std::function<void(int)> get_on_key_pressed() const;
          std::function<void(int)> get_on_joy_button_pressed() const;
-         virtual void update_time_step(double time_now=(al_is_system_installed() ? al_get_time() : throw std::runtime_error("asxjxdxfio")), double delta_time=1.0 / 60.0) override;
+         virtual void update_time_step(double time_now=0.0, double delta_time=1.0 / 60.0) override;
          virtual void gameplay_suspend_func() override;
          virtual void gameplay_resume_func() override;
          virtual void virtual_control_button_up_func(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false) override;

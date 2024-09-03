@@ -27,7 +27,7 @@ namespace AllegroFlare
          virtual ~Base();
 
          std::string get_type() const;
-         virtual void update_time_step(double time_now=(al_is_system_installed() ? al_get_time() : throw std::runtime_error("asjdfio")), double delta_time=1.0 / 60.0);
+         virtual void update_time_step(double time_now=0.0, double delta_time=1.0 / 60.0);
          virtual void on_activate();
          virtual void on_deactivate();
          virtual void gameplay_suspend_func();

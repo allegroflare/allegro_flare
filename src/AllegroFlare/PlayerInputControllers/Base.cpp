@@ -32,6 +32,13 @@ std::string Base::get_type() const
 
 void Base::update_time_step(double time_now, double delta_time)
 {
+   if (!((time_now != 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::PlayerInputControllers::Base::update_time_step]: error: guard \"(time_now != 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Base::update_time_step]: error: guard \"(time_now != 0.0f)\" not met");
+   }
    // NOTE: This method should likely be renamed, it's equivelent to an update on a time step. It's processed
    // along with the update in the TileFPS/Screen update method, but before physics are applied on entities
    return;

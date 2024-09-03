@@ -22,11 +22,11 @@ methods:
     parameters:
       - name: time_now
         type: double
-        default_argument: '(al_is_system_installed() ? al_get_time() : throw std::runtime_error("asjdfio"))'
-        default_argument_dependency_symbols: [ al_get_time() ]
+        default_argument: 0.0
       - name: delta_time
         type: double
         default_argument: 1.0 / 60.0
+    guards: [ (time_now != 0.0f) ]
     body: |
       // NOTE: This method should likely be renamed, it's equivelent to an update on a time step. It's processed
       // along with the update in the TileFPS/Screen update method, but before physics are applied on entities
