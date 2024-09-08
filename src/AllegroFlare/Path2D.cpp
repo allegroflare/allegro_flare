@@ -9,6 +9,7 @@
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <algorithm> // For std::swap
 
 
 
@@ -378,38 +379,70 @@ namespace AllegroFlare
 
       std::vector<AllegroFlare::vec2d> *newpoints = new std::vector<AllegroFlare::vec2d>;
 
-      // break each segment into 4 seperate segments
-      for (int i=1; i<(int)point.size(); i++)
+      if (as_loop)
       {
-         newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.0 + point[i-1]));
-         newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.25 + point[i-1]));
-         newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.5 + point[i-1]));
-         newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.75 + point[i-1]));
-      }
-      newpoints->push_back(point[point.size()-1]);
+         int num_points = point.size();
 
-
-      // skip the first 2
-      // erase every other point
-      bool keep = true;
-      for (int i=1; i<(int)newpoints->size(); i++)
-      {
-         if (!keep)
+         // break each segment into 4 seperate segments
+         for (int i = 1; i <= num_points; i++)
          {
-            //delete newpoints->at(i);
-            newpoints->erase(newpoints->begin()+i);
-            i--;
+            AllegroFlare::vec2d p1 = point[i - 1];
+            AllegroFlare::vec2d p2 = point[i % num_points]; // Wrap around to the first point if looping
+
+            newpoints->push_back(p1);
+            newpoints->push_back(p1 + (p2 - p1) * 0.25);
+            newpoints->push_back(p1 + (p2 - p1) * 0.50);
+            newpoints->push_back(p1 + (p2 - p1) * 0.75);
          }
-         keep = !keep;
+
+         bool keep = false;
+         for (int i=0; i<(int)newpoints->size(); i++)
+         {
+            if (!keep)
+            {
+               //delete newpoints->at(i);
+               newpoints->erase(newpoints->begin()+i);
+               i--;
+            }
+            keep = !keep;
+         }
+
+         //std::swap(point.front(), point.back());
       }
-      newpoints->push_back(AllegroFlare::vec2d(point[point.size()-1]));
+      else
+      {
+         // break each segment into 4 seperate segments
+         for (int i=1; i<(int)point.size(); i++)
+         {
+            newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.0 + point[i-1]));
+            newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.25 + point[i-1]));
+            newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.5 + point[i-1]));
+            newpoints->push_back(AllegroFlare::vec2d((point[i]-point[i-1])*0.75 + point[i-1]));
+         }
+         newpoints->push_back(point[point.size()-1]);
 
-      //delete newpoints->at(1);
-      newpoints->erase(newpoints->begin()+1);
 
-      //delete newpoints->at((int)newpoints->size()-2);
-      newpoints->erase(newpoints->end()-2);
+         // skip the first 2
+         // erase every other point
+         bool keep = true;
+         for (int i=1; i<(int)newpoints->size(); i++)
+         {
+            if (!keep)
+            {
+               //delete newpoints->at(i);
+               newpoints->erase(newpoints->begin()+i);
+               i--;
+            }
+            keep = !keep;
+         }
+         newpoints->push_back(AllegroFlare::vec2d(point[point.size()-1]));
 
+         //delete newpoints->at(1);
+         newpoints->erase(newpoints->begin()+1);
+
+         //delete newpoints->at((int)newpoints->size()-2);
+         newpoints->erase(newpoints->end()-2);
+      }
 
       // clear the current points
       // and fill with the new points

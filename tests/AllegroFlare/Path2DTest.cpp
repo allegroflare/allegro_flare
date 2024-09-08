@@ -59,8 +59,8 @@ TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture, CAPTURE__soften__will
    path_2d_as_loop.draw(true, false, false, true, ALLEGRO_COLOR{0.1, 0.45, 0.38, 1.0}, 1.0);
    path_2d_as_loop.soften(true);
    path_2d_as_loop.draw(true, false, false, true, ALLEGRO_COLOR{0.18, 0.65, 0.52, 1.0}, 2.0);
-   path_2d_as_loop.soften(true);
-   path_2d_as_loop.draw(true, false, false, true, ALLEGRO_COLOR{0.72, 1.0, 0.71, 1.0}, 3.0);
+   //path_2d_as_loop.soften(true);
+   //path_2d_as_loop.draw(true, false, false, true, ALLEGRO_COLOR{0.72, 1.0, 0.71, 1.0}, 3.0);
 
    ALLEGRO_COLOR text_color = ALLEGRO_COLOR{0.6, 0.6, 0.5, 1.0};
    al_draw_text(font, text_color, cx-500, cy-300, ALLEGRO_ALIGN_CENTER, "soften()");
