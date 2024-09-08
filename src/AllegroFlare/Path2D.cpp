@@ -9,7 +9,7 @@
 #include <AllegroFlare/Useful.hpp>
 #include <AllegroFlare/UsefulPHP.hpp>
 #include <allegro5/allegro_primitives.h>
-#include <algorithm> // For std::swap
+#include <algorithm> // For std::rotate
 
 
 
@@ -407,7 +407,8 @@ namespace AllegroFlare
             keep = !keep;
          }
 
-         //std::swap(point.front(), point.back());
+         // Move the last point (closest blended point to the original first point) to the front so it becomes the first
+         std::rotate(newpoints->begin(), newpoints->end() - 1, newpoints->end());
       }
       else
       {
