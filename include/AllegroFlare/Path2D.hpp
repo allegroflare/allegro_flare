@@ -46,7 +46,7 @@ namespace AllegroFlare
       Path2D &rotate(float angle, AllegroFlare::vec2d pivot);
       Path2D &flip_h();
       Path2D &flip_v();
-      Path2D &soften();
+      Path2D &soften(bool as_loop=false);
       Path2D &move(float x, float y);
       Path2D &scale(float s);
       Path2D &scale(float x, float y);

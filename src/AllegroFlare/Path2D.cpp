@@ -372,7 +372,7 @@ namespace AllegroFlare
 
 
 
-   Path2D &Path2D::soften()
+   Path2D &Path2D::soften(bool as_loop)
    {
       if (point.size() <= 1) return *this;
 
