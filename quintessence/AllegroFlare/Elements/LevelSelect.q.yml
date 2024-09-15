@@ -50,6 +50,7 @@ properties:
     type: AllegroFlare::Placement2D
     init_with: '{ 1920/2, 1080/2, 1300, 700 }'
     getter: true
+    getter_ref: true
 
   - name: cursor_x
     type: int

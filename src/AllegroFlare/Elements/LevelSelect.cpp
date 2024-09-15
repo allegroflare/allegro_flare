@@ -260,6 +260,12 @@ bool LevelSelect::get_ignore_on_invalid_selection() const
 }
 
 
+AllegroFlare::Placement2D &LevelSelect::get_place_ref()
+{
+   return place;
+}
+
+
 void LevelSelect::add_to_locked_list(std::string level_identifier)
 {
    // TODO: Ensure item exists in list of levels

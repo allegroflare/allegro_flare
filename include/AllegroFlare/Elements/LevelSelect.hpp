@@ -96,6 +96,7 @@ namespace AllegroFlare
          bool get_drawing_backfill_and_frame() const;
          bool get_drawing_title_text() const;
          bool get_ignore_on_invalid_selection() const;
+         AllegroFlare::Placement2D &get_place_ref();
          void add_to_locked_list(std::string level_identifier="[unset-level_identifier]");
          void add_to_completed_list(std::string level_identifier="[unset-level_identifier]");
          bool is_locked(std::string level_identifier="[unset-level_identifier]");
