@@ -106,6 +106,7 @@
     "AllegroFlare/AssetStudio/AssetImporter",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
+    "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshTMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
@@ -2671,6 +2672,9 @@
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/SubscreenFactory",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "std/istreambuf_iterator": [
+    "AllegroFlare/GameProgressAndStateInfos/Base"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

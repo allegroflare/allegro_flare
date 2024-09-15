@@ -7,6 +7,18 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: save_file_filename
+    type: std::string
+    init_with: DEFAULT_FILENAME
+    getter: true
+    setter: true
+
+  - name: DEFAULT_FILENAME
+    type: char*
+    init_with: '(char*)"./saves/save.json"'
+    static: true
+    constexpr: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/GameProgressAndStateInfos/Base"'
@@ -14,7 +26,93 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - todos:
+      - Save multiple save files, keeping the previous versions up to n files. Currently only one file is used
+        and if there were a writing error it could break the entire save file. Special considerations should be taken
+        here.
+
+
 methods:
+
+
+  - name: save
+    guards: [ 'std::filesystem::exists(save_file_filename)' ]
+    body: |
+      // TODO: Consider creating the directory if it's not present
+      // TODO: Test this
+      // For stability reasons, export of the data will be attempted before attempting to open the file for writing
+      std::string data = export_to_string();
+
+      // Open a file for writing
+      std::ofstream file;
+      file.open(save_file_filename);
+      
+      // Check if the file opened successfully
+      if (file.is_open())
+      {
+         file << data;
+         file.close();
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::GameProgressAndStateInfos::Base::save",
+            "Save file \"" + save_file_filename + "\" saved." // TODO: Consider not showing the filename
+         );
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::GameProgressAndStateInfos::Base::save",
+            "Failed to save the progress because the file \"" + save_file_filename + "\" could not be opened."
+         );
+      }
+
+      return;
+    body_dependency_symbols:
+      - std::filesystem::exists
+      - std::ofstream
+      - AllegroFlare::Logger
+
+
+  - name: load
+    guards: [ 'std::filesystem::exists(save_file_filename)' ]
+    body: |
+      // TODO: Test this
+      std::ifstream file(save_file_filename);
+      
+      // Check if the file opened successfully
+      if (file.is_open())
+      {
+         // Load the entire file content into the string
+         std::string data((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+         file.close();
+         
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::GameProgressAndStateInfos::Base::load",
+            "Save file \"" + save_file_filename + "\" read successfully." // TODO: Consider not showing the filename
+         );
+
+         import_from_string(data);
+
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::GameProgressAndStateInfos::Base::load",
+            "Save file \"" + save_file_filename + "\" loaded." // TODO: Consider not showing the filename
+         );
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::GameProgressAndStateInfos::Base::load",
+            "Failed to load the save file because the file \"" + save_file_filename + "\" could not be opened."
+         );
+      }
+
+      return;
+    body_dependency_symbols:
+      - std::filesystem::exists
+      - std::istreambuf_iterator
+      - AllegroFlare::Logger
 
 
   - name: export_to_string
@@ -31,11 +129,11 @@ methods:
 
 
   - name: import_from_string
+    virtual: true
     parameters:
       - name: data_string
         type: std::string
         default_argument: '"[unset-data_string]"'
-    virtual: true
     body: |
       AllegroFlare::Logger::throw_error(
             "AllegroFlare::GameProgressAndStateInfos::Base::import_from_string",
@@ -61,5 +159,9 @@ dependencies:
 
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: std::istreambuf_iterator
+    headers: [ iterator ]
+  - symbol: std::filesystem::exists
+    headers: [ filesystem ]
 
 
