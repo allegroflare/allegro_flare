@@ -9,6 +9,18 @@ parent_classes:
 properties:
 
 
+  - name: on_paused_callback_func
+    type: std::function<void(AllegroFlare::Screens::Gameplay*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_paused_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: on_finished_callback_func
     type: std::function<void(AllegroFlare::Screens::Gameplay*, void*)>
     init_with: ''
@@ -209,6 +221,17 @@ methods:
          //player_input_controller->update_player_controlled_entity_velocity_from_player_input();
       //}
       return;
+
+
+  - name: call_on_paused_callback_func
+    body: |
+      // TODO: Test this callback call
+      // TODO: Check downstream projects that may use this technique, or may already be using it and should have
+      // their implementation removed for this one
+      if (on_paused_callback_func) on_paused_callback_func(this, on_paused_callback_func_user_data);
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: call_on_finished_callback_func

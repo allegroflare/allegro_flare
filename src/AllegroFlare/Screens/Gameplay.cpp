@@ -13,6 +13,8 @@ namespace Screens
 
 Gameplay::Gameplay()
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::Gameplay::TYPE)
+   , on_paused_callback_func()
+   , on_paused_callback_func_user_data(nullptr)
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
    , player_input_controller(nullptr)
@@ -27,6 +29,18 @@ Gameplay::~Gameplay()
 }
 
 
+void Gameplay::set_on_paused_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_paused_callback_func)
+{
+   this->on_paused_callback_func = on_paused_callback_func;
+}
+
+
+void Gameplay::set_on_paused_callback_func_user_data(void* on_paused_callback_func_user_data)
+{
+   this->on_paused_callback_func_user_data = on_paused_callback_func_user_data;
+}
+
+
 void Gameplay::set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func)
 {
    this->on_finished_callback_func = on_finished_callback_func;
@@ -36,6 +50,18 @@ void Gameplay::set_on_finished_callback_func(std::function<void(AllegroFlare::Sc
 void Gameplay::set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data)
 {
    this->on_finished_callback_func_user_data = on_finished_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::Gameplay*, void*)> Gameplay::get_on_paused_callback_func() const
+{
+   return on_paused_callback_func;
+}
+
+
+void* Gameplay::get_on_paused_callback_func_user_data() const
+{
+   return on_paused_callback_func_user_data;
 }
 
 
@@ -192,6 +218,15 @@ void Gameplay::primary_render_func()
    //{
       //player_input_controller->update_player_controlled_entity_velocity_from_player_input();
    //}
+   return;
+}
+
+void Gameplay::call_on_paused_callback_func()
+{
+   // TODO: Test this callback call
+   // TODO: Check downstream projects that may use this technique, or may already be using it and should have
+   // their implementation removed for this one
+   if (on_paused_callback_func) on_paused_callback_func(this, on_paused_callback_func_user_data);
    return;
 }
 
