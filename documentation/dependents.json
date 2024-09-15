@@ -308,7 +308,8 @@
   "std/find_if": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/Network2/URLTokenizer",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/StringTransformer"
   ],
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"

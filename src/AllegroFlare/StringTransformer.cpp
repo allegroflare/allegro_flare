@@ -175,6 +175,32 @@ std::string StringTransformer::replace(std::string subject, std::string search, 
    return subject;
 }
 
+std::vector<std::string> StringTransformer::split(std::string string, char delimiter)
+{
+   std::vector<std::string> elems;
+   auto result = std::back_inserter(elems);
+   std::stringstream ss(string);
+   std::string item;
+   while (std::getline(ss, item, delimiter)) { *(result++) = item; }
+   return elems;
+}
+
+std::vector<std::string> StringTransformer::tokenize(std::string str, char delim)
+{
+   std::vector<std::string> tokens = split(str, delim);
+   for (auto &token : tokens) token = trim(token);
+   return tokens;
+}
+
+std::string StringTransformer::trim(std::string s)
+{
+   // ltrim
+   s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c) {return !std::isspace(c);}));
+   // rtrim
+   s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
+   return s;
+}
+
 
 } // namespace AllegroFlare
 

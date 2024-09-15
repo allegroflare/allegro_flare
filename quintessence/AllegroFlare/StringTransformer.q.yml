@@ -210,6 +210,58 @@ methods:
       return subject;
 
 
+  - name: split
+    type: std::vector<std::string>
+    static: true
+    parameters:
+      - name: string
+        type: std::string
+        default_argument: '""'
+      - name: delimiter
+        type: char
+        default_argument: "' '"
+    body: |
+      std::vector<std::string> elems;
+      auto result = std::back_inserter(elems);
+      std::stringstream ss(string);
+      std::string item;
+      while (std::getline(ss, item, delimiter)) { *(result++) = item; }
+      return elems;
+
+
+  - name: tokenize
+    static: true
+    type: std::vector<std::string>
+    parameters:
+      - name: str
+        type: std::string
+        default_argument: '""'
+      - name: delim
+        type: char
+        default_argument: "'|'"
+    body: |
+      std::vector<std::string> tokens = split(str, delim);
+      for (auto &token : tokens) token = trim(token);
+      return tokens;
+
+
+  - name: trim
+    type: std::string
+    static: true
+    parameters:
+      - name: s
+        type: std::string
+        default_argument: '""'
+    body: |
+      // ltrim
+      s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c) {return !std::isspace(c);}));
+      // rtrim
+      s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
+      return s;
+    body_dependency_symbols:
+      - std::find_if
+
+
 dependencies:
 
 
@@ -223,5 +275,7 @@ dependencies:
     headers: [ cctype ]
   - symbol: isalnum
     headers: [ cctype ]
+  - symbol: std::find_if
+    headers: [ algorithm ]
 
 

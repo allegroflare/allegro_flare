@@ -39,8 +39,16 @@ methods:
 
 
   - name: save
-    guards: [ 'std::filesystem::exists(save_file_filename)' ]
     body: |
+      if (!std::filesystem::exists(save_file_filename))
+      {
+         AllegroFlare::Logger::throw_missing_file_error(
+            "AllegroFlare::GameProgressAndStateInfos::Base::save",
+            save_file_filename,
+            ""
+         );
+      }
+
       // TODO: Consider creating the directory if it's not present
       // TODO: Test this
       // For stability reasons, export of the data will be attempted before attempting to open the file for writing
@@ -76,8 +84,16 @@ methods:
 
 
   - name: load
-    guards: [ 'std::filesystem::exists(save_file_filename)' ]
     body: |
+      if (!std::filesystem::exists(save_file_filename))
+      {
+         AllegroFlare::Logger::throw_missing_file_error(
+            "AllegroFlare::GameProgressAndStateInfos::Base::load",
+            save_file_filename,
+            "json"
+         );
+      }
+
       // TODO: Test this
       std::ifstream file(save_file_filename);
       

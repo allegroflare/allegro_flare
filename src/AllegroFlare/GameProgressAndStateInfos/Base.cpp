@@ -5,10 +5,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <iterator>
-#include <sstream>
-#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -49,13 +46,15 @@ std::string Base::get_save_file_filename() const
 
 void Base::save()
 {
-   if (!(std::filesystem::exists(save_file_filename)))
+   if (!std::filesystem::exists(save_file_filename))
    {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::GameProgressAndStateInfos::Base::save]: error: guard \"std::filesystem::exists(save_file_filename)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::GameProgressAndStateInfos::Base::save]: error: guard \"std::filesystem::exists(save_file_filename)\" not met");
+      AllegroFlare::Logger::throw_missing_file_error(
+         "AllegroFlare::GameProgressAndStateInfos::Base::save",
+         save_file_filename,
+         ""
+      );
    }
+
    // TODO: Consider creating the directory if it's not present
    // TODO: Test this
    // For stability reasons, export of the data will be attempted before attempting to open the file for writing
@@ -88,13 +87,15 @@ void Base::save()
 
 void Base::load()
 {
-   if (!(std::filesystem::exists(save_file_filename)))
+   if (!std::filesystem::exists(save_file_filename))
    {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::GameProgressAndStateInfos::Base::load]: error: guard \"std::filesystem::exists(save_file_filename)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::GameProgressAndStateInfos::Base::load]: error: guard \"std::filesystem::exists(save_file_filename)\" not met");
+      AllegroFlare::Logger::throw_missing_file_error(
+         "AllegroFlare::GameProgressAndStateInfos::Base::load",
+         save_file_filename,
+         "json"
+      );
    }
+
    // TODO: Test this
    std::ifstream file(save_file_filename);
 

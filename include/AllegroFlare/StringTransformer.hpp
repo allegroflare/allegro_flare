@@ -30,6 +30,9 @@ namespace AllegroFlare
       static std::string join_with_commas(std::set<std::string>* elements=nullptr);
       static std::string join(std::vector<std::string>* elements=nullptr, std::string interpolation_string=", ");
       static std::string remove_non_alphanumeric(std::string input="[unset-input]");
+      static std::vector<std::string> split(std::string string="", char delimiter=' ');
+      static std::vector<std::string> tokenize(std::string str="", char delim='|');
+      static std::string trim(std::string s="");
    };
 }
 

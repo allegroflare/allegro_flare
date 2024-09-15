@@ -37142,6 +37142,18 @@ table td
   <td class="private_method">std::string</td>
   <td class="private_method"><b>replace</b>(std::string subject=&quot;[unset-subject]&quot;, std::string search=&quot;[unset-search]&quot;, std::string replace=&quot;[unset-replace]&quot;)</td>
 </tr>
+<tr>
+  <td class="method">std::vector&lt;std::string&gt;</td>
+  <td class="method"><b>split</b>(std::string string=&quot;&quot;, char delimiter=&#39; &#39;)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;std::string&gt;</td>
+  <td class="method"><b>tokenize</b>(std::string str=&quot;&quot;, char delim=&#39;|&#39;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>trim</b>(std::string s=&quot;&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -37159,6 +37171,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;isalnum&quot;, &quot;headers&quot;=&gt;[&quot;cctype&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::find_if&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -44533,7 +44548,8 @@ table td
   "std/find_if": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/Network2/URLTokenizer",
-    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
+    "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/StringTransformer"
   ],
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
