@@ -4,7 +4,8 @@
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/StringTransformer.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
-#include <AllegroFlare/Testing/TemporaryFilenameCreator.hpp>
+#include <AllegroFlare/Testing/TemporaryDirectoryCreator.hpp>
+#include <AllegroFlare/UsefulPHP.hpp>
 
 
 class GameProgressAndStateInfosBaseTestClass : public AllegroFlare::GameProgressAndStateInfos::Base
@@ -22,7 +23,6 @@ public:
    }
    virtual void import_from_string(std::string input) override
    {
-      std::cout << "INPUT: " << input << std::endl;
       items.clear();
       items = AllegroFlare::StringTransformer::tokenize(input, ',');
    }
@@ -60,31 +60,24 @@ TEST(AllegroFlare_GameProgressAndStateInfos_BaseTest, derived_classes_will_have_
 
 TEST(AllegroFlare_GameProgressAndStateInfos_BaseTest, save__will_save_the_contents_to_the_file)
 {
-   GTEST_SKIP();
-  //- name: create_filename_within_guaranteed_unique_directory
-    //type: std::string
-    //body: |
-      //AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator;
-      //std::string unique_directory = temporary_directory_creator.create().string();
-      //std::string unique_filename = std::filesystem::path(std::tmpnam(nullptr)).filename().string();
-      //return unique_directory + "/" + unique_filename;
-    //body_dependency_symbols:
-   //AllegroFlare::Testing::TemporaryFilenameCreator creator;
-   //std::string save_file_filename = creator.create_filename_within_guaranteed_unique_directory();
-   //std::filesystem::create_directory
-      //AllegroFlare::Testing::TemporaryFilenameCreator::create_filename_within_guaranteed_unique_directory();
+   AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator;
+   std::string created_directory = temporary_directory_creator.create().string();
+   std::string save_file_filename = created_directory + "/" + "my_output_save_file.txt";
 
-   //AllegroFlare::Testing::TemporarytoryCreator temporary_directory_creator;
-   //std::string directory = temporary_directory_creator.create();
-   //AllegroFlare::DeploymentEnvironment deployment_environment("test");
-   //std::string save_file_filename = 
-      //deployment_environment.get_data_folder_path() +
-      //"saves/test_save_file-01.txt";
+   GameProgressAndStateInfosBaseTestClass test_class;
+   test_class.set_save_file_filename(save_file_filename);
 
-   //GameProgressAndStateInfosBaseTestClass test_class;
-   //test_class.set_save_file_filename(save_file_filename);
+   // Set the items in our test class
+   test_class.items = { "ring", "diamond", "diamond", "knife", "coin" };
 
-   //test_class.save();
+   EXPECT_EQ(false, std::filesystem::exists(save_file_filename));
+   test_class.save();
+   EXPECT_EQ(true, std::filesystem::exists(save_file_filename));
+
+   // Check the contents of the file
+   std::string expected_file_content = "ring,diamond,diamond,knife,coin";
+   std::string actual_save_file_content = AllegroFlare::php::file_get_contents(save_file_filename);
+   EXPECT_EQ(expected_file_content, actual_save_file_content);
 }
 
 
@@ -96,12 +89,19 @@ TEST(AllegroFlare_GameProgressAndStateInfos_BaseTest,
       deployment_environment.get_data_folder_path() +
       "saves/test_save_file-01.txt";
 
+   // Validate the test file has the expected data (it has accidentally been overwritten in the past)
+   std::string expected_file_content = "apple, apple, cherry, orange\n";
+   std::string actual_save_file_content = AllegroFlare::php::file_get_contents(save_file_filename);
+   ASSERT_EQ(expected_file_content, actual_save_file_content);
+
    GameProgressAndStateInfosBaseTestClass test_class;
    test_class.set_save_file_filename(save_file_filename);
 
    test_class.load();
 
-   EXPECT_EQ(4, test_class.items.size());
+   std::vector<std::string> expected_items = { "apple", "apple", "cherry", "orange" };
+   std::vector<std::string> actual_items = test_class.items;
+   EXPECT_EQ(expected_items, actual_items);
 }
 
 

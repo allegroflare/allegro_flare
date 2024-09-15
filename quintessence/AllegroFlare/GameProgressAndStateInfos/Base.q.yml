@@ -32,7 +32,9 @@ documentation:
   - todos:
       - Save multiple save files, keeping the previous versions up to n files. Currently only one file is used
         and if there were a writing error it could break the entire save file. Special considerations should be taken
-        here.
+        here. Also, writing a temporary new save file, then swapping the names of the current and previous.
+      - If the save folder does not exist on save, it should probably be created. Maybe an initialize requirement
+        could check the presence of the folder, and save_file_filename would be required to be non-folder.
 
 
 methods:
@@ -40,14 +42,11 @@ methods:
 
   - name: save
     body: |
-      if (!std::filesystem::exists(save_file_filename))
-      {
-         AllegroFlare::Logger::throw_missing_file_error(
-            "AllegroFlare::GameProgressAndStateInfos::Base::save",
-            save_file_filename,
-            ""
-         );
-      }
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::GameProgressAndStateInfos::Base::save",
+         "This method currently does not check if the location is a valid location for saving, as well as other "
+            "overwriting and save file backup scenarios. Please review safety checks for save files."
+      );
 
       // TODO: Consider creating the directory if it's not present
       // TODO: Test this

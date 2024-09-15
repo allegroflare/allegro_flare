@@ -46,14 +46,11 @@ std::string Base::get_save_file_filename() const
 
 void Base::save()
 {
-   if (!std::filesystem::exists(save_file_filename))
-   {
-      AllegroFlare::Logger::throw_missing_file_error(
-         "AllegroFlare::GameProgressAndStateInfos::Base::save",
-         save_file_filename,
-         ""
-      );
-   }
+   AllegroFlare::Logger::warn_from(
+      "AllegroFlare::GameProgressAndStateInfos::Base::save",
+      "This method currently does not check if the location is a valid location for saving, as well as other "
+         "overwriting and save file backup scenarios. Please review safety checks for save files."
+   );
 
    // TODO: Consider creating the directory if it's not present
    // TODO: Test this
