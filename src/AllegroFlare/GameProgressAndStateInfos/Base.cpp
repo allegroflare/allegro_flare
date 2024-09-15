@@ -46,14 +46,16 @@ std::string Base::get_save_file_filename() const
 
 void Base::save()
 {
+   // TODO: Test this method
    AllegroFlare::Logger::warn_from(
       "AllegroFlare::GameProgressAndStateInfos::Base::save",
       "This method currently does not check if the location is a valid location for saving, as well as other "
          "overwriting and save file backup scenarios. Please review safety checks for save files."
    );
 
-   // TODO: Consider creating the directory if it's not present
-   // TODO: Test this
+   // Create the directory if it's not present
+   create_directories_to_save_file_if_they_do_not_exist();
+
    // For stability reasons, export of the data will be attempted before attempting to open the file for writing
    std::string data = export_to_string();
 
@@ -84,6 +86,7 @@ void Base::save()
 
 void Base::load()
 {
+   // TODO: Test this method
    if (!std::filesystem::exists(save_file_filename))
    {
       AllegroFlare::Logger::warn_from(
@@ -96,7 +99,6 @@ void Base::load()
       return;
    }
 
-   // TODO: Test this
    std::ifstream file(save_file_filename);
 
    // Check if the file opened successfully
@@ -115,7 +117,8 @@ void Base::load()
 
       AllegroFlare::Logger::info_from(
          "AllegroFlare::GameProgressAndStateInfos::Base::load",
-         "Save file \"" + save_file_filename + "\" loaded." // TODO: Consider not showing the filename
+         // TODO: Consider not showing the filename
+         "Save file \"" + save_file_filename + "\" import_from_string was successful."
       );
    }
    else
@@ -126,6 +129,34 @@ void Base::load()
       );
    }
 
+   return;
+}
+
+void Base::create_directories_to_save_file_if_they_do_not_exist()
+{
+   // Extract the directory part from the file path
+   std::filesystem::path dir_path = std::filesystem::path(save_file_filename).parent_path();
+
+   // Create directories if they do not exist
+   if (!dir_path.empty() && !std::filesystem::exists(dir_path))
+   {
+      if (std::filesystem::create_directories(dir_path))
+      {
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::GameProgressAndStateInfos::Base::create_directories_to_save_file_if_they_do_not_exist",
+            "The expected directories to the save file were not initially present, but were created successfully."
+         );
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::GameProgressAndStateInfos::Base::create_directories_to_save_file_if_they_do_not_exist",
+            "Failed to load the save file."
+         );
+         //std::cerr << "Failed to create directories!" << std::endl;
+         return;  // Exit if directory creation fails
+      }
+   }
    return;
 }
 

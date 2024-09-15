@@ -82,12 +82,34 @@ TEST(AllegroFlare_GameProgressAndStateInfos_BaseTest, save__will_save_the_conten
 
 
 TEST(AllegroFlare_GameProgressAndStateInfos_BaseTest,
+   save__with_a_directory_that_does_not_exist__will_create_the_directory_to_ensure_it_is_present)
+{
+   AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator;
+   std::string non_existent_directory = temporary_directory_creator.find_nonexistent_temporary_directory().string();
+   std::string save_file_filename = non_existent_directory + "/" + "my_output_save_file.txt";
+
+   GameProgressAndStateInfosBaseTestClass test_class;
+   test_class.set_save_file_filename(save_file_filename);
+
+   // Set the items in our test class
+   test_class.items = { "ring", "diamond", "diamond", "knife", "coin" };
+
+   EXPECT_EQ(false, std::filesystem::exists(save_file_filename));
+   test_class.save();
+   EXPECT_EQ(true, std::filesystem::exists(save_file_filename));
+
+   // Check the contents of the file
+   std::string expected_file_content = "ring,diamond,diamond,knife,coin";
+   std::string actual_save_file_content = AllegroFlare::php::file_get_contents(save_file_filename);
+   EXPECT_EQ(expected_file_content, actual_save_file_content);
+}
+
+
+TEST(AllegroFlare_GameProgressAndStateInfos_BaseTest,
    load__will_call_import_to_string_with_the_file_contents_for_loading)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
-   std::string save_file_filename = 
-      deployment_environment.get_data_folder_path() +
-      "saves/test_save_file-01.txt";
+   std::string save_file_filename = deployment_environment.get_data_folder_path() + "saves/test_save_file-01.txt";
 
    // Validate the test file has the expected data (it has accidentally been overwritten in the past)
    std::string expected_file_content = "apple, apple, cherry, orange\n";

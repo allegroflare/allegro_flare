@@ -29,12 +29,15 @@ properties:
 documentation:
 
 
+  - notes:
+      - If the save folder does not exist on save, it will be created. Possibly an initialize requirement
+        could check the presence of the folder , and save_file_filename would be required to be non-folder.
   - todos:
       - Save multiple save files, keeping the previous versions up to n files. Currently only one file is used
         and if there were a writing error it could break the entire save file. Special considerations should be taken
         here. Also, writing a temporary new save file, then swapping the names of the current and previous.
-      - If the save folder does not exist on save, it should probably be created. Maybe an initialize requirement
-        could check the presence of the folder, and save_file_filename would be required to be non-folder.
+      - Modify the class to have a separate folder and save files, validate the folder is present with initialization
+      - Test the log messages notifying when directories are created
 
 
 methods:
@@ -42,14 +45,16 @@ methods:
 
   - name: save
     body: |
+      // TODO: Test this method
       AllegroFlare::Logger::warn_from(
          "AllegroFlare::GameProgressAndStateInfos::Base::save",
          "This method currently does not check if the location is a valid location for saving, as well as other "
             "overwriting and save file backup scenarios. Please review safety checks for save files."
       );
 
-      // TODO: Consider creating the directory if it's not present
-      // TODO: Test this
+      // Create the directory if it's not present
+      create_directories_to_save_file_if_they_do_not_exist();
+
       // For stability reasons, export of the data will be attempted before attempting to open the file for writing
       std::string data = export_to_string();
 
@@ -84,6 +89,7 @@ methods:
 
   - name: load
     body: |
+      // TODO: Test this method
       if (!std::filesystem::exists(save_file_filename))
       {
          AllegroFlare::Logger::warn_from(
@@ -96,7 +102,6 @@ methods:
          return;
       }
 
-      // TODO: Test this
       std::ifstream file(save_file_filename);
       
       // Check if the file opened successfully
@@ -115,7 +120,8 @@ methods:
 
          AllegroFlare::Logger::info_from(
             "AllegroFlare::GameProgressAndStateInfos::Base::load",
-            "Save file \"" + save_file_filename + "\" loaded." // TODO: Consider not showing the filename
+            // TODO: Consider not showing the filename
+            "Save file \"" + save_file_filename + "\" import_from_string was successful."
          );
       }
       else
@@ -131,6 +137,35 @@ methods:
       - std::filesystem::exists
       - std::istreambuf_iterator
       - AllegroFlare::Logger
+
+
+  - name: create_directories_to_save_file_if_they_do_not_exist
+    private: true
+    body: |
+      // Extract the directory part from the file path
+      std::filesystem::path dir_path = std::filesystem::path(save_file_filename).parent_path();
+      
+      // Create directories if they do not exist
+      if (!dir_path.empty() && !std::filesystem::exists(dir_path))
+      {
+         if (std::filesystem::create_directories(dir_path))
+         {
+            AllegroFlare::Logger::info_from(
+               "AllegroFlare::GameProgressAndStateInfos::Base::create_directories_to_save_file_if_they_do_not_exist",
+               "The expected directories to the save file were not initially present, but were created successfully."
+            );
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::GameProgressAndStateInfos::Base::create_directories_to_save_file_if_they_do_not_exist",
+               "Failed to load the save file."
+            );
+            //std::cerr << "Failed to create directories!" << std::endl;
+            return;  // Exit if directory creation fails
+         }
+      }
+      return;
 
 
   - name: export_to_string

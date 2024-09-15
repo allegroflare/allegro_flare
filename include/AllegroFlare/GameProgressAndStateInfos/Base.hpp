@@ -17,6 +17,7 @@ namespace AllegroFlare
       private:
          std::string type;
          std::string save_file_filename;
+         void create_directories_to_save_file_if_they_do_not_exist();
 
       protected:
 

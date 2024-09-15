@@ -20,6 +20,7 @@ namespace AllegroFlare
          TemporaryDirectoryCreator();
          ~TemporaryDirectoryCreator();
 
+         std::filesystem::path find_nonexistent_temporary_directory(uint32_t max_tries=100000);
          std::filesystem::path create(uint32_t max_tries=100000);
       };
    }
