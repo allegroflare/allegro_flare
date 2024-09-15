@@ -38,6 +38,7 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , num_columns(5)
    , num_rows(3)
    , hide_title_when_locked(true)
+   , show_completed_text_on_list_item_box(true)
    , drawing_backfill_and_frame(true)
    , drawing_title_text(true)
    , ignore_on_invalid_selection(true)
@@ -131,6 +132,12 @@ void LevelSelect::set_num_rows(int num_rows)
 void LevelSelect::set_hide_title_when_locked(bool hide_title_when_locked)
 {
    this->hide_title_when_locked = hide_title_when_locked;
+}
+
+
+void LevelSelect::set_show_completed_text_on_list_item_box(bool show_completed_text_on_list_item_box)
+{
+   this->show_completed_text_on_list_item_box = show_completed_text_on_list_item_box;
 }
 
 
@@ -239,6 +246,12 @@ int LevelSelect::get_num_rows() const
 bool LevelSelect::get_hide_title_when_locked() const
 {
    return hide_title_when_locked;
+}
+
+
+bool LevelSelect::get_show_completed_text_on_list_item_box() const
+{
+   return show_completed_text_on_list_item_box;
 }
 
 
@@ -639,7 +652,11 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
             x+w-22, y+h-36+6  // Bottom right (use font-size -23)
             //x+w/2, y+h/2-icon_font_line_height/2 // centered (use font-size -52 or so)
          );
-         al_draw_text(small_label_font, icon_color, x+w-22-18, y+h-36, ALLEGRO_ALIGN_RIGHT, "completed");
+
+         if (show_completed_text_on_list_item_box)
+         {
+            al_draw_text(small_label_font, icon_color, x+w-22-18, y+h-36, ALLEGRO_ALIGN_RIGHT, "completed");
+         }
       }
    }
 

@@ -39,6 +39,7 @@ namespace AllegroFlare
          int num_columns;
          int num_rows;
          bool hide_title_when_locked;
+         bool show_completed_text_on_list_item_box;
          bool drawing_backfill_and_frame;
          bool drawing_title_text;
          bool ignore_on_invalid_selection;
@@ -75,6 +76,7 @@ namespace AllegroFlare
          void set_num_columns(int num_columns);
          void set_num_rows(int num_rows);
          void set_hide_title_when_locked(bool hide_title_when_locked);
+         void set_show_completed_text_on_list_item_box(bool show_completed_text_on_list_item_box);
          void set_drawing_backfill_and_frame(bool drawing_backfill_and_frame);
          void set_drawing_title_text(bool drawing_title_text);
          void set_ignore_on_invalid_selection(bool ignore_on_invalid_selection);
@@ -93,6 +95,7 @@ namespace AllegroFlare
          int get_num_columns() const;
          int get_num_rows() const;
          bool get_hide_title_when_locked() const;
+         bool get_show_completed_text_on_list_item_box() const;
          bool get_drawing_backfill_and_frame() const;
          bool get_drawing_title_text() const;
          bool get_ignore_on_invalid_selection() const;

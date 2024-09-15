@@ -104,6 +104,12 @@ properties:
     getter: true
     setter: true
 
+  - name: show_completed_text_on_list_item_box
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
   - name: drawing_backfill_and_frame
     type: bool
     init_with: true
@@ -559,7 +565,11 @@ methods:
                x+w-22, y+h-36+6  // Bottom right (use font-size -23)
                //x+w/2, y+h/2-icon_font_line_height/2 // centered (use font-size -52 or so)
             );
-            al_draw_text(small_label_font, icon_color, x+w-22-18, y+h-36, ALLEGRO_ALIGN_RIGHT, "completed");
+
+            if (show_completed_text_on_list_item_box)
+            {
+               al_draw_text(small_label_font, icon_color, x+w-22-18, y+h-36, ALLEGRO_ALIGN_RIGHT, "completed");
+            }
          }
       }
 
