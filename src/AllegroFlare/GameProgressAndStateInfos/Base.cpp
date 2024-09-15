@@ -86,11 +86,14 @@ void Base::load()
 {
    if (!std::filesystem::exists(save_file_filename))
    {
-      AllegroFlare::Logger::throw_missing_file_error(
+      AllegroFlare::Logger::warn_from(
          "AllegroFlare::GameProgressAndStateInfos::Base::load",
-         save_file_filename,
-         "json"
+         "The save file \"" + save_file_filename + "\" is not present. This may be expected behavior if no "
+            "save file has been created yet. Note that import_from_string() will not be called. Development todo: "
+            "Update this class to expect no file, or create a new file, or optionally hide this warning if it is "
+            "expected behavior."
       );
+      return;
    }
 
    // TODO: Test this
