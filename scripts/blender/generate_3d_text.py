@@ -13,11 +13,12 @@ import math
 #    convert "the_uv_texture.svg" "the_uv_texture.png"
 
 
-text = "420"
-font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/Oswald-Medium.ttf"
+text = "ROTATE WORLD"
+#font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/Oswald-Medium.ttf"
+font_path = "/Users/markoates/Repos/RotateWorld/bin/data/fonts/Jaro_36pt-Regular.ttf"
 #font_path = "/Users/markoates/Repos/allegro_flare/bin/data/fonts/PathwayGothicOne-Regular.ttf"
 #font_path = "/Users/markoates/Stuff/September 4 2021/EurostileBQ-BoldExtended.otf"
-extrude_depth = 0.1
+extrude_depth = 0.32
 output_path = "/Users/markoates/Desktop/" + text.lower() + "-text_3d_model.obj"  # Specify the desired output path
 output_path_uv_projected = "/Users/markoates/Desktop/" + text.lower() + "-text_3d_model-uv.obj"  # Specify the desired output path
 output_path_uv_map = "/Users/markoates/Desktop/" + text.lower() + "-text_uv_layout"  # Specify the desired output path
