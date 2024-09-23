@@ -42,6 +42,8 @@ namespace AllegroFlare::TileMaps
       void resize(int w, int h);
       void resize_with_fill(int w, int h, T value);
       void fill_with_data(std::vector<std::vector<T>> data);
+      void fill_area(int tile_x1, int tile_y1, int tile_x2, int tile_y2, T value);
+      //std::vector<std::vector<T>> build_data();
       void clear(int clear_to_value=0); // TODO: Use T instead of int here
    };
 
@@ -138,6 +140,91 @@ void TileMap<T>::fill_with_data(std::vector<std::vector<T>> data)
    }
 
    return;
+}
+
+
+template <class T>
+void TileMap<T>::fill_area(int tile_x1, int tile_y1, int tile_x2, int tile_y2, T value)
+{
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_area",
+         "Must be initialized first"
+      );
+   }
+
+   if (!(tile_x1 >= 0))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "tile_x1 must be >= 0"
+      );
+   }
+   if (!(tile_y1 >= 0))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "tile_y1 must be >= 0"
+      );
+   }
+   if (!(tile_x2 >= 0))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "tile_x2 must be >= 0"
+      );
+   }
+   if (!(tile_x2 >= 0))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "tile_x2 must be >= 0"
+      );
+   }
+   if (!(tile_x1 < num_rows))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "tile_x1 must be < num_rows"
+      );
+   }
+   if (!(tile_y1 < num_columns))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "tile_y1 must be < num_columns"
+      );
+   }
+   if (!(tile_x2 < num_rows))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "tile_x2 must be < num_rows"
+      );
+   }
+   if (!(tile_y2 < num_columns))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "tile_y2 must be < num_columns"
+      );
+   }
+
+   // Use min and max values so user can provide reversed coordinates with no issues
+   int tile_min_x = std::min(tile_x1, tile_x2);
+   int tile_min_y = std::min(tile_y1, tile_y2);
+   int tile_max_x = std::max(tile_x1, tile_x2);
+   int tile_max_y = std::max(tile_y1, tile_y2);
+
+   // Fill the data
+   for (int y=tile_min_y; y<=tile_max_y; y++)
+   {
+      for (int x=tile_min_x; x<=tile_max_x; x++)
+      {
+         set_tile(x, y, value);
+      }
+   }
 }
 
 
