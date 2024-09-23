@@ -43,7 +43,7 @@ namespace AllegroFlare::TileMaps
       void resize_with_fill(int w, int h, T value);
       void fill_with_data(std::vector<std::vector<T>> data);
       void fill_area(int tile_x1, int tile_y1, int tile_x2, int tile_y2, T value);
-      //std::vector<std::vector<T>> build_data();
+      std::vector<std::vector<T>> build_data_as_2d_vector();
       void clear(int clear_to_value=0); // TODO: Use T instead of int here
    };
 
@@ -225,6 +225,23 @@ void TileMap<T>::fill_area(int tile_x1, int tile_y1, int tile_x2, int tile_y2, T
          set_tile(x, y, value);
       }
    }
+}
+
+
+template <class T>
+std::vector<std::vector<T>> TileMap<T>::build_data_as_2d_vector()
+{
+   std::vector<std::vector<T>> result;
+   result.resize(num_rows);
+   for (int row=0; row<result.size(); row++)
+   {
+      result[row].resize(num_columns);
+      for (int column=0; column<num_columns; column++)
+      {
+         result[row][column] = get_tile(column, row);
+      }
+   }
+   return result;
 }
 
 

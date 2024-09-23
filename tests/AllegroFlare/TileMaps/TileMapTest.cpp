@@ -168,27 +168,48 @@ TEST(AllegroFlare_TileMaps_TileMapTest,
 }
 
 
-TEST(AllegroFlare_TileMaps_TileMapTest, fill_area__will_fill_the_area_with_the_value)
+TEST(AllegroFlare_TileMaps_TileMapTest,
+   build_data_as_2d_vector__will_return_a_copy_of_the_contents_of_the_tilemap_in_a_vector_of_vectors)
 {
+   // TODO: Find a way to make this test more focused and distinct from the "fill_area" test
    AllegroFlare::TileMaps::TileMap<int> tile_map;
    tile_map.initialize();
    tile_map.resize_with_fill(7, 5, 0);
    tile_map.fill_area(1, 1, 4, 2, 8);
-   // TODO: Test expected values
-   //EXPECT_THROW_WITH_MESSAGE(
-      //tile_map.fill_area(
-//std::vector<std::vector<int>>{
-         //{ 1,   2,  3,  4,  5 },
-         //{ 6,   7,  8,  9, 10 },
-         //{ 11, 12, 13, 14, 15 },
-      //}),
-      //std::runtime_error,
-      //"[AllegroFlare::TileMaps::TileMap<T>::fill_with_data]: error: The number of columns in the provided data (8) "
-         //"does not match the number of columns of the tile_map (5)"
-   //);
+   tile_map.set_tile(2, 3, 7);
+
+   std::vector<std::vector<int>> actual_data = tile_map.build_data_as_2d_vector();
+   std::vector<std::vector<int>> expected_data = {
+      { 0, 0, 0, 0, 0, 0, 0 },
+      { 0, 8, 8, 8, 8, 0, 0 },
+      { 0, 8, 8, 8, 8, 0, 0 },
+      { 0, 0, 7, 0, 0, 0, 0 },
+      { 0, 0, 0, 0, 0, 0, 0 },
+   };
+
+   EXPECT_EQ(expected_data, actual_data);
 }
 
 
-      //void fill_area(int tile_x1, int tile_y1, int tile_x2, int tile_y2, T value);
+TEST(AllegroFlare_TileMaps_TileMapTest, fill_area__will_fill_the_area_with_the_value)
+{
+   // TODO: Find a way to make this test more focused and distinct from the "build_data_as_2d_vector" test
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   tile_map.initialize();
+   tile_map.resize_with_fill(7, 5, 0);
+   tile_map.fill_area(1, 1, 4, 2, 8);
+
+   std::vector<std::vector<int>> actual_data = tile_map.build_data_as_2d_vector();
+   std::vector<std::vector<int>> expected_data = {
+      { 0, 0, 0, 0, 0, 0, 0 },
+      { 0, 8, 8, 8, 8, 0, 0 },
+      { 0, 8, 8, 8, 8, 0, 0 },
+      { 0, 0, 0, 0, 0, 0, 0 },
+      { 0, 0, 0, 0, 0, 0, 0 },
+   };
+
+   EXPECT_EQ(expected_data, actual_data);
+}
+
 
 
