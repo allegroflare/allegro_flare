@@ -130,3 +130,41 @@ TEST(AllegroFlare_TileMaps_TileMapTest, fill_with_data__will_fill_the_tiles_with
 }
 
 
+TEST(AllegroFlare_TileMaps_TileMapTest,
+   fill_with_data__when_the_number_of_rows_does_not_match_the_current_size_of_the_tile_map__will_throw_an_error)
+{
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   tile_map.initialize();
+   tile_map.resize_with_fill(5, 3, 0);
+   EXPECT_THROW_WITH_MESSAGE(
+      tile_map.fill_with_data(std::vector<std::vector<int>>{
+         { 1,   2,  3,  4,  5 },
+         //{ 6,   7,  8,  9, 10 },
+         //{ 11, 12, 13, 14, 15 },
+      }),
+      std::runtime_error,
+      "[AllegroFlare::TileMaps::TileMap<T>::fill_with_data]: error: The number of rows in the provided data (1) "
+         "does not match the number of rows of the tile_map (3)"
+   );
+}
+
+
+TEST(AllegroFlare_TileMaps_TileMapTest,
+   fill_with_data__when_a_row__does_not_have_the_correct_number_of_columns__will_throw_an_error)
+{
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   tile_map.initialize();
+   tile_map.resize_with_fill(5, 3, 0);
+   EXPECT_THROW_WITH_MESSAGE(
+      tile_map.fill_with_data(std::vector<std::vector<int>>{
+         { 1,   2,  3,  4,  5 },
+         { 6,   7,  8,  9, 10, 997, 998, 999 },
+         { 11, 12, 13, 14, 15 },
+      }),
+      std::runtime_error,
+      "[AllegroFlare::TileMaps::TileMap<T>::fill_with_data]: error: The number of columns in the provided data (8) "
+         "does not match the number of columns of the tile_map (5)"
+   );
+}
+
+
