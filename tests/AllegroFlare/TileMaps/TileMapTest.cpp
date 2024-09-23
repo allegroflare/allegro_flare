@@ -111,3 +111,22 @@ TEST(AllegroFlare_TileMaps_TileMapTest, resize__with_a_fill_value__will_clear_al
 }
 
 
+TEST(AllegroFlare_TileMaps_TileMapTest, fill_with_data__will_fill_the_tiles_with_the_contents_of_the_vector)
+{
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   tile_map.initialize();
+   tile_map.resize_with_fill(5, 3, 0);
+   tile_map.fill_with_data(std::vector<std::vector<int>>{
+      { 1,   2,  3,  4,  5 },
+      { 6,   7,  8,  9, 10 },
+      { 11, 12, 13, 14, 15 },
+   });
+
+   EXPECT_EQ(1,  tile_map.get_tile(0, 0));
+   EXPECT_EQ(7,  tile_map.get_tile(1, 1));
+   EXPECT_EQ(9,  tile_map.get_tile(3, 1));
+   EXPECT_EQ(11, tile_map.get_tile(0, 2));
+   EXPECT_EQ(15, tile_map.get_tile(4, 2));
+}
+
+

@@ -41,7 +41,8 @@ namespace AllegroFlare::TileMaps
 
       void resize(int w, int h);
       void resize_with_fill(int w, int h, T value);
-      void clear(int clear_to_value=0); // Not sure this works with template
+      void fill_with_data(std::vector<std::vector<T>> data);
+      void clear(int clear_to_value=0); // TODO: Use T instead of int here
    };
 
 
@@ -74,6 +75,69 @@ template <class T>
 int TileMap<T>::get_num_columns()
 {
    return num_columns;
+}
+
+
+template <class T>
+void TileMap<T>::fill_with_data(std::vector<std::vector<T>> data)
+{
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "Must be initialized first"
+      );
+   }
+
+   // Validate number of rows
+   int num_data_rows = data.size();
+   if (num_data_rows == 0)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "data cannot be empty"
+      );
+   }
+   if (num_data_rows != num_rows)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+         "The number of rows in the provided data (" + std::to_string(num_data_rows) + ") does not match the number of "
+            "rows of the tile_map (" + std::to_string(num_rows) + ")"
+      );
+   }
+
+   // Validate number of columns (in each row)
+   for (int i=0; i<(int)data.size(); i++)
+   {
+      int num_data_columns = data[i].size();
+      if (num_data_columns == 0)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+            "data in column cannot be empty"
+         );
+      }
+      if (num_data_columns != num_columns)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::TileMaps::TileMap<T>::fill_with_data",
+            "The number of columns in the provided data (" + std::to_string(num_data_columns) + ") does not match the "
+               "number of columns of the tile_map (" + std::to_string(num_columns) + ")"
+         );
+      }
+   }
+
+   // TODO: Fill the data
+   for (int y=0; y<num_rows; y++)
+   {
+      for (int x=0; x<num_columns; x++)
+      {
+         set_tile(x, y, data[y][x]);
+      }
+   }
+
+   return;
 }
 
 
