@@ -3,13 +3,17 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 #include <AllegroFlare/Logger.hpp>
+#include <allegro5/allegro_color.h>
 
 class AllegroFlare_Physics_TileMapCollisionStepperTest : public ::testing::Test
 {};
-
 class AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixture :
    public AllegroFlare::Testing::WithAllegroRenderingFixture
+{};
+class AllegroFlare_Physics_TileMapCollisionStepperTestWithInteractionFixture :
+   public AllegroFlare::Testing::WithInteractionFixture
 {};
 
 
@@ -218,9 +222,307 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 
 
 TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
-   world_coords_to_tile_coords__will_provide_correct_coordinaets_with_negative_numbers)
+   world_coords_to_tile_coords__will_provide_correct_coordinates_with_negative_numbers)
 {
    EXPECT_EQ(-3, AllegroFlare::Physics::TileMapCollisionStepper::world_coords_to_tile_coords(-32-1, 16));
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithInteractionFixture,
+   //INTERACTIVE__world_coords_to_tile_coords__will_provide_expected_tile_coordinates)
+   DISABLED__INTERACTIVE__world_coords_to_tile_coords__will_provide_expected_tile_coordinates)
+{
+   float coord_x = 0.0f;
+   float coord_y = 0.0f;
+   float tile_size = 32;
+   ALLEGRO_COLOR tile_color = al_color_name("aquamarine");
+
+   ALLEGRO_TRANSFORM camera_transform;
+   al_identity_transform(&camera_transform);
+   al_scale_transform(&camera_transform, 2.0, 2.0);
+   al_translate_transform(&camera_transform, 1920/2, 1080/2);
+
+   ALLEGRO_TRANSFORM hud_transform;
+   al_identity_transform(&hud_transform);
+
+   while(interactive_test_wait_for_event())
+   {
+      ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
+
+      switch(current_event.type)
+      {
+         case ALLEGRO_EVENT_TIMER:
+         {
+            clear();
+
+            // Draw world
+            al_use_transform(&camera_transform);
+
+            int tile_coord_x =
+               AllegroFlare::Physics::TileMapCollisionStepper::world_coords_to_tile_coords(coord_x, tile_size);
+            int tile_coord_y =
+               AllegroFlare::Physics::TileMapCollisionStepper::world_coords_to_tile_coords(coord_y, tile_size);
+
+            draw_crosshair(coord_x, coord_y);
+            al_draw_rectangle(
+               tile_coord_x * tile_size,
+               tile_coord_y * tile_size,
+               tile_coord_x * tile_size + tile_size,
+               tile_coord_y * tile_size + tile_size,
+               tile_color,
+               1.0
+            );
+
+            // Draw some debug text
+            al_use_transform(&hud_transform);
+
+            ALLEGRO_FONT *font = get_any_font();
+            int lh = al_get_font_line_height(font);
+            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20+lh*0, 0, "coord_x: %.3f", coord_x);
+            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20+lh*1, 0, "coord_y: %.3f", coord_y);
+
+            interactive_test_render_status();
+            al_flip_display();
+         }
+         break;
+
+         //// For example:
+         //case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+         //{
+            //std::cout << "[AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture]: INFO: "
+                      //<< "Play sound effect event was emitted. "
+                      //<< std::endl;
+         //}
+         //break;
+
+         //// For example:
+         case ALLEGRO_EVENT_KEY_CHAR: {
+            bool shift = current_event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+            switch(current_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_RIGHT:
+                  coord_x += 1.0;
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  coord_x -= 1.0;
+               break;
+
+               case ALLEGRO_KEY_UP:
+                  coord_y -= 1.0;
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  coord_y += 1.0;
+               break;
+            }
+         } break;
+      }
+   }
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithInteractionFixture,
+   get_next_collided_tile_coords_1d__will_provide_expected_tile_coordinates)
+{
+   float coord_x = 4.0f;
+   float coord_y = 1.0f;
+   float coord_w = 8.0f;
+   float coord_h = 16.0f;
+   float horizontal_velocity = 6.0;
+   float tile_size = 16;
+
+   std::vector<AllegroFlare::Physics::Int2D> expected_next_tile_coords = {
+      { 1, 0 }, { 1, 1 }
+   };
+
+   std::vector<AllegroFlare::Physics::Int2D> actual_next_tile_coords =
+      AllegroFlare::Physics::TileMapCollisionStepper::get_next_collided_tile_coords_1d(
+         coord_x,
+         coord_y,
+         horizontal_velocity,
+         coord_w,
+         coord_h,
+         tile_size,
+         tile_size
+      );
+
+   EXPECT_EQ(expected_next_tile_coords, actual_next_tile_coords);
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithInteractionFixture,
+   get_next_collided_tile_coords_1d__will_provide_expected_tile_coordinates_when_in_negative_values)
+{
+   float coord_x = 4.0f;
+   float coord_y = -8.0f;
+   float coord_w = 8.0f;
+   float coord_h = 16.0f;
+   float horizontal_velocity = 6.0;
+   float tile_size = 16;
+
+   std::vector<AllegroFlare::Physics::Int2D> expected_next_tile_coords = {
+      { 1, -1 }, { 1, 0 }
+   };
+
+   std::vector<AllegroFlare::Physics::Int2D> actual_next_tile_coords =
+      AllegroFlare::Physics::TileMapCollisionStepper::get_next_collided_tile_coords_1d(
+         coord_x,
+         coord_y,
+         horizontal_velocity,
+         coord_w,
+         coord_h,
+         tile_size,
+         tile_size
+      );
+
+   EXPECT_EQ(expected_next_tile_coords, actual_next_tile_coords);
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithInteractionFixture,
+   //INTERACTIVE__get_next_collided_tile_coords_1d__will_provide_expected_tile_coordinates)
+   DISABLED__INTERACTIVE__get_next_collided_tile_coords_1d__will_provide_expected_tile_coordinates)
+{
+   float coord_x = 0.0f;
+   float coord_y = 0.0f;
+   float coord_w = 8.0f;
+   float coord_h = 16.0f;
+   float horizontal_velocity = 6.0;
+   float tile_size = 32;
+   ALLEGRO_COLOR player_color = al_color_name("blueviolet");
+   ALLEGRO_COLOR tile_color = al_color_name("aquamarine");
+   ALLEGRO_COLOR next_tile_color = al_color_name("yellow");
+   ALLEGRO_COLOR grid_color = al_color_name("slategray");
+   ALLEGRO_FONT *font = get_any_font();
+
+   float camera_scale = 2.0f;
+   ALLEGRO_TRANSFORM camera_transform;
+   al_identity_transform(&camera_transform);
+   al_scale_transform(&camera_transform, camera_scale, camera_scale);
+   al_translate_transform(&camera_transform, 1920/2, 1080/2);
+
+   ALLEGRO_TRANSFORM hud_transform;
+   al_identity_transform(&hud_transform);
+
+   while(interactive_test_wait_for_event())
+   {
+      ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
+
+      switch(current_event.type)
+      {
+         case ALLEGRO_EVENT_TIMER:
+         {
+            clear();
+
+            // Draw world
+            al_use_transform(&camera_transform);
+
+            // Draw a baisc grid showing positive and negative space
+            int grid_line_width = 1920/6;
+            int grid_line_height = 1080/6;
+            al_draw_line(-grid_line_width, 0, grid_line_width, 0, grid_color, 1.0);
+            al_draw_line(0, -grid_line_height, 0, grid_line_height, grid_color, 1.0);
+
+            int tile_coord_x =
+               AllegroFlare::Physics::TileMapCollisionStepper::world_coords_to_tile_coords(coord_x, tile_size);
+            int tile_coord_y =
+               AllegroFlare::Physics::TileMapCollisionStepper::world_coords_to_tile_coords(coord_y, tile_size);
+            std::vector<AllegroFlare::Physics::Int2D> next_tile_coords_x =
+               AllegroFlare::Physics::TileMapCollisionStepper::get_next_collided_tile_coords_1d(
+                  coord_x,
+                  coord_y,
+                  horizontal_velocity,
+                  coord_w,
+                  coord_h,
+                  tile_size,
+                  tile_size
+               );
+
+            // Draw player point
+            al_draw_rectangle(
+               coord_x,
+               coord_y,
+               coord_x + coord_w,
+               coord_y + coord_h,
+               player_color,
+               1.0
+            );
+            draw_crosshair(coord_x, coord_y);
+
+            // Draw Current box rectangle
+            al_draw_rectangle(
+               tile_coord_x * tile_size,
+               tile_coord_y * tile_size,
+               tile_coord_x * tile_size + tile_size,
+               tile_coord_y * tile_size + tile_size,
+               tile_color,
+               1.0
+            );
+
+            // Draw the next_tile_coords_x
+            for (auto &next_tile_coord_x : next_tile_coords_x)
+            {
+               //next_tile_coord_x
+               al_draw_rectangle(
+                  next_tile_coord_x.get_x() * tile_size,
+                  next_tile_coord_x.get_y() * tile_size,
+                  next_tile_coord_x.get_x() * tile_size + tile_size,
+                  next_tile_coord_x.get_y() * tile_size + tile_size,
+                  next_tile_color,
+                  1.0
+               );
+            }
+
+            // Draw some debug text
+            al_use_transform(&hud_transform);
+
+            int lh = al_get_font_line_height(font);
+            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20+lh*0, 0, "coord_x: %.3f", coord_x);
+            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20+lh*1, 0, "coord_y: %.3f", coord_y);
+            //al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20+lh*1, 0, "camera_scale: %.3f", coord_y);
+            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20+lh*3, 0, "camera_scale: %.3f", camera_scale);
+            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20+lh*4, 0, "horizontal_velocity: %.3f", horizontal_velocity);
+            al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 20+lh*5, 0, "tile_size: %.3f", tile_size);
+
+            interactive_test_render_status();
+            al_flip_display();
+         }
+         break;
+
+         //// For example:
+         //case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+         //{
+            //std::cout << "[AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture]: INFO: "
+                      //<< "Play sound effect event was emitted. "
+                      //<< std::endl;
+         //}
+         //break;
+
+         //// For example:
+         case ALLEGRO_EVENT_KEY_CHAR: {
+            bool shift = current_event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+            switch(current_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_RIGHT:
+                  coord_x += 1.0;
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  coord_x -= 1.0;
+               break;
+
+               case ALLEGRO_KEY_UP:
+                  coord_y -= 1.0;
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  coord_y += 1.0;
+               break;
+            }
+         } break;
+      }
+   }
 }
 
 
@@ -239,12 +541,14 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtu
 
    // initialize test subject(s)
    AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
-   AllegroFlare::Physics::AABB2D aabb2d(80, 60, 16 - 1, 16*2 - 1);
+   AllegroFlare::Physics::AABB2D aabb2d(80, 60, 8 - 1, 6*2 - 1);
    collision_tile_map.initialize();
    load_test_map(collision_tile_map);
    AllegroFlare::Placement2D camera;
-   camera.scale.x = 4.8;
-   camera.scale.y = 4.5;
+   camera.scale.x = 4.8 * 0.7;
+   camera.scale.y = 4.5 * 0.7;
+   camera.position.x = 100;
+   camera.position.y = 100;
 
    bool aabb2d_adjacent_to_bottom_edge = false;
    bool aabb2d_adjacent_to_top_edge = false;
@@ -252,8 +556,9 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtu
    bool aabb2d_adjacent_to_left_edge = false;
 
    bool invert_gravity = false;
-   bool gravity_enabled = true;
-   bool vertical_movement_controls_active = false;
+   bool gravity_enabled = false;
+   bool vertical_movement_controls_active = true;
+   //bool debug_trap_on = false;
 
    // run the interactive test
    al_wait_for_vsync();
@@ -284,7 +589,7 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtu
                break;
 
                case ALLEGRO_KEY_SPACE:
-                 aabb2d.set_velocity_y(invert_gravity ? 3.0f : -3.0f);
+                 aabb2d.set_velocity_y(invert_gravity ? 4.0f : -4.0f);
                break;
 
                case ALLEGRO_KEY_I:
@@ -293,11 +598,17 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtu
 
                case ALLEGRO_KEY_G:
                  gravity_enabled = !gravity_enabled;
-               break;
-
-               case ALLEGRO_KEY_V:
                  vertical_movement_controls_active = !vertical_movement_controls_active;
                break;
+
+               //case ALLEGRO_KEY_V:
+                 //vertical_movement_controls_active = !vertical_movement_controls_active;
+               //break;
+
+               //case ALLEGRO_KEY_D:
+                 //aabb2d.set_velocity_x(1);
+                 //debug_trap_on = true;
+               //break;
             }
          break;
 
@@ -328,6 +639,7 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTestWithAllegroRenderingFixtu
                   16.0f,
                   16.0f
                );
+               //if (debug_trap_on) tile_map_collision_stepper.debug_trap_on = debug_trap_on;
                tile_map_collision_stepper.step();
 
                aabb2d_adjacent_to_top_edge = tile_map_collision_stepper.adjacent_to_top_edge(16.0f, 16.0f);

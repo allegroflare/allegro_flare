@@ -24,7 +24,6 @@ namespace AllegroFlare
          float tile_width;
          float tile_height;
          float reposition_offset;
-         std::vector<AllegroFlare::Physics::Int2D> get_next_collided_tile_coords_1d(float x=0.0f, float y=0.0f, float velocity=0.0f, float depth_of_body=1.0f, float length_of_edge=1.0f, float tile_length_n=1.0f, float tile_length_m=1.0f);
          bool tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D a={0, 0}, AllegroFlare::Physics::Int2D b={0, 0});
 
       protected:
@@ -51,6 +50,7 @@ namespace AllegroFlare
          std::pair<int, int> get_tile_coords_below_left_foot(float x=0.0f, float y=0.0f, float height=1.0f);
          std::pair<int, int> get_tile_coords_below_right_foot(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f);
          bool adjacent_to_left_edge(float tile_width=16.0f, float tile_height=16.0f);
+         static std::vector<AllegroFlare::Physics::Int2D> get_next_collided_tile_coords_1d(float x=0.0f, float y=0.0f, float velocity=0.0f, float depth_of_body=1.0f, float length_of_edge=1.0f, float tile_length_n=1.0f, float tile_length_m=1.0f);
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> get_stepped_tile_collisions(float x=0.0f, float y=0.0f, float velocity_x=0.0f, float velocity_y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f);
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> calculate_difference_info(std::vector<AllegroFlare::Physics::Int2D> now_tiles={}, std::vector<AllegroFlare::Physics::Int2D> next_tiles={}, float velocity_x=0.0f, float velocity_y=0.0f);
          std::vector<AllegroFlare::Physics::Int2D> tiles_within_aabb2d(AllegroFlare::Physics::AABB2D aabb2d={});

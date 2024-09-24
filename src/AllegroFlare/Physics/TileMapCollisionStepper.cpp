@@ -177,6 +177,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    std::vector<AllegroFlare::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords_1d(
       obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w(), tile_height, tile_width
    );
+
    for(AllegroFlare::Physics::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
    if (!vertical_collided_blocks.empty())
    {
@@ -423,7 +424,8 @@ std::vector<AllegroFlare::Physics::Int2D> TileMapCollisionStepper::get_next_coll
    {
       // new tiles have been entered
       int start_y = world_coords_to_tile_coords(y, tile_length_m); //TileMap::world_to_tile(y);
-      float inset_y = std::fmod(y, tile_length_m); // fmod(y, 16.0);
+      //float inset_y = std::fmod(y, tile_length_m); // fmod(y, 16.0);
+      float inset_y = std::fmod(std::fmod(y, tile_length_m) + tile_length_m, tile_length_m); // handles negative y
       int num_tiles_along_edge = std::max(1, (int)std::ceil((length_of_edge + inset_y) / tile_length_m));
       collided_tiles.reserve(num_tiles_along_edge);
 
