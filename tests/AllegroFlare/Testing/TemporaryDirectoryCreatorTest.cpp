@@ -31,8 +31,10 @@ TEST(AllegroFlare_Testing_TemporaryDirectoryCreatorTest,
    AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator1;
    AllegroFlare::Testing::TemporaryDirectoryCreator temporary_directory_creator2;
 
-   std::string found_nonexistent_directory_1 = temporary_directory_creator1.find_nonexistent_temporary_directory();
-   std::string found_nonexistent_directory_2 = temporary_directory_creator2.find_nonexistent_temporary_directory();
+   std::string found_nonexistent_directory_1 =
+      temporary_directory_creator1.find_nonexistent_temporary_directory().string();
+   std::string found_nonexistent_directory_2 =
+      temporary_directory_creator2.find_nonexistent_temporary_directory().string();
 
    EXPECT_EQ(false, std::filesystem::exists(found_nonexistent_directory_1));
    EXPECT_EQ(false, std::filesystem::exists(found_nonexistent_directory_2));
