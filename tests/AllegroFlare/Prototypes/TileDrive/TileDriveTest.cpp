@@ -64,12 +64,16 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    tile_drive.set_current_map_identifier("og-tunnel-mesh");
    tile_drive.initialize();
 
+   // start the level
+   tile_drive.reset();
+
    clear();
 
    tile_drive.update();
    tile_drive.render();
 
    al_flip_display();
+   al_rest(1);
 }
 
 
@@ -77,6 +81,7 @@ TEST_F(AllegroFlare_Prototypes_TileDrive_TileDriveTestWithAllegroRenderingFixtur
    //INTERACTIVE__will_work_as_expected)
    DISABLED__INTERACTIVE__will_work_as_expected)
 {
+   // TODO: Make this a timed interactive
    using AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord;
 
    // setup system

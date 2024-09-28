@@ -22,7 +22,7 @@ TEST(AllegroFlare_Integrations_CameraProjectionChangesTest,
    DISABLED__INTERACTIVE__start__will_work_as_expected)
    //INTERACTIVE__start__will_work_as_expected)
 {
-   // TODO: Note that this does not work, please review
+   // TODO: Make this a TIMED_INTERACTIVE
    AllegroFlare::Integrations::CameraProjectionChanges camera_projection_changes;
    camera_projection_changes.initialize();
 

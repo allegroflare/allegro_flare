@@ -14,7 +14,6 @@
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Sound.hpp>
 #include <AllegroFlare/Vec3D.hpp>
-#include <allegro5/allegro.h>
 #include <functional>
 #include <map>
 #include <string>
@@ -58,8 +57,6 @@ namespace AllegroFlare
             int state;
             bool initialized;
             AllegroFlare::Sound* debug_metronome_sound;
-            ALLEGRO_BITMAP* backbuffer_sub_bitmap;
-            ALLEGRO_BITMAP* backbuffer_sub_bitmap_background;
             float calculate_current_terrain_mesh_height();
             float calculate_current_terrain_mesh_tile_depth();
 
@@ -90,7 +87,6 @@ namespace AllegroFlare
             void set_maps_folder(std::string maps_folder="[unset-maps_folder-arg]");
             void set_terrain_mesh_dictionary(std::map<std::string, AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord> terrain_mesh_dictionary={});
             void set_current_map_identifier(std::string current_map_identifier="[unset-current_map_identifier-arg]");
-            ALLEGRO_BITMAP* create_new_backbuffer_sub_bitmap();
             void initialize();
             void reset();
             void start();

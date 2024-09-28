@@ -60,6 +60,7 @@ TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest,
    //INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
    DISABLED__INTERACTIVE__will_run_in_AllegroFlare_Frameworks_Full_context)
 {
+   // TODO: Make this a TIMED_INTERACTIVE test
    using AllegroFlare::Prototypes::TileDrive::TerrainMeshDictionaryRecord;
 
    AllegroFlare::Frameworks::Full framework;
@@ -92,7 +93,6 @@ TEST(AllegroFlare_Prototypes_TileDrive_ScreenTest,
    );
 
    tile_drive_screen.initialize();
-
 
    framework.register_screen("tile_drive_screen", &tile_drive_screen);
    framework.activate_screen("tile_drive_screen");

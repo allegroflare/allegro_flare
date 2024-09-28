@@ -50,8 +50,6 @@ TileDrive::TileDrive(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::Bi
    , state(STATE_WAITING_START)
    , initialized(false)
    , debug_metronome_sound(nullptr)
-   , backbuffer_sub_bitmap(nullptr)
-   , backbuffer_sub_bitmap_background(nullptr)
 {
 }
 
@@ -223,12 +221,6 @@ void TileDrive::set_current_map_identifier(std::string current_map_identifier)
    return;
 }
 
-ALLEGRO_BITMAP* TileDrive::create_new_backbuffer_sub_bitmap()
-{
-   ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
-   return al_create_sub_bitmap(backbuffer, 0, 0, al_get_bitmap_width(backbuffer), al_get_bitmap_height(backbuffer));
-}
-
 void TileDrive::initialize()
 {
    if (!((!initialized)))
@@ -287,22 +279,22 @@ void TileDrive::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::initialize]: error: guard \"al_get_current_display()\" not met");
    }
-   backbuffer_sub_bitmap = create_new_backbuffer_sub_bitmap();
-   if (!backbuffer_sub_bitmap)
-   {
-      std::stringstream error_message;
-      error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
-                    << "could not create backbuffer_sub_bitmap";
-      throw std::runtime_error(error_message.str());
-   }
-   backbuffer_sub_bitmap_background = create_new_backbuffer_sub_bitmap();
-   if (!backbuffer_sub_bitmap_background)
-   {
-      std::stringstream error_message;
-      error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
-                    << "could not create backbuffer_sub_bitmap_background";
-      throw std::runtime_error(error_message.str());
-   }
+   //backbuffer_sub_bitmap = create_new_backbuffer_sub_bitmap();
+   //if (!backbuffer_sub_bitmap)
+   //{
+      //std::stringstream error_message;
+      //error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
+                    //<< "could not create backbuffer_sub_bitmap";
+      //throw std::runtime_error(error_message.str());
+   //}
+   //backbuffer_sub_bitmap_background = create_new_backbuffer_sub_bitmap();
+   //if (!backbuffer_sub_bitmap_background)
+   //{
+      //std::stringstream error_message;
+      //error_message << "AllegroFlare::Prototypes::TileDrive::TileDrive::initialize() error: "
+                    //<< "could not create backbuffer_sub_bitmap_background";
+      //throw std::runtime_error(error_message.str());
+   //}
 
 
 
@@ -709,11 +701,12 @@ void TileDrive::render_world()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::render_world]: error: guard \"initialized\" not met");
    }
+   ALLEGRO_BITMAP *render_surface = al_get_target_bitmap();
    //al_clear_depth_buffer(1);
    ALLEGRO_STATE previous_target_bitmap_state;
    al_store_state(&previous_target_bitmap_state, ALLEGRO_STATE_TARGET_BITMAP);
-   camera.setup_projection_on(backbuffer_sub_bitmap);
-   al_set_target_bitmap(backbuffer_sub_bitmap);
+   camera.setup_projection_on(render_surface);
+   //al_set_target_bitmap(backbuffer_sub_bitmap);
    //glCullFace(GL_BACK);  // requiring opengl should evnetually be fazed out
    //glDisable(GL_CULL_FACE);
    render_terrain();
