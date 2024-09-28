@@ -95,7 +95,8 @@ Full::Full()
    , escape_key_will_shutdown(true)
    , output_auto_created_config_warning(true)
    , set_primary_render_surface_as_target_before_calling_primary_timer_funcs(true)
-   , clear_render_surface_before_calling_primary_timer_funcs(true)
+   , clear_render_surface_before_calling_primary_timer_funcs(true) // TODO: I think this should be false by default
+                                                                   // for performance reasons
    //, using_display_backbuffer_as_primary_render_surface(true)
    , using_display_backbuffer_as_primary_render_surface(false)
    , input_hints_text_color(ALLEGRO_COLOR{1, 1, 1, 1})
@@ -1503,7 +1504,7 @@ void Full::render_screens_to_primary_render_surface()
       ALLEGRO_BITMAP *bitmap = primary_render_surface->obtain_surface();
 
       ///* // NOTE: This is a possible technique to always ensure the render surface will be stretched to 
-         // fit the display
+         // fit the display, regardless of its dimensions
          ALLEGRO_BITMAP *backbuffer = al_get_backbuffer(al_get_current_display());
          int display_natural_width = al_get_bitmap_width(backbuffer);
          int display_natural_height = al_get_bitmap_height(backbuffer);
@@ -1547,18 +1548,22 @@ void Full::render_screens_to_primary_render_surface()
       //int display_natural_width = al_get_bitmap_width(backbuffer);
       //int display_natural_height = al_get_bitmap_height(backbuffer);
 
+
+      // Activate the post_processing_shader (if present)
       if (post_processing_shader) post_processing_shader->activate();
 
+
+      // Build a placement for the render surface. E.g. Setup a placement to stretch the bitmap to fit the entire
+      // display. TODO: Consider making the placement customizable.
       AllegroFlare::Placement2D render_surface_placement_on_display;
       render_surface_placement_on_display.position =
-            // TODO: Ensure this is a pixel-friendly coord:
+            // TODO: Consider if a pixel-friendly coord is preferred here:
             { (float)display_natural_width / 2, (float)display_natural_height / 2 }
          ;
       render_surface_placement_on_display.size = { (float)surface_width, (float)surface_height };
       render_surface_placement_on_display.scale_to_fit_width_or_height(display_natural_width, display_natural_height);
       
       render_surface_placement_on_display.start_transform();
-      //if (post_processing_shader) post_processing_shader->activate();
 
       /*
       al_draw_scaled_bitmap(
@@ -1577,12 +1582,26 @@ void Full::render_screens_to_primary_render_surface()
          //float dx, float dy, float dw, float dh, int flags
       );
       */
+
+
+      // Since we are just plastering this texture to the display backbuffer, we can disable the depth test
+      al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+      al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_RGB); // TODO: may want this?
+
+
+      // Draw the bitmap
       al_draw_bitmap(bitmap, 0, 0, 0);
       if (post_processing_shader) post_processing_shader->deactivate();
+
+
+      // TODO: Restore the transform
       render_surface_placement_on_display.restore_transform();
 
-      //al_set_render_state(ALLEGRO_DEPTH_TEST, 1); // may want this?
-      //al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA); // may want this?
+
+      // Restore the preferred typical render state
+      // TODO: Consider if this is needed, also, see if this should be configurable
+      al_set_render_state(ALLEGRO_DEPTH_TEST, 1); // may want this?
+      al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA); // may want this?
    }
 }
 
