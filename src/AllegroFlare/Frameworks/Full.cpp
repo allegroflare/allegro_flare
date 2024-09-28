@@ -1586,6 +1586,7 @@ void Full::render_screens_to_primary_render_surface()
 
       // Since we are just plastering this texture to the display backbuffer, we can disable the depth test
       al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+      al_set_render_state(ALLEGRO_ALPHA_TEST, 0);
       al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_RGB); // TODO: may want this?
 
 
@@ -1601,6 +1602,7 @@ void Full::render_screens_to_primary_render_surface()
       // Restore the preferred typical render state
       // TODO: Consider if this is needed, also, see if this should be configurable
       al_set_render_state(ALLEGRO_DEPTH_TEST, 1); // may want this?
+      al_set_render_state(ALLEGRO_ALPHA_TEST, 1);
       al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA); // may want this?
    }
 }
