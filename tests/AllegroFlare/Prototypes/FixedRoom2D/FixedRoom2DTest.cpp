@@ -15,7 +15,7 @@ class AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture
 
 TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room2d;
+   AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
 }
 
 
@@ -30,11 +30,11 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture
    CAPTURE__TIMED_INTERACTIVE__will_operate_as_expected)
 {
    AllegroFlare::EventEmitter event_emitter;
-   AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room2d;
-   fixed_room2d.set_font_bin(&get_font_bin_ref());
-   fixed_room2d.set_bitmap_bin(&get_bitmap_bin_ref());
-   fixed_room2d.set_event_emitter(&event_emitter);
-   fixed_room2d.initialize();
+   AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
+   fixed_room_2d.set_font_bin(&get_font_bin_ref());
+   fixed_room_2d.set_bitmap_bin(&get_bitmap_bin_ref());
+   fixed_room_2d.set_event_emitter(&event_emitter);
+   fixed_room_2d.initialize();
 
    //load_configuration.initialize();
 
@@ -47,8 +47,8 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture
          case ALLEGRO_EVENT_TIMER: {
             clear();
 
-            fixed_room2d.update();
-            fixed_room2d.render();
+            fixed_room_2d.update();
+            fixed_room_2d.render();
 
             interactive_test_render_status();
             al_flip_display();
@@ -57,7 +57,7 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture
          case ALLEGRO_EVENT_MOUSE_AXES: {
             int cursor_distance_x = current_event.mouse.dx;
             int cursor_distance_y = current_event.mouse.dy;
-            fixed_room2d.move_cursor(cursor_distance_x, cursor_distance_y);
+            fixed_room_2d.move_cursor(cursor_distance_x, cursor_distance_y);
          } break;
 
          //// For example:

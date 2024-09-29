@@ -413,7 +413,7 @@ void FixedRoom2D::render_void_room()
    ALLEGRO_FONT *font = obtain_cempty_room_font();
    al_draw_text(
       font,
-      ALLEGRO_COLOR{1, 1, 1, 1},
+      ALLEGRO_COLOR{0.6, 0.6, 0.6, 0.6},
       al_get_bitmap_width(surface)/2,
       al_get_bitmap_height(surface)/2 - al_get_font_line_height(font)/2,
       ALLEGRO_ALIGN_CENTER,
@@ -959,7 +959,7 @@ ALLEGRO_FONT* FixedRoom2D::obtain_cempty_room_font()
       throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::obtain_cempty_room_font]: error: guard \"font_bin\" not met");
    }
    std::stringstream composite_font_str;
-   composite_font_str << "Lora-Medium.ttf -32";
+   composite_font_str << "Lora-Medium.ttf -36";
    return font_bin->auto_get(composite_font_str.str());
 }
 
