@@ -63,7 +63,7 @@ namespace AllegroFlare
             void process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void emit_interaction_event(std::string item_dictionary_name="[unset-item_dictionary_name]", float cursor_x=0.0, float cursor_y=0.0);
             void move_cursor_within_room(float distance_x=0.0, float distance_y=0.0, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room={});
-            ALLEGRO_FONT* obtain_cempty_room_font();
+            ALLEGRO_FONT* obtain_empty_room_font();
 
          protected:
 

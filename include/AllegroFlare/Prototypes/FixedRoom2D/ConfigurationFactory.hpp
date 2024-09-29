@@ -25,7 +25,7 @@ namespace AllegroFlare
             ConfigurationFactory();
             ~ConfigurationFactory();
 
-            AllegroFlare::Prototypes::FixedRoom2D::Configuration load_original_gametest_default(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper=nullptr);
+            static AllegroFlare::Prototypes::FixedRoom2D::Configuration build_original_gametest_default(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr, AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper* entity_collection_helper=nullptr);
          };
       }
    }

@@ -4,6 +4,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithInteractionFixture.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
 
 
 
@@ -57,6 +58,16 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture
    fixed_room_2d.set_event_emitter(&event_emitter);
    fixed_room_2d.initialize();
 
+   // Load all the rooms, entities, etc
+   AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
+     AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::build_original_gametest_default(
+       &get_bitmap_bin_ref(), &get_font_bin_ref(), &event_emitter, &fixed_room_2d.get_entity_collection_helper_ref());
+   fixed_room_2d.load_configuration(source_configuration);
+
+   // Enter the start room
+   fixed_room_2d.enter_start_room();
+
+   //AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory
    //load_configuration.initialize();
 
    while(interactive_test_wait_for_event())

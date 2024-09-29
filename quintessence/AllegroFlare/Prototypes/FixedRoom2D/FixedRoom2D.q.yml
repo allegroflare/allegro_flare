@@ -239,7 +239,7 @@ methods:
       // TODO: rename this to build_gametest_configuration
       AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
       AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
-        configuration_factory.load_original_gametest_default(
+        configuration_factory.build_original_gametest_default(
           bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
 
       return load_configuration(source_configuration);
@@ -369,7 +369,7 @@ methods:
       al_clear_to_color(ALLEGRO_COLOR{0.3, 0.3, 0.3, 1.0});
 
       // Draw some text
-      ALLEGRO_FONT *font = obtain_cempty_room_font();
+      ALLEGRO_FONT *font = obtain_empty_room_font();
       al_draw_text(
          font,
          ALLEGRO_COLOR{0.6, 0.6, 0.6, 0.6},
@@ -843,7 +843,7 @@ methods:
       return;
 
 
-  - name: obtain_cempty_room_font
+  - name: obtain_empty_room_font
     private: true
     type: ALLEGRO_FONT*
     guards: [ font_bin ]

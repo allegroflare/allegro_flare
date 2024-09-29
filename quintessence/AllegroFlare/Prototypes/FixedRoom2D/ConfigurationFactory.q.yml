@@ -1,7 +1,8 @@
-functions:
+methods:
 
 
-  - name: load_original_gametest_default
+  - name: build_original_gametest_default
+    static: true
     type: AllegroFlare::Prototypes::FixedRoom2D::Configuration
     parameters:
       - name: bitmap_bin
