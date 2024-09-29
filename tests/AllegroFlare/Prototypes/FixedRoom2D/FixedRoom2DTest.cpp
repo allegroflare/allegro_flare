@@ -14,7 +14,35 @@ class AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithAllegroRenderingFix
 {};
 class AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture
    : public AllegroFlare::Testing::WithInteractionFixture
-{};
+{
+public:
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
+
+public:
+   virtual void SetUp() override
+   {
+      AllegroFlare::Testing::WithInteractionFixture::SetUp();
+
+      fixed_room_2d.set_font_bin(&get_font_bin_ref());
+      fixed_room_2d.set_bitmap_bin(&get_bitmap_bin_ref());
+      fixed_room_2d.set_event_emitter(&event_emitter);
+      fixed_room_2d.initialize();
+   }
+   void load_configuration()
+   {
+      // TODO: Build configuration locally
+      // TODO: Use room-01.png
+      AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
+        AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::build_testing_configuration(
+          &get_bitmap_bin_ref(), &get_font_bin_ref(), &event_emitter, &fixed_room_2d.get_entity_collection_helper_ref());
+      fixed_room_2d.load_configuration(source_configuration);
+   }
+   void enter_start_room()
+   {
+      fixed_room_2d.enter_start_room();
+   }
+};
 
 
 
@@ -49,26 +77,11 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithAllegroRenderingFi
 
 
 TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture,
-   CAPTURE__TIMED_INTERACTIVE__will_operate_as_expected)
+   FOCUS__CAPTURE__TIMED_INTERACTIVE__will_operate_as_expected)
 {
-   AllegroFlare::EventEmitter event_emitter;
-   AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
-   fixed_room_2d.set_font_bin(&get_font_bin_ref());
-   fixed_room_2d.set_bitmap_bin(&get_bitmap_bin_ref());
-   fixed_room_2d.set_event_emitter(&event_emitter);
-   fixed_room_2d.initialize();
+   load_configuration();
 
-   // Load all the rooms, entities, etc
-   AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
-     AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::build_original_gametest_default(
-       &get_bitmap_bin_ref(), &get_font_bin_ref(), &event_emitter, &fixed_room_2d.get_entity_collection_helper_ref());
-   fixed_room_2d.load_configuration(source_configuration);
-
-   // Enter the start room
-   fixed_room_2d.enter_start_room();
-
-   //AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory
-   //load_configuration.initialize();
+   enter_start_room();
 
    while(interactive_test_wait_for_event())
    {

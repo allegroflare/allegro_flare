@@ -270,10 +270,12 @@ bool FixedRoom2D::load_gametest_configuration()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D::load_gametest_configuration]: error: guard \"initialized\" not met");
    }
+   throw std::runtime_error("This method is deprecated, please remove it.");
    // TODO: rename this to build_gametest_configuration
    AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory configuration_factory;
    AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
-     configuration_factory.build_original_gametest_default(
+     configuration_factory.build_testing_configuration(
+       //build_original_gametest_default(
        bitmap_bin, font_bin, event_emitter, &entity_collection_helper);
 
    return load_configuration(source_configuration);
