@@ -5,6 +5,8 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ConfigurationFactory.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/EntityFactory.hpp>
+#include <AllegroFlare/Prototypes/FixedRoom2D/RoomFactory.hpp>
 
 
 
@@ -33,10 +35,123 @@ public:
    {
       // TODO: Build configuration locally
       // TODO: Use room-01.png
-      AllegroFlare::Prototypes::FixedRoom2D::Configuration source_configuration =
-        AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::build_testing_configuration(
-          &get_bitmap_bin_ref(), &get_font_bin_ref(), &event_emitter, &fixed_room_2d.get_entity_collection_helper_ref());
-      fixed_room_2d.load_configuration(source_configuration);
+      AllegroFlare::Prototypes::FixedRoom2D::Configuration configuration;
+
+      //AllegroFlare::Prototypes::FixedRoom2D::Configuration result;
+
+      AllegroFlare::InventoryIndex &inventory_index = configuration.get_inventory_index_ref();
+      AllegroFlare::Inventory &af_inventory = configuration.get_af_inventory_ref();
+      AllegroFlare::Inventory &flags = configuration.get_flags_ref();
+      std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> &entity_dictionary =
+         configuration.get_entity_dictionary_ref();
+      std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Room*> &room_dictionary =
+         configuration.get_room_dictionary_ref();
+      std::map<std::string, std::string> &entity_room_associations =
+         configuration.get_entity_room_associations_ref();
+      std::map<std::string, AllegroFlare::Prototypes::FixedRoom2D::Script> &script_dictionary =
+         configuration.get_script_dictionary_ref();
+      std::string &starting_room_identifier = configuration.get_starting_room_identifier_ref();
+      AllegroFlare::Prototypes::FixedRoom2D::EntityCollectionHelper &entity_collection_helper =
+         fixed_room_2d.get_entity_collection_helper_ref();
+
+
+      AllegroFlare::Prototypes::FixedRoom2D::EntityFactory entity_factory(&get_bitmap_bin_ref());
+      AllegroFlare::Prototypes::FixedRoom2D::RoomFactory room_factory(
+         &get_bitmap_bin_ref(),
+         &get_font_bin_ref(),
+         &event_emitter,
+         &entity_collection_helper
+      );
+
+      inventory_index = AllegroFlare::InventoryIndex::build_placeholder_inventory_index();
+
+      af_inventory.add_item(1);
+      af_inventory.add_item(4);
+      af_inventory.add_item(3);
+
+      room_dictionary = {
+         { "front_hall", room_factory.create_room() },
+         //{ "study", room_factory.create_room() },
+      };
+
+      entity_dictionary = {
+         { "background_1", entity_factory.create_entity(
+               "room-01.png", 800, 600, 0.85, "Door 1", "observe_background_1")
+            },
+         { "robot_helmet", entity_factory.create_entity(
+               "robot_helmet-01.png", 1400, 800, 0.85, "Door 1", "observe_robot_helmet")
+            },
+         //{ "pipe", entity_factory.create_entity(
+               //"robot_helmet-01.png", 1400, 800, 0.85, "Door 1", "observe_robot_helmet")
+            //},
+         //{ "door2", entity_factory.create_entity(
+               //"download-door-png-transparent-image-and-clipart-3.png", 500, 800, 0.85, "Door 2", "observe_door2") },
+         //{ "chair", entity_factory.create_entity(
+               //"wooden-chair-png-transparent-image-pngpix-0.png", 700, 800, 0.168, "Chair", "signal_hello") },
+         //{ "table", entity_factory.create_entity(
+               //"download-wooden-table-png-image-png-image-pngimg-3.png", 900, 800, 0.4, "table", "observe_table") },
+         //{ "keys", entity_factory.create_entity(
+               //"key-keychain-house-keys-door-photo-pixabay-25.png", 940, 590, 0.05, "keys", "collect_keys") },
+      };
+
+      entity_room_associations = {
+         { "robot_helmet", "front_hall" },
+         { "background_1", "front_hall" },
+         //{ "door2", "study" },
+         //{ "chair", "front_hall" },
+         //{ "table", "front_hall" },
+         //{ "keys", "front_hall" },
+      };
+
+      script_dictionary = {
+         { "observe_robot_helmet", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               "DIALOG: Just a regular robot helmet. | I'm going to ignore it for now.",
+               //"ENTER_ROOM: study",
+         })},
+         { "observe_background_1", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               "DIALOG: Nothing here. | I'm going to ignore it for now.",
+               //"ENTER_ROOM: study",
+         })},
+         //{ "observe_door2", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               //"DIALOG: A regular door. | I'll to in.",
+               //"ENTER_ROOM: front_hall",
+         //})},
+         //{ "signal_hello", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               //"SIGNAL: Hello!"})
+         //},
+         //{ "spawn_dialog", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               //"DIALOG: This was a scripted dialog!"
+         //})},
+         //{ "collect_keys", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               //"COLLECT: keys"
+         //})},
+         //{ "observe_table", AllegroFlare::Prototypes::FixedRoom2D::Script({
+               //"DIALOG: Hmm. Interesting, there's a key on this table."
+         //})},
+      };
+
+      starting_room_identifier = "front_hall";
+
+      //enter_room("front_hall");
+      //enter_room("study");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //AllegroFlare::Prototypes::FixedRoom2D::ConfigurationFactory::build_testing_configuration(
+          //&get_bitmap_bin_ref(), &get_font_bin_ref(), &event_emitter, &fixed_room_2d.get_entity_collection_helper_ref());
+      fixed_room_2d.load_configuration(configuration);
    }
    void enter_start_room()
    {
