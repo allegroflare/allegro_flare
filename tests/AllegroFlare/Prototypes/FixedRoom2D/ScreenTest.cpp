@@ -20,7 +20,7 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_ScreenTest, can_be_created_without_bl
 
 
 TEST_F(AllegroFlare_Prototypes_FixedRoom2D_ScreenTestWithAllegroFrameworksFullFixture,
-   DISABLED__CAPTURE__TIMED_INTERACTIVE__will_run_as_expected)
+   CAPTURE__TIMED_INTERACTIVE__will_run_as_expected)
 {
    // TODO: Figure out why this test *not* working as expected
    //AllegroFlare::Elements::Backgrounds::ClearToColor background;

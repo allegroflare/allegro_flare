@@ -17,6 +17,7 @@
 #include <AllegroFlare/Prototypes/FixedRoom2D/Script.hpp>
 #include <AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.hpp>
 #include <AllegroFlare/Shaders/Base.hpp>
+#include <allegro5/allegro_font.h>
 #include <map>
 #include <set>
 #include <string>
@@ -61,6 +62,8 @@ namespace AllegroFlare
             void process_interaction_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void process_script_event(AllegroFlare::GameEventDatas::Base* game_event_data=nullptr);
             void emit_interaction_event(std::string item_dictionary_name="[unset-item_dictionary_name]", float cursor_x=0.0, float cursor_y=0.0);
+            void move_cursor_within_room(float distance_x=0.0, float distance_y=0.0, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room={});
+            ALLEGRO_FONT* obtain_cempty_room_font();
 
          protected:
 
@@ -111,7 +114,6 @@ namespace AllegroFlare
             void move_cursor_left();
             void move_cursor_right();
             void move_cursor(float distance_x=0.0, float distance_y=0.0);
-            void move_cursor_within_room(float distance_x=0.0, float distance_y=0.0, std::vector<AllegroFlare::Prototypes::FixedRoom2D::Entities::Base*> entities_in_this_room={});
             void reset_cursor_to_default();
          };
       }

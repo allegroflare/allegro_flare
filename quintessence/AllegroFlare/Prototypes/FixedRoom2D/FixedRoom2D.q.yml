@@ -365,7 +365,20 @@ methods:
 
   - name: render_void_room
     body: |
+      ALLEGRO_BITMAP *surface = al_get_target_bitmap();
       al_clear_to_color(ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3});
+
+      // Draw some text
+      ALLEGRO_FONT *font = obtain_cempty_room_font();
+      al_draw_text(
+         font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         al_get_bitmap_width(surface)/2,
+         al_get_bitmap_height(surface)/2 - al_get_font_line_height(font)/2,
+         ALLEGRO_ALIGN_CENTER,
+         "There is currently no room loaded"
+      );
+
       return;
 
 
@@ -759,6 +772,7 @@ methods:
 
 
   - name: move_cursor_within_room
+    private: true
     guards: [ initialized ]
     parameters:
       - name: distance_x
@@ -827,6 +841,16 @@ methods:
       }
 
       return;
+
+
+  - name: obtain_cempty_room_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      std::stringstream composite_font_str;
+      composite_font_str << "Lora-Medium.ttf -32";
+      return font_bin->auto_get(composite_font_str.str());
 
 
   - name: reset_cursor_to_default
@@ -907,5 +931,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/DialogSystem.hpp ]
   - symbol: AllegroFlare::Prototypes::FixedRoom2D::EventNames::INTERACTION_EVENT_NAME
     headers: [ AllegroFlare/Prototypes/FixedRoom2D/EventNames.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
   
   
