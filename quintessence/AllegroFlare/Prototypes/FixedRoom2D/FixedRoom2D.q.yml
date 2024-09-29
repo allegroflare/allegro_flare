@@ -124,6 +124,7 @@ documentation:
 
 
   - todos:
+      - Remove "load_gametest_configuration" method. Find a better way to source test and configuration data
       - Currently, a configuration acts as the database that contains the game content. Using and setting up a
         configuration is a bit clumsy, however. A more ideal way to create a configuration would be to load from a
         Tiled file, but this has not been loaded up yet. When creating the Tiled file, be sure to create the objects
