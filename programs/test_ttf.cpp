@@ -44,7 +44,7 @@ int main(int argc, char **argv)
    al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 400, 300-80, ALLEGRO_ALIGN_CENTER, "Hello Text!");
    al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 400, 300, ALLEGRO_ALIGN_CENTER, "1234567890");
 
-   al_save_bitmap("output.png", al_get_backbuffer(display));
+   //al_save_bitmap("output.png", al_get_backbuffer(display));
    al_flip_display();
    al_rest(1);
 
