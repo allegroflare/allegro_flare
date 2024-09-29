@@ -623,7 +623,14 @@ functions:
   - name: render_background
     guards: [ initialized ]
     body: |
+      ALLEGRO_BITMAP *target = al_get_target_bitmap();
       al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
+      ALLEGRO_TRANSFORM t;
+      al_identity_transform(&t);
+      al_use_transform(&t);
+      al_orthographic_transform(&t, 0, 0, -1.0, al_get_bitmap_width(target),
+                                al_get_bitmap_height(target), 1.0);
+      al_use_projection_transform(&t);
       parallax_background.render();
       return;
     body_dependency_symbols:

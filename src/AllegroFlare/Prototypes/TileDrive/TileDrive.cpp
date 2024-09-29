@@ -687,7 +687,14 @@ void TileDrive::render_background()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::TileDrive::TileDrive::render_background]: error: guard \"initialized\" not met");
    }
+   ALLEGRO_BITMAP *target = al_get_target_bitmap();
    al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL);
+   ALLEGRO_TRANSFORM t;
+   al_identity_transform(&t);
+   al_use_transform(&t);
+   al_orthographic_transform(&t, 0, 0, -1.0, al_get_bitmap_width(target),
+                             al_get_bitmap_height(target), 1.0);
+   al_use_projection_transform(&t);
    parallax_background.render();
    return;
 }
