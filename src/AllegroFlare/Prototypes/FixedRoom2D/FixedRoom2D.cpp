@@ -407,7 +407,7 @@ void FixedRoom2D::render()
 void FixedRoom2D::render_void_room()
 {
    ALLEGRO_BITMAP *surface = al_get_target_bitmap();
-   al_clear_to_color(ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3});
+   al_clear_to_color(ALLEGRO_COLOR{0.3, 0.3, 0.3, 1.0});
 
    // Draw some text
    ALLEGRO_FONT *font = obtain_cempty_room_font();

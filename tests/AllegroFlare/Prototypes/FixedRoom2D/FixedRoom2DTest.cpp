@@ -2,11 +2,15 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D.hpp>
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 
 
 
 class AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTest : public ::testing::Test {};
+class AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithAllegroRenderingFixture
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{};
 class AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture
    : public AllegroFlare::Testing::WithInteractionFixture
 {};
@@ -23,6 +27,23 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTest,
    process_script_event__on_a_subscribed_event_type__with_unknown_event_data_type__will_output_an_error_message_to_cout)
 {
    // TODO
+}
+
+
+TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithAllegroRenderingFixture,
+   CAPTURE__VISUAL__when_no_room_is_loaded__will_render_a_void_room_and_an_empty_room_message)
+{
+   AllegroFlare::EventEmitter event_emitter;
+   AllegroFlare::Prototypes::FixedRoom2D::FixedRoom2D fixed_room_2d;
+   fixed_room_2d.set_font_bin(&get_font_bin_ref());
+   fixed_room_2d.set_bitmap_bin(&get_bitmap_bin_ref());
+   fixed_room_2d.set_event_emitter(&event_emitter);
+   fixed_room_2d.initialize();
+
+   clear();
+   fixed_room_2d.render();
+   al_flip_display();
+   al_rest(1);
 }
 
 
