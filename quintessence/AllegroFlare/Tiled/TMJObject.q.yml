@@ -1,0 +1,72 @@
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: '"[unset-type]"'
+    exposed: true
+
+  - name: id
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    exposed: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: width
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: height
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: polygon
+    type: std::vector<AllegroFlare::Vec2D>
+    init_with: '{}'
+    exposed: true
+
+  - name: custom_properties
+    type: AllegroFlare::Tiled::TMJObjectCustomProperties
+    init_with: '{}'
+    exposed: true
+
+  - name: object_layer_name
+    type: std::string
+    init_with: '"[unset-object_layer_name]"'
+    exposed: true
+
+
+methods:
+
+
+  - name: center
+    type: AllegroFlare::Vec2D
+    body: |
+      return AllegroFlare::Vec2D(x + width / 2, y + height / 2);
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Tiled::TMJObjectCustomProperties
+    headers: [ AllegroFlare/Tiled/TMJObjectCustomProperties.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+
+

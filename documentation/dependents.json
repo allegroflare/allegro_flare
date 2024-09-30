@@ -111,6 +111,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/AssetStudio/Database": [
@@ -169,6 +170,8 @@
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
+    "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
@@ -872,6 +875,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
@@ -1103,7 +1107,8 @@
   "tsl/ordered_map": [
     "AllegroFlare/DialogSystem/ChapterIndex",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",
@@ -1450,7 +1455,8 @@
   "AllegroFlare/StringFormatValidator": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader"
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "AllegroFlare/DialogTree/BasicScreenplayTextLoader": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -2566,6 +2572,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -3393,6 +3400,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Base": [
@@ -3969,6 +3977,12 @@
   ],
   "ALLEGRO_INDEX_BUFFER": [
     "AllegroFlare/TileMaps/TileMesh"
+  ],
+  "AllegroFlare/Tiled/TMJObject": [
+    "AllegroFlare/Tiled/TMJDataLoader"
+  ],
+  "AllegroFlare/Tiled/TMJObjectCustomProperties": [
+    "AllegroFlare/Tiled/TMJObject"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"

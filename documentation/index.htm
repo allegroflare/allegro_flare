@@ -512,6 +512,9 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasRepository.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasRepository.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileMesh.q.yml">quintessence/AllegroFlare/TileMaps/TileMesh.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml">quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Tiled/TMJObject.q.yml">quintessence/AllegroFlare/Tiled/TMJObject.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Tiled/TMJObjectCustomProperties.q.yml">quintessence/AllegroFlare/Tiled/TMJObjectCustomProperties.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Timeline/ActorFactory.q.yml">quintessence/AllegroFlare/Timeline/ActorFactory.q.yml</a></li>
@@ -40208,6 +40211,333 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml">quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Move the \"normalize_tile_data_from_tilesets\" functionality out of this class and make it the responsibility of the user to do this. The TMJDataLoader class should only load data from the TMJ file and make it available as data accessible from the class."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">layer_num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">layer_num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">collision_layer_num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">collision_layer_num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">collision_layer_tile_data</td>
+  <td class="property">std::vector&lt;int&gt;</td>
+</tr>
+<tr>
+  <td class="property">tilelayers_tile_data</td>
+  <td class="property">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">normalize_tile_data_from_tilesets</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">reduce_any_non_zero_collision_layer_data_to_1</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">objects</td>
+  <td class="property">std::vector&lt;AllegroFlare::Tiled::TMJObject&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>for_each_object</b>(std::function&lt;void(AllegroFlare::Tiled::TMJObject*, void*)&gt; function={}, void* user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_filename</b>(std::string filename=&quot;[unset-filename]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_num_columns</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_num_rows</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_tile_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_tile_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_layer_num_columns</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_layer_num_rows</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_collision_layer_num_columns</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_collision_layer_num_rows</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;int&gt;</td>
+  <td class="method"><b>get_collision_layer_tile_data</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
+  <td class="method"><b>get_tilelayers_tile_data</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>tilelayer_exists</b>(std::string tilelayer_name=&quot;[unset-tilelayer_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>load</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;int&gt;</td>
+  <td class="method"><b>normalize_tile_data_to_tilesets_firstgids</b>(std::vector&lt;int&gt; data={}, std::set&lt;int&gt; tilesets_firstgids={})</td>
+</tr>
+<tr>
+  <td class="private_method">bool</td>
+  <td class="private_method"><b>file_exists</b>(std::string filename=&quot;[unset-filename]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ifstream&quot;, &quot;headers&quot;=&gt;[&quot;fstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StringFormatValidator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StringFormatValidator.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;tsl::ordered_map&quot;, &quot;headers&quot;=&gt;[&quot;lib/tsl/ordered_map.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Tiled/TMJObject.q.yml">quintessence/AllegroFlare/Tiled/TMJObject.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">polygon</td>
+  <td class="property">std::vector&lt;AllegroFlare::Vec2D&gt;</td>
+</tr>
+<tr>
+  <td class="property">custom_properties</td>
+  <td class="property">AllegroFlare::Tiled::TMJObjectCustomProperties</td>
+</tr>
+<tr>
+  <td class="property">object_layer_name</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">AllegroFlare::Vec2D</td>
+  <td class="method"><b>center</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObjectCustomProperties&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObjectCustomProperties.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Tiled/TMJObjectCustomProperties.q.yml">quintessence/AllegroFlare/Tiled/TMJObjectCustomProperties.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">string_properties</td>
+  <td class="property">std::map&lt;std::string, std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">bool_properties</td>
+  <td class="property">std::map&lt;std::string, bool&gt;</td>
+</tr>
+<tr>
+  <td class="property">int_properties</td>
+  <td class="property">std::map&lt;std::string, int&gt;</td>
+</tr>
+<tr>
+  <td class="property">float_properties</td>
+  <td class="property">std::map&lt;std::string, float&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_keys_in_list</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>clear</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_string</b>(std::string name=&quot;[unset-name]&quot;, std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_bool</b>(std::string name=&quot;[unset-name]&quot;, bool value=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_float</b>(std::string name=&quot;[unset-name]&quot;, float value=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_int</b>(std::string name=&quot;[unset-name]&quot;, int value=0)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_string</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>get_bool</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_float</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_int</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_type</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>exists</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_float</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_bool</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_int</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_string</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -44362,6 +44692,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/AssetStudio/Database": [
@@ -44420,6 +44751,8 @@ table td
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
+    "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",
@@ -45123,6 +45456,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
@@ -45354,7 +45688,8 @@ table td
   "tsl/ordered_map": [
     "AllegroFlare/DialogSystem/ChapterIndex",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
-    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
+    "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "AllegroFlare/DialogSystem/Characters/Basic": [
     "AllegroFlare/DialogSystem/CharacterFactory",
@@ -45701,7 +46036,8 @@ table td
   "AllegroFlare/StringFormatValidator": [
     "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
-    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader"
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "AllegroFlare/DialogTree/BasicScreenplayTextLoader": [
     "AllegroFlare/DialogSystem/DialogSystem",
@@ -46817,6 +47153,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -47644,6 +47981,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Base": [
@@ -48220,6 +48558,12 @@ table td
   ],
   "ALLEGRO_INDEX_BUFFER": [
     "AllegroFlare/TileMaps/TileMesh"
+  ],
+  "AllegroFlare/Tiled/TMJObject": [
+    "AllegroFlare/Tiled/TMJDataLoader"
+  ],
+  "AllegroFlare/Tiled/TMJObjectCustomProperties": [
+    "AllegroFlare/Tiled/TMJObject"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"
