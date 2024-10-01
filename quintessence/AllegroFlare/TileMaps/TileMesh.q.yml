@@ -113,6 +113,7 @@ documentation:
      - Add a destroy mechanism for object destruction
      - Add a warning in the class's destructor if the object has not been destroyed
      - Consider option to opt out of using the vertex buffer
+     - Consider if PrimMeshAtlas be renamed to TileMeshAtlas
      
 
 methods:
