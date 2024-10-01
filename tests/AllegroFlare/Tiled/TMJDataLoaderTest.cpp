@@ -176,11 +176,11 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__on_a_file_wi
 }
 
 
-/*
 TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__returns_true)
 {
-   std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
-   AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/test_world-01.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
 
    ASSERT_EQ(true, loader.load());
 }
@@ -188,23 +188,28 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__returns_true
 
 TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__if_load_has_already_been_called__throws_an_error)
 {
-   std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
-   AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/test_world-01.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
    loader.load();
 
    EXPECT_THROW_GUARD_ERROR(
       loader.load(),
-      "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+      "AllegroFlare::Tiled::TMJDataLoader::load",
       "(!loaded)"
    );
 }
 
 
+/*
 TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    load__will_set_the_properties_to_the_expected_values_for_the_layer)
 {
-   std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
-   AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "map1-02.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   //std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
+   //AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
 
    loader.load();
 
@@ -237,8 +242,10 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
 
    ASSERT_EQ(expected_tile_layer_data, loader.get_layer_tile_data());
 }
+*/
 
 
+/*
 TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
    load__will_set_the_properties_to_the_expected_values_for_the_collision_layer)
 {
