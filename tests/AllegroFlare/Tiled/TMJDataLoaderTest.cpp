@@ -201,6 +201,16 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__if_load_has_already_been_called
 }
 
 
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__on_this_specific_map__will_load_as_expected)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/stone_stage-01.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+
+   ASSERT_EQ(true, loader.load());
+}
+
+
 // TODO: Uncomment these tests
 
 

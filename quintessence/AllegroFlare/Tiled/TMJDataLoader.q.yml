@@ -169,19 +169,19 @@ methods:
 
   - name: get_collision_layer_num_columns
     type: int
-    guards: [ loaded ]
+    guards: [ loaded, collision_tilelayer_is_present ]
     body: return collision_layer_num_columns;
 
 
   - name: get_collision_layer_num_rows
     type: int
-    guards: [ loaded ]
+    guards: [ loaded, collision_tilelayer_is_present ]
     body: return collision_layer_num_rows;
 
 
   - name: get_collision_layer_tile_data
     type: std::vector<int>
-    guards: [ loaded ]
+    guards: [ loaded, collision_tilelayer_is_present ]
     body: return collision_layer_tile_data;
 
 
@@ -232,6 +232,7 @@ methods:
       num_rows = j["height"]; // get height
       tile_width = j["tilewidth"]; // get width
       tile_height = j["tileheight"]; // get height
+
 
 
       // Obtain the list of "tilesets" (note that multiple tilesets might be used. In the tile data, the value used
@@ -289,7 +290,6 @@ methods:
       }
 
 
-
       //
       // Collision tile layer
       //
@@ -301,6 +301,7 @@ methods:
          //bool collision_tilelayer_type_found = false;
          collision_tilelayer_is_present = false;
          nlohmann::json collision_tilelayer;
+
          for (auto &layer : j["layers"].items())
          {
             if (layer.value()["type"] == "tilelayer" && layer.value()["name"] == "collision")
@@ -310,6 +311,7 @@ methods:
                break;
             }
          }
+
          if (!collision_tilelayer_is_present)
          {
             collision_tilelayer_is_present = false;
@@ -341,54 +343,55 @@ methods:
                );
             }
          }
-
-         collision_layer_num_columns = collision_tilelayer["width"];
-         collision_layer_num_rows = collision_tilelayer["height"];
-         collision_layer_tile_data = collision_tilelayer["data"].get<std::vector<int>>();
-
-         if (normalize_tile_data_from_tilesets)
+         else
          {
-            // TODO: Test this normalization is correct with multiple tilesets
-            collision_layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
-                  collision_layer_tile_data,
-                  tilesets_gids
-               );
-         }
+            collision_layer_num_columns = collision_tilelayer["width"];
+            collision_layer_num_rows = collision_tilelayer["height"];
+            collision_layer_tile_data = collision_tilelayer["data"].get<std::vector<int>>();
 
-         if (reduce_any_non_zero_collision_layer_data_to_1)
-         {
-            std::set<int> modified_values;
-            for (auto &collision_layer_tile_datum : collision_layer_tile_data)
+            if (normalize_tile_data_from_tilesets)
             {
-               if (collision_layer_tile_datum > 1)
-               {
-                  modified_values.insert(collision_layer_tile_datum);
-                  collision_layer_tile_datum = 1;
-               }
+               // TODO: Test this normalization is correct with multiple tilesets
+               collision_layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+                     collision_layer_tile_data,
+                     tilesets_gids
+                  );
             }
 
-            if (!modified_values.empty())
+            if (reduce_any_non_zero_collision_layer_data_to_1)
             {
-               // Convert the list to string
-               std::ostringstream oss;
-               for (auto it = modified_values.begin(); it != modified_values.end(); ++it)
+               std::set<int> modified_values;
+               for (auto &collision_layer_tile_datum : collision_layer_tile_data)
                {
-                  oss << *it;
-                  if (std::next(it) != modified_values.end()) {
-                     oss << ", ";
+                  if (collision_layer_tile_datum > 1)
+                  {
+                     modified_values.insert(collision_layer_tile_datum);
+                     collision_layer_tile_datum = 1;
                   }
                }
-               std::string list_of_modified_values = oss.str();
 
-               AllegroFlare::Logger::warn_from(
-                  "AllegroFlare::Tiled::TMJDataLoader::load",
-                  "Note that reduce_any_non_zero_collision_layer_data_to_1 is set to \"true\", and during processing "
-                     "the following values were found and truncated to 1: [ " + list_of_modified_values + " ]."
-               );
+               if (!modified_values.empty())
+               {
+                  // Convert the list to string
+                  std::ostringstream oss;
+                  for (auto it = modified_values.begin(); it != modified_values.end(); ++it)
+                  {
+                     oss << *it;
+                     if (std::next(it) != modified_values.end()) {
+                        oss << ", ";
+                     }
+                  }
+                  std::string list_of_modified_values = oss.str();
+
+                  AllegroFlare::Logger::warn_from(
+                     "AllegroFlare::Tiled::TMJDataLoader::load",
+                     "Note that reduce_any_non_zero_collision_layer_data_to_1 is set to \"true\", and during processing "
+                        "the following values were found and truncated to 1: [ " + list_of_modified_values + " ]."
+                  );
+               }
             }
          }
       }
-
 
 
       // Load *all* tile layers
