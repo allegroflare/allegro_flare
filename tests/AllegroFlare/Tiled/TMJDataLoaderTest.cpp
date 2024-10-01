@@ -159,22 +159,21 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
 }
 
 
-/*
 TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__on_a_file_with_malformed_json__throws_an_error)
 {
-   std::string filename = TMJ_MALFORMED_JSON_FIXTURE_PATH_AND_FILENAME;
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "file-with-malformed-json.tmj";
    AllegroFlare::Tiled::TMJDataLoader loader(filename);
 
    std::stringstream expected_error_message;
-   expected_error_message << "[Platforming2D::TMJDataLoader::load()]: error: The file "
-      "\"" << TMJ_MALFORMED_JSON_FIXTURE_PATH_AND_FILENAME << "\""
+   expected_error_message << "[AllegroFlare::Tiled::TMJDataLoader::load()]: error: The file "
+      "\"" << filename << "\""
       " appears to have malformed "
       "JSON. The following error was thrown by nlohmann::json: \"[json.exception.parse_error.101] parse error at line "
       "1, column 10: syntax error while parsing value - unexpected '}'; expected '[', '{', or a literal\"";
 
    EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message.str());
 }
-*/
 
 
 /*
