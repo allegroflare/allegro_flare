@@ -201,6 +201,9 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__if_load_has_already_been_called
 }
 
 
+// TODO: Uncomment these tests
+
+
 /*
 TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
    load__will_set_the_properties_to_the_expected_values_for_the_layer)
