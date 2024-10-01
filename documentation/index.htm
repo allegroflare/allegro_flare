@@ -40213,7 +40213,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml">quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"todos"=>["Move the \"normalize_tile_data_from_tilesets\" functionality out of this class and make it the responsibility of the user to do this. The TMJDataLoader class should only load data from the TMJ file and make it available as data accessible from the class."]}</p>    <h3>Properties</h3>
+    <p>{"todos"=>["Restructure the \"normalize_tile_data_from_tilesets\" functionality out of this class and make it the a optional feature when extracting the data."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">filename</td>
@@ -40241,6 +40241,10 @@ table td
 </tr>
 <tr>
   <td class="property">layer_num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">collision_tilelayer_is_present</td>
   <td class="property">int</td>
 </tr>
 <tr>
@@ -40309,6 +40313,10 @@ table td
 <tr>
   <td class="method">int</td>
   <td class="method"><b>get_layer_num_rows</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>get_collision_tilelayer_is_present</b>()</td>
 </tr>
 <tr>
   <td class="method">int</td>

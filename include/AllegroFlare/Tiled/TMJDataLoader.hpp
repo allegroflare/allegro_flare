@@ -23,6 +23,7 @@ namespace AllegroFlare
          int tile_height;
          int layer_num_columns;
          int layer_num_rows;
+         int collision_tilelayer_is_present;
          int collision_layer_num_columns;
          int collision_layer_num_rows;
          std::vector<int> collision_layer_tile_data;
@@ -51,6 +52,7 @@ namespace AllegroFlare
          int get_tile_height();
          int get_layer_num_columns();
          int get_layer_num_rows();
+         bool get_collision_tilelayer_is_present();
          int get_collision_layer_num_columns();
          int get_collision_layer_num_rows();
          std::vector<int> get_collision_layer_tile_data();

@@ -37,6 +37,11 @@ properties:
     init_with: 0
     getter: explicit
 
+  - name: collision_tilelayer_is_present
+    type: int
+    init_with: 0
+    getter: explicit
+
   - name: collision_layer_num_columns
     type: int
     init_with: 0
@@ -149,6 +154,12 @@ methods:
     type: int
     guards: [ loaded ]
     body: return layer_num_rows;
+
+
+  - name: get_collision_tilelayer_is_present
+    type: bool
+    guards: [ loaded ]
+    body: return collision_tilelayer_is_present;
 
 
   - name: get_collision_layer_num_columns
@@ -280,24 +291,27 @@ methods:
 
       // Get the first layer named "collision"
 
+      bool throw_on_missing_collision_layer = false;
       {
-         bool collision_tilelayer_type_found = false;
+         //bool collision_tilelayer_type_found = false;
+         collision_tilelayer_is_present = false;
          nlohmann::json collision_tilelayer;
          for (auto &layer : j["layers"].items())
          {
             if (layer.value()["type"] == "tilelayer" && layer.value()["name"] == "collision")
             {
                collision_tilelayer = layer.value();
-               collision_tilelayer_type_found = true;
+               collision_tilelayer_is_present = true;
                break;
             }
          }
-         if (!collision_tilelayer_type_found)
+         if (!collision_tilelayer_is_present)
          {
+            collision_tilelayer_is_present = false;
             std::stringstream error_message;
-            error_message << "TMJMeshLoader: error: collision_tilelayer type not found. Expecting a layer of type "
-                          << "\"tilelayer\" that also has a \"name\" property of \"collision\". Note that only "
-                          << "the following layers present: \"" << std::endl;
+            error_message << "collision_tilelayer type not found. Expecting a layer of type "
+                          << "\"tilelayer\" that also has a \"name\" property of \"collision\". ";
+                          // TODO: << "Note that only the following tilelayer type layers are present: ";
             int layer_num = 0;
             for (auto &layer : j["layers"].items())
             {
@@ -306,7 +320,21 @@ methods:
                error_message << "    - type: \"" << layer.value()["type"] << "\"" << std::endl;
                error_message << "    - name: \"" << layer.value()["name"] << "\"" << std::endl;
             }
-            throw std::runtime_error(error_message.str());
+            //throw std::runtime_error(error_message.str());
+            if (throw_on_missing_collision_layer)
+            {
+               AllegroFlare::Logger::warn_from(
+                  "AllegroFlare::Tiled::TMJDataLoader",
+                  error_message.str()
+               );
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Tiled::TMJDataLoader",
+                  error_message.str()
+               );
+            }
          }
 
          collision_layer_num_columns = collision_tilelayer["width"];

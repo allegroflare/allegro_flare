@@ -26,6 +26,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , tile_height(0)
    , layer_num_columns(0)
    , layer_num_rows(0)
+   , collision_tilelayer_is_present(0)
    , collision_layer_num_columns(0)
    , collision_layer_num_rows(0)
    , collision_layer_tile_data({})
@@ -159,6 +160,18 @@ int TMJDataLoader::get_layer_num_rows()
       throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met");
    }
    return layer_num_rows;
+}
+
+bool TMJDataLoader::get_collision_tilelayer_is_present()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJDataLoader::get_collision_tilelayer_is_present]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_collision_tilelayer_is_present]: error: guard \"loaded\" not met");
+   }
+   return collision_tilelayer_is_present;
 }
 
 int TMJDataLoader::get_collision_layer_num_columns()
@@ -314,24 +327,27 @@ bool TMJDataLoader::load()
 
    // Get the first layer named "collision"
 
+   bool throw_on_missing_collision_layer = false;
    {
-      bool collision_tilelayer_type_found = false;
+      //bool collision_tilelayer_type_found = false;
+      collision_tilelayer_is_present = false;
       nlohmann::json collision_tilelayer;
       for (auto &layer : j["layers"].items())
       {
          if (layer.value()["type"] == "tilelayer" && layer.value()["name"] == "collision")
          {
             collision_tilelayer = layer.value();
-            collision_tilelayer_type_found = true;
+            collision_tilelayer_is_present = true;
             break;
          }
       }
-      if (!collision_tilelayer_type_found)
+      if (!collision_tilelayer_is_present)
       {
+         collision_tilelayer_is_present = false;
          std::stringstream error_message;
-         error_message << "TMJMeshLoader: error: collision_tilelayer type not found. Expecting a layer of type "
-                       << "\"tilelayer\" that also has a \"name\" property of \"collision\". Note that only "
-                       << "the following layers present: \"" << std::endl;
+         error_message << "collision_tilelayer type not found. Expecting a layer of type "
+                       << "\"tilelayer\" that also has a \"name\" property of \"collision\". ";
+                       // TODO: << "Note that only the following tilelayer type layers are present: ";
          int layer_num = 0;
          for (auto &layer : j["layers"].items())
          {
@@ -340,7 +356,21 @@ bool TMJDataLoader::load()
             error_message << "    - type: \"" << layer.value()["type"] << "\"" << std::endl;
             error_message << "    - name: \"" << layer.value()["name"] << "\"" << std::endl;
          }
-         throw std::runtime_error(error_message.str());
+         //throw std::runtime_error(error_message.str());
+         if (throw_on_missing_collision_layer)
+         {
+            AllegroFlare::Logger::warn_from(
+               "AllegroFlare::Tiled::TMJDataLoader",
+               error_message.str()
+            );
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Tiled::TMJDataLoader",
+               error_message.str()
+            );
+         }
       }
 
       collision_layer_num_columns = collision_tilelayer["width"];
