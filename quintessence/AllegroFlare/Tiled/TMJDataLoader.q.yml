@@ -62,6 +62,11 @@ properties:
     init_with: '{}'
     getter: explicit
 
+  - name: throw_on_missing_collision_tilelayer
+    type: bool
+    init_with: false
+    getter: true
+
   - name: normalize_tile_data_from_tilesets
     type: bool
     init_with: true
@@ -291,7 +296,7 @@ methods:
 
       // Get the first layer named "collision"
 
-      bool throw_on_missing_collision_layer = false;
+      //bool throw_on_missing_collision_layer = false;
       {
          //bool collision_tilelayer_type_found = false;
          collision_tilelayer_is_present = false;
@@ -321,7 +326,7 @@ methods:
                error_message << "    - name: \"" << layer.value()["name"] << "\"" << std::endl;
             }
             //throw std::runtime_error(error_message.str());
-            if (throw_on_missing_collision_layer)
+            if (!throw_on_missing_collision_tilelayer)
             {
                AllegroFlare::Logger::warn_from(
                   "AllegroFlare::Tiled::TMJDataLoader",

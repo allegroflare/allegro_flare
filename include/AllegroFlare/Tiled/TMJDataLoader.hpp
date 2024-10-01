@@ -28,6 +28,7 @@ namespace AllegroFlare
          int collision_layer_num_rows;
          std::vector<int> collision_layer_tile_data;
          std::map<std::string, std::vector<int>> tilelayers_tile_data;
+         bool throw_on_missing_collision_tilelayer;
          bool normalize_tile_data_from_tilesets;
          bool reduce_any_non_zero_collision_layer_data_to_1;
          bool loaded;
@@ -41,6 +42,7 @@ namespace AllegroFlare
          TMJDataLoader(std::string filename="filename-not-set.tmj");
          ~TMJDataLoader();
 
+         bool get_throw_on_missing_collision_tilelayer() const;
          bool get_loaded() const;
          std::vector<AllegroFlare::Tiled::TMJObject> get_objects() const;
          std::vector<AllegroFlare::Tiled::TMJObject> &get_objects_ref();

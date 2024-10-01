@@ -31,6 +31,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , collision_layer_num_rows(0)
    , collision_layer_tile_data({})
    , tilelayers_tile_data({})
+   , throw_on_missing_collision_tilelayer(false)
    , normalize_tile_data_from_tilesets(true)
    , reduce_any_non_zero_collision_layer_data_to_1(true)
    , loaded(false)
@@ -41,6 +42,12 @@ TMJDataLoader::TMJDataLoader(std::string filename)
 
 TMJDataLoader::~TMJDataLoader()
 {
+}
+
+
+bool TMJDataLoader::get_throw_on_missing_collision_tilelayer() const
+{
+   return throw_on_missing_collision_tilelayer;
 }
 
 
@@ -327,7 +334,7 @@ bool TMJDataLoader::load()
 
    // Get the first layer named "collision"
 
-   bool throw_on_missing_collision_layer = false;
+   //bool throw_on_missing_collision_layer = false;
    {
       //bool collision_tilelayer_type_found = false;
       collision_tilelayer_is_present = false;
@@ -357,7 +364,7 @@ bool TMJDataLoader::load()
             error_message << "    - name: \"" << layer.value()["name"] << "\"" << std::endl;
          }
          //throw std::runtime_error(error_message.str());
-         if (throw_on_missing_collision_layer)
+         if (!throw_on_missing_collision_tilelayer)
          {
             AllegroFlare::Logger::warn_from(
                "AllegroFlare::Tiled::TMJDataLoader",
