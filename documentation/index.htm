@@ -40530,9 +40530,22 @@ table td
   <td class="method">bool</td>
   <td class="method"><b>is_string</b>(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>throw_if_key_already_exists</b>(std::string key=&quot;[unset-key]&quot;, std::string while_in_method_name=&quot;[unset-location]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>throw_if_key_does_not_exist</b>(std::string key=&quot;[unset-key]&quot;, std::string while_in_method_name=&quot;[unset-location]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -44753,6 +44766,7 @@ table td
     "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJObjectCustomProperties",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",

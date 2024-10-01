@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Tiled/TMJObjectCustomProperties.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <set>
 #include <sstream>
 
@@ -96,7 +97,6 @@ std::string TMJObjectCustomProperties::get_keys_in_list()
 
 void TMJObjectCustomProperties::clear()
 {
-   // TODO: Check for duplicate or overwrite
    string_properties.clear();
    bool_properties.clear();
    int_properties.clear();
@@ -105,55 +105,55 @@ void TMJObjectCustomProperties::clear()
 
 void TMJObjectCustomProperties::add_string(std::string name, std::string value)
 {
-   // TODO: Check for duplicate or overwrite
+   throw_if_key_already_exists(name, "add_string");
    string_properties[name] = value;
 }
 
 void TMJObjectCustomProperties::add_bool(std::string name, bool value)
 {
-   // TODO: Check for duplicate or overwrite
+   throw_if_key_already_exists(name, "add_bool");
    bool_properties[name] = value;
 }
 
 void TMJObjectCustomProperties::add_float(std::string name, float value)
 {
-   // TODO: Check for duplicate or overwrite
+   throw_if_key_already_exists(name, "add_float");
    float_properties[name] = value;
 }
 
 void TMJObjectCustomProperties::add_int(std::string name, int value)
 {
-   // TODO: Check for duplicate or overwrite
+   throw_if_key_already_exists(name, "add_int");
    int_properties[name] = value;
 }
 
 std::string TMJObjectCustomProperties::get_string(std::string name)
 {
-   // TODO: Check for existence
+   throw_if_key_does_not_exist(name, "get_string");
    return string_properties[name];
 }
 
 bool TMJObjectCustomProperties::get_bool(std::string name)
 {
-   // TODO: Check for existence
+   throw_if_key_does_not_exist(name, "get_bool");
    return bool_properties[name];
 }
 
 float TMJObjectCustomProperties::get_float(std::string name)
 {
-   // TODO: Check for existence
+   throw_if_key_does_not_exist(name, "get_float");
    return float_properties[name];
 }
 
 int TMJObjectCustomProperties::get_int(std::string name)
 {
-   // TODO: Check for existence
+   throw_if_key_does_not_exist(name, "get_int");
    return int_properties[name];
 }
 
 std::string TMJObjectCustomProperties::get_type(std::string name)
 {
-   // TODO: Check for duplicate or overwrite
+   throw_if_key_does_not_exist(name, "get_type");
    if (float_properties.find(name) != float_properties.end()) return "float";
    if (int_properties.find(name) != int_properties.end()) return "int";
    if (bool_properties.find(name) != bool_properties.end()) return "bool";
@@ -163,7 +163,6 @@ std::string TMJObjectCustomProperties::get_type(std::string name)
 
 bool TMJObjectCustomProperties::exists(std::string name)
 {
-   // TODO: Check for duplicate or overwrite
    if (float_properties.find(name) != float_properties.end()) return true;
    if (int_properties.find(name) != int_properties.end()) return true;
    if (bool_properties.find(name) != bool_properties.end()) return true;
@@ -173,30 +172,50 @@ bool TMJObjectCustomProperties::exists(std::string name)
 
 bool TMJObjectCustomProperties::is_float(std::string name)
 {
-   // TODO: Conaider checking for existence first
+   throw_if_key_does_not_exist(name, "is_float");
    if (float_properties.find(name) != float_properties.end()) return true;
    return false;
 }
 
 bool TMJObjectCustomProperties::is_bool(std::string name)
 {
-   // TODO: Conaider checking for existence first
+   throw_if_key_does_not_exist(name, "is_bool");
    if (bool_properties.find(name) != bool_properties.end()) return true;
    return false;
 }
 
 bool TMJObjectCustomProperties::is_int(std::string name)
 {
-   // TODO: Conaider checking for existence first
+   throw_if_key_does_not_exist(name, "is_int");
    if (int_properties.find(name) != int_properties.end()) return true;
    return false;
 }
 
 bool TMJObjectCustomProperties::is_string(std::string name)
 {
-   // TODO: Conaider checking for existence first
+   throw_if_key_does_not_exist(name, "is_string");
    if (string_properties.find(name) != string_properties.end()) return true;
    return false;
+}
+
+void TMJObjectCustomProperties::throw_if_key_already_exists(std::string key, std::string while_in_method_name)
+{
+   if (!exists(key)) return;
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::Tiled::TMJObjectCustomProperties::" + while_in_method_name,
+      "The key \"" + key + "\" already exists."
+   );
+   return;
+}
+
+void TMJObjectCustomProperties::throw_if_key_does_not_exist(std::string key, std::string while_in_method_name)
+{
+   if (exists(key)) return;
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::Tiled::TMJObjectCustomProperties::" + while_in_method_name,
+      "The key \"" + key + "\" does not exist."
+   );
+   return;
 }
 
 

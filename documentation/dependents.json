@@ -172,6 +172,7 @@
     "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJObjectCustomProperties",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
     "AllegroFlare/WorldMaps/Maps/Base",

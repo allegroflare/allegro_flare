@@ -16,6 +16,8 @@ namespace AllegroFlare
          std::map<std::string, bool> bool_properties;
          std::map<std::string, int> int_properties;
          std::map<std::string, float> float_properties;
+         void throw_if_key_already_exists(std::string key="[unset-key]", std::string while_in_method_name="[unset-location]");
+         void throw_if_key_does_not_exist(std::string key="[unset-key]", std::string while_in_method_name="[unset-location]");
 
       protected:
 
