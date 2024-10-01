@@ -81,9 +81,8 @@ documentation:
 
 
   - todos:
-      - Move the "normalize_tile_data_from_tilesets" functionality out of this class and make it the responsibility
-        of the user to do this. The TMJDataLoader class should only load data from the TMJ file and make it available
-        as data accessible from the class.
+      - Restructure the "normalize_tile_data_from_tilesets" functionality out of this class and make it the
+        a optional feature when extracting the data.
 
 
 methods:
