@@ -191,6 +191,45 @@ methods:
     body: return tilelayers_tile_data;
 
 
+  - name: get_tilelayer_data_by_name
+    type: std::vector<int>
+    parameters:
+      - name: tilelayer_name
+        type: std::string
+        default_argument: '"[unset-tilelayer_name]"'
+    guards: [ loaded, tilelayer_exists(tilelayer_name) ]
+    body: |
+      // TODO: Test this
+      // TODO: Test guards
+      // TODO: Improve non-existent layer name error message
+      return tilelayers_tile_data[tilelayer_name];
+
+
+  - name: get_tilelayer_data_by_name_as_2d_vector
+    type: std::vector<std::vector<int>>
+    parameters:
+      - name: tilelayer_name
+        type: std::string
+        default_argument: '"[unset-tilelayer_name]"'
+    guards: [ loaded, tilelayer_exists(tilelayer_name) ]
+    body: |
+      // TODO: Test this
+      // TODO: Test guards
+      // TODO: Improve non-existent layer name error message
+      std::vector<std::vector<int>> result;
+      std::vector<int> &tilelayer_data = tilelayers_tile_data[tilelayer_name];
+      for (int y=0; y<num_rows; y++)
+      {
+         result.push_back(std::vector<int>(num_columns));
+
+         for (int x=0; x<num_columns; x++)
+         {
+            result.back()[x] = tilelayer_data[x + y * num_columns];
+         }
+      }
+      return result;
+
+
   - name: tilelayer_exists
     type: bool
     parameters:

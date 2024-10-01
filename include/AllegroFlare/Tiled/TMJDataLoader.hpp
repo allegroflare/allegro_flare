@@ -59,6 +59,8 @@ namespace AllegroFlare
          int get_collision_layer_num_rows();
          std::vector<int> get_collision_layer_tile_data();
          std::map<std::string, std::vector<int>> get_tilelayers_tile_data();
+         std::vector<int> get_tilelayer_data_by_name(std::string tilelayer_name="[unset-tilelayer_name]");
+         std::vector<std::vector<int>> get_tilelayer_data_by_name_as_2d_vector(std::string tilelayer_name="[unset-tilelayer_name]");
          bool tilelayer_exists(std::string tilelayer_name="[unset-tilelayer_name]");
          bool load();
          std::vector<int> normalize_tile_data_to_tilesets_firstgids(std::vector<int> data={}, std::set<int> tilesets_firstgids={});
