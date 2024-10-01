@@ -12,9 +12,6 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, can_be_created_without_blowing_up)
 }
 
 
-// TODO: Get the test fixture files into allegro_flare/
-
-/*
 TEST(AllegroFlare_Tiled_TMJDataLoaderTest, get_loaded__before_calling_load__returns_false)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
@@ -42,7 +39,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
 
    std::string expected_error_message = 
      R"([AllegroFlare::Tiled::TMJDataLoader::load]: error: The expected tmj file does not exist. Looking for )"
-     R"("some-file-that-does-not-exist.tmj" from the current path "/Users/markoates/Repos/RotateWorld".)";
+     R"("some-file-that-does-not-exist.tmj" from the current path "/Users/markoates/Repos/allegro_flare".)";
 
    EXPECT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
 }
@@ -137,7 +134,8 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, tilelayer_exists__will_return_false_w
 }
 
 
-TEST(AllegroFlare_Tiled_TMJDataLoaderTest, for_each_object__will_call_the_provided_function_with_each_object_as_an_argument)
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
+   for_each_object__will_call_the_provided_function_with_each_object_as_an_argument)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string filename = deployment_environment.get_data_folder_path() + "maps/test_world_with_object_layer-01.tmj";
@@ -159,7 +157,6 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, for_each_object__will_call_the_provid
    EXPECT_EQ(2, call_count);
    EXPECT_EQ(true, object_types_to_exhaust.empty());
 }
-*/
 
 
 /*
