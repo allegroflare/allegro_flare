@@ -31,7 +31,7 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, get_loaded__after_calling_load__retur
 }
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
    load__on_a_file_that_does_not_exist__throws_an_error)
 {
    std::string filename = "some-file-that-does-not-exist.tmj";
@@ -159,7 +159,7 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
 }
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__on_a_file_with_malformed_json__throws_an_error)
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__on_a_file_with_malformed_json__throws_an_error)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string filename = deployment_environment.get_data_folder_path() + "file-with-malformed-json.tmj";
@@ -176,7 +176,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__on_a_file_wi
 }
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__returns_true)
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__returns_true)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string filename = deployment_environment.get_data_folder_path() + "maps/test_world-01.tmj";
@@ -186,7 +186,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__returns_true
 }
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__if_load_has_already_been_called__throws_an_error)
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__if_load_has_already_been_called__throws_an_error)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string filename = deployment_environment.get_data_folder_path() + "maps/test_world-01.tmj";
@@ -202,14 +202,14 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest, load__if_load_has_
 
 
 /*
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
    load__will_set_the_properties_to_the_expected_values_for_the_layer)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string filename = deployment_environment.get_data_folder_path() + "map1-02.tmj";
    AllegroFlare::Tiled::TMJDataLoader loader(filename);
    //std::string filename = TMJ_FIXTURE_PATH_AND_FILENAME;
-   //AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
+   //AllegroFlare::Tiled::TMJDataLoader loader(filename);
 
    loader.load();
 
