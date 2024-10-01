@@ -62,6 +62,7 @@ namespace AllegroFlare
          void initialize();
          void set_num_rows(int num_rows=0);
          void set_num_columns(int num_columns=0);
+         void set_tile_ids(std::vector<int> tile_ids={});
          int remove_tile_xy_from_index(int tile_x=0, int tile_y=0);
          int remove_vertices_from_index_vertices(std::vector<int> vertices_to_remove={});
          std::vector<int> vertex_indices_for_tile_xy(int tile_x=0, int tile_y=0);

@@ -28,6 +28,7 @@ properties:
     type: std::vector<int>
     init_with: '{}'
     getter: true
+    setter: explicit
     lifecycle: [ injected, created, shared, destroyed, handed_off ]
 
   - name: index_vertices
@@ -153,6 +154,29 @@ methods:
     body: |
       this->num_columns = num_columns;
       if (initialized) resize(num_columns, num_rows);
+
+
+  - name: set_tile_ids
+    parameters:
+      - name: tile_ids
+        type: std::vector<int>
+        default_argument: '{}'
+    guards: [ (tile_ids.size() == this->tile_ids.size()) ]
+    body: |
+      // TODO: Test this
+      // TODO: Test held refresh
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::TileMaps::TileMesh::set_tile_ids()",
+         "This method does not account for flipping or flipped tiles. If you're loading data directly "
+            "from a TMJ file, you may accidentally import a flipped tile. This feature may neeed to be reconsidered "
+            "or modified."
+      );
+      this->tile_ids = tile_ids;
+      if (holding_vertex_buffer_update_until_refresh) vertex_buffer_is_dirty = true;
+      else refresh_vertex_buffer();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: remove_tile_xy_from_index
@@ -753,5 +777,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

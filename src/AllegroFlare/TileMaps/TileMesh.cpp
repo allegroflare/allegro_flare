@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/TileMaps/TileMesh.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <algorithm>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -185,6 +186,29 @@ void TileMesh::set_num_columns(int num_columns)
    }
    this->num_columns = num_columns;
    if (initialized) resize(num_columns, num_rows);
+}
+
+void TileMesh::set_tile_ids(std::vector<int> tile_ids)
+{
+   if (!((tile_ids.size() == this->tile_ids.size())))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileMesh::set_tile_ids]: error: guard \"(tile_ids.size() == this->tile_ids.size())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::set_tile_ids]: error: guard \"(tile_ids.size() == this->tile_ids.size())\" not met");
+   }
+   // TODO: Test this
+   // TODO: Test held refresh
+   AllegroFlare::Logger::warn_from(
+      "AllegroFlare::TileMaps::TileMesh::set_tile_ids()",
+      "This method does not account for flipping or flipped tiles. If you're loading data directly "
+         "from a TMJ file, you may accidentally import a flipped tile. This feature may neeed to be reconsidered "
+         "or modified."
+   );
+   this->tile_ids = tile_ids;
+   if (holding_vertex_buffer_update_until_refresh) vertex_buffer_is_dirty = true;
+   else refresh_vertex_buffer();
+   return;
 }
 
 int TileMesh::remove_tile_xy_from_index(int tile_x, int tile_y)
