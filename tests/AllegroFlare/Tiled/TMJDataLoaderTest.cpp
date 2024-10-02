@@ -229,6 +229,26 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_map_custom_properties
 }
 
 
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__when_a_map_class_is_present__will_assign_the_value_to_map_class)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_custom_properties-02.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   ASSERT_EQ(true, loader.load());
+   EXPECT_EQ("room_with_walls", loader.get_map_class());
+}
+
+
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__when_a_map_class_is_not_present__will_set_map_class_to_blank)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/stone_stage-01.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   ASSERT_EQ(true, loader.load());
+   EXPECT_EQ("", loader.get_map_class());
+}
+
+
 //map_with_custom_properties-02.tmj
 
 

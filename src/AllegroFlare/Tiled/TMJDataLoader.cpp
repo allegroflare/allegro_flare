@@ -31,6 +31,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , collision_layer_num_rows(0)
    , collision_layer_tile_data({})
    , tilelayers_tile_data({})
+   , map_class("[unset-map_class]")
    , map_custom_properties({})
    , throw_on_missing_collision_tilelayer(false)
    , normalize_tile_data_from_tilesets(true)
@@ -251,6 +252,18 @@ std::map<std::string, std::vector<int>> TMJDataLoader::get_tilelayers_tile_data(
    return tilelayers_tile_data;
 }
 
+std::string TMJDataLoader::get_map_class()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJDataLoader::get_map_class]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_map_class]: error: guard \"loaded\" not met");
+   }
+   return map_class;
+}
+
 AllegroFlare::Tiled::TMJObjectCustomProperties TMJDataLoader::get_map_custom_properties()
 {
    if (!(loaded))
@@ -393,6 +406,18 @@ bool TMJDataLoader::load()
 
 
 
+   // Extract map "class" (or set to blank if it's not present)
+   if (!j.contains("class"))
+   {
+      map_class = "";
+   }
+   else
+   {
+      map_class = j["class"].get<std::string>();
+   }
+
+
+   // Extract map custom properties
    map_custom_properties = attempt_to_extract_custom_properties(&j);
 
 

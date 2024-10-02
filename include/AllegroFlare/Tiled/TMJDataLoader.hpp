@@ -30,6 +30,7 @@ namespace AllegroFlare
          int collision_layer_num_rows;
          std::vector<int> collision_layer_tile_data;
          std::map<std::string, std::vector<int>> tilelayers_tile_data;
+         std::string map_class;
          AllegroFlare::Tiled::TMJObjectCustomProperties map_custom_properties;
          bool throw_on_missing_collision_tilelayer;
          bool normalize_tile_data_from_tilesets;
@@ -62,6 +63,7 @@ namespace AllegroFlare
          int get_collision_layer_num_rows();
          std::vector<int> get_collision_layer_tile_data();
          std::map<std::string, std::vector<int>> get_tilelayers_tile_data();
+         std::string get_map_class();
          AllegroFlare::Tiled::TMJObjectCustomProperties get_map_custom_properties();
          std::vector<int> get_tilelayer_data_by_name(std::string tilelayer_name="[unset-tilelayer_name]");
          std::vector<std::vector<int>> get_tilelayer_data_by_name_as_2d_vector(std::string tilelayer_name="[unset-tilelayer_name]");

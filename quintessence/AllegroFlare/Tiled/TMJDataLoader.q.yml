@@ -62,6 +62,11 @@ properties:
     init_with: '{}'
     getter: explicit
 
+  - name: map_class
+    type: std::string
+    init_with: '"[unset-map_class]"'
+    getter: explicit
+
   - name: map_custom_properties
     type: AllegroFlare::Tiled::TMJObjectCustomProperties
     init_with: '{}'
@@ -196,6 +201,12 @@ methods:
     body: return tilelayers_tile_data;
 
 
+  - name: get_map_class
+    type: std::string
+    guards: [ loaded ]
+    body: return map_class;
+
+
   - name: get_map_custom_properties
     type: AllegroFlare::Tiled::TMJObjectCustomProperties
     guards: [ loaded ]
@@ -316,6 +327,18 @@ methods:
 
 
 
+      // Extract map "class" (or set to blank if it's not present)
+      if (!j.contains("class"))
+      {
+         map_class = "";
+      }
+      else
+      {
+         map_class = j["class"].get<std::string>();
+      }
+
+
+      // Extract map custom properties
       map_custom_properties = attempt_to_extract_custom_properties(&j);
 
 
