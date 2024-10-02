@@ -53,6 +53,15 @@ methods:
       - std::set
 
 
+  - name: empty
+    type: bool
+    body: |
+      return string_properties.empty()
+         && bool_properties.empty()
+         && int_properties.empty()
+         && float_properties.empty();
+
+
   - name: clear
     body: |
       string_properties.clear();

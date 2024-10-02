@@ -592,6 +592,7 @@ methods:
                   }
                }
 
+               /*
                // Load custom properties
                if (object_json.value().contains("properties"))
                {
@@ -666,6 +667,10 @@ methods:
                      }
                   }
                }
+               */
+
+               // TODO: Test this
+               custom_properties = attempt_to_extract_custom_properties(&object_json.value());
 
                objects.push_back({});
                auto &object = objects.back();

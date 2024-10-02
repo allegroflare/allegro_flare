@@ -669,6 +669,7 @@ bool TMJDataLoader::load()
                }
             }
 
+            /*
             // Load custom properties
             if (object_json.value().contains("properties"))
             {
@@ -743,6 +744,10 @@ bool TMJDataLoader::load()
                   }
                }
             }
+            */
+
+            // TODO: Test this
+            custom_properties = attempt_to_extract_custom_properties(&object_json.value());
 
             objects.push_back({});
             auto &object = objects.back();

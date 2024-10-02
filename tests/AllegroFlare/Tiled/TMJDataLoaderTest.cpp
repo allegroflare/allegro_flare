@@ -55,9 +55,13 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_the_expected_objects_
 
    auto entity1 = loader.get_objects_ref()[0];
    EXPECT_EQ(entity1.type, "main_exit");
+   EXPECT_EQ(true, entity1.custom_properties.exists("gravity_orientation"));
+   EXPECT_EQ(true, entity1.custom_properties.is_string("gravity_orientation"));
+   EXPECT_EQ("left", entity1.custom_properties.get_string("gravity_orientation"));
 
    auto entity2 = loader.get_objects_ref()[1];
    EXPECT_EQ(entity2.type, "player_spawn");
+   EXPECT_EQ(true, entity2.custom_properties.empty());
 }
 
 

@@ -95,6 +95,14 @@ std::string TMJObjectCustomProperties::get_keys_in_list()
    return result_str.str();
 }
 
+bool TMJObjectCustomProperties::empty()
+{
+   return string_properties.empty()
+      && bool_properties.empty()
+      && int_properties.empty()
+      && float_properties.empty();
+}
+
 void TMJObjectCustomProperties::clear()
 {
    string_properties.clear();

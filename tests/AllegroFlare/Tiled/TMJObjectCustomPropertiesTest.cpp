@@ -64,6 +64,37 @@ TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
 
 
 TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
+   empty__when_there_are_no_custom_properties__will_return_true)
+{
+   AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
+   EXPECT_EQ(true, custom_properties.empty());
+}
+
+
+TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
+   empty__when_any_custom_properties_are_present__will_return_false)
+{
+   AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
+
+   custom_properties.add_bool("my_property", true);
+   EXPECT_EQ(false, custom_properties.empty());
+   custom_properties.clear();
+
+   custom_properties.add_int("my_property", 123);
+   EXPECT_EQ(false, custom_properties.empty());
+   custom_properties.clear();
+
+   custom_properties.add_float("my_property", 3.14f);
+   EXPECT_EQ(false, custom_properties.empty());
+   custom_properties.clear();
+
+   custom_properties.add_string("my_property", "My custom string value");
+   EXPECT_EQ(false, custom_properties.empty());
+   custom_properties.clear();
+}
+
+
+TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
    get_functions__when_the_key_does_not_exist__throws_an_error)
 {
    AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
