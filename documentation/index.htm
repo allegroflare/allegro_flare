@@ -40271,6 +40271,10 @@ table td
   <td class="property">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">map_custom_properties</td>
+  <td class="property">AllegroFlare::Tiled::TMJObjectCustomProperties</td>
+</tr>
+<tr>
   <td class="property">throw_on_missing_collision_tilelayer</td>
   <td class="property">bool</td>
 </tr>
@@ -40346,6 +40350,10 @@ table td
   <td class="method"><b>get_tilelayers_tile_data</b>()</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Tiled::TMJObjectCustomProperties</td>
+  <td class="method"><b>get_map_custom_properties</b>()</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;int&gt;</td>
   <td class="method"><b>get_tilelayer_data_by_name</b>(std::string tilelayer_name=&quot;[unset-tilelayer_name]&quot;)</td>
 </tr>
@@ -40360,6 +40368,10 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>load</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Tiled::TMJObjectCustomProperties</td>
+  <td class="method"><b>attempt_to_extract_custom_properties</b>(nlohmann::json* object_json=nullptr)</td>
 </tr>
 <tr>
   <td class="method">std::vector&lt;int&gt;</td>
@@ -40395,6 +40407,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObjectCustomProperties&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObjectCustomProperties.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48605,6 +48620,7 @@ table td
     "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
+    "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
   ],
   "std/time_t": [

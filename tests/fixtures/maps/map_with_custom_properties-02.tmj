@@ -1,0 +1,57 @@
+{ "class":"room_with_walls",
+ "compressionlevel":-1,
+ "height":9,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[42, 41, 44, 42, 22, 44, 44, 44, 41, 44, 41, 41, 42, 42, 41, 44, 2,
+            24, 24, 22, 2, 24, 22, 41, 44, 41, 24, 24, 2, 42, 44, 42, 24, 42,
+            22, 42, 16, 24, 44, 44, 2, 41, 44, 16, 41, 41, 44, 41, 16, 44, 22,
+            51, 51, 36, 51, 51, 51, 51, 51, 51, 36, 51, 51, 51, 51, 36, 51, 51,
+            0, 0, 0, 0, 0, 82, 122, 102, 102, 122, 83, 82, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 102, 103, 83, 102, 123, 90, 91, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 122, 102, 123, 103, 82, 110, 111, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 103, 102, 82, 82, 102, 130, 131, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 102, 122, 82, 123, 83, 83, 82, 0, 0, 0, 0, 0],
+         "height":9,
+         "id":1,
+         "name":"visual",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":17,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":2,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "properties":[
+        {
+         "name":"depth_in_tiles",
+         "type":"int",
+         "value":5
+        }, 
+        {
+         "name":"height_in_tiles",
+         "type":"int",
+         "value":4
+        }, 
+        {
+         "name":"width_in_tiles",
+         "type":"int",
+         "value":7
+        }],
+ "renderorder":"right-down",
+ "tiledversion":"1.10.2",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"..\/..\/..\/project_files\/tiles_dungeon_v1.1.tsj"
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.10",
+ "width":17
+}

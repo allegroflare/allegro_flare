@@ -31,6 +31,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , collision_layer_num_rows(0)
    , collision_layer_tile_data({})
    , tilelayers_tile_data({})
+   , map_custom_properties({})
    , throw_on_missing_collision_tilelayer(false)
    , normalize_tile_data_from_tilesets(true)
    , reduce_any_non_zero_collision_layer_data_to_1(true)
@@ -250,6 +251,18 @@ std::map<std::string, std::vector<int>> TMJDataLoader::get_tilelayers_tile_data(
    return tilelayers_tile_data;
 }
 
+AllegroFlare::Tiled::TMJObjectCustomProperties TMJDataLoader::get_map_custom_properties()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJDataLoader::get_map_custom_properties]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_map_custom_properties]: error: guard \"loaded\" not met");
+   }
+   return map_custom_properties;
+}
+
 std::vector<int> TMJDataLoader::get_tilelayer_data_by_name(std::string tilelayer_name)
 {
    if (!(loaded))
@@ -377,6 +390,11 @@ bool TMJDataLoader::load()
          tilesets_gids.insert(firstgid);
       }
    }
+
+
+
+   map_custom_properties = attempt_to_extract_custom_properties(&j);
+
 
 
 
@@ -748,6 +766,90 @@ bool TMJDataLoader::load()
    i.close();
 
    return true;
+}
+
+AllegroFlare::Tiled::TMJObjectCustomProperties TMJDataLoader::attempt_to_extract_custom_properties(nlohmann::json* object_json)
+{
+   AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
+
+   // Load custom properties
+   //if (object_json.value().contains("properties"))
+   if (object_json->contains("properties"))
+   {
+      // TODO: Improve this error message
+      //if (!object_json.value()["properties"].is_array())
+      if (!object_json->operator[]("properties").is_array())
+      {
+         throw std::runtime_error("3j4io5jio3j5o2: is not array");
+      }
+
+      //for (auto &custom_property_item : object_json.value()["properties"].items())
+      for (auto &custom_property_item : object_json->operator[]("properties").items())
+      //for (auto &custom_property_item : values["properties"].items())
+      {
+         nlohmann::json custom_property = custom_property_item.value();
+         std::string custom_property_name = custom_property["name"];
+
+         if (!custom_property.contains("type"))
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Tiled::TMJDataLoader::load",
+               "When parsing custom properties on an object, expecting to find \"type\" but it was not "
+                  "present. This error occurred while loading \"" + filename + "\"."
+            );
+         }
+
+         std::string custom_property_type = custom_property["type"];
+
+         // TODO: Test the parsing of these custom values
+         if (custom_property_type == "string")
+         {
+            std::string custom_property_value = custom_property["value"];
+            custom_properties.add_string(custom_property_name, custom_property_value);
+         }
+         else if (custom_property_type == "int")
+         {
+            int custom_property_value = custom_property["value"];
+            custom_properties.add_int(custom_property_name, custom_property_value);
+         }
+         else if (custom_property_type == "float")
+         {
+            float custom_property_value = custom_property["value"];
+            custom_properties.add_float(custom_property_name, custom_property_value);
+         }
+         else if (custom_property_type == "bool")
+         {
+            bool custom_property_value = custom_property["value"];
+            custom_properties.add_bool(custom_property_name, custom_property_value);
+         }
+         else if (custom_property_type == "object")
+         {
+            int custom_property_value = custom_property["value"];
+            if (custom_property_value == 0)
+            {
+               AllegroFlare::Logger::warn_from(
+                  "AllegroFlare::Tiled::TMJDataLoader::load",
+                  "When loading custom properies, the property name \"" + custom_property_type + "\" was "
+                     "parsed with value of \"0\", indicating that it is empty (or unset) in Tiled. The "
+                     "loader will skip over including this property internally."
+               );
+            }
+            else
+            {
+               custom_properties.add_int(custom_property_name, custom_property_value);
+            }
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Tiled::TMJDataLoader::load",
+               "When loading custom properies, an object contained a custom property of type \"" +
+                  custom_property_type + "\" which is not handled here."
+            );
+         }
+      }
+   }
+   return custom_properties;
 }
 
 std::vector<int> TMJDataLoader::normalize_tile_data_to_tilesets_firstgids(std::vector<int> data, std::set<int> tilesets_firstgids)

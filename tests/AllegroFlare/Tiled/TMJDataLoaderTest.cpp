@@ -211,6 +211,23 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__on_this_specific_map__will_load
 }
 
 
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_map_custom_properties)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_custom_properties-02.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   ASSERT_EQ(true, loader.load());
+
+   AllegroFlare::Tiled::TMJObjectCustomProperties map_custom_properties = loader.get_map_custom_properties();
+   EXPECT_EQ(true, map_custom_properties.exists("width_in_tiles"));
+   ASSERT_EQ(true, map_custom_properties.is_int("width_in_tiles"));
+   EXPECT_EQ(7, map_custom_properties.get_int("width_in_tiles"));
+}
+
+
+//map_with_custom_properties-02.tmj
+
+
 // TODO: Uncomment these tests
 
 

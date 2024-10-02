@@ -3984,6 +3984,7 @@
     "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
+    "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
   ],
   "std/time_t": [
