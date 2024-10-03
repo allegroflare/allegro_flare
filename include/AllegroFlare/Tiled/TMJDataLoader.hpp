@@ -8,6 +8,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <tuple>
 #include <vector>
 
 
@@ -32,6 +33,7 @@ namespace AllegroFlare
          std::map<std::string, std::vector<int>> tilelayers_tile_data;
          std::string map_class;
          AllegroFlare::Tiled::TMJObjectCustomProperties map_custom_properties;
+         std::vector<std::tuple<int, std::string, std::string>> tilesets;
          bool throw_on_missing_collision_tilelayer;
          bool normalize_tile_data_from_tilesets;
          bool reduce_any_non_zero_collision_layer_data_to_1;
@@ -65,10 +67,12 @@ namespace AllegroFlare
          std::map<std::string, std::vector<int>> get_tilelayers_tile_data();
          std::string get_map_class();
          AllegroFlare::Tiled::TMJObjectCustomProperties get_map_custom_properties();
+         std::vector<std::tuple<int, std::string, std::string>> get_tilesets();
          std::vector<int> get_tilelayer_data_by_name(std::string tilelayer_name="[unset-tilelayer_name]");
          std::vector<std::vector<int>> get_tilelayer_data_by_name_as_2d_vector(std::string tilelayer_name="[unset-tilelayer_name]");
          bool tilelayer_exists(std::string tilelayer_name="[unset-tilelayer_name]");
          bool load();
+         static std::string extract_last_fragment(std::string path_string="[unset-string]");
          AllegroFlare::Tiled::TMJObjectCustomProperties attempt_to_extract_custom_properties(nlohmann::json* object_json=nullptr);
          std::vector<int> normalize_tile_data_to_tilesets_firstgids(std::vector<int> data={}, std::set<int> tilesets_firstgids={});
       };

@@ -72,6 +72,11 @@ properties:
     init_with: '{}'
     getter: explicit
 
+  - name: tilesets
+    type: std::vector<std::tuple<int, std::string, std::string>>
+    init_with: '{}'
+    getter: explicit
+
   - name: throw_on_missing_collision_tilelayer
     type: bool
     init_with: false
@@ -213,6 +218,12 @@ methods:
     body: return map_custom_properties;
 
 
+  - name: get_tilesets
+    type: std::vector<std::tuple<int, std::string, std::string>>
+    guards: [ loaded ]
+    body: return tilesets;
+
+
   - name: get_tilelayer_data_by_name
     type: std::vector<int>
     parameters:
@@ -344,6 +355,41 @@ methods:
 
 
 
+      // Extract the tilesets
+      if (!j.contains("tilesets"))
+      {
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Tiled::TMJDataLoader::load",
+            "The map does not contain any section \"tilesets\". If this is expected behavior please ignore this "
+               "warning message. TODO: Add option to disable this warning."
+         );
+      }
+      else
+      {
+         if (!j["tilesets"].is_array())
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Tiled::TMJDataLoader::load",
+               "The section \"tilesets\" is present but is not an array."
+            );
+         }
+         
+         for (auto &tileset : j["tilesets"].items())
+         {
+            int firstgid = tileset.value()["firstgid"].get<int>();
+            std::string source = tileset.value()["source"].get<std::string>();
+
+            tilesets.push_back(
+               std::tuple<int, std::string, std::string>{
+                  firstgid,
+                  source,
+                  extract_last_fragment(source)
+               }
+            );
+         }
+      }
+
+
 
       //layer_num_columns = tilelayer["width"];
       //layer_num_rows = tilelayer["height"];
@@ -380,6 +426,7 @@ methods:
          collision_tilelayer_is_present = false;
          nlohmann::json collision_tilelayer;
 
+         // TODO: Confirm "layers" is an array
          for (auto &layer : j["layers"].items())
          {
             if (layer.value()["type"] == "tilelayer" && layer.value()["name"] == "collision")
@@ -724,6 +771,35 @@ methods:
       - std::ifstream
       - AllegroFlare::Logger
       - AllegroFlare::StringFormatValidator
+
+
+  - name: extract_last_fragment
+    static: true
+    type: std::string
+    parameters:
+      - name: path_string
+        type: std::string
+        default_argument: '"[unset-string]"'
+    body: |
+      size_t last_slash_pos = path_string.find_last_of("/");
+
+      // Extract the substring after the last '/'
+      if (last_slash_pos == std::string::npos)
+      {
+         //return path_string.substr(last_slash_pos + 1);
+      //}
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Tiled::TMJDataLoader::extract_last_fragment",
+            "When attempting to extract the image filename from the path string \"" + path_string + "\", one could "
+               "not be captured. If this is a real file path, this method should be updated to account for it, "
+               "and for now the image filename will not be known and will be blank."
+         );
+      }
+      else
+      {
+         return path_string.substr(last_slash_pos + 1);
+      }
+      return "";
 
 
   - name: attempt_to_extract_custom_properties

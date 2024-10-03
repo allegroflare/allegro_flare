@@ -33,6 +33,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , tilelayers_tile_data({})
    , map_class("[unset-map_class]")
    , map_custom_properties({})
+   , tilesets({})
    , throw_on_missing_collision_tilelayer(false)
    , normalize_tile_data_from_tilesets(true)
    , reduce_any_non_zero_collision_layer_data_to_1(true)
@@ -276,6 +277,18 @@ AllegroFlare::Tiled::TMJObjectCustomProperties TMJDataLoader::get_map_custom_pro
    return map_custom_properties;
 }
 
+std::vector<std::tuple<int, std::string, std::string>> TMJDataLoader::get_tilesets()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJDataLoader::get_tilesets]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_tilesets]: error: guard \"loaded\" not met");
+   }
+   return tilesets;
+}
+
 std::vector<int> TMJDataLoader::get_tilelayer_data_by_name(std::string tilelayer_name)
 {
    if (!(loaded))
@@ -423,6 +436,41 @@ bool TMJDataLoader::load()
 
 
 
+   // Extract the tilesets
+   if (!j.contains("tilesets"))
+   {
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Tiled::TMJDataLoader::load",
+         "The map does not contain any section \"tilesets\". If this is expected behavior please ignore this "
+            "warning message. TODO: Add option to disable this warning."
+      );
+   }
+   else
+   {
+      if (!j["tilesets"].is_array())
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Tiled::TMJDataLoader::load",
+            "The section \"tilesets\" is present but is not an array."
+         );
+      }
+      
+      for (auto &tileset : j["tilesets"].items())
+      {
+         int firstgid = tileset.value()["firstgid"].get<int>();
+         std::string source = tileset.value()["source"].get<std::string>();
+
+         tilesets.push_back(
+            std::tuple<int, std::string, std::string>{
+               firstgid,
+               source,
+               extract_last_fragment(source)
+            }
+         );
+      }
+   }
+
+
 
    //layer_num_columns = tilelayer["width"];
    //layer_num_rows = tilelayer["height"];
@@ -459,6 +507,7 @@ bool TMJDataLoader::load()
       collision_tilelayer_is_present = false;
       nlohmann::json collision_tilelayer;
 
+      // TODO: Confirm "layers" is an array
       for (auto &layer : j["layers"].items())
       {
          if (layer.value()["type"] == "tilelayer" && layer.value()["name"] == "collision")
@@ -796,6 +845,29 @@ bool TMJDataLoader::load()
    i.close();
 
    return true;
+}
+
+std::string TMJDataLoader::extract_last_fragment(std::string path_string)
+{
+   size_t last_slash_pos = path_string.find_last_of("/");
+
+   // Extract the substring after the last '/'
+   if (last_slash_pos == std::string::npos)
+   {
+      //return path_string.substr(last_slash_pos + 1);
+   //}
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Tiled::TMJDataLoader::extract_last_fragment",
+         "When attempting to extract the image filename from the path string \"" + path_string + "\", one could "
+            "not be captured. If this is a real file path, this method should be updated to account for it, "
+            "and for now the image filename will not be known and will be blank."
+      );
+   }
+   else
+   {
+      return path_string.substr(last_slash_pos + 1);
+   }
+   return "";
 }
 
 AllegroFlare::Tiled::TMJObjectCustomProperties TMJDataLoader::attempt_to_extract_custom_properties(nlohmann::json* object_json)

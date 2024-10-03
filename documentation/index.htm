@@ -40279,6 +40279,10 @@ table td
   <td class="property">AllegroFlare::Tiled::TMJObjectCustomProperties</td>
 </tr>
 <tr>
+  <td class="property">tilesets</td>
+  <td class="property">std::vector&lt;std::tuple&lt;int, std::string, std::string&gt;&gt;</td>
+</tr>
+<tr>
   <td class="property">throw_on_missing_collision_tilelayer</td>
   <td class="property">bool</td>
 </tr>
@@ -40362,6 +40366,10 @@ table td
   <td class="method"><b>get_map_custom_properties</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::vector&lt;std::tuple&lt;int, std::string, std::string&gt;&gt;</td>
+  <td class="method"><b>get_tilesets</b>()</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;int&gt;</td>
   <td class="method"><b>get_tilelayer_data_by_name</b>(std::string tilelayer_name=&quot;[unset-tilelayer_name]&quot;)</td>
 </tr>
@@ -40376,6 +40384,10 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>load</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>extract_last_fragment</b>(std::string path_string=&quot;[unset-string]&quot;)</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::Tiled::TMJObjectCustomProperties</td>

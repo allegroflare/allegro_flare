@@ -249,6 +249,32 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__when_a_map_class_is_not_present
 }
 
 
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_capture_tilesets)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/room_with_different_tilesets-01.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   ASSERT_EQ(true, loader.load());
+
+   std::vector<std::tuple<int, std::string, std::string>> tilesets = loader.get_tilesets();
+   ASSERT_EQ(2, tilesets.size());
+
+   std::tuple<int, std::string, std::string> expected_tileset_1{
+      1, 
+      "..\/..\/..\/project_files\/tiles_dungeon_v1.1.tsj",
+      "tiles_dungeon_v1.1.tsj"
+   };
+   EXPECT_EQ(expected_tileset_1, tilesets[0]);
+
+   std::tuple<int, std::string, std::string> expected_tileset_2{
+      721, 
+      "..\/..\/..\/project_files\/Village_Tileset.tsj",
+      "Village_Tileset.tsj"
+   };
+   EXPECT_EQ(expected_tileset_2, tilesets[1]);
+}
+
+
 //map_with_custom_properties-02.tmj
 
 
