@@ -36,9 +36,18 @@ ALLEGRO_BITMAP* TileAtlasBuilder::build_extruded()
 
    ALLEGRO_STATE prev;
    al_store_state(&prev, ALLEGRO_STATE_TARGET_BITMAP);
-   ALLEGRO_BITMAP *target = al_create_bitmap(1536, 1536); // TODO: make this a little better
+   ALLEGRO_BITMAP *target = al_create_bitmap(1536*2, 1536*2); // TODO: make this a little better
    //ALLEGRO_BITMAP *target = al_create_bitmap(512, 512);
    al_set_target_bitmap(target);
+
+   AllegroFlare::Logger::warn_from(
+      "AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded",
+      "Currently using a surface of 3072x3072. This may not be large enough for the tile index, which contains " +
+         std::to_string(tile_index.size()) + " tiles, each with a dimension of (" + std::to_string(tile_w) + ", "
+         + std::to_string(tile_h) + "), each tile likely has been scaled. If you are seeing blank tiles at larger "
+         "tile index numbers, this could be the cause. Please update this function to accommodate the needed "
+         "dimensions."
+   );
 
 
    al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));
