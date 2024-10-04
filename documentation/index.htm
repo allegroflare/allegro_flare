@@ -80,6 +80,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml">quintessence/AllegroFlare/CameraControlStrategies2D/Snap.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Clock.q.yml">quintessence/AllegroFlare/Clock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ClubCatt/Logo.q.yml">quintessence/AllegroFlare/ClubCatt/Logo.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/CollisionObservers/Simple.q.yml">quintessence/AllegroFlare/CollisionObservers/Simple.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ColorKit.q.yml">quintessence/AllegroFlare/ColorKit.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DeploymentEnvironment.q.yml">quintessence/AllegroFlare/DeploymentEnvironment.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DesignSystems/DesignFocus.q.yml">quintessence/AllegroFlare/DesignSystems/DesignFocus.q.yml</a></li>
@@ -2476,6 +2477,61 @@ table td
 </tr>
     </table>
 </div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/CollisionObservers/Simple.q.yml">quintessence/AllegroFlare/CollisionObservers/Simple.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">subject</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">collidables</td>
+  <td class="property">std::set&lt;void*&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_test_collide</td>
+  <td class="property">std::function&lt;bool(void*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">currently_colliding</td>
+  <td class="property">std::set&lt;void*&gt;</td>
+</tr>
+<tr>
+  <td class="property">entered</td>
+  <td class="property">std::vector&lt;void*&gt;</td>
+</tr>
+<tr>
+  <td class="property">exited</td>
+  <td class="property">std::vector&lt;void*&gt;</td>
+</tr>
+<tr>
+  <td class="property">stayed_out</td>
+  <td class="property">std::vector&lt;void*&gt;</td>
+</tr>
+<tr>
+  <td class="property">stayed_in</td>
+  <td class="property">std::vector&lt;void*&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>currently_colliding_is_empty</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>process</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
 </ul>
 <br><br><br>
 <br><br><br>

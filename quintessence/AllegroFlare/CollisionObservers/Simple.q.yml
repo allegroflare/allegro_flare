@@ -1,0 +1,99 @@
+properties:
+
+
+  - name: subject
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: collidables
+    type: std::set<void*>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_test_collide
+    type: std::function<bool(void*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: currently_colliding
+    type: std::set<void*>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: entered
+    type: std::vector<void*>
+    init_with: '{}'
+    getter: true
+
+  - name: exited
+    type: std::vector<void*>
+    init_with: '{}'
+    getter: true
+
+  - name: stayed_out
+    type: std::vector<void*>
+    init_with: '{}'
+    getter: true
+
+  - name: stayed_in
+    type: std::vector<void*>
+    init_with: '{}'
+    getter: true
+
+
+methods:
+
+
+  - name: currently_colliding_is_empty
+    type: bool
+    body: |
+      return currently_colliding.empty();
+
+
+  - name: process
+    guards: [ subject, on_test_collide ]
+    body: |
+      // Clear from our previous pass
+      entered.clear();
+      exited.clear();
+      stayed_out.clear();
+      stayed_in.clear();
+
+      // Build up a list of entities that are colliding in this frame
+      std::set<void*> now_colliding;
+
+      for (auto &collidable : collidables)
+      {
+         bool colliding = on_test_collide(subject, collidable);
+         if (colliding) now_colliding.insert(collidable);
+      }
+
+      // Process enter, exit, stayed_in, stayed_out collisions
+      for (auto &collidable : collidables)
+      {
+         bool in_previous = currently_colliding.find(collidable) != currently_colliding.end();
+         bool in_current = now_colliding.find(collidable) != now_colliding.end();
+
+         if (in_previous && in_current) stayed_in.push_back(collidable);
+         else if (!in_previous && in_current) entered.push_back(collidable);
+         else if (in_previous && !in_current) exited.push_back(collidable);
+         else stayed_out.push_back(collidable);
+      }
+
+      // Include in "exited" the entities that are not in collidables, but are in currently_colliding. This may
+      // be unexpected behavior in some circumstances, if the pointer has been deleted, for example.
+      for (auto &collidable : currently_colliding)
+      {
+         if (collidables.find(collidable) == collidables.end()) exited.push_back(collidable);
+      }
+
+      currently_colliding = now_colliding;
+
+      return;
+
+
