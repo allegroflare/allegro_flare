@@ -1495,7 +1495,8 @@ void Full::render_screens_to_primary_render_surface()
    {
       // render the primary_render_surface to the backbuffer
       display_backbuffer.set_as_target();
-      al_use_shader(NULL); // TODO: consider side-effects of this
+      al_use_shader(NULL); // TODO: consider side-effects of this, consider NULL is already set twice prior
+                           // before draw_overlay() and within draw_overlay()
 
 
       //draw_overlay(); // NOTE: Default shader and other state restoration flags are handled within the function.
@@ -2652,10 +2653,34 @@ void Full::draw_overlay()
 {
    //profiler.start(".draw_overlay()");
 
-   // TODO: do a full audit of render flags that should be restored in addition to setting the 
-   // display_backbuffer_sub_bitmap
-   //display_backbuffer_sub_bitmap.set_as_target(); // TODO: Consider performance implications of this
-   //al_use_shader(NULL); // TODO: consider side-effects of this
+   // TODO: Move this option to a data member
+   // TODO: Consider moving this restoration process to happen before/outside this method
+   bool restore_allegro_default_projection_and_use_identity_transform_before_drawing_overlay = true;
+   if (restore_allegro_default_projection_and_use_identity_transform_before_drawing_overlay)
+   {
+      // TODO: Restore target bitmap to primary_render_surface
+
+      // Restore allegro's default projection and use identity transform
+      // TODO: Consider that a camera2d.setup_dimensional_projection() may be preferred here.
+      ALLEGRO_BITMAP *surface = al_get_target_bitmap();
+      ALLEGRO_TRANSFORM t;
+      al_identity_transform(&t);
+      al_use_transform(&t); // Use a default identity transform
+      al_orthographic_transform(&t, 0, 0, -1.0, al_get_bitmap_width(surface),
+                                al_get_bitmap_height(surface), 1.0);
+      al_use_projection_transform(&t);
+
+      // Clear the depth buffer
+      al_clear_depth_buffer(1);
+
+      // Set a typical render state
+      // TODO: Consider if other render states should be set here as well
+      // TODO: do a full audit of render flags that should be restored in addition to setting this
+      al_set_render_state(ALLEGRO_DEPTH_TEST, ALLEGRO_RENDER_LESS);
+
+      al_use_shader(NULL); // TODO: consider side-effects of this
+   }
+
 
    if (drawing_dialogs)
    {
@@ -2674,6 +2699,7 @@ void Full::draw_overlay()
          );
       }
    }
+
 
    if (drawing_inputs_bar_overlay)
    {
