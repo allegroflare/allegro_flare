@@ -386,6 +386,26 @@ void PauseScreen::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Screens::PauseScreen::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
+   // Restore sane render settings
+   // TODO: Test this restoration of render state
+   // TODO: Consider if this should be the task of the background
+
+   // Set the projection
+   ALLEGRO_BITMAP *surface = al_get_target_bitmap();
+   ALLEGRO_TRANSFORM t;
+   al_identity_transform(&t);
+   al_orthographic_transform(&t, 0, 0, -1.0, al_get_bitmap_width(surface),
+                             al_get_bitmap_height(surface), 1.0);
+   al_use_projection_transform(&t);
+
+   // Clear the depth buffer
+   al_clear_depth_buffer(1);
+
+   // Set a typical render state
+   // TODO: Consider if other render states should be set here as well
+   al_set_render_state(ALLEGRO_DEPTH_TEST, ALLEGRO_RENDER_LESS);
+
+   // Draw the contnet
    draw_title();
    if (show_footer_text) draw_footer_text();
    draw_menu();
