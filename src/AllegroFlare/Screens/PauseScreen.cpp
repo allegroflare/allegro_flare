@@ -390,10 +390,11 @@ void PauseScreen::render()
    // TODO: Test this restoration of render state
    // TODO: Consider if this should be the task of the background
 
-   // Set the projection
+   // Set the projection and current transform
    ALLEGRO_BITMAP *surface = al_get_target_bitmap();
    ALLEGRO_TRANSFORM t;
    al_identity_transform(&t);
+   al_use_transform(&t); // Use a default identity transform
    al_orthographic_transform(&t, 0, 0, -1.0, al_get_bitmap_width(surface),
                              al_get_bitmap_height(surface), 1.0);
    al_use_projection_transform(&t);
