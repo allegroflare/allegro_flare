@@ -2676,7 +2676,7 @@ void Full::draw_overlay()
       // Set a typical render state
       // TODO: Consider if other render states should be set here as well
       // TODO: do a full audit of render flags that should be restored in addition to setting this
-      al_set_render_state(ALLEGRO_DEPTH_TEST, ALLEGRO_RENDER_LESS);
+      al_set_render_state(ALLEGRO_DEPTH_TEST, ALLEGRO_RENDER_LESS_EQUAL);
 
       al_use_shader(NULL); // TODO: consider side-effects of this
    }
