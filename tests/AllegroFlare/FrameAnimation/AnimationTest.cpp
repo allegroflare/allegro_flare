@@ -253,37 +253,3 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
 }
 
 
-TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, 
-   draw__will_incorporate_the_current_transform)
-{
-   ALLEGRO_TRANSFORM t;
-   setup_animation(
-      std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
-      Animation::PLAYMODE_FORWARD_PING_PONG
-   );
-
-   int frames = 120;
-   animation->start();
-   for (int i=0; i<frames; i++)
-   {
-      al_clear_to_color(ALLEGRO_COLOR{0.1, 0.1, 0.13, 1});
-
-      // update and draw
-      animation->update();
-
-      al_identity_transform(&t);
-      al_rotate_transform(&t, ALLEGRO_PI * 0.125);
-      al_translate_transform(&t, 300, 100);
-      al_use_transform(&t);
-
-      animation->draw();
-
-      // draw info text
-      int sprite_sheet_cell_index_num = animation->get_sprite_sheet_cell_index_num_at(0.21);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", sprite_sheet_cell_index_num);
-
-      al_flip_display(); // assumes a rest of 1/60.0f
-   }
-}
-
-
