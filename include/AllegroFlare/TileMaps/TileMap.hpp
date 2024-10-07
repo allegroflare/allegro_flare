@@ -41,6 +41,7 @@ namespace AllegroFlare::TileMaps
 
       void resize(int w, int h);
       void resize_with_fill(int w, int h, T value);
+      void resize_and_fill_with_contiguous_data(int num_columns, int num_rows, std::vector<T> data);
       void fill_with_data(std::vector<std::vector<T>> data);
       void fill_area(int tile_x1, int tile_y1, int tile_x2, int tile_y2, T value);
       std::vector<std::vector<T>> build_data_as_2d_vector();
@@ -130,7 +131,7 @@ void TileMap<T>::fill_with_data(std::vector<std::vector<T>> data)
       }
    }
 
-   // TODO: Fill the data
+   // Fill the data
    for (int y=0; y<num_rows; y++)
    {
       for (int x=0; x<num_columns; x++)
@@ -141,6 +142,53 @@ void TileMap<T>::fill_with_data(std::vector<std::vector<T>> data)
 
    return;
 }
+
+
+template <class T>
+void TileMap<T>::resize_and_fill_with_contiguous_data(int num_columns, int num_rows, std::vector<T> data)
+//void TileMap<T>::fill_with_data(std::vector<std::vector<T>> data)
+{
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::resize_and_fill_with_contiguous_data",
+         "Must be initialized first"
+      );
+   }
+
+   // Validate number of rows and columns are not empty
+   if (num_columns <= 0)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::resize_and_fill_with_contiguous_data",
+         "num_columns cannot be less than or equal to 0"
+      );
+   }
+   if (num_rows <= 0)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::resize_and_fill_with_contiguous_data",
+         "num_rows cannot be less than or equal to 0"
+      );
+   }
+
+   // Validate num_rows and num_columns matches the size of the data
+   int expected_data_size = num_rows * num_columns;
+   if (expected_data_size != data.size())
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::resize_and_fill_with_contiguous_data",
+         "Expecting \"data.size()\" (" + std::to_string(data.size()) + " to be of equal size as "
+         "\"num_rows * num_columns\" (" + std::to_string(expected_data_size) + ")"
+      );
+   }
+
+   // Fill the data
+   tiles = data;
+
+   return;
+}
+
 
 
 template <class T>
