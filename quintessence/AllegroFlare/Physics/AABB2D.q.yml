@@ -42,6 +42,13 @@ properties:
     getter: true
     setter: true
     constructor_arg: true
+
+
+documentation:
+
+
+  - todos:
+      - Consider removing getters and setters, and expose the data members instead
     
 
 methods:
