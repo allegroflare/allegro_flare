@@ -44,7 +44,7 @@ properties:
     constructor_arg: true
     
 
-functions:
+methods:
 
 
   - name: get_left_edge
