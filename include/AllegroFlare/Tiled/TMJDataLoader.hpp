@@ -26,17 +26,11 @@ namespace AllegroFlare
          int tile_height;
          int layer_num_columns;
          int layer_num_rows;
-         int collision_tilelayer_is_present;
-         int collision_layer_num_columns;
-         int collision_layer_num_rows;
-         std::vector<int> collision_layer_tile_data;
          std::map<std::string, std::vector<int>> tilelayers_tile_data;
          std::string map_class;
          AllegroFlare::Tiled::TMJObjectCustomProperties map_custom_properties;
          std::vector<std::tuple<int, std::string, std::string>> tilesets;
-         bool throw_on_missing_collision_tilelayer;
          bool normalize_tile_data_from_tilesets;
-         bool reduce_any_non_zero_collision_layer_data_to_1;
          bool loaded;
          std::vector<AllegroFlare::Tiled::TMJObject> objects;
          static bool file_exists(std::string filename="[unset-filename]");
@@ -48,7 +42,6 @@ namespace AllegroFlare
          TMJDataLoader(std::string filename="filename-not-set.tmj");
          ~TMJDataLoader();
 
-         bool get_throw_on_missing_collision_tilelayer() const;
          bool get_loaded() const;
          std::vector<AllegroFlare::Tiled::TMJObject> get_objects() const;
          std::vector<AllegroFlare::Tiled::TMJObject> &get_objects_ref();
@@ -60,10 +53,6 @@ namespace AllegroFlare
          int get_tile_height();
          int get_layer_num_columns();
          int get_layer_num_rows();
-         bool get_collision_tilelayer_is_present();
-         int get_collision_layer_num_columns();
-         int get_collision_layer_num_rows();
-         std::vector<int> get_collision_layer_tile_data();
          std::map<std::string, std::vector<int>> get_tilelayers_tile_data();
          std::string get_map_class();
          AllegroFlare::Tiled::TMJObjectCustomProperties get_map_custom_properties();
