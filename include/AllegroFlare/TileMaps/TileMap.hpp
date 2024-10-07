@@ -178,12 +178,14 @@ void TileMap<T>::resize_and_fill_with_contiguous_data(int num_columns, int num_r
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::TileMaps::TileMap<T>::resize_and_fill_with_contiguous_data",
-         "Expecting \"data.size()\" (" + std::to_string(data.size()) + " to be of equal size as "
-         "\"num_rows * num_columns\" (" + std::to_string(expected_data_size) + ")"
+         "Expecting \"data.size()\" (has a value of " + std::to_string(data.size()) + ") to be of equal size as "
+         "\"num_rows * num_columns\" (has a value of " + std::to_string(expected_data_size) + ")"
       );
    }
 
    // Fill the data
+   this->num_columns = num_columns;
+   this->num_rows = num_rows;
    tiles = data;
 
    return;

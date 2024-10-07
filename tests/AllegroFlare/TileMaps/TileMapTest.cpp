@@ -212,4 +212,48 @@ TEST(AllegroFlare_TileMaps_TileMapTest, fill_area__will_fill_the_area_with_the_v
 }
 
 
+TEST(AllegroFlare_TileMaps_TileMapTest,
+   resize_and_fill_with_contiguous_data__when_given_a_size_that_does_not_match_the_params__will_throw_an_error)
+{
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   tile_map.initialize();
+
+   std::vector<int> data = {
+      1,  2,  3,  4,
+      5,  6,  7,  8,
+      9, 10, 11, 12,
+   };
+
+   EXPECT_THROW_WITH_MESSAGE(
+      tile_map.resize_and_fill_with_contiguous_data(1, 3, data),
+      std::runtime_error,
+      "[AllegroFlare::TileMaps::TileMap<T>::resize_and_fill_with_contiguous_data]: error: Expecting \"data.size()\" "
+         "(has a value of 12) to be of equal size as \"num_rows * num_columns\" (has a value of 3)"
+   );
+}
+
+
+// TODO: Add tests for "if (num_columns <= 0)" and "if (num_columns <= 0)" guards on
+// resize_and_fill_with_contiguous_data
+
+
+TEST(AllegroFlare_TileMaps_TileMapTest,
+   resize_and_fill_with_contiguous_data__will_set__num_rows__num_columns__and_fill_the_data_as_expected)
+{
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   tile_map.initialize();
+
+   std::vector<int> data = {
+      1,  2,  3,  4,
+      5,  6,  7,  8,
+      9, 10, 11, 12,
+   };
+
+   tile_map.resize_and_fill_with_contiguous_data(4, 3, data);
+
+   EXPECT_EQ(4, tile_map.get_num_columns());
+   EXPECT_EQ(3, tile_map.get_num_rows());
+   EXPECT_EQ(data, tile_map.get_tiles());
+}
+
 
