@@ -17,18 +17,9 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_color.h>
 
-//#include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
-//#include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
-
-//#define TEMP_TEST_FILE_PATH "/Users/markoates/Repos/allegro_flare/tmp/tests/"
-//// TODO: improve this:
-//#if defined(_WIN32) || defined(_WIN64)
-//#define TEST_TILE_ATLAS_BITMAP_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
-//#else
-//#define TEST_TILE_ATLAS_BITMAP_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
-//#endif
 
 
+// TODO: Consider removing this method for a cleaner alternative
 static std::string build_test_filename_png(std::string test_name)
 {
    return "tmp/test_snapshots/" + test_name + ".png";
@@ -78,6 +69,8 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
 
 
 
+/*
+// TODO: Consider if this test needs to be located somewhere else
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
    get_tile_sub_bitmap__returns_the_sub_bitmap_of_the_tile)
 {
@@ -104,6 +97,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
    al_shutdown_image_addon();
    al_uninstall_system();
 }
+*/
 
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,

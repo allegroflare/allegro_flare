@@ -30,8 +30,51 @@ TileAtlasBuilder::~TileAtlasBuilder()
 }
 
 
+bool TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes()
+{
+   // TODO: Test this
+   if (tile_index.empty()) return true;
+
+   ALLEGRO_BITMAP *sub_bitmap = tile_index[0].get_sub_bitmap();
+   if (!sub_bitmap)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes",
+         "There is no sub_bitmap present on the first item in the tile_index."
+      );
+   }
+   int baseline_width = al_get_bitmap_width(sub_bitmap);
+   int baseline_height = al_get_bitmap_height(sub_bitmap);
+
+   for (int i=0; i<tile_index.size(); i++)
+   //for (auto &tile_index_record : tile_index)
+   {
+      auto &tile_index_record = tile_index[i];
+      ALLEGRO_BITMAP *sub_bitmap = tile_index_record.get_sub_bitmap();
+      if (!sub_bitmap)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::TileMaps::TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes",
+            "There is no sub_bitmap present on item at index \"" + std::to_string(i) + "\" in the tile_index."
+         );
+      }
+      int width = al_get_bitmap_width(sub_bitmap);
+      int height = al_get_bitmap_height(sub_bitmap);
+
+      if (width != baseline_width || height != baseline_height)
+      {
+         return false;
+      }
+   }
+   return true;
+}
+
 ALLEGRO_BITMAP* TileAtlasBuilder::build_extruded()
 {
+   // NOTE: This method will *create* a new bitmap given tiles that already exist in a tile_index.  It will
+   // take those images and build a new bitmap, providing extruded edges.
+
+   // TODO: Consider:
    //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
    ALLEGRO_STATE prev;
