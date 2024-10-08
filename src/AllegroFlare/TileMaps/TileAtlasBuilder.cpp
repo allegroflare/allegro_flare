@@ -6,6 +6,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <allegro5/allegro.h>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -71,26 +72,84 @@ bool TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes()
 
 ALLEGRO_BITMAP* TileAtlasBuilder::build_extruded()
 {
+   if (!((!tile_index.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"(!tile_index.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"(!tile_index.empty())\" not met");
+   }
+   if (!(all_sub_bitmaps_in_tile_index_are_identical_sizes()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"all_sub_bitmaps_in_tile_index_are_identical_sizes()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"all_sub_bitmaps_in_tile_index_are_identical_sizes()\" not met");
+   }
    // NOTE: This method will *create* a new bitmap given tiles that already exist in a tile_index.  It will
    // take those images and build a new bitmap, providing extruded edges.
+
+
+
+   // Calculate the result image dimension for these tiles
+
+   ALLEGRO_BITMAP *sub_bitmap = tile_index[0].get_sub_bitmap();
+   if (!sub_bitmap)
+   {
+      // TODO: Test this
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded",
+         "Tile first element in the tile_index does not contain a sub_bitmap"
+      );
+   }
+   int tile_width = al_get_bitmap_width(sub_bitmap);
+   int tile_height = al_get_bitmap_height(sub_bitmap);
+   int num_tiles_in_tile_index = tile_index.size();
+
+
+   // Add the border of 1 pixel to each tile
+   int effective_tile_width = tile_width + 2;
+   int effective_tile_height = tile_height + 2;
+
+   int tiles_per_row = std::ceil(std::sqrt(num_tiles_in_tile_index));
+   int rows = std::ceil(static_cast<float>(num_tiles_in_tile_index) / tiles_per_row);
+
+   // Calculate the final width and height of the atlas
+   int atlas_width = tiles_per_row * effective_tile_width;
+   int atlas_height = rows * effective_tile_height;
+
+   //int result_bitmap_width = 
+
 
    // TODO: Consider:
    //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
    ALLEGRO_STATE prev;
    al_store_state(&prev, ALLEGRO_STATE_TARGET_BITMAP);
-   ALLEGRO_BITMAP *target = al_create_bitmap(1536*2, 1536*2); // TODO: make this a little better
+   ALLEGRO_BITMAP *target = al_create_bitmap(atlas_width, atlas_height);
+   //ALLEGRO_BITMAP *target = al_create_bitmap(1536*2, 1536*2); // TODO: make this a little better
    //ALLEGRO_BITMAP *target = al_create_bitmap(512, 512);
    al_set_target_bitmap(target);
 
-   AllegroFlare::Logger::warn_from(
+   AllegroFlare::Logger::info_from(
       "AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded",
-      "Currently using a surface of 3072x3072. This may not be large enough for the tile index, which contains " +
-         std::to_string(tile_index.size()) + " tiles, each with a dimension of (" + std::to_string(tile_w) + ", "
-         + std::to_string(tile_h) + "), each tile likely has been scaled. If you are seeing blank tiles at larger "
-         "tile index numbers, this could be the cause. Please update this function to accommodate the needed "
-         "dimensions."
+      "Creating a surface of " + std::to_string(atlas_width) + "x" + std::to_string(atlas_height) + " to assemble "
+         "a tile atlas for \"" + std::to_string(num_tiles_in_tile_index) + "\" tiles that are (" +
+         std::to_string(tile_width) + "+2)x(" + std::to_string(tile_height) + "+2)."
+         //". This may not be large enough for the tile index, which contains " +
+         //std::to_string(tile_index.size()) + " tiles, each with a dimension of (" + std::to_string(tile_w) + ", "
+         //+ std::to_string(tile_h) + "), each tile likely has been scaled. If you are seeing blank tiles at larger "
+         //"tile index numbers, this could be the cause. Please update this function to accommodate the needed "
+         //"dimensions."
    );
+   //AllegroFlare::Logger::warn_from(
+      //"AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded",
+      //"Currently using a surface of 3072x3072. This may not be large enough for the tile index, which contains " +
+         //std::to_string(tile_index.size()) + " tiles, each with a dimension of (" + std::to_string(tile_w) + ", "
+         //+ std::to_string(tile_h) + "), each tile likely has been scaled. If you are seeing blank tiles at larger "
+         //"tile index numbers, this could be the cause. Please update this function to accommodate the needed "
+         //"dimensions."
+   //);
 
 
    al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));

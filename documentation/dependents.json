@@ -3974,6 +3974,12 @@
   "AllegroFlare/ImageProcessing": [
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
+  "std/ceil": [
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
+  ],
+  "std/sqrt": [
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
+  ],
   "AllegroFlare/TileMaps/TileAtlasRepositoryRecord": [
     "AllegroFlare/TileMaps/TileAtlasRepository"
   ],

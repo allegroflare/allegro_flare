@@ -62,6 +62,14 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_
 
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
+   build_extruded__will_work_on_atlases_where_source_images_are_tall_or_wide_and_not_perfect_square_dimensions)
+{
+   // TODO
+}
+
+
+
+TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
    build_scaled_and_extruded__will_create_a_pixel_perfect_scaled_atlas_with_tile_edges_extruded)
 {
    // TODO
