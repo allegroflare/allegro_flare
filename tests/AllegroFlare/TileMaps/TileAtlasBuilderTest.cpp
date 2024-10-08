@@ -5,13 +5,14 @@
 
 // TODO: Clean up this class, the correctness of the tests and their tested components, and their naming
 
+// TODO: Consider if this class is needed or even used
+
 
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
-
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
-
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_color.h>
@@ -19,18 +20,18 @@
 //#include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
 //#include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 
-#define TEMP_TEST_FILE_PATH "/Users/markoates/Repos/allegro_flare/tmp/tests/"
-// TODO: improve this:
-#if defined(_WIN32) || defined(_WIN64)
-#define TEST_TILE_ATLAS_BITMAP_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
-#else
-#define TEST_TILE_ATLAS_BITMAP_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
-#endif
+//#define TEMP_TEST_FILE_PATH "/Users/markoates/Repos/allegro_flare/tmp/tests/"
+//// TODO: improve this:
+//#if defined(_WIN32) || defined(_WIN64)
+//#define TEST_TILE_ATLAS_BITMAP_PATH "/msys64/home/Mark/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
+//#else
+//#define TEST_TILE_ATLAS_BITMAP_PATH "/Users/markoates/Repos/allegro_flare/tests/fixtures/tiles_dungeon_v1.1.png"
+//#endif
 
 
 static std::string build_test_filename_png(std::string test_name)
 {
-   return TEMP_TEST_FILE_PATH + test_name + ".png";
+   return "tmp/test_snapshots/" + test_name + ".png";
 }
 
 
@@ -42,10 +43,14 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, can_be_created_without_blowing_
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_atlas_with_tile_edges_extruded)
 {
+   AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
+   std::string data_path = deployment_environment.get_data_folder_path();
+   std::string test_tile_atlas_filename = "tiles_dungeon_v1.1.png";
+
    al_init();
    al_init_image_addon();
 
-   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
+   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap((data_path + test_tile_atlas_filename).c_str());
    ASSERT_NE(nullptr, source_bitmap);
 
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
@@ -54,7 +59,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_
    std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
    AllegroFlare::TileMaps::TileAtlasBuilder tile_atlas_builder(16, 16, tile_index);
    ALLEGRO_BITMAP *result = tile_atlas_builder.build_extruded();
-   al_save_bitmap(build_test_filename_png("buid__will_create_an_atlas").c_str(), result);
+   al_save_bitmap(build_test_filename_png("build__will_create_an_atlas").c_str(), result);
 
    al_destroy_bitmap(result);
    //atlas.clear();
@@ -76,9 +81,14 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
    get_tile_sub_bitmap__returns_the_sub_bitmap_of_the_tile)
 {
+   AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
+   std::string data_path = deployment_environment.get_data_folder_path();
+   std::string test_tile_atlas_filename = "tiles_dungeon_v1.1.png";
+
    al_init();
    al_init_image_addon();
-   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
+   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap((data_path + test_tile_atlas_filename).c_str());
+   //ALLEGRO_BITMAP* source_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
    ASSERT_NE(nullptr, source_bitmap);
 
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
