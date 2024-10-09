@@ -55,6 +55,18 @@ methods:
       return currently_colliding.empty();
 
 
+  - name: passively_add_to_currently_colliding
+    parameters:
+      - name: collidable
+        type: void*
+        default_argument: nullptr
+    guards: [ collidable ]
+    body: |
+      // TODO: Test this works as expected along with a "process()" afterword
+      currently_colliding.insert(collidable);
+      return;
+
+
   - name: process
     guards: [ subject, on_test_collide ]
     body: |

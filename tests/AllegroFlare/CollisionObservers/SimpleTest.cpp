@@ -6,7 +6,7 @@
 
 TEST(AllegroFlare_CollisionObservers_SimpleTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::CollisionObservers::Simple simple3d;
+   AllegroFlare::CollisionObservers::Simple simple;
 }
 
 

@@ -108,6 +108,20 @@ bool Simple::currently_colliding_is_empty()
    return currently_colliding.empty();
 }
 
+void Simple::passively_add_to_currently_colliding(void* collidable)
+{
+   if (!(collidable))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::CollisionObservers::Simple::passively_add_to_currently_colliding]: error: guard \"collidable\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::CollisionObservers::Simple::passively_add_to_currently_colliding]: error: guard \"collidable\" not met");
+   }
+   // TODO: Test this works as expected along with a "process()" afterword
+   currently_colliding.insert(collidable);
+   return;
+}
+
 void Simple::process()
 {
    if (!(subject))
