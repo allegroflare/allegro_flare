@@ -62,6 +62,36 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_
 
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
+   build_extruded__will_correctly_create_an_atlas_with_tile_edges_extruded_when_dimensions_are_not_16x16)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
+   std::string data_path = deployment_environment.get_data_folder_path();
+   std::string test_tile_atlas_filename = "bitmaps/ascii_like-02.png";
+
+   al_init();
+   al_init_image_addon();
+
+   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap((data_path + test_tile_atlas_filename).c_str());
+   ASSERT_NE(nullptr, source_bitmap);
+
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+   atlas.duplicate_bitmap_and_load(source_bitmap, 12, 16, 0);
+
+   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
+   AllegroFlare::TileMaps::TileAtlasBuilder tile_atlas_builder(12, 16, tile_index);
+   ALLEGRO_BITMAP *result = tile_atlas_builder.build_extruded();
+   al_save_bitmap(build_test_filename_png("build__will_create_an_atlas_with_non_16x16_tiles").c_str(), result);
+
+   al_destroy_bitmap(result);
+   //atlas.clear();
+   al_destroy_bitmap(source_bitmap);
+   al_shutdown_image_addon();
+   al_uninstall_system();
+}
+
+
+
+TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
    build_extruded__will_work_on_atlases_where_source_images_are_tall_or_wide_and_not_perfect_square_dimensions)
 {
    // TODO
