@@ -27,6 +27,8 @@ namespace AllegroFlare
          float width;
          float height;
          std::vector<AllegroFlare::Vec2D> polygon;
+         bool text__is_present;
+         std::string text__text;
          AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
          std::string object_layer_name;
          TMJObject();

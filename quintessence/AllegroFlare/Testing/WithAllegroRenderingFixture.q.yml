@@ -143,6 +143,7 @@ methods:
   - name: get_fixtures_path
     type: std::string
     body: |
+      // TODO: Consider adding deprecation notice
       return get_data_path();
 
 

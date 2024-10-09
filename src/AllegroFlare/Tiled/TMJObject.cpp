@@ -20,6 +20,8 @@ TMJObject::TMJObject()
    , width(0.0f)
    , height(0.0f)
    , polygon({})
+   , text__is_present(false)
+   , text__text("")
    , custom_properties({})
    , object_layer_name("[unset-object_layer_name]")
 {

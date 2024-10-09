@@ -200,6 +200,7 @@ void WithAllegroRenderingFixture::SetUp()
 
 std::string WithAllegroRenderingFixture::get_fixtures_path()
 {
+   // TODO: Consider adding deprecation notice
    return get_data_path();
 }
 

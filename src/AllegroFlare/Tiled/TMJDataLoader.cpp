@@ -605,6 +605,29 @@ bool TMJDataLoader::load()
                }
             }
 
+            // Load the "text" data
+            bool text__is_present = true;
+            std::string text__text = "";
+            if (object_json.value().contains("text"))
+            {
+               if (!object_json.value()["text"].is_object())
+               {
+                  throw std::runtime_error("AllegroFlare::Tiled::TMJDataLoader: object-level \"text\" is not an "
+                     "object");
+               }
+
+               auto &text_item = object_json.value()["text"];
+               //for (auto &text_item : object_json.value()["text"].items())
+               //{
+               if (!text_item.contains("text"))
+               {
+                  throw std::runtime_error("AllegroFlare::Tiled::TMJDataLoader: object-level \"text\" does not "
+                     "contain \"text\" field inside it.");
+               }
+               text__text = text_item["text"].get<std::string>();
+               text__is_present = true;
+            }
+
             /*
             // Load custom properties
             if (object_json.value().contains("properties"))
@@ -697,6 +720,8 @@ bool TMJDataLoader::load()
             object.name = name_property;
             object.object_layer_name = object_layer_name;
             object.polygon = polygon;
+            object.text__is_present = text__is_present;
+            object.text__text = text__text;
             object.custom_properties = custom_properties;
          }
       }

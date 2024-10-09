@@ -85,6 +85,26 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_polygon_data)
 }
 
 
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_text_data)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_text_objects-01.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   loader.load();
+   ASSERT_EQ(2, loader.get_objects_ref().size());
+
+   // Entity that does have text
+   auto entity1 = loader.get_objects_ref()[0];
+   EXPECT_EQ(true, entity1.text__is_present);
+   EXPECT_EQ("Hello World", entity1.text__text);
+
+   // Entity that does not have text
+   auto entity2 = loader.get_objects_ref()[1];
+   EXPECT_EQ(false, entity2.text__is_present);
+   EXPECT_EQ("", entity2.text__text);
+}
+
+
 TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_multiple_tilemap_layers)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
