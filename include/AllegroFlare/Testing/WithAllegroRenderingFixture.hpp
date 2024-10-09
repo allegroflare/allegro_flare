@@ -48,6 +48,7 @@ namespace AllegroFlare
          void set_display_height(int display_height=1080);
          virtual void SetUp() override;
          std::string get_fixtures_path();
+         std::string get_data_path();
          virtual void TearDown() override;
          ALLEGRO_FONT* get_any_font(int size=-30);
          ALLEGRO_FONT* get_small_font(int size=-20);

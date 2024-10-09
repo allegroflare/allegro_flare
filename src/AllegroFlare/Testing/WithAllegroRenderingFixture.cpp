@@ -200,6 +200,11 @@ void WithAllegroRenderingFixture::SetUp()
 
 std::string WithAllegroRenderingFixture::get_fixtures_path()
 {
+   return get_data_path();
+}
+
+std::string WithAllegroRenderingFixture::get_data_path()
+{
    return deployment_environment.get_data_folder_path();
 }
 

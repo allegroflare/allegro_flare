@@ -143,6 +143,12 @@ methods:
   - name: get_fixtures_path
     type: std::string
     body: |
+      return get_data_path();
+
+
+  - name: get_data_path
+    type: std::string
+    body: |
       return deployment_environment.get_data_folder_path();
 
 
