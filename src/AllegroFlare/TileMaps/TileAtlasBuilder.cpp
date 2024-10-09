@@ -31,7 +31,7 @@ TileAtlasBuilder::~TileAtlasBuilder()
 }
 
 
-bool TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes()
+bool TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes()
 {
    // TODO: Test this
    if (tile_index.empty()) return true;
@@ -40,7 +40,7 @@ bool TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes()
    if (!sub_bitmap)
    {
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::TileMaps::TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes",
+         "AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes",
          "There is no sub_bitmap present on the first item in the tile_index."
       );
    }
@@ -55,7 +55,7 @@ bool TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes()
       if (!sub_bitmap)
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::TileMaps::TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes",
+            "AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes",
             "There is no sub_bitmap present on item at index \"" + std::to_string(i) + "\" in the tile_index."
          );
       }
@@ -79,12 +79,12 @@ ALLEGRO_BITMAP* TileAtlasBuilder::build_extruded()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"(!tile_index.empty())\" not met");
    }
-   if (!(all_sub_bitmaps_in_tile_index_are_identical_sizes()))
+   if (!(validate_all_sub_bitmaps_in_tile_index_are_identical_sizes()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"all_sub_bitmaps_in_tile_index_are_identical_sizes()\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"validate_all_sub_bitmaps_in_tile_index_are_identical_sizes()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"all_sub_bitmaps_in_tile_index_are_identical_sizes()\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded]: error: guard \"validate_all_sub_bitmaps_in_tile_index_are_identical_sizes()\" not met");
    }
    // NOTE: This method will *create* a new bitmap given tiles that already exist in a tile_index.  It will
    // take those images and build a new bitmap, providing extruded edges.

@@ -27,7 +27,7 @@ documentation:
 methods:
 
 
-  - name: all_sub_bitmaps_in_tile_index_are_identical_sizes
+  - name: validate_all_sub_bitmaps_in_tile_index_are_identical_sizes
     type: bool
     body: |
       // TODO: Test this
@@ -37,7 +37,7 @@ methods:
       if (!sub_bitmap)
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::TileMaps::TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes",
+            "AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes",
             "There is no sub_bitmap present on the first item in the tile_index."
          );
       }
@@ -52,7 +52,7 @@ methods:
          if (!sub_bitmap)
          {
             AllegroFlare::Logger::throw_error(
-               "AllegroFlare::TileMaps::TileAtlasBuilder::all_sub_bitmaps_in_tile_index_are_identical_sizes",
+               "AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes",
                "There is no sub_bitmap present on item at index \"" + std::to_string(i) + "\" in the tile_index."
             );
          }
@@ -69,7 +69,7 @@ methods:
 
   - name: build_extruded
     type: ALLEGRO_BITMAP*
-    guards: [ (!tile_index.empty()), all_sub_bitmaps_in_tile_index_are_identical_sizes() ]
+    guards: [ (!tile_index.empty()), validate_all_sub_bitmaps_in_tile_index_are_identical_sizes() ]
     body: |
       // NOTE: This method will *create* a new bitmap given tiles that already exist in a tile_index.  It will
       // take those images and build a new bitmap, providing extruded edges.
