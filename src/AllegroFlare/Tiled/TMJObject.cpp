@@ -22,6 +22,8 @@ TMJObject::TMJObject()
    , polygon({})
    , text__is_present(false)
    , text__text("")
+   , text__align_horizontal("left")
+   , text__align_vertical("top")
    , custom_properties({})
    , object_layer_name("[unset-object_layer_name]")
 {

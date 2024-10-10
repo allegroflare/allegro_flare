@@ -88,20 +88,31 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_polygon_data)
 TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_text_data)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
-   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_text_objects-01.tmj";
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_text_objects-02.tmj";
    AllegroFlare::Tiled::TMJDataLoader loader(filename);
    loader.load();
-   ASSERT_EQ(2, loader.get_objects_ref().size());
+   ASSERT_EQ(3, loader.get_objects_ref().size());
 
-   // Entity that does have text
+   // Entity that does have text with default alignment
    auto entity1 = loader.get_objects_ref()[0];
    EXPECT_EQ(true, entity1.text__is_present);
    EXPECT_EQ("Hello World", entity1.text__text);
+   EXPECT_EQ("left", entity1.text__align_horizontal);
+   EXPECT_EQ("top", entity1.text__align_vertical);
 
-   // Entity that does not have text
+   // Entity that does not have text (and should have empty text__* values
    auto entity2 = loader.get_objects_ref()[1];
    EXPECT_EQ(false, entity2.text__is_present);
    EXPECT_EQ("", entity2.text__text);
+   EXPECT_EQ("", entity2.text__align_horizontal);
+   EXPECT_EQ("", entity2.text__align_vertical);
+
+   // Entity that does have text and custom alignment
+   auto entity3 = loader.get_objects_ref()[2];
+   EXPECT_EQ(true, entity3.text__is_present);
+   EXPECT_EQ("Hello Alignment", entity3.text__text);
+   EXPECT_EQ("center", entity3.text__align_horizontal);
+   EXPECT_EQ("bottom", entity3.text__align_vertical);
 }
 
 

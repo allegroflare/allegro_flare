@@ -606,8 +606,10 @@ bool TMJDataLoader::load()
             }
 
             // Load the "text" data
-            bool text__is_present = true;
+            bool text__is_present = false;
             std::string text__text = "";
+            std::string text__align_horizontal = "";
+            std::string text__align_vertical = "";
             if (object_json.value().contains("text"))
             {
                if (!object_json.value()["text"].is_object())
@@ -616,9 +618,8 @@ bool TMJDataLoader::load()
                      "object");
                }
 
+               // Get "text"
                auto &text_item = object_json.value()["text"];
-               //for (auto &text_item : object_json.value()["text"].items())
-               //{
                if (!text_item.contains("text"))
                {
                   throw std::runtime_error("AllegroFlare::Tiled::TMJDataLoader: object-level \"text\" does not "
@@ -626,6 +627,13 @@ bool TMJDataLoader::load()
                }
                text__text = text_item["text"].get<std::string>();
                text__is_present = true;
+
+               // Get text alignment (if present)
+               if (text_item.contains("valign")) text__align_vertical = text_item["valign"].get<std::string>();
+               else text__align_vertical = "top";
+
+               if (text_item.contains("halign")) text__align_horizontal = text_item["halign"].get<std::string>();
+               else text__align_horizontal = "left";
             }
 
             /*
@@ -722,6 +730,8 @@ bool TMJDataLoader::load()
             object.polygon = polygon;
             object.text__is_present = text__is_present;
             object.text__text = text__text;
+            object.text__align_horizontal = text__align_horizontal;
+            object.text__align_vertical = text__align_vertical;
             object.custom_properties = custom_properties;
          }
       }

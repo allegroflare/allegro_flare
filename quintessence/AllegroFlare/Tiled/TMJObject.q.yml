@@ -51,6 +51,16 @@ properties:
     init_with: '""'
     exposed: true
 
+  - name: text__align_horizontal
+    type: std::string
+    init_with: '"left"'
+    exposed: true
+
+  - name: text__align_vertical
+    type: std::string
+    init_with: '"top"'
+    exposed: true
+
   - name: custom_properties
     type: AllegroFlare::Tiled::TMJObjectCustomProperties
     init_with: '{}'
