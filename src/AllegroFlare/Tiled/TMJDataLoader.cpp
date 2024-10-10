@@ -610,6 +610,8 @@ bool TMJDataLoader::load()
             std::string text__text = "";
             std::string text__align_horizontal = "";
             std::string text__align_vertical = "";
+            std::string text__font_name = "";
+            int text__font_size = 16;
             if (object_json.value().contains("text"))
             {
                if (!object_json.value()["text"].is_object())
@@ -634,6 +636,13 @@ bool TMJDataLoader::load()
 
                if (text_item.contains("halign")) text__align_horizontal = text_item["halign"].get<std::string>();
                else text__align_horizontal = "left";
+
+               // Get font data
+               if (text_item.contains("fontfamily")) text__font_name = text_item["fontfamily"].get<std::string>();
+               else text__font_name = "default";
+
+               if (text_item.contains("pixelsize")) text__font_size = text_item["pixelsize"].get<int>();
+               else text__font_size = 16;
             }
 
             /*
@@ -732,6 +741,8 @@ bool TMJDataLoader::load()
             object.text__text = text__text;
             object.text__align_horizontal = text__align_horizontal;
             object.text__align_vertical = text__align_vertical;
+            object.text__font_name = text__font_name;
+            object.text__font_size = text__font_size;
             object.custom_properties = custom_properties;
          }
       }

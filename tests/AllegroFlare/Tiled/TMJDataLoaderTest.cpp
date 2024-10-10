@@ -91,7 +91,7 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_text_data)
    std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_text_objects-02.tmj";
    AllegroFlare::Tiled::TMJDataLoader loader(filename);
    loader.load();
-   ASSERT_EQ(3, loader.get_objects_ref().size());
+   ASSERT_EQ(4, loader.get_objects_ref().size());
 
    // Entity that does have text with default alignment
    auto entity1 = loader.get_objects_ref()[0];
@@ -113,6 +113,13 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_text_data)
    EXPECT_EQ("Hello Alignment", entity3.text__text);
    EXPECT_EQ("center", entity3.text__align_horizontal);
    EXPECT_EQ("bottom", entity3.text__align_vertical);
+
+   // Entity that does have text and custom alignment
+   auto entity4 = loader.get_objects_ref()[3];
+   EXPECT_EQ(true, entity4.text__is_present);
+   EXPECT_EQ("Custom Font", entity4.text__text);
+   EXPECT_EQ("Trajan Pro 3", entity4.text__font_name);
+   EXPECT_EQ(30, entity4.text__font_size);
 }
 
 

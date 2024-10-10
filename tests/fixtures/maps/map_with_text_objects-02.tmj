@@ -51,6 +51,26 @@
                  "width":160,
                  "x":48,
                  "y":16
+                }, 
+                {
+                 "height":64,
+                 "id":25,
+                 "name":"text_with_custom_font",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Trajan Pro 3",
+                     "halign":"center",
+                     "pixelsize":30,
+                     "text":"Custom Font",
+                     "valign":"bottom",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":160,
+                 "x":216,
+                 "y":168
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -59,7 +79,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":25,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

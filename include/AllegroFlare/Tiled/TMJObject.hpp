@@ -29,6 +29,8 @@ namespace AllegroFlare
          std::vector<AllegroFlare::Vec2D> polygon;
          bool text__is_present;
          std::string text__text;
+         std::string text__font_name;
+         int text__font_size;
          std::string text__align_horizontal;
          std::string text__align_vertical;
          AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;

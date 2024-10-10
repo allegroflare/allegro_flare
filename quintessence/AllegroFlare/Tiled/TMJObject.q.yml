@@ -51,6 +51,16 @@ properties:
     init_with: '""'
     exposed: true
 
+  - name: text__font_name
+    type: std::string
+    init_with: '""'
+    exposed: true
+
+  - name: text__font_size
+    type: int
+    init_with: 12
+    exposed: true
+
   - name: text__align_horizontal
     type: std::string
     init_with: '"left"'
