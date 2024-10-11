@@ -423,7 +423,7 @@ void TileMesh::render(bool draw_outline)
    return;
 }
 
-bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, bool flip_v, bool flip_d)
+bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, bool flip_v, bool flip_d, ALLEGRO_COLOR color)
 {
    if (!(initialized))
    {
@@ -490,7 +490,7 @@ bool TileMesh::set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h, boo
       d_flipped_tiles.erase({tile_x, tile_y});
    }
 
-   set_tile_uv(tile_x, tile_y, u1, v1, u2, v2, flip_d);
+   set_tile_uv(tile_x, tile_y, u1, v1, u2, v2, flip_d, color);
 
    tile_ids[tile_x + tile_y * num_columns] = tile_id;
 
@@ -596,7 +596,7 @@ void TileMesh::v_flip_vertices(int* u1, int* v1, int* u2, int* v2)
    return;
 }
 
-void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2, bool diagonal_flip)
+void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2, bool diagonal_flip, ALLEGRO_COLOR color)
 {
    // NOTE: Should the uv coordinates be floats?
    int tile_index_start = (tile_x * 6) + tile_y * (num_columns*6);
@@ -644,6 +644,21 @@ void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
       vertices[i+5].u = u1;
       vertices[i+5].v = v1;
    }
+
+   // Set the color
+   // NOTE: The vertices are woven in the following order:
+   //   triangle 1: top left, bottom left, bottom right
+   //   triangle 2: bottom right, top right, top left
+
+   // Triangle 1:
+   vertices[i+0].color = color;
+   vertices[i+1].color = color;
+   vertices[i+2].color = color;
+
+   // Triangle 2:
+   vertices[i+3].color = color;
+   vertices[i+4].color = color;
+   vertices[i+5].color = color;
 
    if (holding_vertex_buffer_update_until_refresh)
    {

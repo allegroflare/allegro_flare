@@ -40200,7 +40200,7 @@ table td
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>set_tile_id</b>(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false, bool flip_d=false)</td>
+  <td class="method"><b>set_tile_id</b>(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false, bool flip_d=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f})</td>
 </tr>
 <tr>
   <td class="method">int</td>
@@ -40220,7 +40220,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>set_tile_uv</b>(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0, bool diagonal_flip=false)</td>
+  <td class="method"><b>set_tile_uv</b>(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0, bool diagonal_flip=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f})</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -40284,6 +40284,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45787,6 +45790,7 @@ table td
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/WorldMapRenderers/Basic",

@@ -70,10 +70,10 @@ namespace AllegroFlare
          void disable_holding_vertex_buffer_update_until_refresh();
          void resize(int num_columns=0, int num_rows=0);
          void render(bool draw_outline=false);
-         bool set_tile_id(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false, bool flip_d=false);
+         bool set_tile_id(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false, bool flip_d=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f});
          int get_tile_id(int tile_x=0, int tile_y=0);
          std::tuple<bool, bool, bool> get_tile_flip(int tile_x=0, int tile_y=0);
-         void set_tile_uv(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0, bool diagonal_flip=false);
+         void set_tile_uv(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0, bool diagonal_flip=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f});
          void refresh_vertex_buffer();
          int infer_num_vertices();
          int infer_num_tiles();

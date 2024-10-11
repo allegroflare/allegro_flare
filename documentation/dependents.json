@@ -1069,6 +1069,7 @@
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/WorldMapRenderers/Basic",
