@@ -374,3 +374,39 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 }
 
 
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   FOCUS__CAPTURE__VISUAL__render__will_render_the_mesh_as_expected__solid_tiles_example)
+{
+   // Fill the subject with random tiles
+   // TODO: Use a different tilemap that has shapes and white tile for better testing
+   std::vector<int> possible_random_tiles = { 0 };
+   fill_with_random_tiles(possible_random_tiles);
+
+   std::vector<ALLEGRO_COLOR> possible_random_colors = {
+      ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0},
+      ALLEGRO_COLOR{0.7, 0.0, 0.0, 1.0},
+      ALLEGRO_COLOR{0.0, 0.7, 0.0, 1.0},
+      ALLEGRO_COLOR{0.0, 0.0, 0.7, 1.0},
+      ALLEGRO_COLOR{0.0, 0.7, 0.7, 1.0},
+      ALLEGRO_COLOR{0.7, 0.0, 0.7, 1.0},
+      ALLEGRO_COLOR{0.7, 0.7, 0.0, 1.0},
+   };
+
+   AllegroFlare::Random random;
+   ALLEGRO_COLOR random_color;
+   for (int y=0; y<mesh.get_num_rows(); y++)
+   {
+      for (int x=0; x<mesh.get_num_columns(); x++)
+      {
+         int random_i = random.get_random_int(0, possible_random_colors.size()-1);
+         random_color = possible_random_colors[random_i];
+         mesh.set_tile_color(x, y, random_color);
+      }
+   }
+   mesh.refresh_vertex_buffer();
+
+   // Render the subject
+   render_subject(1.0f);
+}
+
+

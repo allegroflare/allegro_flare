@@ -673,6 +673,35 @@ void TileMesh::set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v
    return;
 }
 
+void TileMesh::set_tile_color(int tile_x, int tile_y, ALLEGRO_COLOR color)
+{
+   // NOTE: Should the uv coordinates be floats?
+   int tile_index_start = (tile_x * 6) + tile_y * (num_columns*6);
+   int &i = tile_index_start;
+
+   // Triangle 1:
+   vertices[i+0].color = color;
+   vertices[i+1].color = color;
+   vertices[i+2].color = color;
+
+   // Triangle 2:
+   vertices[i+3].color = color;
+   vertices[i+4].color = color;
+   vertices[i+5].color = color;
+
+   if (holding_vertex_buffer_update_until_refresh)
+   {
+      vertex_buffer_is_dirty = true;
+   }
+   else
+   {
+      // Upate the vertex in the vertex buffer
+      // TODO: Consider only locking the region that needs the change
+      refresh_vertex_buffer();
+   }
+   return;
+}
+
 void TileMesh::refresh_vertex_buffer()
 {
    int num_vertices = infer_num_vertices();
