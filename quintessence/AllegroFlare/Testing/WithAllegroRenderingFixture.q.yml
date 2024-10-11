@@ -501,6 +501,41 @@ methods:
       - std::this_thread::sleep_for
 
 
+  - name: save_bitmap_to_test_snapshots_folder
+    parameters:
+      - name: base_filename
+        type: std::string
+        default_argument: '"WithAllegroRenderingFixture-test_bitmap.png"'
+      - name: bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    guards: [ bitmap ]
+    body: |
+      std::string full_file_save_location = test_snapshots_folder + base_filename;
+
+      bool bitmap_save_successful = al_save_bitmap(full_file_save_location.c_str(), bitmap);
+      if (bitmap_save_successful)
+      {
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Testing::WithAllegroRenderingFixture (via " + std::string(typeid(*this).name()) + ")",
+            //"AllegroFlare::Testing::WithAllegroRenderingFixture (via " + std::string(typeid(*this).name()) + ")",
+            "Saved bitmap \"" + base_filename + "\" to test snapshots folder successfully."
+         );
+      }
+      else
+      {
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Testing::WithAllegroRenderingFixture (via " + std::string(typeid(*this).name()) + ")",
+            //"AllegroFlare::Testing::WithAllegroRenderingFixture (via " + typeid(*this).name() + ")",
+            "Unable to save bitmap \"" + base_filename + "\" to test snapshots folder."
+         );
+      }
+    body_dependency_symbols:
+      - AllegroFlare::TerminalColors
+      - std::chrono::milliseconds
+      - std::this_thread::sleep_for
+
+
 dependencies:
 
 

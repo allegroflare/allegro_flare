@@ -72,6 +72,7 @@ namespace AllegroFlare
          void clear();
          bool test_name_has_prefix_token(std::string possible_prefix_token="[unset-possible_prefix_token]");
          void capture_screenshot(std::string base_filename="WithAllegroRenderingFixture-screenshot.png");
+         void save_bitmap_to_test_snapshots_folder(std::string base_filename="WithAllegroRenderingFixture-test_bitmap.png", ALLEGRO_BITMAP* bitmap=nullptr);
       };
    }
 }

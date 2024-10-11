@@ -152,3 +152,28 @@ TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
 }
 
 
+TEST_F(TestClassFor_AllegroFlare_Testing_WithAllegroRenderingFixture,
+   save_bitmap_to_test_snapshots_folder__will_save_the_the_image_to_the_tmp_test_snapshots_folder)
+{
+   float image_width = 800;
+   float image_height = 600;
+   float x = image_width/2;
+   float y = image_height/2;
+   ALLEGRO_FONT* font = get_any_font();
+   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_BITMAP *result = al_create_bitmap(image_width, image_height);
+   std::string text = "This is an image saved during a test run.";
+
+   // Clear the surface and render
+   al_set_target_bitmap(result);
+   al_clear_to_color(ALLEGRO_COLOR{0.4, 0.5, 0.8, 1.0});
+   al_draw_text(font, text_color, x, y-20, ALLEGRO_ALIGN_CENTER, text.c_str());
+
+   // Save the image
+   save_bitmap_to_test_snapshots_folder("a_manually_saved_file_from_WithAllegroRenderingFixture.png", result);
+
+   // Cleanup
+   al_destroy_bitmap(result);
+}
+
+

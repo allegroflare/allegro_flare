@@ -469,6 +469,36 @@ void WithAllegroRenderingFixture::capture_screenshot(std::string base_filename)
    }
 }
 
+void WithAllegroRenderingFixture::save_bitmap_to_test_snapshots_folder(std::string base_filename, ALLEGRO_BITMAP* bitmap)
+{
+   if (!(bitmap))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Testing::WithAllegroRenderingFixture::save_bitmap_to_test_snapshots_folder]: error: guard \"bitmap\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroRenderingFixture::save_bitmap_to_test_snapshots_folder]: error: guard \"bitmap\" not met");
+   }
+   std::string full_file_save_location = test_snapshots_folder + base_filename;
+
+   bool bitmap_save_successful = al_save_bitmap(full_file_save_location.c_str(), bitmap);
+   if (bitmap_save_successful)
+   {
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Testing::WithAllegroRenderingFixture (via " + std::string(typeid(*this).name()) + ")",
+         //"AllegroFlare::Testing::WithAllegroRenderingFixture (via " + std::string(typeid(*this).name()) + ")",
+         "Saved bitmap \"" + base_filename + "\" to test snapshots folder successfully."
+      );
+   }
+   else
+   {
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Testing::WithAllegroRenderingFixture (via " + std::string(typeid(*this).name()) + ")",
+         //"AllegroFlare::Testing::WithAllegroRenderingFixture (via " + typeid(*this).name() + ")",
+         "Unable to save bitmap \"" + base_filename + "\" to test snapshots folder."
+      );
+   }
+}
+
 
 } // namespace Testing
 } // namespace AllegroFlare
