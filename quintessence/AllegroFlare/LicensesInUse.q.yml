@@ -1,0 +1,26 @@
+methods:
+
+
+  - name: generate_exan_font_license
+    type: std::pair<std::string, std::string>
+    body: |
+      return {
+         "Exan-Regular.ttf",
+         "Copyright 2016 by Jon Carlos Morales. All rights reserved."
+         // https://fontm.com/exan/
+         // https://fontmeme.com/fonts/exan-3-font/
+         // https://online-fonts.com/fonts/exan
+      };
+
+
+  - name: generate_expansiva_font_license
+    type: std::pair<std::string, std::string>
+    body: |
+      return {
+         "Exan-Regular.ttf",
+         // TODO: Load in exact wording of license
+         "https://www.1001fonts.com/expansiva-font.html\nhttps://www.1001fonts.com/licenses/ffc.html\n",
+         // https://www.1001fonts.com/expansiva-font.html
+      };
+
+
