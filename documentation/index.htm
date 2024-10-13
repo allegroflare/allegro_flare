@@ -40453,6 +40453,10 @@ table td
   <td class="method"><b>load</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::tuple&lt;float, float, float, float&gt;</td>
+  <td class="method"><b>convert_hex_to_rgba_f</b>(std::string hex_color=&quot;#00000000&quot;)</td>
+</tr>
+<tr>
   <td class="method">std::string</td>
   <td class="method"><b>extract_last_fragment</b>(std::string path_string=&quot;[unset-string]&quot;)</td>
 </tr>
@@ -40558,6 +40562,14 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">text__color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">text__opacity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">text__align_horizontal</td>
   <td class="property">std::string</td>
 </tr>
@@ -40588,6 +40600,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45821,6 +45836,7 @@ table td
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/TileMesh",
+    "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/WorldMapRenderers/Basic",

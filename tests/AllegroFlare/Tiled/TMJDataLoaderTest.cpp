@@ -88,10 +88,10 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_polygon_data)
 TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_text_data)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
-   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_text_objects-02.tmj";
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_text_objects-03.tmj";
    AllegroFlare::Tiled::TMJDataLoader loader(filename);
    loader.load();
-   ASSERT_EQ(4, loader.get_objects_ref().size());
+   ASSERT_EQ(5, loader.get_objects_ref().size());
 
    // Entity that does have text with default alignment
    auto entity1 = loader.get_objects_ref()[0];
@@ -120,6 +120,16 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_text_data)
    EXPECT_EQ("Custom Font", entity4.text__text);
    EXPECT_EQ("Trajan Pro 3", entity4.text__font_name);
    EXPECT_EQ(30, entity4.text__font_size);
+
+   // Entity that does have text and custom color (and opacity)
+   auto entity5 = loader.get_objects_ref()[4];
+   EXPECT_EQ(true, entity5.text__is_present);
+   EXPECT_EQ("Magenta Color", entity5.text__text);
+   //EXPECT_EQ(ALLEGRO_COLOR{1, 0, 1, 1}, entity5.text__color);
+   //EXPECT_EQ(0.75f, entity5.text__opacity);
+   //EXPECT_EQ("Magenta Color", entity5.text__text);
+   //EXPECT_EQ("Trajan Pro 3", entity4.text__font_name);
+   //EXPECT_EQ(30, entity4.text__font_size);
 }
 
 

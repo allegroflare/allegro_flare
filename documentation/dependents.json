@@ -1070,6 +1070,7 @@
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/TileMesh",
+    "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/WorldMapRenderers/Basic",

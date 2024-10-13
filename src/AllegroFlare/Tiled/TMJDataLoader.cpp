@@ -611,6 +611,8 @@ bool TMJDataLoader::load()
             std::string text__align_horizontal = "";
             std::string text__align_vertical = "";
             std::string text__font_name = "";
+            ALLEGRO_COLOR text__color = ALLEGRO_COLOR{1, 1, 1, 1};
+            float text__opacity = 1.0f;
             int text__font_size = 16;
             if (object_json.value().contains("text"))
             {
@@ -643,6 +645,21 @@ bool TMJDataLoader::load()
 
                if (text_item.contains("pixelsize")) text__font_size = text_item["pixelsize"].get<int>();
                else text__font_size = 16;
+
+               if (text_item.contains("color"))
+               {
+                  std::string text__color_as_hex_string = text_item["color"].get<std::string>();
+                  std::tuple<float, float, float, float> extracted_rgba_f =
+                     convert_hex_to_rgba_f(text__color_as_hex_string);
+                  text__color.r = std::get<0>(extracted_rgba_f);
+                  text__color.g = std::get<1>(extracted_rgba_f);
+                  text__color.b = std::get<2>(extracted_rgba_f);
+                  text__color.a = 1.0f;
+
+                  text__opacity = std::get<3>(extracted_rgba_f);
+
+                  // TODO: Consider if color and alpha should be blended together here or not
+               }
             }
 
             /*
@@ -739,6 +756,8 @@ bool TMJDataLoader::load()
             object.polygon = polygon;
             object.text__is_present = text__is_present;
             object.text__text = text__text;
+            object.text__color = text__color;
+            object.text__opacity = text__opacity;
             object.text__align_horizontal = text__align_horizontal;
             object.text__align_vertical = text__align_vertical;
             object.text__font_name = text__font_name;
@@ -753,6 +772,42 @@ bool TMJDataLoader::load()
    i.close();
 
    return true;
+}
+
+std::tuple<float, float, float, float> TMJDataLoader::convert_hex_to_rgba_f(std::string hex_color)
+{
+   float r,g,b,a;
+
+   if (hex_color[0] == '#' && hex_color.size() == 9)
+   {
+      // Extract hex components for red, green, blue, and alpha
+      unsigned int red, green, blue, alpha;
+      std::stringstream ss;
+      ss << std::hex << hex_color.substr(1, 2);
+      ss >> red;
+      ss.clear();
+      ss << std::hex << hex_color.substr(3, 2);
+      ss >> green;
+      ss.clear();
+      ss << std::hex << hex_color.substr(5, 2);
+      ss >> blue;
+      ss.clear();
+      ss << std::hex << hex_color.substr(7, 2);
+      ss >> alpha;
+
+      // Normalize to the range 0.0f - 1.0f
+      r = red / 255.0f;
+      g = green / 255.0f;
+      b = blue / 255.0f;
+      a = alpha / 255.0f;
+   }
+   else
+   {
+      // Invalid hex format
+      r = g = b = a = 0.0f;
+   }
+
+   return std::tuple<float, float, float, float>(r, g, b, a);
 }
 
 std::string TMJDataLoader::extract_last_fragment(std::string path_string)

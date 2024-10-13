@@ -61,6 +61,16 @@ properties:
     init_with: 12
     exposed: true
 
+  - name: text__color
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    exposed: true
+
+  - name: text__opacity
+    type: float
+    init_with: 1.0f
+    exposed: true
+
   - name: text__align_horizontal
     type: std::string
     init_with: '"left"'
@@ -98,5 +108,7 @@ dependencies:
     headers: [ AllegroFlare/Tiled/TMJObjectCustomProperties.hpp ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
 
 

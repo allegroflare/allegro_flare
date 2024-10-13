@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Tiled/TMJObjectCustomProperties.hpp>
 #include <AllegroFlare/Vec2D.hpp>
+#include <allegro5/allegro.h>
 #include <string>
 #include <vector>
 
@@ -31,6 +32,8 @@ namespace AllegroFlare
          std::string text__text;
          std::string text__font_name;
          int text__font_size;
+         ALLEGRO_COLOR text__color;
+         float text__opacity;
          std::string text__align_horizontal;
          std::string text__align_vertical;
          AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
