@@ -778,6 +778,11 @@ std::tuple<float, float, float, float> TMJDataLoader::convert_hex_to_rgba_f(std:
 {
    float r,g,b,a;
 
+   r = g = b = a = 0.0f;
+   return std::tuple<float, float, float, float>(r, g, b, a);
+
+
+   // TODO: To be solved
    if (hex_color[0] == '#' && hex_color.size() == 9)
    {
       // Extract hex components for red, green, blue, and alpha

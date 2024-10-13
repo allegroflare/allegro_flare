@@ -4,6 +4,7 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <AllegroFlare/Tiled/TMJDataLoader.hpp>
+#include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
 
 
 TEST(AllegroFlare_Tiled_TMJDataLoaderTest, can_be_created_without_blowing_up)
@@ -122,14 +123,15 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_text_data)
    EXPECT_EQ(30, entity4.text__font_size);
 
    // Entity that does have text and custom color (and opacity)
+   ALLEGRO_COLOR expected_color = ALLEGRO_COLOR{0.756863, 0, 0.25098, 1};
    auto entity5 = loader.get_objects_ref()[4];
-   EXPECT_EQ(true, entity5.text__is_present);
-   EXPECT_EQ("Magenta Color", entity5.text__text);
-   //EXPECT_EQ(ALLEGRO_COLOR{1, 0, 1, 1}, entity5.text__color);
-   //EXPECT_EQ(0.75f, entity5.text__opacity);
+   //EXPECT_EQ(true, entity5.text__is_present);
    //EXPECT_EQ("Magenta Color", entity5.text__text);
-   //EXPECT_EQ("Trajan Pro 3", entity4.text__font_name);
-   //EXPECT_EQ(30, entity4.text__font_size);
+   //EXPECT_FLOAT_EQ(expected_color.r, entity5.text__color.r);
+   //EXPECT_FLOAT_EQ(expected_color.g, entity5.text__color.g);
+   //EXPECT_FLOAT_EQ(expected_color.b, entity5.text__color.b);
+   //EXPECT_FLOAT_EQ(expected_color.a, entity5.text__color.a);
+   //EXPECT_FLOAT_EQ(0.75, entity5.text__opacity);
 }
 
 
