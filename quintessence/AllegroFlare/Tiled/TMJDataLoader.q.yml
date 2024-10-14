@@ -737,27 +737,23 @@ methods:
     body: |
       float r,g,b,a;
 
-      r = g = b = a = 0.0f;
-      return std::tuple<float, float, float, float>(r, g, b, a);
-
-
       // TODO: To be solved
       if (hex_color[0] == '#' && hex_color.size() == 9)
       {
-         // Extract hex components for red, green, blue, and alpha
-         unsigned int red, green, blue, alpha;
+         // Extract hex components for alpha, red, green, blue in that order
+         unsigned int alpha, red, green, blue;
          std::stringstream ss;
          ss << std::hex << hex_color.substr(1, 2);
-         ss >> red;
+         ss >> alpha;
          ss.clear();
          ss << std::hex << hex_color.substr(3, 2);
-         ss >> green;
+         ss >> red;
          ss.clear();
          ss << std::hex << hex_color.substr(5, 2);
-         ss >> blue;
+         ss >> green;
          ss.clear();
          ss << std::hex << hex_color.substr(7, 2);
-         ss >> alpha;
+         ss >> blue;
 
          // Normalize to the range 0.0f - 1.0f
          r = red / 255.0f;
