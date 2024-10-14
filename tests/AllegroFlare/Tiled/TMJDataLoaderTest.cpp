@@ -135,6 +135,16 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_text_data)
 }
 
 
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, convert_hex_to_rgba_f__will_handle_6_character_hexes)
+{
+   std::tuple<float, float, float, float> result = AllegroFlare::Tiled::TMJDataLoader::convert_hex_to_rgba_f("#ff3366");
+   EXPECT_FLOAT_EQ(1.0, std::get<0>(result));
+   EXPECT_FLOAT_EQ(0.2, std::get<1>(result));
+   EXPECT_FLOAT_EQ(0.4, std::get<2>(result));
+   EXPECT_FLOAT_EQ(1.0, std::get<3>(result));
+}
+
+
 TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_multiple_tilemap_layers)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");

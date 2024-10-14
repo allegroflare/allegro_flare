@@ -779,21 +779,32 @@ std::tuple<float, float, float, float> TMJDataLoader::convert_hex_to_rgba_f(std:
    float r,g,b,a;
 
    // TODO: To be solved
-   if (hex_color[0] == '#' && hex_color.size() == 9)
+   if (hex_color[0] == '#' && (hex_color.size() == 9 || hex_color.size() == 7))
    {
       // Extract hex components for alpha, red, green, blue in that order
-      unsigned int alpha, red, green, blue;
+      unsigned int alpha = 255;
+      unsigned int red = 255;
+      unsigned int green = 255;
+      unsigned int blue = 255;
+      int i=1;
+
       std::stringstream ss;
-      ss << std::hex << hex_color.substr(1, 2);
-      ss >> alpha;
-      ss.clear();
-      ss << std::hex << hex_color.substr(3, 2);
+      if (hex_color.size() == 9)
+      {
+         ss << std::hex << hex_color.substr(i, 2);
+         ss >> alpha;
+         ss.clear();
+         i+=2;
+      }
+      ss << std::hex << hex_color.substr(i, 2);
       ss >> red;
       ss.clear();
-      ss << std::hex << hex_color.substr(5, 2);
+      i+=2;
+      ss << std::hex << hex_color.substr(i, 2);
       ss >> green;
       ss.clear();
-      ss << std::hex << hex_color.substr(7, 2);
+      i+=2;
+      ss << std::hex << hex_color.substr(i, 2);
       ss >> blue;
 
       // Normalize to the range 0.0f - 1.0f
