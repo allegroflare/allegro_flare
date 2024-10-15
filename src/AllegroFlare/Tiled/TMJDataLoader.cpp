@@ -470,12 +470,12 @@ bool TMJDataLoader::load()
           //init_with: 0
           //getter: explicit
 
-       int layer_num_rows = 0;
+      int layer_num_rows = 0;
           //type: int
           //init_with: 0
           //getter: explicit
 
-        std::vector<int> layer_tile_data;
+      std::vector<int> layer_tile_data;
         //- name:
          //collision_layer_tile_data
           //type: std::vector<int>

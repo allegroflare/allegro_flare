@@ -321,7 +321,7 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_capture_tilesets)
 
    std::tuple<int, std::string, std::string> expected_tileset_1{
       1, 
-      "..\/..\/..\/project_files\/tiles_dungeon_v1.1.tsj",
+      "../../../project_files/tiles_dungeon_v1.1.tsj",
       "tiles_dungeon_v1.1.tsj"
    };
    EXPECT_EQ(expected_tileset_1, tilesets[0]);
