@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/ColorPickingAssertions.hpp>
 
 #include <AllegroFlare/TileMaps/TileMesh.hpp>
 
@@ -76,10 +77,10 @@ public:
       mesh.refresh_vertex_buffer();
    }
 
-   void render_subject(float duration_sec=1.0f)
+   void render_subject(float duration_sec=1.0f, AllegroFlare::Vec2D position = { 1920/2, 1080/2 })
    {
       AllegroFlare::Placement2D subject_placement;
-      subject_placement.position = { 1920/2, 1080/2 };
+      subject_placement.position = position; //{ 1920/2, 1080/2 };
       subject_placement.scale = { 4.0f, 4.0f };
       subject_placement.size = { (float)mesh.get_real_width(), (float)mesh.get_real_height() };
       subject_placement.align = { 0.5f, 0.5f };
@@ -262,8 +263,11 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
-   CAPTURE__VISUAL__remove_vertices_from_index_vertices__will_remove_the_verteces_as_expected)
+   CAPTURE__VISUAL__remove_vertices_from_index_vertices__will_remove_the_verteces_as_expected_so_they_are_not_\
+rendered)
 {
+   ALLEGRO_COLOR clear_color = ALLEGRO_COLOR{0.6f, 0.2f, 0.8f, 1.0f};
+
    // Fill the subject with random tiles
    std::vector<int> possible_random_tiles = { 82, 102, 122, 121, 81 };
    fill_with_random_tiles(possible_random_tiles);
@@ -271,7 +275,18 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    ASSERT_EQ(6, mesh.remove_vertices_from_index_vertices( { 0, 1, 2, 3, 4, 5 } ));
 
    // Render the subject
-   render_subject(1.0f);
+   al_clear_to_color(clear_color);
+   mesh.render();
+
+   // HERE, sample the pixel at (tile_x/2, tile_y/2), which should match the background color
+   ALLEGRO_COLOR expected_color = clear_color;
+   ALLEGRO_BITMAP *surface = al_get_backbuffer(al_get_current_display());
+   int pixel_x = mesh.get_tile_width()/2;
+   int pixel_y = mesh.get_tile_height()/2;
+   EXPECT_PICKED_COLOR_EQ(expected_color, surface, pixel_x, pixel_y);
+
+   al_flip_display();
+   al_rest(1.0f);
 }
 
 
@@ -375,7 +390,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
-   FOCUS__CAPTURE__VISUAL__render__will_render_the_mesh_as_expected__solid_tiles_example)
+   CAPTURE__VISUAL__render__will_render_the_mesh_as_expected__solid_tiles_example__2)
 {
    // Fill the subject with random tiles
    // TODO: Use a different tilemap that has shapes and white tile for better testing

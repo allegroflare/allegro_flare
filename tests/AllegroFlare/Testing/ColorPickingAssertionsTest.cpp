@@ -4,7 +4,7 @@
 #include <AllegroFlare/Testing/ColorPickingAssertions.hpp>
 
 
-TEST(AllegroFlare_Testing_ColorPickingAssertions, EXPECT_PICKED_COLOR_EQ__will_return_true_when_the_bitmap_has_a_\
+TEST(AllegroFlare_Testing_ColorPickingAssertions, EXPECT_PICKED_COLOR_EQ__will_succeed_when_the_bitmap_has_a_\
 pixel_at_that_coordinate)
 {
    al_init();
@@ -20,5 +20,10 @@ pixel_at_that_coordinate)
    al_destroy_display(display);
    al_uninstall_system();
 }
+
+
+// TODO: Add test for "will fail when color does not match"
+
+// TODO: Add tests for ASSERT_* variants
 
 
