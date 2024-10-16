@@ -296,6 +296,8 @@ rendered)
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    CAPTURE__VISUAL__remove_tile_xy_from_index__will_remove_the_verteces_for_that_tile)
 {
+   ALLEGRO_COLOR clear_color = ALLEGRO_COLOR{0.6f, 0.2f, 0.8f, 1.0f};
+
    // Fill the subject with random tiles
    std::vector<int> possible_random_tiles = { 20, 21, 23, 100, 101, 103, 172, 193 };
    fill_with_random_tiles(possible_random_tiles);
@@ -306,8 +308,17 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    //mesh.refresh_index_buffer();
    mesh.refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
 
+   al_clear_to_color(clear_color);
+   mesh.render();
+
+   ALLEGRO_COLOR expected_color = clear_color; //AllegroFlare::Testing::WithAllegroRenderingFixture::CLEAR_COLOR;
+   ALLEGRO_BITMAP *surface = al_get_backbuffer(al_get_current_display());
+   EXPECT_PICKED_COLOR_EQ(expected_color, surface, 3*16.5, 2*16.5);
+   EXPECT_PICKED_COLOR_EQ(expected_color, surface, 11*16.5, 7*16.5);
+
    // Render the subject
-   render_subject(1.0f);
+   al_flip_display();
+   al_rest(1.0f);
 }
 
 
@@ -336,7 +347,8 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 significant_performance_impact)
 {
    std::string TIMER_NAME = "remove_tile_xy_from_index";
-   // Fill the subject with random tiles
+
+   // Set a mesh size that is not small
    int num_columns = 160;
    int num_rows = 67;
    mesh.resize(num_columns, num_rows);
@@ -358,6 +370,40 @@ significant_performance_impact)
 
    EXPECT_EQ(num_tiles_to_remove, mesh.get_removed_tiles().size());
    EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 5000);
+}
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   FLAKEY__refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer__with_large_number_of_removed_\
+tiles__will_not_have_a_significant_performance_impact)
+{
+   std::string TIMER_NAME = "refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer";
+
+   // Set a mesh size that is not small
+   int num_columns = 160;
+   int num_rows = 67;
+   mesh.resize(num_columns, num_rows);
+
+   // Fill the subject with random tiles
+   std::vector<int> possible_random_tiles = { 20, 21, 23, 100, 101, 103, 172, 193 };
+   fill_with_random_tiles(possible_random_tiles);
+
+   // Remove literally all the tiles
+   int num_tiles_to_remove = num_columns * num_rows;
+   for (int i=0; i<num_tiles_to_remove; i++)
+   {
+      int tile_x = i % num_columns;
+      int tile_y = i / num_columns;
+      mesh.remove_tile_xy_from_index(tile_x, tile_y);
+   }
+   ASSERT_EQ(num_tiles_to_remove, mesh.get_removed_tiles().size());
+
+   // Refresh
+   AllegroFlare::Profiler profiler;
+   profiler.start(TIMER_NAME);
+   mesh.refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
+   profiler.stop(TIMER_NAME);
+   EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 20000);
 }
 
 

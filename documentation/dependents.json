@@ -3906,7 +3906,8 @@
     "AllegroFlare/Testing/TemporaryFilenameCreator"
   ],
   "AllegroFlare/Profiler": [
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
+    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/DeploymentEnvironment": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",

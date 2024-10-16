@@ -3,6 +3,7 @@
 #include <AllegroFlare/TileMaps/TileMesh.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <AllegroFlare/Profiler.hpp>
 #include <algorithm>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -244,15 +245,16 @@ void TileMesh::remove_tile_xy_from_index(int tile_x, int tile_y)
    return;
 }
 
-std::vector<int> TileMesh::assemble_vertices_to_remove_from_removed_tiles()
+std::unordered_set<int> TileMesh::assemble_vertices_to_remove_from_removed_tiles()
 {
-   std::vector<int> result;
+   std::unordered_set<int> result;
    result.reserve(removed_tiles.size() * 6);
    std::vector<int> insert_set(6);
    for (auto &removed_tile : removed_tiles)
    {
       insert_set = vertex_indices_for_tile_xy(removed_tile.first, removed_tile.second);
-      result.insert(result.end(), insert_set.begin(), insert_set.end());
+      result.insert(insert_set.begin(), insert_set.end());
+      //result.insert(result.end(), insert_set.begin(), insert_set.end());
    }
 
    //int num_index_vertices = index_vertices.size();
@@ -265,23 +267,43 @@ std::vector<int> TileMesh::assemble_vertices_to_remove_from_removed_tiles()
 
 void TileMesh::refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer()
 {
+   int num_removed = 0;
+   AllegroFlare::Profiler profiler; // TODO: Consider removing this profiler logic
+   profiler.start("refill_index_vertices");
+
    // Replenish the index_vertices
    int num_index_vertices = index_vertices.size();
    for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+   profiler.stop("refill_index_vertices");
 
-   std::vector<int> vertices_to_remove = assemble_vertices_to_remove_from_removed_tiles();
+   profiler.start("assemble_vertices");
+   std::unordered_set<int> vertices_to_remove = assemble_vertices_to_remove_from_removed_tiles();
+   profiler.stop("assemble_vertices");
 
+   std::vector<int> new_index_vertices;
+   new_index_vertices.reserve(index_vertices.size());
+
+   profiler.start("erase_removed_index_vertices");
    for (int i=0; i<index_vertices.size(); i++)
    {
-      if (std::find(vertices_to_remove.begin(), vertices_to_remove.end(),
-          index_vertices[i]) == vertices_to_remove.end()) continue;
+      if (vertices_to_remove.find(index_vertices[i]) == vertices_to_remove.end())
+      {
+         new_index_vertices.push_back(index_vertices[i]);
+      }
 
-      index_vertices.erase(index_vertices.begin() + i);
-      i--; // Adjust index since element was removed
-      //num_removed++;
+      num_removed++;
    }
+   index_vertices = new_index_vertices;
+   profiler.stop("erase_removed_index_vertices");
 
+   profiler.start("refresh_index_buffer");
    refresh_index_buffer();
+   profiler.stop("refresh_index_buffer");
+
+   //std::cout << "==== REPORT: refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer ===" << std::endl;
+   //std::cout << profiler.build_report() << std::endl;
+   //std::cout << " * num_removed: " << num_removed << std::endl;
+   //std::cout << std::endl;
 
    return;
 }

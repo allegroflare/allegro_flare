@@ -18,6 +18,9 @@ namespace AllegroFlare
    {
       class WithAllegroRenderingFixture : public ::testing::Test
       {
+      public:
+         static constexpr ALLEGRO_COLOR CLEAR_COLOR = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+
       private:
          ALLEGRO_DISPLAY* display;
          AllegroFlare::FontBin font_bin;

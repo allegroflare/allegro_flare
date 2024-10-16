@@ -430,8 +430,8 @@ void WithAllegroRenderingFixture::clear_display()
 void WithAllegroRenderingFixture::clear()
 {
    al_clear_depth_buffer(1);
-   ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
-   al_clear_to_color(eigengrau);
+   //ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+   al_clear_to_color(CLEAR_COLOR);
    return;
 }
 

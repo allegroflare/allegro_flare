@@ -38470,6 +38470,10 @@ table td
   <td class="property">is_setup</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">CLEAR_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -40213,7 +40217,7 @@ table td
   <td class="method"><b>remove_tile_xy_from_index</b>(int tile_x=0, int tile_y=0)</td>
 </tr>
 <tr>
-  <td class="method">std::vector&lt;int&gt;</td>
+  <td class="method">std::unordered_set&lt;int&gt;</td>
   <td class="method"><b>assemble_vertices_to_remove_from_removed_tiles</b>()</td>
 </tr>
 <tr>
@@ -40349,6 +40353,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Profiler&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Profiler.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48704,7 +48711,8 @@ table td
     "AllegroFlare/Testing/TemporaryFilenameCreator"
   ],
   "AllegroFlare/Profiler": [
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture"
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
+    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/DeploymentEnvironment": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",

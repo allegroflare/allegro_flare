@@ -58,6 +58,12 @@ properties:
     type: bool
     init_with: false
 
+  - name: CLEAR_COLOR
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f}'
+    constexpr: true
+    static: true
+
 
 methods:
 
@@ -447,8 +453,8 @@ methods:
   - name: clear
     body: |
       al_clear_depth_buffer(1);
-      ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
-      al_clear_to_color(eigengrau);
+      //ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+      al_clear_to_color(CLEAR_COLOR);
       return;
     body_dependency_symbols:
       - ALLEGRO_COLOR
