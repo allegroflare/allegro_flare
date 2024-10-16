@@ -28,18 +28,20 @@ static int count_digits(int num)
 
 #include <iomanip>
 static std::string format_table(
-      std::vector<std::pair<std::string, int>> data,
+      std::vector<std::tuple<std::string, int, std::string>> data,
       int label_width,
       int number_width
    )
 {
    std::ostringstream result;
 
-   for (const auto& [label, number] : data)
+   for (const auto& [label, number, unit] : data)
    {
       // Format each line with right-aligned text, padding with dashes
       result << std::right << std::setw(label_width) << label;
-      result << " " << std::right << std::setw(number_width) << number << "\n";
+      result << " " << std::right << std::setfill('-') << std::setw(number_width + 1) << " " << number;
+      result << std::setfill(' ');
+      result << " " << unit << "\n";
    }
 
    return result.str();
@@ -172,13 +174,13 @@ std::vector<std::chrono::high_resolution_clock::time_point> Profiler::get_event_
 
 std::string Profiler::build_report()
 {
-   std::vector<std::pair<std::string, int>> data;
+   std::vector<std::tuple<std::string, int, std::string>> data;
    int longest_label_length = 0;
    int longest_duration_length_in_chars = 0;
    for (auto &timer : timers)
    {
-      int duration = timer.second.get_elapsed_time_microseconds();
-      data.push_back(std::pair<std::string, int>(timer.first, duration));
+      int duration = timer.second.get_elapsed_time_milliseconds();
+      data.push_back(std::tuple<std::string, int, std::string>(timer.first, duration, "ms"));
       int duration_length_in_chars = count_digits(duration);
 
       if (timer.first.size() > longest_label_length) longest_label_length = timer.first.size();
