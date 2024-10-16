@@ -41,6 +41,8 @@ namespace AllegroFlare
          std::string name,
          int max_samples=10
       );
+
+      std::string build_report();
    };
 }
 
