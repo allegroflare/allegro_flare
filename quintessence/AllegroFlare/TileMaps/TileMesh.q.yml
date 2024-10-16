@@ -320,6 +320,13 @@ methods:
       return;
 
 
+  - name: get_vertex_buffer_size
+    type: std::size_t
+    guards: [ initialized ]
+    body: |
+      return al_get_vertex_buffer_size(vertex_buffer);
+
+
   - name: resize
     parameters:
       - name: num_columns

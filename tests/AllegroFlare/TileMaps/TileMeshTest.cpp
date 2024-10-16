@@ -12,6 +12,7 @@ const std::string TEST_TILE_MAP_BITMAP = "tiles_dungeon_v1.1.png";
 #include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro_color.h>
+#include <AllegroFlare/Profiler.hpp>
 
 
 class AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest
@@ -55,7 +56,7 @@ public:
 
    void fill_with_random_tiles(std::vector<int> possible_random_tiles = {})
    {
-      //mesh.enable_holding_vertex_buffer_update_until_refresh();
+      //mesh.enable_holding_vertex_buffer_update_until_refresh(); // NOTE: This is already enabled by default
       AllegroFlare::Random random;
       for (int y=0; y<mesh.get_num_rows(); y++)
       {
@@ -330,7 +331,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
-   FOCUS__resize__will_set_the_dimensions_of_the_map_and_fill_the_tiles_with_empty_tiles)
+   resize__will_set_the_dimensions_of_the_map_and_fill_the_tiles_with_empty_tiles)
 {
    // Fill the subject with random tiles
    mesh.resize(160, 67);
@@ -349,6 +350,14 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    }
 
    EXPECT_EQ(true, all_tiles_are_zero);
+}
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   FOCUS__resize__will_set_vertex_buffer_to_the_expected_size)
+{
+   mesh.resize(160, 67);
+   EXPECT_EQ(64320, mesh.get_vertex_buffer_size());
 }
 
 

@@ -362,6 +362,18 @@ void TileMesh::disable_holding_vertex_buffer_update_until_refresh()
    return;
 }
 
+std::size_t TileMesh::get_vertex_buffer_size()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileMesh::get_vertex_buffer_size]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::get_vertex_buffer_size]: error: guard \"initialized\" not met");
+   }
+   return al_get_vertex_buffer_size(vertex_buffer);
+}
+
 void TileMesh::resize(int num_columns, int num_rows)
 {
    if (!(initialized))
