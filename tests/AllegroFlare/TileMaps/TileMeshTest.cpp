@@ -51,6 +51,7 @@ public:
 
    void TearDown() override
    {
+      mesh.destroy();
       AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
    }
 
@@ -354,10 +355,49 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
-   FOCUS__resize__will_set_vertex_buffer_to_the_expected_size)
+   resize__will_set_the_vertex_buffer_and_index_buffer_to_the_expected_size)
 {
    mesh.resize(160, 67);
    EXPECT_EQ(64320, mesh.get_vertex_buffer_size());
+   EXPECT_EQ(64320, mesh.get_index_buffer_size());
+}
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   resize__will_clear_the_flipped_tiles)
+{
+   // Flip some tiles
+   mesh.set_tile_id(3, 0, 234, true, false, false);
+   mesh.set_tile_id(6, 0, 234, false, true, false);
+   mesh.set_tile_id(9, 0, 234, true, true, false);
+   mesh.set_tile_id(3, 3, 234, true, false, true);
+   mesh.set_tile_id(6, 3, 234, false, true, true);
+   mesh.set_tile_id(9, 3, 234, true, true, true);
+
+   ASSERT_EQ(false, mesh.get_h_flipped_tiles().empty());
+   ASSERT_EQ(false, mesh.get_v_flipped_tiles().empty());
+   ASSERT_EQ(false, mesh.get_d_flipped_tiles().empty());
+
+   mesh.resize(160, 67);
+
+   EXPECT_EQ(true, mesh.get_h_flipped_tiles().empty());
+   EXPECT_EQ(true, mesh.get_v_flipped_tiles().empty());
+   EXPECT_EQ(true, mesh.get_d_flipped_tiles().empty());
+}
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   resize__will_clear_the_removed_tiles)
+{
+   // Remove some tiles
+   mesh.remove_tile_xy_from_index(3, 6);
+   mesh.remove_tile_xy_from_index(12, 8);
+   mesh.remove_tile_xy_from_index(9, 5);
+   ASSERT_EQ(false, mesh.get_removed_tiles().empty());
+
+   mesh.resize(160, 67);
+
+   EXPECT_EQ(true, mesh.get_removed_tiles().empty());
 }
 
 

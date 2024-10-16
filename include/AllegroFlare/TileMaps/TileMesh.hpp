@@ -78,6 +78,7 @@ namespace AllegroFlare
          void destroy();
          void disable_holding_vertex_buffer_update_until_refresh();
          std::size_t get_vertex_buffer_size();
+         std::size_t get_index_buffer_size();
          void resize(int num_columns=0, int num_rows=0);
          void render(bool draw_outline=false);
          bool set_tile_id(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false, bool flip_d=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f});

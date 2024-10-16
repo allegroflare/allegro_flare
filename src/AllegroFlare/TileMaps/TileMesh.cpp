@@ -351,7 +351,16 @@ std::vector<int> TileMesh::vertex_indices_for_tile_xy(int tile_x, int tile_y)
 
 void TileMesh::destroy()
 {
-   if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
+   if (vertex_buffer)
+   {
+      al_destroy_vertex_buffer(vertex_buffer);
+      vertex_buffer = nullptr;
+   }
+   if (index_buffer)
+   {
+      al_destroy_index_buffer(index_buffer);
+      index_buffer = nullptr;
+   }
    return;
 }
 
@@ -371,7 +380,33 @@ std::size_t TileMesh::get_vertex_buffer_size()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::get_vertex_buffer_size]: error: guard \"initialized\" not met");
    }
+   if (!(vertex_buffer))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileMesh::get_vertex_buffer_size]: error: guard \"vertex_buffer\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::get_vertex_buffer_size]: error: guard \"vertex_buffer\" not met");
+   }
    return al_get_vertex_buffer_size(vertex_buffer);
+}
+
+std::size_t TileMesh::get_index_buffer_size()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileMesh::get_index_buffer_size]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::get_index_buffer_size]: error: guard \"initialized\" not met");
+   }
+   if (!(index_buffer))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileMesh::get_index_buffer_size]: error: guard \"index_buffer\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::get_index_buffer_size]: error: guard \"index_buffer\" not met");
+   }
+   return al_get_index_buffer_size(index_buffer);
 }
 
 void TileMesh::resize(int num_columns, int num_rows)
@@ -397,8 +432,16 @@ void TileMesh::resize(int num_columns, int num_rows)
    v_flipped_tiles.clear();
    d_flipped_tiles.clear();
    removed_tiles.clear();
-   if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
-   if (index_buffer) al_destroy_index_buffer(index_buffer);
+   if (vertex_buffer)
+   {
+      al_destroy_vertex_buffer(vertex_buffer);
+      vertex_buffer = nullptr;
+   }
+   if (index_buffer)
+   {
+      al_destroy_index_buffer(index_buffer);
+      index_buffer = nullptr;
+   }
 
    // place the vertices in the mesh
    int num_vertices = num_columns*num_rows*6;
@@ -811,7 +854,11 @@ void TileMesh::refresh_vertex_buffer()
 
 void TileMesh::refresh_index_buffer()
 {
-   if (index_buffer) al_destroy_index_buffer(index_buffer);
+   if (index_buffer)
+   {
+      al_destroy_index_buffer(index_buffer);
+      index_buffer = nullptr;
+   }
    int num_index_vertices = index_vertices.size();
    int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
    index_buffer = al_create_index_buffer(
@@ -820,6 +867,13 @@ void TileMesh::refresh_index_buffer()
          index_vertices.size(),
          ALLEGRO_PRIM_BUFFER_STATIC // alternatively, ALLEGRO_PRIM_BUFFER_DYNAMIC for interactive tile changes
       );
+   if (!index_buffer)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMesh::refresh_index_buffer",
+         "Could not create index_buffer"
+      );
+   }
 
    //int num_index_vertices = index_vertices.size();
    //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
