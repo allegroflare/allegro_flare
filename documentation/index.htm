@@ -40146,6 +40146,10 @@ table td
   <td class="property">std::set&lt;std::pair&lt;int, int&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">removed_tiles</td>
+  <td class="property">std::set&lt;std::pair&lt;int, int&gt;&gt;</td>
+</tr>
+<tr>
   <td class="property">num_columns</td>
   <td class="property">int</td>
 </tr>
@@ -40167,6 +40171,14 @@ table td
 </tr>
 <tr>
   <td class="property">vertex_buffer_is_dirty</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">holding_index_buffer_update_until_refresh</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">index_buffer_is_dirty</td>
   <td class="property">bool</td>
 </tr>
 <tr>
@@ -40197,8 +40209,16 @@ table td
   <td class="method"><b>set_tile_ids</b>(std::vector&lt;int&gt; tile_ids={})</td>
 </tr>
 <tr>
-  <td class="method">int</td>
+  <td class="method">void</td>
   <td class="method"><b>remove_tile_xy_from_index</b>(int tile_x=0, int tile_y=0)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;int&gt;</td>
+  <td class="method"><b>assemble_vertices_to_remove_from_removed_tiles</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer</b>()</td>
 </tr>
 <tr>
   <td class="method">int</td>
@@ -40255,6 +40275,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>refresh_vertex_buffer</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>refresh_index_buffer</b>()</td>
 </tr>
 <tr>
   <td class="method">int</td>

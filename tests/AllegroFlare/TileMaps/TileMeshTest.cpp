@@ -273,6 +273,7 @@ rendered)
    fill_with_random_tiles(possible_random_tiles);
 
    ASSERT_EQ(6, mesh.remove_vertices_from_index_vertices( { 0, 1, 2, 3, 4, 5 } ));
+   mesh.refresh_index_buffer();
 
    // Render the subject
    al_clear_to_color(clear_color);
@@ -300,6 +301,9 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    mesh.remove_tile_xy_from_index(3, 2);
    mesh.remove_tile_xy_from_index(11, 7);
 
+   //mesh.refresh_index_buffer();
+   mesh.refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
+
    // Render the subject
    render_subject(1.0f);
 }
@@ -316,6 +320,9 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    int tile_to_remove_y = mesh.get_num_rows() - 1;
    int tile_to_remove_x = mesh.get_num_columns() - 1;
    mesh.remove_tile_xy_from_index(tile_to_remove_x, tile_to_remove_y);
+
+   mesh.refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
+   //mesh.refresh_index_buffer();
 
    // Render the subject
    render_subject(1.0f);

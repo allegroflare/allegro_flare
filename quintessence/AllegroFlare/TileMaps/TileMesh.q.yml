@@ -51,6 +51,11 @@ properties:
     init_with: '{}'
     getter: true
 
+  - name: removed_tiles
+    type: std::set<std::pair<int, int>>
+    init_with: '{}'
+    getter: true
+
   - name: num_columns
     type: int
     init_with: 0
@@ -85,6 +90,16 @@ properties:
     getter: true
 
   - name: vertex_buffer_is_dirty
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: holding_index_buffer_update_until_refresh
+    type: bool
+    init_with: true
+    getter: true
+
+  - name: index_buffer_is_dirty
     type: bool
     init_with: false
     getter: true
@@ -180,7 +195,6 @@ methods:
 
 
   - name: remove_tile_xy_from_index
-    type: int
     parameters:
       - name: tile_x
         type: int
@@ -189,7 +203,57 @@ methods:
         type: int
         default_argument: 0
     body: |
-      return remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
+      std::size_t size_before = removed_tiles.size();
+      removed_tiles.insert({ tile_x, tile_y });
+      if (size_before != removed_tiles.size())
+      {
+         if (holding_index_buffer_update_until_refresh) index_buffer_is_dirty = true;
+         else remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
+      }
+      return;
+
+
+  - name: assemble_vertices_to_remove_from_removed_tiles
+    type: std::vector<int>
+    body: |
+      std::vector<int> result;
+      result.reserve(removed_tiles.size() * 6);
+      std::vector<int> insert_set(6);
+      for (auto &removed_tile : removed_tiles)
+      {
+         insert_set = vertex_indices_for_tile_xy(removed_tile.first, removed_tile.second);
+         result.insert(result.end(), insert_set.begin(), insert_set.end());
+      }
+
+      //int num_index_vertices = index_vertices.size();
+      //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+      //int num_index_vertices = index_vertices.size();
+      //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+
+      return result;
+
+
+  - name: refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer
+    body: |
+      // Replenish the index_vertices
+      int num_index_vertices = index_vertices.size();
+      for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+
+      std::vector<int> vertices_to_remove = assemble_vertices_to_remove_from_removed_tiles();
+
+      for (int i=0; i<index_vertices.size(); i++)
+      {
+         if (std::find(vertices_to_remove.begin(), vertices_to_remove.end(),
+             index_vertices[i]) == vertices_to_remove.end()) continue;
+
+         index_vertices.erase(index_vertices.begin() + i);
+         i--; // Adjust index since element was removed
+         //num_removed++;
+      }
+
+      refresh_index_buffer();
+
+      return;
 
 
   - name: remove_vertices_from_index_vertices
@@ -212,15 +276,8 @@ methods:
       }
 
       // Completely rebuild the vertex indexes
-      if (index_buffer) al_destroy_index_buffer(index_buffer);
-      int num_index_vertices = index_vertices.size();
-      int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
-      index_buffer = al_create_index_buffer(
-            index_buffer_int_size,
-            &index_vertices[0],
-            index_vertices.size(),
-            ALLEGRO_PRIM_BUFFER_DYNAMIC
-         );
+      if (holding_index_buffer_update_until_refresh) index_buffer_is_dirty = true;
+      else refresh_index_buffer();
 
       return num_removed;
     body_dependency_symbols:
@@ -286,6 +343,7 @@ methods:
       h_flipped_tiles.clear();
       v_flipped_tiles.clear();
       d_flipped_tiles.clear();
+      removed_tiles.clear();
       if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
       if (index_buffer) al_destroy_index_buffer(index_buffer);
 
@@ -325,19 +383,23 @@ methods:
 
       // Create the vertex buffer, duplicate the vertices into it
       vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+      //refresh_vertex_buffer();
 
-      // Build the vertex indexes
+      // Build the index buffer
+      // HERE: See if "refresh_index_buffer" can be used here instead
       int num_index_vertices = index_vertices.size();
       for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
-      int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
-      index_buffer = al_create_index_buffer(
-            index_buffer_int_size,
-            &index_vertices[0],
-            index_vertices.size(),
-            ALLEGRO_PRIM_BUFFER_DYNAMIC
-         );
 
-      vertex_buffer_is_dirty = false;
+      refresh_index_buffer();
+
+      //int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
+      //index_buffer = al_create_index_buffer(
+            //index_buffer_int_size,
+            //&index_vertices[0],
+            //index_vertices.size(),
+            //ALLEGRO_PRIM_BUFFER_DYNAMIC
+         //);
+
 
       if (yz_swapped)
       {
@@ -353,7 +415,7 @@ methods:
       - name: draw_outline
         type: bool
         default_argument: false
-    guards: [ initialized, atlas, (!vertex_buffer_is_dirty) ]
+    guards: [ initialized, atlas, (!vertex_buffer_is_dirty), (!index_buffer_is_dirty) ]
     body: |
       al_draw_indexed_buffer(
          vertex_buffer,
@@ -701,6 +763,29 @@ methods:
       al_unlock_vertex_buffer(vertex_buffer);
 
       vertex_buffer_is_dirty = false;
+      return;
+
+      //bool is_d_flipped = d_flipped_tiles.find({ tile_x, tile_y }) != d_flipped_tiles.end();
+
+
+  - name: refresh_index_buffer
+    body: |
+      if (index_buffer) al_destroy_index_buffer(index_buffer);
+      int num_index_vertices = index_vertices.size();
+      int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
+      index_buffer = al_create_index_buffer(
+            index_buffer_int_size,
+            &index_vertices[0],
+            index_vertices.size(),
+            ALLEGRO_PRIM_BUFFER_STATIC // alternatively, ALLEGRO_PRIM_BUFFER_DYNAMIC for interactive tile changes
+         );
+
+      //int num_index_vertices = index_vertices.size();
+      //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+      //int num_index_vertices = index_vertices.size();
+      //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+
+      index_buffer_is_dirty = false;
       return;
 
 

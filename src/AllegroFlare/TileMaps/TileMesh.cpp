@@ -27,12 +27,15 @@ TileMesh::TileMesh(AllegroFlare::TileMaps::PrimMeshAtlas* atlas, int num_columns
    , h_flipped_tiles({})
    , v_flipped_tiles({})
    , d_flipped_tiles({})
+   , removed_tiles({})
    , num_columns(num_columns)
    , num_rows(num_rows)
    , tile_width(tile_width)
    , tile_height(tile_height)
    , holding_vertex_buffer_update_until_refresh(true)
    , vertex_buffer_is_dirty(false)
+   , holding_index_buffer_update_until_refresh(true)
+   , index_buffer_is_dirty(false)
    , yz_swapped(false)
    , initialized(false)
 {
@@ -86,6 +89,12 @@ std::set<std::pair<int, int>> TileMesh::get_d_flipped_tiles() const
 }
 
 
+std::set<std::pair<int, int>> TileMesh::get_removed_tiles() const
+{
+   return removed_tiles;
+}
+
+
 int TileMesh::get_num_columns() const
 {
    return num_columns;
@@ -119,6 +128,18 @@ bool TileMesh::get_holding_vertex_buffer_update_until_refresh() const
 bool TileMesh::get_vertex_buffer_is_dirty() const
 {
    return vertex_buffer_is_dirty;
+}
+
+
+bool TileMesh::get_holding_index_buffer_update_until_refresh() const
+{
+   return holding_index_buffer_update_until_refresh;
+}
+
+
+bool TileMesh::get_index_buffer_is_dirty() const
+{
+   return index_buffer_is_dirty;
 }
 
 
@@ -211,9 +232,58 @@ void TileMesh::set_tile_ids(std::vector<int> tile_ids)
    return;
 }
 
-int TileMesh::remove_tile_xy_from_index(int tile_x, int tile_y)
+void TileMesh::remove_tile_xy_from_index(int tile_x, int tile_y)
 {
-   return remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
+   std::size_t size_before = removed_tiles.size();
+   removed_tiles.insert({ tile_x, tile_y });
+   if (size_before != removed_tiles.size())
+   {
+      if (holding_index_buffer_update_until_refresh) index_buffer_is_dirty = true;
+      else remove_vertices_from_index_vertices(vertex_indices_for_tile_xy(tile_x, tile_y));
+   }
+   return;
+}
+
+std::vector<int> TileMesh::assemble_vertices_to_remove_from_removed_tiles()
+{
+   std::vector<int> result;
+   result.reserve(removed_tiles.size() * 6);
+   std::vector<int> insert_set(6);
+   for (auto &removed_tile : removed_tiles)
+   {
+      insert_set = vertex_indices_for_tile_xy(removed_tile.first, removed_tile.second);
+      result.insert(result.end(), insert_set.begin(), insert_set.end());
+   }
+
+   //int num_index_vertices = index_vertices.size();
+   //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+   //int num_index_vertices = index_vertices.size();
+   //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+
+   return result;
+}
+
+void TileMesh::refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer()
+{
+   // Replenish the index_vertices
+   int num_index_vertices = index_vertices.size();
+   for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+
+   std::vector<int> vertices_to_remove = assemble_vertices_to_remove_from_removed_tiles();
+
+   for (int i=0; i<index_vertices.size(); i++)
+   {
+      if (std::find(vertices_to_remove.begin(), vertices_to_remove.end(),
+          index_vertices[i]) == vertices_to_remove.end()) continue;
+
+      index_vertices.erase(index_vertices.begin() + i);
+      i--; // Adjust index since element was removed
+      //num_removed++;
+   }
+
+   refresh_index_buffer();
+
+   return;
 }
 
 int TileMesh::remove_vertices_from_index_vertices(std::vector<int> vertices_to_remove)
@@ -231,15 +301,8 @@ int TileMesh::remove_vertices_from_index_vertices(std::vector<int> vertices_to_r
    }
 
    // Completely rebuild the vertex indexes
-   if (index_buffer) al_destroy_index_buffer(index_buffer);
-   int num_index_vertices = index_vertices.size();
-   int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
-   index_buffer = al_create_index_buffer(
-         index_buffer_int_size,
-         &index_vertices[0],
-         index_vertices.size(),
-         ALLEGRO_PRIM_BUFFER_DYNAMIC
-      );
+   if (holding_index_buffer_update_until_refresh) index_buffer_is_dirty = true;
+   else refresh_index_buffer();
 
    return num_removed;
 }
@@ -321,6 +384,7 @@ void TileMesh::resize(int num_columns, int num_rows)
    h_flipped_tiles.clear();
    v_flipped_tiles.clear();
    d_flipped_tiles.clear();
+   removed_tiles.clear();
    if (vertex_buffer) al_destroy_vertex_buffer(vertex_buffer);
    if (index_buffer) al_destroy_index_buffer(index_buffer);
 
@@ -360,19 +424,23 @@ void TileMesh::resize(int num_columns, int num_rows)
 
    // Create the vertex buffer, duplicate the vertices into it
    vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+   //refresh_vertex_buffer();
 
-   // Build the vertex indexes
+   // Build the index buffer
+   // HERE: See if "refresh_index_buffer" can be used here instead
    int num_index_vertices = index_vertices.size();
    for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
-   int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
-   index_buffer = al_create_index_buffer(
-         index_buffer_int_size,
-         &index_vertices[0],
-         index_vertices.size(),
-         ALLEGRO_PRIM_BUFFER_DYNAMIC
-      );
 
-   vertex_buffer_is_dirty = false;
+   refresh_index_buffer();
+
+   //int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
+   //index_buffer = al_create_index_buffer(
+         //index_buffer_int_size,
+         //&index_vertices[0],
+         //index_vertices.size(),
+         //ALLEGRO_PRIM_BUFFER_DYNAMIC
+      //);
+
 
    if (yz_swapped)
    {
@@ -405,6 +473,13 @@ void TileMesh::render(bool draw_outline)
       error_message << "[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"(!vertex_buffer_is_dirty)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"(!vertex_buffer_is_dirty)\" not met");
+   }
+   if (!((!index_buffer_is_dirty)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"(!index_buffer_is_dirty)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileMesh::render]: error: guard \"(!index_buffer_is_dirty)\" not met");
    }
    al_draw_indexed_buffer(
       vertex_buffer,
@@ -717,6 +792,29 @@ void TileMesh::refresh_vertex_buffer()
    al_unlock_vertex_buffer(vertex_buffer);
 
    vertex_buffer_is_dirty = false;
+   return;
+
+   //bool is_d_flipped = d_flipped_tiles.find({ tile_x, tile_y }) != d_flipped_tiles.end();
+}
+
+void TileMesh::refresh_index_buffer()
+{
+   if (index_buffer) al_destroy_index_buffer(index_buffer);
+   int num_index_vertices = index_vertices.size();
+   int index_buffer_int_size = 4; // 4 is the size of a normal "int". If we were to use a "short int", then 2.
+   index_buffer = al_create_index_buffer(
+         index_buffer_int_size,
+         &index_vertices[0],
+         index_vertices.size(),
+         ALLEGRO_PRIM_BUFFER_STATIC // alternatively, ALLEGRO_PRIM_BUFFER_DYNAMIC for interactive tile changes
+      );
+
+   //int num_index_vertices = index_vertices.size();
+   //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+   //int num_index_vertices = index_vertices.size();
+   //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+
+   index_buffer_is_dirty = false;
    return;
 }
 
