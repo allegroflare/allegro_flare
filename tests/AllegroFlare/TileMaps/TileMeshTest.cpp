@@ -330,6 +330,29 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   FOCUS__resize__will_set_the_dimensions_of_the_map_and_fill_the_tiles_with_empty_tiles)
+{
+   // Fill the subject with random tiles
+   mesh.resize(160, 67);
+
+   EXPECT_EQ(160, mesh.get_num_columns());
+   EXPECT_EQ(67, mesh.get_num_rows());
+
+   bool all_tiles_are_zero = true;
+   for (auto &tile : mesh.get_tile_ids())
+   {
+      if (tile != 0)
+      {
+         all_tiles_are_zero = false;
+         break;
+      }
+   }
+
+   EXPECT_EQ(true, all_tiles_are_zero);
+}
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    CAPTURE__VISUAL__set_tile_id__with_flip_h_and_flip_v_values__will_flip_the_tile_horizontally_and_vertically)
 {
    //mesh.enable_holding_vertex_buffer_update_until_refresh();
