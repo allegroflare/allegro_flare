@@ -332,6 +332,36 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   FLAKEY__remove_tile_xy_from_index__when_holding_index_buffer_update_until_refresh_is_true__will_not_have_a_\
+significant_performance_impact)
+{
+   std::string TIMER_NAME = "remove_tile_xy_from_index";
+   // Fill the subject with random tiles
+   int num_columns = 160;
+   int num_rows = 67;
+   mesh.resize(num_columns, num_rows);
+
+   std::vector<int> possible_random_tiles = { 20, 21, 23, 100, 101, 103, 172, 193 };
+   fill_with_random_tiles(possible_random_tiles);
+
+   int num_tiles_to_remove = num_columns * num_rows;
+
+   AllegroFlare::Profiler profiler;
+   profiler.start(TIMER_NAME);
+   for (int i=0; i<num_tiles_to_remove; i++)
+   {
+      int tile_x = i % num_columns;
+      int tile_y = i / num_columns;
+      mesh.remove_tile_xy_from_index(tile_x, tile_y);
+   }
+   profiler.stop(TIMER_NAME);
+
+   EXPECT_EQ(num_tiles_to_remove, mesh.get_removed_tiles().size());
+   EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 5000);
+}
+
+
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    resize__will_set_the_dimensions_of_the_map_and_fill_the_tiles_with_empty_tiles)
 {
    // Fill the subject with random tiles
