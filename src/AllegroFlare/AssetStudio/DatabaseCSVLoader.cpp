@@ -380,7 +380,10 @@ void DatabaseCSVLoader::load()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"assets_bitmap_bin\" not met");
    }
+   //
    // Obtain the content from the file and parse it to extractable data
+   //
+
    if (!std::filesystem::exists(csv_full_path))
    {
       AllegroFlare::Logger::throw_error(
@@ -393,7 +396,7 @@ void DatabaseCSVLoader::load()
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-         "The file \"" + csv_full_path + "\" appears to be empty."
+         "The file \"" + csv_full_path + "\" is present but appears to be empty."
       );
    }
    AllegroFlare::CSVParser csv_parser;
@@ -401,11 +404,13 @@ void DatabaseCSVLoader::load()
    csv_parser.parse();
    csv_parser.assemble_column_headers(3);
 
-   // Load the parsed data to Level objects
-   int first_physical_row = csv_parser.get_num_header_rows();
-   int row_i = first_physical_row;
-   // TODO: Report hidden assets at end of loading process
+   //
+   // Extract the data from the CSV into AssetStudio/Asset objects
+   //
+
    std::set<std::string> hidden_assets;
+   int first_record_row = csv_parser.get_num_header_rows();
+   int row_i = first_record_row;
    for (std::map<std::string, std::string> &extracted_row : csv_parser.extract_all_rows())
    {
       std::string visibility = validate_key_and_return(&extracted_row, "visibility");
@@ -414,34 +419,40 @@ void DatabaseCSVLoader::load()
       // Skip over "hidden" assets
       if (visibility == "hidden")
       {
+         // TODO: Report hidden assets at end of loading process
          // Store the hidden asset identifier to report at the end what assets are hidden for debugging
          hidden_assets.insert(identifier);
          continue;
       }
 
-      // Extract the data here
-      //std::string identifier = validate_key_and_return(&extracted_row, "identifier");
-      //std::string status = validate_key_and_return(&extracted_row, "status");
+      //
+      // Extract the data from the CSV to variables
+      //
+
       std::string asset_pack_identifier = validate_key_and_return(&extracted_row, "asset_pack_identifier");
       std::string intra_pack_identifier = validate_key_and_return(&extracted_row, "intra_pack_identifier");
       int id = toi(validate_key_and_return(&extracted_row, "id"));
+      std::string type = validate_key_and_return(&extracted_row, "type");
       int cell_width = toi(validate_key_and_return(&extracted_row, "cell_width"));
       int cell_height = toi(validate_key_and_return(&extracted_row, "cell_height"));
-      //std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
       std::string playmode = validate_key_and_return(&extracted_row, "playmode");
-      std::string type = validate_key_and_return(&extracted_row, "type");
       float align_x = tof(validate_key_and_return(&extracted_row, "align_x"));
       float align_y = tof(validate_key_and_return(&extracted_row, "align_y"));
       float align_in_container_x = tof(validate_key_and_return(&extracted_row, "align_in_container_x"));
       float align_in_container_y = tof(validate_key_and_return(&extracted_row, "align_in_container_y"));
       float anchor_x = tof(validate_key_and_return(&extracted_row, "anchor_x"));
       float anchor_y = tof(validate_key_and_return(&extracted_row, "anchor_y"));
-
       std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
       std::string images_list_raw = validate_key_and_return(&extracted_row, "images_list");
 
 
-      // Load the frame data
+      //
+      // Load the frame data for the animation
+      //
+      // For animations, "frame_data" refers to the timings for each animation frame. Currently all animations
+      // will have a "num_frames", "start_from_frame", "each_frame_duration".
+      // Some animations may have "in_hash" which allows the user to specify different animation speeds for
+      // individual frames. The "in_hash" feature is currently not supported.
 
       std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
       std::string frame_data__build_n_frames__num_frames =
@@ -472,12 +483,13 @@ void DatabaseCSVLoader::load()
       else if (!using_build_n_frames_frame_data && !using_in_hash_frame_data)
       {
          // NOTE: Assuming this is a tileset
-         // TODO: Consider outputting an "info", "warning", or maybe guarding with a type==tileset or something.
-         //AllegroFlare::Logger::throw_error(
-            //"AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-            //"When loading row " + std::to_string(row_i) + ", both \"build_n_frames\" and \"in_hash\" sections are "
-               //"empty. Expecting some data there."
-         //);
+         // TODO: Consider guarding with a type==tileset or something.
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+            "When loading row " + std::to_string(row_i) + ", there is empty data in the \"frame_data__\" columns. "
+               "If this is a tilemap, please discard this message. Note that there are currently no features "
+               "implemented for tilemaps."
+         );
       }
       else if (using_build_n_frames_frame_data)
       {
@@ -501,41 +513,45 @@ void DatabaseCSVLoader::load()
       {
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-            "Weird error 2324jfgasodjifas."
+            "Weird error in unexpected code path."
          );
       }
 
-
-
-      std::vector<std::string> images_list = {};
-
       // Load the image (or images) data
+      //
+      // Typically, artists will provide their animations either as a collection of individual image files, or
+      // a single file sprite sheet strip. In the assets.db CSV file, there are two columns "images_list"
+      // and "image_filename" to represent either type of resource. Either one or the other should be present,
+      // but not both (or neither).
 
-      std::string full_path_to_image_file = "[unprocessed]";
+      std::vector<std::string> images_list = {}; // NOTE: Images list is never loaded here. This feature is not
+                                                 // yet supported.
       AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet = nullptr;
-      //bool using_single_image_file = false;
-      //int sprite_sheet_scale = 2;
 
       if (image_filename.empty() && images_list_raw.empty())
       {
+         // Both "image_filename" and "images_list" columns erroneously have data in them
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-            "foofoo231"
+            "When loading row " + std::to_string(row_i) + ", there is data in both the \"images_list\" and "
+               " \"image_filename\" columns. Data should exist in either one or the other, but not both."
          );
       }
       else if (!image_filename.empty() && !images_list_raw.empty())
       {
+         // Neither "image_filename" and "images_list" columns have data in them
          AllegroFlare::Logger::throw_error(
             "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-            "foofoo456"
+            "When loading row " + std::to_string(row_i) + ", there no data in either the \"images_list\" and "
+               " \"image_filename\" columns. Data should be present in or the other (but not both)."
          );
       }
       else if (!image_filename.empty())
       {
-         full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
-
+         // NOTE: MOST COMMON USE CASE
+         // There is "image_filename" data present on this record.
+         std::string full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
          sprite_sheet = obtain_sprite_sheet(full_path_to_image_file, cell_width, cell_height, sprite_sheet_scale);
-         //using_single_image_file = true;
       }
       else if (!images_list_raw.empty())
       {
@@ -659,7 +675,7 @@ void DatabaseCSVLoader::load()
                 << "Dimensions: (" << asset->cell_width << ", " << asset->cell_height << "), "
                 << "Frames: " << animation->get_num_frames() << std::endl;
 
-      // If it's an "icon_set", then also build unique assets for each icon
+      // If it's an "icon_set", then consider building unique assets for each icon
       int icon_id = 1;
       if (type == "icon_set")
       {
