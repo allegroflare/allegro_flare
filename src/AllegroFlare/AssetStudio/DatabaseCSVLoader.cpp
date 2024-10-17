@@ -257,6 +257,24 @@ AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::find_asset(std::string asse
    return assets[asset_identifier];
 }
 
+AllegroFlare::AssetStudio::Record* DatabaseCSVLoader::find_record(std::string identifier)
+{
+   if (!(records_loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record]: error: guard \"records_loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record]: error: guard \"records_loaded\" not met");
+   }
+   // TODO: Test this
+   for (auto &record : records) if (record.identifier == identifier) return &record;
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record",
+      "A record with the identifier \"" + identifier + "\" does not exist."
+   );
+   return nullptr;
+}
+
 std::string DatabaseCSVLoader::validate_key_and_return(std::map<std::string, std::string>* extracted_row, std::string key)
 {
    if (extracted_row->count(key) == 0)
@@ -539,17 +557,19 @@ void DatabaseCSVLoader::load_records()
    return;
 }
 
-void DatabaseCSVLoader::load_record_into_assets(std::string asset_identifier)
+AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_identifier(std::string identifier)
 {
-   if (!(record_exists(asset_identifier)))
+   if (!(record_exists(identifier)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::load_record_into_assets]: error: guard \"record_exists(asset_identifier)\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_asset_from_record_identifier]: error: guard \"record_exists(identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::load_record_into_assets]: error: guard \"record_exists(asset_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_asset_from_record_identifier]: error: guard \"record_exists(identifier)\" not met");
    }
+   AllegroFlare::AssetStudio::Record &record = *find_record(identifier);
+
    // TODO: HERE
-   return;
+   return nullptr;
 }
 
 void DatabaseCSVLoader::load()

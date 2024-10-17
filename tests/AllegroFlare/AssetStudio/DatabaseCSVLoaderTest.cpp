@@ -195,7 +195,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    // Cherry pick some specific assets
    EXPECT_EQ(true, loader.record_exists("ansimuz/warped-humanoid-enemies/roboid"));
    EXPECT_EQ(true, loader.record_exists("ansimuz/warped-explosions-pack-8/explosion-g"));
-   EXPECT_EQ(true, loader.record_exists("seethingswarm/bunnypack/bunny_sit_strip12"));
+   EXPECT_EQ(true, loader.record_exists("ansimuz/warped-humanoid-enemies/exoskeleton-crouch"));
    EXPECT_EQ(true, loader.record_exists("seethingswarm/catset/cat01_jump_strip4"));
 }
 

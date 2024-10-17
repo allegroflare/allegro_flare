@@ -248,6 +248,23 @@ methods:
       return assets[asset_identifier];
 
 
+  - name: find_record
+    type: AllegroFlare::AssetStudio::Record*
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    guards: [ records_loaded ]
+    body: |
+      // TODO: Test this
+      for (auto &record : records) if (record.identifier == identifier) return &record;
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record",
+         "A record with the identifier \"" + identifier + "\" does not exist."
+      );
+      return nullptr;
+
+
   - name: validate_key_and_return
     type: std::string
     static: true
@@ -564,15 +581,18 @@ methods:
       return;
 
 
-  - name: load_record_into_assets
+  - name: create_asset_from_record_identifier
+    type: AllegroFlare::AssetStudio::Asset*
     parameters:
-      - name: asset_identifier
+      - name: identifier
         type: std::string
-        default_argument: '"[unset-asset_identifier]"'
-    guards: [ record_exists(asset_identifier) ]
+        default_argument: '"[unset-identifier]"'
+    guards: [ record_exists(identifier) ]
     body: |
+      AllegroFlare::AssetStudio::Record &record = *find_record(identifier);
+
       // TODO: HERE
-      return;
+      return nullptr;
 
 
   - name: load

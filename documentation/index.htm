@@ -1040,6 +1040,10 @@ table td
   <td class="method"><b>find_asset</b>(std::string asset_identifier=&quot;[unset-asset_identifier]&quot;)</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::AssetStudio::Record*</td>
+  <td class="method"><b>find_record</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
   <td class="method">std::string</td>
   <td class="method"><b>validate_key_and_return</b>(std::map&lt;std::string, std::string&gt;* extracted_row=nullptr, std::string key=&quot;[unset-key]&quot;)</td>
 </tr>
@@ -1064,8 +1068,8 @@ table td
   <td class="method"><b>load_records</b>()</td>
 </tr>
 <tr>
-  <td class="method">void</td>
-  <td class="method"><b>load_record_into_assets</b>(std::string asset_identifier=&quot;[unset-asset_identifier]&quot;)</td>
+  <td class="method">AllegroFlare::AssetStudio::Asset*</td>
+  <td class="method"><b>create_asset_from_record_identifier</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">void</td>
