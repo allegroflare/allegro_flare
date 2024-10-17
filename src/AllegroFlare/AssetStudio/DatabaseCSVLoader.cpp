@@ -556,122 +556,15 @@ void DatabaseCSVLoader::load()
       throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"assets_bitmap_bin\" not met");
    }
    //
-   // Obtain the content from the file and parse it to extractable data
+   // Load the records (if they have not been loaded already)
    //
 
-   /*
-   if (!std::filesystem::exists(csv_full_path))
-   {
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-         "The file \"" + csv_full_path + "\" does not exist."
-      );
-   }
-   std::string content = AllegroFlare::php::file_get_contents(csv_full_path);
-   if (content.empty())
-   {
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-         "The file \"" + csv_full_path + "\" is present but appears to be empty."
-      );
-   }
-   AllegroFlare::CSVParser csv_parser;
-   csv_parser.set_raw_csv_content(content);
-   csv_parser.parse();
-   csv_parser.assemble_column_headers(3);
-   */
-
-
-   //
-   // Extract the data from the CSV into "records" (as AssetStudio/Record objects)
-   //
    if (!records_loaded) load_records();
 
-   /*
-   {
-      records.clear();
-      records.reserve(csv_parser.num_records());
-
-      int first_record_row = csv_parser.get_num_header_rows();
-      int row_i = first_record_row;
-      int record_index_in_vector = 0;
-      for (std::map<std::string, std::string> &extracted_row : csv_parser.extract_all_rows())
-      {
-         // Load the record data to CSV
-         int id = toi(validate_key_and_return(&extracted_row, "id"));
-         std::string identifier = validate_key_and_return(&extracted_row, "identifier");
-         int source_csv_column_num = row_i;
-         std::string status = validate_key_and_return(&extracted_row, "status");
-         std::string visibility = validate_key_and_return(&extracted_row, "visibility");
-         std::string type = validate_key_and_return(&extracted_row, "type");
-         std::string asset_pack_identifier = validate_key_and_return(&extracted_row, "asset_pack_identifier");
-         std::string intra_pack_identifier = validate_key_and_return(&extracted_row, "intra_pack_identifier");
-         int cell_width = toi(validate_key_and_return(&extracted_row, "cell_width"));
-         int cell_height = toi(validate_key_and_return(&extracted_row, "cell_height"));
-         float align_x = tof(validate_key_and_return(&extracted_row, "align_x"));
-         float align_y = tof(validate_key_and_return(&extracted_row, "align_y"));
-         float align_in_container_x = tof(validate_key_and_return(&extracted_row, "align_in_container_x"));
-         float align_in_container_y = tof(validate_key_and_return(&extracted_row, "align_in_container_y"));
-         float anchor_x = tof(validate_key_and_return(&extracted_row, "anchor_x"));
-         float anchor_y = tof(validate_key_and_return(&extracted_row, "anchor_y"));
-         std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
-         std::string images_list_raw = validate_key_and_return(&extracted_row, "images_list"); // ***
-         std::string full_path_to_initial_image =
-            validate_key_and_return(&extracted_row, "full_path_to_initial_image");
-         std::string playmode = validate_key_and_return(&extracted_row, "playmode");
-         std::string notes = validate_key_and_return(&extracted_row, "notes");
-         int frame_data__build_n_frames__num_frames =
-            toi(validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames"));
-         int frame_data__build_n_frames__start_from_frame =
-            toi(validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame"));
-         float frame_data__build_n_frames__each_frame_duration =
-            tof(validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration"));
-         std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
-
-         // Create the record
-         AllegroFlare::AssetStudio::Record record;
-
-         record.id = id;
-         record.identifier = identifier;
-         record.source_csv_column_num = source_csv_column_num;
-         record.status = status;
-         record.visibility = visibility;
-         record.type = type;
-         record.asset_pack_identifier = asset_pack_identifier;
-         record.intra_pack_identifier = intra_pack_identifier;
-         record.cell_width = cell_width;
-         record.cell_height = cell_height;
-         record.align_x = align_x;
-         record.align_y = align_y;
-         record.align_in_container_x = align_in_container_x;
-         record.align_in_container_y = align_in_container_y;
-         record.anchor_x = anchor_x;
-         record.anchor_y = anchor_y;
-         record.image_filename = image_filename;
-         record.images_list = comma_separated_strings_to_vector_of_strings(images_list_raw);
-         record.full_path_to_initial_image = full_path_to_initial_image;
-         record.playmode = playmode;
-         record.notes = notes;
-         // TODO: Test this is int
-         record.frame_data__build_n_frames__num_frames = toi(frame_data__build_n_frames__num_frames);
-         // TODO: Test this is int
-         record.frame_data__build_n_frames__start_from_frame = toi(frame_data__build_n_frames__start_from_frame);
-         // TODO: Test this is float
-         record.frame_data__build_n_frames__each_frame_duration =
-            tof(frame_data__build_n_frames__each_frame_duration);
-         record.frame_data__in_hash = frame_data__in_hash;
-
-         // Add the record
-         records.push_back(record);
-
-         row_i++;
-      }
-   }
-   */
 
 
    //
-   // Extract the data from the CSV into AssetStudio/Asset objects
+   // Iterate over every record and load it into "assets"
    //
 
    std::set<std::string> hidden_assets;
