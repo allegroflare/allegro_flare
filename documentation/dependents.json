@@ -190,6 +190,10 @@
     "AllegroFlare/AssetStudio/Database",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
+  "AllegroFlare/AssetStudio/Record": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
   "AllegroFlare/CSVParser": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
@@ -318,9 +322,6 @@
     "AllegroFlare/StringTransformer"
   ],
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
-  ],
-  "AllegroFlare/AssetStudio/Record": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "AllegroFlare/TerminalColors": [

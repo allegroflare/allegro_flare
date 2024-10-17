@@ -4,6 +4,18 @@
 #include <AllegroFlare/AssetStudio/Database.hpp>
 
 
+static AllegroFlare::AssetStudio::Record build_basic_record(
+   std::string identifier,
+   std::string type
+)
+{
+   AllegroFlare::AssetStudio::Record result;
+   result.identifier = identifier;
+   result.type = type;
+   return result;
+}
+
+
 TEST(AllegroFlare_AssetStudio_DatabaseTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::AssetStudio::Database database;
@@ -50,6 +62,24 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
    };
    std::set<std::string> actual_asset_identifiers = database.asset_identifiers();
    EXPECT_EQ(expected_asset_identifiers, actual_asset_identifiers);
+}
+
+
+TEST(AllegroFlare_AssetStudio_DatabaseTest,
+   record_identifiers__will_return_the_list_of_records_that_are_present)
+{
+   AllegroFlare::AssetStudio::Database database;
+   std::vector<AllegroFlare::AssetStudio::Record> records = {
+      build_basic_record("foobar", "animation"),
+      build_basic_record("boobaz", "animation"),
+      build_basic_record("blabla", "tileset"),
+   };
+   database.set_records(records);
+   std::set<std::string> expected_record_identifiers = {
+      "foobar", "boobaz", "blabla",
+   };
+   std::set<std::string> actual_record_identifiers = database.record_identifiers();
+   EXPECT_EQ(expected_record_identifiers, actual_record_identifiers);
 }
 
 

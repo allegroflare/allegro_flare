@@ -871,6 +871,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">records</td>
+  <td class="property">std::vector&lt;AllegroFlare::AssetStudio::Record&gt;</td>
+</tr>
+<tr>
   <td class="property">global_assets</td>
   <td class="property">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
 </tr>
@@ -904,6 +908,10 @@ table td
 <tr>
   <td class="method">std::set&lt;std::string&gt;</td>
   <td class="method"><b>asset_identifiers</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::set&lt;std::string&gt;</td>
+  <td class="method"><b>record_identifiers</b>()</td>
 </tr>
 <tr>
   <td class="private_method">void</td>
@@ -940,6 +948,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Asset&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Asset.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Record&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Record.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45223,6 +45234,10 @@ table td
     "AllegroFlare/AssetStudio/Database",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
+  "AllegroFlare/AssetStudio/Record": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
   "AllegroFlare/CSVParser": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
@@ -45351,9 +45366,6 @@ table td
     "AllegroFlare/StringTransformer"
   ],
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
-  ],
-  "AllegroFlare/AssetStudio/Record": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "AllegroFlare/TerminalColors": [

@@ -1,6 +1,12 @@
 properties:
 
 
+  - name: records
+    type: std::vector<AllegroFlare::AssetStudio::Record>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: global_assets
     type: std::map<std::string, AllegroFlare::AssetStudio::Asset*>
     init_with: ''
@@ -61,6 +67,15 @@ methods:
       std::set<std::string> result;
       for (auto &asset : global_assets) result.insert(asset.first);
       for (auto &asset : local_assets) result.insert(asset.first);
+      return result;
+
+
+  - name: record_identifiers
+    type: std::set<std::string>
+    body: |
+      // TODO: Test this
+      std::set<std::string> result;
+      for (auto &record : records) result.insert(record.identifier);
       return result;
 
 
@@ -200,5 +215,7 @@ dependencies:
     headers: [ AllegroFlare/FrameAnimation/Animation.hpp ]
   - symbol: AllegroFlare::AssetStudio::Asset
     headers: [ AllegroFlare/AssetStudio/Asset.hpp ]
+  - symbol: AllegroFlare::AssetStudio::Record
+    headers: [ AllegroFlare/AssetStudio/Record.hpp ]
 
 
