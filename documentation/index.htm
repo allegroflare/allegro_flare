@@ -61,6 +61,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AssetStudio/AssetImporter.q.yml">quintessence/AllegroFlare/AssetStudio/AssetImporter.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AssetStudio/Database.q.yml">quintessence/AllegroFlare/AssetStudio/Database.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml">quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AssetStudio/Record.q.yml">quintessence/AllegroFlare/AssetStudio/Record.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml</a></li>
@@ -964,6 +965,10 @@ table td
   <td class="property">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
 </tr>
 <tr>
+  <td class="property">records</td>
+  <td class="property">std::vector&lt;AllegroFlare::AssetStudio::Record&gt;</td>
+</tr>
+<tr>
   <td class="property">sprite_sheets</td>
   <td class="property">std::map&lt;std::tuple&lt;std::string, int, int, int&gt;, AllegroFlare::FrameAnimation::SpriteSheet*&gt;</td>
 </tr>
@@ -985,6 +990,10 @@ table td
 <tr>
   <td class="method">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
   <td class="method"><b>get_assets</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::AssetStudio::Record&gt;</td>
+  <td class="method"><b>get_records</b>()</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -1092,8 +1101,126 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Record&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Record.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AssetStudio/Record.q.yml">quintessence/AllegroFlare/AssetStudio/Record.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">source_csv_column_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">status</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">visibility</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">asset_pack_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">intra_pack_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">cell_width</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">cell_height</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">align_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_in_container_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_in_container_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">anchor_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">anchor_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">image_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">images_list</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">full_path_to_initial_image</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">playmode</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">notes</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">frame_data__build_n_frames__num_frames</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">frame_data__build_n_frames__start_from_frame</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">frame_data__build_n_frames__each_frame_duration</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">frame_data__in_hash</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -45192,6 +45319,9 @@ table td
     "AllegroFlare/StringTransformer"
   ],
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/AssetStudio/Record": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "AllegroFlare/TerminalColors": [

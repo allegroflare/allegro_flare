@@ -1,0 +1,129 @@
+properties:
+
+
+  - name: id
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: identifier
+    type: std::string
+    init_with: '"[unset-identifier]"'
+    exposed: true
+
+  - name: source_csv_column_num
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: status
+    type: std::string
+    init_with: '"[unset-status]"'
+    exposed: true
+
+  - name: visibility
+    type: std::string
+    init_with: '"[unset-visibility]"'
+    exposed: true
+
+  - name: type
+    type: std::string
+    init_with: '"[unset-type]"'
+    exposed: true
+
+  - name: asset_pack_identifier
+    type: std::string
+    init_with: '"[unset-asset-pack-identifier]"'
+    exposed: true
+
+  - name: intra_pack_identifier
+    type: std::string
+    init_with: '"[unset-intra-pack-identifier]"'
+    exposed: true
+
+  - name: cell_width
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: cell_height
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: align_x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: align_y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: align_in_container_x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: align_in_container_y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: anchor_x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: anchor_y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: image_filename
+    type: std::string
+    init_with: '"[unset-image_filename]"'
+    exposed: true
+
+  - name: images_list
+    type: std::vector<std::string>
+    init_with: '{}'
+    exposed: true
+
+  - name: full_path_to_initial_image
+    type: std::string
+    init_with: '"[unset-full_path_to_initial_image]"'
+    exposed: true
+
+  - name: playmode
+    type: std::string
+    init_with: '"[unset-playmode]"'
+    exposed: true
+
+  - name: notes
+    type: std::string
+    init_with: '"[unset-notes]"'
+    exposed: true
+
+  - name: frame_data__build_n_frames__num_frames
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: frame_data__build_n_frames__start_from_frame
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: frame_data__build_n_frames__each_frame_duration
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: frame_data__in_hash
+    type: std::string
+    init_with: '"[unset-frame_data__in_hash"'
+    exposed: true
+
+

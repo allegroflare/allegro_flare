@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/AssetStudio/Asset.hpp>
+#include <AllegroFlare/AssetStudio/Record.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/CSVParser.hpp>
 #include <AllegroFlare/FrameAnimation/Frame.hpp>
@@ -24,6 +25,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* assets_bitmap_bin;
          std::string csv_full_path;
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> assets;
+         std::vector<AllegroFlare::AssetStudio::Record> records;
          std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> sprite_sheets;
          int sprite_sheet_scale;
          bool loaded;
@@ -48,6 +50,7 @@ namespace AllegroFlare
          int get_sprite_sheet_scale() const;
          bool get_initialized();
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_assets();
+         std::vector<AllegroFlare::AssetStudio::Record> get_records();
          bool asset_exists(std::string asset_identifier="[unset-asset_identifier]");
          static int toi(std::string value="[unset-value]");
          static float tof(std::string value="[unset-value]");

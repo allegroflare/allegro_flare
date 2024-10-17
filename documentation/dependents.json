@@ -320,6 +320,9 @@
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
+  "AllegroFlare/AssetStudio/Record": [
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
