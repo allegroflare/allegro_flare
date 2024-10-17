@@ -18,6 +18,8 @@ Database::Database()
    : records({})
    , global_assets()
    , local_assets()
+   , sprite_sheets({})
+   , sprite_sheet_scale(3)
    , global_identifier_prefix(DEFAULT_GLOBAL_IDENTIFIER_PREFIX)
    , using_global_identifier_prefix(false)
 {
@@ -47,6 +49,18 @@ void Database::set_local_assets(std::map<std::string, AllegroFlare::AssetStudio:
 }
 
 
+void Database::set_sprite_sheets(std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> sprite_sheets)
+{
+   this->sprite_sheets = sprite_sheets;
+}
+
+
+void Database::set_sprite_sheet_scale(int sprite_sheet_scale)
+{
+   this->sprite_sheet_scale = sprite_sheet_scale;
+}
+
+
 std::vector<AllegroFlare::AssetStudio::Record> Database::get_records() const
 {
    return records;
@@ -62,6 +76,18 @@ std::map<std::string, AllegroFlare::AssetStudio::Asset*> Database::get_global_as
 std::map<std::string, AllegroFlare::AssetStudio::Asset*> Database::get_local_assets() const
 {
    return local_assets;
+}
+
+
+std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> Database::get_sprite_sheets() const
+{
+   return sprite_sheets;
+}
+
+
+int Database::get_sprite_sheet_scale() const
+{
+   return sprite_sheet_scale;
 }
 
 

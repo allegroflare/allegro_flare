@@ -62,6 +62,14 @@ documentation:
 methods:
 
 
+  - name: csv_file_exists
+    type: bool
+    body: |
+      return std::filesystem::exists(csv_full_path);
+    body_dependency_symbols:
+      - std::filesystem::exists
+
+
   - name: get_initialized
     type: bool
     body: |
@@ -864,6 +872,8 @@ methods:
       //}
 
       return asset;
+    body_dependency_symbols:
+      - std::filesystem::exists
 
 
   - name: load
@@ -895,7 +905,6 @@ methods:
       loaded = true;
       return;
     body_dependency_symbols:
-      - std::filesystem::exists
       - AllegroFlare::CSVParser
       - AllegroFlare::UsefulPHP
       - std::set

@@ -79,6 +79,11 @@ int DatabaseCSVLoader::get_sprite_sheet_scale() const
 }
 
 
+bool DatabaseCSVLoader::csv_file_exists()
+{
+   return std::filesystem::exists(csv_full_path);
+}
+
 bool DatabaseCSVLoader::get_initialized()
 {
    return loaded;

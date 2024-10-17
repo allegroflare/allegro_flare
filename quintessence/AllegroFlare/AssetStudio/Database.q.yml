@@ -19,6 +19,18 @@ properties:
     getter: true
     setter: true
 
+  - name: sprite_sheets
+    type: std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: sprite_sheet_scale
+    type: int
+    init_with: 3
+    getter: true
+    setter: true
+
   - name: global_identifier_prefix
     type: std::string
     init_with: DEFAULT_GLOBAL_IDENTIFIER_PREFIX
@@ -217,5 +229,7 @@ dependencies:
     headers: [ AllegroFlare/AssetStudio/Asset.hpp ]
   - symbol: AllegroFlare::AssetStudio::Record
     headers: [ AllegroFlare/AssetStudio/Record.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::SpriteSheet
+    headers: [ AllegroFlare/FrameAnimation/SpriteSheet.hpp ]
 
 

@@ -194,6 +194,13 @@
     "AllegroFlare/AssetStudio/Database",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
+  "AllegroFlare/FrameAnimation/SpriteSheet": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
   "AllegroFlare/CSVParser": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
@@ -303,12 +310,6 @@
     "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
-  ],
-  "AllegroFlare/FrameAnimation/SpriteSheet": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",

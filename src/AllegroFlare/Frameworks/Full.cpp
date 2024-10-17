@@ -412,23 +412,35 @@ bool Full::initialize_core_system()
 
    // Load the local AssetStudio assets
    {
-      AllegroFlare::Logger::info_from(
-         "AllegroFlare::Frameworks::Full::initialize_core_system",
-         "Loading local AssetStudio assets..."
-      );
       std::string local_assets_full_path = data_folder_path + "assets/";
       asset_studio_bitmap_bin.set_path(local_assets_full_path);
       AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
       loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
       loader.set_sprite_sheet_scale(sprite_sheet_scale);
       loader.set_csv_full_path(local_assets_full_path + ASSETS_DB_CSV_FILENAME);
-      loader.load();
-      asset_studio_database.set_local_assets(loader.get_assets());
+      if (!loader.csv_file_exists())
+      {
+         std::string filename = local_assets_full_path + ASSETS_DB_CSV_FILENAME;
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Frameworks::Full::initialize_core_system",
+            "The expected assets_db file \"" + filename + "\" is not present. If this is expected, please ignore this "
+               "message. TODO: Allow this warning to be hidden with an optional flag."
+         );
+      }
+      else
+      {
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::initialize_core_system",
+            "Loading local AssetStudio assets..."
+         );
+         loader.load();
+         asset_studio_database.set_local_assets(loader.get_assets());
 
-      AllegroFlare::Logger::info_from(
-         "AllegroFlare::Frameworks::Full::initialize_core_system",
-         "Local AssetStudio assets loading finished."
-      );
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::initialize_core_system",
+            "Local AssetStudio assets loading finished."
+         );
+      }
 
       // Can the bitmap_bin be cleared here?
    }
@@ -459,19 +471,52 @@ bool Full::initialize_core_system()
       loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
       loader.set_sprite_sheet_scale(sprite_sheet_scale);
       loader.set_csv_full_path(global_assets_full_path + ASSETS_DB_CSV_FILENAME);
-      loader.load();
 
-      asset_studio_database.set_global_assets(loader.get_assets());
-      //assets_full_path = "/Users/markoates/Assets/";
-      asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
-      asset_studio_database.set_global_identifier_prefix(
-            AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
+      if (!loader.csv_file_exists())
+      {
+         std::string filename = global_assets_full_path + ASSETS_DB_CSV_FILENAME;
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Frameworks::Full::initialize_core_system",
+            "The expected assets_db file \"" + filename + "\" is not present. If this is expected, please ignore this "
+               "message. TODO: Allow this warning to be hidden with an optional flag."
+         );
+      }
+      else
+      {
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::initialize_core_system",
+            "Loading global AssetStudio assets..."
          );
 
-      AllegroFlare::Logger::info_from(
-         "AllegroFlare::Frameworks::Full::initialize_core_system",
-         "Global AssetStudio assets loading finished."
-      );
+         loader.load();
+
+         asset_studio_database.set_global_assets(loader.get_assets());
+         //assets_full_path = "/Users/markoates/Assets/";
+         asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
+         asset_studio_database.set_global_identifier_prefix(
+               AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
+            );
+
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::initialize_core_system",
+            "global AssetStudio assets loading finished."
+         );
+      }
+
+
+      //loader.load();
+
+      //asset_studio_database.set_global_assets(loader.get_assets());
+      ////assets_full_path = "/Users/markoates/Assets/";
+      //asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
+      //asset_studio_database.set_global_identifier_prefix(
+            //AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
+         //);
+
+      //AllegroFlare::Logger::info_from(
+         //"AllegroFlare::Frameworks::Full::initialize_core_system",
+         //"Global AssetStudio assets loading finished."
+      //);
 
       // Can the bitmap_bin be cleared here?
    }

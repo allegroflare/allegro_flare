@@ -50,6 +50,7 @@ namespace AllegroFlare
          AllegroFlare::BitmapBin* get_assets_bitmap_bin() const;
          std::string get_csv_full_path() const;
          int get_sprite_sheet_scale() const;
+         bool csv_file_exists();
          bool get_initialized();
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_assets();
          std::vector<AllegroFlare::AssetStudio::Record> get_records();

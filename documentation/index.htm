@@ -883,6 +883,14 @@ table td
   <td class="property">std::map&lt;std::string, AllegroFlare::AssetStudio::Asset*&gt;</td>
 </tr>
 <tr>
+  <td class="property">sprite_sheets</td>
+  <td class="property">std::map&lt;std::tuple&lt;std::string, int, int, int&gt;, AllegroFlare::FrameAnimation::SpriteSheet*&gt;</td>
+</tr>
+<tr>
+  <td class="property">sprite_sheet_scale</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">global_identifier_prefix</td>
   <td class="property">std::string</td>
 </tr>
@@ -952,6 +960,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AssetStudio::Record&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AssetStudio/Record.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteSheet&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteSheet.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -998,6 +1009,10 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>csv_file_exists</b>()</td>
+</tr>
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>get_initialized</b>()</td>
@@ -45238,6 +45253,13 @@ table td
     "AllegroFlare/AssetStudio/Database",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
+  "AllegroFlare/FrameAnimation/SpriteSheet": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
+    "AllegroFlare/FrameAnimation/Book"
+  ],
   "AllegroFlare/CSVParser": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
@@ -45347,12 +45369,6 @@ table td
     "AllegroFlare/WorldMapRenderers/Basic",
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
-  ],
-  "AllegroFlare/FrameAnimation/SpriteSheet": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
