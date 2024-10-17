@@ -406,18 +406,16 @@ bool Full::initialize_core_system()
    // Set the path for the asset_studio. If not in production, use the global resource. Assets should be copied out
    // of the global resource at production-time. SourceReleaser should validate there are no global resource-referenced
    // assets.
-   bool using_global_assets = !deployment_environment.is_production();
-   //std::string assets_full_path = "[unset-assets_full_path]";
-   std::string ASSETS_DB_CSV_FILENAME = "assets_db.csv";
-   //if (deployment_environment.is_production())
-   //{
-      // Set the local assets
-      //bool using_global_assets = false;
 
+   std::string ASSETS_DB_CSV_FILENAME = "assets_db.csv";
    int sprite_sheet_scale = 3;
 
-   // Set the local assets
+   // Load the local AssetStudio assets
    {
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Frameworks::Full::initialize_core_system",
+         "Loading local AssetStudio assets..."
+      );
       std::string local_assets_full_path = data_folder_path + "assets/";
       asset_studio_bitmap_bin.set_path(local_assets_full_path);
       AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
@@ -427,18 +425,26 @@ bool Full::initialize_core_system()
       loader.load();
       asset_studio_database.set_local_assets(loader.get_assets());
 
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Frameworks::Full::initialize_core_system",
+         "Local AssetStudio assets loading finished."
+      );
+
       // Can the bitmap_bin be cleared here?
    }
-   //}
 
-   //else
-   // Load global assets
+   // Load the global AssetStudio assets
+   bool using_global_assets = !deployment_environment.is_production();
    if (using_global_assets)
    {
-      std::string global_assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Frameworks::Full::initialize_core_system",
+         "Loading global AssetStudio assets..."
+      );
 
       AllegroFlare::SystemInfo system_info;
       // DEVELOPER HACK: Depending on the developer system, use different path for the assets_db.csv file
+      std::string global_assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
       std::string operating_system = system_info.operating_system();
       if (operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_32_BIT
          || operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_64_BIT
@@ -461,6 +467,11 @@ bool Full::initialize_core_system()
       asset_studio_database.set_global_identifier_prefix(
             AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
          );
+
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Frameworks::Full::initialize_core_system",
+         "Global AssetStudio assets loading finished."
+      );
 
       // Can the bitmap_bin be cleared here?
    }
