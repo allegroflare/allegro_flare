@@ -606,7 +606,18 @@ void DatabaseCSVLoader::load()
    //for (std::map<std::string, std::string> &extracted_row : csv_parser.extract_all_rows())
    for (auto &record : records)
    {
+      if (record.visibility_is_hidden())
+      {
+         // TODO: Report the hidden assets at end of loading process
+         hidden_assets.insert(record.identifier);
+         continue;
+      }
+
       // HERE: Replace this explicit loading with a call to load_record_into_assets()
+      // e.g. create_asset_from_record_identifier(record.identifier);
+
+
+
 
 
       int row_i = record.source_csv_column_num;
@@ -617,13 +628,13 @@ void DatabaseCSVLoader::load()
 
       // Skip over "hidden" assets
       //if (visibility == "hidden") // TODO: Use a helper method here
-      if (record.visibility_is_hidden())
-      {
+      //if (record.visibility_is_hidden())
+      //{
          // TODO: Report hidden assets at end of loading process
          // Store the hidden asset identifier to report at the end what assets are hidden for debugging
-         hidden_assets.insert(identifier);
-         continue;
-      }
+         //hidden_assets.insert(identifier);
+         //continue;
+      //}
 
       //
       // Extract the data from the CSV to variables
