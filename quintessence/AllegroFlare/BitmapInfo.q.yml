@@ -1,0 +1,83 @@
+properties:
+
+
+  - name: bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+
+  - name: width
+    type: int
+    init_with: 0
+
+  - name: height
+    type: int
+    init_with: 0
+
+  - name: pixel_format
+    type: int
+    init_with: 0
+
+  - name: flags
+    type: int
+    init_with: 0
+
+  - name: samples
+    type: int
+    init_with: 0
+
+  - name: is_sub_bitmap
+    type: bool
+    init_with: false
+
+  - name: sub_bitmap_x
+    type: int
+    init_with: 0
+
+  - name: sub_bitmap_y
+    type: int
+    init_with: 0
+
+  - name: parent_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+
+  - name: initialized
+    type: bool
+    init_with: false
+
+
+methods:
+
+
+  - name: initialize
+    parameters:
+      - name: bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    guards: [ bitmap, (!initialized) ]
+    body: |
+      this->bitmap = bitmap;
+      flags = al_get_bitmap_flags(bitmap);
+      pixel_format = al_get_bitmap_format(bitmap);
+      //depth = al_get_bitmap_depth(bitmap); // NOTE: Depth cannot be included unless ALLEGRO_UNSTABLE is defined
+                                             // before #include <allegro5/allegro.h>. Simply adding AllegroUnstable
+                                             // as a dependency here will not get the order correct when the header
+                                             // is generated
+      width = al_get_bitmap_format(bitmap);
+      flags = al_get_bitmap_flags(bitmap);
+      samples = al_get_bitmap_flags(bitmap);
+      is_sub_bitmap = al_is_sub_bitmap(bitmap);
+      sub_bitmap_x = al_get_bitmap_x(bitmap);
+      sub_bitmap_y = al_get_bitmap_y(bitmap);
+      parent_bitmap = al_get_parent_bitmap(bitmap);
+      initialized = true;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+
+

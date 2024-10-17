@@ -30,6 +30,7 @@
   ],
   "ALLEGRO_BITMAP": [
     "AllegroFlare/AssetStudio/Asset",
+    "AllegroFlare/BitmapInfo",
     "AllegroFlare/Camera2D",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Base",
