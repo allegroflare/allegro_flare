@@ -402,11 +402,12 @@ bool Full::initialize_core_system()
    models.set_path(data_folder_path + "models");
    video_bin.set_path(data_folder_path + "videos");
 
+   // Asset Studio
    // Set the path for the asset_studio. If not in production, use the global resource. Assets should be copied out
    // of the global resource at production-time. SourceReleaser should validate there are no global resource-referenced
    // assets.
-   bool using_global_assets = true;
-   std::string assets_full_path = "[unset-assets_full_path]";
+   bool using_global_assets = !deployment_environment.is_production();
+   //std::string assets_full_path = "[unset-assets_full_path]";
    std::string ASSETS_DB_CSV_FILENAME = "assets_db.csv";
    //if (deployment_environment.is_production())
    //{
@@ -417,12 +418,12 @@ bool Full::initialize_core_system()
 
    // Set the local assets
    {
-      assets_full_path = data_folder_path + "assets/";
-      asset_studio_bitmap_bin.set_path(assets_full_path);
+      std::string local_assets_full_path = data_folder_path + "assets/";
+      asset_studio_bitmap_bin.set_path(local_assets_full_path);
       AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
       loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
       loader.set_sprite_sheet_scale(sprite_sheet_scale);
-      loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
+      loader.set_csv_full_path(local_assets_full_path + ASSETS_DB_CSV_FILENAME);
       loader.load();
       asset_studio_database.set_local_assets(loader.get_assets());
 
@@ -432,9 +433,9 @@ bool Full::initialize_core_system()
 
    //else
    // Load global assets
-   if (!deployment_environment.is_production())
+   if (using_global_assets)
    {
-      assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
+      std::string global_assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
 
       AllegroFlare::SystemInfo system_info;
       // DEVELOPER HACK: Depending on the developer system, use different path for the assets_db.csv file
@@ -443,21 +444,20 @@ bool Full::initialize_core_system()
          || operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_64_BIT
          )
       {
-         assets_full_path = "/msys64/home/Mark/Assets/";
+         global_assets_full_path = "/msys64/home/Mark/Assets/";
       }
 
-      //bool using_global_assets = false;
       //assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
-      asset_studio_bitmap_bin.set_full_path(assets_full_path);
+      asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
       AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
       loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
       loader.set_sprite_sheet_scale(sprite_sheet_scale);
-      loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
+      loader.set_csv_full_path(global_assets_full_path + ASSETS_DB_CSV_FILENAME);
       loader.load();
 
       asset_studio_database.set_global_assets(loader.get_assets());
       //assets_full_path = "/Users/markoates/Assets/";
-      asset_studio_bitmap_bin.set_full_path(assets_full_path);
+      asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
       asset_studio_database.set_global_identifier_prefix(
             AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
          );
