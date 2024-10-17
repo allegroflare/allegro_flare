@@ -539,6 +539,19 @@ void DatabaseCSVLoader::load_records()
    return;
 }
 
+void DatabaseCSVLoader::load_record_into_assets(std::string asset_identifier)
+{
+   if (!(record_exists(asset_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::load_record_into_assets]: error: guard \"record_exists(asset_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::load_record_into_assets]: error: guard \"record_exists(asset_identifier)\" not met");
+   }
+   // TODO: HERE
+   return;
+}
+
 void DatabaseCSVLoader::load()
 {
    if (!((!loaded)))
@@ -573,6 +586,9 @@ void DatabaseCSVLoader::load()
    //for (std::map<std::string, std::string> &extracted_row : csv_parser.extract_all_rows())
    for (auto &record : records)
    {
+      // HERE: Replace this explicit loading with a call to load_record_into_assets()
+
+
       int row_i = record.source_csv_column_num;
       //std::string visibility = validate_key_and_return(&extracted_row, "visibility");
       std::string visibility = record.visibility;

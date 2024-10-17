@@ -67,6 +67,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::FrameAnimation::Frame> build_n_frames(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f);
          std::vector<AllegroFlare::FrameAnimation::Frame> build_frames_from_hash(std::string frame_data_hash="[unset-frame_data_hash]");
          void load_records();
+         void load_record_into_assets(std::string asset_identifier="[unset-asset_identifier]");
          void load();
       };
    }
