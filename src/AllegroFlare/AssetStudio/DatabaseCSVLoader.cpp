@@ -569,93 +569,31 @@ AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_id
    AllegroFlare::AssetStudio::Record &record = *find_record(identifier_);
 
 
-
-
-
-
-   int row_i = record.source_csv_column_num;
-   //std::string visibility = validate_key_and_return(&extracted_row, "visibility");
+   int &csv_row = record.source_csv_column_num;
    std::string visibility = record.visibility;
-   //std::string identifier = validate_key_and_return(&extracted_row, "identifier");
    std::string identifier = record.identifier;
-
-   // Skip over "hidden" assets
-   //if (visibility == "hidden") // TODO: Use a helper method here
-   //if (record.visibility_is_hidden())
-   //{
-      // TODO: Report hidden assets at end of loading process
-      // Store the hidden asset identifier to report at the end what assets are hidden for debugging
-      //hidden_assets.insert(identifier);
-      //continue;
-   //}
-
-   //
-   // Extract the data from the CSV to variables
-   //
-
-   //std::string asset_pack_identifier = validate_key_and_return(&extracted_row, "asset_pack_identifier");
    std::string asset_pack_identifier = record.asset_pack_identifier;
-   //std::string intra_pack_identifier = validate_key_and_return(&extracted_row, "intra_pack_identifier");
    std::string intra_pack_identifier = record.intra_pack_identifier;
-   //int id = toi(validate_key_and_return(&extracted_row, "id"));
    int id = record.id;
-   //std::string type = validate_key_and_return(&extracted_row, "type");
    std::string type = record.type;
-   //int cell_width = toi(validate_key_and_return(&extracted_row, "cell_width"));
    int cell_width = record.cell_width;
-   //int cell_height = toi(validate_key_and_return(&extracted_row, "cell_height"));
    int cell_height = record.cell_height;
-   //std::string playmode = validate_key_and_return(&extracted_row, "playmode");
    std::string playmode = record.playmode;
-   //float align_x = tof(validate_key_and_return(&extracted_row, "align_x"));
    float align_x = record.align_x;
-   //float align_y = tof(validate_key_and_return(&extracted_row, "align_y"));
    float align_y = record.align_y;
-   //float align_in_container_x = tof(validate_key_and_return(&extracted_row, "align_in_container_x"));
    float align_in_container_x = record.align_in_container_x;
-   //float align_in_container_y = tof(validate_key_and_return(&extracted_row, "align_in_container_y"));
    float align_in_container_y = record.align_in_container_y;
-   //float anchor_x = tof(validate_key_and_return(&extracted_row, "anchor_x"));
    float anchor_x = record.anchor_x;
-   //float anchor_y = tof(validate_key_and_return(&extracted_row, "anchor_y"));
    float anchor_y = record.anchor_y;
-   //std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
    std::string image_filename = record.image_filename;
-   //std::string images_list_raw = validate_key_and_return(&extracted_row, "images_list");
    std::vector<std::string> images_list = record.images_list;
-   //std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
    std::string frame_data__in_hash = record.frame_data__in_hash;
-   //std::string frame_data__build_n_frames__num_frames =
-      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames");
    int frame_data__build_n_frames__num_frames = record.frame_data__build_n_frames__num_frames;
-   //std::string frame_data__build_n_frames__start_from_frame =
-      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame");
    int frame_data__build_n_frames__start_from_frame = record.frame_data__build_n_frames__start_from_frame;
-   //std::string frame_data__build_n_frames__each_frame_duration =
-      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration");
-   float frame_data__build_n_frames__each_frame_duration =
-      record.frame_data__build_n_frames__each_frame_duration;
+   float frame_data__build_n_frames__each_frame_duration = record.frame_data__build_n_frames__each_frame_duration;
 
 
-   //
-   // Load the frame data for the animation
-   //
-   // For animations, "frame_data" refers to the timings for each animation frame. Currently all animations
-   // will have a "num_frames", "start_from_frame", "each_frame_duration".
-   // Some animations may have "in_hash" which allows the user to specify different animation speeds for
-   // individual frames. The "in_hash" feature is currently not supported.
-
-   //std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
-   //std::string frame_data__build_n_frames__num_frames =
-      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames");
-   //std::string frame_data__build_n_frames__start_from_frame =
-      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame");
-   //std::string frame_data__build_n_frames__each_frame_duration =
-      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration");
-
-
-
-
+   // Build the frame
 
    bool using_build_n_frames_frame_data = 
       !(
@@ -672,17 +610,17 @@ AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_id
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-         "When loading row " + std::to_string(row_i) + ", both \"build_n_frames\" and \"in_hash\" sections "
+         "When loading row " + std::to_string(csv_row) + ", both \"build_n_frames\" and \"in_hash\" sections "
             "contain data. Either one section or the other should be used, but not both."
       );
    }
    else if (!using_build_n_frames_frame_data && !using_in_hash_frame_data)
    {
-      // NOTE: Assuming this is a tileset
+      // NOTE: Here, assume this is a tileset
       // TODO: Consider guarding with a type==tileset or something.
       AllegroFlare::Logger::warn_from(
          "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-         "When loading row " + std::to_string(row_i) + ", there is empty data in the \"frame_data__\" columns. "
+         "When loading row " + std::to_string(csv_row) + ", there is empty data in the \"frame_data__\" columns. "
             "If this is a tilemap, please discard this message. Note that there are currently no features "
             "implemented for tilemaps."
       );
@@ -732,7 +670,7 @@ AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_id
       // Both "image_filename" and "images_list" columns erroneously have data in them
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-         "When loading row " + std::to_string(row_i) + ", there is data in both the \"images_list\" and "
+         "When loading row " + std::to_string(csv_row) + ", there is data in both the \"images_list\" and "
             " \"image_filename\" columns. Data should exist in either one or the other, but not both."
       );
    }
@@ -741,7 +679,7 @@ AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_id
       // Neither "image_filename" and "images_list" columns have data in them
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-         "When loading row " + std::to_string(row_i) + ", there no data in either the \"images_list\" and "
+         "When loading row " + std::to_string(csv_row) + ", there no data in either the \"images_list\" and "
             " \"image_filename\" columns. Data should be present in or the other (but not both)."
       );
    }
@@ -824,7 +762,7 @@ AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_id
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
-         "Unrecognized playmode \"" + playmode + "\" when loading row " + std::to_string(row_i) + "."
+         "Unrecognized playmode \"" + playmode + "\" when loading row " + std::to_string(csv_row) + "."
       );
    }
 
