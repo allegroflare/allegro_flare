@@ -684,8 +684,11 @@ methods:
       // and "image_filename" to represent either type of resource. Either one or the other should be present,
       // but not both (or neither).
 
-      //std::vector<std::string> images_list = {}; // NOTE: Images list is never loaded here. This feature is not
-                                                 // yet supported.
+      // For an animation, the final FrameAnimation/Animation will need a sprite sheet.  In the case where there are
+      // multiple images, a sprite sheet will be created (as asn ALLEGRO_BITMAP).  There may be a case where a sprite
+      // sheet already exists, and the asset shares it with other assets.  In this case, created sprite sheets are
+      // stored here (though this "sprite sheet bin" should be moved elsewhere else).
+
       AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet = nullptr;
 
       if (image_filename.empty() && images_list.empty())
