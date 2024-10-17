@@ -164,6 +164,43 @@ AllegroFlare::AssetStudio::Record DatabaseCSVLoader::obtain_record_as_copy(std::
    return {};
 }
 
+AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::find_asset(std::string asset_identifier)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met");
+   }
+   if (!(asset_exists(asset_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met");
+   }
+   return assets[asset_identifier];
+}
+
+AllegroFlare::AssetStudio::Record* DatabaseCSVLoader::find_record(std::string identifier)
+{
+   if (!(records_loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record]: error: guard \"records_loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record]: error: guard \"records_loaded\" not met");
+   }
+   // TODO: Test this
+   for (auto &record : records) if (record.identifier == identifier) return &record;
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record",
+      "A record with the identifier \"" + identifier + "\" does not exist."
+   );
+   return nullptr;
+}
+
 int DatabaseCSVLoader::toi(std::string value)
 {
    if (value.empty()) return 0;
@@ -236,43 +273,6 @@ std::pair<bool, uint32_t> DatabaseCSVLoader::str_to_playmode(std::string playmod
    }
 
    return { false, 0 };
-}
-
-AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::find_asset(std::string asset_identifier)
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met");
-   }
-   if (!(asset_exists(asset_identifier)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met");
-   }
-   return assets[asset_identifier];
-}
-
-AllegroFlare::AssetStudio::Record* DatabaseCSVLoader::find_record(std::string identifier)
-{
-   if (!(records_loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record]: error: guard \"records_loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record]: error: guard \"records_loaded\" not met");
-   }
-   // TODO: Test this
-   for (auto &record : records) if (record.identifier == identifier) return &record;
-   AllegroFlare::Logger::throw_error(
-      "AllegroFlare::AssetStudio::DatabaseCSVLoader::find_record",
-      "A record with the identifier \"" + identifier + "\" does not exist."
-   );
-   return nullptr;
 }
 
 std::string DatabaseCSVLoader::validate_key_and_return(std::map<std::string, std::string>* extracted_row, std::string key)

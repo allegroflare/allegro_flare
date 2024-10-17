@@ -57,13 +57,13 @@ namespace AllegroFlare
          std::size_t num_records();
          bool record_exists(std::string asset_identifier="[unset-asset_identifier]");
          AllegroFlare::AssetStudio::Record obtain_record_as_copy(std::string asset_identifier="[unset-asset_identifier]");
+         AllegroFlare::AssetStudio::Asset* find_asset(std::string asset_identifier="[unset-asset_identifier]");
+         AllegroFlare::AssetStudio::Record* find_record(std::string identifier="[unset-identifier]");
          static int toi(std::string value="[unset-value]");
          static float tof(std::string value="[unset-value]");
          static std::vector<std::string> comma_separated_quoted_strings_to_vector_of_strings(std::string comma_separated_quoted_strings="[unset-comma_separated_quoted_strings]");
          static std::vector<std::string> comma_separated_strings_to_vector_of_strings(std::string comma_separated_strings="[unset-comma_separated_strings]");
          std::pair<bool, uint32_t> str_to_playmode(std::string playmode_string="[unset-playmode_string]");
-         AllegroFlare::AssetStudio::Asset* find_asset(std::string asset_identifier="[unset-asset_identifier]");
-         AllegroFlare::AssetStudio::Record* find_record(std::string identifier="[unset-identifier]");
          static std::string validate_key_and_return(std::map<std::string, std::string>* extracted_row=nullptr, std::string key="[unset-key]");
          std::vector<AllegroFlare::FrameAnimation::Frame> build_n_frames(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f);
          std::vector<AllegroFlare::FrameAnimation::Frame> build_frames_from_hash(std::string frame_data_hash="[unset-frame_data_hash]");

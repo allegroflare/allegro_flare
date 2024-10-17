@@ -57,6 +57,7 @@ methods:
   - name: asset_identifiers
     type: std::set<std::string>
     body: |
+      // TODO: Test this
       std::set<std::string> result;
       for (auto &asset : global_assets) result.insert(asset.first);
       for (auto &asset : local_assets) result.insert(asset.first);

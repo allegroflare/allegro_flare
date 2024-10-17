@@ -75,7 +75,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, load__on_production_databas
 
 
 TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
-   load__when_loading_from_the_source_data__will_create_the_expected_records)
+   load__when_loading_from_the_source_data__will_create_the_expected_assets)
 {
    al_init();
    al_init_image_addon();
@@ -96,7 +96,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
 
 TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    //load__when_loading_from_the_source_data__will_create_the_expected_records)
-   load__when_loading_from_the_source_data__will_load_records_with_the_expected_data)
+   load__when_loading_from_the_source_data__will_load_assets_with_the_expected_data)
 {
    // TODO: Consider testing more records and more values on the loaded data
    al_init();
@@ -130,7 +130,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
 
 TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    // TODO: Re-enable this test
-   DISABLED__load__when_loading_from_the_source_data__will_load_records_with_the_expected_data_2)
+   DISABLED__load__when_loading_from_the_source_data__will_load_assets_with_the_expected_data_2)
 {
    al_init();
    al_init_image_addon();

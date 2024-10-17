@@ -94,6 +94,7 @@ void Database::remove_global_identifier_prefix()
 
 std::set<std::string> Database::asset_identifiers()
 {
+   // TODO: Test this
    std::set<std::string> result;
    for (auto &asset : global_assets) result.insert(asset.first);
    for (auto &asset : local_assets) result.insert(asset.first);
