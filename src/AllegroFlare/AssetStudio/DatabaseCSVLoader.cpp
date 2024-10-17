@@ -559,6 +559,7 @@ void DatabaseCSVLoader::load()
    // Obtain the content from the file and parse it to extractable data
    //
 
+   /*
    if (!std::filesystem::exists(csv_full_path))
    {
       AllegroFlare::Logger::throw_error(
@@ -578,6 +579,7 @@ void DatabaseCSVLoader::load()
    csv_parser.set_raw_csv_content(content);
    csv_parser.parse();
    csv_parser.assemble_column_headers(3);
+   */
 
 
    //
@@ -673,11 +675,12 @@ void DatabaseCSVLoader::load()
    //
 
    std::set<std::string> hidden_assets;
-   int first_record_row = csv_parser.get_num_header_rows();
-   int row_i = first_record_row;
+   //int first_record_row = csv_parser.get_num_header_rows();
+   //int row_i = first_record_row;
    //for (std::map<std::string, std::string> &extracted_row : csv_parser.extract_all_rows())
    for (auto &record : records)
    {
+      int row_i = record.source_csv_column_num;
       //std::string visibility = validate_key_and_return(&extracted_row, "visibility");
       std::string visibility = record.visibility;
       //std::string identifier = validate_key_and_return(&extracted_row, "identifier");
