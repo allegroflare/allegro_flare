@@ -176,6 +176,40 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, load__on_production_csv__wi
 }
 
 
+TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, load_records__on_production_csv__will_not_blow_up)
+{
+   AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+   loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
+   loader.load_records();
+   EXPECT_NE(0, loader.num_records()); // Number of assets will change, as long as it's not 0
+}
+
+
+TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
+   record_exists__on_production_csv__will_return_true_on_records_that_exist)
+{
+   AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+   loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
+   loader.load_records();
+
+   // Cherry pick some specific assets
+   EXPECT_EQ(true, loader.record_exists("ansimuz/warped-humanoid-enemies/roboid"));
+   EXPECT_EQ(true, loader.record_exists("ansimuz/warped-explosions-pack-8/explosion-g"));
+   EXPECT_EQ(true, loader.record_exists("seethingswarm/bunnypack/bunny_sit_strip12"));
+   EXPECT_EQ(true, loader.record_exists("seethingswarm/catset/cat01_jump_strip4"));
+}
+
+
+TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
+   record_exists__on_production_csv__will_return_false_on_records_that_do_not_exist)
+{
+   AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+   loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
+   loader.load_records();
+   EXPECT_EQ(false, loader.record_exists("an/asset/that/does-not-exist"));
+}
+
+
 TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, comma_separated_quoted_strings_to_vector_of_strings__will_split_\
 a_string_as_expected)
 {

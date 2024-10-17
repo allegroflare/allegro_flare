@@ -980,6 +980,10 @@ table td
   <td class="property">loaded</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">records_loaded</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -998,6 +1002,18 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>asset_exists</b>(std::string asset_identifier=&quot;[unset-asset_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::size_t</td>
+  <td class="method"><b>num_records</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>record_exists</b>(std::string asset_identifier=&quot;[unset-asset_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::AssetStudio::Record</td>
+  <td class="method"><b>obtain_record_as_copy</b>(std::string asset_identifier=&quot;[unset-asset_identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="method">int</td>
@@ -1042,6 +1058,10 @@ table td
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
   <td class="method"><b>build_frames_from_hash</b>(std::string frame_data_hash=&quot;[unset-frame_data_hash]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load_records</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>

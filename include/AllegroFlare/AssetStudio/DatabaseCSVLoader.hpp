@@ -7,6 +7,7 @@
 #include <AllegroFlare/CSVParser.hpp>
 #include <AllegroFlare/FrameAnimation/Frame.hpp>
 #include <AllegroFlare/FrameAnimation/SpriteSheet.hpp>
+#include <cstddef>
 #include <cstdint>
 #include <map>
 #include <string>
@@ -29,6 +30,7 @@ namespace AllegroFlare
          std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> sprite_sheets;
          int sprite_sheet_scale;
          bool loaded;
+         bool records_loaded;
          AllegroFlare::FrameAnimation::SpriteSheet* create_sprite_sheet_from_individual_images(std::vector<std::string> individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
          AllegroFlare::FrameAnimation::SpriteSheet* obtain_sprite_sheet(std::string filename="[unset-filename]", int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
          static std::vector<std::string> split(std::string string="", char delimiter=' ');
@@ -52,6 +54,9 @@ namespace AllegroFlare
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_assets();
          std::vector<AllegroFlare::AssetStudio::Record> get_records();
          bool asset_exists(std::string asset_identifier="[unset-asset_identifier]");
+         std::size_t num_records();
+         bool record_exists(std::string asset_identifier="[unset-asset_identifier]");
+         AllegroFlare::AssetStudio::Record obtain_record_as_copy(std::string asset_identifier="[unset-asset_identifier]");
          static int toi(std::string value="[unset-value]");
          static float tof(std::string value="[unset-value]");
          static std::vector<std::string> comma_separated_quoted_strings_to_vector_of_strings(std::string comma_separated_quoted_strings="[unset-comma_separated_quoted_strings]");
@@ -61,6 +66,7 @@ namespace AllegroFlare
          static std::string validate_key_and_return(std::map<std::string, std::string>* extracted_row=nullptr, std::string key="[unset-key]");
          std::vector<AllegroFlare::FrameAnimation::Frame> build_n_frames(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f);
          std::vector<AllegroFlare::FrameAnimation::Frame> build_frames_from_hash(std::string frame_data_hash="[unset-frame_data_hash]");
+         void load_records();
          void load();
       };
    }
