@@ -1,7 +1,13 @@
 properties:
 
 
-  - name: records
+  - name: global_records
+    type: std::vector<AllegroFlare::AssetStudio::Record>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: local_records
     type: std::vector<AllegroFlare::AssetStudio::Record>
     init_with: '{}'
     getter: true
@@ -82,12 +88,21 @@ methods:
       return result;
 
 
-  - name: record_identifiers
+  - name: global_record_identifiers
     type: std::set<std::string>
     body: |
       // TODO: Test this
       std::set<std::string> result;
-      for (auto &record : records) result.insert(record.identifier);
+      for (auto &global_record : global_records) result.insert(global_record.identifier);
+      return result;
+
+
+  - name: local_record_identifiers
+    type: std::set<std::string>
+    body: |
+      // TODO: Test this
+      std::set<std::string> result;
+      for (auto &local_record : local_records) result.insert(local_record.identifier);
       return result;
 
 

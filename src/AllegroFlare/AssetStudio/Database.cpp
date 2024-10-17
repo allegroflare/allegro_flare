@@ -15,7 +15,8 @@ namespace AssetStudio
 
 
 Database::Database()
-   : records({})
+   : global_records({})
+   , local_records({})
    , global_assets()
    , local_assets()
    , sprite_sheets({})
@@ -31,9 +32,15 @@ Database::~Database()
 }
 
 
-void Database::set_records(std::vector<AllegroFlare::AssetStudio::Record> records)
+void Database::set_global_records(std::vector<AllegroFlare::AssetStudio::Record> global_records)
 {
-   this->records = records;
+   this->global_records = global_records;
+}
+
+
+void Database::set_local_records(std::vector<AllegroFlare::AssetStudio::Record> local_records)
+{
+   this->local_records = local_records;
 }
 
 
@@ -61,9 +68,15 @@ void Database::set_sprite_sheet_scale(int sprite_sheet_scale)
 }
 
 
-std::vector<AllegroFlare::AssetStudio::Record> Database::get_records() const
+std::vector<AllegroFlare::AssetStudio::Record> Database::get_global_records() const
 {
-   return records;
+   return global_records;
+}
+
+
+std::vector<AllegroFlare::AssetStudio::Record> Database::get_local_records() const
+{
+   return local_records;
 }
 
 
@@ -140,11 +153,19 @@ std::set<std::string> Database::asset_identifiers()
    return result;
 }
 
-std::set<std::string> Database::record_identifiers()
+std::set<std::string> Database::global_record_identifiers()
 {
    // TODO: Test this
    std::set<std::string> result;
-   for (auto &record : records) result.insert(record.identifier);
+   for (auto &global_record : global_records) result.insert(global_record.identifier);
+   return result;
+}
+
+std::set<std::string> Database::local_record_identifiers()
+{
+   // TODO: Test this
+   std::set<std::string> result;
+   for (auto &local_record : local_records) result.insert(local_record.identifier);
    return result;
 }
 

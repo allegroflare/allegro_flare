@@ -66,20 +66,38 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
 
 
 TEST(AllegroFlare_AssetStudio_DatabaseTest,
-   record_identifiers__will_return_the_list_of_records_that_are_present)
+   global_record_identifiers__will_return_the_list_of_records_that_are_present)
 {
    AllegroFlare::AssetStudio::Database database;
-   std::vector<AllegroFlare::AssetStudio::Record> records = {
+   std::vector<AllegroFlare::AssetStudio::Record> global_records = {
       build_basic_record("foobar", "animation"),
       build_basic_record("boobaz", "animation"),
       build_basic_record("blabla", "tileset"),
    };
-   database.set_records(records);
-   std::set<std::string> expected_record_identifiers = {
+   database.set_global_records(global_records);
+   std::set<std::string> expected_global_record_identifiers = {
       "foobar", "boobaz", "blabla",
    };
-   std::set<std::string> actual_record_identifiers = database.record_identifiers();
-   EXPECT_EQ(expected_record_identifiers, actual_record_identifiers);
+   std::set<std::string> actual_global_record_identifiers = database.global_record_identifiers();
+   EXPECT_EQ(expected_global_record_identifiers, actual_global_record_identifiers);
+}
+
+
+TEST(AllegroFlare_AssetStudio_DatabaseTest,
+   local_record_identifiers__will_return_the_list_of_records_that_are_present)
+{
+   AllegroFlare::AssetStudio::Database database;
+   std::vector<AllegroFlare::AssetStudio::Record> local_records = {
+      build_basic_record("foobar", "animation"),
+      build_basic_record("boobaz", "animation"),
+      build_basic_record("blabla", "tileset"),
+   };
+   database.set_local_records(local_records);
+   std::set<std::string> expected_local_record_identifiers = {
+      "foobar", "boobaz", "blabla",
+   };
+   std::set<std::string> actual_local_record_identifiers = database.local_record_identifiers();
+   EXPECT_EQ(expected_local_record_identifiers, actual_local_record_identifiers);
 }
 
 

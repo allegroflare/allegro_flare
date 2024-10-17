@@ -22,7 +22,8 @@ namespace AllegroFlare
          static constexpr char* DEFAULT_GLOBAL_IDENTIFIER_PREFIX = (char*)"asset_studio::";
 
       private:
-         std::vector<AllegroFlare::AssetStudio::Record> records;
+         std::vector<AllegroFlare::AssetStudio::Record> global_records;
+         std::vector<AllegroFlare::AssetStudio::Record> local_records;
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets;
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> local_assets;
          std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> sprite_sheets;
@@ -39,12 +40,14 @@ namespace AllegroFlare
          Database();
          ~Database();
 
-         void set_records(std::vector<AllegroFlare::AssetStudio::Record> records);
+         void set_global_records(std::vector<AllegroFlare::AssetStudio::Record> global_records);
+         void set_local_records(std::vector<AllegroFlare::AssetStudio::Record> local_records);
          void set_global_assets(std::map<std::string, AllegroFlare::AssetStudio::Asset*> global_assets);
          void set_local_assets(std::map<std::string, AllegroFlare::AssetStudio::Asset*> local_assets);
          void set_sprite_sheets(std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> sprite_sheets);
          void set_sprite_sheet_scale(int sprite_sheet_scale);
-         std::vector<AllegroFlare::AssetStudio::Record> get_records() const;
+         std::vector<AllegroFlare::AssetStudio::Record> get_global_records() const;
+         std::vector<AllegroFlare::AssetStudio::Record> get_local_records() const;
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_global_assets() const;
          std::map<std::string, AllegroFlare::AssetStudio::Asset*> get_local_assets() const;
          std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> get_sprite_sheets() const;
@@ -54,7 +57,8 @@ namespace AllegroFlare
          void set_global_identifier_prefix(std::string global_identifier_prefix=DEFAULT_GLOBAL_IDENTIFIER_PREFIX);
          void remove_global_identifier_prefix();
          std::set<std::string> asset_identifiers();
-         std::set<std::string> record_identifiers();
+         std::set<std::string> global_record_identifiers();
+         std::set<std::string> local_record_identifiers();
          bool asset_exists(std::string identifier="[unset-identifier]");
          AllegroFlare::AssetStudio::Asset* find_asset_by_identifier(std::string identifier="[unset-identifier]");
          bool asset_exists_as_animation(std::string identifier="[unset-identifier]");

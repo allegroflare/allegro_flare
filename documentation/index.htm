@@ -871,7 +871,11 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">records</td>
+  <td class="property">global_records</td>
+  <td class="property">std::vector&lt;AllegroFlare::AssetStudio::Record&gt;</td>
+</tr>
+<tr>
+  <td class="property">local_records</td>
   <td class="property">std::vector&lt;AllegroFlare::AssetStudio::Record&gt;</td>
 </tr>
 <tr>
@@ -919,7 +923,11 @@ table td
 </tr>
 <tr>
   <td class="method">std::set&lt;std::string&gt;</td>
-  <td class="method"><b>record_identifiers</b>()</td>
+  <td class="method"><b>global_record_identifiers</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::set&lt;std::string&gt;</td>
+  <td class="method"><b>local_record_identifiers</b>()</td>
 </tr>
 <tr>
   <td class="private_method">void</td>

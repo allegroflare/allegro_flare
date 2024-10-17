@@ -429,10 +429,14 @@ bool Full::initialize_core_system()
       }
       else
       {
+         loader.load_records();
+         asset_studio_database.set_local_records(loader.get_records());
+
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Frameworks::Full::initialize_core_system",
-            "Loading local AssetStudio assets..."
+            "Creating local AssetStudio assets..."
          );
+
          loader.load();
          asset_studio_database.set_local_assets(loader.get_assets());
 
@@ -483,6 +487,9 @@ bool Full::initialize_core_system()
       }
       else
       {
+         loader.load_records();
+         asset_studio_database.set_global_records(loader.get_records());
+
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Frameworks::Full::initialize_core_system",
             "Loading global AssetStudio assets..."
