@@ -66,15 +66,15 @@ methods:
       return assets;
 
 
-  - name: level_exists
+  - name: asset_exists
     type: bool
     parameters:
-      - name: level_identifier
+      - name: asset_identifier
         type: std::string
-        default_argument: '"[unset-level_identifier]"'
+        default_argument: '"[unset-asset_identifier]"'
     guards: [ loaded ]
     body: |
-      return (assets.find(level_identifier) != assets.end());
+      return (assets.find(asset_identifier) != assets.end());
 
 
   - name: toi
@@ -184,15 +184,15 @@ methods:
       return { false, 0 };
 
 
-  - name: find_level
+  - name: find_asset
     type: AllegroFlare::AssetStudio::Asset*
     parameters:
-      - name: level_identifier
+      - name: asset_identifier
         type: std::string
-        default_argument: '"[unset-level_identifier]"'
-    guards: [ loaded, level_exists(level_identifier) ]
+        default_argument: '"[unset-asset_identifier]"'
+    guards: [ loaded, asset_exists(asset_identifier) ]
     body: |
-      return assets[level_identifier];
+      return assets[asset_identifier];
 
 
   - name: validate_key_and_return

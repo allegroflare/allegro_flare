@@ -94,16 +94,16 @@ std::map<std::string, AllegroFlare::AssetStudio::Asset*> DatabaseCSVLoader::get_
    return assets;
 }
 
-bool DatabaseCSVLoader::level_exists(std::string level_identifier)
+bool DatabaseCSVLoader::asset_exists(std::string asset_identifier)
 {
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::level_exists]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::asset_exists]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::level_exists]: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::asset_exists]: error: guard \"loaded\" not met");
    }
-   return (assets.find(level_identifier) != assets.end());
+   return (assets.find(asset_identifier) != assets.end());
 }
 
 int DatabaseCSVLoader::toi(std::string value)
@@ -180,23 +180,23 @@ std::pair<bool, uint32_t> DatabaseCSVLoader::str_to_playmode(std::string playmod
    return { false, 0 };
 }
 
-AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::find_level(std::string level_identifier)
+AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::find_asset(std::string asset_identifier)
 {
    if (!(loaded))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_level]: error: guard \"loaded\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_level]: error: guard \"loaded\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met");
    }
-   if (!(level_exists(level_identifier)))
+   if (!(asset_exists(asset_identifier)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_level]: error: guard \"level_exists(level_identifier)\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_level]: error: guard \"level_exists(level_identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met");
    }
-   return assets[level_identifier];
+   return assets[asset_identifier];
 }
 
 std::string DatabaseCSVLoader::validate_key_and_return(std::map<std::string, std::string>* extracted_row, std::string key)

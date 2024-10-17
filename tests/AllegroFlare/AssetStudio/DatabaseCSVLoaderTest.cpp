@@ -52,7 +52,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
    loader.load();
 
-   EXPECT_EQ(true, loader.level_exists("seethingswarm/catset/cat01_walk_strip8"));
+   EXPECT_EQ(true, loader.asset_exists("seethingswarm/catset/cat01_walk_strip8"));
 
    assets_bitmap_bin.clear();
    al_uninstall_system();
@@ -74,8 +74,8 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
    loader.load();
 
-   ASSERT_EQ(true, loader.level_exists("seethingswarm/catset/cat01_walk_strip8"));
-   AllegroFlare::AssetStudio::Asset *actual_asset = loader.find_level("seethingswarm/catset/cat01_walk_strip8");
+   ASSERT_EQ(true, loader.asset_exists("seethingswarm/catset/cat01_walk_strip8"));
+   AllegroFlare::AssetStudio::Asset *actual_asset = loader.find_asset("seethingswarm/catset/cat01_walk_strip8");
    ASSERT_NE(nullptr, actual_asset);
    ASSERT_NE(nullptr, actual_asset->animation);
 
@@ -104,47 +104,26 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest,
    assets_bitmap_bin.set_full_path(ASSETS_FULL_PATH);
    AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
    loader.set_assets_bitmap_bin(&assets_bitmap_bin);
-   //Robieo::CSVToLevelLoader loader;
    loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
    loader.load();
 
-   ASSERT_EQ(true, loader.level_exists("grotto_walk"));
+   ASSERT_EQ(true, loader.asset_exists("grotto_walk"));
 
-   AllegroFlare::AssetStudio::Asset *actual_level = loader.find_level("grotto_walk");
-   ASSERT_NE(nullptr, actual_level);
-   EXPECT_EQ(1, actual_level->id);
-   EXPECT_EQ("grotto_walk", actual_level->identifier);
+   AllegroFlare::AssetStudio::Asset *actual_asset = loader.find_asset("grotto_walk");
+   ASSERT_NE(nullptr, actual_asset);
+   EXPECT_EQ(1, actual_asset->id);
+   EXPECT_EQ("grotto_walk", actual_asset->identifier);
 
    // Check the setup on the animation
-   ASSERT_NE(nullptr, actual_level->animation);
-   EXPECT_EQ(3, actual_level->animation->get_frames().size());
-/*
-
-   EXPECT_EQ("3. Forest", actual_level.get_title());
-   EXPECT_EQ("level-4-13.obj", actual_level.get_world_model_obj_filename());
-   EXPECT_EQ("level-4-13.png", actual_level.get_world_model_texture_filename());
-
-   ASSERT_EQ(1, actual_level.get_tile_maps_ref().size());
-   auto &tile_map = actual_level.get_tile_maps_ref()[0];
-   //actual_level.get_tile_maps_ref().size());
-   //EXPECT_EQ("the_cave.png", actual_level.get_tile_map_tile_elevation_bitmap_filename());
-   //EXPECT_EQ("the_cave-type.png", actual_level.get_tile_map_tile_type_bitmap_filename());
-
-   //EXPECT_EQ(AllegroFlare::Vec2D(22, 28), actual_level.get_tile_map_origin_offset());
-   //EXPECT_EQ(10.0, actual_level.get_tile_map_ceiling_height());
-   //EXPECT_EQ(0.0, actual_level.get_tile_map_groundlevel_height());
-   //EXPECT_EQ(-2.0, actual_level.get_tile_map_floor_height());
-
-   EXPECT_EQ("robot-holly_jolly", actual_level.get_song_to_perform_identifier());
-   EXPECT_EQ(15.0, actual_level.get_song_to_perform_duration_sec());
-*/
+   ASSERT_NE(nullptr, actual_asset->animation);
+   EXPECT_EQ(3, actual_asset->animation->get_frames().size());
 
    assets_bitmap_bin.clear();
    al_uninstall_system();
 }
 
 
-TEST(Robieo_CSVToLevelLoaderTest, load__on_production_csv__will_not_blow_up)
+TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, load__on_production_csv__will_not_blow_up)
 {
    al_init();
    al_init_image_addon();
@@ -162,8 +141,8 @@ TEST(Robieo_CSVToLevelLoaderTest, load__on_production_csv__will_not_blow_up)
 }
 
 
-TEST(Robieo_CSVToLevelLoaderTest,
-   comma_separated_quoted_strings_to_vector_of_strings__will_split_a_string_as_expected)
+TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, comma_separated_quoted_strings_to_vector_of_strings__will_split_\
+a_string_as_expected)
 {
    std::vector<std::pair<std::string, std::vector<std::string>>> test_data = {
       { "\"foo\", \"bar\", \"baz\"", { "foo", "bar", "baz" } },
