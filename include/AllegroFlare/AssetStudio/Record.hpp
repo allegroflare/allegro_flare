@@ -45,6 +45,7 @@ namespace AllegroFlare
          Record();
          ~Record();
 
+         bool visibility_is_hidden();
       };
    }
 }

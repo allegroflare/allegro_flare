@@ -56,7 +56,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, can_be_created_without_blow
 // TODO: Add test on assets_bitmap_bin guard
 
 
-TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, load__will_not_blow_up)
+TEST(AllegroFlare_AssetStudio_DatabaseCSVLoaderTest, load__on_production_database__will_not_blow_up)
 {
    al_init();
    al_init_image_addon();

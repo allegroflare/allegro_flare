@@ -583,6 +583,8 @@ void DatabaseCSVLoader::load()
    //
    // Extract the data from the CSV into "records" (as AssetStudio/Record objects)
    //
+   if (!records_loaded) load_records();
+
    /*
    {
       records.clear();
@@ -616,12 +618,12 @@ void DatabaseCSVLoader::load()
             validate_key_and_return(&extracted_row, "full_path_to_initial_image");
          std::string playmode = validate_key_and_return(&extracted_row, "playmode");
          std::string notes = validate_key_and_return(&extracted_row, "notes");
-         std::string frame_data__build_n_frames__num_frames =
-            validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames");
-         std::string frame_data__build_n_frames__start_from_frame =
-            validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame");
-         std::string frame_data__build_n_frames__each_frame_duration =
-            validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration");
+         int frame_data__build_n_frames__num_frames =
+            toi(validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames"));
+         int frame_data__build_n_frames__start_from_frame =
+            toi(validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame"));
+         float frame_data__build_n_frames__each_frame_duration =
+            tof(validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration"));
          std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
 
          // Create the record
@@ -673,13 +675,17 @@ void DatabaseCSVLoader::load()
    std::set<std::string> hidden_assets;
    int first_record_row = csv_parser.get_num_header_rows();
    int row_i = first_record_row;
-   for (std::map<std::string, std::string> &extracted_row : csv_parser.extract_all_rows())
+   //for (std::map<std::string, std::string> &extracted_row : csv_parser.extract_all_rows())
+   for (auto &record : records)
    {
-      std::string visibility = validate_key_and_return(&extracted_row, "visibility");
-      std::string identifier = validate_key_and_return(&extracted_row, "identifier");
+      //std::string visibility = validate_key_and_return(&extracted_row, "visibility");
+      std::string visibility = record.visibility;
+      //std::string identifier = validate_key_and_return(&extracted_row, "identifier");
+      std::string identifier = record.identifier;
 
       // Skip over "hidden" assets
-      if (visibility == "hidden")
+      //if (visibility == "hidden") // TODO: Use a helper method here
+      if (record.visibility_is_hidden())
       {
          // TODO: Report hidden assets at end of loading process
          // Store the hidden asset identifier to report at the end what assets are hidden for debugging
@@ -691,21 +697,48 @@ void DatabaseCSVLoader::load()
       // Extract the data from the CSV to variables
       //
 
-      std::string asset_pack_identifier = validate_key_and_return(&extracted_row, "asset_pack_identifier");
-      std::string intra_pack_identifier = validate_key_and_return(&extracted_row, "intra_pack_identifier");
-      int id = toi(validate_key_and_return(&extracted_row, "id"));
-      std::string type = validate_key_and_return(&extracted_row, "type");
-      int cell_width = toi(validate_key_and_return(&extracted_row, "cell_width"));
-      int cell_height = toi(validate_key_and_return(&extracted_row, "cell_height"));
-      std::string playmode = validate_key_and_return(&extracted_row, "playmode");
-      float align_x = tof(validate_key_and_return(&extracted_row, "align_x"));
-      float align_y = tof(validate_key_and_return(&extracted_row, "align_y"));
-      float align_in_container_x = tof(validate_key_and_return(&extracted_row, "align_in_container_x"));
-      float align_in_container_y = tof(validate_key_and_return(&extracted_row, "align_in_container_y"));
-      float anchor_x = tof(validate_key_and_return(&extracted_row, "anchor_x"));
-      float anchor_y = tof(validate_key_and_return(&extracted_row, "anchor_y"));
-      std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
-      std::string images_list_raw = validate_key_and_return(&extracted_row, "images_list");
+      //std::string asset_pack_identifier = validate_key_and_return(&extracted_row, "asset_pack_identifier");
+      std::string asset_pack_identifier = record.asset_pack_identifier;
+      //std::string intra_pack_identifier = validate_key_and_return(&extracted_row, "intra_pack_identifier");
+      std::string intra_pack_identifier = record.intra_pack_identifier;
+      //int id = toi(validate_key_and_return(&extracted_row, "id"));
+      int id = record.id;
+      //std::string type = validate_key_and_return(&extracted_row, "type");
+      std::string type = record.type;
+      //int cell_width = toi(validate_key_and_return(&extracted_row, "cell_width"));
+      int cell_width = record.cell_width;
+      //int cell_height = toi(validate_key_and_return(&extracted_row, "cell_height"));
+      int cell_height = record.cell_height;
+      //std::string playmode = validate_key_and_return(&extracted_row, "playmode");
+      std::string playmode = record.playmode;
+      //float align_x = tof(validate_key_and_return(&extracted_row, "align_x"));
+      float align_x = record.align_x;
+      //float align_y = tof(validate_key_and_return(&extracted_row, "align_y"));
+      float align_y = record.align_y;
+      //float align_in_container_x = tof(validate_key_and_return(&extracted_row, "align_in_container_x"));
+      float align_in_container_x = record.align_in_container_x;
+      //float align_in_container_y = tof(validate_key_and_return(&extracted_row, "align_in_container_y"));
+      float align_in_container_y = record.align_in_container_y;
+      //float anchor_x = tof(validate_key_and_return(&extracted_row, "anchor_x"));
+      float anchor_x = record.anchor_x;
+      //float anchor_y = tof(validate_key_and_return(&extracted_row, "anchor_y"));
+      float anchor_y = record.anchor_y;
+      //std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
+      std::string image_filename = record.image_filename;
+      //std::string images_list_raw = validate_key_and_return(&extracted_row, "images_list");
+      std::vector<std::string> images_list = record.images_list;
+      //std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
+      std::string frame_data__in_hash = record.frame_data__in_hash;
+      //std::string frame_data__build_n_frames__num_frames =
+         //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames");
+      int frame_data__build_n_frames__num_frames = record.frame_data__build_n_frames__num_frames;
+      //std::string frame_data__build_n_frames__start_from_frame =
+         //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame");
+      int frame_data__build_n_frames__start_from_frame = record.frame_data__build_n_frames__start_from_frame;
+      //std::string frame_data__build_n_frames__each_frame_duration =
+         //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration");
+      float frame_data__build_n_frames__each_frame_duration =
+         record.frame_data__build_n_frames__each_frame_duration;
 
 
       //
@@ -716,19 +749,24 @@ void DatabaseCSVLoader::load()
       // Some animations may have "in_hash" which allows the user to specify different animation speeds for
       // individual frames. The "in_hash" feature is currently not supported.
 
-      std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
-      std::string frame_data__build_n_frames__num_frames =
-         validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames");
-      std::string frame_data__build_n_frames__start_from_frame =
-         validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame");
-      std::string frame_data__build_n_frames__each_frame_duration =
-         validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration");
+      //std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
+      //std::string frame_data__build_n_frames__num_frames =
+         //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames");
+      //std::string frame_data__build_n_frames__start_from_frame =
+         //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame");
+      //std::string frame_data__build_n_frames__each_frame_duration =
+         //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration");
+
+
+
+
 
       bool using_build_n_frames_frame_data = 
          !(
-               frame_data__build_n_frames__num_frames.empty()
-            && frame_data__build_n_frames__start_from_frame.empty()
-            && frame_data__build_n_frames__each_frame_duration.empty()
+             frame_data__build_n_frames__num_frames == 0
+            //frame_data__build_n_frames__num_frames.empty()
+            //&& frame_data__build_n_frames__start_from_frame.empty()
+            //&& frame_data__build_n_frames__each_frame_duration.empty()
          );
       bool using_in_hash_frame_data = !frame_data__in_hash.empty();
 
@@ -756,9 +794,12 @@ void DatabaseCSVLoader::load()
       else if (using_build_n_frames_frame_data)
       {
          frame_data = build_n_frames(
-               toi(frame_data__build_n_frames__num_frames), // TODO: Test this int
-               toi(frame_data__build_n_frames__start_from_frame), // TODO: Test this int
-               tof(frame_data__build_n_frames__each_frame_duration), // TODO: Test this float
+               //toi(frame_data__build_n_frames__num_frames), // TODO: Test this int
+               //toi(frame_data__build_n_frames__start_from_frame), // TODO: Test this int
+               //tof(frame_data__build_n_frames__each_frame_duration), // TODO: Test this float
+               frame_data__build_n_frames__num_frames, // TODO: Test this int
+               frame_data__build_n_frames__start_from_frame, // TODO: Test this int
+               frame_data__build_n_frames__each_frame_duration, // TODO: Test this float
                align_x, // TODO: Test this float
                align_y, // TODO: Test this float
                align_in_container_x, // TODO: Test this float
@@ -786,11 +827,11 @@ void DatabaseCSVLoader::load()
       // and "image_filename" to represent either type of resource. Either one or the other should be present,
       // but not both (or neither).
 
-      std::vector<std::string> images_list = {}; // NOTE: Images list is never loaded here. This feature is not
+      //std::vector<std::string> images_list = {}; // NOTE: Images list is never loaded here. This feature is not
                                                  // yet supported.
       AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet = nullptr;
 
-      if (image_filename.empty() && images_list_raw.empty())
+      if (image_filename.empty() && images_list.empty())
       {
          // Both "image_filename" and "images_list" columns erroneously have data in them
          AllegroFlare::Logger::throw_error(
@@ -799,7 +840,7 @@ void DatabaseCSVLoader::load()
                " \"image_filename\" columns. Data should exist in either one or the other, but not both."
          );
       }
-      else if (!image_filename.empty() && !images_list_raw.empty())
+      else if (!image_filename.empty() && !images_list.empty())
       {
          // Neither "image_filename" and "images_list" columns have data in them
          AllegroFlare::Logger::throw_error(
@@ -815,12 +856,12 @@ void DatabaseCSVLoader::load()
          std::string full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
          sprite_sheet = obtain_sprite_sheet(full_path_to_image_file, cell_width, cell_height, sprite_sheet_scale);
       }
-      else if (!images_list_raw.empty())
+      else if (!images_list.empty())
       {
          // TODO: Handle this case:
          // TODO: Split
          //std::string full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
-         images_list = comma_separated_strings_to_vector_of_strings(images_list_raw);
+         //images_list = comma_separated_strings_to_vector_of_strings(images_list_raw);
 
          //std::cout << "*** images_list detected ***" << std::endl;
          //std::cout << "  - images_list.size(): " << images_list.size() << std::endl;

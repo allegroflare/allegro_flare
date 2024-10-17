@@ -118,12 +118,21 @@ properties:
 
   - name: frame_data__build_n_frames__each_frame_duration
     type: float
-    init_with: 0.0f
+    init_with: 0
     exposed: true
 
   - name: frame_data__in_hash
     type: std::string
     init_with: '"[unset-frame_data__in_hash"'
     exposed: true
+
+
+methods:
+
+
+  - name: visibility_is_hidden
+    type: bool
+    body: return (visibility == "hidden");
+
 
 

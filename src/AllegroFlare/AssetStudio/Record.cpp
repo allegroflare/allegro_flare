@@ -35,7 +35,7 @@ Record::Record()
    , notes("[unset-notes]")
    , frame_data__build_n_frames__num_frames(0)
    , frame_data__build_n_frames__start_from_frame(0)
-   , frame_data__build_n_frames__each_frame_duration(0.0f)
+   , frame_data__build_n_frames__each_frame_duration(0)
    , frame_data__in_hash("[unset-frame_data__in_hash")
 {
 }
@@ -46,6 +46,10 @@ Record::~Record()
 }
 
 
+bool Record::visibility_is_hidden()
+{
+   return (visibility == "hidden");
+}
 
 
 } // namespace AssetStudio
