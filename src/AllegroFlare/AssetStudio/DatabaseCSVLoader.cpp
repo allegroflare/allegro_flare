@@ -557,19 +557,349 @@ void DatabaseCSVLoader::load_records()
    return;
 }
 
-AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_identifier(std::string identifier)
+AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_identifier(std::string identifier_)
 {
-   if (!(record_exists(identifier)))
+   if (!(record_exists(identifier_)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_asset_from_record_identifier]: error: guard \"record_exists(identifier)\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_asset_from_record_identifier]: error: guard \"record_exists(identifier_)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_asset_from_record_identifier]: error: guard \"record_exists(identifier)\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_asset_from_record_identifier]: error: guard \"record_exists(identifier_)\" not met");
    }
-   AllegroFlare::AssetStudio::Record &record = *find_record(identifier);
+   AllegroFlare::AssetStudio::Record &record = *find_record(identifier_);
 
-   // TODO: HERE
-   return nullptr;
+
+
+
+
+
+   int row_i = record.source_csv_column_num;
+   //std::string visibility = validate_key_and_return(&extracted_row, "visibility");
+   std::string visibility = record.visibility;
+   //std::string identifier = validate_key_and_return(&extracted_row, "identifier");
+   std::string identifier = record.identifier;
+
+   // Skip over "hidden" assets
+   //if (visibility == "hidden") // TODO: Use a helper method here
+   //if (record.visibility_is_hidden())
+   //{
+      // TODO: Report hidden assets at end of loading process
+      // Store the hidden asset identifier to report at the end what assets are hidden for debugging
+      //hidden_assets.insert(identifier);
+      //continue;
+   //}
+
+   //
+   // Extract the data from the CSV to variables
+   //
+
+   //std::string asset_pack_identifier = validate_key_and_return(&extracted_row, "asset_pack_identifier");
+   std::string asset_pack_identifier = record.asset_pack_identifier;
+   //std::string intra_pack_identifier = validate_key_and_return(&extracted_row, "intra_pack_identifier");
+   std::string intra_pack_identifier = record.intra_pack_identifier;
+   //int id = toi(validate_key_and_return(&extracted_row, "id"));
+   int id = record.id;
+   //std::string type = validate_key_and_return(&extracted_row, "type");
+   std::string type = record.type;
+   //int cell_width = toi(validate_key_and_return(&extracted_row, "cell_width"));
+   int cell_width = record.cell_width;
+   //int cell_height = toi(validate_key_and_return(&extracted_row, "cell_height"));
+   int cell_height = record.cell_height;
+   //std::string playmode = validate_key_and_return(&extracted_row, "playmode");
+   std::string playmode = record.playmode;
+   //float align_x = tof(validate_key_and_return(&extracted_row, "align_x"));
+   float align_x = record.align_x;
+   //float align_y = tof(validate_key_and_return(&extracted_row, "align_y"));
+   float align_y = record.align_y;
+   //float align_in_container_x = tof(validate_key_and_return(&extracted_row, "align_in_container_x"));
+   float align_in_container_x = record.align_in_container_x;
+   //float align_in_container_y = tof(validate_key_and_return(&extracted_row, "align_in_container_y"));
+   float align_in_container_y = record.align_in_container_y;
+   //float anchor_x = tof(validate_key_and_return(&extracted_row, "anchor_x"));
+   float anchor_x = record.anchor_x;
+   //float anchor_y = tof(validate_key_and_return(&extracted_row, "anchor_y"));
+   float anchor_y = record.anchor_y;
+   //std::string image_filename = validate_key_and_return(&extracted_row, "image_filename");
+   std::string image_filename = record.image_filename;
+   //std::string images_list_raw = validate_key_and_return(&extracted_row, "images_list");
+   std::vector<std::string> images_list = record.images_list;
+   //std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
+   std::string frame_data__in_hash = record.frame_data__in_hash;
+   //std::string frame_data__build_n_frames__num_frames =
+      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames");
+   int frame_data__build_n_frames__num_frames = record.frame_data__build_n_frames__num_frames;
+   //std::string frame_data__build_n_frames__start_from_frame =
+      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame");
+   int frame_data__build_n_frames__start_from_frame = record.frame_data__build_n_frames__start_from_frame;
+   //std::string frame_data__build_n_frames__each_frame_duration =
+      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration");
+   float frame_data__build_n_frames__each_frame_duration =
+      record.frame_data__build_n_frames__each_frame_duration;
+
+
+   //
+   // Load the frame data for the animation
+   //
+   // For animations, "frame_data" refers to the timings for each animation frame. Currently all animations
+   // will have a "num_frames", "start_from_frame", "each_frame_duration".
+   // Some animations may have "in_hash" which allows the user to specify different animation speeds for
+   // individual frames. The "in_hash" feature is currently not supported.
+
+   //std::string frame_data__in_hash = validate_key_and_return(&extracted_row, "frame_data__in_hash");
+   //std::string frame_data__build_n_frames__num_frames =
+      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__num_frames");
+   //std::string frame_data__build_n_frames__start_from_frame =
+      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__start_from_frame");
+   //std::string frame_data__build_n_frames__each_frame_duration =
+      //validate_key_and_return(&extracted_row, "frame_data__build_n_frames__each_frame_duration");
+
+
+
+
+
+   bool using_build_n_frames_frame_data = 
+      !(
+          frame_data__build_n_frames__num_frames == 0
+         //frame_data__build_n_frames__num_frames.empty()
+         //&& frame_data__build_n_frames__start_from_frame.empty()
+         //&& frame_data__build_n_frames__each_frame_duration.empty()
+      );
+   bool using_in_hash_frame_data = !frame_data__in_hash.empty();
+
+   std::vector<AllegroFlare::FrameAnimation::Frame> frame_data;
+
+   if (using_build_n_frames_frame_data && using_in_hash_frame_data)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         "When loading row " + std::to_string(row_i) + ", both \"build_n_frames\" and \"in_hash\" sections "
+            "contain data. Either one section or the other should be used, but not both."
+      );
+   }
+   else if (!using_build_n_frames_frame_data && !using_in_hash_frame_data)
+   {
+      // NOTE: Assuming this is a tileset
+      // TODO: Consider guarding with a type==tileset or something.
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         "When loading row " + std::to_string(row_i) + ", there is empty data in the \"frame_data__\" columns. "
+            "If this is a tilemap, please discard this message. Note that there are currently no features "
+            "implemented for tilemaps."
+      );
+   }
+   else if (using_build_n_frames_frame_data)
+   {
+      frame_data = build_n_frames(
+            //toi(frame_data__build_n_frames__num_frames), // TODO: Test this int
+            //toi(frame_data__build_n_frames__start_from_frame), // TODO: Test this int
+            //tof(frame_data__build_n_frames__each_frame_duration), // TODO: Test this float
+            frame_data__build_n_frames__num_frames, // TODO: Test this int
+            frame_data__build_n_frames__start_from_frame, // TODO: Test this int
+            frame_data__build_n_frames__each_frame_duration, // TODO: Test this float
+            align_x, // TODO: Test this float
+            align_y, // TODO: Test this float
+            align_in_container_x, // TODO: Test this float
+            align_in_container_y, // TODO: Test this float
+            anchor_x, // TODO: Test this float
+            anchor_y  // TODO: Test this float
+         );
+   }
+   else if (using_in_hash_frame_data)
+   {
+      frame_data = build_frames_from_hash(frame_data__in_hash);
+   }
+   else
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         "Weird error in unexpected code path."
+      );
+   }
+
+   // Load the image (or images) data
+   //
+   // Typically, artists will provide their animations either as a collection of individual image files, or
+   // a single file sprite sheet strip. In the assets.db CSV file, there are two columns "images_list"
+   // and "image_filename" to represent either type of resource. Either one or the other should be present,
+   // but not both (or neither).
+
+   //std::vector<std::string> images_list = {}; // NOTE: Images list is never loaded here. This feature is not
+                                              // yet supported.
+   AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet = nullptr;
+
+   if (image_filename.empty() && images_list.empty())
+   {
+      // Both "image_filename" and "images_list" columns erroneously have data in them
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         "When loading row " + std::to_string(row_i) + ", there is data in both the \"images_list\" and "
+            " \"image_filename\" columns. Data should exist in either one or the other, but not both."
+      );
+   }
+   else if (!image_filename.empty() && !images_list.empty())
+   {
+      // Neither "image_filename" and "images_list" columns have data in them
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         "When loading row " + std::to_string(row_i) + ", there no data in either the \"images_list\" and "
+            " \"image_filename\" columns. Data should be present in or the other (but not both)."
+      );
+   }
+   else if (!image_filename.empty())
+   {
+      // NOTE: MOST COMMON USE CASE
+      // There is "image_filename" data present on this record.
+      std::string full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
+      sprite_sheet = obtain_sprite_sheet(full_path_to_image_file, cell_width, cell_height, sprite_sheet_scale);
+   }
+   else if (!images_list.empty())
+   {
+      // TODO: Handle this case:
+      // TODO: Split
+      //std::string full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
+      //images_list = comma_separated_strings_to_vector_of_strings(images_list_raw);
+
+      //std::cout << "*** images_list detected ***" << std::endl;
+      //std::cout << "  - images_list.size(): " << images_list.size() << std::endl;
+      //std::cout << "  - frame_data.size(): " << frame_data.size() << std::endl;
+      //std::cout << "  - images_list_raw: ###" << images_list_raw << "###" << std::endl;
+
+      if (images_list.size() != frame_data.size())
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+            "When processing asset \"" + identifier + "\", the number of images in "
+               "the \"images_list\" (" + std::to_string(images_list.size()) + ") was not the same as the "
+               "\"frame_data\"'s \"num_frames\" "
+               "(" + std::to_string(frame_data.size()) + ")"
+         );
+      }
+
+      //AllegroFlare::Logger::warn_from(
+         //"AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         //"When processing asset \"" + identifier + "\", an \"images_list\" was supplied. This feature is "
+            //"not yet implemented (you should add it in now, tho). For now, skipping this asset."
+      //);
+
+      // Build the extended path_to_image_file
+      for (auto &image_list_item : images_list)
+      {
+         image_list_item = asset_pack_identifier + "/extracted/" + image_list_item;
+      }
+
+      sprite_sheet = create_sprite_sheet_from_individual_images(
+            images_list,
+            cell_width,
+            cell_height,
+            sprite_sheet_scale
+         );
+      //using_single_image_file = false;
+      //continue;
+        //asset_pack_identifier + "/extracted/" + image_filename;
+      //AllegroFlare::Logger::throw_error(
+         //"AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         //"foofoo2"
+      //);
+   }
+   //std::string full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
+
+
+
+   // Parse the "playmode"
+
+   std::pair<bool, uint32_t> playmode_parsed_data =
+         { true, AllegroFlare::FrameAnimation::Animation::PLAYMODE_FORWARD_ONCE };
+
+   if (!playmode.empty())
+   {
+      playmode_parsed_data = str_to_playmode(playmode);
+   }
+   //else
+   //{
+      //std::cout << "- identifier: \"" << identifier << "\"" << std::endl;
+      //std::cout << "    playmode: \"" << playmode << "\" -> " << playmode_parsed_data.second << std::endl;
+   //}
+
+   if (playmode_parsed_data.first == false)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+         "Unrecognized playmode \"" + playmode + "\" when loading row " + std::to_string(row_i) + "."
+      );
+   }
+
+
+   // Build the sprite sheet
+   //AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet =
+      //obtain_sprite_sheet(full_path_to_image_file, cell_width, cell_height, 2);
+
+   // Build the animation
+   AllegroFlare::FrameAnimation::Animation *animation =
+      new AllegroFlare::FrameAnimation::Animation(
+         sprite_sheet,
+         identifier,
+         frame_data,
+         playmode_parsed_data.second
+      );
+
+   // NOTE: The animation is not initialized. This is because at *use* time, the animation is copied from the
+   // database into the using object's posession, at which point that animation is then initialized.
+
+   // Load the data into the asset
+   AllegroFlare::AssetStudio::Asset *asset = new AllegroFlare::AssetStudio::Asset;
+   asset->id = id;
+   asset->identifier = identifier;
+   asset->animation = animation;
+   asset->cell_width = cell_width;
+   asset->cell_height = cell_height;
+   // TODO: Look into if these properties should only exist in the animation's frame_data (and not the asset)
+   {
+      asset->align_x = align_x;
+      asset->align_y = align_y;
+      asset->align_in_container_x = align_in_container_x;
+      asset->align_in_container_y = align_in_container_y;
+      asset->anchor_x = anchor_x;
+      asset->anchor_y = anchor_y;
+   }
+   asset->asset_pack_identifier = asset_pack_identifier;
+   asset->intra_pack_identifier = intra_pack_identifier;
+   asset->type = type;
+   asset->image_filename = image_filename;
+   asset->images_list = images_list;
+
+   //assets.insert({ asset->identifier, asset });
+
+   // Showing loaded asset
+   std::cout << "Asset \"" << asset->identifier << "\" created. "
+             << "Dimensions: (" << asset->cell_width << ", " << asset->cell_height << "), "
+             << "Frames: " << animation->get_num_frames() << std::endl;
+
+   // TODO: Load an "icon_set" type
+   // If it's an "icon_set", then consider building unique assets for each icon
+   //int icon_id = 1;
+   //if (type == "icon_set")
+   //{
+      //std::cout << "Building \"icon_set\" for \"" << identifier << "\"" << std::endl;
+
+      //for (int i=0; i<sprite_sheet->get_num_sprites(); i++)
+      //{
+         //std::string icon_identifier = identifier + "-icon_" + std::to_string(icon_id);
+
+         //AllegroFlare::AssetStudio::Asset *icon_asset = new AllegroFlare::AssetStudio::Asset;
+         //icon_asset->id = id + i + 10000; // TODO: Figure out some way to create unique names and ids from icons
+         //icon_asset->identifier = icon_identifier;
+         //icon_asset->bitmap = sprite_sheet->get_cell(i);
+         //icon_asset->cell_width = cell_width;
+         //icon_asset->cell_height = cell_height;
+         //icon_asset->type = "icon";
+
+         //assets.insert({ icon_asset->identifier, icon_asset });
+
+         //icon_id++;
+      //}
+   //}
+
+   return asset;
 }
 
 void DatabaseCSVLoader::load()
@@ -613,8 +943,14 @@ void DatabaseCSVLoader::load()
          continue;
       }
 
-      // HERE: Replace this explicit loading with a call to load_record_into_assets()
-      // e.g. create_asset_from_record_identifier(record.identifier);
+      // Create the asset
+      // TODO: Rename this variable
+      AllegroFlare::AssetStudio::Asset *asset_ = create_asset_from_record_identifier(record.identifier);
+
+      // Add the asset to the assets
+      assets.insert({ asset_->identifier, asset_ });
+
+      continue;
 
 
 
@@ -950,7 +1286,7 @@ void DatabaseCSVLoader::load()
       //ALLEGRO_BITMAP *get_atlas();
       //int get_num_sprites();
       
-      row_i++;
+      //row_i++;
    }
 
    loaded = true;
