@@ -35,6 +35,7 @@ namespace AllegroFlare
          int sprite_sheet_scale;
          std::string global_identifier_prefix;
          bool using_global_identifier_prefix;
+         bool all_assets_loaded;
          void remove_global_identifier_prefixes();
          void prefix_global_identifier_prefix_to_identifiers(std::string prefix="[unset-prefix]");
          AllegroFlare::FrameAnimation::SpriteSheet* obtain_sprite_sheet(std::string filename="[unset-filename]", int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
@@ -63,6 +64,7 @@ namespace AllegroFlare
          int get_sprite_sheet_scale() const;
          std::string get_global_identifier_prefix() const;
          bool get_using_global_identifier_prefix() const;
+         bool get_all_assets_loaded() const;
          void set_global_identifier_prefix(std::string global_identifier_prefix=DEFAULT_GLOBAL_IDENTIFIER_PREFIX);
          void remove_global_identifier_prefix();
          std::set<std::string> asset_identifiers();
@@ -78,6 +80,7 @@ namespace AllegroFlare
          AllegroFlare::AssetStudio::Asset* find_asset_by_identifier(std::string identifier="[unset-identifier]");
          bool asset_exists_as_animation(std::string identifier="[unset-identifier]");
          AllegroFlare::FrameAnimation::Animation* find_animation_by_identifier(std::string identifier="[unset-identifier]");
+         void load_all_records_to_assets();
          std::vector<AllegroFlare::FrameAnimation::Frame> build_n_frames(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f);
          std::vector<AllegroFlare::FrameAnimation::Frame> build_frames_from_hash(std::string frame_data_hash="[unset-frame_data_hash]");
          std::pair<bool, uint32_t> str_to_playmode(std::string playmode_string="[unset-playmode_string]");

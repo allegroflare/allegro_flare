@@ -55,6 +55,11 @@ properties:
     init_with: false
     getter: true
 
+  - name: all_assets_loaded
+    type: bool
+    init_with: false
+    getter: true
+
   - name: DEFAULT_GLOBAL_IDENTIFIER_PREFIX
     type: char*
     init_with: '(char*)"asset_studio::"'
@@ -334,6 +339,48 @@ methods:
 
 ## -------------------------
 
+
+  - name: load_all_records_to_assets
+    guards: [ (!all_assets_loaded), assets_bitmap_bin ]
+    body: |
+      // Load global assets
+      std::set<std::string> hidden_global_assets;
+      for (auto &record : global_records)
+      {
+         if (record.visibility_is_hidden())
+         {
+            // TODO: Report the hidden assets at end of loading process
+            hidden_global_assets.insert(record.identifier);
+            continue;
+         }
+
+         // Create the asset
+         AllegroFlare::AssetStudio::Asset *asset = create_asset_from_record_identifier(record.identifier);
+
+         // Add the asset to the assets
+         global_assets.insert({ asset->identifier, asset });
+      }
+
+      // Load local assets
+      std::set<std::string> hidden_local_assets;
+      for (auto &record : local_records)
+      {
+         if (record.visibility_is_hidden())
+         {
+            // TODO: Report the hidden assets at end of loading process
+            hidden_local_assets.insert(record.identifier);
+            continue;
+         }
+
+         // Create the asset
+         AllegroFlare::AssetStudio::Asset *asset = create_asset_from_record_identifier(record.identifier);
+
+         // Add the asset to the assets
+         local_assets.insert({ asset->identifier, asset });
+      }
+
+      all_assets_loaded = true;
+      return;
 
 
   #- name: get_assets
