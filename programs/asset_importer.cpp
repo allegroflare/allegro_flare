@@ -27,19 +27,22 @@ int main(int argc, char** argv)
    al_init();
    al_init_image_addon();
 
-   std::cout << "Loading AssetStudio::Database from CSV" << std::endl;
+   std::cout << "Loading asset records from CSV" << std::endl;
+   // Load the CSV database
+   AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+   loader.set_csv_full_path(ASSETS_FULL_PATH + ASSETS_DB_CSV_FILENAME);
+   loader.load_records();
 
-   // Create the bitmap_bin and loader
+   // Load the CSV-loaded records into the database
+   AllegroFlare::AssetStudio::Database asset_studio_database;
+   asset_studio_database.set_global_records(loader.get_records());
+
+   // Create assets for ALL records
+   std::cout << "Creating AssetStudio::Asset objects for every record" << std::endl;
    AllegroFlare::BitmapBin assets_bitmap_bin;
    assets_bitmap_bin.set_full_path(ASSETS_FULL_PATH);
-   AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
-   loader.set_assets_bitmap_bin(&assets_bitmap_bin);
-   loader.set_csv_full_path(ASSETS_FULL_PATH + ASSETS_DB_CSV_FILENAME);
-   loader.load();
-
-   // Create the asset_studio_database
-   AllegroFlare::AssetStudio::Database asset_studio_database;
-   asset_studio_database.set_global_assets(loader.get_assets());
+   asset_studio_database.set_assets_bitmap_bin(&assets_bitmap_bin);
+   asset_studio_database.load_all_global_assets_from_all_global_records();
 
    // Create the AssetImporter
    AllegroFlare::AssetStudio::AssetImporter asset_importer;

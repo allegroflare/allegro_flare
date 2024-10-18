@@ -18,6 +18,7 @@
   "AllegroFlare/FrameAnimation/Animation": [
     "AllegroFlare/AssetStudio/Asset",
     "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/FrameAnimation/Book",
     "AllegroFlare/FrameAnimation/Book",
