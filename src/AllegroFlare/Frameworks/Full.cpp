@@ -431,14 +431,18 @@ bool Full::initialize_core_system()
       {
          loader.load_records();
          asset_studio_database.set_local_records(loader.get_records());
+         asset_studio_database.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+         asset_studio_database.set_sprite_sheet_scale(sprite_sheet_scale);
 
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Frameworks::Full::initialize_core_system",
             "Creating local AssetStudio assets..."
          );
 
-         loader.load();
-         asset_studio_database.set_local_assets(loader.get_assets());
+         //loader.load();
+         //asset_studio_database.set_local_assets(loader.get_assets());
+         //asset_studio_database.set_local_records(loader.get_records());
+         asset_studio_database.load_all_local_assets_from_all_local_records();
 
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Frameworks::Full::initialize_core_system",
@@ -489,15 +493,20 @@ bool Full::initialize_core_system()
       {
          loader.load_records();
          asset_studio_database.set_global_records(loader.get_records());
+         asset_studio_database.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+         asset_studio_database.set_sprite_sheet_scale(sprite_sheet_scale);
 
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Frameworks::Full::initialize_core_system",
             "Loading global AssetStudio assets..."
          );
 
-         loader.load();
+         //loader.load();
 
-         asset_studio_database.set_global_assets(loader.get_assets());
+         //asset_studio_database.set_global_assets(loader.get_assets());
+         //asset_studio_database.set_global_records(loader.get_records());
+         asset_studio_database.load_all_global_assets_from_all_global_records();
+
          //assets_full_path = "/Users/markoates/Assets/";
          asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
          asset_studio_database.set_global_identifier_prefix(
