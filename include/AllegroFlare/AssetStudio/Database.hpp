@@ -73,6 +73,7 @@ namespace AllegroFlare
          std::set<std::string> global_record_identifiers();
          std::set<std::string> local_record_identifiers();
          bool record_exists(std::string record_identifier="[unset-record_identifier]");
+         bool record_has_hidden_visibility(std::string record_identifier="[unset-record_identifier]");
          AllegroFlare::AssetStudio::Record* find_record(std::string record_identifier="[unset-record_identifier]");
          bool global_record_exists(std::string record_identifier="[unset-record_identifier]");
          AllegroFlare::AssetStudio::Record* find_global_record(std::string record_identifier="[unset-record_identifier]");
@@ -82,6 +83,7 @@ namespace AllegroFlare
          AllegroFlare::AssetStudio::Asset* find_asset_by_identifier(std::string identifier="[unset-identifier]");
          bool asset_exists_as_animation(std::string identifier="[unset-identifier]");
          AllegroFlare::FrameAnimation::Animation* find_animation_by_identifier(std::string identifier="[unset-identifier]");
+         void load_asset(std::string identifier="[unset-identifier]");
          void load_all_global_assets_from_all_global_records();
          void load_all_local_assets_from_all_local_records();
          std::vector<AllegroFlare::FrameAnimation::Frame> build_n_frames(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f);

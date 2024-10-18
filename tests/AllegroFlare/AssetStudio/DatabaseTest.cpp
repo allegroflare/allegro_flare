@@ -101,6 +101,26 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
 }
 
 
+TEST(AllegroFlare_AssetStudio_DatabaseTest, load_asset__will_load_a_global_asset_into_global_assets)
+{
+   // TODO: This test
+   //AllegroFlare::BitmapBin asset_bitmap_bin;
+   //AllegroFlare::AssetStudio::Database database;
+   //AllegroFlare::BitmapBin asset_bitmap_bin;
+   //std::vector<AllegroFlare::AssetStudio::Record> local_records = {
+      //build_basic_record("foobar", "animation"),
+      //build_basic_record("boobaz", "animation"),
+      //build_basic_record("blabla", "tileset"),
+   //};
+   //database.set_local_records(local_records);
+   //std::set<std::string> expected_local_record_identifiers = {
+      //"foobar", "boobaz", "blabla",
+   //};
+   //std::set<std::string> actual_local_record_identifiers = database.local_record_identifiers();
+   //EXPECT_EQ(expected_local_record_identifiers, actual_local_record_identifiers);
+}
+
+
 /*
 TEST(AllegroFlare_AssetStudio_DatabaseTest,
    // NOTE: This method under test is private, so this test is DISABLED

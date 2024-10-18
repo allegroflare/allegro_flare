@@ -269,6 +269,25 @@ bool Database::record_exists(std::string record_identifier)
    return false;
 }
 
+bool Database::record_has_hidden_visibility(std::string record_identifier)
+{
+   // TODO: Consider if an index on "Record::identifier" would be helpful
+   // TODO: This is not very performant, consider a single index or map
+   for (auto &local_record : local_records)
+   {
+      if (local_record.identifier == record_identifier) return local_record.visibility_is_hidden();
+   }
+   for (auto &global_record : global_records)
+   {
+      if (global_record.identifier == record_identifier) return global_record.visibility_is_hidden();
+   }
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::AssetStudio::DatabaseCSVLoader::record_has_hidden_visibillity",
+      "A record with the identifier \"" + record_identifier + "\" does not exist."
+   );
+   return false;
+}
+
 AllegroFlare::AssetStudio::Record* Database::find_record(std::string record_identifier)
 {
    // TODO: Test this
@@ -368,6 +387,74 @@ AllegroFlare::FrameAnimation::Animation* Database::find_animation_by_identifier(
          );
    }
    return asset->animation;
+}
+
+void Database::load_asset(std::string identifier)
+{
+   if (asset_exists(identifier)) return; // Asset already exists and is loaded
+
+   if (!record_exists(identifier))
+   {
+      AllegroFlare::Errors::throw_error(
+         "AllegroFlare::AssetStudio::Database::load_asset",
+         "The asset \"" + identifier+ "\" cannot be loaded because there is no record with that identifier."
+      );
+   }
+
+   bool record_exists_as_local = local_record_exists(identifier);
+   bool record_exists_as_global = global_record_exists(identifier);
+
+   if (!record_exists_as_local && !record_exists_as_global)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load_asset",
+         "When attempting to load an asset from the record \"" + identifier + "\", this record was not found."
+      );
+   }
+   else if (record_exists_as_local && record_exists_as_global)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::load_asset",
+         "When attempting to load an asset from the record \"" + identifier + "\", this identifier was found in "
+            "both the local_assets and global_assets, leading to a (possible) conflict. This may be intentional, "
+            "and it may be that the local asset is expected to override the global one in usage. However, at the "
+            "time of this writing, this design usage is unclear and this error is being thrown. Hopefully your "
+            "usage provides some clarity on what behavior should be expected here."
+      );
+   }
+   else
+   {
+      if (record_has_hidden_visibility(identifier))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load_asset",
+            "Cannot load asset \"" + identifier + "\" from the records. Note that there is a record present for "
+               "this identifier that is present, but it is marked as \"hidden\", indicating that it should be "
+               "ignored."
+         );
+      }
+      else
+      {
+         AllegroFlare::AssetStudio::Asset *asset = create_asset_from_record_identifier(identifier);
+         if (record_exists_as_local)
+         {
+            local_assets.insert({ asset->identifier, asset });
+         }
+         else if (record_exists_as_global)
+         {
+            global_assets.insert({ asset->identifier, asset });
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::AssetStudio::DatabaseCSVLoader::load_asset",
+               "Logic path error 23487583"
+            );
+         }
+      }
+   }
+
+   return;
 }
 
 void Database::load_all_global_assets_from_all_global_records()
