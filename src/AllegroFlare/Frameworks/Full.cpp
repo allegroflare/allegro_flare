@@ -415,8 +415,8 @@ bool Full::initialize_core_system()
       std::string local_assets_full_path = data_folder_path + "assets/";
       asset_studio_bitmap_bin.set_path(local_assets_full_path);
       AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
-      loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
-      loader.set_sprite_sheet_scale(sprite_sheet_scale);
+      //loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+      //loader.set_sprite_sheet_scale(sprite_sheet_scale);
       loader.set_csv_full_path(local_assets_full_path + ASSETS_DB_CSV_FILENAME);
       if (!loader.csv_file_exists())
       {
@@ -476,8 +476,8 @@ bool Full::initialize_core_system()
       //assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
       asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
       AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
-      loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
-      loader.set_sprite_sheet_scale(sprite_sheet_scale);
+      //loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+      //loader.set_sprite_sheet_scale(sprite_sheet_scale);
       loader.set_csv_full_path(global_assets_full_path + ASSETS_DB_CSV_FILENAME);
 
       if (!loader.csv_file_exists())
