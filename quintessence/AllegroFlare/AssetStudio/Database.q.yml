@@ -342,9 +342,6 @@ methods:
       - AllegroFlare::Errors
 
 
-## -------------------------
-
-
   - name: load_all_global_assets_from_all_global_records
     guards: [ (!all_global_assets_loaded), assets_bitmap_bin ]
     body: |
@@ -393,35 +390,6 @@ methods:
 
       all_local_assets_loaded = true;
       return;
-
-
-  #- name: get_assets
-  #  type: std::map<std::string, AllegroFlare::AssetStudio::Asset*>
-  #  guards: [ loaded ]
-  #  body: |
-  #    return assets;
-
-
-  #- name: asset_exists
-  #  type: bool
-  #  parameters:
-  #    - name: asset_identifier
-  #      type: std::string
-  #      default_argument: '"[unset-asset_identifier]"'
-  #  guards: [ loaded ]
-  #  body: |
-  #    return (assets.find(asset_identifier) != assets.end());
-
-
-  #- name: find_asset
-  #  type: AllegroFlare::AssetStudio::Asset*
-  #  parameters:
-  #    - name: asset_identifier
-  #      type: std::string
-  #      default_argument: '"[unset-asset_identifier]"'
-  #  guards: [ loaded, asset_exists(asset_identifier) ]
-  #  body: |
-  #    return assets[asset_identifier];
 
 
   - name: build_n_frames
