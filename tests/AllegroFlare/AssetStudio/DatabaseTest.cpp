@@ -2,6 +2,38 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/AssetStudio/Database.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
+
+
+class AllegroFlare_AssetStudio_DatabaseTest : public ::testing::Test {};
+class AllegroFlare_AssetStudio_DatabaseTestWithSetup : public ::testing::Test
+{
+public:
+   AllegroFlare::DeploymentEnvironment deployment_environment;
+   AllegroFlare::BitmapBin assets_bitmap_bin;
+   AllegroFlare::AssetStudio::Database database;
+   ALLEGRO_DISPLAY *display; // display is needed for rendering
+
+   AllegroFlare_AssetStudio_DatabaseTestWithSetup()
+      : deployment_environment("test")
+      , assets_bitmap_bin()
+      , database()
+      , display(nullptr)
+   {}
+   virtual void SetUp() override
+   {
+      al_init();
+      ALLEGRO_DISPLAY *display = al_create_display(800, 600);
+      std::string data_path = deployment_environment.get_data_folder_path();
+      assets_bitmap_bin.set_full_path(data_path + "bitmaps");
+      database.set_assets_bitmap_bin(&assets_bitmap_bin);
+   }
+   virtual void TearDown() override
+   {
+      al_destroy_display(display);
+      al_uninstall_system();
+   }
+};
 
 
 static AllegroFlare::AssetStudio::Record build_basic_record(
@@ -16,13 +48,13 @@ static AllegroFlare::AssetStudio::Record build_basic_record(
 }
 
 
-TEST(AllegroFlare_AssetStudio_DatabaseTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_AssetStudio_DatabaseTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::AssetStudio::Database database;
 }
 
 
-TEST(AllegroFlare_AssetStudio_DatabaseTest,
+TEST_F(AllegroFlare_AssetStudio_DatabaseTest,
    set_global_identifier_prefix__will_add_the_prefix_to_all_the_identifiers)
 {
    AllegroFlare::AssetStudio::Database database;
@@ -42,7 +74,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
 }
 
 
-TEST(AllegroFlare_AssetStudio_DatabaseTest,
+TEST_F(AllegroFlare_AssetStudio_DatabaseTest,
    remove_global_identifier_prefix__will_remove_the_prefix_that_is_currently_in_place_from_all_identifiers)
 {
    AllegroFlare::AssetStudio::Database database;
@@ -65,7 +97,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
 }
 
 
-TEST(AllegroFlare_AssetStudio_DatabaseTest,
+TEST_F(AllegroFlare_AssetStudio_DatabaseTest,
    global_record_identifiers__will_return_the_list_of_records_that_are_present)
 {
    AllegroFlare::AssetStudio::Database database;
@@ -83,7 +115,7 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
 }
 
 
-TEST(AllegroFlare_AssetStudio_DatabaseTest,
+TEST_F(AllegroFlare_AssetStudio_DatabaseTest,
    local_record_identifiers__will_return_the_list_of_records_that_are_present)
 {
    AllegroFlare::AssetStudio::Database database;
@@ -101,7 +133,8 @@ TEST(AllegroFlare_AssetStudio_DatabaseTest,
 }
 
 
-TEST(AllegroFlare_AssetStudio_DatabaseTest, load_asset__will_load_a_global_asset_into_global_assets)
+TEST_F(AllegroFlare_AssetStudio_DatabaseTestWithSetup, load_asset__when_given_a_global_asset_record_identifier__will_\
+load_a_global_asset_into_global_assets_with_the_expected_values)
 {
    // TODO: This test
    //AllegroFlare::BitmapBin asset_bitmap_bin;
