@@ -577,7 +577,8 @@ std::vector<AllegroFlare::FrameAnimation::Frame> Database::build_frames_from_has
 {
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::AssetStudio::DatabaseCSVLoader::build_frames_from_hash",
-      "This feature is not yet supported."
+      "This feature is not yet supported. The following \"frame_data_hash\" was present and expected to load: \""
+         + frame_data_hash + "\""
    );
 
    std::vector<AllegroFlare::FrameAnimation::Frame> result;

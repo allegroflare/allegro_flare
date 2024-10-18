@@ -123,7 +123,7 @@ properties:
 
   - name: frame_data__in_hash
     type: std::string
-    init_with: '"[unset-frame_data__in_hash"'
+    init_with: '"[unset-frame_data__in_hash]"'
     exposed: true
 
 

@@ -23,15 +23,41 @@ public:
    virtual void SetUp() override
    {
       al_init();
+      al_init_image_addon();
       ALLEGRO_DISPLAY *display = al_create_display(800, 600);
       std::string data_path = deployment_environment.get_data_folder_path();
-      assets_bitmap_bin.set_full_path(data_path + "bitmaps");
+      assets_bitmap_bin.set_full_path(data_path + "assets");
       database.set_assets_bitmap_bin(&assets_bitmap_bin);
    }
    virtual void TearDown() override
    {
+      assets_bitmap_bin.clear(); // TODO: Audit the requirements of the bitmap lifecycles
+      al_shutdown_image_addon();
       al_destroy_display(display);
       al_uninstall_system();
+   }
+   static AllegroFlare::AssetStudio::Record build_record(
+      std::string identifier,
+      std::string type
+   )
+   {
+      AllegroFlare::AssetStudio::Record result;
+      result.identifier = identifier;
+      result.type = type;
+      result.asset_pack_identifier = "a_test_asset_pack";
+
+      {
+         result.image_filename = "robo-soldier6.png"; // TODO: Change this to images_list
+         result.cell_width = 48;
+         result.cell_height = 48;
+         result.frame_data__build_n_frames__num_frames	= 1; //int
+         result.frame_data__build_n_frames__start_from_frame = 0; //	int
+         result.frame_data__build_n_frames__each_frame_duration	= 2.0; //float
+         result.type = "animation"; // TODO: Change this to use an enum value
+         result.playmode = "loop"; // TODO: Change this to use an enum value
+      }
+      result.frame_data__in_hash = "";
+      return result;
    }
 };
 
@@ -136,22 +162,21 @@ TEST_F(AllegroFlare_AssetStudio_DatabaseTest,
 TEST_F(AllegroFlare_AssetStudio_DatabaseTestWithSetup, load_asset__when_given_a_global_asset_record_identifier__will_\
 load_a_global_asset_into_global_assets_with_the_expected_values)
 {
-   // TODO: This test
-   //AllegroFlare::BitmapBin asset_bitmap_bin;
-   //AllegroFlare::AssetStudio::Database database;
-   //AllegroFlare::BitmapBin asset_bitmap_bin;
-   //std::vector<AllegroFlare::AssetStudio::Record> local_records = {
-      //build_basic_record("foobar", "animation"),
-      //build_basic_record("boobaz", "animation"),
-      //build_basic_record("blabla", "tileset"),
-   //};
-   //database.set_local_records(local_records);
-   //std::set<std::string> expected_local_record_identifiers = {
-      //"foobar", "boobaz", "blabla",
-   //};
-   //std::set<std::string> actual_local_record_identifiers = database.local_record_identifiers();
-   //EXPECT_EQ(expected_local_record_identifiers, actual_local_record_identifiers);
+   database.set_global_records({
+      build_record("a_simple_asset", "animation"),
+   });
+
+   database.load_asset("a_simple_asset");
+
+   EXPECT_EQ(true, database.asset_exists("a_simple_asset"));
+
+   // TODO: Validate the loaded contents
+   // TODO: Consider the lifecycle state of the asset_bitmap_bin
+   // TODO: Validate the sprite_sheets
 }
+
+
+// TODO: Repeat the above test for local_assets
 
 
 /*
