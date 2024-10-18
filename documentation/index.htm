@@ -943,6 +943,30 @@ table td
 </tr>
 <tr>
   <td class="method">bool</td>
+  <td class="method"><b>record_exists</b>(std::string record_identifier=&quot;[unset-record_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::AssetStudio::Record*</td>
+  <td class="method"><b>find_record</b>(std::string record_identifier=&quot;[unset-record_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>global_record_exists</b>(std::string record_identifier=&quot;[unset-record_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::AssetStudio::Record*</td>
+  <td class="method"><b>find_global_record</b>(std::string record_identifier=&quot;[unset-record_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>local_record_exists</b>(std::string record_identifier=&quot;[unset-record_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::AssetStudio::Record*</td>
+  <td class="method"><b>find_local_record</b>(std::string record_identifier=&quot;[unset-record_identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
   <td class="method"><b>asset_exists</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
 </tr>
 <tr>
@@ -956,6 +980,30 @@ table td
 <tr>
   <td class="method">AllegroFlare::FrameAnimation::Animation*</td>
   <td class="method"><b>find_animation_by_identifier</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
+  <td class="method"><b>build_n_frames</b>(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
+  <td class="method"><b>build_frames_from_hash</b>(std::string frame_data_hash=&quot;[unset-frame_data_hash]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">AllegroFlare::FrameAnimation::SpriteSheet*</td>
+  <td class="private_method"><b>obtain_sprite_sheet</b>(std::string filename=&quot;[unset-filename]&quot;, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2)</td>
+</tr>
+<tr>
+  <td class="method">std::pair&lt;bool, uint32_t&gt;</td>
+  <td class="method"><b>str_to_playmode</b>(std::string playmode_string=&quot;[unset-playmode_string]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">AllegroFlare::FrameAnimation::SpriteSheet*</td>
+  <td class="private_method"><b>create_sprite_sheet_from_individual_images</b>(std::vector&lt;std::string&gt; individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::AssetStudio::Asset*</td>
+  <td class="method"><b>create_asset_from_record_identifier</b>(std::string identifier_=&quot;[unset-identifier_]&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -977,6 +1025,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteStripAssembler&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteStripAssembler.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::Frame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/Frame.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45179,6 +45236,7 @@ table td
   ],
   "std/filesystem/exists": [
     "AllegroFlare/AssetStudio/AssetImporter",
+    "AllegroFlare/AssetStudio/Database",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/GameProgressAndStateInfos/Base",
@@ -45365,6 +45423,16 @@ table td
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
   ],
+  "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/FrameAnimation/Frame": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
+  ],
   "AllegroFlare/CSVParser": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
@@ -45386,19 +45454,11 @@ table td
   "std/stof": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
-  "AllegroFlare/FrameAnimation/Frame": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
-  ],
   "std/find_if": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/Network2/URLTokenizer",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/StringTransformer"
-  ],
-  "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",

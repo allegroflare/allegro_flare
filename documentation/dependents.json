@@ -105,6 +105,7 @@
   ],
   "std/filesystem/exists": [
     "AllegroFlare/AssetStudio/AssetImporter",
+    "AllegroFlare/AssetStudio/Database",
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/GameProgressAndStateInfos/Base",
@@ -291,6 +292,16 @@
     "Tileo/TMJMeshLoader",
     "Wicked/Entities/Basic2DFactory"
   ],
+  "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+  ],
+  "AllegroFlare/FrameAnimation/Frame": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
+  ],
   "AllegroFlare/CSVParser": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
@@ -312,19 +323,11 @@
   "std/stof": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
-  "AllegroFlare/FrameAnimation/Frame": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
-    "AllegroFlare/FrameAnimation/Animation",
-    "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
-  ],
   "std/find_if": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/Network2/URLTokenizer",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/StringTransformer"
-  ],
-  "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",
