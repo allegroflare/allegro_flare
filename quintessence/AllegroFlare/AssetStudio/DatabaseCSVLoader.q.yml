@@ -62,6 +62,12 @@ documentation:
 methods:
 
 
+  - name: get_initialized
+    type: bool
+    body: |
+      return loaded;
+
+
   - name: csv_file_exists
     type: bool
     body: |
@@ -70,17 +76,11 @@ methods:
       - std::filesystem::exists
 
 
-  - name: get_initialized
-    type: bool
+  - name: num_records
+    type: std::size_t
+    guards: [ records_loaded ]
     body: |
-      return loaded;
-
-
-  - name: get_assets
-    type: std::map<std::string, AllegroFlare::AssetStudio::Asset*>
-    guards: [ loaded ]
-    body: |
-      return assets;
+      return records.size();
 
 
   - name: get_records
@@ -88,24 +88,6 @@ methods:
     guards: [ records_loaded ]
     body: |
       return records;
-
-
-  - name: asset_exists
-    type: bool
-    parameters:
-      - name: asset_identifier
-        type: std::string
-        default_argument: '"[unset-asset_identifier]"'
-    guards: [ loaded ]
-    body: |
-      return (assets.find(asset_identifier) != assets.end());
-
-
-  - name: num_records
-    type: std::size_t
-    guards: [ records_loaded ]
-    body: |
-      return records.size();
 
 
   - name: record_exists
@@ -136,17 +118,6 @@ methods:
          "A record with the asset_identifier \"" + asset_identifier + "\" does not exist."
       );
       return {};
-
-
-  - name: find_asset
-    type: AllegroFlare::AssetStudio::Asset*
-    parameters:
-      - name: asset_identifier
-        type: std::string
-        default_argument: '"[unset-asset_identifier]"'
-    guards: [ loaded, asset_exists(asset_identifier) ]
-    body: |
-      return assets[asset_identifier];
 
 
   - name: find_record
@@ -307,177 +278,6 @@ methods:
       - AllegroFlare::Logger
 
 
-  - name: create_sprite_sheet_from_individual_images
-    type: AllegroFlare::FrameAnimation::SpriteSheet*
-    private: true
-    parameters:
-      - name: individual_frame_image_filenames
-        type: std::vector<std::string>
-        default_argument: '{}'
-      - name: cell_width
-        type: int
-        default_argument: 16
-      - name: cell_height
-        type: int
-        default_argument: 16
-      - name: _sprite_sheet_scale
-        type: int
-        default_argument: 2
-    guards: [ assets_bitmap_bin, (!individual_frame_image_filenames.empty()) ]
-    body: |
-      // TODO: Consider caching the created result_sprite_sheet;
-
-      std::vector<ALLEGRO_BITMAP*> bitmaps;
-      for (auto &individual_frame_image_filename : individual_frame_image_filenames)
-      {
-         bitmaps.push_back(assets_bitmap_bin->auto_get(individual_frame_image_filename));
-      }
-     
-      AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
-      sprite_strip_assembler.set_bitmaps(bitmaps);
-      sprite_strip_assembler.assemble();
-      ALLEGRO_BITMAP* sprite_strip = sprite_strip_assembler.get_sprite_strip();
-
-      // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
-      AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
-      result_sprite_sheet->initialize();
-
-      // Cleanup
-      al_destroy_bitmap(sprite_strip);
-      // Cleanup the individual frame images in the bin here
-      for (auto &individual_frame_image_filename : individual_frame_image_filenames)
-      {
-         // TODO: This could wierdly clobber, consider checking all the image frames do *not* already exist in the
-         // bin at the beginning of the method before continuing.
-         assets_bitmap_bin->destroy(individual_frame_image_filename);
-      }
-
-      return result_sprite_sheet;
-    body_dependency_symbols:
-       - AllegroFlare::FrameAnimation::SpriteStripAssembler
-
-
-  - name: obtain_sprite_sheet
-    type: AllegroFlare::FrameAnimation::SpriteSheet*
-    private: true
-    parameters:
-      - name: filename
-        type: std::string
-        default_argument: '"[unset-filename]"'
-      - name: cell_width
-        type: int
-        default_argument: 16
-      - name: cell_height
-        type: int
-        default_argument: 16
-      - name: _sprite_sheet_scale
-        type: int
-        default_argument: 2
-    guards: [ assets_bitmap_bin ]
-    body: |
-      // TODO: Guard after assets_bitmap_bin is initialized
-
-      //std::map<std::tuple<filename, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> cache;
-      std::tuple<std::string, int, int, int> sprite_sheet_key(filename, cell_width, cell_height, _sprite_sheet_scale);
-      if (sprite_sheets.find(sprite_sheet_key) == sprite_sheets.end())
-      {
-         // Create sprite sheet
-         ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
-               assets_bitmap_bin->auto_get(filename)
-            );
-         AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-            new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
-         result_sprite_sheet->initialize();
-
-         al_destroy_bitmap(sprite_sheet_atlas);
-
-         // Add the sprite sheet to the list of sprite sheets
-         sprite_sheets[sprite_sheet_key] = result_sprite_sheet;
-      }
-
-      return sprite_sheets[sprite_sheet_key];
-
-      //ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
-            //assets_bitmap_bin->auto_get(filename)
-            ////assets_bitmap_bin.auto_get("grotto_escape_pack/Base pack/graphics/player.png")
-         //);
-      //AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-         //new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
-
-      //al_destroy_bitmap(sprite_sheet_atlas);
-
-      //return result_sprite_sheet;
-    body_dependency_symbols:
-      - AllegroFlare::FrameAnimation::SpriteSheet
-
-
-  - name: build_n_frames
-    type: std::vector<AllegroFlare::FrameAnimation::Frame>
-    parameters:
-      - name: num_frames
-        type: uint32_t
-        default_argument: 1
-      - name: start_frame_num
-        type: uint32_t
-        default_argument: 0
-      - name: each_frame_duration
-        type: float
-        default_argument: 0.08f
-      - name: each_frame_align_x
-        type: float
-        default_argument: 0.0f
-      - name: each_frame_align_y
-        type: float
-        default_argument: 0.0f
-      - name: each_frame_align_in_container_x
-        type: float
-        default_argument: 0.0f
-      - name: each_frame_align_in_container_y
-        type: float
-        default_argument: 0.0f
-      - name: each_frame_anchor_x
-        type: float
-        default_argument: 0.0f
-      - name: each_frame_anchor_y
-        type: float
-        default_argument: 0.0f
-    guards: [ (num_frames >= 1), (start_frame_num >= 0), (each_frame_duration >= 0.0001) ]
-    body: |
-      std::vector<AllegroFlare::FrameAnimation::Frame> result;
-      for (uint32_t i=0; i<num_frames; i++)
-      {
-         AllegroFlare::FrameAnimation::Frame result_frame(start_frame_num + i, each_frame_duration);
-         result_frame.set_align_x(each_frame_align_x);
-         result_frame.set_align_y(each_frame_align_y);
-         result_frame.set_align_in_container_x(each_frame_align_in_container_x);
-         result_frame.set_align_in_container_y(each_frame_align_in_container_y);
-         result_frame.set_anchor_x(each_frame_anchor_x);
-         result_frame.set_anchor_y(each_frame_anchor_y);
-         
-         //result.push_back({ start_frame_num + i, each_frame_duration });
-         result.push_back(result_frame);
-      }
-      return result;
-
-
-  - name: build_frames_from_hash
-    type: std::vector<AllegroFlare::FrameAnimation::Frame>
-    parameters:
-      - name: frame_data_hash
-        type: std::string
-        default_argument: '"[unset-frame_data_hash]"'
-    body: |
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::build_frames_from_hash",
-         "This feature is not yet supported."
-      );
-
-      std::vector<AllegroFlare::FrameAnimation::Frame> result;
-      // TODO: If frame animation and alignment data is incuded in the hash, parse and use it here
-      return result;
-
-
   - name: load_records
     guards: [ (!records_loaded) ]
     body: |
@@ -587,6 +387,298 @@ methods:
 
       records_loaded = true;
       return;
+
+
+  - name: load
+    guards: [ (!loaded), assets_bitmap_bin ]
+    body: |
+      // Load the records (if they have not been loaded already)
+      if (!records_loaded) load_records();
+
+      // Iterate over every record and load it into "assets"
+      std::set<std::string> hidden_assets;
+      for (auto &record : records)
+      {
+         if (record.visibility_is_hidden())
+         {
+            // TODO: Report the hidden assets at end of loading process
+            hidden_assets.insert(record.identifier);
+            continue;
+         }
+
+         // Create the asset
+         AllegroFlare::AssetStudio::Asset *asset = create_asset_from_record_identifier(record.identifier);
+
+         // Add the asset to the assets
+         assets.insert({ asset->identifier, asset });
+
+         continue;
+      }
+
+      loaded = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::CSVParser
+      - AllegroFlare::UsefulPHP
+      - std::set
+
+
+  - name: split
+    type: std::vector<std::string>
+    private: true
+    static: true
+    parameters:
+      - name: string
+        type: std::string
+        default_argument: '""'
+      - name: delimiter
+        type: char
+        default_argument: "' '"
+    body: |
+      std::vector<std::string> elems;
+      auto result = std::back_inserter(elems);
+      std::stringstream ss(string);
+      std::string item;
+      while (std::getline(ss, item, delimiter)) { *(result++) = item; }
+      return elems;
+
+
+  - name: tokenize
+    private: true
+    static: true
+    type: std::vector<std::string>
+    parameters:
+      - name: str
+        type: std::string
+        default_argument: '""'
+      - name: delim
+        type: char
+        default_argument: "'|'"
+    body: |
+      std::vector<std::string> tokens = split(str, delim);
+      for (auto &token : tokens) token = trim(token);
+      return tokens;
+
+
+  - name: trim
+    type: std::string
+    private: true
+    static: true
+    parameters:
+      - name: s
+        type: std::string
+        default_argument: '""'
+    body: |
+      // ltrim
+      s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c) {return !std::isspace(c);}));
+      // rtrim
+      s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
+      return s;
+    body_dependency_symbols:
+      - std::find_if
+
+
+## ----------------------
+
+
+  - name: get_assets
+    type: std::map<std::string, AllegroFlare::AssetStudio::Asset*>
+    guards: [ loaded ]
+    body: |
+      return assets;
+
+
+  - name: asset_exists
+    type: bool
+    parameters:
+      - name: asset_identifier
+        type: std::string
+        default_argument: '"[unset-asset_identifier]"'
+    guards: [ loaded ]
+    body: |
+      return (assets.find(asset_identifier) != assets.end());
+
+
+  - name: find_asset
+    type: AllegroFlare::AssetStudio::Asset*
+    parameters:
+      - name: asset_identifier
+        type: std::string
+        default_argument: '"[unset-asset_identifier]"'
+    guards: [ loaded, asset_exists(asset_identifier) ]
+    body: |
+      return assets[asset_identifier];
+
+
+  - name: build_n_frames
+    type: std::vector<AllegroFlare::FrameAnimation::Frame>
+    parameters:
+      - name: num_frames
+        type: uint32_t
+        default_argument: 1
+      - name: start_frame_num
+        type: uint32_t
+        default_argument: 0
+      - name: each_frame_duration
+        type: float
+        default_argument: 0.08f
+      - name: each_frame_align_x
+        type: float
+        default_argument: 0.0f
+      - name: each_frame_align_y
+        type: float
+        default_argument: 0.0f
+      - name: each_frame_align_in_container_x
+        type: float
+        default_argument: 0.0f
+      - name: each_frame_align_in_container_y
+        type: float
+        default_argument: 0.0f
+      - name: each_frame_anchor_x
+        type: float
+        default_argument: 0.0f
+      - name: each_frame_anchor_y
+        type: float
+        default_argument: 0.0f
+    guards: [ (num_frames >= 1), (start_frame_num >= 0), (each_frame_duration >= 0.0001) ]
+    body: |
+      std::vector<AllegroFlare::FrameAnimation::Frame> result;
+      for (uint32_t i=0; i<num_frames; i++)
+      {
+         AllegroFlare::FrameAnimation::Frame result_frame(start_frame_num + i, each_frame_duration);
+         result_frame.set_align_x(each_frame_align_x);
+         result_frame.set_align_y(each_frame_align_y);
+         result_frame.set_align_in_container_x(each_frame_align_in_container_x);
+         result_frame.set_align_in_container_y(each_frame_align_in_container_y);
+         result_frame.set_anchor_x(each_frame_anchor_x);
+         result_frame.set_anchor_y(each_frame_anchor_y);
+         
+         //result.push_back({ start_frame_num + i, each_frame_duration });
+         result.push_back(result_frame);
+      }
+      return result;
+
+
+  - name: build_frames_from_hash
+    type: std::vector<AllegroFlare::FrameAnimation::Frame>
+    parameters:
+      - name: frame_data_hash
+        type: std::string
+        default_argument: '"[unset-frame_data_hash]"'
+    body: |
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::AssetStudio::DatabaseCSVLoader::build_frames_from_hash",
+         "This feature is not yet supported."
+      );
+
+      std::vector<AllegroFlare::FrameAnimation::Frame> result;
+      // TODO: If frame animation and alignment data is incuded in the hash, parse and use it here
+      return result;
+
+
+  - name: obtain_sprite_sheet
+    type: AllegroFlare::FrameAnimation::SpriteSheet*
+    private: true
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+      - name: cell_width
+        type: int
+        default_argument: 16
+      - name: cell_height
+        type: int
+        default_argument: 16
+      - name: _sprite_sheet_scale
+        type: int
+        default_argument: 2
+    guards: [ assets_bitmap_bin ]
+    body: |
+      // TODO: Guard after assets_bitmap_bin is initialized
+
+      //std::map<std::tuple<filename, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> cache;
+      std::tuple<std::string, int, int, int> sprite_sheet_key(filename, cell_width, cell_height, _sprite_sheet_scale);
+      if (sprite_sheets.find(sprite_sheet_key) == sprite_sheets.end())
+      {
+         // Create sprite sheet
+         ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
+               assets_bitmap_bin->auto_get(filename)
+            );
+         AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
+            new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
+         result_sprite_sheet->initialize();
+
+         al_destroy_bitmap(sprite_sheet_atlas);
+
+         // Add the sprite sheet to the list of sprite sheets
+         sprite_sheets[sprite_sheet_key] = result_sprite_sheet;
+      }
+
+      return sprite_sheets[sprite_sheet_key];
+
+      //ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
+            //assets_bitmap_bin->auto_get(filename)
+            ////assets_bitmap_bin.auto_get("grotto_escape_pack/Base pack/graphics/player.png")
+         //);
+      //AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
+         //new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
+
+      //al_destroy_bitmap(sprite_sheet_atlas);
+
+      //return result_sprite_sheet;
+    body_dependency_symbols:
+      - AllegroFlare::FrameAnimation::SpriteSheet
+
+
+  - name: create_sprite_sheet_from_individual_images
+    type: AllegroFlare::FrameAnimation::SpriteSheet*
+    private: true
+    parameters:
+      - name: individual_frame_image_filenames
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: cell_width
+        type: int
+        default_argument: 16
+      - name: cell_height
+        type: int
+        default_argument: 16
+      - name: _sprite_sheet_scale
+        type: int
+        default_argument: 2
+    guards: [ assets_bitmap_bin, (!individual_frame_image_filenames.empty()) ]
+    body: |
+      // TODO: Consider caching the created result_sprite_sheet;
+
+      std::vector<ALLEGRO_BITMAP*> bitmaps;
+      for (auto &individual_frame_image_filename : individual_frame_image_filenames)
+      {
+         bitmaps.push_back(assets_bitmap_bin->auto_get(individual_frame_image_filename));
+      }
+     
+      AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
+      sprite_strip_assembler.set_bitmaps(bitmaps);
+      sprite_strip_assembler.assemble();
+      ALLEGRO_BITMAP* sprite_strip = sprite_strip_assembler.get_sprite_strip();
+
+      // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
+      AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
+         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
+      result_sprite_sheet->initialize();
+
+      // Cleanup
+      al_destroy_bitmap(sprite_strip);
+      // Cleanup the individual frame images in the bin here
+      for (auto &individual_frame_image_filename : individual_frame_image_filenames)
+      {
+         // TODO: This could wierdly clobber, consider checking all the image frames do *not* already exist in the
+         // bin at the beginning of the method before continuing.
+         assets_bitmap_bin->destroy(individual_frame_image_filename);
+      }
+
+      return result_sprite_sheet;
+    body_dependency_symbols:
+       - AllegroFlare::FrameAnimation::SpriteStripAssembler
 
 
   - name: create_asset_from_record_identifier
@@ -874,95 +966,6 @@ methods:
       return asset;
     body_dependency_symbols:
       - std::filesystem::exists
-
-
-  - name: load
-    guards: [ (!loaded), assets_bitmap_bin ]
-    body: |
-      // Load the records (if they have not been loaded already)
-      if (!records_loaded) load_records();
-
-      // Iterate over every record and load it into "assets"
-      std::set<std::string> hidden_assets;
-      for (auto &record : records)
-      {
-         if (record.visibility_is_hidden())
-         {
-            // TODO: Report the hidden assets at end of loading process
-            hidden_assets.insert(record.identifier);
-            continue;
-         }
-
-         // Create the asset
-         AllegroFlare::AssetStudio::Asset *asset = create_asset_from_record_identifier(record.identifier);
-
-         // Add the asset to the assets
-         assets.insert({ asset->identifier, asset });
-
-         continue;
-      }
-
-      loaded = true;
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::CSVParser
-      - AllegroFlare::UsefulPHP
-      - std::set
-
-
-  - name: split
-    type: std::vector<std::string>
-    private: true
-    static: true
-    parameters:
-      - name: string
-        type: std::string
-        default_argument: '""'
-      - name: delimiter
-        type: char
-        default_argument: "' '"
-    body: |
-      std::vector<std::string> elems;
-      auto result = std::back_inserter(elems);
-      std::stringstream ss(string);
-      std::string item;
-      while (std::getline(ss, item, delimiter)) { *(result++) = item; }
-      return elems;
-
-
-  - name: tokenize
-    private: true
-    static: true
-    type: std::vector<std::string>
-    parameters:
-      - name: str
-        type: std::string
-        default_argument: '""'
-      - name: delim
-        type: char
-        default_argument: "'|'"
-    body: |
-      std::vector<std::string> tokens = split(str, delim);
-      for (auto &token : tokens) token = trim(token);
-      return tokens;
-
-
-  - name: trim
-    type: std::string
-    private: true
-    static: true
-    parameters:
-      - name: s
-        type: std::string
-        default_argument: '""'
-    body: |
-      // ltrim
-      s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c) {return !std::isspace(c);}));
-      // rtrim
-      s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
-      return s;
-    body_dependency_symbols:
-      - std::find_if
 
 
 dependencies:

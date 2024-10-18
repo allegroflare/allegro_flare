@@ -79,50 +79,14 @@ int DatabaseCSVLoader::get_sprite_sheet_scale() const
 }
 
 
-bool DatabaseCSVLoader::csv_file_exists()
-{
-   return std::filesystem::exists(csv_full_path);
-}
-
 bool DatabaseCSVLoader::get_initialized()
 {
    return loaded;
 }
 
-std::map<std::string, AllegroFlare::AssetStudio::Asset*> DatabaseCSVLoader::get_assets()
+bool DatabaseCSVLoader::csv_file_exists()
 {
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::get_assets]: error: guard \"loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::get_assets]: error: guard \"loaded\" not met");
-   }
-   return assets;
-}
-
-std::vector<AllegroFlare::AssetStudio::Record> DatabaseCSVLoader::get_records()
-{
-   if (!(records_loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::get_records]: error: guard \"records_loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::get_records]: error: guard \"records_loaded\" not met");
-   }
-   return records;
-}
-
-bool DatabaseCSVLoader::asset_exists(std::string asset_identifier)
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::asset_exists]: error: guard \"loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::asset_exists]: error: guard \"loaded\" not met");
-   }
-   return (assets.find(asset_identifier) != assets.end());
+   return std::filesystem::exists(csv_full_path);
 }
 
 std::size_t DatabaseCSVLoader::num_records()
@@ -135,6 +99,18 @@ std::size_t DatabaseCSVLoader::num_records()
       throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::num_records]: error: guard \"records_loaded\" not met");
    }
    return records.size();
+}
+
+std::vector<AllegroFlare::AssetStudio::Record> DatabaseCSVLoader::get_records()
+{
+   if (!(records_loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::get_records]: error: guard \"records_loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::get_records]: error: guard \"records_loaded\" not met");
+   }
+   return records;
 }
 
 bool DatabaseCSVLoader::record_exists(std::string asset_identifier)
@@ -167,25 +143,6 @@ AllegroFlare::AssetStudio::Record DatabaseCSVLoader::obtain_record_as_copy(std::
       "A record with the asset_identifier \"" + asset_identifier + "\" does not exist."
    );
    return {};
-}
-
-AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::find_asset(std::string asset_identifier)
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met");
-   }
-   if (!(asset_exists(asset_identifier)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met");
-   }
-   return assets[asset_identifier];
 }
 
 AllegroFlare::AssetStudio::Record* DatabaseCSVLoader::find_record(std::string identifier)
@@ -303,148 +260,6 @@ std::string DatabaseCSVLoader::validate_key_and_return(std::map<std::string, std
    return extracted_row->operator[](key);
 }
 
-AllegroFlare::FrameAnimation::SpriteSheet* DatabaseCSVLoader::create_sprite_sheet_from_individual_images(std::vector<std::string> individual_frame_image_filenames, int cell_width, int cell_height, int _sprite_sheet_scale)
-{
-   if (!(assets_bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_sprite_sheet_from_individual_images]: error: guard \"assets_bitmap_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_sprite_sheet_from_individual_images]: error: guard \"assets_bitmap_bin\" not met");
-   }
-   if (!((!individual_frame_image_filenames.empty())))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_sprite_sheet_from_individual_images]: error: guard \"(!individual_frame_image_filenames.empty())\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_sprite_sheet_from_individual_images]: error: guard \"(!individual_frame_image_filenames.empty())\" not met");
-   }
-   // TODO: Consider caching the created result_sprite_sheet;
-
-   std::vector<ALLEGRO_BITMAP*> bitmaps;
-   for (auto &individual_frame_image_filename : individual_frame_image_filenames)
-   {
-      bitmaps.push_back(assets_bitmap_bin->auto_get(individual_frame_image_filename));
-   }
-
-   AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
-   sprite_strip_assembler.set_bitmaps(bitmaps);
-   sprite_strip_assembler.assemble();
-   ALLEGRO_BITMAP* sprite_strip = sprite_strip_assembler.get_sprite_strip();
-
-   // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
-   AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-      new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
-   result_sprite_sheet->initialize();
-
-   // Cleanup
-   al_destroy_bitmap(sprite_strip);
-   // Cleanup the individual frame images in the bin here
-   for (auto &individual_frame_image_filename : individual_frame_image_filenames)
-   {
-      // TODO: This could wierdly clobber, consider checking all the image frames do *not* already exist in the
-      // bin at the beginning of the method before continuing.
-      assets_bitmap_bin->destroy(individual_frame_image_filename);
-   }
-
-   return result_sprite_sheet;
-}
-
-AllegroFlare::FrameAnimation::SpriteSheet* DatabaseCSVLoader::obtain_sprite_sheet(std::string filename, int cell_width, int cell_height, int _sprite_sheet_scale)
-{
-   if (!(assets_bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::obtain_sprite_sheet]: error: guard \"assets_bitmap_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::obtain_sprite_sheet]: error: guard \"assets_bitmap_bin\" not met");
-   }
-   // TODO: Guard after assets_bitmap_bin is initialized
-
-   //std::map<std::tuple<filename, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> cache;
-   std::tuple<std::string, int, int, int> sprite_sheet_key(filename, cell_width, cell_height, _sprite_sheet_scale);
-   if (sprite_sheets.find(sprite_sheet_key) == sprite_sheets.end())
-   {
-      // Create sprite sheet
-      ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
-            assets_bitmap_bin->auto_get(filename)
-         );
-      AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
-      result_sprite_sheet->initialize();
-
-      al_destroy_bitmap(sprite_sheet_atlas);
-
-      // Add the sprite sheet to the list of sprite sheets
-      sprite_sheets[sprite_sheet_key] = result_sprite_sheet;
-   }
-
-   return sprite_sheets[sprite_sheet_key];
-
-   //ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
-         //assets_bitmap_bin->auto_get(filename)
-         ////assets_bitmap_bin.auto_get("grotto_escape_pack/Base pack/graphics/player.png")
-      //);
-   //AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-      //new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
-
-   //al_destroy_bitmap(sprite_sheet_atlas);
-
-   //return result_sprite_sheet;
-}
-
-std::vector<AllegroFlare::FrameAnimation::Frame> DatabaseCSVLoader::build_n_frames(uint32_t num_frames, uint32_t start_frame_num, float each_frame_duration, float each_frame_align_x, float each_frame_align_y, float each_frame_align_in_container_x, float each_frame_align_in_container_y, float each_frame_anchor_x, float each_frame_anchor_y)
-{
-   if (!((num_frames >= 1)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(num_frames >= 1)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(num_frames >= 1)\" not met");
-   }
-   if (!((start_frame_num >= 0)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(start_frame_num >= 0)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(start_frame_num >= 0)\" not met");
-   }
-   if (!((each_frame_duration >= 0.0001)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(each_frame_duration >= 0.0001)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(each_frame_duration >= 0.0001)\" not met");
-   }
-   std::vector<AllegroFlare::FrameAnimation::Frame> result;
-   for (uint32_t i=0; i<num_frames; i++)
-   {
-      AllegroFlare::FrameAnimation::Frame result_frame(start_frame_num + i, each_frame_duration);
-      result_frame.set_align_x(each_frame_align_x);
-      result_frame.set_align_y(each_frame_align_y);
-      result_frame.set_align_in_container_x(each_frame_align_in_container_x);
-      result_frame.set_align_in_container_y(each_frame_align_in_container_y);
-      result_frame.set_anchor_x(each_frame_anchor_x);
-      result_frame.set_anchor_y(each_frame_anchor_y);
-      
-      //result.push_back({ start_frame_num + i, each_frame_duration });
-      result.push_back(result_frame);
-   }
-   return result;
-}
-
-std::vector<AllegroFlare::FrameAnimation::Frame> DatabaseCSVLoader::build_frames_from_hash(std::string frame_data_hash)
-{
-   AllegroFlare::Logger::throw_error(
-      "AllegroFlare::AssetStudio::DatabaseCSVLoader::build_frames_from_hash",
-      "This feature is not yet supported."
-   );
-
-   std::vector<AllegroFlare::FrameAnimation::Frame> result;
-   // TODO: If frame animation and alignment data is incuded in the hash, parse and use it here
-   return result;
-}
-
 void DatabaseCSVLoader::load_records()
 {
    if (!((!records_loaded)))
@@ -560,6 +375,260 @@ void DatabaseCSVLoader::load_records()
 
    records_loaded = true;
    return;
+}
+
+void DatabaseCSVLoader::load()
+{
+   if (!((!loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"(!loaded)\" not met");
+   }
+   if (!(assets_bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"assets_bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"assets_bitmap_bin\" not met");
+   }
+   // Load the records (if they have not been loaded already)
+   if (!records_loaded) load_records();
+
+   // Iterate over every record and load it into "assets"
+   std::set<std::string> hidden_assets;
+   for (auto &record : records)
+   {
+      if (record.visibility_is_hidden())
+      {
+         // TODO: Report the hidden assets at end of loading process
+         hidden_assets.insert(record.identifier);
+         continue;
+      }
+
+      // Create the asset
+      AllegroFlare::AssetStudio::Asset *asset = create_asset_from_record_identifier(record.identifier);
+
+      // Add the asset to the assets
+      assets.insert({ asset->identifier, asset });
+
+      continue;
+   }
+
+   loaded = true;
+   return;
+}
+
+std::vector<std::string> DatabaseCSVLoader::split(std::string string, char delimiter)
+{
+   std::vector<std::string> elems;
+   auto result = std::back_inserter(elems);
+   std::stringstream ss(string);
+   std::string item;
+   while (std::getline(ss, item, delimiter)) { *(result++) = item; }
+   return elems;
+}
+
+std::vector<std::string> DatabaseCSVLoader::tokenize(std::string str, char delim)
+{
+   std::vector<std::string> tokens = split(str, delim);
+   for (auto &token : tokens) token = trim(token);
+   return tokens;
+}
+
+std::string DatabaseCSVLoader::trim(std::string s)
+{
+   // ltrim
+   s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c) {return !std::isspace(c);}));
+   // rtrim
+   s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
+   return s;
+}
+
+std::map<std::string, AllegroFlare::AssetStudio::Asset*> DatabaseCSVLoader::get_assets()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::get_assets]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::get_assets]: error: guard \"loaded\" not met");
+   }
+   return assets;
+}
+
+bool DatabaseCSVLoader::asset_exists(std::string asset_identifier)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::asset_exists]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::asset_exists]: error: guard \"loaded\" not met");
+   }
+   return (assets.find(asset_identifier) != assets.end());
+}
+
+AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::find_asset(std::string asset_identifier)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"loaded\" not met");
+   }
+   if (!(asset_exists(asset_identifier)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::find_asset]: error: guard \"asset_exists(asset_identifier)\" not met");
+   }
+   return assets[asset_identifier];
+}
+
+std::vector<AllegroFlare::FrameAnimation::Frame> DatabaseCSVLoader::build_n_frames(uint32_t num_frames, uint32_t start_frame_num, float each_frame_duration, float each_frame_align_x, float each_frame_align_y, float each_frame_align_in_container_x, float each_frame_align_in_container_y, float each_frame_anchor_x, float each_frame_anchor_y)
+{
+   if (!((num_frames >= 1)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(num_frames >= 1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(num_frames >= 1)\" not met");
+   }
+   if (!((start_frame_num >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(start_frame_num >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(start_frame_num >= 0)\" not met");
+   }
+   if (!((each_frame_duration >= 0.0001)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(each_frame_duration >= 0.0001)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::build_n_frames]: error: guard \"(each_frame_duration >= 0.0001)\" not met");
+   }
+   std::vector<AllegroFlare::FrameAnimation::Frame> result;
+   for (uint32_t i=0; i<num_frames; i++)
+   {
+      AllegroFlare::FrameAnimation::Frame result_frame(start_frame_num + i, each_frame_duration);
+      result_frame.set_align_x(each_frame_align_x);
+      result_frame.set_align_y(each_frame_align_y);
+      result_frame.set_align_in_container_x(each_frame_align_in_container_x);
+      result_frame.set_align_in_container_y(each_frame_align_in_container_y);
+      result_frame.set_anchor_x(each_frame_anchor_x);
+      result_frame.set_anchor_y(each_frame_anchor_y);
+      
+      //result.push_back({ start_frame_num + i, each_frame_duration });
+      result.push_back(result_frame);
+   }
+   return result;
+}
+
+std::vector<AllegroFlare::FrameAnimation::Frame> DatabaseCSVLoader::build_frames_from_hash(std::string frame_data_hash)
+{
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::AssetStudio::DatabaseCSVLoader::build_frames_from_hash",
+      "This feature is not yet supported."
+   );
+
+   std::vector<AllegroFlare::FrameAnimation::Frame> result;
+   // TODO: If frame animation and alignment data is incuded in the hash, parse and use it here
+   return result;
+}
+
+AllegroFlare::FrameAnimation::SpriteSheet* DatabaseCSVLoader::obtain_sprite_sheet(std::string filename, int cell_width, int cell_height, int _sprite_sheet_scale)
+{
+   if (!(assets_bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::obtain_sprite_sheet]: error: guard \"assets_bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::obtain_sprite_sheet]: error: guard \"assets_bitmap_bin\" not met");
+   }
+   // TODO: Guard after assets_bitmap_bin is initialized
+
+   //std::map<std::tuple<filename, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> cache;
+   std::tuple<std::string, int, int, int> sprite_sheet_key(filename, cell_width, cell_height, _sprite_sheet_scale);
+   if (sprite_sheets.find(sprite_sheet_key) == sprite_sheets.end())
+   {
+      // Create sprite sheet
+      ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
+            assets_bitmap_bin->auto_get(filename)
+         );
+      AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
+         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
+      result_sprite_sheet->initialize();
+
+      al_destroy_bitmap(sprite_sheet_atlas);
+
+      // Add the sprite sheet to the list of sprite sheets
+      sprite_sheets[sprite_sheet_key] = result_sprite_sheet;
+   }
+
+   return sprite_sheets[sprite_sheet_key];
+
+   //ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
+         //assets_bitmap_bin->auto_get(filename)
+         ////assets_bitmap_bin.auto_get("grotto_escape_pack/Base pack/graphics/player.png")
+      //);
+   //AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
+      //new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
+
+   //al_destroy_bitmap(sprite_sheet_atlas);
+
+   //return result_sprite_sheet;
+}
+
+AllegroFlare::FrameAnimation::SpriteSheet* DatabaseCSVLoader::create_sprite_sheet_from_individual_images(std::vector<std::string> individual_frame_image_filenames, int cell_width, int cell_height, int _sprite_sheet_scale)
+{
+   if (!(assets_bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_sprite_sheet_from_individual_images]: error: guard \"assets_bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_sprite_sheet_from_individual_images]: error: guard \"assets_bitmap_bin\" not met");
+   }
+   if (!((!individual_frame_image_filenames.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_sprite_sheet_from_individual_images]: error: guard \"(!individual_frame_image_filenames.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::create_sprite_sheet_from_individual_images]: error: guard \"(!individual_frame_image_filenames.empty())\" not met");
+   }
+   // TODO: Consider caching the created result_sprite_sheet;
+
+   std::vector<ALLEGRO_BITMAP*> bitmaps;
+   for (auto &individual_frame_image_filename : individual_frame_image_filenames)
+   {
+      bitmaps.push_back(assets_bitmap_bin->auto_get(individual_frame_image_filename));
+   }
+
+   AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
+   sprite_strip_assembler.set_bitmaps(bitmaps);
+   sprite_strip_assembler.assemble();
+   ALLEGRO_BITMAP* sprite_strip = sprite_strip_assembler.get_sprite_strip();
+
+   // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
+   AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
+      new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
+   result_sprite_sheet->initialize();
+
+   // Cleanup
+   al_destroy_bitmap(sprite_strip);
+   // Cleanup the individual frame images in the bin here
+   for (auto &individual_frame_image_filename : individual_frame_image_filenames)
+   {
+      // TODO: This could wierdly clobber, consider checking all the image frames do *not* already exist in the
+      // bin at the beginning of the method before continuing.
+      assets_bitmap_bin->destroy(individual_frame_image_filename);
+   }
+
+   return result_sprite_sheet;
 }
 
 AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_identifier(std::string identifier_)
@@ -846,75 +915,6 @@ AllegroFlare::AssetStudio::Asset* DatabaseCSVLoader::create_asset_from_record_id
    //}
 
    return asset;
-}
-
-void DatabaseCSVLoader::load()
-{
-   if (!((!loaded)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"(!loaded)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"(!loaded)\" not met");
-   }
-   if (!(assets_bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"assets_bitmap_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::DatabaseCSVLoader::load]: error: guard \"assets_bitmap_bin\" not met");
-   }
-   // Load the records (if they have not been loaded already)
-   if (!records_loaded) load_records();
-
-   // Iterate over every record and load it into "assets"
-   std::set<std::string> hidden_assets;
-   for (auto &record : records)
-   {
-      if (record.visibility_is_hidden())
-      {
-         // TODO: Report the hidden assets at end of loading process
-         hidden_assets.insert(record.identifier);
-         continue;
-      }
-
-      // Create the asset
-      AllegroFlare::AssetStudio::Asset *asset = create_asset_from_record_identifier(record.identifier);
-
-      // Add the asset to the assets
-      assets.insert({ asset->identifier, asset });
-
-      continue;
-   }
-
-   loaded = true;
-   return;
-}
-
-std::vector<std::string> DatabaseCSVLoader::split(std::string string, char delimiter)
-{
-   std::vector<std::string> elems;
-   auto result = std::back_inserter(elems);
-   std::stringstream ss(string);
-   std::string item;
-   while (std::getline(ss, item, delimiter)) { *(result++) = item; }
-   return elems;
-}
-
-std::vector<std::string> DatabaseCSVLoader::tokenize(std::string str, char delim)
-{
-   std::vector<std::string> tokens = split(str, delim);
-   for (auto &token : tokens) token = trim(token);
-   return tokens;
-}
-
-std::string DatabaseCSVLoader::trim(std::string s)
-{
-   // ltrim
-   s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c) {return !std::isspace(c);}));
-   // rtrim
-   s.erase(std::find_if(s.rbegin(), s.rend(), [](int c) {return !std::isspace(c);}).base(), s.end());
-   return s;
 }
 
 

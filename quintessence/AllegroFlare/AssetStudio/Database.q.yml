@@ -25,6 +25,13 @@ properties:
     getter: true
     setter: true
 
+  - name: assets_bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: sprite_sheets
     type: std::map<std::tuple<std::string, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*>
     init_with: '{}'
@@ -246,5 +253,7 @@ dependencies:
     headers: [ AllegroFlare/AssetStudio/Record.hpp ]
   - symbol: AllegroFlare::FrameAnimation::SpriteSheet
     headers: [ AllegroFlare/FrameAnimation/SpriteSheet.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 
