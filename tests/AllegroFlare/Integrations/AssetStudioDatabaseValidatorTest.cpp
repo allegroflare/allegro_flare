@@ -24,15 +24,9 @@ TEST(AllegroFlare_Integrations_AssetStudioDatabaseValidatorTest, can_be_created_
 
 TEST(AllegroFlare_Integrations_AssetStudioDatabaseValidatorTest, load_records__on_production_database__will_not_blow_up)
 {
-   al_init(); // TODO: Is this necessary?
-   al_init_image_addon(); // TODO: Is this necessary?
-
    AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
-
    loader.set_csv_full_path(ASSETS_DB_CSV_FILENAME);
    loader.load_records();
-
-   al_uninstall_system(); // TODO: Is this necessary?
 }
 
 
