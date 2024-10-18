@@ -27,7 +27,8 @@ Database::Database(AllegroFlare::BitmapBin* assets_bitmap_bin)
    , sprite_sheet_scale(3)
    , global_identifier_prefix(DEFAULT_GLOBAL_IDENTIFIER_PREFIX)
    , using_global_identifier_prefix(false)
-   , all_assets_loaded(false)
+   , all_global_assets_loaded(false)
+   , all_local_assets_loaded(false)
 {
 }
 
@@ -133,9 +134,15 @@ bool Database::get_using_global_identifier_prefix() const
 }
 
 
-bool Database::get_all_assets_loaded() const
+bool Database::get_all_global_assets_loaded() const
 {
-   return all_assets_loaded;
+   return all_global_assets_loaded;
+}
+
+
+bool Database::get_all_local_assets_loaded() const
+{
+   return all_local_assets_loaded;
 }
 
 
@@ -363,21 +370,21 @@ AllegroFlare::FrameAnimation::Animation* Database::find_animation_by_identifier(
    return asset->animation;
 }
 
-void Database::load_all_records_to_assets()
+void Database::load_all_global_assets_from_all_global_records()
 {
-   if (!((!all_assets_loaded)))
+   if (!((!all_global_assets_loaded)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::Database::load_all_records_to_assets]: error: guard \"(!all_assets_loaded)\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::Database::load_all_global_assets_from_all_global_records]: error: guard \"(!all_global_assets_loaded)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::load_all_records_to_assets]: error: guard \"(!all_assets_loaded)\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::load_all_global_assets_from_all_global_records]: error: guard \"(!all_global_assets_loaded)\" not met");
    }
    if (!(assets_bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::AssetStudio::Database::load_all_records_to_assets]: error: guard \"assets_bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::AssetStudio::Database::load_all_global_assets_from_all_global_records]: error: guard \"assets_bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::load_all_records_to_assets]: error: guard \"assets_bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::load_all_global_assets_from_all_global_records]: error: guard \"assets_bitmap_bin\" not met");
    }
    // Load global assets
    std::set<std::string> hidden_global_assets;
@@ -397,6 +404,26 @@ void Database::load_all_records_to_assets()
       global_assets.insert({ asset->identifier, asset });
    }
 
+   all_global_assets_loaded = true;
+   return;
+}
+
+void Database::load_all_local_assets_from_all_local_records()
+{
+   if (!((!all_local_assets_loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::Database::load_all_local_assets_from_all_local_records]: error: guard \"(!all_local_assets_loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::load_all_local_assets_from_all_local_records]: error: guard \"(!all_local_assets_loaded)\" not met");
+   }
+   if (!(assets_bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::Database::load_all_local_assets_from_all_local_records]: error: guard \"assets_bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::load_all_local_assets_from_all_local_records]: error: guard \"assets_bitmap_bin\" not met");
+   }
    // Load local assets
    std::set<std::string> hidden_local_assets;
    for (auto &record : local_records)
@@ -415,7 +442,7 @@ void Database::load_all_records_to_assets()
       local_assets.insert({ asset->identifier, asset });
    }
 
-   all_assets_loaded = true;
+   all_local_assets_loaded = true;
    return;
 }
 

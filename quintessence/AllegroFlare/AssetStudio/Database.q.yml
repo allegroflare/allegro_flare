@@ -55,7 +55,12 @@ properties:
     init_with: false
     getter: true
 
-  - name: all_assets_loaded
+  - name: all_global_assets_loaded
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: all_local_assets_loaded
     type: bool
     init_with: false
     getter: true
@@ -340,8 +345,8 @@ methods:
 ## -------------------------
 
 
-  - name: load_all_records_to_assets
-    guards: [ (!all_assets_loaded), assets_bitmap_bin ]
+  - name: load_all_global_assets_from_all_global_records
+    guards: [ (!all_global_assets_loaded), assets_bitmap_bin ]
     body: |
       // Load global assets
       std::set<std::string> hidden_global_assets;
@@ -361,6 +366,13 @@ methods:
          global_assets.insert({ asset->identifier, asset });
       }
 
+      all_global_assets_loaded = true;
+      return;
+
+
+  - name: load_all_local_assets_from_all_local_records
+    guards: [ (!all_local_assets_loaded), assets_bitmap_bin ]
+    body: |
       // Load local assets
       std::set<std::string> hidden_local_assets;
       for (auto &record : local_records)
@@ -379,7 +391,7 @@ methods:
          local_assets.insert({ asset->identifier, asset });
       }
 
-      all_assets_loaded = true;
+      all_local_assets_loaded = true;
       return;
 
 

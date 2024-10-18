@@ -907,7 +907,11 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">all_assets_loaded</td>
+  <td class="property">all_global_assets_loaded</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">all_local_assets_loaded</td>
   <td class="property">bool</td>
 </tr>
 <tr>
@@ -987,7 +991,11 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>load_all_records_to_assets</b>()</td>
+  <td class="method"><b>load_all_global_assets_from_all_global_records</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load_all_local_assets_from_all_local_records</b>()</td>
 </tr>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::FrameAnimation::Frame&gt;</td>
