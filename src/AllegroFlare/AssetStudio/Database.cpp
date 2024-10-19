@@ -978,9 +978,12 @@ AllegroFlare::AssetStudio::Asset* Database::create_asset_from_record_identifier(
    //assets.insert({ asset->identifier, asset });
 
    // Showing loaded asset
-   std::cout << "Asset \"" << asset->identifier << "\" created. "
-             << "Dimensions: (" << asset->cell_width << ", " << asset->cell_height << "), "
-             << "Frames: " << animation->get_num_frames() << std::endl;
+   // TODO: Show different kinds of data for differnet types of assets
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::AssetStudio::DatabaseCSVLoader::create_assset_from_record_identifier",
+      "Asset \"" + asset->identifier + "\" created. Dimensions: (" + std::to_string(asset->cell_width)
+         + ", " + std::to_string(asset->cell_height) + "), Frames: " + std::to_string(animation->get_num_frames())
+   );
 
    // TODO: Load an "icon_set" type
    // If it's an "icon_set", then consider building unique assets for each icon
