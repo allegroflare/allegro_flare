@@ -5,7 +5,22 @@
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 
 
-class AllegroFlare_AssetStudio_DatabaseTest : public ::testing::Test {};
+class AllegroFlare_AssetStudio_DatabaseTest : public ::testing::Test
+{
+public:
+   AllegroFlare::AssetStudio::Record build_basic_record(
+      std::string identifier,
+      std::string type
+   )
+   {
+      AllegroFlare::AssetStudio::Record result;
+      result.identifier = identifier;
+      result.type = type;
+      return result;
+   }
+};
+
+
 class AllegroFlare_AssetStudio_DatabaseTestWithSetup : public ::testing::Test
 {
 public:
@@ -60,18 +75,6 @@ public:
       return result;
    }
 };
-
-
-static AllegroFlare::AssetStudio::Record build_basic_record(
-   std::string identifier,
-   std::string type
-)
-{
-   AllegroFlare::AssetStudio::Record result;
-   result.identifier = identifier;
-   result.type = type;
-   return result;
-}
 
 
 TEST_F(AllegroFlare_AssetStudio_DatabaseTest, can_be_created_without_blowing_up)
