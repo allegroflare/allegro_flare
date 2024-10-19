@@ -44,13 +44,16 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_
    ALLEGRO_BITMAP* source_bitmap = al_load_bitmap((data_path + test_tile_atlas_filename).c_str());
    ASSERT_NE(nullptr, source_bitmap);
 
-   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-   atlas.duplicate_bitmap_and_load(source_bitmap, 16, 16, 0);
+   AllegroFlare::TileMaps::PrimMeshAtlas dummy_atlas;
+   dummy_atlas.duplicate_bitmap_and_load(source_bitmap, 16, 16, 0);
 
-   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
+   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = dummy_atlas.get_tile_index();
    AllegroFlare::TileMaps::TileAtlasBuilder tile_atlas_builder(16, 16, tile_index);
    ALLEGRO_BITMAP *result = tile_atlas_builder.build_extruded();
    al_save_bitmap(build_test_filename_png("build__will_create_an_atlas").c_str(), result);
+
+   // dummy_atlas.destroy(); TOOD: Call this destroy
+                          // TODO: Call destroy in other tests and ensure it's called in other locations
 
    al_destroy_bitmap(result);
    //atlas.clear();
@@ -58,7 +61,6 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_
    al_shutdown_image_addon();
    al_uninstall_system();
 }
-
 
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
@@ -143,7 +145,5 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
 {
    // TODO
 }
-
-
 
 
