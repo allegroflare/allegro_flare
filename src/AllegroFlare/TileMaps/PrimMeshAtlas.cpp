@@ -129,32 +129,35 @@ ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap()
    return bitmap;
 }
 
-void PrimMeshAtlas::clear()
+void PrimMeshAtlas::destroy()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::clear]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::destroy]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::clear]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::destroy]: error: guard \"initialized\" not met");
    }
    if (!((!destroyed)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::clear]: error: guard \"(!destroyed)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::destroy]: error: guard \"(!destroyed)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::clear]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::destroy]: error: guard \"(!destroyed)\" not met");
    }
+   // TODO: Review elements are properly destroyed
    // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead
-   std::cout << "[PrimMeshAtlas::clear()] WARNING: this feature is destroying a bitmap that potentially may "
-             << "have depenedencies (as sub-bitmaps). This destruction mechanism has not yet been properly "
-             << "implemented."
-             << std::endl;
+   AllegroFlare::Logger::warn_from(
+      "AllegroFlare::TileMaps::PrimMeshAtlas::destroy",
+      "This feature is destroying a bitmap that potentially may have depenedencies (as sub-bitmaps). This "
+         "destruction mechanism has not yet been properly implemented. Please review."
+   );
 
    for (unsigned i=0; i<tile_index.size(); i++) al_destroy_bitmap(tile_index[i].get_sub_bitmap());
    if (bitmap) al_destroy_bitmap(bitmap);
-   bitmap = NULL;
+   bitmap = nullptr;
    tile_index.clear();
+   destroyed = true;
    return;
 }
 

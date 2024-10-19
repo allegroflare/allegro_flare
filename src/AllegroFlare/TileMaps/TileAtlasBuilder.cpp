@@ -293,7 +293,7 @@ ALLEGRO_BITMAP* TileAtlasBuilder::build_scaled_and_extruded(ALLEGRO_BITMAP* orig
       ALLEGRO_BITMAP *result = tile_atlas_builder.build_extruded();
    //al_save_bitmap(build_test_filename_png("buid__will_create_an_atlas").c_str(), result);
 
-   atlas.clear();
+   atlas.destroy();
 
    //al_destroy_bitmap(scaled);
    //al_destroy_bitmap(result);

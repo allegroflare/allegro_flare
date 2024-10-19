@@ -42,7 +42,7 @@ namespace AllegroFlare
          bool get_initialized() const;
          bool get_destroyed() const;
          ALLEGRO_BITMAP* get_bitmap();
-         void clear();
+         void destroy();
          void duplicate_bitmap_and_load(ALLEGRO_BITMAP* source_bitmap=nullptr, int tile_width=16, int tile_height=16, int tile_spacing=0);
          int get_tile_index_size();
          int get_bitmap_width();

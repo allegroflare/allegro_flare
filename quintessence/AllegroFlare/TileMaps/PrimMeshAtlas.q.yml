@@ -85,21 +85,25 @@ methods:
       return bitmap;
 
 
-  - name: clear
+  - name: destroy
     guards: [ initialized, (!destroyed) ]
     body: |
+      // TODO: Review elements are properly destroyed
       // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead
-      std::cout << "[PrimMeshAtlas::clear()] WARNING: this feature is destroying a bitmap that potentially may "
-                << "have depenedencies (as sub-bitmaps). This destruction mechanism has not yet been properly "
-                << "implemented."
-                << std::endl;
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::TileMaps::PrimMeshAtlas::destroy",
+         "This feature is destroying a bitmap that potentially may have depenedencies (as sub-bitmaps). This "
+            "destruction mechanism has not yet been properly implemented. Please review."
+      );
 
       for (unsigned i=0; i<tile_index.size(); i++) al_destroy_bitmap(tile_index[i].get_sub_bitmap());
       if (bitmap) al_destroy_bitmap(bitmap);
-      bitmap = NULL;
+      bitmap = nullptr;
       tile_index.clear();
+      destroyed = true;
       return;
     body_dependency_symbols:
+      - AllegroFlare::Logger
       - std::cout
 
 
