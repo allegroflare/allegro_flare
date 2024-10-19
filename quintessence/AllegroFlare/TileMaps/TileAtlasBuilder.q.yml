@@ -8,54 +8,6 @@ documentation:
 methods:
 
 
-  - name: validate_all_sub_bitmaps_in_tile_index_are_identical_sizes
-    type: bool
-    static: true
-    parameters:
-      - name: tile_index_
-        type: std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord>*
-        default_argument: nullptr
-    guards: [ tile_index_ ]
-    body: |
-      std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &tile_index = *tile_index_;
-      
-      // TODO: Test this
-      if (tile_index.empty()) return true;
-
-      ALLEGRO_BITMAP *sub_bitmap = tile_index[0].get_sub_bitmap();
-      if (!sub_bitmap)
-      {
-         AllegroFlare::Logger::throw_error(
-            "AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes",
-            "There is no sub_bitmap present on the first item in the tile_index."
-         );
-      }
-      int baseline_width = al_get_bitmap_width(sub_bitmap);
-      int baseline_height = al_get_bitmap_height(sub_bitmap);
-
-      for (int i=0; i<tile_index.size(); i++)
-      //for (auto &tile_index_record : tile_index)
-      {
-         auto &tile_index_record = tile_index[i];
-         ALLEGRO_BITMAP *sub_bitmap = tile_index_record.get_sub_bitmap();
-         if (!sub_bitmap)
-         {
-            AllegroFlare::Logger::throw_error(
-               "AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes",
-               "There is no sub_bitmap present on item at index \"" + std::to_string(i) + "\" in the tile_index."
-            );
-         }
-         int width = al_get_bitmap_width(sub_bitmap);
-         int height = al_get_bitmap_height(sub_bitmap);
-
-         if (width != baseline_width || height != baseline_height)
-         {
-            return false;
-         }
-      }
-      return true;
-
-
   - name: create_extruded
     type: ALLEGRO_BITMAP*
     static: true
@@ -68,12 +20,9 @@ methods:
        - (!tile_index_->empty())
        - validate_all_sub_bitmaps_in_tile_index_are_identical_sizes(tile_index_)
     body: |
-
       std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &tile_index = *tile_index_;
       // NOTE: This method will *create* a new bitmap given tiles that already exist in a tile_index.  It will
       // take those images and build a new bitmap, providing extruded edges.
-
-
 
       // Calculate the result image dimension for these tiles
 
@@ -356,6 +305,54 @@ methods:
     body_dependency_symbols:
       - AllegroFlare::Logger
       - AllegroFlare::ImageProcessing
+
+
+  - name: validate_all_sub_bitmaps_in_tile_index_are_identical_sizes
+    type: bool
+    static: true
+    parameters:
+      - name: tile_index_
+        type: std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord>*
+        default_argument: nullptr
+    guards: [ tile_index_ ]
+    body: |
+      std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &tile_index = *tile_index_;
+      
+      // TODO: Test this
+      if (tile_index.empty()) return true;
+
+      ALLEGRO_BITMAP *sub_bitmap = tile_index[0].get_sub_bitmap();
+      if (!sub_bitmap)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes",
+            "There is no sub_bitmap present on the first item in the tile_index."
+         );
+      }
+      int baseline_width = al_get_bitmap_width(sub_bitmap);
+      int baseline_height = al_get_bitmap_height(sub_bitmap);
+
+      for (int i=0; i<tile_index.size(); i++)
+      //for (auto &tile_index_record : tile_index)
+      {
+         auto &tile_index_record = tile_index[i];
+         ALLEGRO_BITMAP *sub_bitmap = tile_index_record.get_sub_bitmap();
+         if (!sub_bitmap)
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes",
+               "There is no sub_bitmap present on item at index \"" + std::to_string(i) + "\" in the tile_index."
+            );
+         }
+         int width = al_get_bitmap_width(sub_bitmap);
+         int height = al_get_bitmap_height(sub_bitmap);
+
+         if (width != baseline_width || height != baseline_height)
+         {
+            return false;
+         }
+      }
+      return true;
 
 
 dependencies:
