@@ -18,10 +18,7 @@ namespace TileMaps
 {
 
 
-TileAtlasBuilder::TileAtlasBuilder(int tile_w, int tile_h, std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index)
-   : tile_w(tile_w)
-   , tile_h(tile_h)
-   , tile_index(tile_index)
+TileAtlasBuilder::TileAtlasBuilder()
 {
 }
 
@@ -31,8 +28,17 @@ TileAtlasBuilder::~TileAtlasBuilder()
 }
 
 
-bool TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes()
+bool TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes(std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord>* tile_index_)
 {
+   if (!(tile_index_))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes]: error: guard \"tile_index_\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_sizes]: error: guard \"tile_index_\" not met");
+   }
+   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &tile_index = *tile_index_;
+
    // TODO: Test this
    if (tile_index.empty()) return true;
 
@@ -70,22 +76,31 @@ bool TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_size
    return true;
 }
 
-ALLEGRO_BITMAP* TileAtlasBuilder::create_extruded()
+ALLEGRO_BITMAP* TileAtlasBuilder::create_extruded(std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord>* tile_index_)
 {
-   if (!((!tile_index.empty())))
+   if (!(tile_index_))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"(!tile_index.empty())\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"tile_index_\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"(!tile_index.empty())\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"tile_index_\" not met");
    }
-   if (!(validate_all_sub_bitmaps_in_tile_index_are_identical_sizes()))
+   if (!((!tile_index_->empty())))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"validate_all_sub_bitmaps_in_tile_index_are_identical_sizes()\" not met.";
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"(!tile_index_->empty())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"validate_all_sub_bitmaps_in_tile_index_are_identical_sizes()\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"(!tile_index_->empty())\" not met");
    }
+   if (!(validate_all_sub_bitmaps_in_tile_index_are_identical_sizes(tile_index_)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"validate_all_sub_bitmaps_in_tile_index_are_identical_sizes(tile_index_)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded]: error: guard \"validate_all_sub_bitmaps_in_tile_index_are_identical_sizes(tile_index_)\" not met");
+   }
+
+   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &tile_index = *tile_index_;
    // NOTE: This method will *create* a new bitmap given tiles that already exist in a tile_index.  It will
    // take those images and build a new bitmap, providing extruded edges.
 
@@ -286,11 +301,13 @@ ALLEGRO_BITMAP* TileAtlasBuilder::create_scaled_and_extruded(ALLEGRO_BITMAP* ori
       al_destroy_bitmap(scaled);
       std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
       //PrimMeshAtlas::TileAtlasBuilder tile_atlas_builder(16*scale, 16*scale, tile_index);
-      TileAtlasBuilder tile_atlas_builder(tile_width*scale, tile_height*scale, tile_index);
+      //TileAtlasBuilder tile_atlas_builder(tile_width*scale, tile_height*scale, tile_index);
       //atlas.clear();
 
 
-      ALLEGRO_BITMAP *result = tile_atlas_builder.create_extruded();
+      //ALLEGRO_BITMAP *result = tile_atlas_builder.create_extruded();
+   ALLEGRO_BITMAP *result = AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded(&tile_index);
+
    //al_save_bitmap(build_test_filename_png("buid__will_create_an_atlas").c_str(), result);
 
    atlas.destroy();
