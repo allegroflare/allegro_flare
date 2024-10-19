@@ -1,13 +1,4 @@
 
-
-// NOTE: This class has been repositioned many times, was once a class contained in the PrimMeshAtlas class. Its role
-// is unclear at the last time of refactoring. What I'm trying to say is the class and tests could use some cleanup.
-
-// TODO: Clean up this class, the correctness of the tests and their tested components, and their naming
-
-// TODO: Consider if this class is needed or even used
-
-
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>

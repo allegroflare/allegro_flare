@@ -1,8 +1,32 @@
+properties:
+
+
+  - name: MIN_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE
+    type: std::size_t
+    init_with: 1
+    static: true
+    constexpr: true
+
+  - name: MAX_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE
+    type: std::size_t
+    init_with: 6
+    static: true
+    constexpr: true
+
+
 documentation:
 
 
+  - notes:
+      - create_extruded will create a new bitmap given bitmaps that already exist in a tile_index. The new bitmap will
+        be an atlas bitmap that combines all the bitmaps to a single bitmap, with the eadges of each extruded. For this
+        feature, all bitmaps that are in the tile_index must be the same dimensions.
+
   - todos:
       - Fix argument order in "create_scaled_and_extruded"
+      - Consider renaming this? TileMeshAtlasBuilder?
+      - Note this class could be used to combine arbitrary bitmaps into a single sheet with extrusions
+        and pixel perfect scale.
 
 
 methods:
@@ -21,13 +45,10 @@ methods:
        - validate_all_sub_bitmaps_in_tile_index_are_identical_sizes(tile_index_)
     body: |
       std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &tile_index = *tile_index_;
-      // NOTE: This method will *create* a new bitmap given tiles that already exist in a tile_index.  It will
-      // take those images and build a new bitmap, providing extruded edges.
 
-      // Calculate the result image dimension for these tiles
-
-      ALLEGRO_BITMAP *sub_bitmap = tile_index[0].get_sub_bitmap();
-      if (!sub_bitmap)
+      // Get the dimensions of the tile_index bitmaps
+      ALLEGRO_BITMAP *first_sub_bitmap = tile_index[0].get_sub_bitmap();
+      if (!first_sub_bitmap)
       {
          // TODO: Test this
          AllegroFlare::Logger::throw_error(
@@ -35,70 +56,46 @@ methods:
             "Tile first element in the tile_index does not contain a sub_bitmap"
          );
       }
-      int tile_width = al_get_bitmap_width(sub_bitmap);
-      int tile_height = al_get_bitmap_height(sub_bitmap);
+      int tile_width = al_get_bitmap_width(first_sub_bitmap);
+      int tile_height = al_get_bitmap_height(first_sub_bitmap);
       int num_tiles_in_tile_index = tile_index.size();
 
 
-      // Add the border of 1 pixel to each tile
+      // Calculate the final width and height of the atlas bitmap (adding a 1px border)
       int effective_tile_width = tile_width + 2;
       int effective_tile_height = tile_height + 2;
-
       int tiles_per_row = std::ceil(std::sqrt(num_tiles_in_tile_index));
       int rows = std::ceil(static_cast<float>(num_tiles_in_tile_index) / tiles_per_row);
-
-      // Calculate the final width and height of the atlas
       int atlas_width = tiles_per_row * effective_tile_width;
       int atlas_height = rows * effective_tile_height;
 
-      //int result_bitmap_width = 
-
-
-      // TODO: Consider:
-      //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
-
-      ALLEGRO_STATE prev;
-      al_store_state(&prev, ALLEGRO_STATE_TARGET_BITMAP);
-      ALLEGRO_BITMAP *target = al_create_bitmap(atlas_width, atlas_height);
-      //ALLEGRO_BITMAP *target = al_create_bitmap(1536*2, 1536*2); // TODO: make this a little better
-      //ALLEGRO_BITMAP *target = al_create_bitmap(512, 512);
-      al_set_target_bitmap(target);
+      //
+      // Render the tiles to the final bitmap
+      //
 
       AllegroFlare::Logger::info_from(
          "AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded",
          "Creating a surface of " + std::to_string(atlas_width) + "x" + std::to_string(atlas_height) + " to assemble "
             "a tile atlas for \"" + std::to_string(num_tiles_in_tile_index) + "\" tiles that are (" +
             std::to_string(tile_width) + "+2)x(" + std::to_string(tile_height) + "+2)."
-            //". This may not be large enough for the tile index, which contains " +
-            //std::to_string(tile_index.size()) + " tiles, each with a dimension of (" + std::to_string(tile_w) + ", "
-            //+ std::to_string(tile_h) + "), each tile likely has been scaled. If you are seeing blank tiles at larger "
-            //"tile index numbers, this could be the cause. Please update this function to accommodate the needed "
-            //"dimensions."
       );
-      //AllegroFlare::Logger::warn_from(
-         //"AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded",
-         //"Currently using a surface of 3072x3072. This may not be large enough for the tile index, which contains " +
-            //std::to_string(tile_index.size()) + " tiles, each with a dimension of (" + std::to_string(tile_w) + ", "
-            //+ std::to_string(tile_h) + "), each tile likely has been scaled. If you are seeing blank tiles at larger "
-            //"tile index numbers, this could be the cause. Please update this function to accommodate the needed "
-            //"dimensions."
-      //);
 
-
+      // TODO: Consider: al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+      ALLEGRO_STATE prev;
+      al_store_state(&prev, ALLEGRO_STATE_TARGET_BITMAP);
+      ALLEGRO_BITMAP *target = al_create_bitmap(atlas_width, atlas_height);
+      al_set_target_bitmap(target);
       al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));
-
 
       int step_x = tile_width + 2;
       int step_y = tile_height + 2;
-
       int num_rows = al_get_bitmap_height(target) / step_y;
       int num_cols = al_get_bitmap_width(target) / step_x;
 
 
-      // step 1:
-      // draw each tile onto the new tile_atlas bitmap, each with an extra padding of 1px
-
+      // Draw each tile onto the new tile_atlas bitmap, each with an extra padding of 1px
       for (int y=0; y<num_rows; y++)
+      {
          for (int x=0; x<num_cols; x++)
          {
             int index_num = x + y*num_cols;
@@ -109,14 +106,13 @@ methods:
 
             al_draw_bitmap(tile_index[index_num].get_sub_bitmap(), draw_x, draw_y, 0);
          }
-
+      }
       tile_drawing_finished:
 
 
-      // step 2:
-      // "extrude" the pixels on the edges of each tile
-
+      // Draw the extruded pixels on the edges of each tile
       for (int y=0; y<num_rows; y++)
+      {
          for (int x=0; x<num_cols; x++)
          {
             int index_num = x + y*num_cols;
@@ -159,27 +155,29 @@ methods:
             al_set_clipping_rectangle(draw_x+tile_width, draw_y+tile_height, 1, 1);
             al_draw_bitmap(tile_index[index_num].get_sub_bitmap(), draw_x+1, draw_y+1, 0);
          }
-
+      }
       edge_extruding_finished:
 
+      //
+      // Clean up
+      //
+
+      // Restore the clipping rectangle
       al_set_clipping_rectangle(0, 0, al_get_bitmap_width(target), al_get_bitmap_height(target));
 
-
-      //
-      // wrap it all up
-
+      // Restore the target
       al_restore_state(&prev);
 
-
       //
-      // to solve an odd bug, the bitmap will be cloned so that OPENGL will correctly create the mipmaps
+      // Solve an odd bug, the bitmap will be cloned so that OPENGL will correctly create the mipmaps
+      // TODO: Look into if this is still necessary
+      //
+
       ALLEGRO_BITMAP *cloned = al_clone_bitmap(target);
       al_destroy_bitmap(target);
       target = cloned;
 
-
       return target;
-      //return nullptr;
     body_dependency_symbols:
       - std::ceil
       - std::sqrt
@@ -203,52 +201,14 @@ methods:
         default_argument: 16
     guards: [ al_is_system_installed() ]
     body: |
-      // TODO: Confirm the lifecycle of this sprite sheet:
-      //    - the original bitmap
-      //    - the duplicated bitmap
-      //    - the created sub-bitmaps
-
-      //ALLEGRO_BITMAP *original_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
-      // TODO: require al_init
-      // TODO: require al_init_image_addon
-      //if (!al_is_system_installed()) throw std::runtime_error("AAAxixxA");// al_init();
-      //al_init_image_addon();
-      //al_init_color_addon();
-
-      //ALLEGRO_BITMAP* source_bitmap = original_bitmap; //al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
-      //ASSERT_NE(nullptr, source_bitmap);
-
-      //Tileo::Atlas atlas;
-      //atlas.duplicate_bitmap_and_load(source_bitmap, 16, 16, 0);
-
-      //int scale=3;
-      ALLEGRO_BITMAP *scaled =
-         TileAtlasBuilder::create_pixel_perfect_scaled_render(original_bitmap, scale);
-
+      // TODO: Confirm the lifecycle of the created bitmaps
+      ALLEGRO_BITMAP *scaled = TileAtlasBuilder::create_pixel_perfect_scaled_render(original_bitmap, scale);
       AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-         //atlas.duplicate_bitmap_and_load(scaled, 16*scale, 16*scale, 0);
-         atlas.duplicate_bitmap_and_load(scaled, tile_width*scale, tile_height*scale, 0);
-         al_destroy_bitmap(scaled);
-         std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
-         //PrimMeshAtlas::TileAtlasBuilder tile_atlas_builder(16*scale, 16*scale, tile_index);
-         //TileAtlasBuilder tile_atlas_builder(tile_width*scale, tile_height*scale, tile_index);
-         //atlas.clear();
-
-
-         //ALLEGRO_BITMAP *result = tile_atlas_builder.create_extruded();
+      atlas.duplicate_bitmap_and_load(scaled, tile_width*scale, tile_height*scale, 0);
+      al_destroy_bitmap(scaled);
+      std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
       ALLEGRO_BITMAP *result = AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded(&tile_index);
-
-      //al_save_bitmap(build_test_filename_png("buid__will_create_an_atlas").c_str(), result);
-
       atlas.destroy();
-
-      //al_destroy_bitmap(scaled);
-      //al_destroy_bitmap(result);
-      //atlas.clear();
-      //al_destroy_bitmap(source_bitmap);
-      //al_shutdown_image_addon();
-      //al_uninstall_system();
-
       return result;
     body_dependency_symbols:
       - al_is_system_installed
@@ -266,44 +226,15 @@ methods:
       - name: scale
         type: int
         default_argument: 3
+    guards:
+      - bitmap
+      - (scale >= MIN_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE)
+      - (scale <= MAX_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE)
     body: |
-      int min_valid_scale_value = 1;
-      int max_valid_scale_value = 6;
-
-      if (!bitmap)
-      {
-         AllegroFlare::Logger::throw_error(
-               "TileAtlasBuilder::create_pixel_perfect_scaled_render",
-               "bitmap cannot be a nullptr."
-            );
-      }
-      if (scale < 1 || scale > max_valid_scale_value) // TODO: Test this condition
-      {
-         AllegroFlare::Logger::throw_error(
-               "TileAtlasBuilder::create_pixel_perfect_scaled_render",
-               "The scale value provided \"" + std::to_string(scale) + "\" cannot be less than \""
-                  + std::to_string(min_valid_scale_value) + "\" or greater than \""
-                  + std::to_string(max_valid_scale_value) + "\"."
-            );
-      }
-
-
       AllegroFlare::ImageProcessing image_processing(bitmap);
-      // scale up the original bitmap
       ALLEGRO_BITMAP *scaled = image_processing.create_pixel_perfect_scaled_render(scale);
-
       return scaled;
-
-      // cut into an atlas
-
-
-      // get the tile_index
-
-
-      // use create_extruded with original_tile_width * scale, original_tile_height * width
-      //return nullptr;
     body_dependency_symbols:
-      - AllegroFlare::Logger
       - AllegroFlare::ImageProcessing
 
 

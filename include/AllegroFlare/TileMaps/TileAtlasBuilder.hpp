@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.hpp>
 #include <allegro5/allegro.h>
+#include <cstddef>
 #include <vector>
 
 
@@ -12,6 +13,10 @@ namespace AllegroFlare
    {
       class TileAtlasBuilder
       {
+      public:
+         static constexpr std::size_t MIN_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE = 1;
+         static constexpr std::size_t MAX_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE = 6;
+
       private:
 
       protected:
