@@ -21,7 +21,7 @@ documentation:
 
 
   - todos:
-      - Fix argument order in "build_scaled_and_extruded"
+      - Fix argument order in "create_scaled_and_extruded"
 
 
 methods:
@@ -237,7 +237,7 @@ methods:
       - std::sqrt
 
 
-  - name: build_scaled_and_extruded
+  - name: create_scaled_and_extruded
     type: ALLEGRO_BITMAP*
     static: true
     parameters:

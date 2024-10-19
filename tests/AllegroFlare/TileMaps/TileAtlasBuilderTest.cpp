@@ -102,7 +102,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
 
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
-   build_scaled_and_extruded__will_create_a_pixel_perfect_scaled_atlas_with_tile_edges_extruded)
+   create_scaled_and_extruded__will_create_a_pixel_perfect_scaled_atlas_with_tile_edges_extruded)
 {
    // TODO
 }

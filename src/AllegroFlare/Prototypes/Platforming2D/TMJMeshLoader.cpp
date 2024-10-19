@@ -305,7 +305,7 @@ bool TMJMeshLoader::load()
       int scale = 3;
       // TODO: factor out this step
       ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-         AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded(tile_map_bitmap, scale);
+         AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(tile_map_bitmap, scale);
       created_tile_atlas->duplicate_bitmap_and_load(
          scaled_extruded_tile_map_bitmap, tile_atlas_tile_width*scale, tile_atlas_tile_height*scale, 1
       );

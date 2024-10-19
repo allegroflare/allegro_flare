@@ -67,7 +67,7 @@ void SpriteSheet::initialize()
    // TODO: Test there are no dangling bitmaps
    // TODO: Add guards on undestroyed
    ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap = // TODO: Verify this is not dangling
-      AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded(
+      AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(
             atlas,
             scale,
             sprite_width,

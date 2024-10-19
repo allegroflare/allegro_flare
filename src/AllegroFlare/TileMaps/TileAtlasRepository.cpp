@@ -136,7 +136,7 @@ void TileAtlasRepository::load(std::string identifier, std::string source_bitmap
 
    // Assemble the bitmap (duplicate the source bitmap at scale)
    ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-      AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded(initial_source_bitmap, scale);
+      AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(initial_source_bitmap, scale);
 
    // Add a record to the repository for this tile_atlas
    repository[identifier] = AllegroFlare::TileMaps::TileAtlasRepositoryRecord();
