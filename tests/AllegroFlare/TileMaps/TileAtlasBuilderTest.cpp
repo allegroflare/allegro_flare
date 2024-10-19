@@ -32,7 +32,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, can_be_created_without_blowing_
 }
 
 
-TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_atlas_with_tile_edges_extruded)
+TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, create_extruded__will_create_an_atlas_with_tile_edges_extruded)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
    std::string data_path = deployment_environment.get_data_folder_path();
@@ -49,7 +49,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_
 
    std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = dummy_atlas.get_tile_index();
    AllegroFlare::TileMaps::TileAtlasBuilder tile_atlas_builder(16, 16, tile_index);
-   ALLEGRO_BITMAP *result = tile_atlas_builder.build_extruded();
+   ALLEGRO_BITMAP *result = tile_atlas_builder.create_extruded();
    al_save_bitmap(build_test_filename_png("build__will_create_an_atlas").c_str(), result);
 
    // dummy_atlas.destroy(); TOOD: Call this destroy
@@ -64,7 +64,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, build_extruded__will_create_an_
 
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
-   build_extruded__will_correctly_create_an_atlas_with_tile_edges_extruded_when_dimensions_are_not_16x16)
+   create_extruded__will_correctly_create_an_atlas_with_tile_edges_extruded_when_dimensions_are_not_16x16)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
    std::string data_path = deployment_environment.get_data_folder_path();
@@ -81,7 +81,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
 
    std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
    AllegroFlare::TileMaps::TileAtlasBuilder tile_atlas_builder(12, 16, tile_index);
-   ALLEGRO_BITMAP *result = tile_atlas_builder.build_extruded();
+   ALLEGRO_BITMAP *result = tile_atlas_builder.create_extruded();
    al_save_bitmap(build_test_filename_png("build__will_create_an_atlas_with_non_16x16_tiles").c_str(), result);
 
    al_destroy_bitmap(result);
@@ -94,7 +94,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
 
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
-   build_extruded__will_work_on_atlases_where_source_images_are_tall_or_wide_and_not_perfect_square_dimensions)
+   create_extruded__will_work_on_atlases_where_source_images_are_tall_or_wide_and_not_perfect_square_dimensions)
 {
    // TODO
 }
@@ -109,10 +109,9 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
 
 
 
-/*
 // TODO: Consider if this test needs to be located somewhere else
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
-   get_tile_sub_bitmap__returns_the_sub_bitmap_of_the_tile)
+   DISABLED__get_tile_sub_bitmap__returns_the_sub_bitmap_of_the_tile)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
    std::string data_path = deployment_environment.get_data_folder_path();
@@ -137,7 +136,7 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,
    al_shutdown_image_addon();
    al_uninstall_system();
 }
-*/
+
 
 
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest,

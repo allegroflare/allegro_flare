@@ -67,7 +67,7 @@ methods:
       return true;
 
 
-  - name: build_extruded
+  - name: create_extruded
     type: ALLEGRO_BITMAP*
     guards: [ (!tile_index.empty()), validate_all_sub_bitmaps_in_tile_index_are_identical_sizes() ]
     body: |
@@ -83,7 +83,7 @@ methods:
       {
          // TODO: Test this
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded",
+            "AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded",
             "Tile first element in the tile_index does not contain a sub_bitmap"
          );
       }
@@ -117,7 +117,7 @@ methods:
       al_set_target_bitmap(target);
 
       AllegroFlare::Logger::info_from(
-         "AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded",
+         "AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded",
          "Creating a surface of " + std::to_string(atlas_width) + "x" + std::to_string(atlas_height) + " to assemble "
             "a tile atlas for \"" + std::to_string(num_tiles_in_tile_index) + "\" tiles that are (" +
             std::to_string(tile_width) + "+2)x(" + std::to_string(tile_height) + "+2)."
@@ -128,7 +128,7 @@ methods:
             //"dimensions."
       );
       //AllegroFlare::Logger::warn_from(
-         //"AllegroFlare::TileMaps::TileAtlasBuilder::build_extruded",
+         //"AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded",
          //"Currently using a surface of 3072x3072. This may not be large enough for the tile index, which contains " +
             //std::to_string(tile_index.size()) + " tiles, each with a dimension of (" + std::to_string(tile_w) + ", "
             //+ std::to_string(tile_h) + "), each tile likely has been scaled. If you are seeing blank tiles at larger "
@@ -287,7 +287,7 @@ methods:
          //atlas.clear();
 
 
-         ALLEGRO_BITMAP *result = tile_atlas_builder.build_extruded();
+         ALLEGRO_BITMAP *result = tile_atlas_builder.create_extruded();
       //al_save_bitmap(build_test_filename_png("buid__will_create_an_atlas").c_str(), result);
 
       atlas.destroy();
@@ -350,7 +350,7 @@ methods:
       // get the tile_index
 
 
-      // use build_extruded with original_tile_width * scale, original_tile_height * width
+      // use create_extruded with original_tile_width * scale, original_tile_height * width
       //return nullptr;
     body_dependency_symbols:
       - AllegroFlare::Logger
