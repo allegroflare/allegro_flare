@@ -64,7 +64,9 @@ void SpriteSheet::initialize()
    num_rows = al_get_bitmap_height(atlas) / sprite_height;
    num_columns = al_get_bitmap_width(atlas) / sprite_width;
 
-   ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap = // TODO: This is dangling, no?
+   // TODO: Test there are no dangling bitmaps
+   // TODO: Add guards on undestroyed
+   ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap = // TODO: Verify this is not dangling
       AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded(
             atlas,
             scale,
@@ -78,6 +80,8 @@ void SpriteSheet::initialize()
    new_atlas.duplicate_bitmap_and_load(
       scaled_extruded_tile_map_bitmap, sprite_width*scale, sprite_height*scale, 1
    );
+
+   al_destroy_bitmap(scaled_extruded_tile_map_bitmap);
 
    // Set the new tile index
    new_tile_index = new_atlas.get_tile_index();
@@ -129,7 +133,16 @@ void SpriteSheet::destroy()
 
 SpriteSheet::~SpriteSheet()
 {
-   // Do nothing (previously called destroy())
+   if (!destroyed)
+   {
+      // TODO: Review this error message
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::FrameAnimation::SpriteSheet::~SpriteSheet",
+         "The sprite sheet is expected to be destroyed() before the destructor is called. This may result in "
+            "unexpected behavior, or more likely indicates an unfreed resource and potentially leaking memory during "
+            "application usage. Please review."
+      );
+   }
 }
 
 

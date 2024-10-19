@@ -618,11 +618,13 @@ AllegroFlare::FrameAnimation::SpriteSheet* Database::obtain_sprite_sheet(std::st
       // Create sprite sheet
       // TODO: Check this duplication proceedure does not leave dangling bitmaps
 
-      // Clone the bitmap sheet
-      ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(assets_bitmap_bin->auto_get(filename));
+      // Use the assets_bitmap_bin to load the bitmap, clone it
+      // TODO: Test proper bitmap flags when loading and cloning
+      // TODO: Test the destruction of the bitmap
+      ALLEGRO_BITMAP* sprite_sheet_atlas = assets_bitmap_bin->auto_get(filename);
 
       AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-         new AllegroFlare::FrameAnimation::SpriteSheet( // HERE
+         new AllegroFlare::FrameAnimation::SpriteSheet( // NOTE: This process will clone the sprite_sheet_atlas
             sprite_sheet_atlas,
             cell_width,
             cell_height,
@@ -630,12 +632,7 @@ AllegroFlare::FrameAnimation::SpriteSheet* Database::obtain_sprite_sheet(std::st
          );
       result_sprite_sheet->initialize();
 
-      // Destroy the cloned bitmap that was added to the sprite sheet
-      al_destroy_bitmap(sprite_sheet_atlas);
-
-      // Destroy the bitmap loaded by the asset_bitmap_bin
       // TODO: Allow destroying bitmaps silently
-      // TODO: Test proper destruction of bitmap
       assets_bitmap_bin->destroy(filename);
 
       // Add the sprite sheet to the list of sprite sheets
