@@ -23,6 +23,36 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, can_be_created_without_blowing_
 }
 
 
+TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, create__will_create_a_prim_mesh_atlas_with_the_expected_properties)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
+   std::string data_path = deployment_environment.get_data_folder_path();
+   std::string test_tile_atlas_filename = "tiles_dungeon_v1.1.png";
+   al_init();
+   al_init_image_addon();
+   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap((data_path + test_tile_atlas_filename).c_str());
+   ASSERT_NE(nullptr, source_bitmap);
+
+   AllegroFlare::TileMaps::PrimMeshAtlas *atlas = AllegroFlare::TileMaps::TileAtlasBuilder::create(
+      source_bitmap, 16, 16, 3
+   );
+
+   // TODO: Pick pixel tests
+
+   al_save_bitmap(build_test_filename_png(
+      "create__will_create_a_prim_mesh_atlas_with_the_expected_properties").c_str(),
+      atlas->get_bitmap()
+   );
+
+   // Cleanup
+   atlas->destroy();
+
+   al_destroy_bitmap(source_bitmap);
+   al_shutdown_image_addon();
+   al_uninstall_system();
+}
+
+
 TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, create_extruded__will_create_an_atlas_with_tile_edges_extruded)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);

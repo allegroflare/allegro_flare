@@ -28,6 +28,41 @@ TileAtlasBuilder::~TileAtlasBuilder()
 }
 
 
+AllegroFlare::TileMaps::PrimMeshAtlas* TileAtlasBuilder::create(ALLEGRO_BITMAP* source_bitmap, int tile_width, int tile_height, int scale)
+{
+   if (!(source_bitmap))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create]: error: guard \"source_bitmap\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create]: error: guard \"source_bitmap\" not met");
+   }
+   ALLEGRO_BITMAP *atlas_bitmap = create_scaled_and_extruded(source_bitmap, scale, tile_width, tile_height);
+   AllegroFlare::TileMaps::PrimMeshAtlas *result_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
+   result_atlas->duplicate_bitmap_and_load(atlas_bitmap, tile_width*scale, tile_height*scale, 1);
+   return result_atlas;
+}
+
+ALLEGRO_BITMAP* TileAtlasBuilder::create_scaled_and_extruded(ALLEGRO_BITMAP* original_bitmap, int scale, int tile_width, int tile_height)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded]: error: guard \"al_is_system_installed()\" not met");
+   }
+   // TODO: Confirm the lifecycle of the created bitmaps
+   ALLEGRO_BITMAP *scaled = TileAtlasBuilder::create_pixel_perfect_scaled_render(original_bitmap, scale);
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+   atlas.duplicate_bitmap_and_load(scaled, tile_width*scale, tile_height*scale, 0);
+   al_destroy_bitmap(scaled);
+   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
+   ALLEGRO_BITMAP *result = AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded(&tile_index);
+   atlas.destroy();
+   return result;
+}
+
 ALLEGRO_BITMAP* TileAtlasBuilder::create_extruded(std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord>* tile_index_)
 {
    if (!(tile_index_))
@@ -185,26 +220,6 @@ ALLEGRO_BITMAP* TileAtlasBuilder::create_extruded(std::vector<AllegroFlare::Tile
    target = cloned;
 
    return target;
-}
-
-ALLEGRO_BITMAP* TileAtlasBuilder::create_scaled_and_extruded(ALLEGRO_BITMAP* original_bitmap, int scale, int tile_width, int tile_height)
-{
-   if (!(al_is_system_installed()))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded]: error: guard \"al_is_system_installed()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded]: error: guard \"al_is_system_installed()\" not met");
-   }
-   // TODO: Confirm the lifecycle of the created bitmaps
-   ALLEGRO_BITMAP *scaled = TileAtlasBuilder::create_pixel_perfect_scaled_render(original_bitmap, scale);
-   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-   atlas.duplicate_bitmap_and_load(scaled, tile_width*scale, tile_height*scale, 0);
-   al_destroy_bitmap(scaled);
-   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
-   ALLEGRO_BITMAP *result = AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded(&tile_index);
-   atlas.destroy();
-   return result;
 }
 
 ALLEGRO_BITMAP* TileAtlasBuilder::create_pixel_perfect_scaled_render(ALLEGRO_BITMAP* bitmap, int scale)

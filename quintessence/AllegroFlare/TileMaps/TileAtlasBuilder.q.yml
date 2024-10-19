@@ -27,9 +27,69 @@ documentation:
       - Consider renaming this? TileMeshAtlasBuilder?
       - Note this class could be used to combine arbitrary bitmaps into a single sheet with extrusions
         and pixel perfect scale.
+      - Consider that "create_extuded" really should be private
 
 
 methods:
+
+
+  - name: create
+    type: AllegroFlare::TileMaps::PrimMeshAtlas*
+    static: true
+    parameters:
+      - name: source_bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: tile_width
+        type: int
+        default_argument: 16
+      - name: tile_height
+        type: int
+        default_argument: 16
+      - name: scale
+        type: int
+        default_argument: 3
+    guards: [ source_bitmap ]
+    body: |
+      ALLEGRO_BITMAP *atlas_bitmap = create_scaled_and_extruded(source_bitmap, scale, tile_width, tile_height);
+      AllegroFlare::TileMaps::PrimMeshAtlas *result_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
+      result_atlas->duplicate_bitmap_and_load(atlas_bitmap, tile_width*scale, tile_height*scale, 1);
+      return result_atlas;
+    body_dependency_symbols:
+      - AllegroFlare::TileMaps::PrimMeshAtlas
+
+
+  - name: create_scaled_and_extruded
+    type: ALLEGRO_BITMAP*
+    static: true
+    parameters:
+      - name: original_bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: scale
+        type: int
+        default_argument: 3
+      - name: tile_width
+        type: int
+        default_argument: 16
+      - name: tile_height
+        type: int
+        default_argument: 16
+    guards: [ al_is_system_installed() ]
+    body: |
+      // TODO: Confirm the lifecycle of the created bitmaps
+      ALLEGRO_BITMAP *scaled = TileAtlasBuilder::create_pixel_perfect_scaled_render(original_bitmap, scale);
+      AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+      atlas.duplicate_bitmap_and_load(scaled, tile_width*scale, tile_height*scale, 0);
+      al_destroy_bitmap(scaled);
+      std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
+      ALLEGRO_BITMAP *result = AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded(&tile_index);
+      atlas.destroy();
+      return result;
+    body_dependency_symbols:
+      - al_is_system_installed
+      - AllegroFlare::TileMaps::PrimMeshAtlas
+      - AllegroFlare::Logger
 
 
   - name: create_extruded
@@ -181,39 +241,6 @@ methods:
     body_dependency_symbols:
       - std::ceil
       - std::sqrt
-
-
-  - name: create_scaled_and_extruded
-    type: ALLEGRO_BITMAP*
-    static: true
-    parameters:
-      - name: original_bitmap
-        type: ALLEGRO_BITMAP*
-        default_argument: nullptr
-      - name: scale
-        type: int
-        default_argument: 3
-      - name: tile_width
-        type: int
-        default_argument: 16
-      - name: tile_height
-        type: int
-        default_argument: 16
-    guards: [ al_is_system_installed() ]
-    body: |
-      // TODO: Confirm the lifecycle of the created bitmaps
-      ALLEGRO_BITMAP *scaled = TileAtlasBuilder::create_pixel_perfect_scaled_render(original_bitmap, scale);
-      AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-      atlas.duplicate_bitmap_and_load(scaled, tile_width*scale, tile_height*scale, 0);
-      al_destroy_bitmap(scaled);
-      std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index = atlas.get_tile_index();
-      ALLEGRO_BITMAP *result = AllegroFlare::TileMaps::TileAtlasBuilder::create_extruded(&tile_index);
-      atlas.destroy();
-      return result;
-    body_dependency_symbols:
-      - al_is_system_installed
-      - AllegroFlare::TileMaps::PrimMeshAtlas
-      - AllegroFlare::Logger
 
 
   - name: create_pixel_perfect_scaled_render
