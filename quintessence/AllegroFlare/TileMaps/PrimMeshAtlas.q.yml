@@ -4,7 +4,7 @@ properties:
   - name: bitmap
     type: ALLEGRO_BITMAP*
     init_with: nullptr
-    getter: true
+    getter: explicit
 
   - name: bitmap_filename
     type: std::string
@@ -16,19 +16,19 @@ properties:
     type: int
     init_with: 1
     getter: true
-    setter: explicit
+    setter: before_initialized
 
   - name: tile_height
     type: int
     init_with: 1
     getter: true
-    setter: explicit
+    setter: before_initialized
 
   - name: tile_spacing
     type: int
     init_with: 0
     getter: true
-    setter: explicit
+    setter: before_initialized
 
   - name: tile_index
     type: std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord>
@@ -36,62 +36,35 @@ properties:
     getter: true
     setter: false
 
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+
+documentation:
+
+
+  - todos:
+      - Consider renaming this to TileMeshAtlas?
+      - Add "destroyed" object lifecycle scheduling, add "not destroyed" warning message to destructor when available
+      - have tile_index getter only after initialization
+      - Remove "get_bitmap_width" and "get_bitmap_height", seem unnecessary
+      - Remove "bitmap_filename", seems unnecessary
+
 
 methods:
 
 
-  - name: set_tile_width
-    parameters:
-      - name: tile_width
-        type: int
-        default_argument: 16
+  - name: get_bitmap
+    type: ALLEGRO_BITMAP*
+    guards: [ initialized ]
     body: |
-      // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead, or
-      // "setter: before_initialize" instead
-      std::cout << "[PrimMeshAtlas::set_tile_width()] WARNING: setting the tile width will invalidate the mesh, please review."
-                << std::endl;
-      // TODO: important, the mesh needs to be refreshed if this value is changed
-      this->tile_width = tile_width;
-      return;
-    body_dependency_symbols:
-      - std::cout
-
-
-  - name: set_tile_height
-    parameters:
-      - name: tile_height
-        type: int
-        default_argument: 16
-    body: |
-      // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead, or
-      // "setter: before_initialize" instead
-      std::cout << "[PrimMeshAtlas::set_tile_height()] WARNING: setting the tile height will invalidate the mesh, please review."
-                << std::endl;
-      // TODO: important, the mesh needs to be refreshed if this value is changed
-      this->tile_height = tile_height;
-      return;
-    body_dependency_symbols:
-      - std::cout
-
-
-  - name: set_tile_spacing
-    parameters:
-      - name: tile_spacing
-        type: int
-        default_argument: 16
-    body: |
-      // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead, or
-      // "setter: before_initialize" instead
-      std::cout << "[PrimMeshAtlas::set_tile_spacing()] WARNING: setting the tile spacing will invalidate the mesh, please review."
-                << std::endl;
-      // TODO: important, the mesh needs to be refreshed if this value is changed
-      this->tile_spacing = tile_spacing;
-      return;
-    body_dependency_symbols:
-      - std::cout
+      return bitmap;
 
 
   - name: clear
+    guards: [ initialized ]
     body: |
       // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead
       std::cout << "[PrimMeshAtlas::clear()] WARNING: this feature is destroying a bitmap that potentially may "
@@ -122,18 +95,21 @@ methods:
       - name: tile_spacing
         type: int
         default_argument: 0
+    guards: [ (!initialized), source_bitmap, (!al_is_sub_bitmap(source_bitmap)) ]
     body: |
+      // TODO: Add test on the guard that this cannot be a sub-bitmap
+
       this->tile_width = tile_width;
       this->tile_height = tile_height;
       this->tile_spacing = tile_spacing;
 
-      if (!source_bitmap)
-      {
-         std::cout << "[PrimMeshAtlas::load()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
-      }
+      //if (!source_bitmap)
+      //{
+         //std::cout << "[PrimMeshAtlas::load()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
+      //}
 
       // clear the existing contents of this tile atlas (if any)
-      clear();
+      //clear();
 
       bitmap = al_clone_bitmap(source_bitmap);
 
@@ -161,6 +137,8 @@ methods:
          tile_index[index_num].set_u2(x2);
          tile_index[index_num].set_v2(y2);
       }
+
+      initialized = true;
       return;
 
 

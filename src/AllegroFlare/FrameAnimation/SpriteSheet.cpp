@@ -64,7 +64,7 @@ void SpriteSheet::initialize()
    num_rows = al_get_bitmap_height(atlas) / sprite_height;
    num_columns = al_get_bitmap_width(atlas) / sprite_width;
 
-   ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
+   ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap = // TODO: This is dangling, no?
       AllegroFlare::TileMaps::TileAtlasBuilder::build_scaled_and_extruded(
             atlas,
             scale,

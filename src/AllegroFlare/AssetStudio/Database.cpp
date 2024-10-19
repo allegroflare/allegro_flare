@@ -586,7 +586,7 @@ std::vector<AllegroFlare::FrameAnimation::Frame> Database::build_frames_from_has
    return result;
 }
 
-AllegroFlare::FrameAnimation::SpriteSheet* Database::obtain_sprite_sheet(std::string filename, int cell_width, int cell_height, int _sprite_sheet_scale)
+AllegroFlare::FrameAnimation::SpriteSheet* Database::obtain_sprite_sheet(std::string filename, int cell_width, int cell_height, int _sprite_sheet_scale, bool preload_bitmap_silently)
 {
    if (!(assets_bitmap_bin))
    {
@@ -595,21 +595,48 @@ AllegroFlare::FrameAnimation::SpriteSheet* Database::obtain_sprite_sheet(std::st
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::AssetStudio::Database::obtain_sprite_sheet]: error: guard \"assets_bitmap_bin\" not met");
    }
-   // TODO: Guard after assets_bitmap_bin is initialized
-
-   //std::map<std::tuple<filename, int, int, int>, AllegroFlare::FrameAnimation::SpriteSheet*> cache;
+   if (!(assets_bitmap_bin->is_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AssetStudio::Database::obtain_sprite_sheet]: error: guard \"assets_bitmap_bin->is_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AssetStudio::Database::obtain_sprite_sheet]: error: guard \"assets_bitmap_bin->is_initialized()\" not met");
+   }
    std::tuple<std::string, int, int, int> sprite_sheet_key(filename, cell_width, cell_height, _sprite_sheet_scale);
    if (sprite_sheets.find(sprite_sheet_key) == sprite_sheets.end())
    {
+      // Create the sprite sheet
+
+      // Load the bitmap from the bitmap bin
+      // TODO: Consider new bitmap flags when loading
+
+      if (preload_bitmap_silently)
+      {
+         assets_bitmap_bin->preload(filename);
+      }
+
       // Create sprite sheet
-      ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(
-            assets_bitmap_bin->auto_get(filename)
-         );
+      // TODO: Check this duplication proceedure does not leave dangling bitmaps
+
+      // Clone the bitmap sheet
+      ALLEGRO_BITMAP* sprite_sheet_atlas = al_clone_bitmap(assets_bitmap_bin->auto_get(filename));
+
       AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_atlas, cell_width, cell_height, _sprite_sheet_scale);
+         new AllegroFlare::FrameAnimation::SpriteSheet( // HERE
+            sprite_sheet_atlas,
+            cell_width,
+            cell_height,
+            _sprite_sheet_scale
+         );
       result_sprite_sheet->initialize();
 
+      // Destroy the cloned bitmap that was added to the sprite sheet
       al_destroy_bitmap(sprite_sheet_atlas);
+
+      // Destroy the bitmap loaded by the asset_bitmap_bin
+      // TODO: Allow destroying bitmaps silently
+      // TODO: Test proper destruction of bitmap
+      assets_bitmap_bin->destroy(filename);
 
       // Add the sprite sheet to the list of sprite sheets
       sprite_sheets[sprite_sheet_key] = result_sprite_sheet;
@@ -694,7 +721,7 @@ AllegroFlare::FrameAnimation::SpriteSheet* Database::create_sprite_sheet_from_in
    return result_sprite_sheet;
 }
 
-AllegroFlare::AssetStudio::Asset* Database::create_asset_from_record_identifier(std::string identifier_)
+AllegroFlare::AssetStudio::Asset* Database::create_asset_from_record_identifier(std::string identifier_, bool preload_bitmap_silently)
 {
    if (!(record_exists(identifier_)))
    {
@@ -828,7 +855,13 @@ AllegroFlare::AssetStudio::Asset* Database::create_asset_from_record_identifier(
       // NOTE: MOST COMMON USE CASE
       // There is "image_filename" data present on this record.
       std::string full_path_to_image_file = asset_pack_identifier + "/extracted/" + image_filename;
-      sprite_sheet = obtain_sprite_sheet(full_path_to_image_file, cell_width, cell_height, sprite_sheet_scale);
+      sprite_sheet = obtain_sprite_sheet(
+         full_path_to_image_file,
+         cell_width,
+         cell_height,
+         sprite_sheet_scale,
+         preload_bitmap_silently
+      );
    }
    else if (!images_list.empty())
    {

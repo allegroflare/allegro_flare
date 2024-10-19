@@ -1015,7 +1015,7 @@ table td
 </tr>
 <tr>
   <td class="private_method">AllegroFlare::FrameAnimation::SpriteSheet*</td>
-  <td class="private_method"><b>obtain_sprite_sheet</b>(std::string filename=&quot;[unset-filename]&quot;, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2)</td>
+  <td class="private_method"><b>obtain_sprite_sheet</b>(std::string filename=&quot;[unset-filename]&quot;, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2, bool preload_bitmap_silently=true)</td>
 </tr>
 <tr>
   <td class="method">std::pair&lt;bool, uint32_t&gt;</td>
@@ -1027,7 +1027,7 @@ table td
 </tr>
 <tr>
   <td class="method">AllegroFlare::AssetStudio::Asset*</td>
-  <td class="method"><b>create_asset_from_record_identifier</b>(std::string identifier_=&quot;[unset-identifier_]&quot;)</td>
+  <td class="method"><b>create_asset_from_record_identifier</b>(std::string identifier_=&quot;[unset-identifier_]&quot;, bool preload_bitmap_silently=true)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -40099,8 +40099,8 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/TileMaps/PrimMeshAtlas.q.yml">quintessence/AllegroFlare/TileMaps/PrimMeshAtlas.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Consider renaming this to TileMeshAtlas?", "Add \"destroyed\" object lifecycle scheduling, add \"not destroyed\" warning message to destructor when available", "have tile_index getter only after initialization", "Remove \"get_bitmap_width\" and \"get_bitmap_height\", seem unnecessary", "Remove \"bitmap_filename\", seems unnecessary"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">bitmap</td>
@@ -40126,20 +40126,16 @@ table td
   <td class="property">tile_index</td>
   <td class="property">std::vector&lt;AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord&gt;</td>
 </tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">void</td>
-  <td class="method"><b>set_tile_width</b>(int tile_width=16)</td>
-</tr>
-<tr>
-  <td class="method">void</td>
-  <td class="method"><b>set_tile_height</b>(int tile_height=16)</td>
-</tr>
-<tr>
-  <td class="method">void</td>
-  <td class="method"><b>set_tile_spacing</b>(int tile_spacing=16)</td>
+  <td class="method">ALLEGRO_BITMAP*</td>
+  <td class="method"><b>get_bitmap</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>

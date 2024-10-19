@@ -39,7 +39,7 @@ namespace AllegroFlare
          bool all_local_assets_loaded;
          void remove_global_identifier_prefixes();
          void prefix_global_identifier_prefix_to_identifiers(std::string prefix="[unset-prefix]");
-         AllegroFlare::FrameAnimation::SpriteSheet* obtain_sprite_sheet(std::string filename="[unset-filename]", int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
+         AllegroFlare::FrameAnimation::SpriteSheet* obtain_sprite_sheet(std::string filename="[unset-filename]", int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2, bool preload_bitmap_silently=true);
          AllegroFlare::FrameAnimation::SpriteSheet* create_sprite_sheet_from_individual_images(std::vector<std::string> individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
 
       protected:
@@ -89,7 +89,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::FrameAnimation::Frame> build_n_frames(uint32_t num_frames=1, uint32_t start_frame_num=0, float each_frame_duration=0.08f, float each_frame_align_x=0.0f, float each_frame_align_y=0.0f, float each_frame_align_in_container_x=0.0f, float each_frame_align_in_container_y=0.0f, float each_frame_anchor_x=0.0f, float each_frame_anchor_y=0.0f);
          std::vector<AllegroFlare::FrameAnimation::Frame> build_frames_from_hash(std::string frame_data_hash="[unset-frame_data_hash]");
          std::pair<bool, uint32_t> str_to_playmode(std::string playmode_string="[unset-playmode_string]");
-         AllegroFlare::AssetStudio::Asset* create_asset_from_record_identifier(std::string identifier_="[unset-identifier_]");
+         AllegroFlare::AssetStudio::Asset* create_asset_from_record_identifier(std::string identifier_="[unset-identifier_]", bool preload_bitmap_silently=true);
       };
    }
 }

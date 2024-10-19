@@ -3,6 +3,8 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -18,6 +20,7 @@ PrimMeshAtlas::PrimMeshAtlas()
    , tile_height(1)
    , tile_spacing(0)
    , tile_index()
+   , initialized(false)
 {
 }
 
@@ -33,9 +36,24 @@ void PrimMeshAtlas::set_bitmap_filename(std::string bitmap_filename)
 }
 
 
-ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap() const
+void PrimMeshAtlas::set_tile_width(int tile_width)
 {
-   return bitmap;
+   if (get_initialized()) throw std::runtime_error("[PrimMeshAtlas::set_tile_width]: error: guard \"get_initialized()\" not met.");
+   this->tile_width = tile_width;
+}
+
+
+void PrimMeshAtlas::set_tile_height(int tile_height)
+{
+   if (get_initialized()) throw std::runtime_error("[PrimMeshAtlas::set_tile_height]: error: guard \"get_initialized()\" not met.");
+   this->tile_height = tile_height;
+}
+
+
+void PrimMeshAtlas::set_tile_spacing(int tile_spacing)
+{
+   if (get_initialized()) throw std::runtime_error("[PrimMeshAtlas::set_tile_spacing]: error: guard \"get_initialized()\" not met.");
+   this->tile_spacing = tile_spacing;
 }
 
 
@@ -69,41 +87,33 @@ std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> PrimMeshAtlas::get
 }
 
 
-void PrimMeshAtlas::set_tile_width(int tile_width)
+bool PrimMeshAtlas::get_initialized() const
 {
-   // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead, or
-   // "setter: before_initialize" instead
-   std::cout << "[PrimMeshAtlas::set_tile_width()] WARNING: setting the tile width will invalidate the mesh, please review."
-             << std::endl;
-   // TODO: important, the mesh needs to be refreshed if this value is changed
-   this->tile_width = tile_width;
-   return;
+   return initialized;
 }
 
-void PrimMeshAtlas::set_tile_height(int tile_height)
-{
-   // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead, or
-   // "setter: before_initialize" instead
-   std::cout << "[PrimMeshAtlas::set_tile_height()] WARNING: setting the tile height will invalidate the mesh, please review."
-             << std::endl;
-   // TODO: important, the mesh needs to be refreshed if this value is changed
-   this->tile_height = tile_height;
-   return;
-}
 
-void PrimMeshAtlas::set_tile_spacing(int tile_spacing)
+ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap()
 {
-   // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead, or
-   // "setter: before_initialize" instead
-   std::cout << "[PrimMeshAtlas::set_tile_spacing()] WARNING: setting the tile spacing will invalidate the mesh, please review."
-             << std::endl;
-   // TODO: important, the mesh needs to be refreshed if this value is changed
-   this->tile_spacing = tile_spacing;
-   return;
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap]: error: guard \"initialized\" not met");
+   }
+   return bitmap;
 }
 
 void PrimMeshAtlas::clear()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::clear]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::clear]: error: guard \"initialized\" not met");
+   }
    // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead
    std::cout << "[PrimMeshAtlas::clear()] WARNING: this feature is destroying a bitmap that potentially may "
              << "have depenedencies (as sub-bitmaps). This destruction mechanism has not yet been properly "
@@ -119,17 +129,40 @@ void PrimMeshAtlas::clear()
 
 void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP* source_bitmap, int tile_width, int tile_height, int tile_spacing)
 {
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!initialized)\" not met");
+   }
+   if (!(source_bitmap))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"source_bitmap\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"source_bitmap\" not met");
+   }
+   if (!((!al_is_sub_bitmap(source_bitmap))))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!al_is_sub_bitmap(source_bitmap))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!al_is_sub_bitmap(source_bitmap))\" not met");
+   }
+   // TODO: Add test on the guard that this cannot be a sub-bitmap
+
    this->tile_width = tile_width;
    this->tile_height = tile_height;
    this->tile_spacing = tile_spacing;
 
-   if (!source_bitmap)
-   {
-      std::cout << "[PrimMeshAtlas::load()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
-   }
+   //if (!source_bitmap)
+   //{
+      //std::cout << "[PrimMeshAtlas::load()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
+   //}
 
    // clear the existing contents of this tile atlas (if any)
-   clear();
+   //clear();
 
    bitmap = al_clone_bitmap(source_bitmap);
 
@@ -157,6 +190,8 @@ void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP* source_bitmap, int
       tile_index[index_num].set_u2(x2);
       tile_index[index_num].set_v2(y2);
    }
+
+   initialized = true;
    return;
 }
 

@@ -20,6 +20,7 @@ namespace AllegroFlare
          int tile_height;
          int tile_spacing;
          std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index;
+         bool initialized;
 
       protected:
 
@@ -29,15 +30,16 @@ namespace AllegroFlare
          ~PrimMeshAtlas();
 
          void set_bitmap_filename(std::string bitmap_filename);
-         ALLEGRO_BITMAP* get_bitmap() const;
+         void set_tile_width(int tile_width);
+         void set_tile_height(int tile_height);
+         void set_tile_spacing(int tile_spacing);
          std::string get_bitmap_filename() const;
          int get_tile_width() const;
          int get_tile_height() const;
          int get_tile_spacing() const;
          std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> get_tile_index() const;
-         void set_tile_width(int tile_width=16);
-         void set_tile_height(int tile_height=16);
-         void set_tile_spacing(int tile_spacing=16);
+         bool get_initialized() const;
+         ALLEGRO_BITMAP* get_bitmap();
          void clear();
          void duplicate_bitmap_and_load(ALLEGRO_BITMAP* source_bitmap=nullptr, int tile_width=16, int tile_height=16, int tile_spacing=0);
          int get_tile_index_size();
