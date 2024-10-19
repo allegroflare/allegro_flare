@@ -40130,9 +40130,17 @@ table td
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
+<tr>
+  <td class="property">destroyed</td>
+  <td class="property">bool</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>~destructor</b>()</td>
+</tr>
 <tr>
   <td class="method">ALLEGRO_BITMAP*</td>
   <td class="method"><b>get_bitmap</b>()</td>
@@ -40177,6 +40185,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45273,6 +45284,7 @@ table td
     "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
+    "AllegroFlare/TileMaps/PrimMeshAtlas",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/TileMaps/TileMesh",

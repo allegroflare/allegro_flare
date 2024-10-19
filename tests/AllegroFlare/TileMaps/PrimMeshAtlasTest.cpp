@@ -84,6 +84,32 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
 
 
 TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
+   on_destruction__when_initialized_but_not_destroyed__will_output_a_warning_message)
+{
+   al_init();
+   al_init_image_addon();
+   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
+   ASSERT_NE(nullptr, source_bitmap);
+
+   AllegroFlare::TileMaps::PrimMeshAtlas *atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
+   atlas->duplicate_bitmap_and_load(source_bitmap, 16, 16, 0); // Initializes the atlas
+
+   testing::internal::CaptureStdout();
+   delete atlas;
+   std::string expected_cout_output = "\x1B[1;33m[AllegroFlare::TileMaps::PrimMeshAtlas::~destructor]: "
+      "warning: The class was initialized but not destroyed. This likely means that a dangling pointer "
+      "was left, please review.\x1B[0m\n";
+
+   std::string actual_cout_output = testing::internal::GetCapturedStdout();
+   EXPECT_EQ(expected_cout_output, actual_cout_output);
+
+   al_destroy_bitmap(source_bitmap);
+   al_shutdown_image_addon();
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
    get_tile_sub_bitmap__when_a_tile_does_not_exist_at_that_index__returns_a_nullptr)
 {
    // TODO
