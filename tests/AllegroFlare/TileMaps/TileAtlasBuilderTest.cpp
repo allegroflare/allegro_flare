@@ -7,6 +7,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_color.h>
+#include <AllegroFlare/Testing/ColorPickingAssertions.hpp>
 
 
 
@@ -37,8 +38,22 @@ TEST(AllegroFlare_TileMaps_TileAtlasBuilderTest, create__will_create_a_prim_mesh
       source_bitmap, 16, 16, 3
    );
 
-   // TODO: Pick pixel tests
+   ALLEGRO_BITMAP *atlas_bitmap = atlas->get_bitmap();
 
+   // TODO: Consider some way for TileAtlasBuilder to consider any extra tiles, in this specific
+   // case, there are 4 tiles extra.
+   EXPECT_EQ(484, atlas->get_tile_index_ref().size());
+
+   // TODO: More picked tests
+   // Pick a color from the expected bitmap
+   ALLEGRO_COLOR expected_color = al_color_html("636363");
+   EXPECT_PICKED_COLOR_EQ(expected_color, atlas_bitmap, 0, 0);
+
+   // Pick a color from one of the tiles in the newly created atlas
+   ALLEGRO_BITMAP *atlas_sub_bitmap = atlas->get_tile_index_ref()[0].get_sub_bitmap();
+   EXPECT_PICKED_COLOR_EQ(expected_color, atlas_sub_bitmap, 0, 0);
+
+   // Save the bitmap for visual review (consider flashing do display)
    al_save_bitmap(build_test_filename_png(
       "create__will_create_a_prim_mesh_atlas_with_the_expected_properties").c_str(),
       atlas->get_bitmap()

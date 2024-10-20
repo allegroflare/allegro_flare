@@ -110,6 +110,12 @@ bool PrimMeshAtlas::get_destroyed() const
 }
 
 
+std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &PrimMeshAtlas::get_tile_index_ref()
+{
+   return tile_index;
+}
+
+
 ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap()
 {
    if (!(initialized))
@@ -147,11 +153,11 @@ void PrimMeshAtlas::destroy()
    }
    // TODO: Review elements are properly destroyed
    // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead
-   AllegroFlare::Logger::warn_from(
-      "AllegroFlare::TileMaps::PrimMeshAtlas::destroy",
-      "This feature is destroying a bitmap that potentially may have depenedencies (as sub-bitmaps). This "
-         "destruction mechanism has not yet been properly implemented. Please review."
-   );
+   //AllegroFlare::Logger::warn_from(
+      //"AllegroFlare::TileMaps::PrimMeshAtlas::destroy",
+      //"This feature is destroying a bitmap that potentially may have depenedencies (as sub-bitmaps). This "
+         //"destruction mechanism has not yet been properly implemented. Please review."
+   //);
 
    for (unsigned i=0; i<tile_index.size(); i++) al_destroy_bitmap(tile_index[i].get_sub_bitmap());
    if (bitmap) al_destroy_bitmap(bitmap);

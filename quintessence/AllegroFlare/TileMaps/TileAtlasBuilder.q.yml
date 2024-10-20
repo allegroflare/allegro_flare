@@ -49,7 +49,7 @@ methods:
       - name: scale
         type: int
         default_argument: 3
-    guards: [ source_bitmap ]
+    guards: [ source_bitmap, (!al_is_sub_bitmap(source_bitmap)) ]
     body: |
       ALLEGRO_BITMAP *atlas_bitmap = create_scaled_and_extruded(source_bitmap, scale, tile_width, tile_height);
       AllegroFlare::TileMaps::PrimMeshAtlas *result_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;

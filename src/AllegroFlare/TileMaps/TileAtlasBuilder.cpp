@@ -37,6 +37,13 @@ AllegroFlare::TileMaps::PrimMeshAtlas* TileAtlasBuilder::create(ALLEGRO_BITMAP* 
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create]: error: guard \"source_bitmap\" not met");
    }
+   if (!((!al_is_sub_bitmap(source_bitmap))))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create]: error: guard \"(!al_is_sub_bitmap(source_bitmap))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create]: error: guard \"(!al_is_sub_bitmap(source_bitmap))\" not met");
+   }
    ALLEGRO_BITMAP *atlas_bitmap = create_scaled_and_extruded(source_bitmap, scale, tile_width, tile_height);
    AllegroFlare::TileMaps::PrimMeshAtlas *result_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
    result_atlas->duplicate_bitmap_and_load(atlas_bitmap, tile_width*scale, tile_height*scale, 1);
