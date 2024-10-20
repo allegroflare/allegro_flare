@@ -69,9 +69,10 @@ void BitmapInfo::initialize()
                                           // before #include <allegro5/allegro.h>. Simply adding AllegroUnstable
                                           // as a dependency here will not get the order correct when the header
                                           // is generated
-   width = al_get_bitmap_format(bitmap);
+   width = al_get_bitmap_width(bitmap);
+   height = al_get_bitmap_height(bitmap);
    flags = al_get_bitmap_flags(bitmap);
-   samples = al_get_bitmap_flags(bitmap);
+   //samples = al_get_bitmap_samples(bitmap); // Might also require ALLEGRO_UNSTABLE
    is_sub_bitmap = al_is_sub_bitmap(bitmap);
    sub_bitmap_x = al_get_bitmap_x(bitmap);
    sub_bitmap_y = al_get_bitmap_y(bitmap);
@@ -89,9 +90,23 @@ std::string BitmapInfo::build_report()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::BitmapInfo::build_report]: error: guard \"initialized\" not met");
    }
+   std::stringstream bitmap_ss;
+   bitmap_ss << std::hex << bitmap;
+
+   std::stringstream parent_bitmap_ss;
+   parent_bitmap_ss << std::hex << parent_bitmap;
+
    std::vector<std::tuple<std::string, std::string>> data = {
-      { "foo", "bar" },
-      { "baz", "biz" },
+      { "bitmap", bitmap_ss.str() },
+      { "width", std::to_string(width) },
+      { "height", std::to_string(height) },
+      { "flags", std::to_string(flags) },
+      { "pixel_format", std::to_string(pixel_format) },
+      { "samples", std::to_string(samples) },
+      { "is_sub_bitmap", std::to_string(is_sub_bitmap) },
+      { "sub_bitmap_x", std::to_string(sub_bitmap_x) },
+      { "sub_bitmap_y", std::to_string(sub_bitmap_y) },
+      { "parent_bitmap", parent_bitmap_ss.str() },
    };
    //int longest_label_length = 0;
    //int longest_duration_length_in_chars = 0;
