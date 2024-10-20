@@ -428,6 +428,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml">quintessence/AllegroFlare/Prototypes/TileDrive/TileDrive.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/RenderStateInfo.q.yml">quintessence/AllegroFlare/RenderStateInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml</a></li>
@@ -2064,11 +2065,18 @@ table td
   <td class="method">std::string</td>
   <td class="method"><b>decode_bitmap_flags</b>(int bitmap_flags=0)</td>
 </tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_pixel_format_name</b>(ALLEGRO_PIXEL_FORMAT pixel_format=ALLEGRO_PIXEL_FORMAT_ANY)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_PIXEL_FORMAT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::setw&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
@@ -31103,6 +31111,28 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/RenderStateInfo.q.yml">quintessence/AllegroFlare/RenderStateInfo.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Improve body_depdency_symbol uses on decode_write_mask, should it be \"ALLEGRO_WRITE_MASK\"?"]}</p>    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>decode_write_mask</b>(int write_mask=0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_MASK_RED&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -45593,6 +45623,9 @@ table td
   "AllegroFlare/StackTracer": [
     "AllegroFlare/BacktracingException"
   ],
+  "ALLEGRO_PIXEL_FORMAT": [
+    "AllegroFlare/BitmapInfo"
+  ],
   "std/setw": [
     "AllegroFlare/BitmapInfo"
   ],
@@ -48782,6 +48815,9 @@ table td
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "ALLEGRO_MASK_RED": [
+    "AllegroFlare/RenderStateInfo"
   ],
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",

@@ -37,6 +37,7 @@ namespace AllegroFlare
       std::string build_report();
       std::string format_table(std::vector<std::tuple<std::string, std::string>> data={}, int label_width=16, int number_width=10);
       std::string decode_bitmap_flags(int bitmap_flags=0);
+      std::string get_pixel_format_name(ALLEGRO_PIXEL_FORMAT pixel_format=ALLEGRO_PIXEL_FORMAT_ANY);
    };
 }
 

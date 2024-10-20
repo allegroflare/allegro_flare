@@ -462,6 +462,9 @@
   "AllegroFlare/StackTracer": [
     "AllegroFlare/BacktracingException"
   ],
+  "ALLEGRO_PIXEL_FORMAT": [
+    "AllegroFlare/BitmapInfo"
+  ],
   "std/setw": [
     "AllegroFlare/BitmapInfo"
   ],
@@ -3651,6 +3654,9 @@
   ],
   "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver": [
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "ALLEGRO_MASK_RED": [
+    "AllegroFlare/RenderStateInfo"
   ],
   "AllegroFlare/RenderSurfaces/Base": [
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
