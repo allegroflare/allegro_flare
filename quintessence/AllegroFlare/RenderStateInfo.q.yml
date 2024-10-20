@@ -1,0 +1,58 @@
+documentation:
+
+
+  - todos:
+      - Improve body_depdency_symbol uses on decode_write_mask, should it be "ALLEGRO_WRITE_MASK"?
+
+
+methods:
+
+
+  - name: decode_write_mask
+    type: std::string
+    parameters:
+      - name: write_mask
+        type: int
+        default_argument: 0
+    body: |
+      std::string result;
+
+      if (write_mask & ALLEGRO_MASK_RED)
+      {
+         result += "ALLEGRO_MASK_RED ";
+      }
+      if (write_mask & ALLEGRO_MASK_GREEN)
+      {
+         result += "ALLEGRO_MASK_GREEN ";
+      }
+      if (write_mask & ALLEGRO_MASK_BLUE)
+      {
+         result += "ALLEGRO_MASK_BLUE ";
+      }
+      if (write_mask & ALLEGRO_MASK_ALPHA)
+      {
+         result += "ALLEGRO_MASK_ALPHA ";
+      }
+      if (write_mask & ALLEGRO_MASK_DEPTH)
+      {
+         result += "ALLEGRO_MASK_DEPTH ";
+      }
+
+      // Trim the trailing space, if any
+      if (!result.empty() && result.back() == ' ')
+      {
+         result.pop_back();
+      }
+
+      return result;
+    body_dependency_symbols:
+      - ALLEGRO_MASK_RED
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_MASK_RED
+    headers: [ allegro5/allegro.h ]
+
+

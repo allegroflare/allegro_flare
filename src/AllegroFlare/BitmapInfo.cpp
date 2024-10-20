@@ -100,7 +100,7 @@ std::string BitmapInfo::build_report()
       { "bitmap", bitmap_ss.str() },
       { "width", std::to_string(width) },
       { "height", std::to_string(height) },
-      { "flags", std::to_string(flags) },
+      { "flags", decode_bitmap_flags(flags) },
       { "pixel_format", std::to_string(pixel_format) },
       { "samples", std::to_string(samples) },
       { "is_sub_bitmap", std::to_string(is_sub_bitmap) },
@@ -153,6 +153,56 @@ std::string BitmapInfo::format_table(std::vector<std::tuple<std::string, std::st
    }
 
    return result.str();
+}
+
+std::string BitmapInfo::decode_bitmap_flags(int bitmap_flags)
+{
+   std::string result;
+
+   if (bitmap_flags & ALLEGRO_MEMORY_BITMAP)
+   {
+      result += "ALLEGRO_MEMORY_BITMAP ";
+   }
+   if (bitmap_flags & ALLEGRO_VIDEO_BITMAP)
+   {
+      result += "ALLEGRO_VIDEO_BITMAP ";
+   }
+   if (bitmap_flags & ALLEGRO_CONVERT_BITMAP)
+   {
+      result += "ALLEGRO_CONVERT_BITMAP ";
+   }
+   if (bitmap_flags & ALLEGRO_FORCE_LOCKING)
+   {
+      result += "ALLEGRO_FORCE_LOCKING ";
+   }
+   if (bitmap_flags & ALLEGRO_NO_PRESERVE_TEXTURE)
+   {
+      result += "ALLEGRO_NO_PRESERVE_TEXTURE ";
+   }
+   if (bitmap_flags & ALLEGRO_ALPHA_TEST)
+   {
+      result += "ALLEGRO_ALPHA_TEST ";
+   }
+   if (bitmap_flags & ALLEGRO_MIN_LINEAR)
+   {
+      result += "ALLEGRO_MIN_LINEAR ";
+   }
+   if (bitmap_flags & ALLEGRO_MAG_LINEAR)
+   {
+      result += "ALLEGRO_MAG_LINEAR ";
+   }
+   if (bitmap_flags & ALLEGRO_MIPMAP)
+   {
+      result += "ALLEGRO_MIPMAP ";
+   }
+
+   // Trim the trailing space, if any
+   if (!result.empty() && result.back() == ' ')
+   {
+      result.pop_back();
+   }
+
+   return result;
 }
 
 
