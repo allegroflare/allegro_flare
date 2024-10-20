@@ -126,7 +126,7 @@ std::string BitmapInfo::build_report()
 
    return format_table(
       data,
-      16,
+      16, // TODO: Calculate this length in "format_table"
       10
    );
 }
