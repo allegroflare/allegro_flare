@@ -1,4 +1,11 @@
 
+
+// NOTE: Some of these tests come from an earlier factoring and have not been updated. Please feel free to update.
+
+// TODO: Update the test names
+// TODO: Ensure the test subjects are indeed the TileAtlasBuilder
+
+
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
