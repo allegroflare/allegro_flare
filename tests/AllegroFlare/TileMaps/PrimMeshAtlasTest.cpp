@@ -1,8 +1,18 @@
 
 
+
+// NOTE: Most of these tests come from an earlier factoring and have not been updated. Most contain test names
+// of previous classes. Feel free to clean it up.
+
+// TODO: Update the test names
+// TODO: Ensure the test subjects are indeed the PrimMeshAatlas
+
+
+
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 
 
 TEST(AllegroFlare_TileMaps_PrimMeshAtlasTest, can_be_created_without_blowing_up)
@@ -115,6 +125,32 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
    // TODO
 }
 
+
+TEST(AllegroFlare_TileMaps_PrimMeshAtlasTest, get_sub_bitmap__returns_the_sub_bitmap_of_the_tile)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
+   std::string data_path = deployment_environment.get_data_folder_path();
+   std::string test_tile_atlas_filename = "tiles_dungeon_v1.1.png";
+
+   al_init();
+   al_init_image_addon();
+   ALLEGRO_BITMAP* source_bitmap = al_load_bitmap((data_path + test_tile_atlas_filename).c_str());
+   //ALLEGRO_BITMAP* source_bitmap = al_load_bitmap(TEST_TILE_ATLAS_BITMAP_PATH);
+   ASSERT_NE(nullptr, source_bitmap);
+
+   AllegroFlare::TileMaps::PrimMeshAtlas atlas;
+   atlas.duplicate_bitmap_and_load(source_bitmap, 16, 16, 0);
+
+   std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> actual_tile_index = atlas.get_tile_index();
+   ALLEGRO_BITMAP *expected_sub_bitmap = actual_tile_index[32].get_sub_bitmap();
+   ASSERT_NE(nullptr, expected_sub_bitmap);
+   EXPECT_EQ(atlas.get_tile_sub_bitmap(32), actual_tile_index[32].get_sub_bitmap());
+
+   //atlas.clear();
+   al_destroy_bitmap(source_bitmap);
+   al_shutdown_image_addon();
+   al_uninstall_system();
+}
 
 
 
