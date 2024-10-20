@@ -192,7 +192,7 @@ TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithAllegroRenderingFi
 
 
 TEST_F(AllegroFlare_Prototypes_FixedRoom2D_FixedRoom2DTestWithInteractionFixture,
-   FOCUS__CAPTURE__TIMED_INTERACTIVE__will_operate_as_expected)
+   CAPTURE__TIMED_INTERACTIVE__will_operate_as_expected)
 {
    load_configuration();
 

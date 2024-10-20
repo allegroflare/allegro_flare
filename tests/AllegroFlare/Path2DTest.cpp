@@ -72,7 +72,7 @@ TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture, CAPTURE__soften__will
 
 
 TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__ILLUSTRATION__soften__will_introduce_interpolated_points_to_the_path_for_a_smoother_path)
+   CAPTURE__ILLUSTRATION__soften__will_introduce_interpolated_points_to_the_path_for_a_smoother_path)
 {
    ALLEGRO_FONT *font = get_any_font();
 
