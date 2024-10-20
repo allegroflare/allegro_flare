@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/BitmapInfo.hpp>
 
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -32,7 +33,20 @@ BitmapInfo::~BitmapInfo()
 }
 
 
-void BitmapInfo::initialize(ALLEGRO_BITMAP* bitmap)
+void BitmapInfo::set_bitmap(ALLEGRO_BITMAP* bitmap)
+{
+   if (get_initialized()) throw std::runtime_error("[BitmapInfo::set_bitmap]: error: guard \"get_initialized()\" not met.");
+   this->bitmap = bitmap;
+}
+
+
+bool BitmapInfo::get_initialized() const
+{
+   return initialized;
+}
+
+
+void BitmapInfo::initialize()
 {
    if (!(bitmap))
    {
@@ -48,7 +62,7 @@ void BitmapInfo::initialize(ALLEGRO_BITMAP* bitmap)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::BitmapInfo::initialize]: error: guard \"(!initialized)\" not met");
    }
-   this->bitmap = bitmap;
+   //this->bitmap = bitmap;
    flags = al_get_bitmap_flags(bitmap);
    pixel_format = al_get_bitmap_format(bitmap);
    //depth = al_get_bitmap_depth(bitmap); // NOTE: Depth cannot be included unless ALLEGRO_UNSTABLE is defined
@@ -63,6 +77,67 @@ void BitmapInfo::initialize(ALLEGRO_BITMAP* bitmap)
    sub_bitmap_y = al_get_bitmap_y(bitmap);
    parent_bitmap = al_get_parent_bitmap(bitmap);
    initialized = true;
+   return;
+}
+
+std::string BitmapInfo::build_report()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::BitmapInfo::build_report]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::BitmapInfo::build_report]: error: guard \"initialized\" not met");
+   }
+   std::vector<std::tuple<std::string, std::string>> data = {
+      { "foo", "bar" },
+      { "baz", "biz" },
+   };
+   //int longest_label_length = 0;
+   //int longest_duration_length_in_chars = 0;
+   //for (auto &timer : timers)
+   //{
+      //int duration = timer.second.get_elapsed_time_milliseconds();
+
+   //data.push_back({timer.first, duration));
+   //int duration_length_in_chars = count_digits(duration);
+
+      //if (timer.first.size() > longest_label_length) longest_label_length = timer.first.size();
+      //if (duration_length_in_chars > longest_duration_length_in_chars)
+      //{
+         //longest_duration_length_in_chars = duration_length_in_chars;
+      //}
+   //}
+
+   return format_table(
+      data,
+      16,
+      10
+   );
+}
+
+std::string BitmapInfo::format_table(std::vector<std::tuple<std::string, std::string>> data, int label_width, int number_width)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::BitmapInfo::format_table]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::BitmapInfo::format_table]: error: guard \"initialized\" not met");
+   }
+   std::ostringstream result;
+
+   for (const auto& [label, number] : data)
+   {
+      // Format each line with right-aligned text, padding with dashes
+      result << std::right << std::setw(label_width) << label;
+      result << " " << std::right << std::setfill('-') << std::setw(number_width + 1) << " " << number;
+      result << std::setfill(' ');
+      //result << " " << unit << "\n";
+      result << std::endl;
+   }
+
+   return result.str();
 }
 
 

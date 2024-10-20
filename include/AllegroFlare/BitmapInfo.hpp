@@ -2,6 +2,9 @@
 
 
 #include <allegro5/allegro.h>
+#include <string>
+#include <tuple>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -28,7 +31,11 @@ namespace AllegroFlare
       BitmapInfo(ALLEGRO_BITMAP* bitmap=nullptr);
       ~BitmapInfo();
 
-      void initialize(ALLEGRO_BITMAP* bitmap=nullptr);
+      void set_bitmap(ALLEGRO_BITMAP* bitmap);
+      bool get_initialized() const;
+      void initialize();
+      std::string build_report();
+      std::string format_table(std::vector<std::tuple<std::string, std::string>> data={}, int label_width=16, int number_width=10);
    };
 }
 

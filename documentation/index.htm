@@ -2050,13 +2050,27 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>initialize</b>(ALLEGRO_BITMAP* bitmap=nullptr)</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_report</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>format_table</b>(std::vector&lt;std::tuple&lt;std::string, std::string&gt;&gt; data={}, int label_width=16, int number_width=10)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::setw&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::setfill&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45575,6 +45589,16 @@ table td
   "AllegroFlare/StackTracer": [
     "AllegroFlare/BacktracingException"
   ],
+  "std/setw": [
+    "AllegroFlare/BitmapInfo"
+  ],
+  "std/setfill": [
+    "AllegroFlare/BitmapInfo",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/UnicodeFontViewer",
+    "Wicked/Hud"
+  ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
     "AllegroFlare/ClubCatt/Logo",
@@ -47539,12 +47563,6 @@ table td
   ],
   "std/max_element": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
-  ],
-  "std/setfill": [
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/UnicodeFontViewer",
-    "Wicked/Hud"
   ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"

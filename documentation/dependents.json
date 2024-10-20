@@ -462,6 +462,16 @@
   "AllegroFlare/StackTracer": [
     "AllegroFlare/BacktracingException"
   ],
+  "std/setw": [
+    "AllegroFlare/BitmapInfo"
+  ],
+  "std/setfill": [
+    "AllegroFlare/BitmapInfo",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/UnicodeFontViewer",
+    "Wicked/Hud"
+  ],
   "AllegroFlare/Placement3D": [
     "AllegroFlare/Bone3D",
     "AllegroFlare/ClubCatt/Logo",
@@ -2426,12 +2436,6 @@
   ],
   "std/max_element": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
-  ],
-  "std/setfill": [
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/UnicodeFontViewer",
-    "Wicked/Hud"
   ],
   "AllegroFlare/TimerFormatter": [
     "AllegroFlare/Elements/Stopwatch"
