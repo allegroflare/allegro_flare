@@ -98,6 +98,7 @@ namespace AllegroFlare
          bool initialize_core_system(); // only use initialize() publically from now on
          void initialize_sync_oracle();
          bool initialize_display_and_render_pipeline();
+         void initialize_asset_studio_database();
          bool display_close_will_shutdown;
          bool escape_key_will_shutdown; // NOTE: This has been modified to Shift+ESC
          bool output_auto_created_config_warning;

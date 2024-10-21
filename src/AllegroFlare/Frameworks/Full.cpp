@@ -289,11 +289,13 @@ void Full::refresh_display_icon()
 
 bool Full::initialize_core_system()
 {
-   if (initialized) return false;
+   if (initialized) return false; // TODO: Throw here if already initialized
 
 
-   // TODO: throw if alt, shift, command, or ctrl are pressed, or capture initial state and
-   // set the values for these to correct values
+   // TODO: throw if alt, shift, command, or ctrl are pressed, or capture initial keyboard state and
+   // set the values for these to correct values. E.g. A game system is setup to count-capture presses and unpresses
+   // of keys, but has at startup when a key pressed, will only capture the unpress and thus noise
+   
 
    //AllegroFlare::Logger::set_instance(&logger_instance);
 
@@ -318,7 +320,11 @@ bool Full::initialize_core_system()
    //}
 
 
-   if (!al_init()) std::cerr << "al_init() failed" << std::endl;
+   if (!al_init())
+   {
+      // TODO: Improve this log message
+      std::cerr << "al_init() failed" << std::endl;
+   }
 
 
    // Setup our deployment environment and working directory
@@ -330,8 +336,8 @@ bool Full::initialize_core_system()
          "The current deployment environment has not been defined. Before calling "
             "AllegroFlare::Frameworks::Full::initialize(), be sure to set a deployment environment with "
             "AllegroFlare::Frameworks::Full::set_deployment_environment(). In the mean time, the environemnt will "
-            "automatically be set to ENVIRONMENT_DEVELOPMENT. You can also disable this warning message with "
-            "AllegroFlare::Frameworks::Full::disable_unset_deployment_environment_warning_on_initialization()."
+            "automatically be set to ENVIRONMENT_DEVELOPMENT. Alternatively, ou can also disable this warning message "
+            "with AllegroFlare::Frameworks::Full::disable_unset_deployment_environment_warning_on_initialization()."
       );
       deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT);
    }
@@ -339,8 +345,10 @@ bool Full::initialize_core_system()
    deployment_environment.setup_current_working_directory();
 
 
+
    // Initialize Allegro's various parts
 
+   // TODO: Throw on these errors instead of output to std::cerr
    if (!al_install_mouse()) std::cerr << "al_install_mouse() failed" << std::endl;
    if (!al_install_keyboard()) std::cerr << "al_install_keyboard() failed" << std::endl;
    if (!al_install_joystick()) std::cerr << "al_install_joystick() failed" << std::endl;
@@ -366,6 +374,14 @@ bool Full::initialize_core_system()
 
    if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
 
+   bool force_video_bitmaps_only = true;
+   if (force_video_bitmaps_only)
+   {
+      // This flag is set so that all bitmaps ever created are video bitmaps.
+      al_set_new_bitmap_flags(al_get_new_bitmap_flags() | ALLEGRO_VIDEO_BITMAP);
+   }
+
+
    event_queue = al_create_event_queue();
    al_register_event_source(event_queue, al_get_keyboard_event_source());
    al_register_event_source(event_queue, al_get_mouse_event_source());
@@ -381,7 +397,8 @@ bool Full::initialize_core_system()
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // Setup our experimental live-polling of shader source code tool
-   if (!deployment_environment.is_production()) // TODO: figure out what environment(s) are reasonable
+   if (!deployment_environment.is_production()) // TODO: figure out what environment(s) are reasonable for
+                                                // this hotloading feature
    {
       //std::string live_source_code_for_fragment_shader = "tmp/live_fragment.glsl";
       //std::string live_source_code_for_vertex_shader = "tmp/live_vertex.glsl";
@@ -402,152 +419,13 @@ bool Full::initialize_core_system()
    models.set_path(data_folder_path + "models");
    video_bin.set_path(data_folder_path + "videos");
 
-   // Asset Studio
-   // Set the path for the asset_studio. If not in production, use the global resource. Assets should be copied out
-   // of the global resource at production-time. SourceReleaser should validate there are no global resource-referenced
-   // assets.
-
-   std::string ASSETS_DB_CSV_FILENAME = "assets_db.csv";
-   int sprite_sheet_scale = 3;
-
-   // Load the local AssetStudio assets
-   {
-      std::string local_assets_full_path = data_folder_path + "assets/";
-      asset_studio_bitmap_bin.set_path(local_assets_full_path);
-      AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
-      //loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
-      //loader.set_sprite_sheet_scale(sprite_sheet_scale);
-      loader.set_csv_full_path(local_assets_full_path + ASSETS_DB_CSV_FILENAME);
-      if (!loader.csv_file_exists())
-      {
-         std::string filename = local_assets_full_path + ASSETS_DB_CSV_FILENAME;
-         AllegroFlare::Logger::warn_from(
-            "AllegroFlare::Frameworks::Full::initialize_core_system",
-            "The expected assets_db file \"" + filename + "\" is not present. If this is expected, please ignore this "
-               "message. TODO: Allow this warning to be hidden with an optional flag."
-         );
-      }
-      else
-      {
-         loader.load_records();
-         asset_studio_database.set_local_records(loader.get_records());
-         asset_studio_database.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
-         asset_studio_database.set_sprite_sheet_scale(sprite_sheet_scale);
-
-         AllegroFlare::Logger::info_from(
-            "AllegroFlare::Frameworks::Full::initialize_core_system",
-            "Creating local AssetStudio assets..."
-         );
-
-         asset_studio_database.load_all_local_assets_from_all_local_records();
-
-         AllegroFlare::Logger::info_from(
-            "AllegroFlare::Frameworks::Full::initialize_core_system",
-            "Local AssetStudio assets loading finished."
-         );
-      }
-
-      // Can the bitmap_bin be cleared here?
-   }
-
-   // Load the global AssetStudio assets
-   bool using_global_assets = !deployment_environment.is_production();
-   if (using_global_assets)
-   {
-      AllegroFlare::Logger::info_from(
-         "AllegroFlare::Frameworks::Full::initialize_core_system",
-         "Loading global AssetStudio assets..."
-      );
-
-      AllegroFlare::SystemInfo system_info;
-      // DEVELOPER HACK: Depending on the developer system, use different path for the assets_db.csv file
-      std::string global_assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
-      std::string operating_system = system_info.operating_system();
-      if (operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_32_BIT
-         || operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_64_BIT
-         )
-      {
-         global_assets_full_path = "/msys64/home/Mark/Assets/";
-      }
-
-      //assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
-      asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
-      AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
-      //loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
-      //loader.set_sprite_sheet_scale(sprite_sheet_scale);
-      loader.set_csv_full_path(global_assets_full_path + ASSETS_DB_CSV_FILENAME);
-
-      if (!loader.csv_file_exists())
-      {
-         std::string filename = global_assets_full_path + ASSETS_DB_CSV_FILENAME;
-         AllegroFlare::Logger::warn_from(
-            "AllegroFlare::Frameworks::Full::initialize_core_system",
-            "The expected assets_db file \"" + filename + "\" is not present. If this is expected, please ignore this "
-               "message. TODO: Allow this warning to be hidden with an optional flag."
-         );
-      }
-      else
-      {
-         loader.load_records();
-         asset_studio_database.set_global_records(loader.get_records());
-         asset_studio_database.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
-         asset_studio_database.set_sprite_sheet_scale(sprite_sheet_scale);
-
-         AllegroFlare::Logger::info_from(
-            "AllegroFlare::Frameworks::Full::initialize_core_system",
-            "Loading global AssetStudio assets..."
-         );
-
-         asset_studio_database.load_all_global_assets_from_all_global_records();
-
-         asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
-         asset_studio_database.set_global_identifier_prefix(
-               AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
-            );
-
-         AllegroFlare::Logger::info_from(
-            "AllegroFlare::Frameworks::Full::initialize_core_system",
-            "global AssetStudio assets loading finished."
-         );
-      }
 
 
-      //loader.load();
 
-      //asset_studio_database.set_global_assets(loader.get_assets());
-      ////assets_full_path = "/Users/markoates/Assets/";
-      //asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
-      //asset_studio_database.set_global_identifier_prefix(
-            //AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
-         //);
+   // NOTE: Asset Studio was previously loaded here, and now is loaded after the display is created
 
-      //AllegroFlare::Logger::info_from(
-         //"AllegroFlare::Frameworks::Full::initialize_core_system",
-         //"Global AssetStudio assets loading finished."
-      //);
 
-      // Can the bitmap_bin be cleared here?
-   }
 
-   // Load in the "assets_db.csv" file
-   // TODO: Have the DatabaseCSVLoader *not* build the assets. This should probably be done in some "load" and
-   // "unload" steps within the game's system.  The database's content should be static, however.
-   //AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
-   //loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
-   //loader.set_sprite_sheet_scale(3);
-   //loader.set_csv_full_path(assets_full_path + ASSETS_DB_CSV_FILENAME);
-   //loader.load();
-   //asset_studio_database.set_global_assets(loader.get_assets());
-   //if (deployment_environment.is_production())
-   //{
-      //// Do nothing
-   //}
-   //else
-   //{
-      //asset_studio_database.set_global_identifier_prefix(
-            //AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
-         //);
-   //}
 
    // Add our config (which is currently unused)
    config.load_or_create_empty(output_auto_created_config_warning);
@@ -623,6 +501,144 @@ bool Full::initialize_core_system()
    initialized = true;
 
    return true;
+}
+
+
+
+void Full::initialize_asset_studio_database()
+{
+   // NOTE: Asset studio will need to be setup *after* the display, otherwise the assets will be loaded as
+   // ALLEGRO_MEMORY_BITMAPs, which can result in awkward rendering results, particularly in 3d transformations.
+
+ 
+
+   // Asset Studio
+   // Set the path for the asset_studio. If not in production, use the global resource. Assets should be copied out
+   // of the global resource at production-time. SourceReleaser should validate there are no global resource-referenced
+   // assets.
+
+   std::string data_folder_path = get_data_folder_path();
+   std::string ASSETS_DB_CSV_FILENAME = "assets_db.csv";
+   int sprite_sheet_scale = 3;
+
+   // Load the local AssetStudio assets
+   {
+      std::string local_assets_full_path = data_folder_path + "assets/";
+      asset_studio_bitmap_bin.set_path(local_assets_full_path);
+      AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+      //loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+      //loader.set_sprite_sheet_scale(sprite_sheet_scale);
+      loader.set_csv_full_path(local_assets_full_path + ASSETS_DB_CSV_FILENAME);
+      if (!loader.csv_file_exists())
+      {
+         std::string filename = local_assets_full_path + ASSETS_DB_CSV_FILENAME;
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Frameworks::Full::initialize_asset_studio_database",
+            "The expected assets_db file \"" + filename + "\" is not present. If this is expected, please ignore this "
+               "message. TODO: Allow this warning to be hidden with an optional flag."
+         );
+      }
+      else
+      {
+         loader.load_records();
+         asset_studio_database.set_local_records(loader.get_records());
+         asset_studio_database.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+         asset_studio_database.set_sprite_sheet_scale(sprite_sheet_scale);
+
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::initialize_asset_studio_database",
+            "Creating local AssetStudio assets..."
+         );
+
+         asset_studio_database.load_all_local_assets_from_all_local_records();
+
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::initialize_asset_studio_database",
+            "Local AssetStudio assets loading finished."
+         );
+      }
+
+      // Can the bitmap_bin be cleared here?
+   }
+
+   // Load the global AssetStudio assets
+   bool using_global_assets = !deployment_environment.is_production();
+   if (using_global_assets)
+   {
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Frameworks::Full::initialize_asset_studio_database",
+         "Loading global AssetStudio records..."
+      );
+
+      AllegroFlare::SystemInfo system_info;
+      // DEVELOPER HACK: Depending on the developer system, use different path for the assets_db.csv file
+      std::string global_assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
+      std::string operating_system = system_info.operating_system();
+      if (operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_32_BIT
+         || operating_system == AllegroFlare::SystemInfo::OPERATING_SYSTEM_WINDOWS_64_BIT
+         )
+      {
+         global_assets_full_path = "/msys64/home/Mark/Assets/";
+      }
+
+      //assets_full_path = "/Users/markoates/Assets/"; //data_folder_path + "assets/";
+      asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
+      AllegroFlare::AssetStudio::DatabaseCSVLoader loader;
+      //loader.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+      //loader.set_sprite_sheet_scale(sprite_sheet_scale);
+      loader.set_csv_full_path(global_assets_full_path + ASSETS_DB_CSV_FILENAME);
+
+      if (!loader.csv_file_exists())
+      {
+         std::string filename = global_assets_full_path + ASSETS_DB_CSV_FILENAME;
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Frameworks::Full::initialize_asset_studio_database",
+            "The expected assets_db file \"" + filename + "\" is not present. If this is expected, please ignore this "
+               "message. TODO: Allow this warning to be hidden with an optional flag."
+         );
+      }
+      else
+      {
+         loader.load_records();
+         asset_studio_database.set_global_records(loader.get_records());
+         asset_studio_database.set_assets_bitmap_bin(&asset_studio_bitmap_bin);
+         asset_studio_database.set_sprite_sheet_scale(sprite_sheet_scale);
+
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::initialize_asset_studio_database",
+            "Loading global AssetStudio assets..."
+         );
+
+         asset_studio_database.load_all_global_assets_from_all_global_records();
+
+         asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
+         asset_studio_database.set_global_identifier_prefix(
+               AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
+            );
+
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Frameworks::Full::initialize_asset_studio_database",
+            "global AssetStudio assets loading finished."
+         );
+      }
+
+
+      //loader.load();
+
+      //asset_studio_database.set_global_assets(loader.get_assets());
+      ////assets_full_path = "/Users/markoates/Assets/";
+      //asset_studio_bitmap_bin.set_full_path(global_assets_full_path);
+      //asset_studio_database.set_global_identifier_prefix(
+            //AllegroFlare::AssetStudio::Database::DEFAULT_GLOBAL_IDENTIFIER_PREFIX
+         //);
+
+      //AllegroFlare::Logger::info_from(
+         //"AllegroFlare::Frameworks::Full::initialize_core_system",
+         //"Global AssetStudio assets loading finished."
+      //);
+
+      // Can the bitmap_bin be cleared here?
+   }
 }
 
 
@@ -860,6 +876,7 @@ bool Full::initialize()
 
    initialize_core_system();
    initialize_display_and_render_pipeline();
+   initialize_asset_studio_database();
    initialize_sync_oracle();
 
    return true;

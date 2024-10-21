@@ -208,6 +208,25 @@ TEST(AllegroFlare_Frameworks_FullTest, router__is_nullptr_by_default)
 
 
 TEST(AllegroFlare_Frameworks_FullTest,
+   initialize__will_set_allegros_new_bitmap_flags_to_include_ALLEGRO_VIDEO_BITMAP)
+{
+   AllegroFlare::Frameworks::Full framework;
+   framework.set_deployment_environment("test");
+   framework.disable_fullscreen();
+   framework.disable_using_display_backbuffer_as_primary_render_surface();
+   framework.initialize();
+
+   EXPECT_EQ(ALLEGRO_VIDEO_BITMAP, al_get_new_bitmap_flags() & ALLEGRO_VIDEO_BITMAP);
+
+   // TODO: Check flags, samples, depth, etc
+   //AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
+
+   //EXPECT_EQ(true, primary_render_surface->is_type(AllegroFlare::RenderSurfaces::Bitmap::TYPE));
+   framework.shutdown();
+}
+
+
+TEST(AllegroFlare_Frameworks_FullTest,
    initialize__when_display_backbuffer_as_primary_render_surface_set_to_false__will_produce_a_bitmap_\
 primary_render_surface)
 {
@@ -217,6 +236,7 @@ primary_render_surface)
    framework.disable_using_display_backbuffer_as_primary_render_surface();
    framework.initialize();
 
+   // TODO: Check flags, samples, depth, etc
    AllegroFlare::RenderSurfaces::Base *primary_render_surface = framework.get_primary_render_surface();
 
    EXPECT_EQ(true, primary_render_surface->is_type(AllegroFlare::RenderSurfaces::Bitmap::TYPE));
