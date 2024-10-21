@@ -183,12 +183,16 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, test_fixture_will_wor
 
 
 TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
-   FOCUS__draw__will_take_into_account_anchors_alignments_and_sprite_sheet_scales)
+   FOCUS__CAPTURE__draw__will_take_into_account_anchors_alignments_and_sprite_sheet_scales)
 {
-   //ALLEGRO_TRANSFORM camera;
-   //al_identity_transform(&t);
-   //al_translate_transform(&t, 1920/2, 1080/2);
-   //al_use_transform(&t);
+   ALLEGRO_TRANSFORM camera_transform;
+   al_identity_transform(&camera_transform);
+   al_translate_transform(&camera_transform, 1920/2, 1080/2);
+   al_use_transform(&camera_transform);
+
+   ALLEGRO_TRANSFORM hud_transform;
+   al_identity_transform(&hud_transform);
+
    ALLEGRO_FONT *font = get_any_font();
    
    AllegroFlare::FrameAnimation::Animation *animation = create_animation(
@@ -196,33 +200,59 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
       Animation::PLAYMODE_FORWARD_PING_PONG
    );
 
-   //setup_animation(
-      //std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
-      //Animation::PLAYMODE_FORWARD_PING_PONG
-   //);
-
-   int frames = 120;
+   int frames = 120 * 3;
+   int frame_width = 0;
+   int frame_height = 0;
+   int organic_frame_width = 0;
+   int organic_frame_height = 0;
+   int sprite_sheet_scale = animation->get_sprite_sheet()->get_scale();
    animation->start();
    for (int i=0; i<frames; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      //
+      // Update
+      //
 
-      // update and draw
       animation->update();
+      ALLEGRO_BITMAP *this_frame_bitmap = animation->get_frame_bitmap_now();
+      if (this_frame_bitmap)
+      {
+         frame_width = al_get_bitmap_width(this_frame_bitmap);
+         frame_height = al_get_bitmap_height(this_frame_bitmap);
+         organic_frame_width = frame_width / sprite_sheet_scale;
+         organic_frame_height = frame_height / sprite_sheet_scale;
+      }
+
+      //
+      // Draw
+      //
+
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      al_use_transform(&hud_transform);
+      draw_rulers();
+
+      al_use_transform(&camera_transform);
+      draw_horizontal_crosshair(0, 0);
+
       animation->draw();
 
+      draw_crosshair_blue(0, 0);
+
       // draw info text
+      al_use_transform(&hud_transform);
       int sprite_sheet_cell_index_num = animation->get_sprite_sheet_cell_index_num_now();
       int frame_num_now = animation->get_frame_num_now();
 
-//get_sprite_sheet_cell_index_num_at(0.21);
-//get_frame_num_now
+      int l = 0; // l for line
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame %d", sprite_sheet_cell_index_num);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_num %d", frame_num_now);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_bitmap_width %d", frame_width);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_bitmap_height %d", frame_height);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "organic_frame_width %d", organic_frame_width);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "organic_frame_height %d", organic_frame_height);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "sprite_sheet_scale %d", sprite_sheet_scale);
 
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", sprite_sheet_cell_index_num);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 50, 0, "frame_num %d", frame_num_now);
-//get_frame_num_now
-
-      al_flip_display(); // assumes a rest of 1/60.0f
+      al_flip_display();
    }
 }
 
