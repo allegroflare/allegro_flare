@@ -35,6 +35,7 @@ namespace AllegroFlare
          ALLEGRO_BITMAP *get_sprite(int index);
          ALLEGRO_BITMAP *get_cell(int index);
          ALLEGRO_BITMAP *get_atlas();
+         int get_scale();
          int get_num_sprites();
 
          void initialize();

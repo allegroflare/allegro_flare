@@ -37,6 +37,7 @@ namespace AllegroFlare
          bool finished;
          float finished_at;
          bool initialized;
+         static ALLEGRO_TRANSFORM t;
          std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> get_frame_info_at(float time=0.0f);
 
       protected:
@@ -60,6 +61,7 @@ namespace AllegroFlare
          void set_playspeed_multiplier(float playspeed_multiplier=1.0);
          void update();
          void draw();
+         void draw_raw();
          int get_num_frames();
          ALLEGRO_BITMAP* get_frame_bitmap_at_time(float time=0.0f);
          ALLEGRO_BITMAP* get_frame_bitmap_now();

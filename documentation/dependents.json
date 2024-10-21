@@ -2595,6 +2595,12 @@
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameConfigurations/Complete"
   ],
+  "ALLEGRO_TRANSFORM": [
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/Shaders/Base",
+    "AllegroFlare/Shaders/Cubemap"
+  ],
   "nlohmann/json": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/MotionComposer/MessageFactory",
@@ -2809,11 +2815,6 @@
   ],
   "AllegroFlare/php": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"
-  ],
-  "ALLEGRO_TRANSFORM": [
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-    "AllegroFlare/Shaders/Base",
-    "AllegroFlare/Shaders/Cubemap"
   ],
   "AllegroFlare/AllegroUnstable": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer"

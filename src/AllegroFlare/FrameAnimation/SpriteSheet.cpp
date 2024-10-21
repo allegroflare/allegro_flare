@@ -91,6 +91,20 @@ void SpriteSheet::initialize()
 
 
 
+int SpriteSheet::get_scale()
+{
+   if (!initialized)
+   {
+      // TODO: Do not throw in the destructor here
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::FrameAnimation::SpriteSheet::get_scale",
+            "Must be initialized."
+      );
+   }
+   return scale;
+}
+
+
 
 void SpriteSheet::destroy()
 {

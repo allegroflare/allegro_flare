@@ -145,6 +145,17 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, DISABLED__test_fixtur
 }
 
 
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
+   draw__will_take_into_account_anchors_alignments_and_sprite_sheet_scales)
+{
+   setup_animation(
+      std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
+      Animation::PLAYMODE_FORWARD_PING_PONG
+   );
+   display_subject();
+}
+
+
 TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, 
    get_sprite_sheet_cell_index_num_at__on_a_PLAYMODE_FORWARD_ONCE__will_return_the_cell_index_num)
 {

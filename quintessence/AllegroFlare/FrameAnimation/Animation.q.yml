@@ -50,6 +50,11 @@ properties:
     init_with: false
     getter: true
 
+  - name: t
+    type: ALLEGRO_TRANSFORM
+    static: true
+    init_with: '{}'
+
 
 enums:
 
@@ -171,6 +176,27 @@ functions:
 
 
   - name: draw
+    guards: [ initialized ]
+    body: |
+      ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
+      if (!bitmap) return;
+
+      // TODO: Introduce accounting for
+      //float inv_sprite_sheet_scale = 1.0f / sprite_sheet->get_scale();
+
+      //al_identity_transform(&t);
+      //al_use_transform(&t);
+      //al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale); // Should this be 3d?
+                                                                              // Should y and z be flipped?
+      al_draw_bitmap(bitmap, 0, 0, 0);
+
+      //al_identity_transform(&t);
+      //al_use_transform(&t);
+
+      return;
+
+
+  - name: draw_raw
     guards: [ initialized ]
     body: |
       ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
@@ -451,5 +477,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: fmod
     headers: [ cmath ]
+  - symbol: ALLEGRO_TRANSFORM
+    headers: [ allegro5/allegro.h ]
 
 

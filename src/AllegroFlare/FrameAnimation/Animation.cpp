@@ -15,6 +15,9 @@ namespace FrameAnimation
 {
 
 
+ALLEGRO_TRANSFORM Animation::t = {};
+
+
 Animation::Animation(AllegroFlare::FrameAnimation::SpriteSheet* sprite_sheet, std::string name, std::vector<AllegroFlare::FrameAnimation::Frame> frames, uint32_t playmode)
    : sprite_sheet(sprite_sheet)
    , name(name)
@@ -210,6 +213,33 @@ void Animation::draw()
       error_message << "[AllegroFlare::FrameAnimation::Animation::draw]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw]: error: guard \"initialized\" not met");
+   }
+   ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
+   if (!bitmap) return;
+
+   // TODO: Introduce accounting for
+   //float inv_sprite_sheet_scale = 1.0f / sprite_sheet->get_scale();
+
+   //al_identity_transform(&t);
+   //al_use_transform(&t);
+   //al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale); // Should this be 3d?
+                                                                           // Should y and z be flipped?
+   al_draw_bitmap(bitmap, 0, 0, 0);
+
+   //al_identity_transform(&t);
+   //al_use_transform(&t);
+
+   return;
+}
+
+void Animation::draw_raw()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::FrameAnimation::Animation::draw_raw]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw_raw]: error: guard \"initialized\" not met");
    }
    ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
    if (!bitmap) return;
