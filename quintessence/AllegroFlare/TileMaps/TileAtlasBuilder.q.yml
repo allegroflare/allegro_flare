@@ -315,7 +315,7 @@ methods:
 
   - name: create_sprite_sheet_from_individual_images
     type: AllegroFlare::FrameAnimation::SpriteSheet*
-    private: true
+    static: true
     parameters:
       - name: bitmap_bin
         type: AllegroFlare::BitmapBin*
@@ -344,6 +344,8 @@ methods:
       {
          bitmaps.push_back(bitmap_bin->auto_get(individual_frame_image_filename));
       }
+
+      // TODO: Validate all images are the same size (does SpriteStripAssembler do this?)
      
       AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
       sprite_strip_assembler.set_bitmaps(bitmaps);

@@ -210,7 +210,7 @@ methods:
          if (global_record.identifier == record_identifier) return global_record.visibility_is_hidden();
       }
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::record_has_hidden_visibillity",
+         "AllegroFlare::AssetStudio::Database::record_has_hidden_visibillity",
          "A record with the identifier \"" + record_identifier + "\" does not exist."
       );
       return false;
@@ -228,7 +228,7 @@ methods:
       for (auto &local_record : local_records) if (local_record.identifier == record_identifier) return &local_record;
       for (auto &global_record : global_records) if (global_record.identifier == record_identifier) return &global_record;
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::find_global_record",
+         "AllegroFlare::AssetStudio::Database::find_global_record",
          "A global_record with the identifier \"" + record_identifier + "\" does not exist."
       );
       return nullptr;
@@ -258,7 +258,7 @@ methods:
       // TODO: This is not very performant, consider a single index or map
       for (auto &global_record : global_records) if (global_record.identifier == record_identifier) return &global_record;
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::find_global_record",
+         "AllegroFlare::AssetStudio::Database::find_global_record",
          "A global_record with the identifier \"" + record_identifier + "\" does not exist."
       );
       return nullptr;
@@ -288,7 +288,7 @@ methods:
       // TODO: This is not very performant, consider a single index or map
       for (auto &local_record : local_records) if (local_record.identifier == record_identifier) return &local_record;
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::find_local_record",
+         "AllegroFlare::AssetStudio::Database::find_local_record",
          "A local_record with the identifier \"" + record_identifier + "\" does not exist."
       );
       return nullptr;
@@ -388,14 +388,14 @@ methods:
       if (!record_exists_as_local && !record_exists_as_global)
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load_asset",
+            "AllegroFlare::AssetStudio::Database::load_asset",
             "When attempting to load an asset from the record \"" + identifier + "\", this record was not found."
          );
       }
       else if (record_exists_as_local && record_exists_as_global)
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load_asset",
+            "AllegroFlare::AssetStudio::Database::load_asset",
             "When attempting to load an asset from the record \"" + identifier + "\", this identifier was found in "
                "both the local_assets and global_assets, leading to a (possible) conflict. This may be intentional, "
                "and it may be that the local asset is expected to override the global one in usage. However, at the "
@@ -408,7 +408,7 @@ methods:
          if (record_has_hidden_visibility(identifier))
          {
             AllegroFlare::Logger::throw_error(
-               "AllegroFlare::AssetStudio::DatabaseCSVLoader::load_asset",
+               "AllegroFlare::AssetStudio::Database::load_asset",
                "Cannot load asset \"" + identifier + "\" from the records. Note that there is a record present for "
                   "this identifier that is present, but it is marked as \"hidden\", indicating that it should be "
                   "ignored."
@@ -428,7 +428,7 @@ methods:
             else
             {
                AllegroFlare::Logger::throw_error(
-                  "AllegroFlare::AssetStudio::DatabaseCSVLoader::load_asset",
+                  "AllegroFlare::AssetStudio::Database::load_asset",
                   "Logic path error 23487583"
                );
             }
@@ -545,7 +545,7 @@ methods:
         default_argument: '"[unset-frame_data_hash]"'
     body: |
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::build_frames_from_hash",
+         "AllegroFlare::AssetStudio::Database::build_frames_from_hash",
          "This feature is not yet supported. The following \"frame_data_hash\" was present and expected to load: \""
             + frame_data_hash + "\""
       );
@@ -652,57 +652,6 @@ methods:
       return { false, 0 };
 
 
-  - name: create_sprite_sheet_from_individual_images
-    type: AllegroFlare::FrameAnimation::SpriteSheet*
-    private: true
-    parameters:
-      - name: individual_frame_image_filenames
-        type: std::vector<std::string>
-        default_argument: '{}'
-      - name: cell_width
-        type: int
-        default_argument: 16
-      - name: cell_height
-        type: int
-        default_argument: 16
-      - name: _sprite_sheet_scale
-        type: int
-        default_argument: 2
-    guards: [ assets_bitmap_bin, (!individual_frame_image_filenames.empty()) ]
-    body: |
-      // TODO: Consider caching the created result_sprite_sheet;
-
-      std::vector<ALLEGRO_BITMAP*> bitmaps;
-      for (auto &individual_frame_image_filename : individual_frame_image_filenames)
-      {
-         bitmaps.push_back(assets_bitmap_bin->auto_get(individual_frame_image_filename));
-      }
-     
-      AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
-      sprite_strip_assembler.set_bitmaps(bitmaps);
-      sprite_strip_assembler.assemble();
-      ALLEGRO_BITMAP* sprite_strip = sprite_strip_assembler.get_sprite_strip();
-
-      // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
-      AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
-         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
-      result_sprite_sheet->initialize();
-
-      // Cleanup
-      al_destroy_bitmap(sprite_strip);
-      // Cleanup the individual frame images in the bin here
-      for (auto &individual_frame_image_filename : individual_frame_image_filenames)
-      {
-         // TODO: This could wierdly clobber, consider checking all the image frames do *not* already exist in the
-         // bin at the beginning of the method before continuing.
-         assets_bitmap_bin->destroy(individual_frame_image_filename);
-      }
-
-      return result_sprite_sheet;
-    body_dependency_symbols:
-       - AllegroFlare::FrameAnimation::SpriteStripAssembler
-
-
   - name: create_asset_from_record_identifier
     type: AllegroFlare::AssetStudio::Asset*
     parameters:
@@ -757,7 +706,7 @@ methods:
       if (using_build_n_frames_frame_data && using_in_hash_frame_data)
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+            "AllegroFlare::AssetStudio::Database::load",
             "When loading row " + std::to_string(csv_row) + ", both \"build_n_frames\" and \"in_hash\" sections "
                "contain data. Either one section or the other should be used, but not both."
          );
@@ -767,7 +716,7 @@ methods:
          // NOTE: Here, assume this is a tileset
          // TODO: Consider guarding with a type==tileset or something.
          AllegroFlare::Logger::warn_from(
-            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+            "AllegroFlare::AssetStudio::Database::load",
             "When loading row " + std::to_string(csv_row) + ", there is empty data in the \"frame_data__\" columns. "
                "If this is a tilemap, please discard this message. Note that there are currently no features "
                "implemented for tilemaps."
@@ -797,7 +746,7 @@ methods:
       else
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+            "AllegroFlare::AssetStudio::Database::load",
             "Weird error in unexpected code path."
          );
       }
@@ -820,7 +769,7 @@ methods:
       {
          // Both "image_filename" and "images_list" columns erroneously have data in them
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+            "AllegroFlare::AssetStudio::Database::load",
             "When loading row " + std::to_string(csv_row) + ", there is data in both the \"images_list\" and "
                " \"image_filename\" columns. Data should exist in either one or the other, but not both."
          );
@@ -829,7 +778,7 @@ methods:
       {
          // Neither "image_filename" and "images_list" columns have data in them
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+            "AllegroFlare::AssetStudio::Database::load",
             "When loading row " + std::to_string(csv_row) + ", there no data in either the \"images_list\" and "
                " \"image_filename\" columns. Data should be present in or the other (but not both)."
          );
@@ -862,7 +811,7 @@ methods:
          if (images_list.size() != frame_data.size())
          {
             AllegroFlare::Logger::throw_error(
-               "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+               "AllegroFlare::AssetStudio::Database::load",
                "When processing asset \"" + identifier + "\", the number of images in "
                   "the \"images_list\" (" + std::to_string(images_list.size()) + ") was not the same as the "
                   "\"frame_data\"'s \"num_frames\" "
@@ -882,7 +831,8 @@ methods:
             image_list_item = asset_pack_identifier + "/extracted/" + image_list_item;
          }
 
-         sprite_sheet = create_sprite_sheet_from_individual_images(
+         sprite_sheet = AllegroFlare::TileMaps::TileAtlasBuilder::create_sprite_sheet_from_individual_images(
+               assets_bitmap_bin,
                images_list,
                cell_width,
                cell_height,
@@ -918,7 +868,7 @@ methods:
       if (playmode_parsed_data.first == false)
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::AssetStudio::DatabaseCSVLoader::load",
+            "AllegroFlare::AssetStudio::Database::load",
             "Unrecognized playmode \"" + playmode + "\" when loading row " + std::to_string(csv_row) + "."
          );
       }
@@ -967,7 +917,7 @@ methods:
       // Showing loaded asset
       // TODO: Show different kinds of data for differnet types of assets
       AllegroFlare::Logger::info_from(
-         "AllegroFlare::AssetStudio::DatabaseCSVLoader::create_assset_from_record_identifier",
+         "AllegroFlare::AssetStudio::Database::create_assset_from_record_identifier",
          "Asset \"" + asset->identifier + "\" created. Dimensions: (" + std::to_string(asset->cell_width)
             + ", " + std::to_string(asset->cell_height) + "), Frames: " + std::to_string(animation->get_num_frames())
       );
@@ -1000,6 +950,7 @@ methods:
       return asset;
     body_dependency_symbols:
       - std::filesystem::exists
+      - AllegroFlare::TileMaps::TileAtlasBuilder
 
 
 dependencies:
@@ -1023,5 +974,7 @@ dependencies:
     headers: [ filesystem ]
   - symbol: AllegroFlare::FrameAnimation::Frame
     headers: [ AllegroFlare/FrameAnimation/Frame.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileAtlasBuilder
+    headers: [ AllegroFlare/TileMaps/TileAtlasBuilder.hpp ]
 
 

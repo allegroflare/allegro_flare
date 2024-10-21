@@ -333,6 +333,8 @@ AllegroFlare::FrameAnimation::SpriteSheet* TileAtlasBuilder::create_sprite_sheet
       bitmaps.push_back(bitmap_bin->auto_get(individual_frame_image_filename));
    }
 
+   // TODO: Validate all images are the same size (does SpriteStripAssembler do this?)
+
    AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
    sprite_strip_assembler.set_bitmaps(bitmaps);
    sprite_strip_assembler.assemble();

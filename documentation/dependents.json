@@ -307,6 +307,13 @@
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader"
   ],
+  "AllegroFlare/TileMaps/TileAtlasBuilder": [
+    "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
+    "Tileo/TMJMeshLoader"
+  ],
   "AllegroFlare/CSVParser": [
     "AllegroFlare/AssetStudio/DatabaseCSVLoader"
   ],
@@ -3616,12 +3623,6 @@
   ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
-    "Tileo/TMJMeshLoader"
-  ],
-  "AllegroFlare/TileMaps/TileAtlasBuilder": [
-    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
-    "AllegroFlare/TileMaps/TileAtlasRepository",
     "Tileo/TMJMeshLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader": [

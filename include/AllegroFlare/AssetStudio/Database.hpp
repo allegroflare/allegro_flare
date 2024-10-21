@@ -40,7 +40,6 @@ namespace AllegroFlare
          void remove_global_identifier_prefixes();
          void prefix_global_identifier_prefix_to_identifiers(std::string prefix="[unset-prefix]");
          AllegroFlare::FrameAnimation::SpriteSheet* obtain_sprite_sheet(std::string filename="[unset-filename]", int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2, bool preload_bitmap_silently=true);
-         AllegroFlare::FrameAnimation::SpriteSheet* create_sprite_sheet_from_individual_images(std::vector<std::string> individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
 
       protected:
 
