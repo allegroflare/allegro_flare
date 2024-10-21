@@ -3,6 +3,7 @@
 #include <AllegroFlare/FrameAnimation/Animation.hpp>
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include <cmath>
 #include <iostream>
 #include <sstream>
@@ -205,6 +206,73 @@ void Animation::update()
    return;
 }
 
+void Animation::draw_in_context(bool draw_debug)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::FrameAnimation::Animation::draw_in_context]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw_in_context]: error: guard \"initialized\" not met");
+   }
+   if (!(((!draw_debug) || (draw_debug && al_is_primitives_addon_initialized()))))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::FrameAnimation::Animation::draw_in_context]: error: guard \"((!draw_debug) || (draw_debug && al_is_primitives_addon_initialized()))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw_in_context]: error: guard \"((!draw_debug) || (draw_debug && al_is_primitives_addon_initialized()))\" not met");
+   }
+   ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
+   if (!bitmap) return;
+
+   ALLEGRO_STATE previous_state;
+   al_store_state(&previous_state, ALLEGRO_STATE_TRANSFORM);
+
+   // std::pair<bool, std::tuple<float, float, float, float, float, float>>
+   //auto [present, [align_x, align_y, container_align_x, container_align_y, anchor_x, anchor_y]] =
+   auto vals = get_frame_alignment_and_anchors_now();
+   auto &align_x = std::get<0>(vals.second);
+   auto &align_y = std::get<1>(vals.second);
+   // TODO: Account for anchors (container_align) is the responsibillity of the containing box
+
+   // TODO: Introduce accounting for sprite sheet scale when rendering
+   int bitmap_width = al_get_bitmap_width(bitmap);
+   int bitmap_height = al_get_bitmap_height(bitmap);
+   int sprite_sheet_scale = sprite_sheet->get_scale();
+   float inv_sprite_sheet_scale = 1.0f / sprite_sheet_scale;
+
+   al_identity_transform(&t);
+   // Should these transforms be in 3d? Should y and z be flipped?
+   al_translate_transform(&t, -bitmap_width * align_x, -bitmap_height * align_y);
+   al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale);
+
+   al_compose_transform(&t, al_get_current_transform());
+
+   al_use_transform(&t);
+   al_draw_bitmap(bitmap, 0, 0, 0);
+
+   if (draw_debug)
+   {
+      al_draw_rectangle(
+         0,
+         0,
+         bitmap_width,
+         bitmap_height,
+         ALLEGRO_COLOR{1, 0.5, 0, 1},
+         sprite_sheet_scale
+      );
+   }
+
+   al_identity_transform(&t);
+   al_use_transform(&t);
+
+
+   // TODO: Test that state is restored
+   al_restore_state(&previous_state);
+
+   return;
+}
+
 void Animation::draw()
 {
    if (!(initialized))
@@ -214,40 +282,7 @@ void Animation::draw()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw]: error: guard \"initialized\" not met");
    }
-   ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
-   if (!bitmap) return;
-
-   ALLEGRO_STATE previous_state;
-   al_store_state(&previous_state, ALLEGRO_STATE_TRANSFORM);
-
-
-   // TODO: Introduce accounting for
-   float inv_sprite_sheet_scale = 1.0f / sprite_sheet->get_scale();
-
-   al_identity_transform(&t);
-   al_use_transform(&t);
-   al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale); // Should this be 3d?
-                                                                           // Should y and z be flipped?
-   al_draw_bitmap(bitmap, 0, 0, 0);
-
-   al_identity_transform(&t);
-   al_use_transform(&t);
-
-
-   al_restore_state(&previous_state);
-
-   return;
-}
-
-void Animation::draw_raw()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::FrameAnimation::Animation::draw_raw]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw_raw]: error: guard \"initialized\" not met");
-   }
+   // Consider renaming this "draw_raw"
    ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
    if (!bitmap) return;
    al_draw_bitmap(bitmap, 0, 0, 0);

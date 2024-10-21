@@ -779,6 +779,7 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",

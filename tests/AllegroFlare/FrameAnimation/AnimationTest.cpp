@@ -64,7 +64,7 @@ public:
 
          // update and draw
          animation->update();
-         animation->draw_raw();
+         animation->draw();
 
          // draw info text
          int sprite_sheet_cell_index_num = animation->get_sprite_sheet_cell_index_num_at(0.21);
@@ -183,12 +183,15 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, test_fixture_will_wor
 
 
 TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__draw__will_take_into_account_anchors_alignments_and_sprite_sheet_scales)
+   FOCUS__CAPTURE__draw_in_context__will_take_into_account_anchors__alignments___sprite_sheet_scales__and__any_\
+current_transform__for_the_current_animation_and_frame)
 {
    ALLEGRO_TRANSFORM camera_transform;
    al_identity_transform(&camera_transform);
+   al_scale_transform(&camera_transform, 4.0, 4.0);
    al_translate_transform(&camera_transform, 1920/2, 1080/2);
-   al_use_transform(&camera_transform);
+   //al_scale_transform(&camera_transform, 1920/2, 1080/2);
+   //al_use_transform(&camera_transform);
 
    ALLEGRO_TRANSFORM hud_transform;
    al_identity_transform(&hud_transform);
@@ -196,7 +199,26 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
    ALLEGRO_FONT *font = get_any_font();
    
    AllegroFlare::FrameAnimation::Animation *animation = create_animation(
-      std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
+      std::vector<Frame>{
+         {
+            1,
+            0.2f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
+         },
+         {
+            2,
+            0.1f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
+         },
+         {
+            3,
+            0.2f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
+         }
+      },
       Animation::PLAYMODE_FORWARD_PING_PONG
    );
 
@@ -232,9 +254,9 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
       draw_rulers();
 
       al_use_transform(&camera_transform);
-      draw_horizontal_crosshair(0, 0);
+      //draw_horizontal_crosshair(0, 0);
 
-      animation->draw();
+      animation->draw_in_context(true);
 
       draw_crosshair_blue(0, 0);
 

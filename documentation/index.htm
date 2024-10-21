@@ -16778,11 +16778,11 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>draw</b>()</td>
+  <td class="method"><b>draw_in_context</b>(bool draw_debug=false)</td>
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>draw_raw</b>()</td>
+  <td class="method"><b>draw</b>()</td>
 </tr>
 <tr>
   <td class="method">int</td>
@@ -16860,6 +16860,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_TRANSFORM&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45963,6 +45966,7 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
