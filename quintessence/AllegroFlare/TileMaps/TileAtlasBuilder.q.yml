@@ -313,6 +313,64 @@ methods:
       return true;
 
 
+  - name: create_sprite_sheet_from_individual_images
+    type: AllegroFlare::FrameAnimation::SpriteSheet*
+    private: true
+    parameters:
+      - name: bitmap_bin
+        type: AllegroFlare::BitmapBin*
+        default_argument: nullptr
+      - name: individual_frame_image_filenames
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: cell_width
+        type: int
+        default_argument: 16
+      - name: cell_height
+        type: int
+        default_argument: 16
+      - name: _sprite_sheet_scale
+        type: int
+        default_argument: 2
+    guards: [ bitmap_bin, (!individual_frame_image_filenames.empty()) ]
+    body: |
+      // TODO: Test this
+      // TODO: Ensure no bitmap or other pointers are left dangling
+      // TODO: Note that passing "just" the bitmaps is indeed the SpriteStripAssembler
+      // TODO: Consider if SpriteSheet can be replaced by PrimMeshAtlas (or if they can be merged)
+
+      std::vector<ALLEGRO_BITMAP*> bitmaps;
+      for (auto &individual_frame_image_filename : individual_frame_image_filenames)
+      {
+         bitmaps.push_back(bitmap_bin->auto_get(individual_frame_image_filename));
+      }
+     
+      AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
+      sprite_strip_assembler.set_bitmaps(bitmaps);
+      sprite_strip_assembler.assemble();
+      ALLEGRO_BITMAP* sprite_strip = sprite_strip_assembler.get_sprite_strip();
+
+      // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
+      AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
+         new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
+      result_sprite_sheet->initialize();
+
+      // Cleanup
+      al_destroy_bitmap(sprite_strip);
+      // Cleanup the individual frame images in the bin here
+      for (auto &individual_frame_image_filename : individual_frame_image_filenames)
+      {
+         // TODO: This could wierdly clobber, consider checking all the image frames do *not* already exist in the
+         // bin at the beginning of the method before continuing.
+         bitmap_bin->destroy(individual_frame_image_filename);
+      }
+
+      return result_sprite_sheet;
+    body_dependency_symbols:
+       - AllegroFlare::FrameAnimation::SpriteStripAssembler
+
+
+
 dependencies:
 
 
@@ -332,5 +390,11 @@ dependencies:
     headers: [ cmath ]
   - symbol: std::sqrt
     headers: [ cmath ]
+  - symbol: AllegroFlare::FrameAnimation::SpriteStripAssembler
+    headers: [ AllegroFlare/FrameAnimation/SpriteStripAssembler.hpp ]
+  - symbol: AllegroFlare::FrameAnimation::SpriteSheet
+    headers: [ AllegroFlare/FrameAnimation/SpriteSheet.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
 
 

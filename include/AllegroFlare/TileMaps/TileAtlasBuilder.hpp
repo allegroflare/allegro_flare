@@ -1,10 +1,13 @@
 #pragma once
 
 
+#include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/FrameAnimation/SpriteSheet.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.hpp>
 #include <allegro5/allegro.h>
 #include <cstddef>
+#include <string>
 #include <vector>
 
 
@@ -19,6 +22,7 @@ namespace AllegroFlare
          static constexpr std::size_t MAX_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE = 6;
 
       private:
+         AllegroFlare::FrameAnimation::SpriteSheet* create_sprite_sheet_from_individual_images(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::vector<std::string> individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2);
 
       protected:
 

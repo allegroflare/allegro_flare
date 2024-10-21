@@ -202,7 +202,8 @@
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/AssetStudio/Database",
@@ -287,6 +288,7 @@
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/Basic2D",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
@@ -296,7 +298,8 @@
   ],
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
     "AllegroFlare/AssetStudio/Database",
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/AssetStudio/Database",

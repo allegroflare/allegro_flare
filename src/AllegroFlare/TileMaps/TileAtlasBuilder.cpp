@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
 
+#include <AllegroFlare/FrameAnimation/SpriteStripAssembler.hpp>
 #include <AllegroFlare/ImageProcessing.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
@@ -303,6 +304,56 @@ bool TileAtlasBuilder::validate_all_sub_bitmaps_in_tile_index_are_identical_size
       }
    }
    return true;
+}
+
+AllegroFlare::FrameAnimation::SpriteSheet* TileAtlasBuilder::create_sprite_sheet_from_individual_images(AllegroFlare::BitmapBin* bitmap_bin, std::vector<std::string> individual_frame_image_filenames, int cell_width, int cell_height, int _sprite_sheet_scale)
+{
+   if (!(bitmap_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_sprite_sheet_from_individual_images]: error: guard \"bitmap_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_sprite_sheet_from_individual_images]: error: guard \"bitmap_bin\" not met");
+   }
+   if (!((!individual_frame_image_filenames.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::TileAtlasBuilder::create_sprite_sheet_from_individual_images]: error: guard \"(!individual_frame_image_filenames.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_sprite_sheet_from_individual_images]: error: guard \"(!individual_frame_image_filenames.empty())\" not met");
+   }
+   // TODO: Test this
+   // TODO: Ensure no bitmap or other pointers are left dangling
+   // TODO: Note that passing "just" the bitmaps is indeed the SpriteStripAssembler
+   // TODO: Consider if SpriteSheet can be replaced by PrimMeshAtlas (or if they can be merged)
+
+   std::vector<ALLEGRO_BITMAP*> bitmaps;
+   for (auto &individual_frame_image_filename : individual_frame_image_filenames)
+   {
+      bitmaps.push_back(bitmap_bin->auto_get(individual_frame_image_filename));
+   }
+
+   AllegroFlare::FrameAnimation::SpriteStripAssembler sprite_strip_assembler;
+   sprite_strip_assembler.set_bitmaps(bitmaps);
+   sprite_strip_assembler.assemble();
+   ALLEGRO_BITMAP* sprite_strip = sprite_strip_assembler.get_sprite_strip();
+
+   // Given the newly assembled sprite_strip (aka atlas), build the sprite_sheet
+   AllegroFlare::FrameAnimation::SpriteSheet *result_sprite_sheet =
+      new AllegroFlare::FrameAnimation::SpriteSheet(sprite_strip, cell_width, cell_height, _sprite_sheet_scale);
+   result_sprite_sheet->initialize();
+
+   // Cleanup
+   al_destroy_bitmap(sprite_strip);
+   // Cleanup the individual frame images in the bin here
+   for (auto &individual_frame_image_filename : individual_frame_image_filenames)
+   {
+      // TODO: This could wierdly clobber, consider checking all the image frames do *not* already exist in the
+      // bin at the beginning of the method before continuing.
+      bitmap_bin->destroy(individual_frame_image_filename);
+   }
+
+   return result_sprite_sheet;
 }
 
 

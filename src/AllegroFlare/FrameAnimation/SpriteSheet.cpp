@@ -76,7 +76,7 @@ void SpriteSheet::initialize()
 
    // At this point, we're done with "atlas". It can be deleted by the end user after having called this "initialize()"
 
-   // Duplicate the scaled_and_extruded_bitamp
+   // Duplicate the scaled_and_extruded_bitmap
    new_atlas.duplicate_bitmap_and_load(
       scaled_extruded_tile_map_bitmap, sprite_width*scale, sprite_height*scale, 1
    );

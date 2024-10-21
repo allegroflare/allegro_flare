@@ -40327,6 +40327,10 @@ table td
   <td class="method">bool</td>
   <td class="method"><b>validate_all_sub_bitmaps_in_tile_index_are_identical_sizes</b>(std::vector&lt;AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord&gt;* tile_index_=nullptr)</td>
 </tr>
+<tr>
+  <td class="private_method">AllegroFlare::FrameAnimation::SpriteSheet*</td>
+  <td class="private_method"><b>create_sprite_sheet_from_individual_images</b>(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::vector&lt;std::string&gt; individual_frame_image_filenames={}, int cell_width=16, int cell_height=16, int _sprite_sheet_scale=2)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -40353,6 +40357,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::sqrt&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteStripAssembler&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteStripAssembler.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FrameAnimation::SpriteSheet&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FrameAnimation/SpriteSheet.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45363,7 +45376,8 @@ table td
     "AllegroFlare/AssetStudio/DatabaseCSVLoader",
     "AllegroFlare/FrameAnimation/Animation",
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
-    "AllegroFlare/FrameAnimation/Book"
+    "AllegroFlare/FrameAnimation/Book",
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/BitmapBin": [
     "AllegroFlare/AssetStudio/Database",
@@ -45448,6 +45462,7 @@ table td
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TileMaps/Basic2D",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
     "AllegroFlare/Timeline/ActorFactory",
     "AllegroFlare/Timeline/ActorFactory",
@@ -45457,7 +45472,8 @@ table td
   ],
   "AllegroFlare/FrameAnimation/SpriteStripAssembler": [
     "AllegroFlare/AssetStudio/Database",
-    "AllegroFlare/AssetStudio/DatabaseCSVLoader"
+    "AllegroFlare/AssetStudio/DatabaseCSVLoader",
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/FrameAnimation/Frame": [
     "AllegroFlare/AssetStudio/Database",
