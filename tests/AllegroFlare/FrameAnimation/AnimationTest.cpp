@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/FrameAnimation/Animation.hpp>
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_ttf.h>
@@ -63,7 +64,7 @@ public:
 
          // update and draw
          animation->update();
-         animation->draw();
+         animation->draw_raw();
 
          // draw info text
          int sprite_sheet_cell_index_num = animation->get_sprite_sheet_cell_index_num_at(0.21);
@@ -81,6 +82,42 @@ public:
       al_shutdown_ttf_addon();
       al_shutdown_image_addon();
       al_uninstall_system();
+   }
+};
+class AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+public:
+   AllegroFlare::FrameAnimation::SpriteSheet *sprite_sheet;
+
+   AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture()
+      : sprite_sheet(nullptr)
+   {
+   }
+   virtual void SetUp() override
+   {
+      AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+
+      std::string sprite_sheet_bitmap_identifier = "sprites_grid-x.png";
+      ALLEGRO_BITMAP *sprite_sheet_bitmap = get_bitmap_bin_ref().auto_get(sprite_sheet_bitmap_identifier);
+      sprite_sheet = new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_bitmap, 48, 48, 5);
+      sprite_sheet->initialize();
+      get_bitmap_bin_ref().destroy(sprite_sheet_bitmap_identifier);
+   }
+   virtual void TearDown() override
+   {
+      sprite_sheet->destroy();
+      delete sprite_sheet;
+      sprite_sheet = nullptr;
+
+      AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+   }
+   AllegroFlare::FrameAnimation::Animation *create_animation(std::vector<Frame> frames, Animation::Playmode playmode)
+   {
+      AllegroFlare::FrameAnimation::Animation *animation =
+         new Animation(sprite_sheet, "my_animation", frames, playmode);
+      animation->initialize();
+      return animation;
    }
 };
 
@@ -135,7 +172,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTest,
 }
 
 
-TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, DISABLED__test_fixture_will_work_as_expected)
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, test_fixture_will_work_as_expected)
 {
    setup_animation(
       std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
@@ -145,14 +182,48 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, DISABLED__test_fixtur
 }
 
 
-TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
-   draw__will_take_into_account_anchors_alignments_and_sprite_sheet_scales)
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
+   FOCUS__draw__will_take_into_account_anchors_alignments_and_sprite_sheet_scales)
 {
-   setup_animation(
+   //ALLEGRO_TRANSFORM camera;
+   //al_identity_transform(&t);
+   //al_translate_transform(&t, 1920/2, 1080/2);
+   //al_use_transform(&t);
+   ALLEGRO_FONT *font = get_any_font();
+   
+   AllegroFlare::FrameAnimation::Animation *animation = create_animation(
       std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
       Animation::PLAYMODE_FORWARD_PING_PONG
    );
-   display_subject();
+
+   //setup_animation(
+      //std::vector<Frame>{{ 1, 0.2f }, { 2, 0.1f }, { 3, 0.2f }},
+      //Animation::PLAYMODE_FORWARD_PING_PONG
+   //);
+
+   int frames = 120;
+   animation->start();
+   for (int i=0; i<frames; i++)
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+
+      // update and draw
+      animation->update();
+      animation->draw();
+
+      // draw info text
+      int sprite_sheet_cell_index_num = animation->get_sprite_sheet_cell_index_num_now();
+      int frame_num_now = animation->get_frame_num_now();
+
+//get_sprite_sheet_cell_index_num_at(0.21);
+//get_frame_num_now
+
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", sprite_sheet_cell_index_num);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 50, 0, "frame_num %d", frame_num_now);
+//get_frame_num_now
+
+      al_flip_display(); // assumes a rest of 1/60.0f
+   }
 }
 
 

@@ -217,17 +217,24 @@ void Animation::draw()
    ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
    if (!bitmap) return;
 
-   // TODO: Introduce accounting for
-   //float inv_sprite_sheet_scale = 1.0f / sprite_sheet->get_scale();
+   ALLEGRO_STATE previous_state;
+   al_store_state(&previous_state, ALLEGRO_STATE_TRANSFORM);
 
-   //al_identity_transform(&t);
-   //al_use_transform(&t);
-   //al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale); // Should this be 3d?
+
+   // TODO: Introduce accounting for
+   float inv_sprite_sheet_scale = 1.0f / sprite_sheet->get_scale();
+
+   al_identity_transform(&t);
+   al_use_transform(&t);
+   al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale); // Should this be 3d?
                                                                            // Should y and z be flipped?
    al_draw_bitmap(bitmap, 0, 0, 0);
 
-   //al_identity_transform(&t);
-   //al_use_transform(&t);
+   al_identity_transform(&t);
+   al_use_transform(&t);
+
+
+   al_restore_state(&previous_state);
 
    return;
 }
