@@ -268,7 +268,7 @@ current_transform__for_the_current_animation_and_frame)
       al_use_transform(&camera_transform);
       //draw_horizontal_crosshair(0, 0);
 
-      animation->draw_in_context(false, false, true); // TODO: Work in testing of flip flags
+      animation->draw_in_context(false, false, true);
 
       draw_crosshair_blue(0, 0);
 
@@ -292,7 +292,15 @@ current_transform__for_the_current_animation_and_frame)
 
 
 TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__draw_in_context__will_take_into_account_flip_x_and_flip_y_arguments)
+   DISABLED__draw_in_context__will_take_into_account_anchors__alignments___sprite_sheet_scales__and__any_\
+current_transform__for_the_current_animation_and_frame__in_a_3d_context)
+{
+   // TODO: This test
+}
+
+
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
+   CAPTURE__draw_in_context__will_take_into_account_flip_x_and_flip_y_arguments)
 {
    ALLEGRO_TRANSFORM camera_transform;
    al_identity_transform(&camera_transform);
@@ -387,6 +395,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
 
       float spacing = 300;
       float h_spacing = spacing * 0.5;
+      ALLEGRO_COLOR origin_crosshair_color = ALLEGRO_COLOR{1, 1, 0, 1};
 
       // Normal
       al_identity_transform(&subject_placement_transform);
@@ -394,7 +403,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
       al_translate_transform(&subject_placement_transform, -spacing - h_spacing, 0);
       al_use_transform(&subject_placement_transform);
       animation->draw_in_context(false, false, true);
-      draw_crosshair(0, 0, ALLEGRO_COLOR{0, 0, 1, 1}, 20.0);
+      draw_crosshair(0, 0, origin_crosshair_color, 20.0);
 
       // Flip x
       al_identity_transform(&subject_placement_transform);
@@ -402,7 +411,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
       al_translate_transform(&subject_placement_transform, -h_spacing, 0);
       al_use_transform(&subject_placement_transform);
       animation->draw_in_context(true, false, true);
-      draw_crosshair(0, 0, ALLEGRO_COLOR{0, 0, 1, 1}, 20.0);
+      draw_crosshair(0, 0, origin_crosshair_color, 20.0);
 
       // Flip y
       al_identity_transform(&subject_placement_transform);
@@ -410,7 +419,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
       al_translate_transform(&subject_placement_transform, h_spacing, 0);
       al_use_transform(&subject_placement_transform);
       animation->draw_in_context(false, true, true);
-      draw_crosshair(0, 0, ALLEGRO_COLOR{0, 0, 1, 1}, 20.0);
+      draw_crosshair(0, 0, origin_crosshair_color, 20.0);
 
       // Flip x and y
       al_identity_transform(&subject_placement_transform);
@@ -418,7 +427,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
       al_translate_transform(&subject_placement_transform, spacing + h_spacing, 0);
       al_use_transform(&subject_placement_transform);
       animation->draw_in_context(true, true, true);
-      draw_crosshair(0, 0, ALLEGRO_COLOR{0, 0, 1, 1}, 20.0);
+      draw_crosshair(0, 0, origin_crosshair_color, 20.0);
 
       // draw info text
       al_use_transform(&hud_transform);
@@ -440,6 +449,9 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
       al_flip_display();
    }
 }
+
+
+
 
 
 TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, 
