@@ -233,6 +233,8 @@ void Animation::draw_in_context(bool draw_debug)
    auto vals = get_frame_alignment_and_anchors_now();
    auto &align_x = std::get<0>(vals.second);
    auto &align_y = std::get<1>(vals.second);
+   auto &anchor_x = std::get<4>(vals.second);
+   auto &anchor_y = std::get<5>(vals.second);
    // TODO: Account for anchors (container_align) is the responsibillity of the containing box
 
    // TODO: Introduce accounting for sprite sheet scale when rendering
@@ -243,6 +245,16 @@ void Animation::draw_in_context(bool draw_debug)
 
    al_identity_transform(&t);
    // Should these transforms be in 3d? Should y and z be flipped?
+
+   // TODO: Work in anchors
+   // NOTE: Here is order of transforms for Placement2D
+   //al_translate_transform(transform, -align.x*size.x, -align.y*size.y);
+   //al_scale_transform(transform, scale.x * (flip.get_x() ? -1 : 1), scale.y * (flip.get_y() ? -1 : 1));
+   //al_translate_transform(transform, anchor.x, anchor.y);
+   //al_rotate_transform(transform, rotation);
+   //al_translate_transform(transform, position.x, position.y);
+
+
    al_translate_transform(&t, -bitmap_width * align_x, -bitmap_height * align_y);
    al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale);
 
