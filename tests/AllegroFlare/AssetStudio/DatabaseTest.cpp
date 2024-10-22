@@ -62,7 +62,7 @@ public:
       result.asset_pack_identifier = "a_test_asset_pack";
 
       {
-         result.image_filename = "robo-soldier6.png"; // TODO: Change this to images_list
+         result.image_filename = "robo-soldier6.png"; // TODO: Add test that uses images_list instead
          result.cell_width = 48;
          result.cell_height = 48;
          result.frame_data__build_n_frames__num_frames	= 1; //int
@@ -180,6 +180,9 @@ load_a_global_asset_into_global_assets_with_the_expected_values)
 
 
 // TODO: Repeat the above test for local_assets
+
+
+// TODO: Add test that creates sprite from "images_list" property on AssetStudio/Record
 
 
 /*
