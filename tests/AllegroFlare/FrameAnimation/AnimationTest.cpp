@@ -109,11 +109,16 @@ public:
 
       AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
    }
-   void setup_sprite_sheet()
+   void setup_sprite_sheet(
+         std::string sprite_sheet_bitmap_identifier="sprites_grid-x.png",
+         int cell_width=48,
+         int cell_height=48,
+         int scale=5
+      )
    {
-      std::string sprite_sheet_bitmap_identifier = "sprites_grid-x.png";
+      //std::string sprite_sheet_bitmap_identifier = "sprites_grid-x.png";
       ALLEGRO_BITMAP *sprite_sheet_bitmap = get_bitmap_bin_ref().auto_get(sprite_sheet_bitmap_identifier);
-      sprite_sheet = new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_bitmap, 48, 48, 5);
+      sprite_sheet = new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_bitmap, cell_width, cell_height, scale);
       sprite_sheet->initialize();
       get_bitmap_bin_ref().destroy(sprite_sheet_bitmap_identifier);
    }
@@ -301,10 +306,16 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
 
    ALLEGRO_FONT *font = get_any_font();
 
-   setup_sprite_sheet();
+   setup_sprite_sheet("a_sprite_stip-01.png", 48, 48, 5);
    
    AllegroFlare::FrameAnimation::Animation *animation = create_animation(
       std::vector<Frame>{
+         {
+            0,
+            0.2f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
+         },
          {
             1,
             0.2f, // duration
@@ -313,7 +324,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
          },
          {
             2,
-            0.1f, // duration
+            0.2f, // duration
             0.5f, // align_x
             1.0f, // align_y
          },
@@ -322,9 +333,21 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
             0.2f, // duration
             0.5f, // align_x
             1.0f, // align_y
+         },
+         {
+            4,
+            0.2f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
+         },
+         {
+            5,
+            0.2f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
          }
       },
-      Animation::PLAYMODE_FORWARD_PING_PONG
+      Animation::PLAYMODE_FORWARD_LOOP
    );
 
    int frames = 120 * 3;
