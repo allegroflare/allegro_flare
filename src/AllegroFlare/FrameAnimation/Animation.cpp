@@ -206,7 +206,7 @@ void Animation::update()
    return;
 }
 
-void Animation::draw_in_context(bool draw_debug)
+void Animation::draw_in_context(bool flip_x, bool flip_y, bool draw_debug)
 {
    if (!(initialized))
    {
@@ -256,6 +256,8 @@ void Animation::draw_in_context(bool draw_debug)
 
 
    al_translate_transform(&t, -bitmap_width * align_x, -bitmap_height * align_y);
+   if (flip_x || flip_y) al_scale_transform(&t, (flip_x ? -1 : 1), (flip_y ? -1 : 1)); // TODO: Test this appears
+                                                                                       // as expected
    al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale);
 
    al_compose_transform(&t, al_get_current_transform());

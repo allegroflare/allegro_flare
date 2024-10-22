@@ -256,7 +256,7 @@ current_transform__for_the_current_animation_and_frame)
       al_use_transform(&camera_transform);
       //draw_horizontal_crosshair(0, 0);
 
-      animation->draw_in_context(true);
+      animation->draw_in_context(false, false, true); // TODO: Work in testing of flip flags
 
       draw_crosshair_blue(0, 0);
 

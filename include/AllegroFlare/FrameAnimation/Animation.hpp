@@ -60,7 +60,7 @@ namespace AllegroFlare
          void reset();
          void set_playspeed_multiplier(float playspeed_multiplier=1.0);
          void update();
-         void draw_in_context(bool draw_debug=false);
+         void draw_in_context(bool flip_x=false, bool flip_y=false, bool draw_debug=false);
          void draw();
          int get_num_frames();
          ALLEGRO_BITMAP* get_frame_bitmap_at_time(float time=0.0f);
