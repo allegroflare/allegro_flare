@@ -97,20 +97,25 @@ public:
    virtual void SetUp() override
    {
       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+   }
+   virtual void TearDown() override
+   {
+      if (sprite_sheet)
+      {
+         sprite_sheet->destroy();
+         delete sprite_sheet;
+         sprite_sheet = nullptr;
+      }
 
+      AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+   }
+   void setup_sprite_sheet()
+   {
       std::string sprite_sheet_bitmap_identifier = "sprites_grid-x.png";
       ALLEGRO_BITMAP *sprite_sheet_bitmap = get_bitmap_bin_ref().auto_get(sprite_sheet_bitmap_identifier);
       sprite_sheet = new AllegroFlare::FrameAnimation::SpriteSheet(sprite_sheet_bitmap, 48, 48, 5);
       sprite_sheet->initialize();
       get_bitmap_bin_ref().destroy(sprite_sheet_bitmap_identifier);
-   }
-   virtual void TearDown() override
-   {
-      sprite_sheet->destroy();
-      delete sprite_sheet;
-      sprite_sheet = nullptr;
-
-      AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
    }
    AllegroFlare::FrameAnimation::Animation *create_animation(std::vector<Frame> frames, Animation::Playmode playmode)
    {
@@ -183,7 +188,7 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup, test_fixture_will_wor
 
 
 TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__draw_in_context__will_take_into_account_anchors__alignments___sprite_sheet_scales__and__any_\
+   CAPTURE__draw_in_context__will_take_into_account_anchors__alignments___sprite_sheet_scales__and__any_\
 current_transform__for_the_current_animation_and_frame)
 {
    ALLEGRO_TRANSFORM camera_transform;
@@ -197,6 +202,8 @@ current_transform__for_the_current_animation_and_frame)
    al_identity_transform(&hud_transform);
 
    ALLEGRO_FONT *font = get_any_font();
+
+   setup_sprite_sheet();
    
    AllegroFlare::FrameAnimation::Animation *animation = create_animation(
       std::vector<Frame>{
@@ -259,6 +266,118 @@ current_transform__for_the_current_animation_and_frame)
       animation->draw_in_context(false, false, true); // TODO: Work in testing of flip flags
 
       draw_crosshair_blue(0, 0);
+
+      // draw info text
+      al_use_transform(&hud_transform);
+      int sprite_sheet_cell_index_num = animation->get_sprite_sheet_cell_index_num_now();
+      int frame_num_now = animation->get_frame_num_now();
+
+      int l = 0; // l for line
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame %d", sprite_sheet_cell_index_num);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_num %d", frame_num_now);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_bitmap_width %d", frame_width);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_bitmap_height %d", frame_height);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "organic_frame_width %d", organic_frame_width);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "organic_frame_height %d", organic_frame_height);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "sprite_sheet_scale %d", sprite_sheet_scale);
+
+      al_flip_display();
+   }
+}
+
+
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__draw_in_context__will_take_into_account_flip_x_and_flip_y_arguments)
+{
+   ALLEGRO_TRANSFORM camera_transform;
+   al_identity_transform(&camera_transform);
+   al_scale_transform(&camera_transform, 4.0, 4.0);
+   al_translate_transform(&camera_transform, 1920/2, 1080/2);
+   //al_scale_transform(&camera_transform, 1920/2, 1080/2);
+   //al_use_transform(&camera_transform);
+
+   ALLEGRO_TRANSFORM hud_transform;
+   al_identity_transform(&hud_transform);
+
+   ALLEGRO_FONT *font = get_any_font();
+
+   setup_sprite_sheet();
+   
+   AllegroFlare::FrameAnimation::Animation *animation = create_animation(
+      std::vector<Frame>{
+         {
+            1,
+            0.2f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
+         },
+         {
+            2,
+            0.1f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
+         },
+         {
+            3,
+            0.2f, // duration
+            0.5f, // align_x
+            1.0f, // align_y
+         }
+      },
+      Animation::PLAYMODE_FORWARD_PING_PONG
+   );
+
+   int frames = 120 * 3;
+   int frame_width = 0;
+   int frame_height = 0;
+   int organic_frame_width = 0;
+   int organic_frame_height = 0;
+   int sprite_sheet_scale = animation->get_sprite_sheet()->get_scale();
+   ALLEGRO_TRANSFORM subject_placement_transform;
+   animation->start();
+   for (int i=0; i<frames; i++)
+   {
+      //
+      // Update
+      //
+
+      animation->update();
+      ALLEGRO_BITMAP *this_frame_bitmap = animation->get_frame_bitmap_now();
+      if (this_frame_bitmap)
+      {
+         frame_width = al_get_bitmap_width(this_frame_bitmap);
+         frame_height = al_get_bitmap_height(this_frame_bitmap);
+         organic_frame_width = frame_width / sprite_sheet_scale;
+         organic_frame_height = frame_height / sprite_sheet_scale;
+      }
+
+      //
+      // Draw
+      //
+
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      al_use_transform(&hud_transform);
+      draw_rulers();
+
+      al_use_transform(&camera_transform);
+      //draw_horizontal_crosshair(0, 0);
+
+      al_identity_transform(&subject_placement_transform);
+      al_compose_transform(&subject_placement_transform, &camera_transform);
+      al_translate_transform(&subject_placement_transform, -200, 0);
+      al_use_transform(&subject_placement_transform);
+      animation->draw_in_context(true, false, true);
+      al_identity_transform(&subject_placement_transform);
+      al_compose_transform(&subject_placement_transform, &camera_transform);
+      al_use_transform(&subject_placement_transform);
+      animation->draw_in_context(false, true, true);
+      al_identity_transform(&subject_placement_transform);
+      al_compose_transform(&subject_placement_transform, &camera_transform);
+      al_translate_transform(&subject_placement_transform, 200, 0);
+      al_use_transform(&subject_placement_transform);
+      animation->draw_in_context(true, true, true);
+
+      //draw_crosshair_blue(0, 0);
 
       // draw info text
       al_use_transform(&hud_transform);
