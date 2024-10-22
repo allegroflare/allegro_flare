@@ -362,36 +362,57 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithAllegroRenderingFixture,
       al_use_transform(&camera_transform);
       //draw_horizontal_crosshair(0, 0);
 
+      float spacing = 300;
+      float h_spacing = spacing * 0.5;
+
+      // Normal
       al_identity_transform(&subject_placement_transform);
       al_compose_transform(&subject_placement_transform, &camera_transform);
-      al_translate_transform(&subject_placement_transform, -200, 0);
+      al_translate_transform(&subject_placement_transform, -spacing - h_spacing, 0);
+      al_use_transform(&subject_placement_transform);
+      animation->draw_in_context(false, false, true);
+      draw_crosshair(0, 0, ALLEGRO_COLOR{0, 0, 1, 1}, 20.0);
+
+      // Flip x
+      al_identity_transform(&subject_placement_transform);
+      al_compose_transform(&subject_placement_transform, &camera_transform);
+      al_translate_transform(&subject_placement_transform, -h_spacing, 0);
       al_use_transform(&subject_placement_transform);
       animation->draw_in_context(true, false, true);
+      draw_crosshair(0, 0, ALLEGRO_COLOR{0, 0, 1, 1}, 20.0);
+
+      // Flip y
       al_identity_transform(&subject_placement_transform);
       al_compose_transform(&subject_placement_transform, &camera_transform);
+      al_translate_transform(&subject_placement_transform, h_spacing, 0);
       al_use_transform(&subject_placement_transform);
       animation->draw_in_context(false, true, true);
+      draw_crosshair(0, 0, ALLEGRO_COLOR{0, 0, 1, 1}, 20.0);
+
+      // Flip x and y
       al_identity_transform(&subject_placement_transform);
       al_compose_transform(&subject_placement_transform, &camera_transform);
-      al_translate_transform(&subject_placement_transform, 200, 0);
+      al_translate_transform(&subject_placement_transform, spacing + h_spacing, 0);
       al_use_transform(&subject_placement_transform);
       animation->draw_in_context(true, true, true);
-
-      //draw_crosshair_blue(0, 0);
+      draw_crosshair(0, 0, ALLEGRO_COLOR{0, 0, 1, 1}, 20.0);
 
       // draw info text
       al_use_transform(&hud_transform);
       int sprite_sheet_cell_index_num = animation->get_sprite_sheet_cell_index_num_now();
       int frame_num_now = animation->get_frame_num_now();
 
+      float x = 100;
+      float y = 100;
+      float lh = 40;
       int l = 0; // l for line
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame %d", sprite_sheet_cell_index_num);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_num %d", frame_num_now);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_bitmap_width %d", frame_width);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "frame_bitmap_height %d", frame_height);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "organic_frame_width %d", organic_frame_width);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "organic_frame_height %d", organic_frame_height);
-      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 200, 200+50*l++, 0, "sprite_sheet_scale %d", sprite_sheet_scale);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y+lh*l++, 0, "frame %d", sprite_sheet_cell_index_num);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y+lh*l++, 0, "frame_num %d", frame_num_now);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y+lh*l++, 0, "frame_bitmap_width %d", frame_width);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y+lh*l++, 0, "frame_bitmap_height %d", frame_height);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y+lh*l++, 0, "organic_frame_width %d", organic_frame_width);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y+lh*l++, 0, "organic_frame_height %d", organic_frame_height);
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y+lh*l++, 0, "sprite_sheet_scale %d", sprite_sheet_scale);
 
       al_flip_display();
    }

@@ -256,14 +256,17 @@ void Animation::draw_in_context(bool flip_x, bool flip_y, bool draw_debug)
 
 
    al_translate_transform(&t, -bitmap_width * align_x, -bitmap_height * align_y);
-   if (flip_x || flip_y) al_scale_transform(&t, (flip_x ? -1 : 1), (flip_y ? -1 : 1)); // TODO: Test this appears
+   //if (flip_x || flip_y) al_scale_transform(&t, (flip_x ? -1 : 1), (flip_y ? -1 : 1)); // TODO: Test this appears
                                                                                        // as expected
    al_scale_transform(&t, inv_sprite_sheet_scale, inv_sprite_sheet_scale);
 
    al_compose_transform(&t, al_get_current_transform());
 
    al_use_transform(&t);
-   al_draw_bitmap(bitmap, 0, 0, 0);
+   int bitmap_flags = 0;
+   if (flip_x) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_HORIZONTAL;
+   if (flip_y) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_VERTICAL;
+   al_draw_bitmap(bitmap, 0, 0, bitmap_flags);
 
    if (draw_debug)
    {
