@@ -164,7 +164,7 @@ void Animation::set_playspeed_multiplier(float playspeed_multiplier)
    return;
 }
 
-void Animation::update()
+void Animation::update(float time_step)
 {
    if (!(initialized))
    {
@@ -175,10 +175,7 @@ void Animation::update()
    }
    // TODO: Pass in time_now (for capturing "finished_at")
 
-   const float FRAME_INCREMENT = 1.0f/60.0f; // TODO: Move FRAME_INCREMENT to member.
-                                             // TODO: Make sure FRAME_INCREMENT is guarded. Consider interesting
-                                             // things that could happen with negative increment (reverse loop?)
-   playhead += (FRAME_INCREMENT * playspeed_multiplier);
+   playhead += (time_step * playspeed_multiplier);
 
    // update "finished"
    switch(playmode)

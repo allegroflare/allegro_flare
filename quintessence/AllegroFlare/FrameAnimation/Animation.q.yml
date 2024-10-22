@@ -55,6 +55,13 @@ properties:
     static: true
     init_with: '{}'
 
+  - name: DEFAULT_FRAME_TIMESTEP
+    static: true
+    type: double
+    init_with: 1.0/60.0
+    constexpr: true
+    const: true
+
 
 enums:
 
@@ -140,14 +147,15 @@ functions:
 
 
   - name: update
+    parameters:
+      - name: time_step
+        type: float
+        default_argument: DEFAULT_FRAME_TIMESTEP
     guards: [ initialized ]
     body: |
       // TODO: Pass in time_now (for capturing "finished_at")
 
-      const float FRAME_INCREMENT = 1.0f/60.0f; // TODO: Move FRAME_INCREMENT to member.
-                                                // TODO: Make sure FRAME_INCREMENT is guarded. Consider interesting
-                                                // things that could happen with negative increment (reverse loop?)
-      playhead += (FRAME_INCREMENT * playspeed_multiplier);
+      playhead += (time_step * playspeed_multiplier);
 
       // update "finished"
       switch(playmode)

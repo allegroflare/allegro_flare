@@ -18,6 +18,9 @@ namespace AllegroFlare
       class Animation
       {
       public:
+         static constexpr double DEFAULT_FRAME_TIMESTEP = 1.0/60.0;
+
+      public:
 
          enum Playmode
          {
@@ -59,7 +62,7 @@ namespace AllegroFlare
          void start();
          void reset();
          void set_playspeed_multiplier(float playspeed_multiplier=1.0);
-         void update();
+         void update(float time_step=DEFAULT_FRAME_TIMESTEP);
          void draw_in_context(bool flip_x=false, bool flip_y=false, bool draw_debug=false);
          void draw();
          int get_num_frames();
