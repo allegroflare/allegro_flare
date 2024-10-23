@@ -17,6 +17,14 @@ methods:
       return nodes.size();
 
 
+  - name: get_all_node_names
+    type: std::set<std::string>
+    body: |
+      std::set<std::string> result;
+      for (const auto& node_pair : nodes) result.insert(node_pair.first);
+      return result;
+
+
   - name: add_node
     parameters:
       - name: name

@@ -18,6 +18,19 @@ TEST(AllegroFlare_DialogTree_NodeBankTest, find_node_by_name__when_a_node_does_n
 }
 
 
+TEST(AllegroFlare_DialogTree_NodeBankTest, get_all_node_names__will_return_all_the_node_names_in_the_node_bank)
+{
+   AllegroFlare::DialogTree::NodeBank node_bank;
+   node_bank.add_node("my_node_1", new AllegroFlare::DialogTree::Nodes::Base());
+   node_bank.add_node("my_node_2", new AllegroFlare::DialogTree::Nodes::Base());
+   node_bank.add_node("my_node_3", new AllegroFlare::DialogTree::Nodes::Base());
+
+   std::set<std::string> expected_node_names = { "my_node_1", "my_node_2", "my_node_3" };
+   std::set<std::string> actual_node_names = node_bank.get_all_node_names();
+   EXPECT_EQ(expected_node_names, actual_node_names);
+}
+
+
 TEST(AllegroFlare_DialogTree_NodeBankTest, find_shared_node_names__will_return_node_names_that_are_shared)
 {
    AllegroFlare::DialogTree::NodeBank node_bank;

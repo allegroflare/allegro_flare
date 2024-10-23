@@ -43,6 +43,13 @@ uint32_t NodeBank::num_nodes()
    return nodes.size();
 }
 
+std::set<std::string> NodeBank::get_all_node_names()
+{
+   std::set<std::string> result;
+   for (const auto& node_pair : nodes) result.insert(node_pair.first);
+   return result;
+}
+
 void NodeBank::add_node(std::string name, AllegroFlare::DialogTree::Nodes::Base* node)
 {
    if (!(node))
