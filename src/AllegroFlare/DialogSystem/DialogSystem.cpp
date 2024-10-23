@@ -183,6 +183,12 @@ bool DialogSystem::get_initialized() const
 }
 
 
+AllegroFlare::DialogTree::NodeBank &DialogSystem::get_dialog_node_bank_ref()
+{
+   return dialog_node_bank;
+}
+
+
 AllegroFlare::DialogSystemDrivers::Base* &DialogSystem::get_driver_ref()
 {
    return driver;

@@ -24,6 +24,7 @@ properties:
     type: AllegroFlare::DialogTree::NodeBank
     init_with: '{}'
     getter: true
+    getter_ref: true
     setter: explicit
 
   - name: selection_cursor_box

@@ -85,6 +85,7 @@ namespace AllegroFlare
          float get_standard_dialog_box_width() const;
          float get_standard_dialog_box_height() const;
          bool get_initialized() const;
+         AllegroFlare::DialogTree::NodeBank &get_dialog_node_bank_ref();
          AllegroFlare::DialogSystemDrivers::Base* &get_driver_ref();
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
