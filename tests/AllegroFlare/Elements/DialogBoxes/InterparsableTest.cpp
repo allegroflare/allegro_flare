@@ -209,7 +209,6 @@ expected_data)
          std::string text, AllegroFlare::Elements::DialogBoxes::Interparsable* dialog_box, void* user_data
       ){
       (*(int*)user_data)++;
-      //std::cout << "AA" << std::endl;
    });
    dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
    dialog_box.set_pages(pages);
