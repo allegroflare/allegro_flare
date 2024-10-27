@@ -22,9 +22,9 @@ Interparsable::Interparsable(std::vector<std::string> pages)
    , pages(pages)
    , speaking_character("")
    , current_page_num(-1)
-   , current_page_tokens({})
+   , current_page_chunks({})
    , on_parsed_chunk_user_data(nullptr)
-   , num_revealed_characters(9999)
+   , num_revealed_printable_characters(9999)
    , finished_at(0)
    , page_finished(false)
    , page_finished_at(0.0f)
@@ -61,15 +61,15 @@ int Interparsable::get_current_page_num() const
 }
 
 
-std::vector<std::pair<bool, std::string>> Interparsable::get_current_page_tokens() const
+std::vector<std::pair<bool, std::string>> Interparsable::get_current_page_chunks() const
 {
-   return current_page_tokens;
+   return current_page_chunks;
 }
 
 
-int Interparsable::get_num_revealed_characters() const
+int Interparsable::get_num_revealed_printable_characters() const
 {
-   return num_revealed_characters;
+   return num_revealed_printable_characters;
 }
 
 
@@ -184,7 +184,7 @@ bool Interparsable::has_speaking_character()
 void Interparsable::update()
 {
    if (get_finished()) return;
-   if (!page_finished) num_revealed_characters++;
+   if (!page_finished) num_revealed_printable_characters++;
    if (!page_finished && all_characters_are_revealed())
    {
       page_finished = true;
@@ -223,7 +223,7 @@ std::string Interparsable::get_current_page_text()
    return pages[current_page_num];
 }
 
-int Interparsable::get_current_page_num_chars()
+int Interparsable::get_current_page_num_printable_chars()
 {
    if (!current_page_is_valid()) return 0;
    return pages[current_page_num].size();
@@ -257,7 +257,7 @@ void Interparsable::reset_current_page_counters()
 {
    page_finished = false;
    page_finished_at = 0;
-   num_revealed_characters = 0;
+   num_revealed_printable_characters = 0;
    return;
 }
 
@@ -293,7 +293,7 @@ void Interparsable::reveal_all_characters()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Interparsable::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met");
    }
-   num_revealed_characters = 9999;
+   num_revealed_printable_characters = 9999;
    page_finished = true;
    page_finished_at = al_get_time();
 }
@@ -301,7 +301,7 @@ void Interparsable::reveal_all_characters()
 bool Interparsable::all_characters_are_revealed()
 {
    if (!current_page_is_valid()) return true;
-   return num_revealed_characters >= get_current_page_num_chars();
+   return num_revealed_printable_characters >= get_current_page_num_printable_chars();
 }
 
 

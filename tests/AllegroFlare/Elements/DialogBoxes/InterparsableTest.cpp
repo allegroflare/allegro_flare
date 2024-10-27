@@ -187,9 +187,9 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, update__will_increment
    AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
    dialog_box.set_pages(pages);
 
-   EXPECT_EQ(0, dialog_box.get_num_revealed_characters());
+   EXPECT_EQ(0, dialog_box.get_num_revealed_printable_characters());
    dialog_box.update();
-   EXPECT_EQ(1, dialog_box.get_num_revealed_characters());
+   EXPECT_EQ(1, dialog_box.get_num_revealed_printable_characters());
    al_uninstall_system();
 }
 
@@ -208,7 +208,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, reset__will_set_the_num_revealed_characters_to_0)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, reset__will_set_the_num_revealed_printable_characters_to_0)
 {
    al_init();
    std::vector<std::string> pages = {
@@ -218,10 +218,10 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, reset__will_set_the_nu
    dialog_box.set_pages(pages);
 
    for (unsigned i=0; i<30; i++) dialog_box.update();
-   EXPECT_NE(0, dialog_box.get_num_revealed_characters());
+   EXPECT_NE(0, dialog_box.get_num_revealed_printable_characters());
 
    dialog_box.reset();
-   EXPECT_EQ(0, dialog_box.get_num_revealed_characters());
+   EXPECT_EQ(0, dialog_box.get_num_revealed_printable_characters());
    al_uninstall_system();
 }
 
@@ -241,7 +241,8 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, reset__will_set_finish
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, next_page__will_set_the_num_revealed_characters_to_0)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
+   next_page__will_set_the_num_revealed_printable_characters_to_0)
 {
    al_init();
    std::vector<std::string> pages = {
@@ -252,10 +253,10 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, next_page__will_set_th
    dialog_box.set_pages(pages);
 
    dialog_box.reveal_all_characters();
-   EXPECT_NE(0, dialog_box.get_num_revealed_characters());
+   EXPECT_NE(0, dialog_box.get_num_revealed_printable_characters());
 
    dialog_box.reset();
-   EXPECT_EQ(0, dialog_box.get_num_revealed_characters());
+   EXPECT_EQ(0, dialog_box.get_num_revealed_printable_characters());
    al_uninstall_system();
 }
 

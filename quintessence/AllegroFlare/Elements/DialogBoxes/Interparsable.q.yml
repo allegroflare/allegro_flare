@@ -26,7 +26,7 @@ properties:
     init_with: -1
     getter: true
 
-  - name: current_page_tokens
+  - name: current_page_chunks
     type: std::vector<std::pair<bool, std::string>>
     init_with: '{}'
     getter: true
@@ -41,7 +41,7 @@ properties:
     type: void*
     init_with: nullptr
 
-  - name: num_revealed_characters
+  - name: num_revealed_printable_characters
     type: int
     init_with: 9999
     getter: true
@@ -186,7 +186,7 @@ methods:
     virtual: true
     body: |
       if (get_finished()) return;
-      if (!page_finished) num_revealed_characters++;
+      if (!page_finished) num_revealed_printable_characters++;
       if (!page_finished && all_characters_are_revealed())
       {
          page_finished = true;
@@ -234,7 +234,7 @@ methods:
       return pages[current_page_num];
 
 
-  - name: get_current_page_num_chars
+  - name: get_current_page_num_printable_chars
     type: int
     body: |
       if (!current_page_is_valid()) return 0;
@@ -266,7 +266,7 @@ methods:
     body: |
       page_finished = false;
       page_finished_at = 0;
-      num_revealed_characters = 0;
+      num_revealed_printable_characters = 0;
       return;
 
 
@@ -301,7 +301,7 @@ methods:
   - name: reveal_all_characters
     guards: [ al_is_system_installed() ]
     body: |
-      num_revealed_characters = 9999;
+      num_revealed_printable_characters = 9999;
       page_finished = true;
       page_finished_at = al_get_time();
     body_dependency_symbols:
@@ -312,7 +312,7 @@ methods:
     type: bool
     body: |
       if (!current_page_is_valid()) return true;
-      return num_revealed_characters >= get_current_page_num_chars();
+      return num_revealed_printable_characters >= get_current_page_num_printable_chars();
 
 
 dependencies:
