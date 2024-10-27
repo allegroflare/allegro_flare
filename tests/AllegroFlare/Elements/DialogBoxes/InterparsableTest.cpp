@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 #include <allegro5/allegro.h>
 
@@ -280,20 +281,31 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__wil
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__with_an_uneven_number_of_parens__will_\
 throw_an_error)
 {
-   // TODO
-   //std::string raw_text_source = "This is some (color=green)dialog text(color=normal) that will fill this box.";
+   std::string raw_text_source = "This is some text ( that has a missing) closing (paren.";
 
-   //std::vector<std::pair<bool, std::string>> expected_chunks = {
-      //{ false, "This is some " },
-      //{ true, "color=green" },
-      //{ false, "dialog text" },
-      //{ true, "color=normal" },
-      //{ false, " that will fill this box." },
-   //};
-   //std::vector<std::pair<bool, std::string>> actual_chunks =
-      //AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source);
-
-   //EXPECT_EQ(expected_chunks, actual_chunks);
+   EXPECT_THROW_WITH_MESSAGE(
+      AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source),
+      std::runtime_error,
+      "[AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks]: error: Unmatched opening parenthesis "
+         "found in text \"This is some text ( that has a missing) closing (paren.\""
+   );
 }
+
+
+/*
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__without_a_closing_paren_to_match_an_open_\
+paren__will_throw_an_error)
+{
+   std::string raw_text_source_a = "This is some text ( that does not have a matchin paren.";
+
+   EXPECT_THROW_WITH_MESSAGE(
+      AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source_a),
+      std::runtime_error,
+      "[AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks]: error: There was an open paren that "
+         "does not have a matching closing paren in the text \"This is some text ( that has mismatching) number of "
+         ")parens.\""
+   );
+}
+*/
 
 

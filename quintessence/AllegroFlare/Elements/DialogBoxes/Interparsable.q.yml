@@ -86,14 +86,10 @@ methods:
         type: std::string
         default_argument: '"[unset-raw_text_source]"'
     body: |
-      //std::vector<std::pair<bool, std::string>> result;
-      // <string>, <vector>, <utility>
-
-      //std::vector<std::pair<bool, std::string>> parse_dialog_text(const std::string &raw_text_source)
-      //{
       std::vector<std::pair<bool, std::string>> parsed_chunks;
       bool in_parens = false;
       std::string current_chunk;
+      int open_paren_count = 0;
 
       for (size_t i = 0; i < raw_text_source.size(); ++i)
       {
@@ -101,6 +97,14 @@ methods:
 
          if (ch == '(')
          {
+            if (in_parens)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks",
+                  "Nested parentheses were found in the text \"\". Nested parens are not supported."
+               );
+            }
+
             // If entering parentheses, save current chunk if it exists
             if (!current_chunk.empty())
             {
@@ -108,9 +112,19 @@ methods:
                current_chunk.clear();
             }
             in_parens = true;
+            open_paren_count++;
          }
          else if (ch == ')')
          {
+            if (!in_parens)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks",
+                  "There was an open paren that does not have a matching closing paren in the text \""
+                     + raw_text_source + "\""
+               );
+            }
+
             // If leaving parentheses, save current chunk
             if (!current_chunk.empty())
             {
@@ -118,6 +132,7 @@ methods:
                current_chunk.clear();
             }
             in_parens = false;
+            open_paren_count--;
          }
          else
          {
@@ -132,7 +147,19 @@ methods:
          parsed_chunks.emplace_back(in_parens, current_chunk);
       }
 
+      // Check for unmatched opening parenthesis
+      if (open_paren_count != 0)
+      {
+         //throw std::runtime_error("Unmatched opening parenthesis found");
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks",
+            "Unmatched opening parenthesis found in text \"" + raw_text_source + "\""
+         );
+      }
+
       return parsed_chunks;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: start
