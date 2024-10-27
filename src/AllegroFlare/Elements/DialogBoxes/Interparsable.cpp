@@ -98,7 +98,7 @@ std::vector<std::pair<bool, std::string>> Interparsable::parse_into_chunks(std::
    std::string current_chunk;
    int open_paren_count = 0;
 
-   for (size_t i = 0; i < raw_text_source.size(); ++i)
+   for (size_t i=0; i<raw_text_source.size(); ++i)
    {
       char ch = raw_text_source[i];
 
@@ -108,7 +108,8 @@ std::vector<std::pair<bool, std::string>> Interparsable::parse_into_chunks(std::
          {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks",
-               "Nested parentheses were found in the text \"\". Nested parens are not supported."
+               "Nested parentheses were found in the text \"" + raw_text_source + "\". Nested parens are not "
+                  "supported."
             );
          }
 
@@ -157,7 +158,6 @@ std::vector<std::pair<bool, std::string>> Interparsable::parse_into_chunks(std::
    // Check for unmatched opening parenthesis
    if (open_paren_count != 0)
    {
-      //throw std::runtime_error("Unmatched opening parenthesis found");
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks",
          "Unmatched opening parenthesis found in text \"" + raw_text_source + "\""

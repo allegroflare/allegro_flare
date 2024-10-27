@@ -292,20 +292,31 @@ throw_an_error)
 }
 
 
-/*
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__without_a_closing_paren_to_match_an_open_\
-paren__will_throw_an_error)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__when_nested_parens_are_present__will_\
+throw_an_error)
 {
-   std::string raw_text_source_a = "This is some text ( that does not have a matchin paren.";
+   std::string raw_text_source = "This is some text ( that has nested ( parens ) ).";
 
    EXPECT_THROW_WITH_MESSAGE(
-      AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source_a),
+      AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source),
       std::runtime_error,
-      "[AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks]: error: There was an open paren that "
-         "does not have a matching closing paren in the text \"This is some text ( that has mismatching) number of "
-         ")parens.\""
+      "[AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks]: error: Nested parentheses were "
+         "found in the text \"This is some text ( that has nested ( parens ) ).\". Nested parens are not supported."
    );
 }
-*/
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__when_a_closing_paren_is_present_before_\
+an_opening_paren__will_throw_an_error)
+{
+   std::string raw_text_source = "This is some text ) that has incorrect ( parens ) ).";
+
+   EXPECT_THROW_WITH_MESSAGE(
+      AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source),
+      std::runtime_error,
+      "[AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks]: error: There was an open paren that "
+         "does not have a matching closing paren in the text \"This is some text ) that has incorrect ( parens ) ).\""
+   );
+}
 
 
