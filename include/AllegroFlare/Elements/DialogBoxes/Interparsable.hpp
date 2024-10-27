@@ -29,6 +29,7 @@ namespace AllegroFlare
             void* on_operational_chunk_func_user_data;
             int num_revealed_printable_characters;
             int current_chunk_index;
+            int current_char_index;
             float finished_at;
             bool page_finished;
             float page_finished_at;
@@ -52,6 +53,7 @@ namespace AllegroFlare
             void* get_on_operational_chunk_func_user_data() const;
             int get_num_revealed_printable_characters() const;
             int get_current_chunk_index() const;
+            int get_current_char_index() const;
             float get_finished_at() const;
             bool get_page_finished() const;
             float get_page_finished_at() const;

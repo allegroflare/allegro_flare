@@ -195,7 +195,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, update__will_increment
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
-   FOCUS__update__when_operational_chunks_are_passed_during_text_reveal__will_call_the_the_callback_with_the_\
+   update__when_operational_chunks_are_passed_during_text_reveal__will_call_the_the_callback_with_the_\
 expected_data)
 {
    // TODO: Expand this test and/or make it more robust and comprehensive
@@ -219,6 +219,40 @@ expected_data)
       dialog_box.update();
    }
    EXPECT_EQ(1, num_calls);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
+   FOCUS__num_revealed_printable_characters__when_operational_chunks_are_passed_during_text_reveal__will_return_the_number_\
+of_characters_revealed_not_including_operational_text)
+{
+   // TODO: Expand this test and/or make it more robust and comprehensive
+   int num_calls = 0;
+   al_init();
+   std::vector<std::string> pages = {
+      "This is (em)text(/em) that includes (operational text) over time.",
+   };
+   AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
+   dialog_box.set_on_operational_chunk_func([](
+         std::string text, AllegroFlare::Elements::DialogBoxes::Interparsable* dialog_box, void* user_data
+      ){
+      (*(int*)user_data)++;
+   });
+   dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
+   dialog_box.set_pages(pages);
+
+   EXPECT_EQ(0, num_calls);
+   for (int i=0; i<20; i++)
+   {
+      dialog_box.update();
+   }
+   EXPECT_EQ(2, num_calls);
+
+   // TODO: Update this to continue incrementing *again* when an operational chunk is met
+   EXPECT_EQ(16, dialog_box.get_num_revealed_printable_characters()); // NOTE: This should be 20!!
+   //EXPECT_EQ(20, dialog_box.get_num_revealed_printable_characters()); // NOTE: This should be 20!!
+
    al_uninstall_system();
 }
 
@@ -308,7 +342,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__wil
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, FOCUS__collate_raw_text_source__will_return_text_that_has_\
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, collate_raw_text_source__will_return_text_that_has_\
 operational_chunks_removed)
 {
    std::string raw_text_source = "This is (color=green)dialog text(color=normal) that that has operational chunks.";

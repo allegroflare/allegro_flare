@@ -53,6 +53,11 @@ properties:
     init_with: 0
     getter: true
 
+  - name: current_char_index
+    type: int
+    init_with: 0
+    getter: true
+
   - name: finished_at
     type: float
     init_with: 0
@@ -196,7 +201,10 @@ methods:
     virtual: true
     override: true
     body: |
-      AllegroFlare::Logger::throw_error("AllegroFlare::Elements::DialogBoxes::Interparsable::start", "No implemented");
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Elements::DialogBoxes::Interparsable::start",
+         "Not implemented"
+      );
       //reset();
       //created_at = al_get_time();
       // TODO: Implement this, considering its relationship to "created_at"
@@ -218,27 +226,31 @@ methods:
       auto &chunk = current_page_chunks[current_chunk_index];
       bool is_printable_text = !chunk.first;
       std::string &chunk_content = chunk.second;
-      auto &char_index = num_revealed_printable_characters;
+      //auto &char_index = num_revealed_printable_characters;
 
       if (is_printable_text)
       {
-         if (char_index < chunk_content.size())
+         if (current_char_index < chunk_content.size())
          {
-            std::cout << chunk_content[char_index];
-            char_index++;
+            //std::cout << chunk_content[char_index];
+            current_char_index++;
+            num_revealed_printable_characters++;
          }
          else
          {
             // Move to the next chunk once the current one is fully revealed
             current_chunk_index++;
-            char_index = 0;
+            current_char_index = 0;
          }
       }
       else
       {
-         on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
+         if (on_operational_chunk_func)
+         {
+            on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
+         }
          current_chunk_index++;
-         char_index = 0;
+         current_char_index = 0;
       }
       return;
 
@@ -341,6 +353,7 @@ methods:
       page_finished_at = 0;
       num_revealed_printable_characters = 0;
       current_chunk_index = 0;
+      current_char_index = 0;
       current_page_chunks = {};
       return;
 
@@ -379,6 +392,7 @@ methods:
       num_revealed_printable_characters = 9999;
       // TODO: Go through all command-like chunks
       current_chunk_index = 9999; // TODO: Ensure this is correct and will not cause overflow
+      current_char_index = 9999; // TODO: Ensure this is correct and will not cause overflow
       page_finished = true;
       page_finished_at = al_get_time();
     body_dependency_symbols:

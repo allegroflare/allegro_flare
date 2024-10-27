@@ -27,6 +27,7 @@ Interparsable::Interparsable(std::vector<std::string> pages)
    , on_operational_chunk_func_user_data(nullptr)
    , num_revealed_printable_characters(9999)
    , current_chunk_index(0)
+   , current_char_index(0)
    , finished_at(0)
    , page_finished(false)
    , page_finished_at(0.0f)
@@ -102,6 +103,12 @@ int Interparsable::get_num_revealed_printable_characters() const
 int Interparsable::get_current_chunk_index() const
 {
    return current_chunk_index;
+}
+
+
+int Interparsable::get_current_char_index() const
+{
+   return current_char_index;
 }
 
 
@@ -213,7 +220,10 @@ std::string Interparsable::collate_printable_text_only(std::string raw_text_sour
 
 void Interparsable::start()
 {
-   AllegroFlare::Logger::throw_error("AllegroFlare::Elements::DialogBoxes::Interparsable::start", "No implemented");
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::Elements::DialogBoxes::Interparsable::start",
+      "Not implemented"
+   );
    //reset();
    //created_at = al_get_time();
    // TODO: Implement this, considering its relationship to "created_at"
@@ -232,27 +242,31 @@ void Interparsable::update_page_playback()
    auto &chunk = current_page_chunks[current_chunk_index];
    bool is_printable_text = !chunk.first;
    std::string &chunk_content = chunk.second;
-   auto &char_index = num_revealed_printable_characters;
+   //auto &char_index = num_revealed_printable_characters;
 
    if (is_printable_text)
    {
-      if (char_index < chunk_content.size())
+      if (current_char_index < chunk_content.size())
       {
-         std::cout << chunk_content[char_index];
-         char_index++;
+         //std::cout << chunk_content[char_index];
+         current_char_index++;
+         num_revealed_printable_characters++;
       }
       else
       {
          // Move to the next chunk once the current one is fully revealed
          current_chunk_index++;
-         char_index = 0;
+         current_char_index = 0;
       }
    }
    else
    {
-      on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
+      if (on_operational_chunk_func)
+      {
+         on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
+      }
       current_chunk_index++;
-      char_index = 0;
+      current_char_index = 0;
    }
    return;
 }
@@ -346,6 +360,7 @@ void Interparsable::reset_current_page_counters()
    page_finished_at = 0;
    num_revealed_printable_characters = 0;
    current_chunk_index = 0;
+   current_char_index = 0;
    current_page_chunks = {};
    return;
 }
@@ -385,6 +400,7 @@ void Interparsable::reveal_all_characters()
    num_revealed_printable_characters = 9999;
    // TODO: Go through all command-like chunks
    current_chunk_index = 9999; // TODO: Ensure this is correct and will not cause overflow
+   current_char_index = 9999; // TODO: Ensure this is correct and will not cause overflow
    page_finished = true;
    page_finished_at = al_get_time();
 }

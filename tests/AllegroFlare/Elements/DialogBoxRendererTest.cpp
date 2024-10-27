@@ -30,6 +30,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Intertitle.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
 
 
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, can_be_created_without_blowing_up)
@@ -573,6 +574,42 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__will_handle_a_Wait_dia
 TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_basic_type_dialog_box)
 {
    // TODO
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_a_dialog_box_of_type_Interparsable)
+{
+   al_init();
+   al_init_primitives_addon();
+   al_init_font_addon();
+   al_init_ttf_addon();
+   al_init_image_addon();
+   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
+   AllegroFlare::FontBin font_bin;
+   AllegroFlare::BitmapBin bitmap_bin;
+   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
+   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
+   AllegroFlare::Elements::DialogBoxes::Interparsable interparsable;
+
+   interparsable.set_pages({
+      //"At the tail end of his final year at university, we meet our protagonist.",
+      "At the tail end of (focus)his final year at university(focus), we meet our protagonist.",
+      "He is in his dorm room diligently studying."
+   });
+   //interparsable.start(); // TODO: Consider a "middle-of-life" age or alternative to manual time
+   for (int i=0; i<60; i++)
+   {
+      interparsable.update(); // NOTE: To reveal characters
+
+      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &interparsable);
+      dialog_box_renderer.render();
+      al_flip_display();
+      std::this_thread::sleep_for(std::chrono::milliseconds(16));
+   }
+
+   bitmap_bin.clear();
+   al_destroy_display(display);
+   al_uninstall_system();
 }
 
 
