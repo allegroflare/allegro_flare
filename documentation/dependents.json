@@ -2141,6 +2141,11 @@
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/Elements/DialogBoxes/Interparsable": [
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxes/Interparsable"
+  ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
@@ -2151,6 +2156,9 @@
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxStyles": [
@@ -2181,10 +2189,6 @@
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/Interparsable": [
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
-    "AllegroFlare/Elements/DialogBoxes/Interparsable"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",

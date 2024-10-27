@@ -7,6 +7,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer.hpp>
@@ -16,6 +17,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Intertitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
@@ -219,6 +221,43 @@ void DialogBoxRenderer::render()
 
       place.start_transform();
       basic_dialog_box_renderer.render();
+      place.restore_transform();
+   }
+   else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Interparsable::TYPE))
+   {
+      AllegroFlare::Placement2D place{
+         standard_dialog_box_x,
+         standard_dialog_box_y,
+         standard_dialog_box_width,
+         standard_dialog_box_height,
+      };
+
+      AllegroFlare::Elements::DialogBoxes::Interparsable* as =
+         dynamic_cast<AllegroFlare::Elements::DialogBoxes::Interparsable*>(dialog_box);
+
+      AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(font_bin);
+
+      if (as->has_speaking_character())
+      {
+         // TODO: Do lookup for speaking_chararacter -> speaking_character_name
+         dialog_box_renderer.set_speaking_character_name(as->get_speaking_character());
+         dialog_box_renderer.set_showing_speaking_character_name(true);
+      }
+      // TODO: Test assignment of these properties
+      dialog_box_renderer.set_current_page_text_with_formatting(as->get_current_page_text_with_formatting());
+      dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
+      dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
+      dialog_box_renderer.set_width(standard_dialog_box_width);
+      dialog_box_renderer.set_height(standard_dialog_box_height);
+      dialog_box_renderer.set_num_revealed_characters(as->get_num_revealed_printable_characters());
+      dialog_box_renderer.set_is_finished(as->get_finished());
+      dialog_box_renderer.set_page_is_finished(as->get_page_finished());
+      dialog_box_renderer.set_page_finished_at(as->get_page_finished_at());
+      dialog_box_renderer.set_at_last_page(as->at_last_page());
+      dialog_box_renderer.set_age(as->infer_age());
+
+      place.start_transform();
+      dialog_box_renderer.render();
       place.restore_transform();
    }
    else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))

@@ -8642,6 +8642,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Interparsable&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Interparsable.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -8685,6 +8688,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxStyles&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxStyles.hpp&quot;]}</td>
@@ -10467,7 +10473,7 @@ table td
 </tr>
 <tr>
   <td class="method">std::string</td>
-  <td class="method"><b>get_current_page_text</b>()</td>
+  <td class="method"><b>get_current_page_text_with_formatting</b>()</td>
 </tr>
 <tr>
   <td class="method">int</td>
@@ -47683,6 +47689,11 @@ table td
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/Elements/DialogBoxes/Interparsable": [
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxes/Interparsable"
+  ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
@@ -47693,6 +47704,9 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxStyles": [
@@ -47723,10 +47737,6 @@ table td
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Screens/TitleScreen"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/Interparsable": [
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
-    "AllegroFlare/Elements/DialogBoxes/Interparsable"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",

@@ -151,6 +151,43 @@ methods:
          basic_dialog_box_renderer.render();
          place.restore_transform();
       }
+      else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Interparsable::TYPE))
+      {
+         AllegroFlare::Placement2D place{
+            standard_dialog_box_x,
+            standard_dialog_box_y,
+            standard_dialog_box_width,
+            standard_dialog_box_height,
+         };
+
+         AllegroFlare::Elements::DialogBoxes::Interparsable* as =
+            dynamic_cast<AllegroFlare::Elements::DialogBoxes::Interparsable*>(dialog_box);
+
+         AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(font_bin);
+
+         if (as->has_speaking_character())
+         {
+            // TODO: Do lookup for speaking_chararacter -> speaking_character_name
+            dialog_box_renderer.set_speaking_character_name(as->get_speaking_character());
+            dialog_box_renderer.set_showing_speaking_character_name(true);
+         }
+         // TODO: Test assignment of these properties
+         dialog_box_renderer.set_current_page_text_with_formatting(as->get_current_page_text_with_formatting());
+         dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
+         dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
+         dialog_box_renderer.set_width(standard_dialog_box_width);
+         dialog_box_renderer.set_height(standard_dialog_box_height);
+         dialog_box_renderer.set_num_revealed_characters(as->get_num_revealed_printable_characters());
+         dialog_box_renderer.set_is_finished(as->get_finished());
+         dialog_box_renderer.set_page_is_finished(as->get_page_finished());
+         dialog_box_renderer.set_page_finished_at(as->get_page_finished_at());
+         dialog_box_renderer.set_at_last_page(as->at_last_page());
+         dialog_box_renderer.set_age(as->infer_age());
+
+         place.start_transform();
+         dialog_box_renderer.render();
+         place.restore_transform();
+      }
       else if (dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Choice::TYPE))
       {
          AllegroFlare::Placement2D place{
@@ -335,6 +372,7 @@ methods:
       - AllegroFlare::Elements::DialogBoxes::TextMessages
       - AllegroFlare::Elements::DialogBoxes::Intertitle
       - AllegroFlare::Elements::DialogBoxes::Wait
+      - AllegroFlare::Elements::DialogBoxes::Interparsable
       - AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::YouGotAnItemRenderer
@@ -343,6 +381,7 @@ methods:
       - AllegroFlare::Elements::DialogBoxRenderers::CharacterFeatureRenderer
       - AllegroFlare::Elements::DialogBoxRenderers::TextMessages
       - AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer
+      - AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer
 
 
 dependencies:
@@ -374,6 +413,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Interparsable
+    headers: [ AllegroFlare/Elements/DialogBoxes/Interparsable.hpp ]
   - symbol: AllegroFlare::BitmapBin
     headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
@@ -404,6 +445,8 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/TextMessages.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxRenderers::IntertitleRenderer
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer
+    headers: [ AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxStyles
     headers: [ AllegroFlare/Elements/DialogBoxStyles.hpp ]
 

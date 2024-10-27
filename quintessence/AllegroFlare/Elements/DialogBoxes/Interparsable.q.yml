@@ -294,7 +294,7 @@ methods:
       return;
 
 
-  - name: get_current_page_text
+  - name: get_current_page_text_with_formatting
     type: std::string
     body: |
       if (!current_page_is_valid()) return "[null]";

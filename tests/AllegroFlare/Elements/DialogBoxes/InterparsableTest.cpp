@@ -132,7 +132,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, has_no_pages__will_tru
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
-   get_current_page_text__will_return_a_special_empty_text_when_not_on_a_page)
+   get_current_page_text_with_formatting__will_return_a_special_empty_text_when_not_on_a_page)
 {
    al_init();
    AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
@@ -140,7 +140,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
 
    std::string expected_page_text = "[null]";
 
-   ASSERT_EQ(expected_page_text, dialog_box.get_current_page_text());
+   ASSERT_EQ(expected_page_text, dialog_box.get_current_page_text_with_formatting());
    al_uninstall_system();
 }
 
@@ -173,7 +173,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, next_page__will_increm
    dialog_box.next_page();
 
    std::string expected_page_text = "This is the text to page 2.\nPage 1 has two lines.";
-   ASSERT_EQ(expected_page_text, dialog_box.get_current_page_text());
+   ASSERT_EQ(expected_page_text, dialog_box.get_current_page_text_with_formatting());
    al_uninstall_system();
 }
 

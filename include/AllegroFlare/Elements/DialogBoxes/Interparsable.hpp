@@ -64,7 +64,7 @@ namespace AllegroFlare
             virtual void advance() override;
             void set_pages(std::vector<std::string> pages={});
             void reset();
-            std::string get_current_page_text();
+            std::string get_current_page_text_with_formatting();
             int get_current_page_num_printable_chars();
             bool next_page();
             void reset_current_page_counters();

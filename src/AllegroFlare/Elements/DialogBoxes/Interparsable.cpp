@@ -298,7 +298,7 @@ void Interparsable::reset()
    return;
 }
 
-std::string Interparsable::get_current_page_text()
+std::string Interparsable::get_current_page_text_with_formatting()
 {
    if (!current_page_is_valid()) return "[null]";
    return pages[current_page_num];
