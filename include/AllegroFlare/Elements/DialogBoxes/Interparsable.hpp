@@ -28,6 +28,7 @@ namespace AllegroFlare
             std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> on_operational_chunk_func;
             void* on_operational_chunk_func_user_data;
             int num_revealed_printable_characters;
+            int current_chunk_index;
             float finished_at;
             bool page_finished;
             float page_finished_at;
@@ -50,12 +51,14 @@ namespace AllegroFlare
             std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> get_on_operational_chunk_func() const;
             void* get_on_operational_chunk_func_user_data() const;
             int get_num_revealed_printable_characters() const;
+            int get_current_chunk_index() const;
             float get_finished_at() const;
             bool get_page_finished() const;
             float get_page_finished_at() const;
             static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");
             virtual void start() override;
             bool has_speaking_character();
+            void update_();
             virtual void update() override;
             virtual void advance() override;
             void set_pages(std::vector<std::string> pages={});

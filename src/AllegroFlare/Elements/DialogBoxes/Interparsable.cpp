@@ -26,6 +26,7 @@ Interparsable::Interparsable(std::vector<std::string> pages)
    , on_operational_chunk_func({})
    , on_operational_chunk_func_user_data(nullptr)
    , num_revealed_printable_characters(9999)
+   , current_chunk_index(0)
    , finished_at(0)
    , page_finished(false)
    , page_finished_at(0.0f)
@@ -95,6 +96,12 @@ void* Interparsable::get_on_operational_chunk_func_user_data() const
 int Interparsable::get_num_revealed_printable_characters() const
 {
    return num_revealed_printable_characters;
+}
+
+
+int Interparsable::get_current_chunk_index() const
+{
+   return current_chunk_index;
 }
 
 
@@ -206,12 +213,45 @@ bool Interparsable::has_speaking_character()
    return (!speaking_character.empty());
 }
 
+void Interparsable::update_()
+{
+   if (current_chunk_index >= current_page_chunks.size()) return; // Playback is finished
+
+   auto &chunk = current_page_chunks[current_chunk_index];
+   bool is_printable_text = chunk.first;
+   std::string &chunk_content = chunk.second;
+   auto &char_index = num_revealed_printable_characters;
+
+   if (is_printable_text)
+   {
+      if (char_index < chunk_content.size())
+      {
+         std::cout << chunk_content[char_index];
+         char_index++;
+      }
+      else
+      {
+         // Move to the next chunk once the current one is fully revealed
+         current_chunk_index++;
+         char_index = 0;
+      }
+   }
+   else
+   {
+      on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
+      current_chunk_index++;
+      char_index = 0;
+   }
+   return;
+}
+
 void Interparsable::update()
 {
    if (get_finished()) return;
    if (!page_finished)
    {
       int num_revealed_printable_characters_before = num_revealed_printable_characters;
+      //update_();
       num_revealed_printable_characters++;
       // HERE:
       // TODO: See if printable_characters overlapped an operational text chunk and call callback
@@ -287,6 +327,7 @@ bool Interparsable::next_page()
       set_finished(true);
       finished_at = al_get_time();
       current_page_num = -1;
+      current_page_chunks = {}; // TODO: Test this
    }
    else
    {
@@ -301,6 +342,7 @@ void Interparsable::reset_current_page_counters()
    page_finished = false;
    page_finished_at = 0;
    num_revealed_printable_characters = 0;
+   current_chunk_index = 0;
    current_page_chunks = {};
    return;
 }
@@ -339,6 +381,7 @@ void Interparsable::reveal_all_characters()
    }
    num_revealed_printable_characters = 9999;
    // TODO: Go through all command-like chunks
+   current_chunk_index = 9999; // TODO: Ensure this is correct and will not cause overflow
    page_finished = true;
    page_finished_at = al_get_time();
 }

@@ -48,6 +48,11 @@ properties:
     init_with: 9999
     getter: true
 
+  - name: current_chunk_index
+    type: int
+    init_with: 0
+    getter: true
+
   - name: finished_at
     type: float
     init_with: 0
@@ -183,6 +188,38 @@ methods:
       return (!speaking_character.empty());
 
 
+  - name: update_
+    body: |
+      if (current_chunk_index >= current_page_chunks.size()) return; // Playback is finished
+
+      auto &chunk = current_page_chunks[current_chunk_index];
+      bool is_printable_text = chunk.first;
+      std::string &chunk_content = chunk.second;
+      auto &char_index = num_revealed_printable_characters;
+
+      if (is_printable_text)
+      {
+         if (char_index < chunk_content.size())
+         {
+            std::cout << chunk_content[char_index];
+            char_index++;
+         }
+         else
+         {
+            // Move to the next chunk once the current one is fully revealed
+            current_chunk_index++;
+            char_index = 0;
+         }
+      }
+      else
+      {
+         on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
+         current_chunk_index++;
+         char_index = 0;
+      }
+      return;
+
+
   - name: update
     override: true
     virtual: true
@@ -191,6 +228,7 @@ methods:
       if (!page_finished)
       {
          int num_revealed_printable_characters_before = num_revealed_printable_characters;
+         //update_();
          num_revealed_printable_characters++;
          // HERE:
          // TODO: See if printable_characters overlapped an operational text chunk and call callback
@@ -271,6 +309,7 @@ methods:
          set_finished(true);
          finished_at = al_get_time();
          current_page_num = -1;
+         current_page_chunks = {}; // TODO: Test this
       }
       else
       {
@@ -287,6 +326,7 @@ methods:
       page_finished = false;
       page_finished_at = 0;
       num_revealed_printable_characters = 0;
+      current_chunk_index = 0;
       current_page_chunks = {};
       return;
 
@@ -324,6 +364,7 @@ methods:
     body: |
       num_revealed_printable_characters = 9999;
       // TODO: Go through all command-like chunks
+      current_chunk_index = 9999; // TODO: Ensure this is correct and will not cause overflow
       page_finished = true;
       page_finished_at = al_get_time();
     body_dependency_symbols:
