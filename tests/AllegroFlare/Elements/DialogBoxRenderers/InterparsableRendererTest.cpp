@@ -57,7 +57,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__render__on_a_text_page_that_has_formatting_and_operational_tags_in_it__will_not_display_tags)
+   CAPTURE__render__on_a_text_page_that_has_formatting_and_operational_tags_in_it__will_not_display_tags)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
 
