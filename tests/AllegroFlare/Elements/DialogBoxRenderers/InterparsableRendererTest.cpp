@@ -1,21 +1,9 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_THROW_WITH_MESSAGE(code, raised_exception_type, raised_exception_message) \
-   try { code; FAIL() << "Expected " # raised_exception_type; } \
-   catch ( raised_exception_type const &err ) { EXPECT_EQ(err.what(), std::string( raised_exception_message )); } \
-   catch (...) { FAIL() << "Expected " # raised_exception_type; }
-
-#ifdef _WIN32
-#define TEST_FIXTURE_FONT_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/fonts/"
-#define TEST_FIXTURE_BITMAP_FOLDER "/msys64/home/Mark/Repos/allegro_flare/bin/data/bitmaps/"
-#else
-#define TEST_FIXTURE_FONT_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/fonts/"
-#define TEST_FIXTURE_BITMAP_FOLDER "/Users/markoates/Repos/allegro_flare/bin/data/bitmaps/"
-#endif
-
 #include <AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer.hpp>
 
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <chrono>
@@ -36,7 +24,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    CAPTURE__render__when_the_dialog_box_is_finished__renders_special_empty_text)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
    dialog_box_renderer.set_current_page_text("This dialog is finished");
    dialog_box_renderer.set_is_finished(true);
@@ -54,7 +41,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    CAPTURE__render__draws_multiline_dialog)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
    std::string page_text =
       "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
@@ -74,7 +60,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    render__will_show_a_reveal_animation_respecting_age)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
    std::string page_text =
       "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
@@ -105,7 +90,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    CAPTURE__render__will_propertly_render_num_revealed_characters)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
    std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
 
@@ -138,7 +122,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    CAPTURE__render__when_showing_the_speaking_character_is_true__will_render_the_name_as_expected)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
    std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
 
