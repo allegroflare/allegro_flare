@@ -259,3 +259,41 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, next_page__will_set_th
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__will_generate_the_expected_chunks)
+{
+   std::string raw_text_source = "This is some (color=green)dialog text(color=normal) that will fill this box.";
+
+   std::vector<std::pair<bool, std::string>> expected_chunks = {
+      { false, "This is some " },
+      { true, "color=green" },
+      { false, "dialog text" },
+      { true, "color=normal" },
+      { false, " that will fill this box." },
+   };
+   std::vector<std::pair<bool, std::string>> actual_chunks =
+      AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source);
+
+   EXPECT_EQ(expected_chunks, actual_chunks);
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__with_an_uneven_number_of_parens__will_\
+throw_an_error)
+{
+   // TODO
+   //std::string raw_text_source = "This is some (color=green)dialog text(color=normal) that will fill this box.";
+
+   //std::vector<std::pair<bool, std::string>> expected_chunks = {
+      //{ false, "This is some " },
+      //{ true, "color=green" },
+      //{ false, "dialog text" },
+      //{ true, "color=normal" },
+      //{ false, " that will fill this box." },
+   //};
+   //std::vector<std::pair<bool, std::string>> actual_chunks =
+      //AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source);
+
+   //EXPECT_EQ(expected_chunks, actual_chunks);
+}
+
+

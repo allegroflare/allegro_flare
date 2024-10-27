@@ -22,6 +22,8 @@ Interparsable::Interparsable(std::vector<std::string> pages)
    , pages(pages)
    , speaking_character("")
    , current_page_num(-1)
+   , current_page_tokens({})
+   , on_parsed_chunk_user_data(nullptr)
    , num_revealed_characters(9999)
    , finished_at(0)
    , page_finished(false)
@@ -59,6 +61,12 @@ int Interparsable::get_current_page_num() const
 }
 
 
+std::vector<std::pair<bool, std::string>> Interparsable::get_current_page_tokens() const
+{
+   return current_page_tokens;
+}
+
+
 int Interparsable::get_num_revealed_characters() const
 {
    return num_revealed_characters;
@@ -82,6 +90,57 @@ float Interparsable::get_page_finished_at() const
    return page_finished_at;
 }
 
+
+std::vector<std::pair<bool, std::string>> Interparsable::parse_into_chunks(std::string raw_text_source)
+{
+   //std::vector<std::pair<bool, std::string>> result;
+   // <string>, <vector>, <utility>
+
+   //std::vector<std::pair<bool, std::string>> parse_dialog_text(const std::string &raw_text_source)
+   //{
+   std::vector<std::pair<bool, std::string>> parsed_chunks;
+   bool in_parens = false;
+   std::string current_chunk;
+
+   for (size_t i = 0; i < raw_text_source.size(); ++i)
+   {
+      char ch = raw_text_source[i];
+
+      if (ch == '(')
+      {
+         // If entering parentheses, save current chunk if it exists
+         if (!current_chunk.empty())
+         {
+            parsed_chunks.emplace_back(in_parens, current_chunk);
+            current_chunk.clear();
+         }
+         in_parens = true;
+      }
+      else if (ch == ')')
+      {
+         // If leaving parentheses, save current chunk
+         if (!current_chunk.empty())
+         {
+            parsed_chunks.emplace_back(in_parens, current_chunk);
+            current_chunk.clear();
+         }
+         in_parens = false;
+      }
+      else
+      {
+         // Add character to the current chunk
+         current_chunk += ch;
+      }
+   }
+
+   // Add any remaining chunk
+   if (!current_chunk.empty())
+   {
+      parsed_chunks.emplace_back(in_parens, current_chunk);
+   }
+
+   return parsed_chunks;
+}
 
 void Interparsable::start()
 {

@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <string>
+#include <utility>
 #include <vector>
 
 
@@ -21,6 +22,8 @@ namespace AllegroFlare
             std::vector<std::string> pages;
             std::string speaking_character;
             int current_page_num;
+            std::vector<std::pair<bool, std::string>> current_page_tokens;
+            void* on_parsed_chunk_user_data;
             int num_revealed_characters;
             float finished_at;
             bool page_finished;
@@ -38,10 +41,12 @@ namespace AllegroFlare
             std::vector<std::string> get_pages() const;
             std::string get_speaking_character() const;
             int get_current_page_num() const;
+            std::vector<std::pair<bool, std::string>> get_current_page_tokens() const;
             int get_num_revealed_characters() const;
             float get_finished_at() const;
             bool get_page_finished() const;
             float get_page_finished_at() const;
+            static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");
             virtual void start() override;
             bool has_speaking_character();
             virtual void update() override;

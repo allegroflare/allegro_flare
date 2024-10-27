@@ -26,6 +26,21 @@ properties:
     init_with: -1
     getter: true
 
+  - name: current_page_tokens
+    type: std::vector<std::pair<bool, std::string>>
+    init_with: '{}'
+    getter: true
+
+# TODO:
+#  - name: on_operational_token
+#    type: std::function<void(std::string text, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)>
+#    init_with: '{}'
+#    getter: true
+
+  - name: on_parsed_chunk_user_data
+    type: void*
+    init_with: nullptr
+
   - name: num_revealed_characters
     type: int
     init_with: 9999
@@ -61,6 +76,63 @@ documentation:
 
 
 methods:
+
+
+  - name: parse_into_chunks
+    type: std::vector<std::pair<bool, std::string>>
+    static: true
+    parameters:
+      - name: raw_text_source
+        type: std::string
+        default_argument: '"[unset-raw_text_source]"'
+    body: |
+      //std::vector<std::pair<bool, std::string>> result;
+      // <string>, <vector>, <utility>
+
+      //std::vector<std::pair<bool, std::string>> parse_dialog_text(const std::string &raw_text_source)
+      //{
+      std::vector<std::pair<bool, std::string>> parsed_chunks;
+      bool in_parens = false;
+      std::string current_chunk;
+
+      for (size_t i = 0; i < raw_text_source.size(); ++i)
+      {
+         char ch = raw_text_source[i];
+
+         if (ch == '(')
+         {
+            // If entering parentheses, save current chunk if it exists
+            if (!current_chunk.empty())
+            {
+               parsed_chunks.emplace_back(in_parens, current_chunk);
+               current_chunk.clear();
+            }
+            in_parens = true;
+         }
+         else if (ch == ')')
+         {
+            // If leaving parentheses, save current chunk
+            if (!current_chunk.empty())
+            {
+               parsed_chunks.emplace_back(in_parens, current_chunk);
+               current_chunk.clear();
+            }
+            in_parens = false;
+         }
+         else
+         {
+            // Add character to the current chunk
+            current_chunk += ch;
+         }
+      }
+
+      // Add any remaining chunk
+      if (!current_chunk.empty())
+      {
+         parsed_chunks.emplace_back(in_parens, current_chunk);
+      }
+
+      return parsed_chunks;
 
 
   - name: start
