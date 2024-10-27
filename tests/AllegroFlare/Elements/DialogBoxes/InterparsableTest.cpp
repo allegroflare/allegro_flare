@@ -308,6 +308,19 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__wil
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, FOCUS__collate_raw_text_source__will_return_text_that_has_\
+operational_chunks_removed)
+{
+   std::string raw_text_source = "This is (color=green)dialog text(color=normal) that that has operational chunks.";
+
+   std::string expected_processed_text = "This is dialog text that that has operational chunks.";
+   std::string actual_processed_text = 
+      AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(raw_text_source);
+
+   EXPECT_EQ(expected_processed_text, actual_processed_text);
+}
+
+
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__with_an_uneven_number_of_parens__will_\
 throw_an_error)
 {

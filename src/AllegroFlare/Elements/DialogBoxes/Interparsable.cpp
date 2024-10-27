@@ -199,6 +199,18 @@ std::vector<std::pair<bool, std::string>> Interparsable::parse_into_chunks(std::
    return parsed_chunks;
 }
 
+std::string Interparsable::collate_printable_text_only(std::string raw_text_source)
+{
+   std::vector<std::pair<bool, std::string>> chunks = parse_into_chunks(raw_text_source);
+   std::stringstream result;
+   for (auto &chunk : chunks)
+   {
+      bool is_printable_text = !chunk.first;
+      if (is_printable_text) result << chunk.second;
+   }
+   return result.str();
+}
+
 void Interparsable::start()
 {
    AllegroFlare::Logger::throw_error("AllegroFlare::Elements::DialogBoxes::Interparsable::start", "No implemented");

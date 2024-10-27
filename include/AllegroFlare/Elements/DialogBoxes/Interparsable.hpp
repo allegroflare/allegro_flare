@@ -56,6 +56,7 @@ namespace AllegroFlare
             bool get_page_finished() const;
             float get_page_finished_at() const;
             static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");
+            static std::string collate_printable_text_only(std::string raw_text_source="[unset-raw_text_source]");
             virtual void start() override;
             bool has_speaking_character();
             void update_page_playback();

@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogBoxNameTag.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
 #include <AllegroFlare/Elements/DialogButton.hpp>
 #include <AllegroFlare/Elements/ListBoxRenderer.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
@@ -260,7 +261,7 @@ void InterparsableRenderer::render_frame()
 
 void InterparsableRenderer::render_text()
 {
-   draw_styled_revealed_text(width, current_page_text_with_formatting, num_revealed_characters);
+   draw_styled_revealed_text_with_formatting(width, current_page_text_with_formatting, num_revealed_characters);
    return;
 }
 
@@ -401,16 +402,20 @@ void InterparsableRenderer::draw_speaking_character_name()
    return;
 }
 
-void InterparsableRenderer::draw_styled_revealed_text(float max_width, std::string text_with_formatting, int num_revealed_characters)
+void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_width, std::string text_with_formatting, int num_revealed_characters)
 {
-   //float text_padding_x = 40.0f;
-   //float text_padding_y = 30.0f;
+   // NOTE: For now, this renderer has very limited formatting features. It will remove chunks that are non-text
+   // chunks for now. Feel free to add more features if you feel it will be nice and useful.
+
    float text_box_max_width = max_width - (text_padding_x * 2);
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    float line_height = al_get_font_line_height(text_font);
    //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
    ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
    //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
+
+   std::string printable_text_only =
+      AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
 
    al_draw_multiline_text(
       text_font,
@@ -420,7 +425,7 @@ void InterparsableRenderer::draw_styled_revealed_text(float max_width, std::stri
       text_box_max_width,
       line_height,
       ALLEGRO_ALIGN_LEFT,
-      concat_text(text_with_formatting, num_revealed_characters).c_str()
+      concat_text(printable_text_only, num_revealed_characters).c_str()
    );
    return;
 }

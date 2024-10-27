@@ -78,6 +78,9 @@ properties:
 documentation:
 
 
+  - notes:
+    - raw_text_source is the page text in its entirety including any formatting data
+
   - todos:
     - update TYPE and use correct naming in 
 
@@ -167,6 +170,26 @@ methods:
       return parsed_chunks;
     body_dependency_symbols:
       - AllegroFlare::Logger
+
+
+  - name: collate_printable_text_only
+    type: std::string
+    static: true
+    parameters:
+      - name: raw_text_source
+        type: std::string
+        default_argument: '"[unset-raw_text_source]"'
+    body: |
+      std::vector<std::pair<bool, std::string>> chunks = parse_into_chunks(raw_text_source);
+      std::stringstream result;
+      for (auto &chunk : chunks)
+      {
+         bool is_printable_text = !chunk.first;
+         if (is_printable_text) result << chunk.second;
+      }
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
 
 
   - name: start
