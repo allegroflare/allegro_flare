@@ -57,6 +57,26 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegroRenderingFixtureTest,
+   FOCUS__CAPTURE__render__on_a_text_page_that_has_formatting_and_operational_tags_in_it__will_not_display_tags)
+{
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+
+   std::string page_text =
+      "This is dialog text that has (italic)some(/italic) formatting inside the source text. However, the "
+      "formatting codes (bold)will(/bold) be removed when rendered.";
+   AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
+   dialog_box_renderer.set_current_page_text_with_formatting(page_text);
+
+   AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
+   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+   place.start_transform();
+   dialog_box_renderer.render();
+   place.restore_transform();
+   al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegroRenderingFixtureTest,
    render__will_show_a_reveal_animation_respecting_age)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
