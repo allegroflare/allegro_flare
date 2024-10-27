@@ -215,11 +215,12 @@ void Interparsable::update()
       num_revealed_printable_characters++;
       // HERE:
       // TODO: See if printable_characters overlapped an operational text chunk and call callback
-      // FOR NOW:
+      // FOR NOW: {
       if (num_revealed_printable_characters_before == 26 && on_operational_chunk_func)
       {
          on_operational_chunk_func("placeholder-operational-func-text", this, on_operational_chunk_func_user_data);
       }
+      // } :FOR NOW
    }
    if (!page_finished && all_characters_are_revealed())
    {
