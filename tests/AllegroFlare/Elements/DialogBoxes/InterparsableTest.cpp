@@ -224,7 +224,7 @@ expected_data)
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
-   FOCUS__num_revealed_printable_characters__when_operational_chunks_are_passed_during_text_reveal__will_return_the_number_\
+   num_revealed_printable_characters__when_operational_chunks_are_passed_during_text_reveal__will_return_the_number_\
 of_characters_revealed_not_including_operational_text)
 {
    // TODO: Expand this test and/or make it more robust and comprehensive
@@ -250,7 +250,7 @@ of_characters_revealed_not_including_operational_text)
    EXPECT_EQ(2, num_calls);
 
    // TODO: Update this to continue incrementing *again* when an operational chunk is met
-   EXPECT_EQ(16, dialog_box.get_num_revealed_printable_characters()); // NOTE: This should be 20!!
+   EXPECT_EQ(18, dialog_box.get_num_revealed_printable_characters()); // NOTE: This should be 20!!
    //EXPECT_EQ(20, dialog_box.get_num_revealed_printable_characters()); // NOTE: This should be 20!!
 
    al_uninstall_system();

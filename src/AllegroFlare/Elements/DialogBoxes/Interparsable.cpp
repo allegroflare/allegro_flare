@@ -239,35 +239,49 @@ void Interparsable::update_page_playback()
 {
    if (current_chunk_index >= current_page_chunks.size()) return; // Playback is finished
 
-   auto &chunk = current_page_chunks[current_chunk_index];
-   bool is_printable_text = !chunk.first;
-   std::string &chunk_content = chunk.second;
-   //auto &char_index = num_revealed_printable_characters;
+   //auto &chunk = current_page_chunks[current_chunk_index];
+   //bool is_printable_text = !chunk.first;
+   //std::string &chunk_content = chunk.second;
+   ////auto &char_index = num_revealed_printable_characters;
 
-   if (is_printable_text)
+   bool need_to_repeat_update_after_operational_chunk = false;
+   // TODO: Add max_loops and throw
+
+   do
    {
-      if (current_char_index < chunk_content.size())
+      auto &chunk = current_page_chunks[current_chunk_index];
+      bool is_printable_text = !chunk.first;
+      std::string &chunk_content = chunk.second;
+
+      need_to_repeat_update_after_operational_chunk = false;
+      if (is_printable_text)
       {
-         //std::cout << chunk_content[char_index];
-         current_char_index++;
-         num_revealed_printable_characters++;
+         if (current_char_index < chunk_content.size())
+         {
+            //std::cout << chunk_content[char_index];
+            current_char_index++;
+            num_revealed_printable_characters++;
+         }
+         else
+         {
+            // Move to the next chunk once the current one is fully revealed
+            current_chunk_index++;
+            current_char_index = 0;
+         }
       }
       else
       {
-         // Move to the next chunk once the current one is fully revealed
+         if (on_operational_chunk_func)
+         {
+            on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
+         }
          current_chunk_index++;
          current_char_index = 0;
+         need_to_repeat_update_after_operational_chunk = true;
       }
    }
-   else
-   {
-      if (on_operational_chunk_func)
-      {
-         on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
-      }
-      current_chunk_index++;
-      current_char_index = 0;
-   }
+   while (need_to_repeat_update_after_operational_chunk);
+
    return;
 }
 
