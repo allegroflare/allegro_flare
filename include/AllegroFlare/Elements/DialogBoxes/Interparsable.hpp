@@ -58,7 +58,7 @@ namespace AllegroFlare
             static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");
             virtual void start() override;
             bool has_speaking_character();
-            void update_();
+            void update_page_playback();
             virtual void update() override;
             virtual void advance() override;
             void set_pages(std::vector<std::string> pages={});

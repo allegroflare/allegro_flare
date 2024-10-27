@@ -213,12 +213,12 @@ bool Interparsable::has_speaking_character()
    return (!speaking_character.empty());
 }
 
-void Interparsable::update_()
+void Interparsable::update_page_playback()
 {
    if (current_chunk_index >= current_page_chunks.size()) return; // Playback is finished
 
    auto &chunk = current_page_chunks[current_chunk_index];
-   bool is_printable_text = chunk.first;
+   bool is_printable_text = !chunk.first;
    std::string &chunk_content = chunk.second;
    auto &char_index = num_revealed_printable_characters;
 
@@ -250,17 +250,7 @@ void Interparsable::update()
    if (get_finished()) return;
    if (!page_finished)
    {
-      int num_revealed_printable_characters_before = num_revealed_printable_characters;
-      //update_();
-      num_revealed_printable_characters++;
-      // HERE:
-      // TODO: See if printable_characters overlapped an operational text chunk and call callback
-      // FOR NOW: {
-      if (num_revealed_printable_characters_before == 26 && on_operational_chunk_func)
-      {
-         on_operational_chunk_func("placeholder-operational-func-text", this, on_operational_chunk_func_user_data);
-      }
-      // } :FOR NOW
+      update_page_playback();
    }
    if (!page_finished && all_characters_are_revealed())
    {
@@ -291,7 +281,8 @@ void Interparsable::reset()
    set_finished(false);
    finished_at = 0;
    reset_current_page_counters();
-   current_page_chunks = {}; // TODO: Test this
+   // TODO: Test this
+   if (!pages.empty()) current_page_chunks = parse_into_chunks(pages[current_page_num]);
    return;
 }
 
