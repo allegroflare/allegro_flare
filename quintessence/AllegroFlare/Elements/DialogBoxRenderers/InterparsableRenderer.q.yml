@@ -1,0 +1,421 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: current_page_text
+    type: std::string
+    init_with: '"[unset-current_page_text]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: width
+    type: float
+    init_with: (1920/2.0f)
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: height
+    type: float
+    init_with: (1080/5.0f)
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_name
+    type: std::string
+    init_with: DEFAULT_FONT_NAME
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: DEFAULT_FONT_SIZE
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text_padding_x
+    type: float
+    init_with: 52.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: text_padding_y
+    type: float
+    init_with: 40.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: num_revealed_characters
+    type: int
+    init_with: 999
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: is_finished
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: page_is_finished
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: page_finished_at
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: at_last_page
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: age
+    type: float
+    init_with: 999.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: showing_speaking_character_name
+    type: bool
+    init_with: false
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: speaking_character_name
+    type: std::string
+    init_with: '""'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: DEFAULT_FONT_NAME
+    type: char*
+    constexpr: true
+    static: true
+    const: true
+    init_with: '(char*)"Inter-Regular.ttf"'
+
+  - name: DEFAULT_FONT_SIZE
+    type: int
+    constexpr: true
+    static: true
+    const: true
+    init_with: -36
+
+
+methods:
+
+
+  - name: render_frame
+    private: true
+    body: |
+      float normalized_age = std::max(std::min(1.0f, age), 0.0f);
+      float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
+      float inv_curved_time = 1.0 - curved_time;
+
+      AllegroFlare::Placement2D frame_place = { width/2, height/2, width, height, };
+      frame_place.position.y += 10 * inv_curved_time;
+      frame_place.start_transform();
+      AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
+      dialog_box_frame.set_opacity(curved_time);
+      dialog_box_frame.render();
+      frame_place.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Placement2D
+
+
+  - name: render_text
+    private: true
+    body: |
+      draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
+      return;
+
+
+  - name: render_speaking_character_name_tag
+    private: true
+    body: |
+      draw_speaking_character_name();
+      return;
+
+
+  - name: render_button
+    private: true
+    body: |
+      // draw the "next" or "finished" cursor (depending on context)
+      if (page_is_finished)
+      {
+         AllegroFlare::Elements::DialogButton dialog_button(font_bin);
+         dialog_button.set_started_at(page_finished_at);
+         dialog_button.set_x(width - 160);
+         dialog_button.set_y(height - 60);
+
+         if (at_last_page) dialog_button.set_at_last_advance(true);
+
+         dialog_button.render();
+      }
+      return;
+
+
+  - name: render
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+    body: |
+      if (is_finished)
+      {
+         render_frame();
+         draw_special_state_empty_text(width, height);
+      }
+      else
+      {
+         if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+         {
+            render_speaking_character_name_tag();
+         }
+         render_frame();
+         render_text();
+         render_button();
+      }
+      return;
+    body_dependency_symbols:
+      - al_draw_filled_rounded_rectangle
+      - al_color_html
+      - AllegroFlare::Elements::DialogBoxFrame
+      - AllegroFlare::Elements::DialogButton
+      - AllegroFlare::Interpolators::*
+
+
+  - name: draw_choices_with_cursor_and_current_selection
+    body: |
+      float left_indent = 80;
+      AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+         font_bin,
+         nullptr, // bitmap_bin,
+         obtain_choice_dialog_box_option_labels()
+      );
+      list_box_renderer.set_height_to_fit_content();
+      list_box_renderer.set_width_to_fit_content_or_max_and_min(width - left_indent*2);
+
+      AllegroFlare::Placement2D choice_box_place{
+         width - left_indent,
+         20,
+         list_box_renderer.get_width(),
+         list_box_renderer.get_height()
+      };
+      choice_box_place.align = { 1.0, 1.0 };
+
+      AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
+
+      list_box_renderer.set_cursor_position(
+         obtain_choice_dialog_box_cursor_position()
+      );
+
+      // Init the cursor position to the current selection
+      std::tuple<float, float, float, float> current_selection_dimensions =
+         list_box_renderer.calculate_dimensions_for_list_item_at_position(
+            obtain_choice_dialog_box_cursor_position()
+         );
+      float current_selection_x = std::get<0>(current_selection_dimensions);
+      float current_selection_y = std::get<1>(current_selection_dimensions);
+      float current_selection_width = std::get<2>(current_selection_dimensions);
+      float current_selection_height = std::get<3>(current_selection_dimensions);
+      selection_cursor_box.set_position(current_selection_x, current_selection_y);
+      selection_cursor_box.set_size(current_selection_width, current_selection_height);
+
+      choice_box_place.start_transform();
+      list_box_renderer.render();
+      selection_cursor_box.render();
+      choice_box_place.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::SelectionCursorBox
+      - AllegroFlare::Elements::ListBoxRenderer
+      - AllegroFlare::Placement2D
+
+
+  - name: draw_special_state_empty_text
+    private: true
+    parameters:
+      - name: width
+        type: float
+        default_argument: 1
+      - name: height
+        type: float
+        default_argument: 1
+    body: |
+      ALLEGRO_FONT* text_font = obtain_dialog_font();
+      ALLEGRO_COLOR text_color = al_color_html("303030");
+      float line_height = al_get_font_line_height(text_font);
+      std::string text = "[dialog finished]";
+      al_draw_text(
+         text_font,
+         text_color,
+         width * 0.5,
+         height * 0.5 - line_height * 0.5,
+         ALLEGRO_ALIGN_CENTER,
+         text.c_str()
+      );
+      return;
+
+
+  - name: draw_speaking_character_name
+    body: |
+      int width = 220;
+      int height = 46;
+
+      AllegroFlare::Placement2D place(30, 0, width, height);
+      place.align = { 0.0, 1.0 };
+      place.start_transform();
+      AllegroFlare::Elements::DialogBoxNameTag name_tag(
+         font_bin,
+         speaking_character_name,
+         width,
+         height
+      );
+      name_tag.render();
+      place.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::DialogBoxNameTag
+
+
+  - name: draw_styled_revealed_text
+    parameters:
+      - name: max_width
+        type: float
+        default_argument: 1
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+      - name: num_revealed_characters
+        type: int
+        default_argument: 999
+    body: |
+      //float text_padding_x = 40.0f;
+      //float text_padding_y = 30.0f;
+      float text_box_max_width = max_width - (text_padding_x * 2);
+      ALLEGRO_FONT* text_font = obtain_dialog_font();
+      float line_height = al_get_font_line_height(text_font);
+      //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
+      ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
+      //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
+
+      al_draw_multiline_text(
+         text_font,
+         text_color,
+         text_padding_x,
+         text_padding_y,
+         text_box_max_width,
+         line_height,
+         ALLEGRO_ALIGN_LEFT,
+         concat_text(text, num_revealed_characters).c_str()
+      );
+      return;
+
+
+  - name: concat_text
+    private: true
+    type: std::string
+    parameters:
+      - name: source_text
+        type: std::string
+        default_argument: '""'
+      - name: length
+        type: int
+        default_argument: 0
+    body: |
+      return source_text.substr(0, length);
+
+
+  - name: obtain_choice_dialog_box_option_labels
+    type: std::vector<std::string>
+    private: true
+    body: |
+      // TODO: Replace these
+      //return choice_dialog_box->get_item_labels();
+      return { "Foobar", "Boobaz", "Flipflop" };
+
+
+  - name: obtain_choice_dialog_box_cursor_position
+    type: int
+    private: true
+    body: |
+      // TODO: Replace these
+      //return choice_dialog_box->get_cursor_position();
+      return 0;
+
+
+  - name: obtain_dialog_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ al_is_font_addon_initialized(), al_is_ttf_addon_initialized(), font_bin ]
+    body: |
+      std::stringstream font_identifier;
+      font_identifier << font_name << " " << font_size;
+      ALLEGRO_FONT* result_font = font_bin->operator[](font_identifier.str());
+      return result_font;
+
+
+dependencies:
+
+
+  - symbol: al_is_system_installed
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_get_current_display
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_color_html
+    headers: [ allegro5/allegro_color.h ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_draw_filled_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxFrame
+    headers: [ AllegroFlare/Elements/DialogBoxFrame.hpp ]
+  - symbol: AllegroFlare::Elements::DialogButton
+    headers: [ AllegroFlare/Elements/DialogButton.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: 'AllegroFlare::Interpolators::'
+    headers: [ AllegroFlare/Interpolators.hpp ]
+  - symbol: al_draw_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: al_draw_filled_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
+  - symbol: AllegroFlare::Elements::ListBoxRenderer
+    headers: [ AllegroFlare/Elements/ListBoxRenderer.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxNameTag
+    headers: [ AllegroFlare/Elements/DialogBoxNameTag.hpp ]
+
+

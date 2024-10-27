@@ -1,0 +1,229 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::DialogBoxes::Base
+    scope: public
+    init_with: AllegroFlare::Elements::DialogBoxes::Interparsable::TYPE
+
+
+properties:
+
+
+  - name: pages
+    type: std::vector<std::string>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+
+  - name: speaking_character
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: true
+
+  - name: current_page_num
+    type: int
+    init_with: -1
+    getter: true
+
+  - name: num_revealed_characters
+    type: int
+    init_with: 9999
+    getter: true
+
+  - name: finished_at
+    type: float
+    init_with: 0
+    getter: true
+
+  - name: page_finished
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: page_finished_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/Interparsable"'
+    static: true
+    constexpr: true
+
+
+documentation:
+
+
+  - todos:
+    - update TYPE and use correct naming in 
+
+
+methods:
+
+
+  - name: start
+    virtual: true
+    override: true
+    body: |
+      AllegroFlare::Logger::throw_error("AllegroFlare::Elements::DialogBoxes::Interparsable::start", "No implemented");
+      //reset();
+      //created_at = al_get_time();
+      // TODO: Implement this, considering its relationship to "created_at"
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: has_speaking_character
+    type: bool
+    body: |
+      return (!speaking_character.empty());
+
+
+  - name: update
+    override: true
+    virtual: true
+    body: |
+      if (get_finished()) return;
+      if (!page_finished) num_revealed_characters++;
+      if (!page_finished && all_characters_are_revealed())
+      {
+         page_finished = true;
+         page_finished_at = al_get_time();
+      }
+      return;
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      if (get_finished()) return;
+      if (!page_finished) reveal_all_characters();
+      else next_page();
+      return;
+
+
+  - name: set_pages
+    parameters:
+      - name: pages
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      this->pages = pages;
+      reset();
+      return;
+
+
+  - name: reset
+    body: |
+      current_page_num = 0;
+      set_finished(false);
+      finished_at = 0;
+      reset_current_page_counters();
+      return;
+
+
+  - name: get_current_page_text
+    type: std::string
+    body: |
+      if (!current_page_is_valid()) return "[null]";
+      return pages[current_page_num];
+
+
+  - name: get_current_page_num_chars
+    type: int
+    body: |
+      if (!current_page_is_valid()) return 0;
+      return pages[current_page_num].size();
+
+
+  - name: next_page
+    type: bool
+    guards: [ al_is_system_installed() ]
+    body: |
+      //if (at_last_page()) return false;
+      if (get_finished()) return false;
+
+      current_page_num++;
+      reset_current_page_counters();
+
+      if (current_page_num >= num_pages())
+      {
+         set_finished(true);
+         finished_at = al_get_time();
+         current_page_num = -1;
+      }
+      return true;
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: reset_current_page_counters
+    body: |
+      page_finished = false;
+      page_finished_at = 0;
+      num_revealed_characters = 0;
+      return;
+
+
+  - name: num_pages
+    type: int
+    body: |
+      return pages.size();
+
+
+  - name: has_no_pages
+    type: bool
+    body: |
+      return pages.empty();
+
+
+  - name: at_last_page
+    type: bool
+    body: |
+      return (current_page_num == (num_pages() - 1));
+
+
+  - name: current_page_is_valid
+    private: true
+    type: bool
+    body: |
+      if (pages.empty()) return false;
+      if (current_page_num < 0) return false;
+      if (current_page_num >= pages.size()) return false;
+      return true;
+
+
+  - name: reveal_all_characters
+    guards: [ al_is_system_installed() ]
+    body: |
+      num_revealed_characters = 9999;
+      page_finished = true;
+      page_finished_at = al_get_time();
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: all_characters_are_revealed
+    type: bool
+    body: |
+      if (!current_page_is_valid()) return true;
+      return num_revealed_characters >= get_current_page_num_chars();
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+
+
