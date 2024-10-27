@@ -25,7 +25,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
-   dialog_box_renderer.set_current_page_text("This dialog is finished");
+   dialog_box_renderer.set_current_page_text_with_formatting("This dialog is finished");
    dialog_box_renderer.set_is_finished(true);
    
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
@@ -45,7 +45,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    std::string page_text =
       "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
-   dialog_box_renderer.set_current_page_text(page_text);
+   dialog_box_renderer.set_current_page_text_with_formatting(page_text);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
    al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
@@ -64,7 +64,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    std::string page_text =
       "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
-   dialog_box_renderer.set_current_page_text(page_text);
+   dialog_box_renderer.set_current_page_text_with_formatting(page_text);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
 
@@ -99,7 +99,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
       num_revealed_characters++;
 
       AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
-      dialog_box_renderer.set_current_page_text(page_text);
+      dialog_box_renderer.set_current_page_text_with_formatting(page_text);
       dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
 
       AllegroFlare::Placement2D place{
@@ -133,7 +133,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
       AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
       dialog_box_renderer.set_speaking_character_name("Princess");
       dialog_box_renderer.set_showing_speaking_character_name(true);
-      dialog_box_renderer.set_current_page_text(page_text);
+      dialog_box_renderer.set_current_page_text_with_formatting(page_text);
       dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
 
       AllegroFlare::Placement2D place{

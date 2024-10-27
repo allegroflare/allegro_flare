@@ -8,9 +8,9 @@ properties:
     getter: true
     setter: true
 
-  - name: current_page_text
+  - name: current_page_text_with_formatting
     type: std::string
-    init_with: '"[unset-current_page_text]"'
+    init_with: '"[unset-current_page_text_with_formatting]"'
     constructor_arg: true
     getter: true
     setter: true
@@ -153,7 +153,7 @@ methods:
   - name: render_text
     private: true
     body: |
-      draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
+      draw_styled_revealed_text(width, current_page_text_with_formatting, num_revealed_characters);
       return;
 
 
@@ -310,9 +310,9 @@ methods:
       - name: max_width
         type: float
         default_argument: 1
-      - name: text
+      - name: text_with_formatting
         type: std::string
-        default_argument: '"[unset-text]"'
+        default_argument: '"[unset-text_with_formatting]"'
       - name: num_revealed_characters
         type: int
         default_argument: 999
@@ -334,7 +334,7 @@ methods:
          text_box_max_width,
          line_height,
          ALLEGRO_ALIGN_LEFT,
-         concat_text(text, num_revealed_characters).c_str()
+         concat_text(text_with_formatting, num_revealed_characters).c_str()
       );
       return;
 

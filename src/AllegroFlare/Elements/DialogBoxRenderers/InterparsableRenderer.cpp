@@ -24,9 +24,9 @@ namespace DialogBoxRenderers
 {
 
 
-InterparsableRenderer::InterparsableRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age, bool showing_speaking_character_name, std::string speaking_character_name)
+InterparsableRenderer::InterparsableRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text_with_formatting, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age, bool showing_speaking_character_name, std::string speaking_character_name)
    : font_bin(font_bin)
-   , current_page_text(current_page_text)
+   , current_page_text_with_formatting(current_page_text_with_formatting)
    , width(width)
    , height(height)
    , font_name(font_name)
@@ -56,9 +56,9 @@ void InterparsableRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
 }
 
 
-void InterparsableRenderer::set_current_page_text(std::string current_page_text)
+void InterparsableRenderer::set_current_page_text_with_formatting(std::string current_page_text_with_formatting)
 {
-   this->current_page_text = current_page_text;
+   this->current_page_text_with_formatting = current_page_text_with_formatting;
 }
 
 
@@ -152,9 +152,9 @@ AllegroFlare::FontBin* InterparsableRenderer::get_font_bin() const
 }
 
 
-std::string InterparsableRenderer::get_current_page_text() const
+std::string InterparsableRenderer::get_current_page_text_with_formatting() const
 {
-   return current_page_text;
+   return current_page_text_with_formatting;
 }
 
 
@@ -260,7 +260,7 @@ void InterparsableRenderer::render_frame()
 
 void InterparsableRenderer::render_text()
 {
-   draw_styled_revealed_text(width, current_page_text, num_revealed_characters);
+   draw_styled_revealed_text(width, current_page_text_with_formatting, num_revealed_characters);
    return;
 }
 
@@ -401,7 +401,7 @@ void InterparsableRenderer::draw_speaking_character_name()
    return;
 }
 
-void InterparsableRenderer::draw_styled_revealed_text(float max_width, std::string text, int num_revealed_characters)
+void InterparsableRenderer::draw_styled_revealed_text(float max_width, std::string text_with_formatting, int num_revealed_characters)
 {
    //float text_padding_x = 40.0f;
    //float text_padding_y = 30.0f;
@@ -420,7 +420,7 @@ void InterparsableRenderer::draw_styled_revealed_text(float max_width, std::stri
       text_box_max_width,
       line_height,
       ALLEGRO_ALIGN_LEFT,
-      concat_text(text, num_revealed_characters).c_str()
+      concat_text(text_with_formatting, num_revealed_characters).c_str()
    );
    return;
 }
