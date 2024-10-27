@@ -2,6 +2,8 @@
 
 
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
+#include <functional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -23,7 +25,8 @@ namespace AllegroFlare
             std::string speaking_character;
             int current_page_num;
             std::vector<std::pair<bool, std::string>> current_page_chunks;
-            void* on_parsed_chunk_user_data;
+            std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> on_operational_chunk_func;
+            void* on_operational_chunk_func_user_data;
             int num_revealed_printable_characters;
             float finished_at;
             bool page_finished;
@@ -38,10 +41,14 @@ namespace AllegroFlare
             virtual ~Interparsable();
 
             void set_speaking_character(std::string speaking_character);
+            void set_on_operational_chunk_func(std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> on_operational_chunk_func);
+            void set_on_operational_chunk_func_user_data(void* on_operational_chunk_func_user_data);
             std::vector<std::string> get_pages() const;
             std::string get_speaking_character() const;
             int get_current_page_num() const;
             std::vector<std::pair<bool, std::string>> get_current_page_chunks() const;
+            std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> get_on_operational_chunk_func() const;
+            void* get_on_operational_chunk_func_user_data() const;
             int get_num_revealed_printable_characters() const;
             float get_finished_at() const;
             bool get_page_finished() const;

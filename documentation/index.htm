@@ -10392,7 +10392,11 @@ table td
   <td class="property">std::vector&lt;std::pair&lt;bool, std::string&gt;&gt;</td>
 </tr>
 <tr>
-  <td class="property">on_parsed_chunk_user_data</td>
+  <td class="property">on_operational_chunk_func</td>
+  <td class="property">std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_operational_chunk_func_user_data</td>
   <td class="property">void*</td>
 </tr>
 <tr>
@@ -10497,6 +10501,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Interparsable&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Interparsable.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -47730,6 +47737,9 @@ table td
   ],
   "AllegroFlare/Elements/ListBox": [
     "AllegroFlare/Elements/DialogBoxes/Choice"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Interparsable": [
+    "AllegroFlare/Elements/DialogBoxes/Interparsable"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogRoll",

@@ -23,7 +23,8 @@ Interparsable::Interparsable(std::vector<std::string> pages)
    , speaking_character("")
    , current_page_num(-1)
    , current_page_chunks({})
-   , on_parsed_chunk_user_data(nullptr)
+   , on_operational_chunk_func({})
+   , on_operational_chunk_func_user_data(nullptr)
    , num_revealed_printable_characters(9999)
    , finished_at(0)
    , page_finished(false)
@@ -40,6 +41,18 @@ Interparsable::~Interparsable()
 void Interparsable::set_speaking_character(std::string speaking_character)
 {
    this->speaking_character = speaking_character;
+}
+
+
+void Interparsable::set_on_operational_chunk_func(std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> on_operational_chunk_func)
+{
+   this->on_operational_chunk_func = on_operational_chunk_func;
+}
+
+
+void Interparsable::set_on_operational_chunk_func_user_data(void* on_operational_chunk_func_user_data)
+{
+   this->on_operational_chunk_func_user_data = on_operational_chunk_func_user_data;
 }
 
 
@@ -64,6 +77,18 @@ int Interparsable::get_current_page_num() const
 std::vector<std::pair<bool, std::string>> Interparsable::get_current_page_chunks() const
 {
    return current_page_chunks;
+}
+
+
+std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> Interparsable::get_on_operational_chunk_func() const
+{
+   return on_operational_chunk_func;
+}
+
+
+void* Interparsable::get_on_operational_chunk_func_user_data() const
+{
+   return on_operational_chunk_func_user_data;
 }
 
 
@@ -184,7 +209,18 @@ bool Interparsable::has_speaking_character()
 void Interparsable::update()
 {
    if (get_finished()) return;
-   if (!page_finished) num_revealed_printable_characters++;
+   if (!page_finished)
+   {
+      int num_revealed_printable_characters_before = num_revealed_printable_characters;
+      num_revealed_printable_characters++;
+      // HERE:
+      // TODO: See if printable_characters overlapped an operational text chunk and call callback
+      // FOR NOW:
+      if (num_revealed_printable_characters_before == 26 && on_operational_chunk_func)
+      {
+         on_operational_chunk_func("placeholder-operational-func-text", this, on_operational_chunk_func_user_data);
+      }
+   }
    if (!page_finished && all_characters_are_revealed())
    {
       page_finished = true;
@@ -214,6 +250,7 @@ void Interparsable::reset()
    set_finished(false);
    finished_at = 0;
    reset_current_page_counters();
+   current_page_chunks = {}; // TODO: Test this
    return;
 }
 
@@ -226,7 +263,7 @@ std::string Interparsable::get_current_page_text()
 int Interparsable::get_current_page_num_printable_chars()
 {
    if (!current_page_is_valid()) return 0;
-   return pages[current_page_num].size();
+   return pages[current_page_num].size(); // TODO: have this calculated from text chunks
 }
 
 bool Interparsable::next_page()
@@ -250,6 +287,11 @@ bool Interparsable::next_page()
       finished_at = al_get_time();
       current_page_num = -1;
    }
+   else
+   {
+      // TODO: Test this
+      current_page_chunks = parse_into_chunks(pages[current_page_num]);
+   }
    return true;
 }
 
@@ -258,6 +300,7 @@ void Interparsable::reset_current_page_counters()
    page_finished = false;
    page_finished_at = 0;
    num_revealed_printable_characters = 0;
+   current_page_chunks = {};
    return;
 }
 
@@ -294,6 +337,7 @@ void Interparsable::reveal_all_characters()
       throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Interparsable::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met");
    }
    num_revealed_printable_characters = 9999;
+   // TODO: Go through all command-like chunks
    page_finished = true;
    page_finished_at = al_get_time();
 }

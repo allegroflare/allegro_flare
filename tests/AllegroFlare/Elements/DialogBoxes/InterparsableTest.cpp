@@ -178,7 +178,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, next_page__will_increm
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, update__will_increment_the_num_revealed_characters)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, update__will_increment_the_num_revealed_printable_characters)
 {
    al_init();
    std::vector<std::string> pages = {
@@ -190,6 +190,36 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, update__will_increment
    EXPECT_EQ(0, dialog_box.get_num_revealed_printable_characters());
    dialog_box.update();
    EXPECT_EQ(1, dialog_box.get_num_revealed_printable_characters());
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
+   FOCUS__update__when_operational_chunks_are_passed_during_text_reveal__will_call_the_the_callback_with_the_\
+expected_data)
+{
+   // TODO: Expand this test and/or make it more robust and comprehensive
+   int num_calls = 0;
+   al_init();
+   std::vector<std::string> pages = {
+      "This is text that includes (operational text) over time.",
+   };
+   AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
+   dialog_box.set_on_operational_chunk_func([](
+         std::string text, AllegroFlare::Elements::DialogBoxes::Interparsable* dialog_box, void* user_data
+      ){
+      (*(int*)user_data)++;
+      //std::cout << "AA" << std::endl;
+   });
+   dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
+   dialog_box.set_pages(pages);
+
+   EXPECT_EQ(0, num_calls);
+   for (int i=0; i<pages[0].size(); i++)
+   {
+      dialog_box.update();
+   }
+   EXPECT_EQ(1, num_calls);
    al_uninstall_system();
 }
 

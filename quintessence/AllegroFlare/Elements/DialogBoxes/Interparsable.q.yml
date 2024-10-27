@@ -31,15 +31,17 @@ properties:
     init_with: '{}'
     getter: true
 
-# TODO:
-#  - name: on_operational_token
-#    type: std::function<void(std::string text, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)>
-#    init_with: '{}'
-#    getter: true
+  - name: on_operational_chunk_func
+    type: std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
 
-  - name: on_parsed_chunk_user_data
+  - name: on_operational_chunk_func_user_data
     type: void*
     init_with: nullptr
+    getter: true
+    setter: true
 
   - name: num_revealed_printable_characters
     type: int
@@ -186,7 +188,18 @@ methods:
     virtual: true
     body: |
       if (get_finished()) return;
-      if (!page_finished) num_revealed_printable_characters++;
+      if (!page_finished)
+      {
+         int num_revealed_printable_characters_before = num_revealed_printable_characters;
+         num_revealed_printable_characters++;
+         // HERE:
+         // TODO: See if printable_characters overlapped an operational text chunk and call callback
+         // FOR NOW:
+         if (num_revealed_printable_characters_before == 26 && on_operational_chunk_func)
+         {
+            on_operational_chunk_func("placeholder-operational-func-text", this, on_operational_chunk_func_user_data);
+         }
+      }
       if (!page_finished && all_characters_are_revealed())
       {
          page_finished = true;
@@ -224,6 +237,7 @@ methods:
       set_finished(false);
       finished_at = 0;
       reset_current_page_counters();
+      current_page_chunks = {}; // TODO: Test this
       return;
 
 
@@ -238,7 +252,7 @@ methods:
     type: int
     body: |
       if (!current_page_is_valid()) return 0;
-      return pages[current_page_num].size();
+      return pages[current_page_num].size(); // TODO: have this calculated from text chunks
 
 
   - name: next_page
@@ -257,6 +271,11 @@ methods:
          finished_at = al_get_time();
          current_page_num = -1;
       }
+      else
+      {
+         // TODO: Test this
+         current_page_chunks = parse_into_chunks(pages[current_page_num]);
+      }
       return true;
     body_dependency_symbols:
       - al_get_time
@@ -267,6 +286,7 @@ methods:
       page_finished = false;
       page_finished_at = 0;
       num_revealed_printable_characters = 0;
+      current_page_chunks = {};
       return;
 
 
@@ -302,6 +322,7 @@ methods:
     guards: [ al_is_system_installed() ]
     body: |
       num_revealed_printable_characters = 9999;
+      // TODO: Go through all command-like chunks
       page_finished = true;
       page_finished_at = al_get_time();
     body_dependency_symbols:
@@ -324,5 +345,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Interparsable
+    headers: [ AllegroFlare/Elements/DialogBoxes/Interparsable.hpp ]
 
 
