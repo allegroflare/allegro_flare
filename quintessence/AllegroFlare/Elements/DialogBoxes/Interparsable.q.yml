@@ -88,8 +88,9 @@ documentation:
     - when a page contains only operational chunks, it will be processed and automatically advanced to the next page
 
   - todos:
-    - update TYPE and use correct naming in 
-    - TODO - when a page contains only operational chunks, it will be processed and automatically advanced to the next page
+    - When a dialog is *only* operational chunks (in one page or across several pages), consider a proceedure to not
+      spawn a dialog at all.
+    - Consider addin a user-provided "parse_into_chunks" method
 
 
 methods:
