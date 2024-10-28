@@ -1,0 +1,156 @@
+parent_classes:
+
+
+  - class: AllegroFlare::DialogTree::Nodes::Base
+    scope: public
+    init_with: AllegroFlare::DialogTree::Nodes::Interparsable::TYPE
+
+
+properties:
+
+
+  - name: speaker
+    type: std::string
+    init_with: '"[unset-speaker]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: pages
+    type: std::vector<std::string>
+    init_with: '{"[unset-pages]"}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: options
+    type: std::vector<std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>>
+    constructor_arg: true
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/DialogTree/Nodes/Interparsable"'
+    static: true
+    constexpr: true
+
+
+enums:
+
+
+  - name: OptionFlags
+    scope: public
+    bitwise: true
+    enumerators:
+      - FLAG_NONE
+      - FLAG_CURSOR_HERE_ON_SPAWN
+      - FLAG_DISABLED
+
+
+documentation:
+
+
+  - notes:
+      - Note that options are present in this class but they are not used at all (yet) beyond being present as data
+        members on the class. Adding support for them would be a nice completion of the dialog system!
+
+
+methods:
+
+
+  - name: get_option_num
+    type: std::tuple<std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags<uint32_t>>
+    parameters:
+      - name: option_num
+        type: int
+        default_argument: 0
+    guards: [ (option_num >= 0), (option_num < options.size()) ]
+    body: |
+       return options[option_num];
+
+
+  - name: build_options_as_text
+    type: std::vector<std::string>
+    body: |
+      // TODO: Test this function
+      std::vector<std::string> result;
+      result.reserve(options.size());
+      for (auto &option : options)
+      {
+         // TODO: Consider if this check is necessary
+         if (!std::get<1>(option)) //.second)
+         {
+            AllegroFlare::Logger::throw_error("AllegroFlare/DialogTree/Node", "an option contains a nullptr");
+         }
+         result.push_back(std::get<0>(option)); //.first);
+      }
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Logger::throw_error
+
+
+  - name: num_pages
+    type: int
+    body: |
+      return pages.size();
+
+
+  - name: num_options
+    type: int
+    body: |
+      return options.size();
+
+
+  - name: has_options
+    type: bool
+    body: |
+      return !options.empty();
+
+
+  - name: has_no_options
+    type: bool
+    body: |
+      return options.empty();
+
+
+  - name: option_is_selectable
+    type: bool
+    parameters:
+      - name: option_num
+        type: int
+        default_argument: 0
+    guards: [ (option_num >= 0), (option_num < options.size()) ]
+    body: |
+      // TODO: Test guards
+      AllegroFlare::BitFlags<uint32_t> &flags = std::get<2>(options[option_num]);
+      return !flags.has(FLAG_DISABLED);
+
+
+  - name: infer_cursor_position_on_spawn
+    type: int
+    body: |
+      // TODO: Test this method
+      for (int position=0; position<options.size(); position++)
+      {
+         AllegroFlare::BitFlags<uint32_t> &flags = std::get<2>(options[position]);
+         // TODO: Use a constant rather than 0x01 here
+         if (flags.has(0x01)) return position;
+      }
+      return 0;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitFlags
+    headers: [ AllegroFlare/BitFlags.hpp ]
+  - symbol: AllegroFlare::DialogTree::Nodes::Base
+    headers: [ AllegroFlare/DialogTree/Nodes/Base.hpp ]
+  - symbol: AllegroFlare::DialogTree::NodeOptions::Base
+    headers: [ AllegroFlare/DialogTree/NodeOptions/Base.hpp ]
+  - symbol: AllegroFlare::Logger::throw_error
+    headers: [ AllegroFlare/Logger.hpp ]
+
+

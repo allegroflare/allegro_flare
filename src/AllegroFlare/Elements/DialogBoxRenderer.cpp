@@ -244,6 +244,7 @@ void DialogBoxRenderer::render()
          dialog_box_renderer.set_showing_speaking_character_name(true);
       }
       // TODO: Test assignment of these properties
+
       dialog_box_renderer.set_current_page_text_with_formatting(as->get_current_page_text_with_formatting());
       dialog_box_renderer.set_font_name(standard_dialog_box_font_name);
       dialog_box_renderer.set_font_size(standard_dialog_box_font_size);

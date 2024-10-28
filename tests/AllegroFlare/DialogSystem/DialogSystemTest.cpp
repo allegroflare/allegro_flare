@@ -187,11 +187,21 @@ public:
 
       // Share the dialog system driver with the dialog system
       dialog_system.set_driver(&dialog_system_driver);
+
+      dialog_system.set_interparsable_on_operational_chunk_func(&interparsable_on_operational_chunk_func);
    }
    virtual void TearDown() override
    {
       al_destroy_event_queue(event_queue);
       AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+   }
+   static void interparsable_on_operational_chunk_func(
+      std::string operational_text,
+      AllegroFlare::Elements::DialogBoxes::Interparsable* this_interparsable_dialog_box,
+      void* user_data
+   )
+   {
+      // TODO
    }
 };
 
@@ -407,6 +417,62 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 
    // TODO: Test consequence of activation
    //EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   activate_Interparsable_dialog_node__will_activate_a_dialog_node_of_interparsable_type)
+{
+   AllegroFlare::DialogTree::Nodes::Interparsable node(
+      "JONAH",
+      {
+         "This is (emphasis)page 1(/emphasis).",
+         "This is page 2.", // NOTE: Support for multiple pages is broken for some downstream compatibility reason
+                            // TODO: Restore support and figure out what the fix needs to be fixed downstream
+      },
+      {}
+      //{
+         //{ "Goto another node", new AllegroFlare::DialogTree::NodeOptions::GoToNode("unused-test-node-name"), 0 },
+         //{ "Exit", new AllegroFlare::DialogTree::NodeOptions::ExitDialog(), 0 },
+      //}
+   );
+   dialog_system.activate_Interparsable_dialog_node(&node);
+
+   // Test consequence of activation
+   EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
+   // TODO: Consider testing additional consequence (not related to the dialog box which is actually in the next text)
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   activate_Interparsable_dialog_node__will_spawn_a_dialog_box_of_interparsable_type_with_the_expected_values)
+{
+   AllegroFlare::DialogTree::Nodes::Interparsable node(
+      "JONAH",
+      {
+         "This is (emphasis)page 1(/emphasis).",
+         "This is page 2.",
+      },
+      {}
+      //{
+         //{ "Goto another node", new AllegroFlare::DialogTree::NodeOptions::GoToNode("unused-test-node-name"), 0 },
+         //{ "Exit", new AllegroFlare::DialogTree::NodeOptions::ExitDialog(), 0 },
+      //}
+   );
+   dialog_system.activate_Interparsable_dialog_node(&node);
+
+   // TODO: Test consequence of activation
+   //EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
+   AllegroFlare::Elements::DialogBoxes::Base *active_dialog_box = dialog_system.get_active_dialog_box();
+   EXPECT_NE(nullptr, active_dialog_box);
+   ASSERT_EQ(AllegroFlare::Elements::DialogBoxes::Interparsable::TYPE, active_dialog_box->get_type());
+   auto as = static_cast<AllegroFlare::Elements::DialogBoxes::Interparsable*>(active_dialog_box);
+   // TODO: Figure out how to test assignment of callback
+   //EXPECT_EQ(
+      //AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver::
+         //interparsable_on_operational_chunk_func,
+      //as->get_on_operational_chunk_func()
+   //); // HERE
 }
 
 

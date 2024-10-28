@@ -124,6 +124,71 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, next_page__will_increm
 }
 
 
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, update__when_the_current_page_contains_only_\
+operational_text__will_automatically_advance_to_the_page_after)
+{
+   al_init();
+   std::vector<std::string> pages = {
+      "(some_operational_text)", // The first page is operational text only
+      "This is page 2, otherwise known as page at index 0.",
+   };
+   AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
+   dialog_box.set_pages(pages);
+
+   ASSERT_EQ(0, dialog_box.get_current_page_num());
+   dialog_box.update();
+   ASSERT_EQ(1, dialog_box.get_current_page_num());
+
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, next_page__when_the_next_page_contains_only_\
+operational_text__will_automatically_advance_to_the_page_after)
+{
+   al_init();
+   std::vector<std::string> pages = {
+      "Page 1 has this test",
+      "(some_operational_that_will_advance_to_the_next_page)",
+      "This is the text to page 3.\nPage 3 has two lines.",
+   };
+   AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
+
+   dialog_box.set_pages(pages);
+
+   ASSERT_EQ(0, dialog_box.get_current_page_num());
+   dialog_box.next_page();
+   ASSERT_EQ(2, dialog_box.get_current_page_num());
+
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, next_page__when_at_the_last_page_that_contains_only_\
+operational_text__will_mark_the_dialog_as_finished_and_set_the_finished_at_time)
+{
+   al_init();
+   std::vector<std::string> pages = {
+      "Page 1 has this test",
+      "(only_operational_text_on_this_last_page)",
+   };
+   AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
+
+   dialog_box.set_pages(pages);
+
+   ASSERT_EQ(0, dialog_box.get_current_page_num());
+   dialog_box.next_page();
+
+   // Page is marked as finished
+   EXPECT_EQ(-1, dialog_box.get_current_page_num());
+   //EXPECT_EQ(true, dialog_box.get_page_finished()); // NOTE: The page being finished is not relevant
+   EXPECT_EQ(true, dialog_box.get_finished());
+   EXPECT_NE(0.0, dialog_box.get_finished_at());
+
+   al_uninstall_system();
+}
+
+
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, has_no_pages__will_true_if_there_are_no_pages)
 {
    AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
@@ -224,7 +289,7 @@ expected_data)
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
-   FOCUS__update__when_operational_chunks_are_passed_during_text_reveal__and_the_last_chunk_is_an_operational_text__\
+   update__when_operational_chunks_are_passed_during_text_reveal__and_the_last_chunk_is_an_operational_text__\
 will_work_without_failure)
 {
    // TODO: Expand this test and/or make it more robust and comprehensive
@@ -279,8 +344,40 @@ of_characters_revealed_not_including_operational_text)
    EXPECT_EQ(2, num_calls);
 
    // TODO: Update this to continue incrementing *again* when an operational chunk is met
-   EXPECT_EQ(18, dialog_box.get_num_revealed_printable_characters()); // NOTE: This should be 20!!
-   //EXPECT_EQ(20, dialog_box.get_num_revealed_printable_characters()); // NOTE: This should be 20!!
+   EXPECT_EQ(18, dialog_box.get_num_revealed_printable_characters()); // NOTE: Should this be 20?
+
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
+   num_revealed_printable_characters__when_sequential_operational_chunks_are_passed_during_text_reveal__will_return_\
+the_number_of_characters_revealed_not_including_operational_text)
+{
+   // TODO: Expand this test and/or make it more robust and comprehensive
+   int num_calls = 0;
+   al_init();
+   std::vector<std::string> pages = {
+      "This is (surprised)(wait)(happy)(em)text(/em) that includes (em)sequential operational text(/em).",
+   };
+   AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
+   dialog_box.set_on_operational_chunk_func([](
+         std::string text, AllegroFlare::Elements::DialogBoxes::Interparsable* dialog_box, void* user_data
+      ){
+      (*(int*)user_data)++;
+   });
+   dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
+   dialog_box.set_pages(pages);
+
+   EXPECT_EQ(0, num_calls);
+   for (int i=0; i<20; i++)
+   {
+      dialog_box.update();
+   }
+   EXPECT_EQ(5, num_calls);
+
+   // TODO: Update this to continue incrementing *again* when an operational chunk is met
+   EXPECT_EQ(18, dialog_box.get_num_revealed_printable_characters()); // NOTE: Should this be 20?
 
    al_uninstall_system();
 }
@@ -363,6 +460,21 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__wil
       { false, "dialog text" },
       { true, "color=normal" },
       { false, " that will fill this box." },
+   };
+   std::vector<std::pair<bool, std::string>> actual_chunks =
+      AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source);
+
+   EXPECT_EQ(expected_chunks, actual_chunks);
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__when_only_an_operational_chunk_is_\
+present__will_parse_only_a_single_operational_chunk)
+{
+   std::string raw_text_source = "(character_sprite=happy)";
+
+   std::vector<std::pair<bool, std::string>> expected_chunks = {
+      { true, "character_sprite=happy" },
    };
    std::vector<std::pair<bool, std::string>> actual_chunks =
       AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks(raw_text_source);
