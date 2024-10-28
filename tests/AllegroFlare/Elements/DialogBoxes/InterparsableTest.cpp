@@ -224,6 +224,35 @@ expected_data)
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
+   FOCUS__update__when_operational_chunks_are_passed_during_text_reveal__and_the_last_chunk_is_an_operational_text__\
+will_work_without_failure)
+{
+   // TODO: Expand this test and/or make it more robust and comprehensive
+   int num_calls = 0;
+   al_init();
+   std::vector<std::string> pages = {
+      "This is text that (emphasis)ends(/emphasis) in operational text.(play_chime_sound)",
+   };
+   AllegroFlare::Elements::DialogBoxes::Interparsable dialog_box;
+   dialog_box.set_on_operational_chunk_func([](
+         std::string text, AllegroFlare::Elements::DialogBoxes::Interparsable* dialog_box, void* user_data
+      ){
+      (*(int*)user_data)++;
+   });
+   dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
+   dialog_box.set_pages(pages);
+
+   EXPECT_EQ(0, num_calls);
+   for (int i=0; i<pages[0].size(); i++)
+   {
+      dialog_box.update();
+   }
+   EXPECT_EQ(3, num_calls);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest,
    num_revealed_printable_characters__when_operational_chunks_are_passed_during_text_reveal__will_return_the_number_\
 of_characters_revealed_not_including_operational_text)
 {
