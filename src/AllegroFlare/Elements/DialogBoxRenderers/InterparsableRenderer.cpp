@@ -414,19 +414,91 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
    ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
    //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
 
-   std::string printable_text_only =
-      AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
+   // Draw raw
+   {
+      std::string printable_text_only =
+         AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
 
-   al_draw_multiline_text(
-      text_font,
-      text_color,
-      text_padding_x,
-      text_padding_y,
-      text_box_max_width,
-      line_height,
-      ALLEGRO_ALIGN_LEFT,
-      concat_text(printable_text_only, num_revealed_characters).c_str()
-   );
+      al_draw_multiline_text(
+         text_font,
+         text_color,
+         text_padding_x,
+         text_padding_y,
+         text_box_max_width,
+         line_height,
+         ALLEGRO_ALIGN_LEFT,
+         concat_text(printable_text_only, num_revealed_characters).c_str()
+      );
+   }
+
+   // Draw per-glyph
+   bool draw_per_glyph = false;
+   if (draw_per_glyph)
+   {
+      std::string captured_operational_chunk;
+
+      int state = 0;
+      int in_paren_count = 0;
+      al_hold_bitmap_drawing(true);
+      float glyph_x = 0;
+      float glyph_y = 0;
+      ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+      ALLEGRO_COLOR text_color = default_color;
+
+      for (auto &c : text_with_formatting)
+      {
+         // Count parens
+         if (c == '(')
+         {
+            in_paren_count++;
+            continue;
+         }
+         else if (c == ')')
+         {
+            in_paren_count--;
+            {
+               // Process captured_operational_chunk
+               if (captured_operational_chunk == "em") text_color = emphasis_color;
+               else if (captured_operational_chunk == "/em") text_color = default_color;
+            }
+            captured_operational_chunk.clear();
+            continue;
+         }
+
+         if (in_paren_count < 0)
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer",
+               "Mismatching paren ')' found."
+            );
+         }
+
+         if (in_paren_count > 0)
+         {
+            captured_operational_chunk.push_back(c);
+            continue;
+         }
+
+
+         al_draw_glyph(
+            text_font,
+            text_color, //ALLEGRO_COLOR{0.5, 0.8, 0.8, 0.8},
+            glyph_x + text_padding_x,
+            glyph_y + text_padding_y,
+            c
+         );
+            //const ALLEGRO_FONT *f, ALLEGRO_COLOR color, float x, float y,
+            //int codepoint)
+         float width = al_get_glyph_advance(text_font, c, ALLEGRO_NO_KERNING);
+         glyph_x += width;
+      }
+
+      //std::string printable_text_only =
+         //AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
+   }
+
+   al_hold_bitmap_drawing(false);
    return;
 }
 

@@ -139,11 +139,11 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegroRenderingFixtureTest,
-   CAPTURE__render__when_showing_the_speaking_character_is_true__will_render_the_name_as_expected)
+   FOCUS__CAPTURE__render__with_text_formatting_tags_using_the_default_syntax__will_render_the_formatted_text)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
 
-   std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
+   std::string page_text = "Some test (em)dialog text(/em) that will reveal characters sequentially when rendering.";
 
    int num_revealed_characters = 0;
    for (unsigned i=0; i<page_text.size(); i++)
@@ -165,8 +165,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
       dialog_box_renderer.render();
       place.restore_transform();
 
-      //al_flip_display();
-      //std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
+      al_flip_display();
+      std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
    }
    al_flip_display();
 }
