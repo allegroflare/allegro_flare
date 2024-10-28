@@ -414,7 +414,12 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
    ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
    //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
 
+   //std::string printable_text_only =
+      //AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
+
    // Draw raw
+   bool draw_raw = true;
+   if (draw_raw)
    {
       std::string printable_text_only =
          AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
@@ -439,6 +444,7 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
 
       int state = 0;
       int in_paren_count = 0;
+      int num_characters_rendered = 0;
       al_hold_bitmap_drawing(true);
       float glyph_x = 0;
       float glyph_y = 0;
@@ -492,10 +498,10 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
             //int codepoint)
          float width = al_get_glyph_advance(text_font, c, ALLEGRO_NO_KERNING);
          glyph_x += width;
-      }
+         num_characters_rendered++;
 
-      //std::string printable_text_only =
-         //AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
+         if (num_characters_rendered >= num_revealed_characters) break;
+      }
    }
 
    al_hold_bitmap_drawing(false);
