@@ -437,9 +437,10 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
    }
 
    // Draw per-glyph
-   bool draw_per_glyph = false;
+   bool draw_per_glyph = false; // TODO: Uncomment this and continue its development
    if (draw_per_glyph)
    {
+      // TODO: Add line breaks
       std::string captured_operational_chunk;
 
       int state = 0;
