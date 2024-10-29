@@ -423,6 +423,7 @@ methods:
             //auto &c = (*it);
             //std::cout << (*it) << "   " << it << std::endl;
             auto &c = *(text_with_formatting.begin() + i);
+            //const char *char_mem_pos = &text_with_formatting.data() + i;
 
             // Count parens
             if (c == '(')

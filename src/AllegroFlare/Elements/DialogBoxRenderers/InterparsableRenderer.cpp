@@ -492,6 +492,7 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
          //auto &c = (*it);
          //std::cout << (*it) << "   " << it << std::endl;
          auto &c = *(text_with_formatting.begin() + i);
+         //const char *char_mem_pos = &text_with_formatting.data() + i;
 
          // Count parens
          if (c == '(')
