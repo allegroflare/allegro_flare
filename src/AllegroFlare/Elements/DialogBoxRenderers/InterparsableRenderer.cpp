@@ -402,6 +402,24 @@ void InterparsableRenderer::draw_speaking_character_name()
    return;
 }
 
+std::vector<std::string> InterparsableRenderer::split_to_words(std::string text)
+{
+   std::string current_word;
+   std::vector<std::string> result_words;
+   for (auto &c : text)
+   {
+      if (isspace(c))
+      {
+         result_words.push_back(current_word);
+         current_word.clear();
+         continue; // What about consecutive spaces?
+      }
+
+      current_word.push_back(c);
+   }
+   return result_words;
+}
+
 void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_width, std::string text_with_formatting, int num_revealed_characters)
 {
    // NOTE: For now, this renderer has very limited formatting features. It will remove chunks that are non-text
@@ -412,6 +430,7 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
    float line_height = al_get_font_line_height(text_font);
    //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
    ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
+   //ALLEGRO_COLOR text_color = ALLEGRO_COLOR{0.5, 0.5, 0.51, 0.51}; //al_color_name("skyblue");
    //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
 
    //std::string printable_text_only =
@@ -433,6 +452,7 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
          line_height,
          ALLEGRO_ALIGN_LEFT,
          concat_text(printable_text_only, num_revealed_characters).c_str()
+         //printable_text_only.c_str()
       );
    }
 
@@ -440,8 +460,13 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
    bool draw_per_glyph = false; // TODO: Uncomment this and continue its development
    if (draw_per_glyph)
    {
+      std::string printable_text_only =
+         AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
+
       // TODO: Add line breaks
       std::string captured_operational_chunk;
+      std::string current_word_buffer;
+      std::vector<std::string> words = split_to_words(printable_text_only);
 
       int state = 0;
       int in_paren_count = 0;
@@ -452,6 +477,7 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
       ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
       ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
       ALLEGRO_COLOR text_color = default_color;
+      int word_index = 0;
 
       for (auto &c : text_with_formatting)
       {
@@ -487,6 +513,26 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
             continue;
          }
 
+         // Calculate length of current word
+         bool should_break_here = false;
+         if (c == '\n')
+         {
+            should_break_here = true;
+         }
+         else if (isspace(c))
+         {
+            // Sort out word index here
+            //for (int i=num_characters_rendered+1)
+            //for (int cc=
+         }
+
+         if (should_break_here)
+         {
+            glyph_x = 0;
+            glyph_y += line_height;
+            num_characters_rendered++;
+            continue;
+         }
 
          al_draw_glyph(
             text_font,
