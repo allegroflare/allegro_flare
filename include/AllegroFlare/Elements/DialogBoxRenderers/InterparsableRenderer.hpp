@@ -89,6 +89,7 @@ namespace AllegroFlare
             void draw_choices_with_cursor_and_current_selection();
             void draw_speaking_character_name();
             std::vector<std::string> split_to_words(std::string text="[unset-text]");
+            void cb(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr);
             void draw_styled_revealed_text_with_formatting(float max_width=1, std::string text_with_formatting="[unset-text_with_formatting]", int num_revealed_characters=999);
          };
       }

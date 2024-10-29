@@ -420,6 +420,11 @@ std::vector<std::string> InterparsableRenderer::split_to_words(std::string text)
    return result_words;
 }
 
+void InterparsableRenderer::cb(int line_num, const char* line, int size, void* extra)
+{
+   return;
+}
+
 void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_width, std::string text_with_formatting, int num_revealed_characters)
 {
    // NOTE: For now, this renderer has very limited formatting features. It will remove chunks that are non-text
@@ -479,8 +484,15 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
       ALLEGRO_COLOR text_color = default_color;
       int word_index = 0;
 
-      for (auto &c : text_with_formatting)
+      //for (auto &c : text_with_formatting)
+      //for (auto &c : text_with_formatting.begin())
+      //for (auto it=text_with_formatting.begin(); it!=text_with_formatting.end(); it++)
+      for (int i=0; i<text_with_formatting.size(); i++)
       {
+         //auto &c = (*it);
+         //std::cout << (*it) << "   " << it << std::endl;
+         auto &c = *(text_with_formatting.begin() + i);
+
          // Count parens
          if (c == '(')
          {
@@ -527,6 +539,12 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
             // 2) using "num_characters_rendered", then "should_break_here=true" if the index is the same
             // 3) see how multiple consecutive spaces affect the line-break flow, and ensure
             //    "num_characters_rendered" is correctly set in these cases with non-space as first char on new line.
+
+            std::vector<std::tuple<int, const char*>> result;
+            //void al_do_multiline_text(const ALLEGRO_FONT *font,
+               //float max_width, const char *text,
+               //bool (*cb)(int line_num, const char *line, int size, void *extra),
+               //void *extra)
          }
 
          if (should_break_here)
