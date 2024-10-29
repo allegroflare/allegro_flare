@@ -523,6 +523,7 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
          {
             // TODO:
             // 1) calculate all word breaks on "printable_text_only", put character positions into an std::set<int>
+            //    1b) consider std::map<int, int>, word break position, and number of characters to then advance.
             // 2) using "num_characters_rendered", then "should_break_here=true" if the index is the same
             // 3) see how multiple consecutive spaces affect the line-break flow, and ensure
             //    "num_characters_rendered" is correctly set in these cases with non-space as first char on new line.
