@@ -166,6 +166,26 @@ methods:
       - AllegroFlare::Logger
 
 
+  - name: collate_printable_text_only
+    type: std::string
+    static: true
+    parameters:
+      - name: raw_text_source
+        type: std::string
+        default_argument: '"[unset-raw_text_source]"'
+    body: |
+      std::vector<std::pair<bool, std::string>> chunks = parse_into_chunks(raw_text_source);
+      std::stringstream result;
+      for (auto &chunk : chunks)
+      {
+         bool is_printable_text = !chunk.first;
+         if (is_printable_text) result << chunk.second;
+      }
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
   - name: render
     type: void
     guards:
@@ -189,6 +209,12 @@ methods:
       float max_text_box_width = 300;
       float line_height = al_get_font_line_height(font);
 
+
+
+         std::string text_with_formatting = text;
+         std::string printable_text_only = collate_printable_text_only(text_with_formatting);
+
+
       //al_draw_rounded_rectangle(
          //x-h_text_width - padding.x,
          //y-h_text_height - padding.y,
@@ -209,7 +235,7 @@ methods:
             max_text_box_width,
             line_height,
             ALLEGRO_ALIGN_LEFT,
-            text.c_str()
+            printable_text_only.c_str()
          );
 
 
@@ -221,8 +247,9 @@ methods:
          //std::set<int> line_break_indices = calculate_line_breaks(asdf);
 
 
-         std::string text_with_formatting = text;
-         std::string printable_text_only = text;
+         //std::string text_with_formatting = text;
+         //std::string printable_text_only = collate_printable_text_only(text_with_formatting);
+
             //AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
 
          std::set<int> line_break_indices = calculate_line_breaks(printable_text_only);
@@ -302,7 +329,8 @@ methods:
             //.find(x) != s.end()
             // TODO: This logic here
             //.find(x) != s.end()
-            if (line_break_indices.find(i) != line_break_indices.end())
+            if (line_break_indices.find(num_characters_rendered) != line_break_indices.end())
+            //if (line_break_indices.find(i) != line_break_indices.end())
             {
                should_break_here = true;
             }

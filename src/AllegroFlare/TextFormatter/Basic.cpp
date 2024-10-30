@@ -158,6 +158,18 @@ std::vector<std::pair<bool, std::string>> Basic::parse_into_chunks(std::string r
    return parsed_chunks;
 }
 
+std::string Basic::collate_printable_text_only(std::string raw_text_source)
+{
+   std::vector<std::pair<bool, std::string>> chunks = parse_into_chunks(raw_text_source);
+   std::stringstream result;
+   for (auto &chunk : chunks)
+   {
+      bool is_printable_text = !chunk.first;
+      if (is_printable_text) result << chunk.second;
+   }
+   return result.str();
+}
+
 void Basic::render()
 {
    if (!(al_is_system_installed()))
@@ -203,6 +215,12 @@ void Basic::render()
    float max_text_box_width = 300;
    float line_height = al_get_font_line_height(font);
 
+
+
+      std::string text_with_formatting = text;
+      std::string printable_text_only = collate_printable_text_only(text_with_formatting);
+
+
    //al_draw_rounded_rectangle(
       //x-h_text_width - padding.x,
       //y-h_text_height - padding.y,
@@ -223,7 +241,7 @@ void Basic::render()
          max_text_box_width,
          line_height,
          ALLEGRO_ALIGN_LEFT,
-         text.c_str()
+         printable_text_only.c_str()
       );
 
 
@@ -235,8 +253,9 @@ void Basic::render()
       //std::set<int> line_break_indices = calculate_line_breaks(asdf);
 
 
-      std::string text_with_formatting = text;
-      std::string printable_text_only = text;
+      //std::string text_with_formatting = text;
+      //std::string printable_text_only = collate_printable_text_only(text_with_formatting);
+
          //AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
 
       std::set<int> line_break_indices = calculate_line_breaks(printable_text_only);
@@ -316,7 +335,8 @@ void Basic::render()
          //.find(x) != s.end()
          // TODO: This logic here
          //.find(x) != s.end()
-         if (line_break_indices.find(i) != line_break_indices.end())
+         if (line_break_indices.find(num_characters_rendered) != line_break_indices.end())
+         //if (line_break_indices.find(i) != line_break_indices.end())
          {
             should_break_here = true;
          }

@@ -34,6 +34,7 @@ namespace AllegroFlare
          static bool line_callback(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          std::set<int> calculate_line_breaks(std::string raw_text_source="[unset-raw_text_source]");
          static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");
+         static std::string collate_printable_text_only(std::string raw_text_source="[unset-raw_text_source]");
          void render();
       };
    }
