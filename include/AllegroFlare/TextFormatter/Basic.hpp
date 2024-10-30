@@ -24,6 +24,7 @@ namespace AllegroFlare
          float y;
          float max_text_box_width;
          int num_revealed_characters;
+         bool draw_unrendered_pretext;
          static std::set<int> _line_break_indices;
          ALLEGRO_FONT* obtain_font();
 
@@ -42,6 +43,7 @@ namespace AllegroFlare
          void set_y(float y);
          void set_max_text_box_width(float max_text_box_width);
          void set_num_revealed_characters(int num_revealed_characters);
+         void set_draw_unrendered_pretext(bool draw_unrendered_pretext);
          std::string get_text() const;
          std::string get_font_name() const;
          int get_font_size() const;
@@ -49,6 +51,7 @@ namespace AllegroFlare
          float get_y() const;
          float get_max_text_box_width() const;
          int get_num_revealed_characters() const;
+         bool get_draw_unrendered_pretext() const;
          static bool line_callback(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          std::set<int> calculate_line_breaks(std::string raw_text_source="[unset-raw_text_source]");
          static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");

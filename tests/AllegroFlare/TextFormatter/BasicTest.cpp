@@ -88,6 +88,7 @@ render_formatted_text_with_the_expected_line_breaks)
    std::string raw_text_source = "This is some dialog text that will fill this box.";
    AllegroFlare::TextFormatter::Basic basic(&get_font_bin_ref());
    basic.set_text(raw_text_source);
+   basic.set_draw_unrendered_pretext(true);
 
    clear();
    basic.render();

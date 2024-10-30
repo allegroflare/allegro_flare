@@ -29,6 +29,7 @@ Basic::Basic(AllegroFlare::FontBin* font_bin, std::string text)
    , y(0)
    , max_text_box_width(450)
    , num_revealed_characters(9999)
+   , draw_unrendered_pretext(false)
 {
 }
 
@@ -86,6 +87,12 @@ void Basic::set_num_revealed_characters(int num_revealed_characters)
 }
 
 
+void Basic::set_draw_unrendered_pretext(bool draw_unrendered_pretext)
+{
+   this->draw_unrendered_pretext = draw_unrendered_pretext;
+}
+
+
 std::string Basic::get_text() const
 {
    return text;
@@ -125,6 +132,12 @@ float Basic::get_max_text_box_width() const
 int Basic::get_num_revealed_characters() const
 {
    return num_revealed_characters;
+}
+
+
+bool Basic::get_draw_unrendered_pretext() const
+{
+   return draw_unrendered_pretext;
 }
 
 
@@ -285,19 +298,21 @@ void Basic::render()
 
    al_hold_bitmap_drawing(true);
 
-   // Just draw the text raw
-   al_draw_multiline_text(
-         font,
-         //ALLEGRO_COLOR{1, 1, 1, 1},
-         ALLEGRO_COLOR{0.1, 0.102, 0.11, 0.11},
-         x,
-         y,
-         max_text_box_width,
-         line_height,
-         ALLEGRO_ALIGN_LEFT,
-         printable_text_only.c_str()
-      );
-
+   if (draw_unrendered_pretext)
+   {
+      // Just draw the text raw
+      al_draw_multiline_text(
+            font,
+            //ALLEGRO_COLOR{1, 1, 1, 1},
+            ALLEGRO_COLOR{0.1, 0.102, 0.11, 0.11},
+            x,
+            y,
+            max_text_box_width,
+            line_height,
+            ALLEGRO_ALIGN_LEFT,
+            printable_text_only.c_str()
+         );
+   }
 
    // Draw the text line-by-line
    std::set<int> line_break_indices = calculate_line_breaks(printable_text_only);

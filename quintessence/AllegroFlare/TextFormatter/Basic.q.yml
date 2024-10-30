@@ -50,6 +50,12 @@ properties:
     getter: true
     setter: true
 
+  - name: draw_unrendered_pretext
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: _line_break_indices
     static: true
     type: std::set<int>
@@ -237,19 +243,21 @@ methods:
 
       al_hold_bitmap_drawing(true);
 
-      // Just draw the text raw
-      al_draw_multiline_text(
-            font,
-            //ALLEGRO_COLOR{1, 1, 1, 1},
-            ALLEGRO_COLOR{0.1, 0.102, 0.11, 0.11},
-            x,
-            y,
-            max_text_box_width,
-            line_height,
-            ALLEGRO_ALIGN_LEFT,
-            printable_text_only.c_str()
-         );
-
+      if (draw_unrendered_pretext)
+      {
+         // Just draw the text raw
+         al_draw_multiline_text(
+               font,
+               //ALLEGRO_COLOR{1, 1, 1, 1},
+               ALLEGRO_COLOR{0.1, 0.102, 0.11, 0.11},
+               x,
+               y,
+               max_text_box_width,
+               line_height,
+               ALLEGRO_ALIGN_LEFT,
+               printable_text_only.c_str()
+            );
+      }
 
       // Draw the text line-by-line
       std::set<int> line_break_indices = calculate_line_breaks(printable_text_only);
