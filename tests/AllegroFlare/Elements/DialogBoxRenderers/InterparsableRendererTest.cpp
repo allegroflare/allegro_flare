@@ -139,7 +139,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__render__with_text_formatting_tags_using_the_default_syntax__will_render_the_formatted_text)
+   CAPTURE__render__with_text_formatting_tags_using_the_default_syntax__will_render_the_formatted_text)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
 
