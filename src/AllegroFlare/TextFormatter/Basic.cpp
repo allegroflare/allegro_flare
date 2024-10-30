@@ -135,7 +135,7 @@ bool Basic::line_callback(int line_num, const char* line, int size, void* extra)
 
    // Record where this line starts
    int line_start_index = character_index;
-   std::cout << "Line " << line_num << " starts at character index " << line_start_index << "\n";
+   //std::cout << "Line " << line_num << " starts at character index " << line_start_index << "\n";
 
    // Advance the character index by the size of this line and an assumed newline character
    character_index += size + 1; // +1 for the line break
@@ -278,38 +278,18 @@ void Basic::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::render]: error: guard \"font_bin\" not met");
    }
-   //float x = 1920/2;
-   //float y = 1080/3;
    ALLEGRO_FONT *font = obtain_font();
-   float text_width = al_get_text_width(font, text.c_str());
-   float text_height = al_get_font_line_height(font);
-   float h_text_width = text_width/2;
-   float h_text_height = text_height/2;
-   //AllegroFlare::Vec2D padding = {30, 20};
-   //float max_text_box_width = 300;
    float line_height = al_get_font_line_height(font);
+   std::string text_with_formatting = text;
+   std::string printable_text_only = collate_printable_text_only(text_with_formatting);
 
+   al_hold_bitmap_drawing(true);
 
-
-      std::string text_with_formatting = text;
-      std::string printable_text_only = collate_printable_text_only(text_with_formatting);
-
-
-   //al_draw_rounded_rectangle(
-      //x-h_text_width - padding.x,
-      //y-h_text_height - padding.y,
-      //x+h_text_width + padding.x,
-      //y+h_text_height + padding.y,
-      //8.0f,
-      //8.0f,
-      //ALLEGRO_COLOR{1, 1, 1, 1},
-      //8.0f
-   //);
-
+   // Just draw the text raw
    al_draw_multiline_text(
          font,
          //ALLEGRO_COLOR{1, 1, 1, 1},
-         ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3},
+         ALLEGRO_COLOR{0.1, 0.102, 0.11, 0.11},
          x,
          y,
          max_text_box_width,
@@ -319,126 +299,77 @@ void Basic::render()
       );
 
 
-   // Draw per-glyph
-   //bool draw_per_glyph = false; // TODO: Uncomment this and continue its development
-   bool draw_per_glyph = true;
-   if (draw_per_glyph)
+   // Draw the text line-by-line
+   std::set<int> line_break_indices = calculate_line_breaks(printable_text_only);
+   std::string captured_operational_chunk;
+   int in_paren_count = 0;
+   int num_characters_rendered = 0;
+   float glyph_x = 0;
+   float glyph_y = 0;
+   ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+   ALLEGRO_COLOR text_color = default_color;
+   int word_index = 0;
+
+   for (int i=0; i<text_with_formatting.size(); i++)
    {
-      //std::set<int> line_break_indices = calculate_line_breaks(asdf);
+      auto &c = text_with_formatting[i];
 
-
-      //std::string text_with_formatting = text;
-      //std::string printable_text_only = collate_printable_text_only(text_with_formatting);
-
-         //AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
-
-      std::set<int> line_break_indices = calculate_line_breaks(printable_text_only);
-
-      // TODO: Add line breaks
-      std::string captured_operational_chunk;
-      //std::string current_word_buffer;
-      //std::vector<std::string> words = split_to_words(printable_text_only);
-
-      int state = 0;
-      int in_paren_count = 0;
-      int num_characters_rendered = 0;
-      al_hold_bitmap_drawing(true);
-      float glyph_x = 0;
-      float glyph_y = 0;
-      ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
-      ALLEGRO_COLOR text_color = default_color;
-      int word_index = 0;
-
-      //for (auto &c : text_with_formatting)
-      //for (auto &c : text_with_formatting.begin())
-      //for (auto it=text_with_formatting.begin(); it!=text_with_formatting.end(); it++)
-      //for (int i=0; i<text_with_formatting.size(); i++)
-      //{
-         //auto &c = (*it);
-         //std::cout << (*it) << "   " << it << std::endl;
-         //auto &c = *(text_with_formatting.begin() + i);
-         //auto &c = text_with_formatting[i];
-         //const char *char_mem_pos = &text_with_formatting.data()[0] + i;
-         //std::cout << "# processing: \"" << c << "\"" << std::endl;
-         //return;
-      //}
-         //return;
-      //std::cout << "-----------------------------------------------------" << std::endl;
-
-      for (int i=0; i<text_with_formatting.size(); i++)
+      // Check for parens
+      if (c == '(')
       {
-         //auto &c = text_with_formatting[i];
-         //int i=0;
-         auto &c = text_with_formatting[i];
-
-         // Count parens
-         if (c == '(')
-         {
-            in_paren_count++;
-            continue;
-         }
-         else if (c == ')')
-         {
-            in_paren_count--;
-            {
-               // Process captured_operational_chunk
-               if (captured_operational_chunk == "em") text_color = emphasis_color;
-               else if (captured_operational_chunk == "/em") text_color = default_color;
-            }
-            captured_operational_chunk.clear();
-            continue;
-         }
-
-         if (in_paren_count < 0)
-         {
-            AllegroFlare::Logger::throw_error(
-               "AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer",
-               "Mismatching paren ')' found."
-            );
-         }
-
-         if (in_paren_count > 0)
-         {
-            captured_operational_chunk.push_back(c);
-            continue;
-         }
-
-
-         bool should_break_here = false;
-         //.find(x) != s.end()
-         // TODO: This logic here
-         //.find(x) != s.end()
-         if (line_break_indices.find(num_characters_rendered) != line_break_indices.end())
-         //if (line_break_indices.find(i) != line_break_indices.end())
-         {
-            should_break_here = true;
-         }
-
-
-         if (should_break_here)
-         {
-            glyph_x = 0;
-            glyph_y += line_height;
-            //num_characters_rendered++;
-            //continue;
-         }
-
-         al_draw_glyph(
-            font,
-            text_color, //ALLEGRO_COLOR{0.5, 0.8, 0.8, 0.8},
-            x+glyph_x, // + text_padding_x
-            y+glyph_y, // + text_padding_y,
-            c
-         );
-            //const ALLEGRO_FONT *f, ALLEGRO_COLOR color, float x, float y,
-            //int codepoint)
-         float width = al_get_glyph_advance(font, c, ALLEGRO_NO_KERNING);
-         glyph_x += width;
-         num_characters_rendered++;
-
-         if (num_characters_rendered >= num_revealed_characters) break;
+         in_paren_count++;
+         continue;
       }
+      else if (c == ')')
+      {
+         in_paren_count--;
+         {
+            // Process captured_operational_chunk
+            if (captured_operational_chunk == "em") text_color = emphasis_color;
+            else if (captured_operational_chunk == "/em") text_color = default_color;
+         }
+         captured_operational_chunk.clear();
+         continue;
+      }
+      if (in_paren_count < 0)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer",
+            "Mismatching paren ')' found."
+         );
+      }
+      if (in_paren_count > 0)
+      {
+         captured_operational_chunk.push_back(c);
+         continue;
+      }
+
+      // Rendering text
+
+      // Check for line breaks
+      bool should_break_here = false;
+      if (line_break_indices.find(num_characters_rendered) != line_break_indices.end()) should_break_here = true;
+      if (should_break_here)
+      {
+         glyph_x = 0;
+         glyph_y += line_height;
+      }
+
+      // Draw the glyph
+      al_draw_glyph(
+         font,
+         text_color,
+         x+glyph_x,
+         y+glyph_y,
+         c
+      );
+
+      float width = al_get_glyph_advance(font, c, ALLEGRO_NO_KERNING);
+      glyph_x += width;
+      num_characters_rendered++;
+
+      if (num_characters_rendered >= num_revealed_characters) break;
    }
 
    al_hold_bitmap_drawing(false);

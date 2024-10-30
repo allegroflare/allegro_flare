@@ -85,17 +85,10 @@ return_a_list_of_character_indexes_where_line_breaks_should_occur)
 TEST_F(AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture, CAPTURE__render__will_\
 render_formatted_text_with_the_expected_line_breaks)
 {
-   //std::string raw_text_source = "This is some (color=green)dialog text(color=normal) that will fill this box.";
    std::string raw_text_source = "This is some dialog text that will fill this box.";
-
-   //std::set<int> expected_line_break_indices = { 13, 25, 40, 50 };
    AllegroFlare::TextFormatter::Basic basic(&get_font_bin_ref());
    basic.set_text(raw_text_source);
-   //std::set<int> actual_line_break_indices = basic.calculate_line_breaks(raw_text_source);
 
-   //EXPECT_EQ(expected_line_break_indices, actual_line_break_indices);
-
-   // Draw the normal multiline for reference:
    clear();
    basic.render();
    al_flip_display();
@@ -106,7 +99,7 @@ render_formatted_text_with_the_expected_line_breaks)
 TEST_F(AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture, FOCUS__CAPTURE__render__with_formatting_tags__\
 will_render_formatted_text_with_the_expected_line_breaks)
 {
-   std::string raw_text_source = //"This is some (em)dialog text(/em) that will (em)fill(/em) this box.";
+   std::string raw_text_source =
       "Lorem ipsum dolor sit amet, (em)consectetur adipiscing(/em) elit. Donec fringilla arcu "
       "nec magna mattis cursus. Maecenas (em)non justo urna(/em). Vivamus eu augue tristique, "
       "pharetra enim ut, sollicitudin quam. Aenean ut purus at enim elementum rhoncus. "
@@ -119,17 +112,15 @@ will_render_formatted_text_with_the_expected_line_breaks)
       "Proin neque arcu, gravida et nisi non, ullamcorper fringilla ligula. Duis "
       "laoreet sollicitudin nunc, eu ornare diam consequat ac. Duis dapibus tellus ac "
       "mauris bibendum finibus.";
-   //std::string raw_text_source = "This is some (em)dialog text(/em) that will (em)fill(/em) this box.";
-   //std::string raw_text_source = "This is some dialog text that will fill this box.";
 
-   //std::set<int> expected_line_break_indices = { 13, 25, 40, 50 };
    AllegroFlare::TextFormatter::Basic basic(&get_font_bin_ref());
+   float box_max_width = 1920/3*2;
    basic.set_text(raw_text_source);
-   //std::set<int> actual_line_break_indices = basic.calculate_line_breaks(raw_text_source);
+   basic.set_x(1920/2 - box_max_width/2);
+   basic.set_y(1080/6);
+   basic.set_max_text_box_width(box_max_width);
+   basic.set_font_size(28);
 
-   //EXPECT_EQ(expected_line_break_indices, actual_line_break_indices);
-
-   // Draw the normal multiline for reference:
    int num_revealed_characters = 0;
    for (int i=0; i<300; i++)
    {
@@ -139,7 +130,6 @@ will_render_formatted_text_with_the_expected_line_breaks)
       al_flip_display();
    }
 
-   //al_flip_display();
    al_rest(1);
 }
 
