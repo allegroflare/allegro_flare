@@ -82,6 +82,27 @@ return_a_list_of_character_indexes_where_line_breaks_should_occur)
 }
 
 
+TEST_F(AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture, FOCUS__CAPTURE__render__will_\
+render_formatted_text_with_the_expected_line_breaks)
+{
+   //std::string raw_text_source = "This is some (color=green)dialog text(color=normal) that will fill this box.";
+   std::string raw_text_source = "This is some dialog text that will fill this box.";
+
+   //std::set<int> expected_line_break_indices = { 13, 25, 40, 50 };
+   AllegroFlare::TextFormatter::Basic basic(&get_font_bin_ref());
+   basic.set_text(raw_text_source);
+   //std::set<int> actual_line_break_indices = basic.calculate_line_breaks(raw_text_source);
+
+   //EXPECT_EQ(expected_line_break_indices, actual_line_break_indices);
+
+   // Draw the normal multiline for reference:
+   clear();
+   basic.render();
+   al_flip_display();
+   al_rest(1);
+}
+
+
 /*
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableTest, parse_into_chunks__when_only_an_operational_chunk_is_\
 present__will_parse_only_a_single_operational_chunk)

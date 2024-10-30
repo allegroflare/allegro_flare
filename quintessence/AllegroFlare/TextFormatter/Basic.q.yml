@@ -5,16 +5,26 @@ properties:
     type: AllegroFlare::FontBin*
     init_with: nullptr
     constructor_arg: true
+    setter: true
 
   - name: text
     type: std::string
     init_with: '"[unset-text]"'
     constructor_arg: true
+    getter: true
+    setter: true
 
   - name: _line_break_indices
     static: true
     type: std::set<int>
     init_with: '{}'
+
+
+documentation:
+
+
+  - todos:
+     - rename error message class
     
 
 methods:
@@ -164,6 +174,10 @@ methods:
       - al_is_font_addon_initialized()
       - font_bin
     body: |
+
+      int num_revealed_characters = 9999;
+
+
       float x = 1920/2;
       float y = 1080/3;
       ALLEGRO_FONT *font = obtain_font();
@@ -172,18 +186,156 @@ methods:
       float h_text_width = text_width/2;
       float h_text_height = text_height/2;
       AllegroFlare::Vec2D padding = {30, 20};
+      float max_text_box_width = 300;
+      float line_height = al_get_font_line_height(font);
 
-      al_draw_rounded_rectangle(
-         x-h_text_width - padding.x,
-         y-h_text_height - padding.y,
-         x+h_text_width + padding.x,
-         y+h_text_height + padding.y,
-         8.0f,
-         8.0f,
-         ALLEGRO_COLOR{1, 1, 1, 1},
-         8.0f
-      );
-      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-h_text_height, ALLEGRO_ALIGN_CENTER, text.c_str());
+      //al_draw_rounded_rectangle(
+         //x-h_text_width - padding.x,
+         //y-h_text_height - padding.y,
+         //x+h_text_width + padding.x,
+         //y+h_text_height + padding.y,
+         //8.0f,
+         //8.0f,
+         //ALLEGRO_COLOR{1, 1, 1, 1},
+         //8.0f
+      //);
+
+      al_draw_multiline_text(
+            font,
+            //ALLEGRO_COLOR{1, 1, 1, 1},
+            ALLEGRO_COLOR{0.3, 0.3, 0.3, 0.3},
+            x,
+            y,
+            max_text_box_width,
+            line_height,
+            ALLEGRO_ALIGN_LEFT,
+            text.c_str()
+         );
+
+
+      // Draw per-glyph
+      //bool draw_per_glyph = false; // TODO: Uncomment this and continue its development
+      bool draw_per_glyph = true;
+      if (draw_per_glyph)
+      {
+         //std::set<int> line_break_indices = calculate_line_breaks(asdf);
+
+
+         std::string text_with_formatting = text;
+         std::string printable_text_only = text;
+            //AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
+
+         std::set<int> line_break_indices = calculate_line_breaks(printable_text_only);
+
+         // TODO: Add line breaks
+         std::string captured_operational_chunk;
+         //std::string current_word_buffer;
+         //std::vector<std::string> words = split_to_words(printable_text_only);
+
+         int state = 0;
+         int in_paren_count = 0;
+         int num_characters_rendered = 0;
+         al_hold_bitmap_drawing(true);
+         float glyph_x = 0;
+         float glyph_y = 0;
+         ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+         ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+         ALLEGRO_COLOR text_color = default_color;
+         int word_index = 0;
+
+         //for (auto &c : text_with_formatting)
+         //for (auto &c : text_with_formatting.begin())
+         //for (auto it=text_with_formatting.begin(); it!=text_with_formatting.end(); it++)
+         //for (int i=0; i<text_with_formatting.size(); i++)
+         //{
+            //auto &c = (*it);
+            //std::cout << (*it) << "   " << it << std::endl;
+            //auto &c = *(text_with_formatting.begin() + i);
+            //auto &c = text_with_formatting[i];
+            //const char *char_mem_pos = &text_with_formatting.data()[0] + i;
+            //std::cout << "# processing: \"" << c << "\"" << std::endl;
+            //return;
+         //}
+            //return;
+         //std::cout << "-----------------------------------------------------" << std::endl;
+
+         for (int i=0; i<text_with_formatting.size(); i++)
+         {
+            //auto &c = text_with_formatting[i];
+            //int i=0;
+            auto &c = text_with_formatting[i];
+
+            // Count parens
+            if (c == '(')
+            {
+               in_paren_count++;
+               continue;
+            }
+            else if (c == ')')
+            {
+               in_paren_count--;
+               {
+                  // Process captured_operational_chunk
+                  if (captured_operational_chunk == "em") text_color = emphasis_color;
+                  else if (captured_operational_chunk == "/em") text_color = default_color;
+               }
+               captured_operational_chunk.clear();
+               continue;
+            }
+
+            if (in_paren_count < 0)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer",
+                  "Mismatching paren ')' found."
+               );
+            }
+
+            if (in_paren_count > 0)
+            {
+               captured_operational_chunk.push_back(c);
+               continue;
+            }
+
+
+            bool should_break_here = false;
+            //.find(x) != s.end()
+            // TODO: This logic here
+            //.find(x) != s.end()
+            if (line_break_indices.find(i) != line_break_indices.end())
+            {
+               should_break_here = true;
+            }
+
+
+            if (should_break_here)
+            {
+               glyph_x = 0;
+               glyph_y += line_height;
+               //num_characters_rendered++;
+               //continue;
+            }
+
+            al_draw_glyph(
+               font,
+               text_color, //ALLEGRO_COLOR{0.5, 0.8, 0.8, 0.8},
+               x+glyph_x, // + text_padding_x
+               y+glyph_y, // + text_padding_y,
+               c
+            );
+               //const ALLEGRO_FONT *f, ALLEGRO_COLOR color, float x, float y,
+               //int codepoint)
+            float width = al_get_glyph_advance(font, c, ALLEGRO_NO_KERNING);
+            glyph_x += width;
+            num_characters_rendered++;
+
+            if (num_characters_rendered >= num_revealed_characters) break;
+         }
+      }
+
+      al_hold_bitmap_drawing(false);
+
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
