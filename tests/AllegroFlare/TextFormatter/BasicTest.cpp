@@ -106,7 +106,20 @@ render_formatted_text_with_the_expected_line_breaks)
 TEST_F(AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture, FOCUS__CAPTURE__render__with_formatting_tags__\
 will_render_formatted_text_with_the_expected_line_breaks)
 {
-   std::string raw_text_source = "This is some (em)dialog text(/em) that will fill this box.";
+   std::string raw_text_source = //"This is some (em)dialog text(/em) that will (em)fill(/em) this box.";
+      "Lorem ipsum dolor sit amet, (em)consectetur adipiscing(/em) elit. Donec fringilla arcu "
+      "nec magna mattis cursus. Maecenas (em)non justo urna(/em). Vivamus eu augue tristique, "
+      "pharetra enim ut, sollicitudin quam. Aenean ut purus at enim elementum rhoncus. "
+      "In a finibus sapien. Donec mattis laoreet luctus. Aliquam eu accumsan sapien, at "
+      "congue massa. Phasellus consequat sapien ac scelerisque finibus. Curabitur "
+      "hendrerit, diam eget faucibus rhoncus, ante nulla mattis lorem, vitae semper "
+      "sapien sem sit amet ex. (em)Donec sit(/em) amet dolor libero. Vestibulum ante ipsum "
+      "primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc dignissim "
+      "aliquam luctus. Sed varius odio a neque ultrices, ac pretium ligula aliquam. "
+      "Proin neque arcu, gravida et nisi non, ullamcorper fringilla ligula. Duis "
+      "laoreet sollicitudin nunc, eu ornare diam consequat ac. Duis dapibus tellus ac "
+      "mauris bibendum finibus.";
+   //std::string raw_text_source = "This is some (em)dialog text(/em) that will (em)fill(/em) this box.";
    //std::string raw_text_source = "This is some dialog text that will fill this box.";
 
    //std::set<int> expected_line_break_indices = { 13, 25, 40, 50 };
@@ -117,9 +130,16 @@ will_render_formatted_text_with_the_expected_line_breaks)
    //EXPECT_EQ(expected_line_break_indices, actual_line_break_indices);
 
    // Draw the normal multiline for reference:
-   clear();
-   basic.render();
-   al_flip_display();
+   int num_revealed_characters = 0;
+   for (int i=0; i<300; i++)
+   {
+      clear();
+      basic.set_num_revealed_characters(i);
+      basic.render();
+      al_flip_display();
+   }
+
+   //al_flip_display();
    al_rest(1);
 }
 

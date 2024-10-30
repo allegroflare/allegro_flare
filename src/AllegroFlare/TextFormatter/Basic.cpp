@@ -23,6 +23,12 @@ std::set<int> Basic::_line_break_indices = {};
 Basic::Basic(AllegroFlare::FontBin* font_bin, std::string text)
    : font_bin(font_bin)
    , text(text)
+   , font_name("Inter-Medium.ttf")
+   , font_size(24)
+   , x(0)
+   , y(0)
+   , max_text_box_width(450)
+   , num_revealed_characters(9999)
 {
 }
 
@@ -44,9 +50,81 @@ void Basic::set_text(std::string text)
 }
 
 
+void Basic::set_font_name(std::string font_name)
+{
+   this->font_name = font_name;
+}
+
+
+void Basic::set_font_size(int font_size)
+{
+   this->font_size = font_size;
+}
+
+
+void Basic::set_x(float x)
+{
+   this->x = x;
+}
+
+
+void Basic::set_y(float y)
+{
+   this->y = y;
+}
+
+
+void Basic::set_max_text_box_width(float max_text_box_width)
+{
+   this->max_text_box_width = max_text_box_width;
+}
+
+
+void Basic::set_num_revealed_characters(int num_revealed_characters)
+{
+   this->num_revealed_characters = num_revealed_characters;
+}
+
+
 std::string Basic::get_text() const
 {
    return text;
+}
+
+
+std::string Basic::get_font_name() const
+{
+   return font_name;
+}
+
+
+int Basic::get_font_size() const
+{
+   return font_size;
+}
+
+
+float Basic::get_x() const
+{
+   return x;
+}
+
+
+float Basic::get_y() const
+{
+   return y;
+}
+
+
+float Basic::get_max_text_box_width() const
+{
+   return max_text_box_width;
+}
+
+
+int Basic::get_num_revealed_characters() const
+{
+   return num_revealed_characters;
 }
 
 
@@ -75,9 +153,9 @@ std::set<int> Basic::calculate_line_breaks(std::string raw_text_source)
    int character_index = 0;
 
    ALLEGRO_FONT *font = obtain_font();
-   int max_width = 300;
    //int max_width = 300;
-   al_do_multiline_text(font, max_width, raw_text_source.c_str(), line_callback, &character_index);
+   //int max_width = 300;
+   al_do_multiline_text(font, max_text_box_width, raw_text_source.c_str(), line_callback, &character_index);
 
    return _line_break_indices;
 }
@@ -200,19 +278,15 @@ void Basic::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::render]: error: guard \"font_bin\" not met");
    }
-
-   int num_revealed_characters = 9999;
-
-
-   float x = 1920/2;
-   float y = 1080/3;
+   //float x = 1920/2;
+   //float y = 1080/3;
    ALLEGRO_FONT *font = obtain_font();
    float text_width = al_get_text_width(font, text.c_str());
    float text_height = al_get_font_line_height(font);
    float h_text_width = text_width/2;
    float h_text_height = text_height/2;
-   AllegroFlare::Vec2D padding = {30, 20};
-   float max_text_box_width = 300;
+   //AllegroFlare::Vec2D padding = {30, 20};
+   //float max_text_box_width = 300;
    float line_height = al_get_font_line_height(font);
 
 
@@ -382,7 +456,7 @@ ALLEGRO_FONT* Basic::obtain_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::obtain_font]: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Medium.ttf -52");
+   return font_bin->auto_get(font_name + " " + std::to_string(font_size));
 }
 
 
