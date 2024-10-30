@@ -10,6 +10,7 @@
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/TextFormatter/Basic.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -261,7 +262,22 @@ void InterparsableRenderer::render_frame()
 
 void InterparsableRenderer::render_text()
 {
-   draw_styled_revealed_text_with_formatting(width, current_page_text_with_formatting, num_revealed_characters);
+   //draw_styled_revealed_text_with_formatting(width, current_page_text_with_formatting, num_revealed_characters);
+
+
+   // Render using the TextFormatter::Basic
+   float text_box_max_width = width - (text_padding_x * 2);
+
+   AllegroFlare::TextFormatter::Basic basic_text_formatter(font_bin);
+   basic_text_formatter.set_text(current_page_text_with_formatting);
+   basic_text_formatter.set_num_revealed_characters(num_revealed_characters);
+   basic_text_formatter.set_max_text_box_width(text_box_max_width);
+   basic_text_formatter.set_font_name(font_name);
+   basic_text_formatter.set_font_size(font_size);
+   basic_text_formatter.set_x(text_padding_x);
+   basic_text_formatter.set_y(text_padding_y);
+   basic_text_formatter.render();
+
    return;
 }
 

@@ -2205,6 +2205,9 @@
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Screens/TitleScreen"
   ],
+  "AllegroFlare/TextFormatter/Basic": [
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+  ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxes/Intertitle",
