@@ -172,6 +172,7 @@
     "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
+    "AllegroFlare/TextFormatter/Basic",
     "AllegroFlare/TileMaps/PrimMeshAtlas",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
@@ -651,6 +652,7 @@
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TextFormatter/Basic",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/WorldMapRenderer",
@@ -754,6 +756,7 @@
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TextFormatter/Basic",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/WorldMapRenderer",
@@ -919,6 +922,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/TextFormatter/Basic",
     "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/WorldMapRenderer",
@@ -1440,6 +1444,7 @@
     "AllegroFlare/DialogTree/Nodes/EmitGameEvent",
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
+    "AllegroFlare/DialogTree/Nodes/Interparsable",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/Nodes/RawScriptLine",
     "AllegroFlare/DialogTree/Nodes/Wait",
@@ -1554,6 +1559,16 @@
     "AllegroFlare/Elements/DialogBoxFactory",
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/DialogTree/Nodes/Interparsable": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/Interparsable": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxes/Interparsable"
+  ],
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
@@ -1570,6 +1585,7 @@
   "AllegroFlare/DialogTree/NodeOptions/Base": [
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
+    "AllegroFlare/DialogTree/Nodes/Interparsable",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
@@ -1577,10 +1593,12 @@
     "AllegroFlare/DialogTree/Nodes/Base"
   ],
   "AllegroFlare/BitFlags": [
+    "AllegroFlare/DialogTree/Nodes/Interparsable",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Logger/throw_error": [
+    "AllegroFlare/DialogTree/Nodes/Interparsable",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"
   ],
   "std/make_pair": [
@@ -1641,6 +1659,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/TextFormatter/Basic",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
@@ -1796,6 +1815,7 @@
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
+    "AllegroFlare/TextFormatter/Basic",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
@@ -2141,11 +2161,6 @@
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
-  "AllegroFlare/Elements/DialogBoxes/Interparsable": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
-    "AllegroFlare/Elements/DialogBoxes/Interparsable"
-  ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
@@ -2189,6 +2204,9 @@
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Screens/TitleScreen"
+  ],
+  "AllegroFlare/TextFormatter/Basic": [
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",

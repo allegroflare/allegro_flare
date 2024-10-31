@@ -10,6 +10,7 @@
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Placement2D.hpp>
+#include <AllegroFlare/TextFormatter/Basic.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -261,7 +262,22 @@ void InterparsableRenderer::render_frame()
 
 void InterparsableRenderer::render_text()
 {
-   draw_styled_revealed_text_with_formatting(width, current_page_text_with_formatting, num_revealed_characters);
+   //draw_styled_revealed_text_with_formatting(width, current_page_text_with_formatting, num_revealed_characters);
+
+
+   // Render using the TextFormatter::Basic
+   float text_box_max_width = width - (text_padding_x * 2);
+
+   AllegroFlare::TextFormatter::Basic basic_text_formatter(font_bin);
+   basic_text_formatter.set_text(current_page_text_with_formatting);
+   basic_text_formatter.set_num_revealed_characters(num_revealed_characters);
+   basic_text_formatter.set_max_text_box_width(text_box_max_width);
+   basic_text_formatter.set_font_name(font_name);
+   basic_text_formatter.set_font_size(font_size);
+   basic_text_formatter.set_x(text_padding_x);
+   basic_text_formatter.set_y(text_padding_y);
+   basic_text_formatter.render();
+
    return;
 }
 
@@ -402,6 +418,29 @@ void InterparsableRenderer::draw_speaking_character_name()
    return;
 }
 
+std::vector<std::string> InterparsableRenderer::split_to_words(std::string text)
+{
+   std::string current_word;
+   std::vector<std::string> result_words;
+   for (auto &c : text)
+   {
+      if (isspace(c))
+      {
+         result_words.push_back(current_word);
+         current_word.clear();
+         continue; // What about consecutive spaces?
+      }
+
+      current_word.push_back(c);
+   }
+   return result_words;
+}
+
+void InterparsableRenderer::cb(int line_num, const char* line, int size, void* extra)
+{
+   return;
+}
+
 void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_width, std::string text_with_formatting, int num_revealed_characters)
 {
    // NOTE: For now, this renderer has very limited formatting features. It will remove chunks that are non-text
@@ -410,9 +449,7 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
    float text_box_max_width = max_width - (text_padding_x * 2);
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    float line_height = al_get_font_line_height(text_font);
-   //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
-   //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
+   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
    std::string printable_text_only =
       AllegroFlare::Elements::DialogBoxes::Interparsable::collate_printable_text_only(text_with_formatting);
@@ -427,6 +464,7 @@ void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_
       ALLEGRO_ALIGN_LEFT,
       concat_text(printable_text_only, num_revealed_characters).c_str()
    );
+
    return;
 }
 

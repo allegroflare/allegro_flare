@@ -83,6 +83,41 @@ functions:
       - al_get_time
 
 
+  - name: create_interparsable_dialog
+    type: AllegroFlare::Elements::DialogBoxes::Interparsable*
+    parameters:
+      - name: speaking_character
+        type: std::string
+        default_argument: '"[unset-speaking_character]"'
+      - name: pages
+        type: std::vector<std::string>
+        default_argument: '{}'
+      - name: interparsable_on_operational_chunk_func
+        type: std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)>
+        default_argument: '{}'
+      - name: interparsable_on_operational_chunk_func_user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ al_is_system_installed() ]
+    body: |
+      AllegroFlare::Elements::DialogBoxes::Interparsable* interparsable_dialog_box =
+         new AllegroFlare::Elements::DialogBoxes::Interparsable();
+      // TODO: Trim speaking character first before checking if empty
+      if (!speaking_character.empty())
+      {
+         interparsable_dialog_box->set_speaking_character(speaking_character);
+      }
+      interparsable_dialog_box->set_pages(pages);
+      interparsable_dialog_box->set_created_at(al_get_time());
+      interparsable_dialog_box->set_on_operational_chunk_func(interparsable_on_operational_chunk_func);
+      interparsable_dialog_box->set_on_operational_chunk_func_user_data(
+            interparsable_on_operational_chunk_func_user_data
+         );
+      return interparsable_dialog_box;
+    body_dependency_symbols:
+      - al_get_time
+
+
   - name: create_intertitle_dialog
     type: AllegroFlare::Elements::DialogBoxes::Intertitle*
     parameters:
@@ -305,5 +340,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/TextMessages.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Intertitle
     headers: [ AllegroFlare/Elements/DialogBoxes/Intertitle.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Interparsable
+    headers: [ AllegroFlare/Elements/DialogBoxes/Interparsable.hpp ]
 
 

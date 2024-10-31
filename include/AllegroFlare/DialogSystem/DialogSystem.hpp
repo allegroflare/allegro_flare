@@ -9,16 +9,19 @@
 #include <AllegroFlare/DialogTree/Nodes/EmitGameEvent.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
+#include <AllegroFlare/DialogTree/Nodes/Interparsable.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
 #include <AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/GameEventDatas/Base.hpp>
 #include <allegro5/allegro.h>
+#include <functional>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -47,6 +50,8 @@ namespace AllegroFlare
          AllegroFlare::DialogTree::Nodes::Base* active_dialog_node;
          std::string active_dialog_node_name;
          AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
+         std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> interparsable_on_operational_chunk_func;
+         void* interparsable_on_operational_chunk_func_user_data;
          AllegroFlare::DialogSystemDrivers::Base* driver;
          bool switched_in;
          std::string standard_dialog_box_font_name;
@@ -65,6 +70,8 @@ namespace AllegroFlare
          DialogSystem(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::EventEmitter* event_emitter=nullptr);
          ~DialogSystem();
 
+         void set_interparsable_on_operational_chunk_func(std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> interparsable_on_operational_chunk_func);
+         void set_interparsable_on_operational_chunk_func_user_data(void* interparsable_on_operational_chunk_func_user_data);
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
          void set_standard_dialog_box_x(float standard_dialog_box_x);
@@ -76,6 +83,8 @@ namespace AllegroFlare
          AllegroFlare::DialogTree::Nodes::Base* get_active_dialog_node() const;
          std::string get_active_dialog_node_name() const;
          AllegroFlare::Elements::DialogBoxes::Base* get_active_dialog_box() const;
+         std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> get_interparsable_on_operational_chunk_func() const;
+         void* get_interparsable_on_operational_chunk_func_user_data() const;
          AllegroFlare::DialogSystemDrivers::Base* get_driver() const;
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;
@@ -106,12 +115,14 @@ namespace AllegroFlare
          void activate_ExitDialog_dialog_node(AllegroFlare::DialogTree::Nodes::ExitDialog* node=nullptr);
          void activate_ExitProgram_dialog_node(AllegroFlare::DialogTree::Nodes::ExitProgram* node=nullptr);
          void activate_YouGotAnItemDialog_dialog_node(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog* node=nullptr);
+         void activate_Interparsable_dialog_node(AllegroFlare::DialogTree::Nodes::Interparsable* node=nullptr);
          void activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, std::string node_identifier="[unset-node_identifier-for-MultipageWithOptions]");
          void activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* dialog_node=nullptr);
          void activate_dialog_node_by_name(std::string dialog_name="[unset-dialog_name]");
          void advance_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, int cursor_position=0);
          void dialog_advance();
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
+         void spawn_interparsable_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={}, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr);
          void spawn_intertitle_dialog(std::string text="[unset-text]");
          void spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
          void spawn_wait_dialog(float duration_seconds=1.0f);

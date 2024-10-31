@@ -1,0 +1,369 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: text
+    type: std::string
+    init_with: '"[unset-text]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: font_name
+    type: std::string
+    init_with: '"Inter-Medium.ttf"'
+    getter: true
+    setter: true
+
+  - name: font_size
+    type: int
+    init_with: 24
+    getter: true
+    setter: true
+
+  - name: x
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+
+  - name: y
+    type: float
+    init_with: 0
+    getter: true
+    setter: true
+
+  - name: max_text_box_width
+    type: float
+    init_with: 450
+    getter: true
+    setter: true
+
+  - name: num_revealed_characters
+    type: int
+    init_with: 9999
+    getter: true
+    setter: true
+
+  - name: draw_unrendered_pretext
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
+  - name: _line_break_indices
+    static: true
+    type: std::set<int>
+    init_with: '{}'
+
+
+documentation:
+
+
+  - todos:
+     - rename error message class
+    
+
+methods:
+
+
+  - name: line_callback
+    type: bool
+    static: true
+    parameters:
+      - name: line_num
+        type: int
+        default_argument: 0
+      - name: line
+        type: const char*
+        default_argument: nullptr
+      - name: size
+        type: int
+        default_argument: 0
+      - name: extra
+        type: void*
+        default_argument: nullptr
+    body: |
+      //CallbackData *data = static_cast<CallbackData *>(extra);
+      int &character_index = *static_cast<int*>(extra);
+
+      // Record where this line starts
+      int line_start_index = character_index;
+      //std::cout << "Line " << line_num << " starts at character index " << line_start_index << "\n";
+
+      // Advance the character index by the size of this line and an assumed newline character
+      character_index += size + 1; // +1 for the line break
+      _line_break_indices.insert(character_index);
+
+      return true; // Continue to next line
+
+
+  - name: calculate_line_breaks
+    type: std::set<int>
+    parameters:
+      - name: raw_text_source
+        type: std::string
+        default_argument: '"[unset-raw_text_source]"'
+    body: |
+      //std::set<int> result;
+      _line_break_indices = {};
+
+      //CallbackData callback_data{0}; // Initialize character_index to 0
+      int character_index = 0;
+
+      ALLEGRO_FONT *font = obtain_font();
+      //int max_width = 300;
+      //int max_width = 300;
+      al_do_multiline_text(font, max_text_box_width, raw_text_source.c_str(), line_callback, &character_index);
+
+      return _line_break_indices;
+
+
+  - name: parse_into_chunks
+    type: std::vector<std::pair<bool, std::string>>
+    static: true
+    parameters:
+      - name: raw_text_source
+        type: std::string
+        default_argument: '"[unset-raw_text_source]"'
+    body: |
+      std::vector<std::pair<bool, std::string>> parsed_chunks;
+      bool in_parens = false;
+      std::string current_chunk;
+      int open_paren_count = 0;
+
+      for (size_t i=0; i<raw_text_source.size(); ++i)
+      {
+         char ch = raw_text_source[i];
+
+         if (ch == '(')
+         {
+            if (in_parens)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks",
+                  "Nested parentheses were found in the text \"" + raw_text_source + "\". Nested parens are not "
+                     "supported."
+               );
+            }
+
+            // If entering parentheses, save current chunk if it exists
+            if (!current_chunk.empty())
+            {
+               parsed_chunks.emplace_back(in_parens, current_chunk);
+               current_chunk.clear();
+            }
+            in_parens = true;
+            open_paren_count++;
+         }
+         else if (ch == ')')
+         {
+            if (!in_parens)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks",
+                  "There was an open paren that does not have a matching closing paren in the text \""
+                     + raw_text_source + "\""
+               );
+            }
+
+            // If leaving parentheses, save current chunk
+            if (!current_chunk.empty())
+            {
+               parsed_chunks.emplace_back(in_parens, current_chunk);
+               current_chunk.clear();
+            }
+            in_parens = false;
+            open_paren_count--;
+         }
+         else
+         {
+            // Add character to the current chunk
+            current_chunk += ch;
+         }
+      }
+
+      // Add any remaining chunk
+      if (!current_chunk.empty())
+      {
+         parsed_chunks.emplace_back(in_parens, current_chunk);
+      }
+
+      // Check for unmatched opening parenthesis
+      if (open_paren_count != 0)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::DialogBoxes::Interparsable::parse_into_chunks",
+            "Unmatched opening parenthesis found in text \"" + raw_text_source + "\""
+         );
+      }
+
+      return parsed_chunks;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: collate_printable_text_only
+    type: std::string
+    static: true
+    parameters:
+      - name: raw_text_source
+        type: std::string
+        default_argument: '"[unset-raw_text_source]"'
+    body: |
+      std::vector<std::pair<bool, std::string>> chunks = parse_into_chunks(raw_text_source);
+      std::stringstream result;
+      for (auto &chunk : chunks)
+      {
+         bool is_printable_text = !chunk.first;
+         if (is_printable_text) result << chunk.second;
+      }
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: render
+    type: void
+    guards:
+      - al_is_system_installed()
+      - al_is_primitives_addon_initialized()
+      - al_is_font_addon_initialized()
+      - font_bin
+    body: |
+      ALLEGRO_FONT *font = obtain_font();
+      float line_height = al_get_font_line_height(font);
+      std::string text_with_formatting = text;
+      std::string printable_text_only = collate_printable_text_only(text_with_formatting);
+
+      al_hold_bitmap_drawing(true);
+
+      if (draw_unrendered_pretext)
+      {
+         // Just draw the text raw
+         al_draw_multiline_text(
+               font,
+               //ALLEGRO_COLOR{1, 1, 1, 1},
+               ALLEGRO_COLOR{0.1, 0.102, 0.11, 0.11},
+               x,
+               y,
+               max_text_box_width,
+               line_height,
+               ALLEGRO_ALIGN_LEFT,
+               printable_text_only.c_str()
+            );
+      }
+
+      // Draw the text line-by-line
+      std::set<int> line_break_indices = calculate_line_breaks(printable_text_only);
+      std::string captured_operational_chunk;
+      int in_paren_count = 0;
+      int num_characters_rendered = 0;
+      float glyph_x = 0;
+      float glyph_y = 0;
+      ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+      ALLEGRO_COLOR text_color = default_color;
+      int word_index = 0;
+
+      for (int i=0; i<text_with_formatting.size(); i++)
+      {
+         auto &c = text_with_formatting[i];
+
+         // Check for parens
+         if (c == '(')
+         {
+            in_paren_count++;
+            continue;
+         }
+         else if (c == ')')
+         {
+            in_paren_count--;
+            {
+               // Process captured_operational_chunk
+               if (captured_operational_chunk == "em") text_color = emphasis_color;
+               else if (captured_operational_chunk == "/em") text_color = default_color;
+            }
+            captured_operational_chunk.clear();
+            continue;
+         }
+         if (in_paren_count < 0)
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer",
+               "Mismatching paren ')' found."
+            );
+         }
+         if (in_paren_count > 0)
+         {
+            captured_operational_chunk.push_back(c);
+            continue;
+         }
+
+         // Rendering text
+
+         // Check for line breaks
+         bool should_break_here = false;
+         if (line_break_indices.find(num_characters_rendered) != line_break_indices.end()) should_break_here = true;
+         if (should_break_here)
+         {
+            glyph_x = 0;
+            glyph_y += line_height;
+         }
+
+         // Draw the glyph
+         al_draw_glyph(
+            font,
+            text_color,
+            x+glyph_x,
+            y+glyph_y,
+            c
+         );
+
+         float width = al_get_glyph_advance(font, c, ALLEGRO_NO_KERNING);
+         glyph_x += width;
+         num_characters_rendered++;
+
+         if (num_characters_rendered >= num_revealed_characters) break;
+      }
+
+      al_hold_bitmap_drawing(false);
+
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    guards: [ font_bin ]
+    body: |
+      return font_bin->auto_get(font_name + " " + std::to_string(font_size));
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+
+

@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
@@ -33,13 +34,21 @@
 #include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, can_be_created_without_blowing_up)
+class AllegroFlare_Elements_DialogBoxRendererTest : public ::testing::Test {};
+class AllegroFlare_Elements_DialogBoxRendererTestWithAllegroRenderingFixture :
+   public AllegroFlare::Testing::WithAllegroRenderingFixture
+{};
+
+
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer;
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_allegro_is_not_installed__raises_an_exception)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__when_allegro_is_not_installed__raises_an_exception)
 {
    AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer;
    EXPECT_THROW_GUARD_ERROR(
@@ -50,7 +59,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_allegro_is_not_in
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    render__when_allegro_primitives_are_not_installed__raises_an_exception)
 {
    al_init();
@@ -66,7 +75,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_allegro_display__raises_an_exception)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_allegro_display__raises_an_exception)
 {
    al_init();
    al_init_primitives_addon();
@@ -82,7 +91,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_alleg
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    render__when_the_allegro_font_addon_has_not_been_initialized__raises_an_exception)
 {
    al_init();
@@ -104,7 +113,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    render__when_the_allegro_ttf_addon_has_not_been_initialized__raises_an_exception)
 {
    al_init();
@@ -126,7 +135,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_font_bin__raises_an_exception)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_font_bin__raises_an_exception)
 {
    al_init();
    al_init_primitives_addon();
@@ -148,7 +157,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_font_
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_dialog_box__raises_an_exception)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_dialog_box__raises_an_exception)
 {
    al_init();
    al_init_primitives_addon();
@@ -170,7 +179,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__when_there_is_no_dialo
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_the_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_the_dialog_box)
 {
    // TODO: Rename this test to include "DialogBoxes::Basic type dialog"
    al_init();
@@ -196,7 +205,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_the_dialog_box)
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    render__draws_the_dialog_box_with_a_speaking_character_when_it_is_present)
 {
    // TODO: Rename this test to include "DialogBoxes::Basic type dialog"
@@ -224,7 +233,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    render__when_the_standard_dialog_box_font_name_is_changed__draws_the_dialog_box_as_expected)
 {
    // TODO: Rename this test to include "DialogBoxes::Basic type dialog"
@@ -253,7 +262,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    render__when_the_standard_dialog_box_font_size_is_changed__draws_the_dialog_box_as_expected)
 {
    // TODO: Rename this test to include "DialogBoxes::Basic type dialog"
@@ -282,7 +291,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_choice_type_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_choice_type_dialog_box)
 {
    // TODO: Rename this test to include "DialogBoxes::Choice type dialog"
    al_init();
@@ -315,7 +324,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_choice_type_di
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    render__when_a_speaking_character_is_presnt__draws_a_choice_type_dialog_box_with_the_speaking_character)
 {
    // TODO: Rename this test to include "DialogBoxes::Choice type dialog"
@@ -350,21 +359,21 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    DISABLED__render__when_the_standard_dialog_box_font_name_is_changed__draws_the_choice_type_dialog_box_as_expected)
 {
    // TODO
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest,
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest,
    DISABLED__render__when_the_standard_dialog_box_font_size_is_changed__draws_the_choice_type_dialog_box_as_expected)
 {
    // TODO
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_you_got_an_item_type_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_you_got_an_item_type_dialog_box)
 {
    al_init();
    al_init_primitives_addon();
@@ -389,7 +398,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_you_got_an_ite
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_YouGotEvidence_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_YouGotEvidence_dialog_box)
 {
    al_init();
    al_init_primitives_addon();
@@ -418,7 +427,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_YouGotEvidence
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_ChapterTitle_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_ChapterTitle_dialog_box)
 {
    al_init();
    al_init_primitives_addon();
@@ -446,7 +455,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_ChapterTitle_d
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_CharacterFeature_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_CharacterFeature_dialog_box)
 {
    al_init();
    al_init_primitives_addon();
@@ -477,7 +486,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_CharacterFeatu
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_a_TextMessages_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_a_TextMessages_dialog_box)
 {
    al_init();
    al_init_primitives_addon();
@@ -509,7 +518,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_a_TextM
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_an_Intertitle_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_an_Intertitle_dialog_box)
 {
    al_init();
    al_init_primitives_addon();
@@ -544,7 +553,7 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_an_Inte
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__will_handle_a_Wait_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__will_handle_a_Wait_dialog_box)
 {
    al_init();
    al_init_primitives_addon();
@@ -571,45 +580,39 @@ TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__will_handle_a_Wait_dia
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_basic_type_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_basic_type_dialog_box)
 {
    // TODO
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxRendererTest, CAPTURE__render__draws_a_dialog_box_of_type_Interparsable)
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTestWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__render__draws_a_dialog_box_of_type_Interparsable)
 {
-   al_init();
-   al_init_primitives_addon();
-   al_init_font_addon();
-   al_init_ttf_addon();
-   al_init_image_addon();
-   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
-   AllegroFlare::FontBin font_bin;
-   AllegroFlare::BitmapBin bitmap_bin;
-   font_bin.set_full_path(TEST_FIXTURE_FONT_FOLDER);
-   bitmap_bin.set_full_path(TEST_FIXTURE_BITMAP_FOLDER);
    AllegroFlare::Elements::DialogBoxes::Interparsable interparsable;
 
    interparsable.set_pages({
       //"At the tail end of his final year at university, we meet our protagonist.",
-      "At the tail end of (focus)his final year at university(focus), we meet our protagonist.",
+      "At the tail end of his (orange)final year at university(/orange), we meet our protagonist.",
       "He is in his dorm room diligently studying."
    });
    //interparsable.start(); // TODO: Consider a "middle-of-life" age or alternative to manual time
    for (int i=0; i<60; i++)
    {
+      // Update
       interparsable.update(); // NOTE: To reveal characters
 
-      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(&font_bin, &bitmap_bin, &interparsable);
+      // Render
+      clear();
+      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(
+            &get_font_bin_ref(),
+            &get_bitmap_bin_ref(),
+            &interparsable
+         );
       dialog_box_renderer.render();
       al_flip_display();
       std::this_thread::sleep_for(std::chrono::milliseconds(16));
    }
-
-   bitmap_bin.clear();
-   al_destroy_display(display);
-   al_uninstall_system();
 }
 
 

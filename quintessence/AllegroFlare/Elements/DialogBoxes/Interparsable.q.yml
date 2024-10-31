@@ -85,9 +85,12 @@ documentation:
 
   - notes:
     - raw_text_source is the page text in its entirety including any formatting data
+    - when a page contains only operational chunks, it will be processed and automatically advanced to the next page
 
   - todos:
-    - update TYPE and use correct naming in 
+    - When a dialog is *only* operational chunks (in one page or across several pages), consider a proceedure to not
+      spawn a dialog at all.
+    - Consider addin a user-provided "parse_into_chunks" method
 
 
 methods:
@@ -266,7 +269,25 @@ methods:
       }
       while (need_to_repeat_update_after_operational_chunk);
 
+      // TODO: Check if this is in the right spot
+      if (current_chunk_index >= current_page_chunks.size())
+      {
+         page_finished = true;
+         page_finished_at = al_get_time();
+      }
+
       return;
+
+
+  - name: current_page_contains_only_operational_text
+    type: bool
+    body: |
+      for (auto &chunk : current_page_chunks)
+      {
+         bool is_printable_text = !chunk.first;
+         if (is_printable_text) return false;
+      }
+      return true;
 
 
   - name: update
@@ -276,7 +297,11 @@ methods:
       if (get_finished()) return;
       if (!page_finished)
       {
-         update_page_playback();
+         update_page_playback(); // TODO: Ensure this will play all operational chunks in sequence
+         if (current_page_contains_only_operational_text())
+         {
+            advance();
+         }
       }
       if (!page_finished && all_characters_are_revealed())
       {
@@ -338,24 +363,36 @@ methods:
     type: bool
     guards: [ al_is_system_installed() ]
     body: |
-      //if (at_last_page()) return false;
-      if (get_finished()) return false;
+      bool continue_advancing_to_subsequent_next_page = false;
 
-      current_page_num++;
-      reset_current_page_counters();
+      do {
+         continue_advancing_to_subsequent_next_page = false;
 
-      if (current_page_num >= num_pages())
-      {
-         set_finished(true);
-         finished_at = al_get_time();
-         current_page_num = -1;
-         current_page_chunks = {}; // TODO: Test this
-      }
-      else
-      {
-         // TODO: Test this
-         current_page_chunks = parse_into_chunks(pages[current_page_num]);
-      }
+         //if (at_last_page()) return false;
+         if (get_finished()) return false;
+
+         current_page_num++;
+         reset_current_page_counters();
+
+         if (current_page_num >= num_pages())
+         {
+            set_finished(true);
+            finished_at = al_get_time();
+            current_page_num = -1;
+            current_page_chunks = {}; // TODO: Test this
+         }
+         else
+         {
+            // TODO: Test this
+            current_page_chunks = parse_into_chunks(pages[current_page_num]);
+            if (current_page_contains_only_operational_text())
+            {
+               update_page_playback(); // TODO: Ensure this will play all operational chunks in sequence
+               continue_advancing_to_subsequent_next_page = true;
+            }
+         }
+      } while (continue_advancing_to_subsequent_next_page);
+
       return true;
     body_dependency_symbols:
       - al_get_time

@@ -62,6 +62,7 @@ namespace AllegroFlare
             virtual void start() override;
             bool has_speaking_character();
             void update_page_playback();
+            bool current_page_contains_only_operational_text();
             virtual void update() override;
             virtual void advance() override;
             void set_pages(std::vector<std::string> pages={});

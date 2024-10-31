@@ -282,7 +282,24 @@ void Interparsable::update_page_playback()
    }
    while (need_to_repeat_update_after_operational_chunk);
 
+   // TODO: Check if this is in the right spot
+   if (current_chunk_index >= current_page_chunks.size())
+   {
+      page_finished = true;
+      page_finished_at = al_get_time();
+   }
+
    return;
+}
+
+bool Interparsable::current_page_contains_only_operational_text()
+{
+   for (auto &chunk : current_page_chunks)
+   {
+      bool is_printable_text = !chunk.first;
+      if (is_printable_text) return false;
+   }
+   return true;
 }
 
 void Interparsable::update()
@@ -290,7 +307,11 @@ void Interparsable::update()
    if (get_finished()) return;
    if (!page_finished)
    {
-      update_page_playback();
+      update_page_playback(); // TODO: Ensure this will play all operational chunks in sequence
+      if (current_page_contains_only_operational_text())
+      {
+         advance();
+      }
    }
    if (!page_finished && all_characters_are_revealed())
    {
@@ -347,24 +368,36 @@ bool Interparsable::next_page()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::Interparsable::next_page]: error: guard \"al_is_system_installed()\" not met");
    }
-   //if (at_last_page()) return false;
-   if (get_finished()) return false;
+   bool continue_advancing_to_subsequent_next_page = false;
 
-   current_page_num++;
-   reset_current_page_counters();
+   do {
+      continue_advancing_to_subsequent_next_page = false;
 
-   if (current_page_num >= num_pages())
-   {
-      set_finished(true);
-      finished_at = al_get_time();
-      current_page_num = -1;
-      current_page_chunks = {}; // TODO: Test this
-   }
-   else
-   {
-      // TODO: Test this
-      current_page_chunks = parse_into_chunks(pages[current_page_num]);
-   }
+      //if (at_last_page()) return false;
+      if (get_finished()) return false;
+
+      current_page_num++;
+      reset_current_page_counters();
+
+      if (current_page_num >= num_pages())
+      {
+         set_finished(true);
+         finished_at = al_get_time();
+         current_page_num = -1;
+         current_page_chunks = {}; // TODO: Test this
+      }
+      else
+      {
+         // TODO: Test this
+         current_page_chunks = parse_into_chunks(pages[current_page_num]);
+         if (current_page_contains_only_operational_text())
+         {
+            update_page_playback(); // TODO: Ensure this will play all operational chunks in sequence
+            continue_advancing_to_subsequent_next_page = true;
+         }
+      }
+   } while (continue_advancing_to_subsequent_next_page);
+
    return true;
 }
 

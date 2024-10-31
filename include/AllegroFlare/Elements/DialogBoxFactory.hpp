@@ -5,11 +5,13 @@
 #include <AllegroFlare/Elements/DialogBoxes/ChapterTitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/CharacterFeature.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Choice.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Intertitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Wait.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotAnItem.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/YouGotEvidence.hpp>
+#include <functional>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -35,6 +37,7 @@ namespace AllegroFlare
          AllegroFlare::Elements::DialogBoxes::Basic* create_basic_test_dialog();
          AllegroFlare::Elements::DialogBoxes::Basic build_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          AllegroFlare::Elements::DialogBoxes::Basic* create_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
+         AllegroFlare::Elements::DialogBoxes::Interparsable* create_interparsable_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={}, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> interparsable_on_operational_chunk_func={}, void* interparsable_on_operational_chunk_func_user_data=nullptr);
          AllegroFlare::Elements::DialogBoxes::Intertitle* create_intertitle_dialog(std::string text="[unset-text]");
          AllegroFlare::Elements::DialogBoxes::TextMessages* create_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
          AllegroFlare::Elements::DialogBoxes::Choice* create_choice_dialog(std::string speaking_character="[unset-speaking_character]", std::string prompt="[unset-prompt]", std::vector<std::pair<std::string, std::string>> options={}, int cursor_position_on_spawn=0);
