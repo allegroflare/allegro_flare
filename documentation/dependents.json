@@ -1116,6 +1116,7 @@
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TextFormatter/Basic",
     "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/UnicodeFontViewer",
@@ -2206,7 +2207,8 @@
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TextFormatter/Basic": [
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/TextFormatter/Basic"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",

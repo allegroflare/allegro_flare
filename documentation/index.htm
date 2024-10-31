@@ -39650,6 +39650,18 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">on_operational_chunk_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::TextFormatter::Basic*, std::string, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_operational_chunk_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">render_state__text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">_line_break_indices</td>
   <td class="property">std::set&lt;int&gt;</td>
 </tr>
@@ -39667,6 +39679,10 @@ table td
 <tr>
   <td class="method">std::vector&lt;std::pair&lt;bool, std::string&gt;&gt;</td>
   <td class="method"><b>parse_into_chunks</b>(std::string raw_text_source=&quot;[unset-raw_text_source]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>default_on_operational_chunk_func</b>(AllegroFlare::TextFormatter::Basic* text_formatter=nullptr, std::string text=&quot;[unset-text]&quot;, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">std::string</td>
@@ -39700,6 +39716,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TextFormatter::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TextFormatter/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46890,6 +46912,7 @@ table td
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
+    "AllegroFlare/TextFormatter/Basic",
     "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/UnicodeFontViewer",
@@ -47980,7 +48003,8 @@ table td
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TextFormatter/Basic": [
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/TextFormatter/Basic"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",

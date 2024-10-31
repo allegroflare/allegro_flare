@@ -56,6 +56,24 @@ properties:
     getter: true
     setter: true
 
+  - name: on_operational_chunk_func
+    type: std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)>
+    init_with: AllegroFlare::TextFormatter::Basic::default_on_operational_chunk_func
+    getter: true
+    setter: true
+
+  - name: on_operational_chunk_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: render_state__text_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
   - name: _line_break_indices
     static: true
     type: std::set<int>
@@ -208,6 +226,34 @@ methods:
       - AllegroFlare::Logger
 
 
+  - name: default_on_operational_chunk_func
+    static: true
+    parameters:
+      - name: text_formatter
+        type: AllegroFlare::TextFormatter::Basic*
+        default_argument: nullptr
+      - name: text
+        type: std::string
+        default_argument: '"[unset-text]"'
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ text_formatter ]
+    body: |
+      auto &formatter = *text_formatter;
+
+      ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+      // Where is render state stored?
+      //ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+      //ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+
+      //auto &formatter = *text_formatter;
+      if (text == "em") formatter.render_state__text_color = emphasis_color;
+      else if (text == "/em") formatter.render_state__text_color = default_color;
+      return;
+
+
   - name: collate_printable_text_only
     type: std::string
     static: true
@@ -267,8 +313,8 @@ methods:
       float glyph_x = 0;
       float glyph_y = 0;
       ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
-      ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
-      ALLEGRO_COLOR text_color = default_color;
+      //ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+      render_state__text_color = default_color;
       int word_index = 0;
 
       for (int i=0; i<text_with_formatting.size(); i++)
@@ -286,8 +332,17 @@ methods:
             in_paren_count--;
             {
                // Process captured_operational_chunk
-               if (captured_operational_chunk == "em") text_color = emphasis_color;
-               else if (captured_operational_chunk == "/em") text_color = default_color;
+               //
+               if (!on_operational_chunk_func)
+               {
+                  // TODO: Throw
+               }
+               else
+               {
+                  on_operational_chunk_func(this, captured_operational_chunk, on_operational_chunk_func_user_data);
+               }
+               //if (captured_operational_chunk == "em") render_state__text_color = emphasis_color;
+               //else if (captured_operational_chunk == "/em") render_state__text_color = default_color;
             }
             captured_operational_chunk.clear();
             continue;
@@ -319,7 +374,7 @@ methods:
          // Draw the glyph
          al_draw_glyph(
             font,
-            text_color,
+            render_state__text_color,
             x+glyph_x,
             y+glyph_y,
             c
@@ -365,5 +420,9 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::TextFormatter::Basic
+    headers: [ AllegroFlare/TextFormatter/Basic.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
 
 

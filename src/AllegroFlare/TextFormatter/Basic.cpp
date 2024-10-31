@@ -30,6 +30,9 @@ Basic::Basic(AllegroFlare::FontBin* font_bin, std::string text)
    , max_text_box_width(450)
    , num_revealed_characters(9999)
    , draw_unrendered_pretext(false)
+   , on_operational_chunk_func(AllegroFlare::TextFormatter::Basic::default_on_operational_chunk_func)
+   , on_operational_chunk_func_user_data(nullptr)
+   , render_state__text_color(ALLEGRO_COLOR{1, 1, 1, 1})
 {
 }
 
@@ -93,6 +96,24 @@ void Basic::set_draw_unrendered_pretext(bool draw_unrendered_pretext)
 }
 
 
+void Basic::set_on_operational_chunk_func(std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)> on_operational_chunk_func)
+{
+   this->on_operational_chunk_func = on_operational_chunk_func;
+}
+
+
+void Basic::set_on_operational_chunk_func_user_data(void* on_operational_chunk_func_user_data)
+{
+   this->on_operational_chunk_func_user_data = on_operational_chunk_func_user_data;
+}
+
+
+void Basic::set_render_state__text_color(ALLEGRO_COLOR render_state__text_color)
+{
+   this->render_state__text_color = render_state__text_color;
+}
+
+
 std::string Basic::get_text() const
 {
    return text;
@@ -138,6 +159,24 @@ int Basic::get_num_revealed_characters() const
 bool Basic::get_draw_unrendered_pretext() const
 {
    return draw_unrendered_pretext;
+}
+
+
+std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)> Basic::get_on_operational_chunk_func() const
+{
+   return on_operational_chunk_func;
+}
+
+
+void* Basic::get_on_operational_chunk_func_user_data() const
+{
+   return on_operational_chunk_func_user_data;
+}
+
+
+ALLEGRO_COLOR Basic::get_render_state__text_color() const
+{
+   return render_state__text_color;
 }
 
 
@@ -249,6 +288,29 @@ std::vector<std::pair<bool, std::string>> Basic::parse_into_chunks(std::string r
    return parsed_chunks;
 }
 
+void Basic::default_on_operational_chunk_func(AllegroFlare::TextFormatter::Basic* text_formatter, std::string text, void* user_data)
+{
+   if (!(text_formatter))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TextFormatter::Basic::default_on_operational_chunk_func]: error: guard \"text_formatter\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::default_on_operational_chunk_func]: error: guard \"text_formatter\" not met");
+   }
+   auto &formatter = *text_formatter;
+
+   ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+   // Where is render state stored?
+   //ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   //ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+
+   //auto &formatter = *text_formatter;
+   if (text == "em") formatter.render_state__text_color = emphasis_color;
+   else if (text == "/em") formatter.render_state__text_color = default_color;
+   return;
+}
+
 std::string Basic::collate_printable_text_only(std::string raw_text_source)
 {
    std::vector<std::pair<bool, std::string>> chunks = parse_into_chunks(raw_text_source);
@@ -322,8 +384,8 @@ void Basic::render()
    float glyph_x = 0;
    float glyph_y = 0;
    ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
-   ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
-   ALLEGRO_COLOR text_color = default_color;
+   //ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+   render_state__text_color = default_color;
    int word_index = 0;
 
    for (int i=0; i<text_with_formatting.size(); i++)
@@ -341,8 +403,17 @@ void Basic::render()
          in_paren_count--;
          {
             // Process captured_operational_chunk
-            if (captured_operational_chunk == "em") text_color = emphasis_color;
-            else if (captured_operational_chunk == "/em") text_color = default_color;
+            //
+            if (!on_operational_chunk_func)
+            {
+               // TODO: Throw
+            }
+            else
+            {
+               on_operational_chunk_func(this, captured_operational_chunk, on_operational_chunk_func_user_data);
+            }
+            //if (captured_operational_chunk == "em") render_state__text_color = emphasis_color;
+            //else if (captured_operational_chunk == "/em") render_state__text_color = default_color;
          }
          captured_operational_chunk.clear();
          continue;
@@ -374,7 +445,7 @@ void Basic::render()
       // Draw the glyph
       al_draw_glyph(
          font,
-         text_color,
+         render_state__text_color,
          x+glyph_x,
          y+glyph_y,
          c
