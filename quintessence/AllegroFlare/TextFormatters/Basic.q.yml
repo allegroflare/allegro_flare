@@ -57,8 +57,8 @@ properties:
     setter: true
 
   - name: on_operational_chunk_func
-    type: std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)>
-    init_with: AllegroFlare::TextFormatter::Basic::default_on_operational_chunk_func
+    type: std::function<void(AllegroFlare::TextFormatters::Basic*, std::string, void*)>
+    init_with: AllegroFlare::TextFormatters::Basic::default_on_operational_chunk_func
     getter: true
     setter: true
 
@@ -230,7 +230,7 @@ methods:
     static: true
     parameters:
       - name: text_formatter
-        type: AllegroFlare::TextFormatter::Basic*
+        type: AllegroFlare::TextFormatters::Basic*
         default_argument: nullptr
       - name: text
         type: std::string
@@ -420,8 +420,8 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
-  - symbol: AllegroFlare::TextFormatter::Basic
-    headers: [ AllegroFlare/TextFormatter/Basic.hpp ]
+  - symbol: AllegroFlare::TextFormatters::Basic
+    headers: [ AllegroFlare/TextFormatters/Basic.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
 

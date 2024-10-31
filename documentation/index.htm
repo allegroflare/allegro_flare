@@ -501,7 +501,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml">quintessence/AllegroFlare/Testing/WithAllegroRenderingFixture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Testing/WithInteractionFixture.q.yml">quintessence/AllegroFlare/Testing/WithInteractionFixture.q.yml</a></li>
-  <li><a href="#quintessence/AllegroFlare/TextFormatter/Basic.q.yml">quintessence/AllegroFlare/TextFormatter/Basic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TextFormatters/Basic.q.yml">quintessence/AllegroFlare/TextFormatters/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/FilterMatrix.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Base.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Basic.q.yml">quintessence/AllegroFlare/TileMaps/AutoTile/Filters/Basic.q.yml</a></li>
@@ -9606,7 +9606,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Interparsable&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Interparsable.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TextFormatter::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TextFormatter/Basic.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TextFormatters::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TextFormatters/Basic.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -39609,7 +39609,7 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
-    <h3 id="quintessence/AllegroFlare/TextFormatter/Basic.q.yml">quintessence/AllegroFlare/TextFormatter/Basic.q.yml</h3>
+    <h3 id="quintessence/AllegroFlare/TextFormatters/Basic.q.yml">quintessence/AllegroFlare/TextFormatters/Basic.q.yml</h3>
     <h3>Overview</h3>
     <p>{"todos"=>["rename error message class"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
@@ -39651,7 +39651,7 @@ table td
 </tr>
 <tr>
   <td class="property">on_operational_chunk_func</td>
-  <td class="property">std::function&lt;void(AllegroFlare::TextFormatter::Basic*, std::string, void*)&gt;</td>
+  <td class="property">std::function&lt;void(AllegroFlare::TextFormatters::Basic*, std::string, void*)&gt;</td>
 </tr>
 <tr>
   <td class="property">on_operational_chunk_func_user_data</td>
@@ -39682,7 +39682,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>default_on_operational_chunk_func</b>(AllegroFlare::TextFormatter::Basic* text_formatter=nullptr, std::string text=&quot;[unset-text]&quot;, void* user_data=nullptr)</td>
+  <td class="method"><b>default_on_operational_chunk_func</b>(AllegroFlare::TextFormatters::Basic* text_formatter=nullptr, std::string text=&quot;[unset-text]&quot;, void* user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">std::string</td>
@@ -39718,7 +39718,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TextFormatter::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TextFormatter/Basic.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TextFormatters::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TextFormatters/Basic.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -45968,7 +45968,7 @@ table td
     "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
-    "AllegroFlare/TextFormatter/Basic",
+    "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/TileMaps/PrimMeshAtlas",
     "AllegroFlare/TileMaps/TileAtlasBuilder",
     "AllegroFlare/TileMaps/TileAtlasRepository",
@@ -46448,7 +46448,7 @@ table td
     "AllegroFlare/StoryboardPageFactory",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/TextFormatter/Basic",
+    "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/WorldMapRenderer",
@@ -46552,7 +46552,7 @@ table td
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/TextFormatter/Basic",
+    "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/WorldMapRenderer",
@@ -46718,7 +46718,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/TextFormatter/Basic",
+    "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/VirtualControllers/GenericController",
     "AllegroFlare/WorldMapRenderer",
@@ -46912,7 +46912,7 @@ table td
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
-    "AllegroFlare/TextFormatter/Basic",
+    "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/UnicodeFontViewer",
@@ -47456,7 +47456,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
-    "AllegroFlare/TextFormatter/Basic",
+    "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
@@ -47612,7 +47612,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
-    "AllegroFlare/TextFormatter/Basic",
+    "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
   ],
@@ -48002,9 +48002,9 @@ table td
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Screens/TitleScreen"
   ],
-  "AllegroFlare/TextFormatter/Basic": [
+  "AllegroFlare/TextFormatters/Basic": [
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
-    "AllegroFlare/TextFormatter/Basic"
+    "AllegroFlare/TextFormatters/Basic"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",

@@ -159,7 +159,7 @@ methods:
       // Render using the TextFormatter::Basic
       float text_box_max_width = width - (text_padding_x * 2);
 
-      AllegroFlare::TextFormatter::Basic basic_text_formatter(font_bin);
+      AllegroFlare::TextFormatters::Basic basic_text_formatter(font_bin);
       basic_text_formatter.set_text(current_page_text_with_formatting);
       basic_text_formatter.set_num_revealed_characters(num_revealed_characters);
       basic_text_formatter.set_max_text_box_width(text_box_max_width);
@@ -171,7 +171,7 @@ methods:
 
       return;
     body_dependency_symbols:
-     - AllegroFlare::TextFormatter::Basic
+     - AllegroFlare::TextFormatters::Basic
 
 
   - name: render_speaking_character_name_tag
@@ -482,7 +482,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxNameTag.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Interparsable
     headers: [ AllegroFlare/Elements/DialogBoxes/Interparsable.hpp ]
-  - symbol: AllegroFlare::TextFormatter::Basic
-    headers: [ AllegroFlare/TextFormatter/Basic.hpp ]
+  - symbol: AllegroFlare::TextFormatters::Basic
+    headers: [ AllegroFlare/TextFormatters/Basic.hpp ]
 
 

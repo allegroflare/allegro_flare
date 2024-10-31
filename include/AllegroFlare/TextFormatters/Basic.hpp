@@ -2,7 +2,7 @@
 
 
 #include <AllegroFlare/FontBin.hpp>
-#include <AllegroFlare/TextFormatter/Basic.hpp>
+#include <AllegroFlare/TextFormatters/Basic.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <functional>
@@ -14,7 +14,7 @@
 
 namespace AllegroFlare
 {
-   namespace TextFormatter
+   namespace TextFormatters
    {
       class Basic
       {
@@ -28,7 +28,7 @@ namespace AllegroFlare
          float max_text_box_width;
          int num_revealed_characters;
          bool draw_unrendered_pretext;
-         std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)> on_operational_chunk_func;
+         std::function<void(AllegroFlare::TextFormatters::Basic*, std::string, void*)> on_operational_chunk_func;
          void* on_operational_chunk_func_user_data;
          ALLEGRO_COLOR render_state__text_color;
          static std::set<int> _line_break_indices;
@@ -50,7 +50,7 @@ namespace AllegroFlare
          void set_max_text_box_width(float max_text_box_width);
          void set_num_revealed_characters(int num_revealed_characters);
          void set_draw_unrendered_pretext(bool draw_unrendered_pretext);
-         void set_on_operational_chunk_func(std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)> on_operational_chunk_func);
+         void set_on_operational_chunk_func(std::function<void(AllegroFlare::TextFormatters::Basic*, std::string, void*)> on_operational_chunk_func);
          void set_on_operational_chunk_func_user_data(void* on_operational_chunk_func_user_data);
          void set_render_state__text_color(ALLEGRO_COLOR render_state__text_color);
          std::string get_text() const;
@@ -61,13 +61,13 @@ namespace AllegroFlare
          float get_max_text_box_width() const;
          int get_num_revealed_characters() const;
          bool get_draw_unrendered_pretext() const;
-         std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)> get_on_operational_chunk_func() const;
+         std::function<void(AllegroFlare::TextFormatters::Basic*, std::string, void*)> get_on_operational_chunk_func() const;
          void* get_on_operational_chunk_func_user_data() const;
          ALLEGRO_COLOR get_render_state__text_color() const;
          static bool line_callback(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          std::set<int> calculate_line_breaks(std::string raw_text_source="[unset-raw_text_source]");
          static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");
-         static void default_on_operational_chunk_func(AllegroFlare::TextFormatter::Basic* text_formatter=nullptr, std::string text="[unset-text]", void* user_data=nullptr);
+         static void default_on_operational_chunk_func(AllegroFlare::TextFormatters::Basic* text_formatter=nullptr, std::string text="[unset-text]", void* user_data=nullptr);
          static std::string collate_printable_text_only(std::string raw_text_source="[unset-raw_text_source]");
          void render();
       };

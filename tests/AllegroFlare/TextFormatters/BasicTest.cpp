@@ -6,35 +6,35 @@
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 
 
-class AllegroFlare_TextFormatter_BasicTest : public ::testing::Test {};
-class AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture
+class AllegroFlare_TextFormatters_BasicTest : public ::testing::Test {};
+class AllegroFlare_TextFormatters_BasicTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {};
 
 
 
-TEST_F(AllegroFlare_TextFormatter_BasicTest, can_be_created_without_blowing_up)
+TEST_F(AllegroFlare_TextFormatters_BasicTest, can_be_created_without_blowing_up)
 {
-   AllegroFlare::TextFormatter::Basic basic;
+   AllegroFlare::TextFormatters::Basic basic;
 }
 
 
-TEST_F(AllegroFlare_TextFormatter_BasicTest, render__without_allegro_initialized__raises_an_error)
+TEST_F(AllegroFlare_TextFormatters_BasicTest, render__without_allegro_initialized__raises_an_error)
 {
-   AllegroFlare::TextFormatter::Basic basic;
-   EXPECT_THROW_GUARD_ERROR(basic.render(), "AllegroFlare::TextFormatter::Basic::render", "al_is_system_installed()");
+   AllegroFlare::TextFormatters::Basic basic;
+   EXPECT_THROW_GUARD_ERROR(basic.render(), "AllegroFlare::TextFormatters::Basic::render", "al_is_system_installed()");
 }
 
 
-TEST_F(AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
+TEST_F(AllegroFlare_TextFormatters_BasicTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::TextFormatter::Basic basic(&get_font_bin_ref());
+   AllegroFlare::TextFormatters::Basic basic(&get_font_bin_ref());
    basic.render();
    al_flip_display();
 }
 
 
-TEST_F(AllegroFlare_TextFormatter_BasicTest, parse_into_chunks__will_generate_the_expected_chunks)
+TEST_F(AllegroFlare_TextFormatters_BasicTest, parse_into_chunks__will_generate_the_expected_chunks)
 {
    std::string raw_text_source = "This is some (color=green)dialog text(color=normal) that will fill this box.";
 
@@ -46,20 +46,20 @@ TEST_F(AllegroFlare_TextFormatter_BasicTest, parse_into_chunks__will_generate_th
       { false, " that will fill this box." },
    };
    std::vector<std::pair<bool, std::string>> actual_chunks =
-      AllegroFlare::TextFormatter::Basic::parse_into_chunks(raw_text_source);
+      AllegroFlare::TextFormatters::Basic::parse_into_chunks(raw_text_source);
 
    EXPECT_EQ(expected_chunks, actual_chunks);
 }
 
 
-TEST_F(AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture, CAPTURE__calculate_line_breaks__will_\
+TEST_F(AllegroFlare_TextFormatters_BasicTestWithAllegroRenderingFixture, CAPTURE__calculate_line_breaks__will_\
 return_a_list_of_character_indexes_where_line_breaks_should_occur)
 {
    //std::string raw_text_source = "This is some (color=green)dialog text(color=normal) that will fill this box.";
    std::string raw_text_source = "This is some dialog text that will fill this box.";
 
    std::set<int> expected_line_break_indices = { 13, 25, 40, 50 };
-   AllegroFlare::TextFormatter::Basic basic(&get_font_bin_ref());
+   AllegroFlare::TextFormatters::Basic basic(&get_font_bin_ref());
    std::set<int> actual_line_break_indices = basic.calculate_line_breaks(raw_text_source);
 
    EXPECT_EQ(expected_line_break_indices, actual_line_break_indices);
@@ -82,11 +82,11 @@ return_a_list_of_character_indexes_where_line_breaks_should_occur)
 }
 
 
-TEST_F(AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture, CAPTURE__render__will_\
+TEST_F(AllegroFlare_TextFormatters_BasicTestWithAllegroRenderingFixture, CAPTURE__render__will_\
 render_formatted_text_with_the_expected_line_breaks)
 {
    std::string raw_text_source = "This is some dialog text that will fill this box.";
-   AllegroFlare::TextFormatter::Basic basic(&get_font_bin_ref());
+   AllegroFlare::TextFormatters::Basic basic(&get_font_bin_ref());
    basic.set_text(raw_text_source);
    basic.set_draw_unrendered_pretext(true);
 
@@ -97,7 +97,7 @@ render_formatted_text_with_the_expected_line_breaks)
 }
 
 
-TEST_F(AllegroFlare_TextFormatter_BasicTestWithAllegroRenderingFixture, FOCUS__CAPTURE__render__with_formatting_tags__\
+TEST_F(AllegroFlare_TextFormatters_BasicTestWithAllegroRenderingFixture, FOCUS__CAPTURE__render__with_formatting_tags__\
 will_render_formatted_text_with_the_expected_line_breaks)
 {
    std::string raw_text_source =
@@ -114,7 +114,7 @@ will_render_formatted_text_with_the_expected_line_breaks)
       "laoreet sollicitudin nunc, eu ornare diam consequat ac. Duis dapibus tellus ac "
       "mauris bibendum finibus.";
 
-   AllegroFlare::TextFormatter::Basic basic(&get_font_bin_ref());
+   AllegroFlare::TextFormatters::Basic basic(&get_font_bin_ref());
    float box_max_width = 1920/3*2;
    basic.set_text(raw_text_source);
    basic.set_x(1920/2 - box_max_width/2);

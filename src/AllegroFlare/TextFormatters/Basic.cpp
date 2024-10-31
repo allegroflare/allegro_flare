@@ -1,6 +1,6 @@
 
 
-#include <AllegroFlare/TextFormatter/Basic.hpp>
+#include <AllegroFlare/TextFormatters/Basic.hpp>
 
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Vec2D.hpp>
@@ -13,7 +13,7 @@
 
 namespace AllegroFlare
 {
-namespace TextFormatter
+namespace TextFormatters
 {
 
 
@@ -30,7 +30,7 @@ Basic::Basic(AllegroFlare::FontBin* font_bin, std::string text)
    , max_text_box_width(450)
    , num_revealed_characters(9999)
    , draw_unrendered_pretext(false)
-   , on_operational_chunk_func(AllegroFlare::TextFormatter::Basic::default_on_operational_chunk_func)
+   , on_operational_chunk_func(AllegroFlare::TextFormatters::Basic::default_on_operational_chunk_func)
    , on_operational_chunk_func_user_data(nullptr)
    , render_state__text_color(ALLEGRO_COLOR{1, 1, 1, 1})
 {
@@ -96,7 +96,7 @@ void Basic::set_draw_unrendered_pretext(bool draw_unrendered_pretext)
 }
 
 
-void Basic::set_on_operational_chunk_func(std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)> on_operational_chunk_func)
+void Basic::set_on_operational_chunk_func(std::function<void(AllegroFlare::TextFormatters::Basic*, std::string, void*)> on_operational_chunk_func)
 {
    this->on_operational_chunk_func = on_operational_chunk_func;
 }
@@ -162,7 +162,7 @@ bool Basic::get_draw_unrendered_pretext() const
 }
 
 
-std::function<void(AllegroFlare::TextFormatter::Basic*, std::string, void*)> Basic::get_on_operational_chunk_func() const
+std::function<void(AllegroFlare::TextFormatters::Basic*, std::string, void*)> Basic::get_on_operational_chunk_func() const
 {
    return on_operational_chunk_func;
 }
@@ -288,14 +288,14 @@ std::vector<std::pair<bool, std::string>> Basic::parse_into_chunks(std::string r
    return parsed_chunks;
 }
 
-void Basic::default_on_operational_chunk_func(AllegroFlare::TextFormatter::Basic* text_formatter, std::string text, void* user_data)
+void Basic::default_on_operational_chunk_func(AllegroFlare::TextFormatters::Basic* text_formatter, std::string text, void* user_data)
 {
    if (!(text_formatter))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TextFormatter::Basic::default_on_operational_chunk_func]: error: guard \"text_formatter\" not met.";
+      error_message << "[AllegroFlare::TextFormatters::Basic::default_on_operational_chunk_func]: error: guard \"text_formatter\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::default_on_operational_chunk_func]: error: guard \"text_formatter\" not met");
+      throw std::runtime_error("[AllegroFlare::TextFormatters::Basic::default_on_operational_chunk_func]: error: guard \"text_formatter\" not met");
    }
    auto &formatter = *text_formatter;
 
@@ -328,30 +328,30 @@ void Basic::render()
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TextFormatter::Basic::render]: error: guard \"al_is_system_installed()\" not met.";
+      error_message << "[AllegroFlare::TextFormatters::Basic::render]: error: guard \"al_is_system_installed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::render]: error: guard \"al_is_system_installed()\" not met");
+      throw std::runtime_error("[AllegroFlare::TextFormatters::Basic::render]: error: guard \"al_is_system_installed()\" not met");
    }
    if (!(al_is_primitives_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TextFormatter::Basic::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::TextFormatters::Basic::render]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::TextFormatters::Basic::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
    if (!(al_is_font_addon_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TextFormatter::Basic::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
+      error_message << "[AllegroFlare::TextFormatters::Basic::render]: error: guard \"al_is_font_addon_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::render]: error: guard \"al_is_font_addon_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::TextFormatters::Basic::render]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TextFormatter::Basic::render]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::TextFormatters::Basic::render]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::render]: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::TextFormatters::Basic::render]: error: guard \"font_bin\" not met");
    }
    ALLEGRO_FONT *font = obtain_font();
    float line_height = al_get_font_line_height(font);
@@ -469,15 +469,15 @@ ALLEGRO_FONT* Basic::obtain_font()
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TextFormatter::Basic::obtain_font]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::TextFormatters::Basic::obtain_font]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TextFormatter::Basic::obtain_font]: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::TextFormatters::Basic::obtain_font]: error: guard \"font_bin\" not met");
    }
    return font_bin->auto_get(font_name + " " + std::to_string(font_size));
 }
 
 
-} // namespace TextFormatter
+} // namespace TextFormatters
 } // namespace AllegroFlare
 
 
