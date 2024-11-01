@@ -324,6 +324,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Basic
     headers: [ AllegroFlare/Elements/DialogBoxes/Basic.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::Interparsable
+    headers: [ AllegroFlare/Elements/DialogBoxes/Interparsable.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Choice
     headers: [ AllegroFlare/Elements/DialogBoxes/Choice.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::YouGotAnItem
@@ -340,7 +342,5 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/TextMessages.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::Intertitle
     headers: [ AllegroFlare/Elements/DialogBoxes/Intertitle.hpp ]
-  - symbol: AllegroFlare::Elements::DialogBoxes::Interparsable
-    headers: [ AllegroFlare/Elements/DialogBoxes/Interparsable.hpp ]
 
 

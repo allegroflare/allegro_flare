@@ -587,7 +587,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRendererTest, render__draws_a_basic_type_d
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRendererTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__render__draws_a_dialog_box_of_type_Interparsable)
+   CAPTURE__render__draws_a_dialog_box_of_type_Interparsable)
 {
    AllegroFlare::Elements::DialogBoxes::Interparsable interparsable;
 
