@@ -4049,7 +4049,7 @@
     "AllegroFlare/TileMaps/PrimMeshAtlas",
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
-  "AllegroFlare/ImageProcessing": [
+  "AllegroFlare/ImageProcessing/ImageProcessor": [
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "std/ceil": [

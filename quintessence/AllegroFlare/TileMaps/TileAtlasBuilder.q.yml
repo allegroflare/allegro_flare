@@ -258,11 +258,11 @@ methods:
       - (scale >= MIN_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE)
       - (scale <= MAX_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE)
     body: |
-      AllegroFlare::ImageProcessing image_processing(bitmap);
-      ALLEGRO_BITMAP *scaled = image_processing.create_pixel_perfect_scaled_render(scale);
+      AllegroFlare::ImageProcessing::ImageProcessor image_processor(bitmap);
+      ALLEGRO_BITMAP *scaled = image_processor.create_pixel_perfect_scaled_render(scale);
       return scaled;
     body_dependency_symbols:
-      - AllegroFlare::ImageProcessing
+      - AllegroFlare::ImageProcessing::ImageProcessor
 
 
   - name: validate_all_sub_bitmaps_in_tile_index_are_identical_sizes
@@ -384,8 +384,8 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
-  - symbol: AllegroFlare::ImageProcessing
-    headers: [ AllegroFlare/ImageProcessing.hpp ]
+  - symbol: AllegroFlare::ImageProcessing::ImageProcessor
+    headers: [ AllegroFlare/ImageProcessing/ImageProcessor.hpp ]
   - symbol: al_is_system_installed
     headers: [ allegro5/allegro.h ]
   - symbol: std::ceil

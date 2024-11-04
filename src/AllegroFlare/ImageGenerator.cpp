@@ -8,7 +8,7 @@
                                          // if primitives are not initialized.  Guards should be added
 
 #include <AllegroFlare/Useful.hpp> // for build_vertex
-#include <AllegroFlare/ImageProcessing.hpp> // for create_masked_bitmap
+#include <AllegroFlare/ImageProcessing/ImageProcessor.hpp> // for create_masked_bitmap
 #include <AllegroFlare/Random.hpp>
 
 
@@ -118,8 +118,8 @@ ALLEGRO_BITMAP *ImageGenerator::generate_circle_gradient_bitmap(float size, ALLE
 {
    ALLEGRO_BITMAP *circle = generate_circle_bitmap(size);
    ALLEGRO_BITMAP *gradient = generate_gradient_bitmap(size);
-   ImageProcessing image_processing;
-   ALLEGRO_BITMAP *circle_gradient = image_processing.create_masked_bitmap(circle, gradient);
+   ImageProcessing::ImageProcessor image_processor;
+   ALLEGRO_BITMAP *circle_gradient = image_processor.create_masked_bitmap(circle, gradient);
    al_destroy_bitmap(circle);
    al_destroy_bitmap(gradient);
    return circle_gradient;

@@ -3,7 +3,7 @@
 #include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
 
 #include <AllegroFlare/FrameAnimation/SpriteStripAssembler.hpp>
-#include <AllegroFlare/ImageProcessing.hpp>
+#include <AllegroFlare/ImageProcessing/ImageProcessor.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <allegro5/allegro.h>
@@ -253,8 +253,8 @@ ALLEGRO_BITMAP* TileAtlasBuilder::create_pixel_perfect_scaled_render(ALLEGRO_BIT
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TileMaps::TileAtlasBuilder::create_pixel_perfect_scaled_render]: error: guard \"(scale <= MAX_VALID_CREATE_PIXEL_PERFECT_SCALED_RENDER_SCALE_VALUE)\" not met");
    }
-   AllegroFlare::ImageProcessing image_processing(bitmap);
-   ALLEGRO_BITMAP *scaled = image_processing.create_pixel_perfect_scaled_render(scale);
+   AllegroFlare::ImageProcessing::ImageProcessor image_processor(bitmap);
+   ALLEGRO_BITMAP *scaled = image_processor.create_pixel_perfect_scaled_render(scale);
    return scaled;
 }
 
