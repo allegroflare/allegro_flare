@@ -2,7 +2,6 @@
 
 #include <AllegroFlare/FrameAnimation/SpriteSheet.hpp>
 
-#include <AllegroFlare/ImageProcessing.hpp>
 #include <AllegroFlare/Errors.hpp>
 #include <sstream> // for error message
 #include <AllegroFlare/Logger.hpp>
