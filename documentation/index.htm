@@ -274,6 +274,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityRenderFlags.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/ImageProcessing/ImageReduction.q.yml">quintessence/AllegroFlare/ImageProcessing/ImageReduction.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDevicesList.q.yml">quintessence/AllegroFlare/InputDevicesList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml</a></li>
@@ -19340,6 +19341,42 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_TWO_UVS_AND_NORMAL.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/ImageProcessing/ImageReduction.q.yml">quintessence/AllegroFlare/ImageProcessing/ImageReduction.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">ALLEGRO_BITMAP*</td>
+  <td class="method"><b>create_pixel_perfect_reduction</b>(ALLEGRO_BITMAP* source_image=nullptr, int width=0, int height=0)</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_COLOR</td>
+  <td class="method"><b>blend_pixels</b>(std::vector&lt;ALLEGRO_COLOR&gt;* colors_=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>validate_pixel_perfect_fit</b>(ALLEGRO_BITMAP* source_image=nullptr, int width=0, int height=0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45859,6 +45896,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticMultitextureModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/ImageProcessing/ImageReduction",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -45948,6 +45986,7 @@ table td
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
+    "AllegroFlare/ImageProcessing/ImageReduction",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",
@@ -46881,6 +46920,7 @@ table td
     "AllegroFlare/Elements/TextMessageBubble",
     "AllegroFlare/Elements/UI/IntSpinner",
     "AllegroFlare/Elements/UI/SliderToggle",
+    "AllegroFlare/ImageProcessing/ImageReduction",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",

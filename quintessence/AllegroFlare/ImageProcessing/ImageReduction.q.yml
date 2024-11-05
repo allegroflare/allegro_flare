@@ -1,0 +1,145 @@
+methods:
+
+
+  - name: create_pixel_perfect_reduction
+    static: true
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: source_image
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: width
+        type: int
+        default_argument: 0
+      - name: height
+        type: int
+        default_argument: 0
+    guards:
+      - al_is_system_installed()
+      - source_image
+      - (width != 0)
+      - (height != 0)
+      - validate_pixel_perfect_fit(source_image, width, height)
+    body: |
+      // TODO: Ensure correct bitmap flags
+      ALLEGRO_STATE previous_state;
+      al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
+
+      // TODO: Restore previous bitmap target
+      int pixels_per_column = al_get_bitmap_width(source_image) / width;
+      int pixels_per_row = al_get_bitmap_height(source_image) / height;
+      int num_columns = width;
+      int num_rows = height;
+
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::ImageProcessing::ImageReduction::create_pixel_perfect_reduction",
+         "Creating an image where each pixel is average of " + std::to_string(pixels_per_column) + "x"
+            + std::to_string(pixels_per_row) + " pixels. Starting processing."
+      );
+      double start_time = al_get_time();
+
+      ALLEGRO_BITMAP *result = al_create_bitmap(width, height);
+      al_set_target_bitmap(result);
+      al_clear_to_color(ALLEGRO_COLOR{0.0, 0.0, 0.0, 1});
+
+      al_lock_bitmap(source_image, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_READONLY);
+      al_lock_bitmap(result, ALLEGRO_PIXEL_FORMAT_ANY, ALLEGRO_LOCK_WRITEONLY);
+
+      for (int row=0; row<num_rows; row++)
+      {
+         for (int column=0; column<num_columns; column++)
+         {
+            std::vector<ALLEGRO_COLOR> samples_for_this_result_pixel;
+            for (int y=0; y<pixels_per_row; y++)
+            {
+               for (int x=0; x<pixels_per_column; x++)
+               {
+                  samples_for_this_result_pixel.push_back(
+                     al_get_pixel(source_image, x + column * pixels_per_column, y + row * pixels_per_row)
+                  );
+               }
+            }
+            al_put_pixel(column, row, blend_pixels(&samples_for_this_result_pixel));
+         }
+      }
+
+      al_unlock_bitmap(source_image);
+      al_unlock_bitmap(result);
+
+      double end_time = al_get_time();
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::ImageProcessing::ImageReduction::create_pixel_perfect_reduction",
+         "Image processing finished (" + std::to_string(end_time - start_time) + " seconds)."
+      );
+
+      al_restore_state(&previous_state);
+
+      return result;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: blend_pixels
+    static: true
+    type: ALLEGRO_COLOR
+    parameters:
+      - name: colors_
+        type: std::vector<ALLEGRO_COLOR>*
+        default_argument: nullptr
+    guards: [ colors_, (!colors_->empty()) ]
+    body: |
+      std::vector<ALLEGRO_COLOR> &colors = *colors_;
+      double r = 0.0, g = 0.0, b = 0.0, a = 0.0, size = (double)colors.size();
+
+      // Mix the pixels with highest precision
+      for (auto &color : colors)
+      {
+         r += (double)color.r;
+         g += (double)color.g;
+         b += (double)color.b;
+         a += (double)color.a;
+      }
+
+      r /= size;
+      g /= size;
+      b /= size;
+      a /= size;
+
+      return ALLEGRO_COLOR{(float)r, (float)g, (float)b, (float)a};
+
+
+  - name: validate_pixel_perfect_fit
+    static: true
+    type: bool
+    parameters:
+      - name: source_image
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: width
+        type: int
+        default_argument: 0
+      - name: height
+        type: int
+        default_argument: 0
+    guards:
+      - source_image
+      - (width != 0)
+      - (height != 0)
+      - (al_get_bitmap_width(source_image) % width == 0)
+      - (al_get_bitmap_height(source_image) % height == 0)
+      - (al_get_bitmap_width(source_image) / width == al_get_bitmap_height(source_image) / height)
+    body: |
+      return true;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+
