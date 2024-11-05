@@ -5,6 +5,20 @@
 #include <AllegroFlare/ImageProcessing/ImageReduction.hpp>
 
 
+/***********************************
+
+This program works in conjunction with Adobe Illustrator, scripts/Illustrator/export_* files.
+
+- To use, the entry point is "scripts/Illustrator/export_ui_glyphs.sh"
+- Adobe Illustrator is assumed to be open with the illustrator file you wish to process
+
+The Script will
+  1) Export an Illustrator file at a higher resolution
+  2) Resize the image using AllegroFlare's ImageReduction
+
+*************************************/
+
+
 int main(int argc, char **argv)
 {
    std::string source_image_filename = "/Users/markoates/Repos/Layouts/project_files/ascii_glyphs_12x16-11-1000x.png";
