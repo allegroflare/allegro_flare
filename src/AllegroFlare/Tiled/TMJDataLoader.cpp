@@ -669,6 +669,10 @@ bool TMJDataLoader::load()
                // TODO: Improve this error message
                if (!object_json.value()["properties"].is_array())
                {
+                  AllegroFlare::Logger::throw_error(
+                     "AllegroFlare::Tiled::TMJDataLoader::load",
+                     "\"properties\" in the JSON structure is expected to be an array but it is not."
+                  );
                   throw std::runtime_error("3j4io5jio3j5o2: is not array");
                }
 
@@ -857,7 +861,10 @@ AllegroFlare::Tiled::TMJObjectCustomProperties TMJDataLoader::attempt_to_extract
       //if (!object_json.value()["properties"].is_array())
       if (!object_json->operator[]("properties").is_array())
       {
-         throw std::runtime_error("3j4io5jio3j5o2: is not array");
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Tiled::TMJDataLoader::attempt_to_extract_custom_properties",
+            "\"properties\" in the JSON structure is expected to be an array but it is not."
+         );
       }
 
       //for (auto &custom_property_item : object_json.value()["properties"].items())
