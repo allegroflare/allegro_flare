@@ -553,8 +553,8 @@ bool TMJDataLoader::load()
          {
             // Note that for compatibility reasons with Tiled, both "class" and "type" are used as possible keys.
             // Depending on the version of Tiled that exported the format, one or the other could have been used.
-            // Here in AllegroFlare, it us currently referred to it as "type", which is the correct Tiled name for the
-            // property.  Note that for a temporary period it was changed to "class" in Tiled.
+            // Here in AllegroFlare, it us currently referred to it as "type", which is the correct Tiled name for
+            // the property.  Note that for a temporary period it was changed to "class" in Tiled.
             // See this issue for more info: https://github.com/mapeditor/tiled/issues/3492
 
             // TODO: Throw error if "class" is present, advise to rename/update to "type"
@@ -844,13 +844,15 @@ AllegroFlare::Tiled::TMJObjectCustomProperties TMJDataLoader::attempt_to_extract
          }
          else if (custom_property_type == "color")
          {
-            // HERE
-            //bool custom_property_value = custom_property["value"];
-            //custom_properties.add_bool(custom_property_name, custom_property_value);
-            AllegroFlare::Logger::throw_error(
-               "AllegroFlare::Tiled::TMJDataLoader::load",
-               "Loading \"color\" as a custom property is not implemented here"
-            );
+            // NOTE: To do conversion from this 8-character hex value to ALLEGRO_COLOR, you can use
+            // convert_hex_to_rgba_f to obtain 4 float values (r, g, b, a). However, note that the alpha value
+            // is not premultiplied, so for alpha to work as expected in Allegro, you'll need to multiply all
+            // the color values (r, g, b) by the alpha value.  When extracting the color on a "text" object, the
+            // color, without alpha, is provided and an the alpha value is provided separately.
+
+            // TODO: Add a test that the color value is extracted here as expected
+            std::string custom_property_value = custom_property["value"];
+            custom_properties.add_color(custom_property_name, custom_property_value);
          }
          else
          {
