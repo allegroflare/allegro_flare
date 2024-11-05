@@ -41698,6 +41698,10 @@ table td
   <td class="property">float_properties</td>
   <td class="property">std::map&lt;std::string, float&gt;</td>
 </tr>
+<tr>
+  <td class="property">color_properties</td>
+  <td class="property">std::map&lt;std::string, std::string&gt;</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -41730,6 +41734,10 @@ table td
   <td class="method"><b>add_int</b>(std::string name=&quot;[unset-name]&quot;, int value=0)</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_color</b>(std::string name=&quot;[unset-name]&quot;, std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
   <td class="method">std::string</td>
   <td class="method"><b>get_string</b>(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
@@ -41744,6 +41752,10 @@ table td
 <tr>
   <td class="method">int</td>
   <td class="method"><b>get_int</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_color</b>(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">std::string</td>
@@ -41768,6 +41780,10 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>is_string</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_color</b>(std::string name=&quot;[unset-name]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">void</td>

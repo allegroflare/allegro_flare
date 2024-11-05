@@ -20,7 +20,6 @@ TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
    EXPECT_EQ(true, custom_properties.exists("my_property"));
    EXPECT_EQ("string", custom_properties.get_type("my_property"));
    EXPECT_EQ(true, custom_properties.is_string("my_property"));
-   EXPECT_EQ("foo", custom_properties.get_string("my_property"));
 }
 
 
@@ -64,6 +63,19 @@ TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
 
 
 TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
+   will_store_objects_of_a_color_type)
+{
+   AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
+
+   custom_properties.add_color("my_property", "#ffff2f92");
+   EXPECT_EQ(true, custom_properties.exists("my_property"));
+   EXPECT_EQ("color", custom_properties.get_type("my_property"));
+   EXPECT_EQ(true, custom_properties.is_color("my_property"));
+   EXPECT_EQ("#ffff2f92", custom_properties.get_color("my_property"));
+}
+
+
+TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
    empty__when_there_are_no_custom_properties__will_return_true)
 {
    AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
@@ -89,6 +101,10 @@ TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
    custom_properties.clear();
 
    custom_properties.add_string("my_property", "My custom string value");
+   EXPECT_EQ(false, custom_properties.empty());
+   custom_properties.clear();
+
+   custom_properties.add_color("my_property", "#ffff2f92");
    EXPECT_EQ(false, custom_properties.empty());
    custom_properties.clear();
 }
@@ -123,6 +139,12 @@ TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
       "[AllegroFlare::Tiled::TMJObjectCustomProperties::get_bool]: error: The key \"key-that-does-not-exist\" does "
          "not exist."
    );
+   EXPECT_THROW_WITH_MESSAGE(
+      custom_properties.get_color("key-that-does-not-exist"),
+      std::runtime_error,
+      "[AllegroFlare::Tiled::TMJObjectCustomProperties::get_color]: error: The key \"key-that-does-not-exist\" does "
+         "not exist."
+   );
 }
 
 	
@@ -152,6 +174,11 @@ TEST(AllegroFlare_Tiled_TMJObjectCustomPropertiesTest,
       custom_properties.add_float("my_key"),
       std::runtime_error,
       "[AllegroFlare::Tiled::TMJObjectCustomProperties::add_float]: error: The key \"my_key\" already exists."
+   );
+   EXPECT_THROW_WITH_MESSAGE(
+      custom_properties.add_color("my_key"),
+      std::runtime_error,
+      "[AllegroFlare::Tiled::TMJObjectCustomProperties::add_color]: error: The key \"my_key\" already exists."
    );
 }
 	

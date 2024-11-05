@@ -18,6 +18,7 @@ TMJObjectCustomProperties::TMJObjectCustomProperties()
    , bool_properties({})
    , int_properties({})
    , float_properties({})
+   , color_properties({})
 {
 }
 
@@ -51,6 +52,12 @@ void TMJObjectCustomProperties::set_float_properties(std::map<std::string, float
 }
 
 
+void TMJObjectCustomProperties::set_color_properties(std::map<std::string, std::string> color_properties)
+{
+   this->color_properties = color_properties;
+}
+
+
 std::map<std::string, std::string> TMJObjectCustomProperties::get_string_properties() const
 {
    return string_properties;
@@ -75,6 +82,12 @@ std::map<std::string, float> TMJObjectCustomProperties::get_float_properties() c
 }
 
 
+std::map<std::string, std::string> TMJObjectCustomProperties::get_color_properties() const
+{
+   return color_properties;
+}
+
+
 std::string TMJObjectCustomProperties::get_keys_in_list()
 {
    // TODO: Test this method
@@ -83,6 +96,7 @@ std::string TMJObjectCustomProperties::get_keys_in_list()
    for (auto &int_property : int_properties) result.insert("\"" + int_property.first + "\" (int)");
    for (auto &float_property : float_properties) result.insert("\"" + float_property.first + "\" (float)");
    for (auto &bool_property : bool_properties) result.insert("\"" + bool_property.first + "\" (bool)");
+   for (auto &color_property : color_properties) result.insert("\"" + color_property.first + "\" (color)");
 
    std::stringstream result_str;
    result_str << "[";
@@ -100,7 +114,8 @@ bool TMJObjectCustomProperties::empty()
    return string_properties.empty()
       && bool_properties.empty()
       && int_properties.empty()
-      && float_properties.empty();
+      && float_properties.empty()
+      && color_properties.empty();
 }
 
 void TMJObjectCustomProperties::clear()
@@ -109,6 +124,7 @@ void TMJObjectCustomProperties::clear()
    bool_properties.clear();
    int_properties.clear();
    float_properties.clear();
+   color_properties.clear();
 }
 
 void TMJObjectCustomProperties::add_string(std::string name, std::string value)
@@ -135,6 +151,12 @@ void TMJObjectCustomProperties::add_int(std::string name, int value)
    int_properties[name] = value;
 }
 
+void TMJObjectCustomProperties::add_color(std::string name, std::string value)
+{
+   throw_if_key_already_exists(name, "add_color");
+   color_properties[name] = value;
+}
+
 std::string TMJObjectCustomProperties::get_string(std::string name)
 {
    throw_if_key_does_not_exist(name, "get_string");
@@ -159,6 +181,12 @@ int TMJObjectCustomProperties::get_int(std::string name)
    return int_properties[name];
 }
 
+std::string TMJObjectCustomProperties::get_color(std::string name)
+{
+   throw_if_key_does_not_exist(name, "get_color");
+   return color_properties[name];
+}
+
 std::string TMJObjectCustomProperties::get_type(std::string name)
 {
    throw_if_key_does_not_exist(name, "get_type");
@@ -166,6 +194,7 @@ std::string TMJObjectCustomProperties::get_type(std::string name)
    if (int_properties.find(name) != int_properties.end()) return "int";
    if (bool_properties.find(name) != bool_properties.end()) return "bool";
    if (string_properties.find(name) != string_properties.end()) return "string";
+   if (color_properties.find(name) != color_properties.end()) return "color";
    return "[ERROR-does_not_exist]";
 }
 
@@ -175,6 +204,7 @@ bool TMJObjectCustomProperties::exists(std::string name)
    if (int_properties.find(name) != int_properties.end()) return true;
    if (bool_properties.find(name) != bool_properties.end()) return true;
    if (string_properties.find(name) != string_properties.end()) return true;
+   if (color_properties.find(name) != color_properties.end()) return true;
    return false;
 }
 
@@ -203,6 +233,13 @@ bool TMJObjectCustomProperties::is_string(std::string name)
 {
    throw_if_key_does_not_exist(name, "is_string");
    if (string_properties.find(name) != string_properties.end()) return true;
+   return false;
+}
+
+bool TMJObjectCustomProperties::is_color(std::string name)
+{
+   throw_if_key_does_not_exist(name, "is_color");
+   if (color_properties.find(name) != color_properties.end()) return true;
    return false;
 }
 
