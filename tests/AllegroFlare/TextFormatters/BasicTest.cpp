@@ -97,7 +97,7 @@ render_formatted_text_with_the_expected_line_breaks)
 }
 
 
-TEST_F(AllegroFlare_TextFormatters_BasicTestWithAllegroRenderingFixture, FOCUS__CAPTURE__render__with_formatting_tags__\
+TEST_F(AllegroFlare_TextFormatters_BasicTestWithAllegroRenderingFixture, CAPTURE__render__with_formatting_tags__\
 will_render_formatted_text_with_the_expected_line_breaks)
 {
    std::string raw_text_source =
