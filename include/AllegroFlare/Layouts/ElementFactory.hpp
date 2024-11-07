@@ -24,7 +24,7 @@ namespace AllegroFlare
          ElementFactory();
          ~ElementFactory();
 
-         static AllegroFlare::Layouts::Elements::Polygon build_polygon_from_tmj_object(AllegroFlare::Tiled::TMJObject* object=nullptr);
+         static AllegroFlare::Layouts::Elements::Polygon build_polygon_from_tmj_object(AllegroFlare::Tiled::TMJObject* object=nullptr, bool throw_if_not_counterclockwise=true);
          static AllegroFlare::Layouts::Elements::Text build_text_from_tmj_object(AllegroFlare::Tiled::TMJObject* object=nullptr);
          static AllegroFlare::Layouts::Elements::CursorDestination build_cursor_destination_from_tmj_object(AllegroFlare::Tiled::TMJObject* object=nullptr);
          static AllegroFlare::Layouts::Elements::Frame build_frame_from_tmj_object(AllegroFlare::Tiled::TMJObject* object=nullptr);

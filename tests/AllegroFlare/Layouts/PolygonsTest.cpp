@@ -5,6 +5,7 @@
 #include <AllegroFlare/Layouts/Polygons.hpp>
 #include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 class AllegroFlare_Layouts_PolygonsTest : public ::testing::Test {};
@@ -100,12 +101,34 @@ TEST_F(AllegroFlare_Layouts_PolygonsTestWithInteraction, CAPTURE__INTERACTIVE__w
 }
 
 
+TEST_F(AllegroFlare_Layouts_PolygonsTest,
+   // TODO: Add this test to Layouts
+   initialze__when_polygons_are_present_that_are_not_counterclockwise__will_throw_an_error)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string data_path = deployment_environment.get_data_folder_path();
+   AllegroFlare::Layouts::Polygons polygons_layout;
+   polygons_layout.set_tmj_filename(data_path + "layouts/" + "layout_with_non_counterclockwise_polygon-03.tmj");
+
+   EXPECT_THROW_WITH_MESSAGE(
+      polygons_layout.initialize(),
+      std::runtime_error,
+      "[AllegroFlare::Layouts::ElementFactory::build_polygon_from_tmj_object]: error: Expecting the polygon object "
+         "(name \"top_bar\", tmj_object_id \"2\") to be counterclockwise, but it is not. For polygons to "
+         "render as expected the vertices must be counterclockwise. If you have the \"ReverseVertexOrder\" Tiled "
+         "extension installed (The extension is located in this project at "
+         "\"scripts/tiled/extensions/ReverseVertexOrder.js\", it provides adds a right-click option the object "
+         "menu in tiled with the action \"Reverse vertex order\"."
+   );
+}
+
+
 TEST_F(AllegroFlare_Layouts_PolygonsTestWithInteraction, CAPTURE__INTERACTIVE__will_work_as_expected__2)
 {
    AllegroFlare::Placement2D placement;
    AllegroFlare::Layouts::Polygons polygons_layout;
    //polygons_layout.set_tmj_filename(get_data_path() + "maps/" + "layout_with_cursor_destinations-01.tmj");
-   polygons_layout.set_tmj_filename(get_data_path() + "layouts/" + "inventory-01.tmj");
+   polygons_layout.set_tmj_filename(get_data_path() + "layouts/" + "inventory-02.tmj");
    polygons_layout.initialize();
 
    placement.size.x = polygons_layout.get_layout_width();

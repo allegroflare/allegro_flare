@@ -25,7 +25,7 @@ ElementFactory::~ElementFactory()
 }
 
 
-AllegroFlare::Layouts::Elements::Polygon ElementFactory::build_polygon_from_tmj_object(AllegroFlare::Tiled::TMJObject* object)
+AllegroFlare::Layouts::Elements::Polygon ElementFactory::build_polygon_from_tmj_object(AllegroFlare::Tiled::TMJObject* object, bool throw_if_not_counterclockwise)
 {
    if (!(object))
    {
@@ -52,6 +52,28 @@ AllegroFlare::Layouts::Elements::Polygon ElementFactory::build_polygon_from_tmj_
    result_polygon.width = result_polygon.path.width();
    result_polygon.height = result_polygon.path.height();
    result_polygon.height = result_polygon.path.height();
+
+
+
+   if (throw_if_not_counterclockwise)
+   {
+      // TODO: Test this
+      // TODO: Consider moving this to after parsing, so instead of a single error it could present a list of
+      // polygons thare are not properly countercolockwise
+      bool is_counterclockwise = result_polygon.path.infer_is_counterclockwise();
+      if (!is_counterclockwise)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Layouts::ElementFactory::build_polygon_from_tmj_object",
+            "Expecting the polygon object (name \"" + object->name + "\", tmj_object_id \""
+               + std::to_string(object->id) + "\") to be counterclockwise, but it is not. For polygons to render "
+               "as expected the vertices must be counterclockwise. If you have the \"ReverseVertexOrder\" Tiled "
+               "extension installed (The extension is located in this project at "
+               "\"scripts/tiled/extensions/ReverseVertexOrder.js\", it provides adds a right-click option the "
+               "object menu in tiled with the action \"Reverse vertex order\"."
+         );
+      }
+   }
 
 
 

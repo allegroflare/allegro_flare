@@ -128,16 +128,15 @@ TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
-   FOCUS__calcuate_signed_area__will_return_the_expected_signed_area_on_a_counterclockwise_polygon)
+   calcuate_signed_area__will_return_the_expected_signed_area_on_a_clockwise_polygon)
 {
-   // negative is counterclockwise
-   AllegroFlare::Path2D counterclockwise_path_2d;
-   counterclockwise_path_2d.add_point(-400, -10);
-   counterclockwise_path_2d.add_point(-0, -220);
-   counterclockwise_path_2d.add_point(+380, +20);
-   counterclockwise_path_2d.add_point(-50, +180);
+   AllegroFlare::Path2D clockwise_path_2d;
+   clockwise_path_2d.add_point(-400, -10);
+   clockwise_path_2d.add_point(-0, -220);
+   clockwise_path_2d.add_point(+380, +20);
+   clockwise_path_2d.add_point(-50, +180);
 
-   float signed_area = counterclockwise_path_2d.calculate_signed_area();
+   float signed_area = clockwise_path_2d.calculate_signed_area();
 
    EXPECT_EQ(true, signed_area > 0);
    EXPECT_EQ(156750, signed_area);
@@ -145,7 +144,7 @@ TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
-   FOCUS__calcuate_signed_area__will_return_the_expected_signed_area_on_a_clockwise_polygon)
+   calcuate_signed_area__will_return_the_expected_signed_area_on_a_counterclockwise_polygon)
 {
    AllegroFlare::Path2D counterclockwise_path_2d;
    counterclockwise_path_2d.add_point(-50, +180);
@@ -161,30 +160,30 @@ TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
-   FOCUS__infer_is_counterclockwise__will_return_true_if_counterclockwise)
+   infer_is_clockwise__will_return_true_if_clockwise)
 {
-   AllegroFlare::Path2D counterclockwise_path_2d;
-   counterclockwise_path_2d.add_point(-400, -10);
-   counterclockwise_path_2d.add_point(-0, -220);
-   counterclockwise_path_2d.add_point(+380, +20);
-   counterclockwise_path_2d.add_point(-50, +180);
+   AllegroFlare::Path2D clockwise_path_2d;
+   clockwise_path_2d.add_point(-400, -10);
+   clockwise_path_2d.add_point(-0, -220);
+   clockwise_path_2d.add_point(+380, +20);
+   clockwise_path_2d.add_point(-50, +180);
 
-   EXPECT_EQ(true, counterclockwise_path_2d.infer_is_counterclockwise());
-   EXPECT_EQ(false, counterclockwise_path_2d.infer_is_clockwise());
+   EXPECT_EQ(true, clockwise_path_2d.infer_is_clockwise());
+   EXPECT_EQ(false, clockwise_path_2d.infer_is_counterclockwise());
 }
 
 
 TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
-   FOCUS__infer_is_clockwise__will_return_true_if_clockwise)
+   infer_is_counterclockwise__will_return_true_if_counterclockwise)
 {
-   AllegroFlare::Path2D clockwise_path_2d;
-   clockwise_path_2d.add_point(-50, +180);
-   clockwise_path_2d.add_point(+380, +20);
-   clockwise_path_2d.add_point(-0, -220);
-   clockwise_path_2d.add_point(-400, -10);
+   AllegroFlare::Path2D counterclockwise_path_2d;
+   counterclockwise_path_2d.add_point(-50, +180);
+   counterclockwise_path_2d.add_point(+380, +20);
+   counterclockwise_path_2d.add_point(-0, -220);
+   counterclockwise_path_2d.add_point(-400, -10);
 
-   EXPECT_EQ(true, clockwise_path_2d.infer_is_clockwise());
-   EXPECT_EQ(false, clockwise_path_2d.infer_is_counterclockwise());
+   EXPECT_EQ(true, counterclockwise_path_2d.infer_is_counterclockwise());
+   EXPECT_EQ(false, counterclockwise_path_2d.infer_is_clockwise());
 }
 
 
