@@ -1,0 +1,434 @@
+properties:
+
+
+  - name: font_bin
+    type: AllegroFlare::FontBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: before_initialized
+
+  - name: tmj_filename
+    type: std::string
+    init_with: '"[unset-tmj_filename]"'
+    constructor_arg: true
+    setter: before_initialized
+
+  - name: layout_width
+    type: float
+    init_with: 0.0f
+    getter: explicit
+
+  - name: layout_height
+    type: float
+    init_with: 0.0f
+    getter: explicit
+
+  - name: text_slots
+    type: std::map<std::string, AllegroFlare::Layouts::Elements::Text>
+    init_with: '{}'
+    constructor_arg: true
+    setter: before_initialized
+
+  - name: text_data
+    type: std::map<std::string, std::string>
+    init_with: '{}'
+    getter: true
+    setter: explicit
+
+  - name: scale
+    type: int
+    init_with: 3
+    getter: true
+    setter: before_initialized
+
+  - name: _multiline_text_line_number
+    type: int
+    init_with: 0
+    static: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: DEFAULT_PRIM_MESH_ATLAS_FILENAME
+    type: char*
+    init_with: '(char*)"ascii_glyphs_12x16-07.png"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: get_layout_width
+    type: float
+    guards: [ initialized ]
+    body: return layout_width;
+
+
+  - name: get_layout_height
+    type: float
+    guards: [ initialized ]
+    body: return layout_height;
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+      - font_bin
+    body: |
+      AllegroFlare::Tiled::TMJDataLoader tmj_data_loader(tmj_filename);
+      tmj_data_loader.load();
+
+      int num_rows = tmj_data_loader.get_num_rows();
+      int num_columns = tmj_data_loader.get_num_columns();
+      int tile_width = tmj_data_loader.get_tile_width();
+      int tile_height = tmj_data_loader.get_tile_height();
+      layout_width = num_columns * tile_width;
+      layout_height = num_rows * tile_height;
+
+      // TODO: Confirm that there is only one tileset in use (multiple tilesets will cause unexpected results)
+
+      // Load the text objects
+      tmj_data_loader.for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
+         if (object->text__is_present)
+         {
+            // Set the text slots
+            text_slots[object->name] = AllegroFlare::Layouts::ElementFactory::build_text_from_tmj_object(object);
+
+            // Set the text data
+            std::string text = object->text__text;
+            text_data[object->name] = text;
+         }
+      });
+
+      initialized = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Tiled::TMJDataLoader
+      - AllegroFlare::TileMaps::TileAtlasBuilder
+      - AllegroFlare::Logger
+      - al_color_html
+      - AllegroFlare::ColorKit
+      - AllegroFlare::Random
+      - AllegroFlare::Layouts::Elements::Text
+      - AllegroFlare::Layouts::ElementFactory
+
+
+  - name: set_text_data
+    parameters:
+      - name: text_data
+        type: std::map<std::string, std::string>
+        default_argument: '{}'
+    guards: [ initialized, 'compare_maps(this->text_data, text_data)' ]
+    body: |
+      // TODO: Consider allowing setting text data before initialize, and having the template also valdate at
+      // initialize time as well.
+      this->text_data = text_data;
+      return;
+
+
+  - name: render
+    type: void
+    guards: [ initialized ]
+    body: |
+      //tile_mesh.render();
+      for (auto &text_slot_ : text_slots)
+      {
+         AllegroFlare::Layouts::Elements::Text &text_slot = text_slot_.second;
+
+         float x = text_slot.x;
+         float y = text_slot.y;
+         float w = text_slot.width;
+         float h = text_slot.height;
+         float align_x = text_slot.align_x;
+         float align_y = text_slot.align_y;
+         std::string &font_family = text_slot.font_family;
+         int font_size = text_slot.font_size;
+         ALLEGRO_COLOR &color = text_slot.color;
+
+
+         // TODO: Confirm exists
+         //std::string &text = text_data[text_slot.first];
+         std::string &text = text_data[text_slot_.first];
+
+         //float x = 1920/2;
+         //float y = 1080/3;
+         ALLEGRO_FONT *font = obtain_custom_font(font_family, font_size);
+         //float text_width = al_get_text_width(font, text.c_str());
+         float text_height = al_get_font_line_height(font);
+         //float h_text_width = text_width/2;
+         float h_text_height = text_height/2;
+         float rendered_text_height = 0.0f;
+         float practical_text_box_width = w * scale;
+         if (align_y < -0.001f || align_y > 0.001f) // If non-zero
+         {
+            int num_lines_will_render = count_num_lines_will_render(font, practical_text_box_width, &text);
+            rendered_text_height = num_lines_will_render * (float)al_get_font_line_height(font) / scale;
+         }
+
+         int allegro_text_align = (align_x == 0.5) ? ALLEGRO_ALIGN_CENTER : (align_x == 1.0) ? ALLEGRO_ALIGN_RIGHT : ALLEGRO_ALIGN_LEFT;
+
+         float final_y = y - (rendered_text_height*align_y) + (h*align_y);
+
+         al_draw_multiline_text(
+            font,
+            color, //ALLEGRO_COLOR{1, 1, 1, 1},
+            (x + w*align_x) * scale,
+            //(y + h*align_y - rendered_text_height*align_y) * scale,
+            final_y * scale,
+            w * scale,
+            al_get_font_line_height(font),
+            allegro_text_align,
+            text.c_str()
+         );
+
+         //ALLEGRO_COLOR debug_color = ALLEGRO_COLOR{0.95, 0.26, 0.1, 1.0};
+         //al_draw_rectangle(x*scale, y*scale, (x+w)*scale, (y+h)*scale, debug_color, 2.0);
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: render_debug
+    type: void
+    guards: [ initialized ]
+    body: |
+      //tile_mesh.render();
+      for (auto &text_slot_ : text_slots)
+      {
+         AllegroFlare::Layouts::Elements::Text &text_slot = text_slot_.second;
+
+         float x = text_slot.x;
+         float y = text_slot.y;
+         float w = text_slot.width;
+         float h = text_slot.height;
+         float align_x = text_slot.align_x;
+         float align_y = text_slot.align_y;
+         std::string &font_family = text_slot.font_family;
+         int font_size = text_slot.font_size;
+         ALLEGRO_COLOR &color = text_slot.color;
+
+         // TODO: Consider adding cross-lines
+
+         ALLEGRO_COLOR debug_color = ALLEGRO_COLOR{0.95, 0.26, 0.1, 1.0};
+         al_draw_rectangle(x*scale, y*scale, (x+w)*scale, (y+h)*scale, debug_color, 2.0);
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: compare_maps
+    type: bool
+    parameters:
+      - name: map1
+        type: std::map<std::string, std::string>
+        default_argument: '{}'
+      - name: map2
+        type: std::map<std::string, std::string>
+        default_argument: '{}'
+    body: |
+      std::vector<std::string> missing_in_map2;
+      std::vector<std::string> missing_in_map1;
+
+      // Find keys in map1 that are missing in map2
+      for (const auto& pair : map1)
+      {
+         if (map2.find(pair.first) == map2.end())
+         {
+            missing_in_map2.push_back(pair.first);
+         }
+      }
+
+      // Find keys in map2 that are missing in map1
+      for (const auto& pair : map2)
+      {
+         if (map1.find(pair.first) == map1.end())
+         {
+            missing_in_map1.push_back(pair.first);
+         }
+      }
+
+      // Output results
+      if (!missing_in_map2.empty())
+      {
+         std::cout << "Keys in map1 but missing in map2:\n";
+         for (const auto& key : missing_in_map2)
+         {
+            std::cout << key << std::endl;
+         }
+      }
+      else
+      {
+         std::cout << "No keys are missing in map2 from map1.\n";
+      }
+
+      if (!missing_in_map1.empty())
+      {
+         std::cout << "Keys in map2 but missing in map1:\n";
+         for (const auto& key : missing_in_map1)
+         {
+            std::cout << key << std::endl;
+         }
+      }
+      else
+      {
+         std::cout << "No keys are missing in map1 from map2.\n";
+      }
+
+      return missing_in_map1.empty() && missing_in_map2.empty();
+
+
+  - name: lookup_font_identifier_by_family
+    type: std::string
+    parameters:
+      - name: font_family
+        type: std::string
+        default_argument: '"[unset-font_family]"'
+    body: |
+      std::map<std::string, std::string> font_family_to_font_identifier_map = {
+         { "Azeret Mono", "AzeretMono-Regular.ttf" },
+         { "Michroma",    "Michroma-Regular.ttf" },
+         { "Orbitron",    "Orbitron-Medium.ttf" },
+         { "Oswald",      "Oswald-Medium.ttf" },
+         { "Exan",        "Exan-Regular.ttf" },
+      };
+
+      if (font_family_to_font_identifier_map.find(font_family) == font_family_to_font_identifier_map.end())
+      {
+         // Font not found, return default
+         return "Orbitron-Medium.ttf";
+      }
+      return font_family_to_font_identifier_map[font_family];
+
+
+  - name: multiline_text_draw_callback
+    type: bool
+    static: true
+    parameters:
+      - name: line_num
+        type: int
+        default_argument: 0
+      - name: line
+        type: const char*
+        default_argument: nullptr
+      - name: size
+        type: int
+        default_argument: 0
+      - name: extra
+        type: void*
+        default_argument: nullptr
+    body: |
+      _multiline_text_line_number = line_num;
+      return true;
+
+
+  - name: count_num_lines_will_render
+    type: int
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+      - name: max_width
+        type: float
+        default_argument: 0.0f
+      - name: text
+        type: std::string*
+        default_argument: nullptr
+    guards: [ text ]
+    body: |
+      if (text->empty()) return 0;
+
+      _multiline_text_line_number = 0;
+      al_do_multiline_text(font, max_width, text->c_str(), multiline_text_draw_callback, nullptr);
+
+      // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
+      return _multiline_text_line_number + 1;
+
+
+  - name: obtain_font
+    private: true
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: font_size
+        type: int
+        default_argument: -18
+    guards: [ initialized ]
+    body: |
+      //return font_bin->auto_get("Inter-Medium.ttf -14");
+      std::stringstream result;
+      result << "Orbitron-Medium.ttf " << std::to_string(font_size * scale);
+      //result << "Orbitron-Medium.ttf " << std::to_string(font_size * scale);
+      return font_bin->auto_get(result.str());
+
+
+  - name: obtain_custom_font
+    private: true
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: font_family
+        type: std::string
+        default_argument: '"[unset-font_family]"'
+      - name: font_size
+        type: int
+        default_argument: -18
+    guards: [ initialized ]
+    body: |
+      //return font_bin->auto_get("Inter-Medium.ttf -14");
+      std::stringstream result;
+      //result << "Orbitron-Medium.ttf " << std::to_string(font_size * scale);
+      result << lookup_font_identifier_by_family(font_family) << " " << std::to_string(font_size * scale);
+      //result << "Orbitron-Medium.ttf " << std::to_string(font_size * scale);
+      return font_bin->auto_get(result.str());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::TileMaps::PrimMeshAtlas
+    headers: [ AllegroFlare/TileMaps/PrimMeshAtlas.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMesh
+    headers: [ AllegroFlare/TileMaps/TileMesh.hpp ]
+  - symbol: AllegroFlare::Tiled::TMJDataLoader
+    headers: [ AllegroFlare/Tiled/TMJDataLoader.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileAtlasBuilder
+    headers: [ AllegroFlare/TileMaps/TileAtlasBuilder.hpp ]
+  - symbol: al_color_html
+    headers: [ allegro5/allegro_color.h ]
+  - symbol: AllegroFlare::ColorKit
+    headers: [ AllegroFlare/ColorKit.hpp ]
+  - symbol: AllegroFlare::Random
+    headers: [ AllegroFlare/Random.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Layouts::Elements::Text
+    headers: [ AllegroFlare/Layouts/Elements/Text.hpp ]
+  - symbol: AllegroFlare::Tiled::TMJObject
+    headers: [ AllegroFlare/Tiled/TMJObject.hpp ]
+  - symbol: AllegroFlare::Layouts::ElementFactory
+    headers: [ AllegroFlare/Layouts/ElementFactory.hpp ]
+
+

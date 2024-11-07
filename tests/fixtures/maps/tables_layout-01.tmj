@@ -1,0 +1,395 @@
+{ "compressionlevel":-1,
+ "height":20,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[0, 127, 127, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            583, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 584, 585,
+            613, 504, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 2147484152, 615,
+            613, 472, 0, 432, 151, 153, 123, 121, 433, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 610,
+            613, 472, 0, 402, 121, 3221225595, 152, 151, 403, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 610,
+            613, 501, 473, 473, 473, 473, 473, 473, 473, 473, 473, 502, 473, 473, 473, 473, 473, 473, 502, 473, 473, 473, 473, 473, 473, 473, 473, 473, 502, 473, 473, 473, 473, 473, 473, 473, 473, 473, 2147484149, 610,
+            613, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 610,
+            613, 2147484151, 473, 473, 473, 473, 473, 473, 473, 473, 473, 498, 473, 473, 473, 473, 473, 473, 498, 473, 473, 473, 473, 473, 473, 473, 473, 473, 498, 473, 473, 473, 473, 473, 473, 473, 473, 473, 503, 610,
+            613, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 610,
+            613, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 615,
+            613, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 615,
+            613, 2147484151, 473, 473, 473, 473, 473, 473, 473, 473, 473, 500, 473, 502, 473, 473, 473, 473, 500, 473, 473, 473, 473, 473, 473, 473, 502, 473, 500, 473, 473, 473, 473, 473, 473, 473, 473, 473, 503, 615,
+            613, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 615,
+            613, 2147484151, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 498, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 498, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 503, 615,
+            613, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 615,
+            613, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 615,
+            613, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 472, 615,
+            613, 1073742328, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 500, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 500, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 473, 3221225976, 615,
+            643, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 644, 2147484291,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":20,
+         "id":1,
+         "name":"visual",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":40,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":2,
+         "name":"objects",
+         "objects":[
+                {
+                 "height":16,
+                 "id":1,
+                 "name":"text1",
+                 "rotation":0,
+                 "text":
+                    {
+                     "pixelsize":17,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":288,
+                 "x":126,
+                 "y":48
+                }, 
+                {
+                 "height":16,
+                 "id":2,
+                 "name":"text2",
+                 "rotation":0,
+                 "text":
+                    {
+                     "pixelsize":17,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":288,
+                 "x":126,
+                 "y":64
+                }, 
+                {
+                 "height":48,
+                 "id":3,
+                 "name":"text3",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":234,
+                 "y":128
+                }, 
+                {
+                 "height":48,
+                 "id":5,
+                 "name":"text4",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":354,
+                 "y":128
+                }, 
+                {
+                 "height":16,
+                 "id":6,
+                 "name":"text6",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":120,
+                 "x":174,
+                 "y":192
+                }, 
+                {
+                 "height":16,
+                 "id":7,
+                 "name":"text5",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":120,
+                 "x":30,
+                 "y":192
+                }, 
+                {
+                 "height":16,
+                 "id":8,
+                 "name":"text7",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":120,
+                 "x":330,
+                 "y":192
+                }, 
+                {
+                 "height":48,
+                 "id":9,
+                 "name":"list7",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":120,
+                 "x":330,
+                 "y":224
+                }, 
+                {
+                 "height":48,
+                 "id":10,
+                 "name":"list6",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":132,
+                 "x":174,
+                 "y":224
+                }, 
+                {
+                 "height":48,
+                 "id":11,
+                 "name":"list5",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":120,
+                 "x":30,
+                 "y":224
+                }, 
+                {
+                 "height":16,
+                 "id":13,
+                 "name":"subtext1",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":".AppleSystemUIFont",
+                     "halign":"right",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":450,
+                 "x":18,
+                 "y":304
+                }, 
+                {
+                 "height":16,
+                 "id":14,
+                 "name":"supertext1",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":".AppleSystemUIFont",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "valign":"bottom",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":420,
+                 "x":54,
+                 "y":0
+                }, 
+                {
+                 "height":16,
+                 "id":15,
+                 "name":"text9",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":60,
+                 "x":150,
+                 "y":96
+                }, 
+                {
+                 "height":16,
+                 "id":16,
+                 "name":"text8",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":30,
+                 "y":96
+                }, 
+                {
+                 "height":48,
+                 "id":17,
+                 "name":"list8",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":30,
+                 "y":128
+                }, 
+                {
+                 "height":48,
+                 "id":18,
+                 "name":"list9",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":60,
+                 "x":150,
+                 "y":128
+                }, 
+                {
+                 "height":16,
+                 "id":19,
+                 "name":"text10",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":234,
+                 "y":96
+                }, 
+                {
+                 "height":16,
+                 "id":20,
+                 "name":"text11",
+                 "rotation":0,
+                 "text":
+                    {
+                     "fontfamily":"Exan",
+                     "pixelsize":12,
+                     "text":"Hello World",
+                     "valign":"center",
+                     "wrap":true
+                    },
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":354,
+                 "y":96
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":3,
+ "nextobjectid":21,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.10.2",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"ascii_glyphs_12x16-09.png-result.tsx"
+        }],
+ "tilewidth":12,
+ "type":"map",
+ "version":"1.10",
+ "width":40
+}

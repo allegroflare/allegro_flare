@@ -1,0 +1,69 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    exposed: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: width
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: height
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: tmj_object_id
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: move_up_to_target_tmj_object_id
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: move_down_to_target_tmj_object_id
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: move_left_to_target_tmj_object_id
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: move_right_to_target_tmj_object_id
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: on_focus
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+  - name: on_blur
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+  - name: on_activation
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+

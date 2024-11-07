@@ -1,0 +1,89 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    exposed: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: width
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: height
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: align_x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: align_y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: font_family
+    type: std::string
+    init_with: '"[unset-font_family]"'
+    exposed: true
+
+  - name: font_size
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: color
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    exposed: true
+
+  - name: tmj_object_id
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: on_focus
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+  - name: on_blur
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+  - name: on_activation
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+
+documentation:
+
+
+  - todos:
+      - You might consider things like content_alignment, alignment, anchors, fill_style, etc. You could use 9-patches,
+        lots of options.
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+

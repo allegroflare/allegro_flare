@@ -1,0 +1,332 @@
+properties:
+
+
+  - name: tmj_filename
+    type: std::string
+    init_with: '"[unset-tmj_filename]"'
+    constructor_arg: true
+    setter: before_initialized
+
+  - name: layout_width
+    type: float
+    init_with: 0.0f
+    getter: explicit
+
+  - name: layout_height
+    type: float
+    init_with: 0.0f
+    getter: explicit
+
+  - name: polygons
+    type: std::map<int, AllegroFlare::Layouts::Elements::Polygon>
+    init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+
+methods:
+
+
+  - name: get_layout_width
+    type: float
+    guards: [ initialized ]
+    body: return layout_width;
+
+
+  - name: get_layout_height
+    type: float
+    guards: [ initialized ]
+    body: return layout_height;
+
+
+  - name: set_polygons_behavior
+    parameters:
+      - name: behavior_map
+        type: std::map<std::string, std::tuple<std::function<void()>, std::function<void()>, std::function<void()>>>
+        default_argument: '{}'
+    body: |
+      // TODO: this method
+      return;
+
+
+  - name: initialize
+    guards:
+      - (!initialized)
+    body: |
+      AllegroFlare::Tiled::TMJDataLoader tmj_data_loader(tmj_filename);
+      tmj_data_loader.load();
+
+      int num_rows = tmj_data_loader.get_num_rows();
+      int num_columns = tmj_data_loader.get_num_columns();
+      int tile_width = tmj_data_loader.get_tile_width();
+      int tile_height = tmj_data_loader.get_tile_height();
+      layout_width = num_columns * tile_width;
+      layout_height = num_rows * tile_height;
+
+      tmj_data_loader.for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
+         if (!object->polygon.empty() && object->type != "shape")
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Layouts::Polygons::initialize",
+               "When loading object (tmj_object_id \"" + std::to_string(object->id) + "\"), the object contains "
+                  "polygon points, but it is not of the type \"shape\". For this implementation, a shape type (that "
+                  "has the expected custom properties for \"shape\") is expected to be present for polygons."
+            );
+         }
+         else if (object->type == "shape")
+         {
+            polygons[object->id] = AllegroFlare::Layouts::ElementFactory::build_polygon_from_tmj_object(object);
+         }
+      });
+
+      // TODO: Validate targets
+
+      initialized = true;
+    body_dependency_symbols:
+      - AllegroFlare::Tiled::TMJDataLoader
+      - AllegroFlare::Logger
+      - AllegroFlare::Layouts::ElementFactory
+
+
+  - name: find_polygon_by_tmj_object_id
+    type: AllegroFlare::Layouts::Elements::Polygon*
+    parameters:
+      - name: tmj_object_id
+        type: int
+        default_argument: 0
+    body: |
+      // TODO: Test this
+      auto it = polygons.find(tmj_object_id);
+      if (it == polygons.end()) return nullptr;
+      return &it->second;
+
+
+  - name: find_polygon_by_name
+    type: AllegroFlare::Layouts::Elements::Polygon*
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    body: |
+      // TODO: Test this
+      for (auto &polygon : polygons)
+      {
+         if (polygon.second.name == name) return &polygon.second;
+      }
+      return nullptr;
+
+
+  - name: extract_int_or_default
+    type: int
+    parameters:
+      - name: object
+        type: AllegroFlare::Tiled::TMJObject*
+        default_argument: nullptr
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: default_fallback
+        type: int
+        default_argument: 0
+    body: |
+      AllegroFlare::Tiled::TMJObjectCustomProperties &custom_properties = object->custom_properties;
+
+      // TODO: Add warning when present but not an int
+      if (!(custom_properties.exists(key) && custom_properties.is_int(key))) return default_fallback;
+      return custom_properties.get_int(key);
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: extract_int_or_throw
+    type: int
+    parameters:
+      - name: object
+        type: AllegroFlare::Tiled::TMJObject*
+        default_argument: nullptr
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+    body: |
+      AllegroFlare::Tiled::TMJObjectCustomProperties &custom_properties = object->custom_properties;
+
+      if (!(custom_properties.exists(key) && custom_properties.is_int(key)))
+      {
+         // Doesn't exist
+         AllegroFlare::Logger::throw_error(
+            "Layouts::CursorMaps::CursorMap::extract_int_or_throw",
+            "Expecting the custom property \"" + key + "\" on object name \"" + object->name + "\" (tmj_object_id \""
+               + std::to_string(object->id) + "\") but it does not exist."
+         );
+      }
+      return custom_properties.get_int(key);
+         AllegroFlare::Logger::throw_error(
+            "Layouts::CursorMaps::CursorMap::extract_int_or_throw",
+            "Expecting the custom property \"" + key + "\" on object name \"" + object->name + "\" (tmj_object_id \""
+               + std::to_string(object->id) + "\") but it does not exist."
+         );
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: extract_color_hex_or_default
+    static: true
+    type: std::string
+    parameters:
+      - name: object
+        type: AllegroFlare::Tiled::TMJObject*
+        default_argument: nullptr
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: default_fallback
+        type: std::string
+        default_argument: '"#ffffffff"'
+    body: |
+      AllegroFlare::Tiled::TMJObjectCustomProperties &custom_properties = object->custom_properties;
+
+      // TODO: Add warning when present but not an int
+      if (!(custom_properties.exists(key) && custom_properties.is_color(key))) return default_fallback;
+      return custom_properties.get_color(key);
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+
+  - name: render
+    body: |
+      for (auto &polygon_ : polygons)
+      {
+         AllegroFlare::Layouts::Elements::Polygon &polygon = polygon_.second;
+         //ALLEGRO_COLOR polygon_fill_color = al_color_name("purple");
+         polygon.path.draw_shape(polygon.fill_color);
+         //polygon.path.draw_shape(polygon_fill_color);
+      }
+      return;
+
+
+  - name: render_debug
+    parameters:
+      - name: line_thickness
+        type: float
+        default_argument: 2.0
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      ALLEGRO_COLOR canvas_frame_color = al_color_name("purple");
+      AllegroFlare::Color color_a = al_color_name("cyan");
+      AllegroFlare::Color color_b = al_color_name("aliceblue");
+      AllegroFlare::Color result_color = AllegroFlare::Color().mix(color_a, color_b, 0.5);
+      ALLEGRO_COLOR cursor_destination_color = result_color.to_al();
+      ALLEGRO_COLOR yellow_color = al_color_name("yellow");
+
+      // Draw the canvas frame
+      draw_container_frame(0, 0, layout_width, layout_height, canvas_frame_color, line_thickness);
+
+      // Draw the destinations
+      for (auto &polygon_ : polygons)
+      {
+         AllegroFlare::Layouts::Elements::Polygon &polygon = polygon_.second;
+         //::Layouts::CursorMaps::CursorDestination &frame = frame_.second;
+         draw_container_frame(
+            polygon.x,
+            polygon.y,
+            polygon.x + polygon.width,
+            polygon.y + polygon.height,
+            cursor_destination_color,
+            line_thickness
+         );
+
+         //polygon.path.draw_shape(polygon.x, polygon.y, yellow_color);
+         //polygon.path.draw_shape(cursor_);
+         //polygon.path.draw_shape(result_color);
+         polygon.path.draw_outline(yellow_color, 2.0);
+      }
+
+      return;
+    body_dependency_symbols:
+      - al_color_name
+      - al_draw_rectangle
+      - AllegroFlare::Color
+
+
+  - name: draw_container_frame
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: x2
+        type: float
+        default_argument: 0.0f
+      - name: y2
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+      - name: line_thickness
+        type: float
+        default_argument: 0.0f
+    body: |
+      float w = x2 - x;
+      float h = y2 - y;
+      // TODO: Make this into a prim
+      al_draw_rectangle(
+         x,
+         y,
+         x + w,
+         y + h,
+         color,
+         line_thickness
+      );
+
+      al_draw_line(
+         x,
+         y,
+         x + w,
+         y + h,
+         color,
+         line_thickness
+      );
+
+      al_draw_line(
+         x + w,
+         y,
+         x,
+         y + h,
+         color,
+         line_thickness
+      );
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Tiled::TMJDataLoader
+    headers: [ AllegroFlare/Tiled/TMJDataLoader.hpp ]
+  - symbol: ::Layouts::CursorMaps::CursorDestination
+    headers: [ Layouts/CursorMaps/CursorDestination.hpp ]
+  - symbol: AllegroFlare::Tiled::TMJObject
+    headers: [ AllegroFlare/Tiled/TMJObject.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Color
+    headers: [ AllegroFlare/Color.hpp ]
+  - symbol: al_color_name
+    headers: [ allegro5/allegro_color.h ]
+  - symbol: al_draw_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Layouts::Elements::Polygon
+    headers: [ AllegroFlare/Layouts/Elements/Polygon.hpp ]
+  - symbol: AllegroFlare::Layouts::ElementFactory
+    headers: [ AllegroFlare/Layouts/ElementFactory.hpp ]
+
+

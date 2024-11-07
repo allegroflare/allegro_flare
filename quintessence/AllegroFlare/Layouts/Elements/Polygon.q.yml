@@ -1,0 +1,83 @@
+properties:
+
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    exposed: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: width
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: height
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: polygon
+    type: std::vector<AllegroFlare::Vec2D>
+    init_with: '{}'
+    exposed: true
+
+  - name: path
+    type: AllegroFlare::Path2D
+    init_with: ''
+    exposed: true
+
+  - name: fill_color
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    exposed: true
+
+  - name: tmj_object_id
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: on_focus
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+  - name: on_blur
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+  - name: on_activation
+    type: std::function<void()>
+    init_with: '{}'
+    exposed: true
+
+
+documentation:
+
+
+  - todos:
+      - You might consider things like texture, fill_color, collide (possibly for mouse movement), etc.
+      - Consider if triangulation is necessary when loading polygon points
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Path2D
+    headers: [ AllegroFlare/Path2D.hpp ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+
