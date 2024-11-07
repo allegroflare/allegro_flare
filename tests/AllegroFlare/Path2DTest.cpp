@@ -127,3 +127,35 @@ TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
+   calcuate_signed_area__will_return_the_expected_signed_area_on_a_counterclockwise_polygon)
+{
+   AllegroFlare::Path2D counterclockwise_path_2d;
+   counterclockwise_path_2d.add_point(-400, -10);
+   counterclockwise_path_2d.add_point(-0, -220);
+   counterclockwise_path_2d.add_point(+380, +20);
+   counterclockwise_path_2d.add_point(-50, +180);
+
+   float signed_area = counterclockwise_path_2d.calculate_signed_area();
+
+   EXPECT_EQ(true, signed_area > 0);
+   EXPECT_EQ(156750, signed_area);
+}
+
+
+TEST_F(AllegroFlare_Path2DTestWithAllegroRenderingFixture,
+   calcuate_signed_area__will_return_the_expected_signed_area_on_a_clockwise_polygon)
+{
+   AllegroFlare::Path2D counterclockwise_path_2d;
+   counterclockwise_path_2d.add_point(-50, +180);
+   counterclockwise_path_2d.add_point(+380, +20);
+   counterclockwise_path_2d.add_point(-0, -220);
+   counterclockwise_path_2d.add_point(-400, -10);
+
+   float signed_area = counterclockwise_path_2d.calculate_signed_area();
+
+   EXPECT_EQ(true, signed_area < 0);
+   EXPECT_EQ(-156750, signed_area);
+}
+
+

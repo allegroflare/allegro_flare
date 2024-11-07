@@ -155,6 +155,22 @@ namespace AllegroFlare
 
 
 
+   float Path2D::calculate_signed_area()
+   {
+      double area = 0.0;
+      int n = point.size();
+      //int n = vertices.size();
+
+      for (int i = 0; i < n; ++i)
+      {
+         int j = (i + 1) % n; // Wraps around to the first vertex at the end
+         area += point[i].x * point[j].y - point[i].y * point[j].x;
+         //area += vertices[i].x * vertices[j].y - vertices[i].y * vertices[j].x;
+      }
+
+      return area / 2.0;
+   }
+
 
    Path2D &Path2D::top_left(float x, float y)
    {

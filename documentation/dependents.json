@@ -154,6 +154,13 @@
     "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
     "AllegroFlare/ImageProcessing/ImageReduction",
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",
@@ -248,6 +255,9 @@
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
@@ -313,6 +323,9 @@
   ],
   "AllegroFlare/TileMaps/TileAtlasBuilder": [
     "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/TileMaps/TileAtlasRepository",
@@ -597,6 +610,9 @@
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/InputHints",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -726,6 +742,9 @@
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/InputHints",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -906,6 +925,10 @@
     "AllegroFlare/Elements/UI/IntSpinner",
     "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Layouts/Elements/Polygon",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -1091,6 +1114,14 @@
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/Elements/Polygon",
+    "AllegroFlare/Layouts/Elements/Text",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -1146,6 +1177,9 @@
     "AllegroFlare/DesignSystems/DesignPillarDistributor",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Generators/PersonNameGenerator",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
@@ -1656,6 +1690,9 @@
     "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -1729,6 +1766,9 @@
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -1809,6 +1849,9 @@
     "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -1977,6 +2020,10 @@
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Screens/Subscreen/Panes/Base",
@@ -2135,7 +2182,10 @@
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/Elements/MultiList"
+    "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText"
   ],
   "al_draw_filled_rounded_rectangle": [
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -2207,6 +2257,9 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TextFormatters/Basic": [
@@ -2373,6 +2426,10 @@
   "al_color_name": [
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -2967,6 +3024,94 @@
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/InventoryIndexItem"
   ],
+  "AllegroFlare/Tiled/TMJDataLoader": [
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText"
+  ],
+  "AllegroFlare/Tiled/TMJObject": [
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Tiled/TMJDataLoader"
+  ],
+  "AllegroFlare/Layouts/Elements/CursorDestination": [
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layout"
+  ],
+  "AllegroFlare/Layouts/ElementFactory": [
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText"
+  ],
+  "AllegroFlare/Layouts/Elements/Text": [
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText"
+  ],
+  "AllegroFlare/Layouts/Elements/Polygon": [
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons"
+  ],
+  "AllegroFlare/Layouts/Elements/Frame": [
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout"
+  ],
+  "AllegroFlare/Path2D": [
+    "AllegroFlare/Layouts/Elements/Polygon"
+  ],
+  ":Layouts/CursorMaps/CursorDestination": [
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Polygons"
+  ],
+  "AllegroFlare/TileMaps/PrimMeshAtlas": [
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
+    "AllegroFlare/TileMaps/Basic2D",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
+    "AllegroFlare/TileMaps/TileAtlasRepositoryRecord",
+    "AllegroFlare/TileMaps/TileMesh",
+    "Tileo/MeshWithNormals",
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/TileMaps/TileMesh": [
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
+  ],
+  "AllegroFlare/Layouts/Text": [
+    "AllegroFlare/Layouts/TileMeshWithText"
+  ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Basic": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
@@ -3442,25 +3587,6 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D"
   ],
-  "AllegroFlare/TileMaps/PrimMeshAtlas": [
-    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
-    "AllegroFlare/TileMaps/Basic2D",
-    "AllegroFlare/TileMaps/TileAtlasBuilder",
-    "AllegroFlare/TileMaps/TileAtlasRepository",
-    "AllegroFlare/TileMaps/TileAtlasRepositoryRecord",
-    "AllegroFlare/TileMaps/TileMesh",
-    "Tileo/MeshWithNormals",
-    "Tileo/TMJMeshLoader",
-    "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileMaps/Basic2D"
-  ],
   "AllegroFlare/TileMaps/PrimMesh": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
@@ -3578,12 +3704,6 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
-  ],
-  "AllegroFlare/TileMaps/TileMesh": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
@@ -4066,9 +4186,6 @@
   ],
   "ALLEGRO_INDEX_BUFFER": [
     "AllegroFlare/TileMaps/TileMesh"
-  ],
-  "AllegroFlare/Tiled/TMJObject": [
-    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",

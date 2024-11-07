@@ -72,6 +72,8 @@ namespace AllegroFlare
       float width();
       float height();
 
+      float calculate_signed_area();
+
       // presentation
       // should be extracted to a Path2DRenderer
       void draw(bool draw_points=false, bool show_normals=false, bool show_bounding_box=false, bool show_normal_angles=false, ALLEGRO_COLOR col=al_map_rgba_f(0,0,0,1.0), float thickness=2.0);

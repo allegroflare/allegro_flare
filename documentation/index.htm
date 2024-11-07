@@ -295,6 +295,17 @@ table td
   <li><a href="#quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml">quintessence/AllegroFlare/InventoryDictionaryItems/WithAttributes.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndex.q.yml">quintessence/AllegroFlare/InventoryIndex.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InventoryIndexItem.q.yml">quintessence/AllegroFlare/InventoryIndexItem.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/CursorMap.q.yml">quintessence/AllegroFlare/Layouts/CursorMap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/ElementFactory.q.yml">quintessence/AllegroFlare/Layouts/ElementFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Elements/CursorDestination.q.yml">quintessence/AllegroFlare/Layouts/Elements/CursorDestination.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Elements/Frame.q.yml">quintessence/AllegroFlare/Layouts/Elements/Frame.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Elements/Polygon.q.yml">quintessence/AllegroFlare/Layouts/Elements/Polygon.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Elements/Text.q.yml">quintessence/AllegroFlare/Layouts/Elements/Text.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Frames.q.yml">quintessence/AllegroFlare/Layouts/Frames.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Layout.q.yml">quintessence/AllegroFlare/Layouts/Layout.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Polygons.q.yml">quintessence/AllegroFlare/Layouts/Polygons.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Text.q.yml">quintessence/AllegroFlare/Layouts/Text.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/TileMeshWithText.q.yml">quintessence/AllegroFlare/Layouts/TileMeshWithText.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LegalClauseGenerator.q.yml">quintessence/AllegroFlare/LegalClauseGenerator.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Levels/Base.q.yml">quintessence/AllegroFlare/Levels/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LicensesInUse.q.yml">quintessence/AllegroFlare/LicensesInUse.q.yml</a></li>
@@ -20593,6 +20604,1284 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tuple&lt;std::string, std::string, std::string&gt;&quot;, &quot;headers&quot;=&gt;[&quot;tuple&quot;, &quot;string&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/CursorMap.q.yml">quintessence/AllegroFlare/Layouts/CursorMap.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tmj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">layout_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">layout_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">positions</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::CursorDestination&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_positions_behavior</b>(std::map&lt;std::string, std::tuple&lt;std::function&lt;void()&gt;, std::function&lt;void()&gt;, std::function&lt;void()&gt;&gt;&gt; behavior_map={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::CursorDestination*</td>
+  <td class="method"><b>get_initial_cursor_destination</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::CursorDestination*</td>
+  <td class="method"><b>find_position_by_tmj_object_id</b>(int tmj_object_id=0)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::CursorDestination*</td>
+  <td class="method"><b>find_position_by_name</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_debug</b>(float line_thickness=2.0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_container_frame</b>(float x=0.0f, float y=0.0f, float x2=0.0f, float y2=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float line_thickness=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::CursorDestination&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/CursorDestination.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::ElementFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/ElementFactory.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/ElementFactory.q.yml">quintessence/AllegroFlare/Layouts/ElementFactory.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Polygon</td>
+  <td class="method"><b>build_polygon_from_tmj_object</b>(AllegroFlare::Tiled::TMJObject* object=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Text</td>
+  <td class="method"><b>build_text_from_tmj_object</b>(AllegroFlare::Tiled::TMJObject* object=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::CursorDestination</td>
+  <td class="method"><b>build_cursor_destination_from_tmj_object</b>(AllegroFlare::Tiled::TMJObject* object=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Frame</td>
+  <td class="method"><b>build_frame_from_tmj_object</b>(AllegroFlare::Tiled::TMJObject* object=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>translate_alignment_string_to_float</b>(std::string alignment_string=&quot;[unset-alignment_string]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>extract_color_hex_or_default</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;, std::string default_fallback=&quot;#ffffffff&quot;)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>extract_int_or_default</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;, int default_fallback=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>extract_int_or_throw</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Text&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Text.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Polygon&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Polygon.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::CursorDestination&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/CursorDestination.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Frame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Frame.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Elements/CursorDestination.q.yml">quintessence/AllegroFlare/Layouts/Elements/CursorDestination.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tmj_object_id</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">move_up_to_target_tmj_object_id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">move_down_to_target_tmj_object_id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">move_left_to_target_tmj_object_id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">move_right_to_target_tmj_object_id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">on_focus</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_blur</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_activation</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Elements/Frame.q.yml">quintessence/AllegroFlare/Layouts/Elements/Frame.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["You might consider things like content_alignment, alignment, anchors, fill_style, etc. You could use 9-patches, lots of options."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tmj_object_id</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">on_focus</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_blur</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_activation</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Elements/Polygon.q.yml">quintessence/AllegroFlare/Layouts/Elements/Polygon.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["You might consider things like texture, fill_color, collide (possibly for mouse movement), etc.", "Consider if triangulation is necessary when loading polygon points"]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">polygon</td>
+  <td class="property">std::vector&lt;AllegroFlare::Vec2D&gt;</td>
+</tr>
+<tr>
+  <td class="property">path</td>
+  <td class="property">AllegroFlare::Path2D</td>
+</tr>
+<tr>
+  <td class="property">fill_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">tmj_object_id</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">on_focus</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_blur</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_activation</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Path2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Path2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Elements/Text.q.yml">quintessence/AllegroFlare/Layouts/Elements/Text.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["You might consider things like content_alignment, alignment, anchors, fill_style, etc. You could use 9-patches, lots of options."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">align_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">font_family</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">font_size</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">tmj_object_id</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">on_focus</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_blur</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_activation</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Frames.q.yml">quintessence/AllegroFlare/Layouts/Frames.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tmj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">layout_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">layout_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">frames</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Frame&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_frames_behavior</b>(std::map&lt;std::string, std::tuple&lt;std::function&lt;void()&gt;, std::function&lt;void()&gt;, std::function&lt;void()&gt;&gt;&gt; behavior_map={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Frame*</td>
+  <td class="method"><b>find_frame_by_tmj_object_id</b>(int tmj_object_id=0)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Frame*</td>
+  <td class="method"><b>find_frame_by_name</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>extract_int_or_default</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;, int default_fallback=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>extract_int_or_throw</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_debug</b>(float line_thickness=2.0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_container_frame</b>(float x=0.0f, float y=0.0f, float x2=0.0f, float y2=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float line_thickness=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;:&quot;:Layouts::CursorMaps::CursorDestination&quot;, &quot;headers&quot;=&gt;[&quot;Layouts/CursorMaps/CursorDestination.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Frame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Frame.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::ElementFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/ElementFactory.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Layout.q.yml">quintessence/AllegroFlare/Layouts/Layout.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This class loads a Tiled .tmj file into layout. The TMJ file expects specific object classes, and layer names to be present in the file. This layout handles text, polygons, a tile_mesh, frames (arbitrary container boxes), and text. To include a tile_mesh, you should include a \"visual\" tile layer and optionally an \"opacity\" tilelayer.", "There are other alternatives to this Layouts/Layout under the Layouts/ folder. Layouts/TileMeshWithText, for example, does require a \"visual\" tillayer.", "At the time this class was created, it's not planned to have this class load or create arbitrary layouts without having a Tiled .tmj file as the source."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">tmj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">layout_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">layout_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tile_mesh_is_present</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">prim_mesh_atlas_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">prim_mesh_atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas</td>
+</tr>
+<tr>
+  <td class="property">tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::TileMesh</td>
+</tr>
+<tr>
+  <td class="property">text_slots</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Layouts::Elements::Text&gt;</td>
+</tr>
+<tr>
+  <td class="property">text_data</td>
+  <td class="property">std::map&lt;std::string, std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">polygons</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Polygon&gt;</td>
+</tr>
+<tr>
+  <td class="property">cursor_destinations</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::CursorDestination&gt;</td>
+</tr>
+<tr>
+  <td class="property">frames</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Frame&gt;</td>
+</tr>
+<tr>
+  <td class="property">scale</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">_multiline_text_line_number</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_PRIM_MESH_ATLAS_FILENAME</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_effective_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_effective_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Polygon*</td>
+  <td class="method"><b>find_polygon_by_tmj_object_id</b>(int tmj_object_id=0)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Polygon*</td>
+  <td class="method"><b>find_polygon_by_name</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::CursorDestination*</td>
+  <td class="method"><b>get_initial_cursor_destination</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::CursorDestination*</td>
+  <td class="method"><b>find_cursor_destination_by_tmj_object_id</b>(int tmj_object_id=0)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::CursorDestination*</td>
+  <td class="method"><b>find_cursor_destination_by_name</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Frame*</td>
+  <td class="method"><b>find_frame_by_tmj_object_id</b>(int tmj_object_id=0)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Frame*</td>
+  <td class="method"><b>find_frame_by_name</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_text_data</b>(std::map&lt;std::string, std::string&gt; text_data={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_text_data_require_all</b>(std::map&lt;std::string, std::string&gt; text_data={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_text_data_require_present</b>(std::map&lt;std::string, std::string&gt; text_data={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_text_data_field</b>(std::string name=&quot;[unset-name]&quot;, std::string value=&quot;[unset-value]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>text_data_field_exists</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_text_data_field_value</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>extract_int_or_default</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;, int default_fallback=0)</td>
+</tr>
+<tr>
+  <td class="method">std::tuple&lt;bool, bool, bool, bool, int&gt;</td>
+  <td class="method"><b>extract_tmj_tile_flip_properties</b>(uint32_t tmj_tile_value=0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_text_slots</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_text_debug</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_debug</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_cursor_destinations_debug</b>(float line_thickness=2.0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_frames_debug</b>(float line_thickness=2.0)</td>
+</tr>
+<tr>
+  <td class="method">std::pair&lt;bool, std::pair&lt;std::vector&lt;std::string&gt;, std::vector&lt;std::string&gt;&gt;&gt;</td>
+  <td class="method"><b>compare_maps</b>(std::map&lt;std::string, std::string&gt; map1={}, std::map&lt;std::string, std::string&gt; map2={})</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>lookup_font_identifier_by_family</b>(std::string font_family=&quot;[unset-font_family]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_container_frame</b>(float x=0.0f, float y=0.0f, float x2=0.0f, float y2=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float line_thickness=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>multiline_text_draw_callback</b>(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>count_num_lines_will_render</b>(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string* text=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_font</b>(int font_size=-18)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_custom_font</b>(std::string font_family=&quot;[unset-font_family]&quot;, int font_size=-18)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasBuilder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasBuilder.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_html&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Polygon&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Polygon.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::CursorDestination&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/CursorDestination.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Frame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Frame.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Text&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Text.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::ElementFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/ElementFactory.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Polygons.q.yml">quintessence/AllegroFlare/Layouts/Polygons.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tmj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">layout_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">layout_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">polygons</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Polygon&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_polygons_behavior</b>(std::map&lt;std::string, std::tuple&lt;std::function&lt;void()&gt;, std::function&lt;void()&gt;, std::function&lt;void()&gt;&gt;&gt; behavior_map={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Polygon*</td>
+  <td class="method"><b>find_polygon_by_tmj_object_id</b>(int tmj_object_id=0)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Layouts::Elements::Polygon*</td>
+  <td class="method"><b>find_polygon_by_name</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>extract_int_or_default</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;, int default_fallback=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>extract_int_or_throw</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>extract_color_hex_or_default</b>(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key=&quot;[unset-key]&quot;, std::string default_fallback=&quot;#ffffffff&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_debug</b>(float line_thickness=2.0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_container_frame</b>(float x=0.0f, float y=0.0f, float x2=0.0f, float y2=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float line_thickness=0.0f)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;:&quot;:Layouts::CursorMaps::CursorDestination&quot;, &quot;headers&quot;=&gt;[&quot;Layouts/CursorMaps/CursorDestination.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Polygon&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Polygon.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::ElementFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/ElementFactory.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Text.q.yml">quintessence/AllegroFlare/Layouts/Text.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">tmj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">layout_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">layout_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">text_slots</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Layouts::Elements::Text&gt;</td>
+</tr>
+<tr>
+  <td class="property">text_data</td>
+  <td class="property">std::map&lt;std::string, std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">scale</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">_multiline_text_line_number</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_PRIM_MESH_ATLAS_FILENAME</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_layout_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_text_data</b>(std::map&lt;std::string, std::string&gt; text_data={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_debug</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>compare_maps</b>(std::map&lt;std::string, std::string&gt; map1={}, std::map&lt;std::string, std::string&gt; map2={})</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>lookup_font_identifier_by_family</b>(std::string font_family=&quot;[unset-font_family]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>multiline_text_draw_callback</b>(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>count_num_lines_will_render</b>(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string* text=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_font</b>(int font_size=-18)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_custom_font</b>(std::string font_family=&quot;[unset-font_family]&quot;, int font_size=-18)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasBuilder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasBuilder.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_html&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Text&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Text.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::ElementFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/ElementFactory.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/TileMeshWithText.q.yml">quintessence/AllegroFlare/Layouts/TileMeshWithText.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">tmj_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">prim_mesh_atlas_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">prim_mesh_atlas</td>
+  <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas</td>
+</tr>
+<tr>
+  <td class="property">tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::TileMesh</td>
+</tr>
+<tr>
+  <td class="property">text_slots</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Layouts::Elements::Text&gt;</td>
+</tr>
+<tr>
+  <td class="property">text_data</td>
+  <td class="property">std::map&lt;std::string, std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">scale</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">_multiline_text_line_number</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_PRIM_MESH_ATLAS_FILENAME</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>translate_alignment_string_to_float</b>(std::string alignment_string=&quot;[unset-alignment_string]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_effective_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_effective_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_text_data</b>(std::map&lt;std::string, std::string&gt; text_data={})</td>
+</tr>
+<tr>
+  <td class="method">std::tuple&lt;bool, bool, bool, bool, int&gt;</td>
+  <td class="method"><b>extract_tmj_tile_flip_properties</b>(uint32_t tmj_tile_value=0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>compare_maps</b>(std::map&lt;std::string, std::string&gt; map1={}, std::map&lt;std::string, std::string&gt; map2={})</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>lookup_font_identifier_by_family</b>(std::string font_family=&quot;[unset-font_family]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>multiline_text_draw_callback</b>(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>count_num_lines_will_render</b>(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string* text=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_font</b>(int font_size=-18)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_custom_font</b>(std::string font_family=&quot;[unset-font_family]&quot;, int font_size=-18)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::PrimMeshAtlas&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/PrimMeshAtlas.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileAtlasBuilder&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileAtlasBuilder.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_html&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Random&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Random.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Text&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Text.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Text&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Text.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::ElementFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/ElementFactory.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -46003,6 +47292,13 @@ table td
     "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
     "AllegroFlare/ImageProcessing/ImageReduction",
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",
@@ -46097,6 +47393,9 @@ table td
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
@@ -46162,6 +47461,9 @@ table td
   ],
   "AllegroFlare/TileMaps/TileAtlasBuilder": [
     "AllegroFlare/AssetStudio/Database",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/TileMaps/TileAtlasRepository",
@@ -46446,6 +47748,9 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/InputHints",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -46575,6 +47880,9 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
     "AllegroFlare/InputHints",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -46755,6 +48063,10 @@ table td
     "AllegroFlare/Elements/UI/IntSpinner",
     "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Layouts/Elements/Polygon",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -46940,6 +48252,14 @@ table td
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
     "AllegroFlare/InputHints",
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/Elements/Polygon",
+    "AllegroFlare/Layouts/Elements/Text",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionFX/Sparkles",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
@@ -46995,6 +48315,9 @@ table td
     "AllegroFlare/DesignSystems/DesignPillarDistributor",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Generators/PersonNameGenerator",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FlappingWithRandomness",
@@ -47505,6 +48828,9 @@ table td
     "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -47578,6 +48904,9 @@ table td
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
     "AllegroFlare/Elements/StoryboardPages/Text",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -47658,6 +48987,9 @@ table td
     "AllegroFlare/Elements/UI/SliderToggle",
     "AllegroFlare/InputDiagrams/KeyboardKey",
     "AllegroFlare/InputDiagrams/KeyboardKeyCombo",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
@@ -47826,6 +49158,10 @@ table td
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Screens/Subscreen/Panes/Base",
@@ -47984,7 +49320,10 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/Elements/MultiList"
+    "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText"
   ],
   "al_draw_filled_rounded_rectangle": [
     "AllegroFlare/Elements/DialogBoxFrame",
@@ -48056,6 +49395,9 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/Screens/TitleScreen"
   ],
   "AllegroFlare/TextFormatters/Basic": [
@@ -48222,6 +49564,10 @@ table td
   "al_color_name": [
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/TextMessageBubble",
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -48816,6 +50162,94 @@ table td
   "std/tuple<std/string, std/string, std/string>": [
     "AllegroFlare/InventoryIndexItem"
   ],
+  "AllegroFlare/Tiled/TMJDataLoader": [
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText"
+  ],
+  "AllegroFlare/Tiled/TMJObject": [
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Tiled/TMJDataLoader"
+  ],
+  "AllegroFlare/Layouts/Elements/CursorDestination": [
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layout"
+  ],
+  "AllegroFlare/Layouts/ElementFactory": [
+    "AllegroFlare/Layouts/CursorMap",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText"
+  ],
+  "AllegroFlare/Layouts/Elements/Text": [
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText"
+  ],
+  "AllegroFlare/Layouts/Elements/Polygon": [
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Polygons"
+  ],
+  "AllegroFlare/Layouts/Elements/Frame": [
+    "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layout"
+  ],
+  "AllegroFlare/Path2D": [
+    "AllegroFlare/Layouts/Elements/Polygon"
+  ],
+  ":Layouts/CursorMaps/CursorDestination": [
+    "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Polygons"
+  ],
+  "AllegroFlare/TileMaps/PrimMeshAtlas": [
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
+    "AllegroFlare/TileMaps/Basic2D",
+    "AllegroFlare/TileMaps/TileAtlasBuilder",
+    "AllegroFlare/TileMaps/TileAtlasRepository",
+    "AllegroFlare/TileMaps/TileAtlasRepositoryRecord",
+    "AllegroFlare/TileMaps/TileMesh",
+    "Tileo/MeshWithNormals",
+    "Tileo/TMJMeshLoader",
+    "Wicked/Entities/Basic2DFactory",
+    "WickedDemos/TileDemo",
+    "WickedDemos/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/TileMaps/TileMesh": [
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
+  ],
+  "AllegroFlare/Layouts/Text": [
+    "AllegroFlare/Layouts/TileMeshWithText"
+  ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Basic": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
@@ -49291,25 +50725,6 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
     "AllegroFlare/TileMaps/Basic2D"
   ],
-  "AllegroFlare/TileMaps/PrimMeshAtlas": [
-    "AllegroFlare/Prototypes/MindDive/TunnelMesh",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMesh",
-    "AllegroFlare/TileMaps/Basic2D",
-    "AllegroFlare/TileMaps/TileAtlasBuilder",
-    "AllegroFlare/TileMaps/TileAtlasRepository",
-    "AllegroFlare/TileMaps/TileAtlasRepositoryRecord",
-    "AllegroFlare/TileMaps/TileMesh",
-    "Tileo/MeshWithNormals",
-    "Tileo/TMJMeshLoader",
-    "Wicked/Entities/Basic2DFactory",
-    "WickedDemos/TileDemo",
-    "WickedDemos/TileMaps/Basic2D"
-  ],
   "AllegroFlare/TileMaps/PrimMesh": [
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
@@ -49427,12 +50842,6 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/EntityCollectionHelper",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
-  ],
-  "AllegroFlare/TileMaps/TileMesh": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory"
@@ -49915,9 +51324,6 @@ table td
   ],
   "ALLEGRO_INDEX_BUFFER": [
     "AllegroFlare/TileMaps/TileMesh"
-  ],
-  "AllegroFlare/Tiled/TMJObject": [
-    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
