@@ -168,7 +168,22 @@ namespace AllegroFlare
          //area += vertices[i].x * vertices[j].y - vertices[i].y * vertices[j].x;
       }
 
-      return area / 2.0;
+      return area * 0.5;
+   }
+
+
+   bool Path2D::infer_is_clockwise()
+   {
+      if (point.size() <= 2) return false;
+      return calculate_signed_area() < 0;
+   }
+
+
+   bool Path2D::infer_is_counterclockwise()
+   {
+      if (point.size() <= 2) return false;
+      return calculate_signed_area() > 0; // NOTE: Counterclockwise is typically negative, but out axes are reversed
+                                          // here in this game rendering context, where positive goes down
    }
 
 

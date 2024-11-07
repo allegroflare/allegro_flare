@@ -73,6 +73,8 @@ namespace AllegroFlare
       float height();
 
       float calculate_signed_area();
+      bool infer_is_clockwise();
+      bool infer_is_counterclockwise();
 
       // presentation
       // should be extracted to a Path2DRenderer
