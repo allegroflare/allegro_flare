@@ -104,7 +104,7 @@ class AllegroFlare_Layouts_LayoutTestWithInteraction
    : public AllegroFlare::Testing::WithInteractionFixture
 {
 public:
-AllegroFlare::Layouts::Elements::CursorDestination *current_cursor_destination;
+   AllegroFlare::Layouts::Elements::CursorDestination *current_cursor_destination;
    AllegroFlare::Elements::SelectionCursorBox selection_cursor_box;
 
    AllegroFlare_Layouts_LayoutTestWithInteraction()
