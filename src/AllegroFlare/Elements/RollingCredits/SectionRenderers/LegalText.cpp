@@ -30,7 +30,7 @@ LegalText::LegalText(AllegroFlare::FontBin* font_bin, std::string text, std::str
    , x(0.0f)
    , y(0.0f)
    , max_width(1920.0f/2.0f)
-   , font_name("Abel-Regular.ttf")
+   , font_name("ArchivoNarrow-Regular.ttf")
    , font_size(-42)
    , text_color(ALLEGRO_COLOR{1, 1, 1, 1})
 {

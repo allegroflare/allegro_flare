@@ -50,7 +50,8 @@ properties:
 
   - name: font_name
     type: std::string
-    init_with: '"Abel-Regular.ttf"'
+    xinit_with: '"Abel-Regular.ttf"'
+    init_with: '"ArchivoNarrow-Regular.ttf"'
     getter: true
     setter: true
 
