@@ -13,6 +13,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <cstdint>
+#include <functional>
 #include <map>
 #include <string>
 #include <tuple>
@@ -79,6 +80,7 @@ namespace AllegroFlare
          AllegroFlare::Layouts::Elements::CursorDestination* get_initial_cursor_destination();
          AllegroFlare::Layouts::Elements::CursorDestination* find_cursor_destination_by_tmj_object_id(int tmj_object_id=0);
          AllegroFlare::Layouts::Elements::CursorDestination* find_cursor_destination_by_name(std::string name="[unset-name]");
+         void set_cursor_destinations_behavior(std::map<std::string, std::tuple<std::function<void()>, std::function<void()>, std::function<void()>>> behavior_map={});
          AllegroFlare::Layouts::Elements::Frame* find_frame_by_tmj_object_id(int tmj_object_id=0);
          AllegroFlare::Layouts::Elements::Frame* find_frame_by_name(std::string name="[unset-name]");
          void set_text_data(std::map<std::string, std::string> text_data={});

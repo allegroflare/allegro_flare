@@ -474,6 +474,42 @@ AllegroFlare::Layouts::Elements::CursorDestination* Layout::find_cursor_destinat
    return nullptr;
 }
 
+void Layout::set_cursor_destinations_behavior(std::map<std::string, std::tuple<std::function<void()>, std::function<void()>, std::function<void()>>> behavior_map)
+{
+   for (auto &behavior_map_item : behavior_map)
+   {
+      const std::string &key = behavior_map_item.first;
+      std::tuple<std::function<void()>, std::function<void()>, std::function<void()>> &behaviors = 
+         behavior_map_item.second;
+
+      AllegroFlare::Layouts::Elements::CursorDestination* destination =
+         find_cursor_destination_by_name(key);
+
+      if (!destination)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Layouts::Layout::set_cursor_destinations_behavior",
+            "The cursor_destination named \"" + key + "\" does not exist."
+         );
+      }
+
+      destination->on_activation = std::get<0>(behaviors);
+      destination->on_focus = std::get<1>(behaviors);
+      destination->on_blur = std::get<2>(behaviors);
+
+      /*
+      if (std::get<1>(behaviors) || std::get<2>(behaviors))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Layouts::Layout::set_cursor_destinations_behavior",
+            "Setting the on_focus and on_blur (the second and third behaviors in the std:map) are not yet supported);
+         );
+      */
+      // TODO (add remaining behaviors here)
+   }
+   return;
+}
+
 AllegroFlare::Layouts::Elements::Frame* Layout::find_frame_by_tmj_object_id(int tmj_object_id)
 {
    // TODO: Test this
