@@ -156,6 +156,7 @@ AllegroFlare::Layouts::Elements::CursorDestination ElementFactory::build_cursor_
    AllegroFlare::Layouts::Elements::CursorDestination result;
 
    result.tmj_object_id = object->id;
+   result.name = object->name;
    result.x = object->x;
    result.y = object->y;
    result.width = object->width;
