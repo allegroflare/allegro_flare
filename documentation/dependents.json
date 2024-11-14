@@ -2553,7 +2553,8 @@
     "AllegroFlare/Elements/RollingCredits/Sections/ColumnWithLabels"
   ],
   "al_draw_line": [
-    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
+    "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
+    "AllegroFlare/Rulers"
   ],
   "std/max_element": [
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"

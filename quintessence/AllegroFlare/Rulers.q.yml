@@ -106,6 +106,7 @@ methods:
 
 
   - name: draw_vertical_ruler
+    static: true
     parameters:
       - name: x
         type: float
@@ -182,6 +183,7 @@ methods:
 
 
   - name: build_vertical_ruler
+    static: true
     type: std::vector<ALLEGRO_VERTEX>
     parameters:
       - name: x
@@ -258,6 +260,7 @@ methods:
 
 
   - name: draw_horizontal_ruler
+    static: true
     parameters:
       - name: x
         type: float
@@ -336,6 +339,7 @@ methods:
 
 
   - name: build_horizontal_ruler
+    static: true
     type: std::vector<ALLEGRO_VERTEX>
     parameters:
       - name: x
@@ -490,6 +494,142 @@ methods:
       return result.str();
 
 
+  - name: draw_crosshair
+    static: true
+    guards: [ al_get_target_bitmap() ]
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
+      - name: size
+        type: float
+        default_argument: 200.0f
+    body: |
+      float h_size = size * 0.5;
+      al_draw_line(x-h_size, y, x+h_size, y, color, 1.0);
+      al_draw_line(x, y-h_size, x, y+h_size, color, 1.0);
+    body_dependency_symbols:
+      - al_draw_line
+
+
+  - name: draw_crosshair_blue
+    static: true
+    guards: [ al_get_target_bitmap() ]
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{0, 0, 1, 1}
+      - name: size
+        type: float
+        default_argument: 100.0f
+    body: |
+      float h_size = size * 0.5;
+      al_draw_line(x-h_size, y, x+h_size, y, color, 1.0);
+      al_draw_line(x, y-h_size, x, y+h_size, color, 1.0);
+    body_dependency_symbols:
+      - al_draw_line
+
+
+  - name: draw_horizontal_crosshair
+    static: true
+    guards: [ al_get_target_bitmap() ]
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
+      - name: size_v
+        type: float
+        default_argument: 30.0f
+      - name: size_h
+        type: float
+        default_argument: 600.0f
+    body: |
+      float h_size_h = size_h * 0.5;
+      float h_size_v = size_v * 0.5;
+      al_draw_line(x-h_size_h, y, x+h_size_h, y, color, 1.0);
+      al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
+    body_dependency_symbols:
+      - al_draw_line
+
+
+  - name: draw_vertical_crosshair
+    static: true
+    guards: [ al_get_target_bitmap() ]
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
+      - name: size_v
+        type: float
+        default_argument: 600.0f
+      - name: size_h
+        type: float
+        default_argument: 30.0f
+    body: |
+      float h_size_h = size_h * 0.5;
+      float h_size_v = size_v * 0.5;
+      al_draw_line(x-h_size_h, y, x+h_size_h, y, color, 1.0);
+      al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
+    body_dependency_symbols:
+      - al_draw_line
+
+
+  - name: draw_rectangle
+    static: true
+    guards: [ al_get_target_bitmap() ]
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 160.0f
+      - name: height
+        type: float
+        default_argument: 90.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 0, 0, 1}
+      - name: size
+        type: float
+        default_argument: 100.0f
+    body: |
+      float h_size = size * 0.5;
+      al_draw_line(x-h_size, y,        x+width+h_size, y,               color, 1.0); // Top line
+      al_draw_line(x-h_size, y+height, x+width+h_size, y+height,        color, 1.0); // Bottom line
+      al_draw_line(x,        y-h_size, x,              y+height+h_size, color, 1.0); // Left line
+      al_draw_line(x+width,  y-h_size, x+width,        y+height+h_size, color, 1.0); // Right line
+    body_dependency_symbols:
+      - al_draw_line
+
+
   - name: obtain_small_hud_font
     private: true
     type: ALLEGRO_FONT*
@@ -507,6 +647,8 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_STATE
     headers: [ allegro5/allegro.h ]
+  - symbol: al_draw_line
+    headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_draw_filled_rectangle
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: al_is_primitives_addon_initialized

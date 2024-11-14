@@ -296,6 +296,80 @@ std::string Rulers::build_number(int number, int num_digits_filled)
    return result.str();
 }
 
+void Rulers::draw_crosshair(float x, float y, ALLEGRO_COLOR color, float size)
+{
+   if (!(al_get_target_bitmap()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Rulers::draw_crosshair]: error: guard \"al_get_target_bitmap()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_crosshair]: error: guard \"al_get_target_bitmap()\" not met");
+   }
+   float h_size = size * 0.5;
+   al_draw_line(x-h_size, y, x+h_size, y, color, 1.0);
+   al_draw_line(x, y-h_size, x, y+h_size, color, 1.0);
+}
+
+void Rulers::draw_crosshair_blue(float x, float y, ALLEGRO_COLOR color, float size)
+{
+   if (!(al_get_target_bitmap()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Rulers::draw_crosshair_blue]: error: guard \"al_get_target_bitmap()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_crosshair_blue]: error: guard \"al_get_target_bitmap()\" not met");
+   }
+   float h_size = size * 0.5;
+   al_draw_line(x-h_size, y, x+h_size, y, color, 1.0);
+   al_draw_line(x, y-h_size, x, y+h_size, color, 1.0);
+}
+
+void Rulers::draw_horizontal_crosshair(float x, float y, ALLEGRO_COLOR color, float size_v, float size_h)
+{
+   if (!(al_get_target_bitmap()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Rulers::draw_horizontal_crosshair]: error: guard \"al_get_target_bitmap()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_horizontal_crosshair]: error: guard \"al_get_target_bitmap()\" not met");
+   }
+   float h_size_h = size_h * 0.5;
+   float h_size_v = size_v * 0.5;
+   al_draw_line(x-h_size_h, y, x+h_size_h, y, color, 1.0);
+   al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
+}
+
+void Rulers::draw_vertical_crosshair(float x, float y, ALLEGRO_COLOR color, float size_v, float size_h)
+{
+   if (!(al_get_target_bitmap()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Rulers::draw_vertical_crosshair]: error: guard \"al_get_target_bitmap()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_vertical_crosshair]: error: guard \"al_get_target_bitmap()\" not met");
+   }
+   float h_size_h = size_h * 0.5;
+   float h_size_v = size_v * 0.5;
+   al_draw_line(x-h_size_h, y, x+h_size_h, y, color, 1.0);
+   al_draw_line(x, y-h_size_v, x, y+h_size_v, color, 1.0);
+}
+
+void Rulers::draw_rectangle(float x, float y, float width, float height, ALLEGRO_COLOR color, float size)
+{
+   if (!(al_get_target_bitmap()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Rulers::draw_rectangle]: error: guard \"al_get_target_bitmap()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_rectangle]: error: guard \"al_get_target_bitmap()\" not met");
+   }
+   float h_size = size * 0.5;
+   al_draw_line(x-h_size, y,        x+width+h_size, y,               color, 1.0); // Top line
+   al_draw_line(x-h_size, y+height, x+width+h_size, y+height,        color, 1.0); // Bottom line
+   al_draw_line(x,        y-h_size, x,              y+height+h_size, color, 1.0); // Left line
+   al_draw_line(x+width,  y-h_size, x+width,        y+height+h_size, color, 1.0); // Right line
+}
+
 ALLEGRO_FONT* Rulers::obtain_small_hud_font()
 {
    if (!(font_bin))
