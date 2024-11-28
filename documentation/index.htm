@@ -354,6 +354,10 @@ table td
   <li><a href="#quintessence/AllegroFlare/PhysicalInputDevices/Keyboard.q.yml">quintessence/AllegroFlare/PhysicalInputDevices/Keyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/AABB2D.q.yml">quintessence/AllegroFlare/Physics/AABB2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/AABB3D.q.yml">quintessence/AllegroFlare/Physics/AABB3D.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/CollisionMesh.q.yml">quintessence/AllegroFlare/Physics/CollisionMesh.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepInfo.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepInfo.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/CollisionMeshFace.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshFace.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/Int2D.q.yml">quintessence/AllegroFlare/Physics/Int2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
@@ -393,6 +397,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/EnterRoom.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/InitiateDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml">quintessence/AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/MeshFPS/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/MeshFPS/Entities/Base.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/MeshFPS/Screen.q.yml">quintessence/AllegroFlare/Prototypes/MeshFPS/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Hud/Hud.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Hud/Hud.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/Hypersync.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml">quintessence/AllegroFlare/Prototypes/MindDive/MindDive.q.yml</a></li>
@@ -24857,6 +24863,364 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/CollisionMesh.q.yml">quintessence/AllegroFlare/Physics/CollisionMesh.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">model</td>
+  <td class="property">AllegroFlare::Model3D*</td>
+</tr>
+<tr>
+  <td class="property">faces</td>
+  <td class="property">std::vector&lt;AllegroFlare::Physics::CollisionMeshFace&gt;</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_num_faces</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Physics::CollisionMeshFace&gt;&amp;</td>
+  <td class="method"><b>get_faces_ref</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw</b>(ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6})</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL</td>
+  <td class="method"><b>_create_vtx</b>(AllegroFlare::Vec3D vec={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6})</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshFace&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMeshFace.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_prim&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepInfo.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepInfo.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">time</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">entity</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">entity_position</td>
+  <td class="property">AllegroFlare::Vec3D*</td>
+</tr>
+<tr>
+  <td class="property">entity_velocity</td>
+  <td class="property">AllegroFlare::Vec3D*</td>
+</tr>
+<tr>
+  <td class="property">colliding_face</td>
+  <td class="property">AllegroFlare::Physics::CollisionMeshFace*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshFace&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMeshFace.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["There still remains an undiagnosed issue where an entity can get \"stuck\" in some geometry.  This is illustrated in one of the tests where there are multiple entities (a count of 160). Entities 79, 91, 100, 143, and 76 get stuck at a certain point. It could be related to an entity having near-zero velocity but being processed as if with zero velocity.", "At high entity counts (above 160 or so), lag can sometimes show up. There are options for optimization, btrees or threading (the collision calculations and stepping calculations can be computed in parallel) for example. More profiling would be good here. Also, profiling has not examined number of faces as a factor of performance.", "Performance could be improved by creating a fixed, contiguous entity table holding position and velocity, and having the collision_step_infos be on the same table, rather than being allocated each time.", "The STEPOUT_REVERSE_VELOCITY (the standard stepout strategy) will perform a stepout by reversing the velocity. The velocity could be low but the stepout could be greater, resulting in a breakout scenario if the entity is between two nearby faces.", "You may at one point want surfaces to be more reactive. For example if an entity collides with a face, a callback would occur to trigger some in-game action. The callback could include the position of the collision to facilitate effects like footprints in the snow. Also, some surfaces may have different degrees of friction, be more reflective, bouncy, or be more slippery."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">collision_mesh</td>
+  <td class="property">AllegroFlare::Physics::CollisionMesh*</td>
+</tr>
+<tr>
+  <td class="property">_entities</td>
+  <td class="property">std::vector&lt;std::tuple&lt;AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*&gt;&gt;*</td>
+</tr>
+<tr>
+  <td class="property">face_collision_stepout</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">stepout_strategy</td>
+  <td class="property">AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy</td>
+</tr>
+<tr>
+  <td class="property">redirect_strategy</td>
+  <td class="property">AllegroFlare::Physics::CollisionMeshCollisionStepper::RedirectStrategy</td>
+</tr>
+<tr>
+  <td class="property">apply_environmental_forces</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">air_drag</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">gravity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">collision_step_infos</td>
+  <td class="property">std::vector&lt;AllegroFlare::Physics::CollisionMeshCollisionStepInfo&gt;</td>
+</tr>
+<tr>
+  <td class="property">num_collision_steps</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_AIR_DRAG</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_GRAVITY</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>num_collision_step_infos</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>disable_applying_environmental_forces</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>enable_applying_environmental_forces</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_to_time_of_collision_and_react_to_collision</b>(AllegroFlare::Vec3D* position_=nullptr, AllegroFlare::Vec3D* velocity_=nullptr, float time_to_collision=0.0f, AllegroFlare::Vec3D* face_normal_=nullptr, float face_collision_stepout=0.001f, AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy stepout_strategy=StepoutStrategy::STEPOUT_REVERSE_VELOCITY, AllegroFlare::Physics::CollisionMeshCollisionStepper::RedirectStrategy redirect_strategy=RedirectStrategy::REDIRECT_SLIDE_ALONG_SURFACE)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>calculate_collisions</b>(float min_entity_velocity_magnitude=0.001f)</td>
+</tr>
+<tr>
+  <td class="method">std::tuple&lt;float, AllegroFlare::Physics::CollisionMeshFace*, void*&gt;</td>
+  <td class="method"><b>find_least_collision_time_and_colliding_entity_and_face</b>(float min_entity_velocity_magnitude=0.001f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>apply_gravity_and_air_drag</b>(float total_duration=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>step</b>(float total_duration=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>to_string</b>(AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy stepout_strategy=StepoutStrategy::STEPOUT_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>to_string</b>(AllegroFlare::Physics::CollisionMeshCollisionStepper::RedirectStrategy redirect_strategy=RedirectStrategy::REDIRECT_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_3d_line</b>(AllegroFlare::Vec3D start={}, AllegroFlare::Vec3D end={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{1, 0, 0, 1})</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;project&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;reflect&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshCollisionStepper::RedirectStrategy&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::isnan&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshFace&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMeshFace.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D::Ray&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful3D/Ray.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshCollisionStepInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMeshCollisionStepInfo.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/CollisionMeshFace.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshFace.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This class is triangulated the Face class is essentially a chashed version of the obj model data, that can be quickly used when calculating collisions. For the most part, the member variables should not be modified because they are all interdependent; they are left public for accessibility during physics calculations."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">av0</td>
+  <td class="property">AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL</td>
+</tr>
+<tr>
+  <td class="property">av1</td>
+  <td class="property">AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL</td>
+</tr>
+<tr>
+  <td class="property">av2</td>
+  <td class="property">AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL</td>
+</tr>
+<tr>
+  <td class="property">v0</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+<tr>
+  <td class="property">v1</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+<tr>
+  <td class="property">v2</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+<tr>
+  <td class="property">normal</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+<tr>
+  <td class="property">centroid</td>
+  <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+<tr>
+  <td class="property">parent_models_object_num</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">parent_models_face_num</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">AllegroFlare::Physics::CollisionMeshFace</td>
+  <td class="method"><b>build</b>(AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av0={}, AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av1={}, AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL av2={}, int parent_models_object_num=0, int parent_models_face_num=0, AllegroFlare::Vec3D normal={})</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>intersect</b>(AllegroFlare::Useful3D::Ray* r=nullptr, AllegroFlare::Useful3D::IntersectData* isectData=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw</b>(ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6})</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL</td>
+  <td class="method"><b>_create_vtx</b>(AllegroFlare::Vec3D vec={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6})</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D::Ray&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful3D/Ray.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D::IntersectData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful3D/IntersectData.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_prim&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::cross_product&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;dot_product&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshFace&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMeshFace.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Physics/Int2D.q.yml">quintessence/AllegroFlare/Physics/Int2D.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -28238,6 +28602,410 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::find_if&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/MeshFPS/Entities/Base.q.yml">quintessence/AllegroFlare/Prototypes/MeshFPS/Entities/Base.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">type</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">model</td>
+  <td class="property">AllegroFlare::Model3D*</td>
+</tr>
+<tr>
+  <td class="property">texture</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">placement</td>
+  <td class="property">AllegroFlare::Placement3D</td>
+</tr>
+<tr>
+  <td class="property">velocity</td>
+  <td class="property">AllegroFlare::Placement3D</td>
+</tr>
+<tr>
+  <td class="property">hit_box_2d</td>
+  <td class="property">AllegroFlare::Physics::AABB2D</td>
+</tr>
+<tr>
+  <td class="property">player_input_controller</td>
+  <td class="property">AllegroFlare::PlayerInputControllers::Base*</td>
+</tr>
+<tr>
+  <td class="property">box_corners</td>
+  <td class="property">std::vector&lt;AllegroFlare::Vec3D&gt;</td>
+</tr>
+<tr>
+  <td class="property">active</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">visible</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">affected_by_environmental_forces</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">collides_with_environment</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">collides_with_player</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">collides_with_enemies</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>has_player_input_controller</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_time_step</b>(double time_step=0.0f, double time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_tile_map_collision_stepper_step</b>(AllegroFlare::Physics::TileMapCollisionStepperStepResult* collision_step_result=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_enter_player_bbox_collision</b>(AllegroFlare::Prototypes::MeshFPS::Entities::Base* player_entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_exit_player_bbox_collision</b>(AllegroFlare::Prototypes::MeshFPS::Entities::Base* player_entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_enter_player_position_collision</b>(AllegroFlare::Prototypes::MeshFPS::Entities::Base* player_entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_exit_player_position_collision</b>(AllegroFlare::Prototypes::MeshFPS::Entities::Base* player_entity=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_player_inspect_or_use</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>collides</b>(AllegroFlare::Prototypes::MeshFPS::Entities::Base* other=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>calculate_box_corners</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_COLOR</td>
+  <td class="method"><b>build_color</b>(float opacity=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_line_list_vertices</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_triangle_list_vertices_for_faces</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SceneGraph::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SceneGraph/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperStepResult&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MeshFPS::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MeshFPS/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PlayerInputControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PlayerInputControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/MeshFPS/Screen.q.yml">quintessence/AllegroFlare/Prototypes/MeshFPS/Screen.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">event_emitter</td>
+  <td class="property">AllegroFlare::EventEmitter*</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">model_bin</td>
+  <td class="property">AllegroFlare::ModelBin*</td>
+</tr>
+<tr>
+  <td class="property">game_configuration</td>
+  <td class="property">AllegroFlare::GameConfigurations::Base*</td>
+</tr>
+<tr>
+  <td class="property">hud_camera</td>
+  <td class="property">AllegroFlare::Camera2D</td>
+</tr>
+<tr>
+  <td class="property">live_camera</td>
+  <td class="property">AllegroFlare::Camera3D</td>
+</tr>
+<tr>
+  <td class="property">entities</td>
+  <td class="property">std::vector&lt;AllegroFlare::Prototypes::MeshFPS::Entities::Base*&gt;*</td>
+</tr>
+<tr>
+  <td class="property">collision_mesh</td>
+  <td class="property">AllegroFlare::Physics::CollisionMesh*</td>
+</tr>
+<tr>
+  <td class="property">visual_mesh</td>
+  <td class="property">AllegroFlare::Model3D*</td>
+</tr>
+<tr>
+  <td class="property">gems_collected</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">collision_observer</td>
+  <td class="property">AllegroFlare::CollisionObservers::Simple</td>
+</tr>
+<tr>
+  <td class="property">on_finished_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Prototypes::MeshFPS::Screen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_finished_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_activate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_deactivate</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Prototypes::MeshFPS::Entities::Base*</td>
+  <td class="method"><b>find_0th_entity</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>create_and_set_player_input_controller_for_0th_entity</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>call_on_finished_callback_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>game_event_func</b>(AllegroFlare::GameEvent* game_event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_update_func</b>(double time_now=0.0f, double delta_time=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_render_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_down_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_up_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_up_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_down_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_axis_change_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_FONT*</td>
+  <td class="method"><b>obtain_hud_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MeshFPS::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MeshFPS/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameConfigurations::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameConfigurations/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Game::Configurations::Main&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Game/Configurations/Main.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Gameplay::Level&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Gameplay/Level.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameEvent&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameEvent.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshCollisionStepper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMeshCollisionStepper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::get&quot;, &quot;headers&quot;=&gt;[&quot;tuple&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::MeshFPS::Entities::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/MeshFPS/Entities/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Standard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Standard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Standard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Standard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RouteEventDatas::ActivateScreenByIdentifier&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventNames&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Gameplay&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Gameplay.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PlayerInputControllers::Generic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PlayerInputControllers/Generic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::CollisionObservers::Simple&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/CollisionObservers/Simple.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -47235,6 +48003,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -47330,6 +48099,7 @@ table td
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
@@ -47439,6 +48209,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
@@ -47680,6 +48451,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -47803,6 +48575,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -47926,6 +48699,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
@@ -47979,6 +48753,7 @@ table td
     "AllegroFlare/InputHints",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -48101,6 +48876,7 @@ table td
     "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/ProfilerRenderer",
@@ -48122,6 +48898,7 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
@@ -48203,6 +48980,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -48225,6 +49003,7 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -48293,10 +49072,14 @@ table td
     "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
@@ -48431,6 +49214,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base",
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -48459,6 +49243,8 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
@@ -48513,6 +49299,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
@@ -48593,6 +49380,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -48961,6 +49749,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Routers/Base",
@@ -49238,6 +50027,7 @@ table td
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
     "AllegroFlare/PlayerInputControllers/Base",
     "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -49266,6 +50056,7 @@ table td
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
     "AllegroFlare/PlayerInputControllers/Base",
     "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -49481,10 +50272,15 @@ table td
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
@@ -49499,6 +50295,7 @@ table td
   "ALLEGRO_VERTEX": [
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
   ],
@@ -49956,6 +50753,7 @@ table td
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
@@ -50016,7 +50814,10 @@ table td
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
-    "AllegroFlare/Prototypes/CubeShooter/Entity"
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
   "AllegroFlare/GraphicsPipelines/Basic3D/Entity": [
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene"
@@ -50032,6 +50833,7 @@ table td
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/MultitextureModel3D": [
@@ -50466,10 +51268,64 @@ table td
   "AllegroFlare/Physics/AABB2D": [
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/Physics/AABB3D": [
     "AllegroFlare/Physics/AABB3D"
+  ],
+  "AllegroFlare/Physics/CollisionMeshFace": [
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
+  "al_draw_prim": [
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
+  "project": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "reflect": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper/StepoutStrategy": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper/RedirectStrategy": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "std/isnan": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/Physics/CollisionMesh": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Useful3D/Ray": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshFace",
+    "AllegroFlare/Useful3D/Triangle",
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepInfo": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/Useful3D/IntersectData": [
+    "AllegroFlare/Physics/CollisionMeshFace",
+    "AllegroFlare/Useful3D/Triangle",
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/cross_product": [
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
+  "dot_product": [
+    "AllegroFlare/Physics/CollisionMeshFace"
   ],
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
@@ -50523,6 +51379,7 @@ table td
   ],
   "AllegroFlare/PlayerInputControllers/Base": [
     "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Screens/Gameplay"
   ],
   "std/cos": [
@@ -50696,6 +51553,55 @@ table td
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/MeshFPS/Entities/Base": [
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Prototypes/MeshFPS/Screen": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/GameConfigurations/Base": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Game/Configurations/Main": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Gameplay/Level": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "std/get": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Routers/Standard": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Subscreen/Screen"
+  ],
+  "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Routers/Standard"
+  ],
+  "AllegroFlare/PlayerInputControllers/Generic": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/CollisionObservers/Simple": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
   "AllegroFlare/Elements/Stopwatch": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
@@ -50732,13 +51638,6 @@ table td
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
-  ],
-  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/MindDive/Hypersync": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
@@ -50953,12 +51852,6 @@ table td
   "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
-  "AllegroFlare/Routers/Standard": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Subscreen/Screen"
-  ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "Tileo/TMJMeshLoader"
@@ -51010,9 +51903,6 @@ table td
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Base",
-    "AllegroFlare/Routers/Standard"
-  ],
-  "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/Screens/Storyboard": [
@@ -51370,14 +52260,6 @@ table td
     "Wicked/Entities/Zones/Rectangle3D"
   ],
   "AllegroFlare/Useful3D/build_vertex": [
-    "AllegroFlare/Useful3D/Triangle"
-  ],
-  "AllegroFlare/Useful3D/Ray": [
-    "AllegroFlare/Useful3D/Triangle",
-    "AllegroFlare/Useful3D/Triangle"
-  ],
-  "AllegroFlare/Useful3D/IntersectData": [
-    "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Bin": [

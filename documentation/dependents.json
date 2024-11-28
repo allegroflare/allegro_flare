@@ -70,6 +70,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/FixedRoom2D/EntityFactory",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -165,6 +166,7 @@
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
@@ -274,6 +276,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshFactory",
@@ -515,6 +518,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/EntityFactory",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -638,6 +642,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/RoomFactory",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -761,6 +766,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
@@ -814,6 +820,7 @@
     "AllegroFlare/InputHints",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -936,6 +943,7 @@
     "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/ProfilerRenderer",
@@ -957,6 +965,7 @@
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/Elements/WorldMapViewer",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
@@ -1038,6 +1047,7 @@
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
@@ -1060,6 +1070,7 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
@@ -1128,10 +1139,14 @@
     "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Multiply",
     "AllegroFlare/Prototypes/FixedRoom2D/Cursor",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
@@ -1266,6 +1281,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base",
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -1294,6 +1310,8 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/EventEmitter",
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
@@ -1348,6 +1366,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/FixedRoom2D",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
@@ -1428,6 +1447,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
@@ -1796,6 +1816,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Runner",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/FixedRoom2D/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Routers/Base",
@@ -2073,6 +2094,7 @@
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
     "AllegroFlare/PlayerInputControllers/Base",
     "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -2101,6 +2123,7 @@
     "AllegroFlare/PhysicalInputDeviceToVirtualControllerMapping",
     "AllegroFlare/PlayerInputControllers/Base",
     "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
@@ -2316,10 +2339,15 @@
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
     "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
     "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
@@ -2334,6 +2362,7 @@
   "ALLEGRO_VERTEX": [
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
   ],
@@ -2791,6 +2820,7 @@
   ],
   "AllegroFlare/Screens/Gameplay": [
     "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
@@ -2851,7 +2881,10 @@
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/StaticModel3D",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer",
-    "AllegroFlare/Prototypes/CubeShooter/Entity"
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Prototypes/CubeShooter/Entity",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
   "AllegroFlare/GraphicsPipelines/Basic3D/Entity": [
     "AllegroFlare/GraphicsPipelines/Basic3D/Scene"
@@ -2867,6 +2900,7 @@
   ],
   "AllegroFlare/SceneGraph/Entities/Base": [
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/DynamicModel3D",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/SceneGraph/EntityPool"
   ],
   "AllegroFlare/MultitextureModel3D": [
@@ -3301,10 +3335,64 @@
   "AllegroFlare/Physics/AABB2D": [
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/Physics/AABB3D": [
     "AllegroFlare/Physics/AABB3D"
+  ],
+  "AllegroFlare/Physics/CollisionMeshFace": [
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
+  "al_draw_prim": [
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
+    "AllegroFlare/Physics/CollisionMesh",
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
+  "project": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "reflect": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper/StepoutStrategy": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper/RedirectStrategy": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "std/isnan": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/Physics/CollisionMesh": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Useful3D/Ray": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshFace",
+    "AllegroFlare/Useful3D/Triangle",
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepInfo": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/Useful3D/IntersectData": [
+    "AllegroFlare/Physics/CollisionMeshFace",
+    "AllegroFlare/Useful3D/Triangle",
+    "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/cross_product": [
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
+  "dot_product": [
+    "AllegroFlare/Physics/CollisionMeshFace"
   ],
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
@@ -3358,6 +3446,7 @@
   ],
   "AllegroFlare/PlayerInputControllers/Base": [
     "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Screens/Gameplay"
   ],
   "std/cos": [
@@ -3531,6 +3620,55 @@
   "AllegroFlare/Prototypes/FixedRoom2D/ScriptEventDatas/CollectEvidence": [
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner"
   ],
+  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/Prototypes/MeshFPS/Entities/Base": [
+    "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Prototypes/MeshFPS/Screen": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/GameConfigurations/Base": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Game/Configurations/Main": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Gameplay/Level": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "std/get": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Routers/Standard": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Routers/Standard",
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/Subscreen/Screen"
+  ],
+  "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Routers/Standard"
+  ],
+  "AllegroFlare/PlayerInputControllers/Generic": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/CollisionObservers/Simple": [
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
   "AllegroFlare/Elements/Stopwatch": [
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/MindDive",
@@ -3567,13 +3705,6 @@
   ],
   "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver": [
     "AllegroFlare/Prototypes/MindDive/MindDive"
-  ],
-  "AllegroFlare/Physics/TileMapCollisionStepperStepResult": [
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/MindDive/TunnelMeshSurferCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Prototypes/TileDrive/TerrainMeshDriverCollisionResolver",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Prototypes/MindDive/Hypersync": [
     "AllegroFlare/Prototypes/MindDive/MindDive",
@@ -3788,12 +3919,6 @@
   "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
-  "AllegroFlare/Routers/Standard": [
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Routers/Standard",
-    "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/Subscreen/Screen"
-  ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "Tileo/TMJMeshLoader"
@@ -3845,9 +3970,6 @@
   ],
   "AllegroFlare/Routers/Base": [
     "AllegroFlare/Routers/Base",
-    "AllegroFlare/Routers/Standard"
-  ],
-  "AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier": [
     "AllegroFlare/Routers/Standard"
   ],
   "AllegroFlare/Screens/Storyboard": [
@@ -4205,14 +4327,6 @@
     "Wicked/Entities/Zones/Rectangle3D"
   ],
   "AllegroFlare/Useful3D/build_vertex": [
-    "AllegroFlare/Useful3D/Triangle"
-  ],
-  "AllegroFlare/Useful3D/Ray": [
-    "AllegroFlare/Useful3D/Triangle",
-    "AllegroFlare/Useful3D/Triangle"
-  ],
-  "AllegroFlare/Useful3D/IntersectData": [
-    "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Bin": [

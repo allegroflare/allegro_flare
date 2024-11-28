@@ -1,0 +1,506 @@
+parent_classes:
+
+
+  - class: AllegroFlare::SceneGraph::Entities::Base
+    scope: public
+    init_with: AllegroFlare::Prototypes::MeshFPS::Entities::Base::TYPE
+
+
+properties:
+
+
+  - name: type
+    type: std::string
+    init_with: AllegroFlare::Prototypes::MeshFPS::Entities::Base::TYPE
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: model
+    type: AllegroFlare::Model3D*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: texture
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: placement
+    type: AllegroFlare::Placement3D
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+    getter_ref: true
+
+  - name: velocity
+    type: AllegroFlare::Placement3D
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+    getter_ref: true
+
+  - name: hit_box_2d
+    type: AllegroFlare::Physics::AABB2D
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+    getter_ref: true
+
+  - name: player_input_controller
+    type: AllegroFlare::PlayerInputControllers::Base*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+    getter_ref: true
+
+  - name: box_corners
+    type: std::vector<AllegroFlare::Vec3D>
+    init_with: '{}'
+    exposed: true
+
+  - name: active
+    type: bool
+    init_with: true
+    exposed: true
+
+  - name: visible
+    type: bool
+    init_with: true
+    exposed: true
+
+  - name: affected_by_environmental_forces
+    type: bool
+    init_with: true
+    exposed: true
+
+  - name: collides_with_environment
+    type: bool
+    init_with: true
+    exposed: true
+
+  - name: collides_with_player
+    type: bool
+    init_with: false
+    exposed: true
+
+  - name: collides_with_enemies
+    type: bool
+    init_with: false
+    exposed: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Prototypes/MeshFPS/Entities/Base"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: has_player_input_controller
+    type: bool
+    body: |
+      return (player_input_controller != nullptr);
+
+
+  - name: destroy
+    virtual: true
+    body: |
+      // TODO: Override in the derived class
+      return;
+
+
+  - name: on_time_step
+    virtual: true
+    parameters:
+      - name: time_step
+        type: double
+        default_argument: 0.0f
+      - name: time_now
+        type: double
+        default_argument: 0.0f
+    body: |
+      // TODO: Override in the derived class
+      return;
+
+
+  - name: on_tile_map_collision_stepper_step
+    virtual: true
+    parameters:
+      - name: collision_step_result
+        type: AllegroFlare::Physics::TileMapCollisionStepperStepResult*
+        default_argument: nullptr
+    body: |
+      return;
+
+
+  - name: on_enter_player_bbox_collision
+    virtual: true
+    parameters:
+      - name: player_entity
+        type: AllegroFlare::Prototypes::MeshFPS::Entities::Base*
+        default_argument: nullptr
+    body: |
+      // To use, tag the entity with "AllegroFlare::Prototypes::MeshFPS::EntityFlags::COLLIDES_WITH_PLAYER", then
+      // override this method in the derived class
+      return;
+
+
+  - name: on_exit_player_bbox_collision
+    virtual: true
+    parameters:
+      - name: player_entity
+        type: AllegroFlare::Prototypes::MeshFPS::Entities::Base*
+        default_argument: nullptr
+    body: |
+      // To use, tag the entity with "AllegroFlare::Prototypes::MeshFPS::EntityFlags::COLLIDES_WITH_PLAYER", then
+      // override this method in the derived class
+      return;
+
+
+  - name: on_enter_player_position_collision
+    virtual: true
+    parameters:
+      - name: player_entity
+        type: AllegroFlare::Prototypes::MeshFPS::Entities::Base*
+        default_argument: nullptr
+    body: |
+      // To use, tag the entity with "AllegroFlare::Prototypes::MeshFPS::EntityFlags::COLLIDES_WITH_PLAYER", then
+      // override this method in the derived class
+      return;
+
+
+  - name: on_exit_player_position_collision
+    virtual: true
+    parameters:
+      - name: player_entity
+        type: AllegroFlare::Prototypes::MeshFPS::Entities::Base*
+        default_argument: nullptr
+    body: |
+      // To use, tag the entity with "AllegroFlare::Prototypes::MeshFPS::EntityFlags::COLLIDES_WITH_PLAYER", then
+      // override this method in the derived class
+      return;
+
+
+  - name: on_player_inspect_or_use
+    virtual: true
+    body: |
+      // Called on inspection if this entity has
+      // AllegroFlare::Prototypes::MeshFPS::EntityFlags::PLAYER_CAN_INSPECT_OR_USE
+      // TODO: Override in the base class
+      return;
+
+
+  - name: collides
+    type: bool
+    parameters:
+      - name: other
+        type: AllegroFlare::Prototypes::MeshFPS::Entities::Base*
+        default_argument: nullptr
+    guards: [ other ]
+    body: |
+      // TODO: Test
+      AllegroFlare::Vec3D &pos1 = placement.position;
+      AllegroFlare::Vec3D &size1 = placement.size;
+      AllegroFlare::Vec3D &pos2 = other->placement.position;
+      AllegroFlare::Vec3D &size2 = other->placement.size;
+      return !(pos1.x >= pos2.x + size2.x || pos1.x + size1.x <= pos2.x ||
+               pos1.y >= pos2.y + size2.y || pos1.y + size1.y <= pos2.y ||
+               pos1.z >= pos2.z + size2.z || pos1.z + size1.z <= pos2.z);
+
+
+
+  - name: calculate_box_corners
+    body: |
+      using AllegroFlare::Vec3D;
+
+      box_corners.clear();
+      box_corners.resize(8);
+
+      float size_x = placement.size.x;
+      float size_y = placement.size.y;
+      float size_z = placement.size.z;
+      float pos_x = placement.position.x;
+      float pos_y = placement.position.y;
+      float pos_z = placement.position.z;
+       
+      // Half sizes
+      // TODO: Factor out the hsizes
+      float hx = size_x;
+      float hy = size_y;
+      float hz = size_z;
+
+      // Front face corners
+      //box_corners[0] = Vec3D(pos_x - hx, pos_y + hy, pos_z - hz);  // top-front-left
+      //box_corners[1] = Vec3D(pos_x + hx, pos_y + hy, pos_z - hz);  // top-front-right
+      //box_corners[2] = Vec3D(pos_x + hx, pos_y - hy, pos_z - hz);  // bottom-front-right
+      //box_corners[3] = Vec3D(pos_x - hx, pos_y - hy, pos_z - hz);  // bottom-front-left
+
+      // Back face corners
+      //box_corners[4] = Vec3D(pos_x - hx, pos_y + hy, pos_z + hz);  // top-back-left
+      //box_corners[5] = Vec3D(pos_x + hx, pos_y + hy, pos_z + hz);  // top-back-right
+      //box_corners[6] = Vec3D(pos_x + hx, pos_y - hy, pos_z + hz);  // bottom-back-right
+      //box_corners[7] = Vec3D(pos_x - hx, pos_y - hy, pos_z + hz);  // bottom-back-left
+
+      // Front face corners
+      box_corners[0] = Vec3D(pos_x, pos_y + hy, pos_z);  // top-front-left
+      box_corners[1] = Vec3D(pos_x + hx, pos_y + hy, pos_z);  // top-front-right
+      box_corners[2] = Vec3D(pos_x + hx, pos_y, pos_z);  // bottom-front-right
+      box_corners[3] = Vec3D(pos_x, pos_y, pos_z);  // bottom-front-left
+
+      // Back face corners
+      box_corners[4] = Vec3D(pos_x, pos_y + hy, pos_z + hz);  // top-back-left
+      box_corners[5] = Vec3D(pos_x + hx, pos_y + hy, pos_z + hz);  // top-back-right
+      box_corners[6] = Vec3D(pos_x + hx, pos_y, pos_z + hz);  // bottom-back-right
+      box_corners[7] = Vec3D(pos_x, pos_y, pos_z + hz);  // bottom-back-left
+
+      return;
+
+
+  - name: build_color
+    type: ALLEGRO_COLOR
+    parameters:
+      - name: opacity
+        type: float
+        default_argument: 1.0f
+    body: |
+      ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0};
+      return ALLEGRO_COLOR{color.r*opacity, color.g*opacity, color.b*opacity, color.a*opacity};
+
+
+  - name: build_line_list_vertices
+    type: std::vector<ALLEGRO_VERTEX>
+    body: |
+      ALLEGRO_COLOR color = build_color(1.0);
+      calculate_box_corners();
+      std::vector<ALLEGRO_VERTEX> vertices(24); // 12 lines, 2 vertices per line
+
+      // Front face edges
+      vertices[0].x = box_corners[0].x;
+      vertices[0].y = box_corners[0].y;
+      vertices[0].z = box_corners[0].z;
+      vertices[0].color = color;
+
+      vertices[1].x = box_corners[1].x;
+      vertices[1].y = box_corners[1].y;
+      vertices[1].z = box_corners[1].z;
+      vertices[1].color = color;
+
+      vertices[2].x = box_corners[1].x;
+      vertices[2].y = box_corners[1].y;
+      vertices[2].z = box_corners[1].z;
+      vertices[2].color = color;
+
+      vertices[3].x = box_corners[2].x;
+      vertices[3].y = box_corners[2].y;
+      vertices[3].z = box_corners[2].z;
+      vertices[3].color = color;
+
+      vertices[4].x = box_corners[2].x;
+      vertices[4].y = box_corners[2].y;
+      vertices[4].z = box_corners[2].z;
+      vertices[4].color = color;
+
+      vertices[5].x = box_corners[3].x;
+      vertices[5].y = box_corners[3].y;
+      vertices[5].z = box_corners[3].z;
+      vertices[5].color = color;
+
+      vertices[6].x = box_corners[3].x;
+      vertices[6].y = box_corners[3].y;
+      vertices[6].z = box_corners[3].z;
+      vertices[6].color = color;
+
+      vertices[7].x = box_corners[0].x;
+      vertices[7].y = box_corners[0].y;
+      vertices[7].z = box_corners[0].z;
+      vertices[7].color = color;
+
+      // Back face edges
+      vertices[8].x = box_corners[4].x;
+      vertices[8].y = box_corners[4].y;
+      vertices[8].z = box_corners[4].z;
+      vertices[8].color = color;
+
+      vertices[9].x = box_corners[5].x;
+      vertices[9].y = box_corners[5].y;
+      vertices[9].z = box_corners[5].z;
+      vertices[9].color = color;
+
+      vertices[10].x = box_corners[5].x;
+      vertices[10].y = box_corners[5].y;
+      vertices[10].z = box_corners[5].z;
+      vertices[10].color = color;
+
+      vertices[11].x = box_corners[6].x;
+      vertices[11].y = box_corners[6].y;
+      vertices[11].z = box_corners[6].z;
+      vertices[11].color = color;
+
+      vertices[12].x = box_corners[6].x;
+      vertices[12].y = box_corners[6].y;
+      vertices[12].z = box_corners[6].z;
+      vertices[12].color = color;
+
+      vertices[13].x = box_corners[7].x;
+      vertices[13].y = box_corners[7].y;
+      vertices[13].z = box_corners[7].z;
+      vertices[13].color = color;
+
+      vertices[14].x = box_corners[7].x;
+      vertices[14].y = box_corners[7].y;
+      vertices[14].z = box_corners[7].z;
+      vertices[14].color = color;
+
+      vertices[15].x = box_corners[4].x;
+      vertices[15].y = box_corners[4].y;
+      vertices[15].z = box_corners[4].z;
+      vertices[15].color = color;
+
+      // Connecting edges
+      vertices[16].x = box_corners[0].x;
+      vertices[16].y = box_corners[0].y;
+      vertices[16].z = box_corners[0].z;
+      vertices[16].color = color;
+
+      vertices[17].x = box_corners[4].x;
+      vertices[17].y = box_corners[4].y;
+      vertices[17].z = box_corners[4].z;
+      vertices[17].color = color;
+
+      vertices[18].x = box_corners[1].x;
+      vertices[18].y = box_corners[1].y;
+      vertices[18].z = box_corners[1].z;
+      vertices[18].color = color;
+
+      vertices[19].x = box_corners[5].x;
+      vertices[19].y = box_corners[5].y;
+      vertices[19].z = box_corners[5].z;
+      vertices[19].color = color;
+
+      vertices[20].x = box_corners[2].x;
+      vertices[20].y = box_corners[2].y;
+      vertices[20].z = box_corners[2].z;
+      vertices[20].color = color;
+
+      vertices[21].x = box_corners[6].x;
+      vertices[21].y = box_corners[6].y;
+      vertices[21].z = box_corners[6].z;
+      vertices[21].color = color;
+
+      vertices[22].x = box_corners[3].x;
+      vertices[22].y = box_corners[3].y;
+      vertices[22].z = box_corners[3].z;
+      vertices[22].color = color;
+
+      vertices[23].x = box_corners[7].x;
+      vertices[23].y = box_corners[7].y;
+      vertices[23].z = box_corners[7].z;
+      vertices[23].color = color;
+
+      return vertices;
+
+
+  - name: build_triangle_list_vertices_for_faces
+    type: std::vector<ALLEGRO_VERTEX>
+    body: |
+      ALLEGRO_COLOR color = build_color(0.08);
+      std::vector<ALLEGRO_VERTEX> vertices(36); // 12 triangles, 3 vertices per triangle
+
+      // Front face (2 triangles)
+      vertices[0] = ALLEGRO_VERTEX{box_corners[0].x, box_corners[0].y, box_corners[0].z, 0, 0, color};
+      vertices[1] = ALLEGRO_VERTEX{box_corners[1].x, box_corners[1].y, box_corners[1].z, 0, 0, color};
+      vertices[2] = ALLEGRO_VERTEX{box_corners[2].x, box_corners[2].y, box_corners[2].z, 0, 0, color};
+
+      vertices[3] = ALLEGRO_VERTEX{box_corners[2].x, box_corners[2].y, box_corners[2].z, 0, 0, color};
+      vertices[4] = ALLEGRO_VERTEX{box_corners[3].x, box_corners[3].y, box_corners[3].z, 0, 0, color};
+      vertices[5] = ALLEGRO_VERTEX{box_corners[0].x, box_corners[0].y, box_corners[0].z, 0, 0, color};
+
+      // Back face (2 triangles)
+      vertices[6] = ALLEGRO_VERTEX{box_corners[5].x, box_corners[5].y, box_corners[5].z, 0, 0, color};
+      vertices[7] = ALLEGRO_VERTEX{box_corners[4].x, box_corners[4].y, box_corners[4].z, 0, 0, color};
+      vertices[8] = ALLEGRO_VERTEX{box_corners[7].x, box_corners[7].y, box_corners[7].z, 0, 0, color};
+
+      vertices[9] = ALLEGRO_VERTEX{box_corners[7].x, box_corners[7].y, box_corners[7].z, 0, 0, color};
+      vertices[10] = ALLEGRO_VERTEX{box_corners[6].x, box_corners[6].y, box_corners[6].z, 0, 0, color};
+      vertices[11] = ALLEGRO_VERTEX{box_corners[5].x, box_corners[5].y, box_corners[5].z, 0, 0, color};
+
+      // Left face (2 triangles)
+      vertices[12] = ALLEGRO_VERTEX{box_corners[4].x, box_corners[4].y, box_corners[4].z, 0, 0, color};
+      vertices[13] = ALLEGRO_VERTEX{box_corners[0].x, box_corners[0].y, box_corners[0].z, 0, 0, color};
+      vertices[14] = ALLEGRO_VERTEX{box_corners[3].x, box_corners[3].y, box_corners[3].z, 0, 0, color};
+
+      vertices[15] = ALLEGRO_VERTEX{box_corners[3].x, box_corners[3].y, box_corners[3].z, 0, 0, color};
+      vertices[16] = ALLEGRO_VERTEX{box_corners[7].x, box_corners[7].y, box_corners[7].z, 0, 0, color};
+      vertices[17] = ALLEGRO_VERTEX{box_corners[4].x, box_corners[4].y, box_corners[4].z, 0, 0, color};
+
+      // Right face (2 triangles)
+      vertices[18] = ALLEGRO_VERTEX{box_corners[1].x, box_corners[1].y, box_corners[1].z, 0, 0, color};
+      vertices[19] = ALLEGRO_VERTEX{box_corners[5].x, box_corners[5].y, box_corners[5].z, 0, 0, color};
+      vertices[20] = ALLEGRO_VERTEX{box_corners[6].x, box_corners[6].y, box_corners[6].z, 0, 0, color};
+
+      vertices[21] = ALLEGRO_VERTEX{box_corners[6].x, box_corners[6].y, box_corners[6].z, 0, 0, color};
+      vertices[22] = ALLEGRO_VERTEX{box_corners[2].x, box_corners[2].y, box_corners[2].z, 0, 0, color};
+      vertices[23] = ALLEGRO_VERTEX{box_corners[1].x, box_corners[1].y, box_corners[1].z, 0, 0, color};
+
+      // Top face (2 triangles)
+      vertices[24] = ALLEGRO_VERTEX{box_corners[4].x, box_corners[4].y, box_corners[4].z, 0, 0, color};
+      vertices[25] = ALLEGRO_VERTEX{box_corners[5].x, box_corners[5].y, box_corners[5].z, 0, 0, color};
+      vertices[26] = ALLEGRO_VERTEX{box_corners[1].x, box_corners[1].y, box_corners[1].z, 0, 0, color};
+
+      vertices[27] = ALLEGRO_VERTEX{box_corners[1].x, box_corners[1].y, box_corners[1].z, 0, 0, color};
+      vertices[28] = ALLEGRO_VERTEX{box_corners[0].x, box_corners[0].y, box_corners[0].z, 0, 0, color};
+      vertices[29] = ALLEGRO_VERTEX{box_corners[4].x, box_corners[4].y, box_corners[4].z, 0, 0, color};
+
+      // Bottom face (2 triangles)
+      vertices[30] = ALLEGRO_VERTEX{box_corners[3].x, box_corners[3].y, box_corners[3].z, 0, 0, color};
+      vertices[31] = ALLEGRO_VERTEX{box_corners[2].x, box_corners[2].y, box_corners[2].z, 0, 0, color};
+      vertices[32] = ALLEGRO_VERTEX{box_corners[6].x, box_corners[6].y, box_corners[6].z, 0, 0, color};
+
+      vertices[33] = ALLEGRO_VERTEX{box_corners[6].x, box_corners[6].y, box_corners[6].z, 0, 0, color};
+      vertices[34] = ALLEGRO_VERTEX{box_corners[7].x, box_corners[7].y, box_corners[7].z, 0, 0, color};
+      vertices[35] = ALLEGRO_VERTEX{box_corners[3].x, box_corners[3].y, box_corners[3].z, 0, 0, color};
+
+      return vertices;
+
+
+
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::SceneGraph::Entities::Base
+    headers: [ AllegroFlare/SceneGraph/Entities/Base.hpp ]
+  - symbol: AllegroFlare::Model3D
+    headers: [ AllegroFlare/Model3D.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: AllegroFlare::Physics::AABB2D
+    headers: [ AllegroFlare/Physics/AABB2D.hpp ]
+  - symbol: AllegroFlare::Physics::TileMapCollisionStepperStepResult
+    headers: [ AllegroFlare/Physics/TileMapCollisionStepperStepResult.hpp ]
+  - symbol: AllegroFlare::Prototypes::MeshFPS::Entities::Base
+    headers: [ AllegroFlare/Prototypes/MeshFPS/Entities/Base.hpp ]
+  - symbol: AllegroFlare::PlayerInputControllers::Base
+    headers: [ AllegroFlare/PlayerInputControllers/Base.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_VERTEX
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+
+

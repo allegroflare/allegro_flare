@@ -1,0 +1,224 @@
+properties:
+
+
+  - name: av0
+    type: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+    init_with: '{}'
+    exposed: true
+
+  - name: av1
+    type: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+    init_with: '{}'
+    exposed: true
+
+  - name: av2
+    type: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+    init_with: '{}'
+    exposed: true
+
+  - name: v0
+    type: AllegroFlare::Vec3D
+    init_with: '{}'
+    exposed: true
+
+  - name: v1
+    type: AllegroFlare::Vec3D
+    init_with: '{}'
+    exposed: true
+
+  - name: v2
+    type: AllegroFlare::Vec3D
+    init_with: '{}'
+    exposed: true
+
+  - name: normal
+    type: AllegroFlare::Vec3D
+    init_with: '{}'
+    exposed: true
+
+  - name: centroid
+    type: AllegroFlare::Vec3D
+    init_with: '{}'
+    exposed: true
+
+  - name: parent_models_object_num
+# rename to object_num_in_parent_model
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: parent_models_face_num
+# rename to face_num_in_parent_model
+    type: int
+    init_with: 0
+    exposed: true
+
+
+documentation:
+
+
+  - notes: 
+     - This class is triangulated the Face class is essentially a chashed version of the obj model data, that can be
+       quickly used when calculating collisions. For the most part, the member variables should not be modified 
+       because they are all interdependent; they are left public for accessibility during physics calculations.
+
+
+methods:
+
+
+  - name: build
+    static: true
+    type: AllegroFlare::Physics::CollisionMeshFace
+    parameters:
+      - name: av0
+        type: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+        default_argument: '{}'
+      - name: av1
+        type: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+        default_argument: '{}'
+      - name: av2
+        type: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+        default_argument: '{}'
+      - name: parent_models_object_num
+        type: int
+        default_argument: 0
+      - name: parent_models_face_num
+        type: int
+        default_argument: 0
+      - name: normal
+        type: AllegroFlare::Vec3D
+        default_argument: '{}'
+    body: |
+      AllegroFlare::Physics::CollisionMeshFace result;
+
+      result.av0 = av0;
+      result.av1 = av1;
+      result.av2 = av2;
+      result.v0 = AllegroFlare::vec3d(av0.x, av0.y, av0.z);
+      result.v1 = AllegroFlare::vec3d(av1.x, av1.y, av1.z);
+      result.v2 = AllegroFlare::vec3d(av2.x, av2.y, av2.z);
+      result.normal = normal;
+      result.centroid = (result.v0 + result.v1 + result.v2) / 3;
+      result.parent_models_object_num = parent_models_object_num;
+      result.parent_models_face_num = parent_models_face_num;
+
+      //: av0(av0)
+      //, av1(av1)
+      //, av2(av2)
+      //, v0(AllegroFlare::vec3d(av0.x, av0.y, av0.z))
+      //, v1(AllegroFlare::vec3d(av1.x, av1.y, av1.z))
+      //, v2(AllegroFlare::vec3d(av2.x, av2.y, av2.z))
+      //, normal(normal)
+      //, centroid((v0+v1+v2)/3)
+      //, parent_models_object_num(parent_models_object_num)
+      //, parent_models_face_num(parent_models_face_num)
+
+      return result;
+
+
+  - name: intersect
+    type: bool
+    parameters:
+      - name: r
+        type: AllegroFlare::Useful3D::Ray*           # previously &r
+        default_argument: nullptr
+      - name: isectData
+        type: AllegroFlare::Useful3D::IntersectData*     # previously &r
+        default_argument: nullptr
+    body: |
+      // TODO: Test this method
+      // Source: http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
+      // See also: https://www.youtube.com/watch?v=fK1RPmF_zjQ&ab_channel=enigmatutorials
+      //#ifdef MOLLER_TRUMBORE
+      AllegroFlare::vec3d edge1 = v1 - v0;
+      AllegroFlare::vec3d edge2 = v2 - v0;
+      //AllegroFlare::vec3d pvec = cross_product(r.dir, edge2);
+      AllegroFlare::vec3d pvec = AllegroFlare::cross_product(r->dir, edge2);
+      float det = dot_product(edge1, pvec);
+      if (det == 0) return false;
+      float invDet = 1 / det;
+      AllegroFlare::vec3d tvec = r->orig - v0;
+      isectData->u = dot_product(tvec, pvec) * invDet;
+      if (isectData->u < 0 || isectData->u > 1) return false;
+      AllegroFlare::vec3d qvec = AllegroFlare::cross_product(tvec, edge1);
+      isectData->v = dot_product(r->dir, qvec) * invDet;
+      if (isectData->v < 0 || isectData->u + isectData->v > 1) return false;
+      isectData->t = dot_product(edge2, qvec) * invDet;
+      return true;
+    body_dependency_symbols:
+       - AllegroFlare::cross_product
+       - dot_product
+
+
+  - name: draw
+    parameters:
+      - name: col
+# rename to color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6}'
+    body: |
+      AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
+      vtx[0] = _create_vtx(v0, col);
+      vtx[1] = _create_vtx(v1, col);
+      vtx[2] = _create_vtx(v2, col);
+      vtx[3] = _create_vtx(v0, col);
+      //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
+      al_draw_prim(vtx, NULL, NULL, 0, 4, ALLEGRO_PRIM_LINE_LIST);
+      return;
+    body_dependency_symbols:
+      - al_draw_prim
+
+
+  - name: _create_vtx
+    type: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+    static: true
+    parameters:
+      - name: vec
+        type: AllegroFlare::Vec3D
+        default_argument: '{}'
+      - name: col
+# rename to color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6}'
+    body: |
+      //static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
+      //{
+         AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL ret_val;
+         ret_val.x = vec.x;
+         ret_val.y = vec.y;
+         ret_val.z = vec.z;
+         ret_val.u = 0;
+         ret_val.v = 0;
+         ret_val.nx = 0;
+         ret_val.ny = 1;
+         ret_val.nz = 0;
+         ret_val.color = col;
+         //return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
+         return ret_val;
+      //}
+
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+    headers: [ AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp ]
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Useful3D::Ray
+    headers: [ AllegroFlare/Useful3D/Ray.hpp ]
+  - symbol: AllegroFlare::Useful3D::IntersectData
+    headers: [ AllegroFlare/Useful3D/IntersectData.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: al_draw_prim
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::cross_product
+    headers: [ AllegroFlare/Useful.hpp ]
+  - symbol: dot_product
+    headers: [ AllegroFlare/Useful.hpp ]
+  - symbol: AllegroFlare::Physics::CollisionMeshFace
+    headers: [ AllegroFlare/Physics/CollisionMeshFace.hpp ]
+
+

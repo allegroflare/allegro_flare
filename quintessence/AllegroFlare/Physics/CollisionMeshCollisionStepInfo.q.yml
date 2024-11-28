@@ -1,0 +1,43 @@
+properties:
+
+
+  - name: time
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: entity
+    type: void*
+    init_with: nullptr
+    constructor_arg: true
+    exposed: true
+
+  - name: entity_position
+    type: AllegroFlare::Vec3D*
+    init_with: nullptr
+    constructor_arg: true
+    exposed: true
+
+  - name: entity_velocity
+    type: AllegroFlare::Vec3D*
+    init_with: nullptr
+    constructor_arg: true
+    exposed: true
+
+  - name: colliding_face
+    type: AllegroFlare::Physics::CollisionMeshFace*
+    init_with: nullptr
+    constructor_arg: true
+    exposed: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Vec3D
+    headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: AllegroFlare::Physics::CollisionMeshFace
+    headers: [ AllegroFlare/Physics/CollisionMeshFace.hpp ]
+
+
