@@ -2,7 +2,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
-#include <AllegroFlare/TextFormatter/Basic.hpp>
+#include <AllegroFlare/TextFormatters/Basic.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 
 
