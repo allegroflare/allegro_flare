@@ -117,7 +117,7 @@ TEST_F(AllegroFlare_Prototypes_MeshFPS_ScreenTestWithAllegroFrameworksFullFixtur
 
    framework_register_and_activate_screen("screen", &screen);
 
-   framework_run_loop(-1);
+   framework_run_loop(6);
 }
 
 
