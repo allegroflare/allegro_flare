@@ -24850,11 +24850,11 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>draw</b>(ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.65f, 1.0f, 1.0f}, AllegroFlare::Vec3D offset=AllegroFlare::Vec3D())</td>
+  <td class="method"><b>draw</b>(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0), ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.65f, 1.0f, 1.0f})</td>
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>calculate_box_corners</b>()</td>
+  <td class="method"><b>calculate_box_corners</b>(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0))</td>
 </tr>
 <tr>
   <td class="method">ALLEGRO_COLOR</td>
@@ -24862,7 +24862,7 @@ table td
 </tr>
 <tr>
   <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
-  <td class="method"><b>build_line_list_vertices</b>()</td>
+  <td class="method"><b>build_line_list_vertices</b>(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0))</td>
 </tr>
 <tr>
   <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>

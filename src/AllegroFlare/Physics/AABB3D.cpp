@@ -117,21 +117,21 @@ bool AABB3D::collides_with_point(AllegroFlare::Vec3D point, AllegroFlare::Vec3D 
    );
 }
 
-void AABB3D::draw(ALLEGRO_COLOR color, AllegroFlare::Vec3D offset)
+void AABB3D::draw(AllegroFlare::Vec3D offset, ALLEGRO_COLOR color)
 {
    box_color = color;
    // TODO: this function
    // SEE: This chat: https://chat.openai.com/chat/98d67e07-868f-4703-9675-49b9d0b48afd
 
    // TODO: Consider that this could be optimized
-   std::vector<ALLEGRO_VERTEX> box_line_vertices = build_line_list_vertices();
+   std::vector<ALLEGRO_VERTEX> box_line_vertices = build_line_list_vertices(offset);
    std::vector<ALLEGRO_VERTEX> box_triangle_vertices = build_triangle_list_vertices_for_faces();
    al_draw_prim(&box_line_vertices[0], nullptr, nullptr, 0, box_line_vertices.size(), ALLEGRO_PRIM_LINE_LIST);
    al_draw_prim(&box_triangle_vertices[0], nullptr, nullptr, 0, box_triangle_vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
    return;
 }
 
-void AABB3D::calculate_box_corners()
+void AABB3D::calculate_box_corners(AllegroFlare::Vec3D offset)
 {
    using AllegroFlare::Vec3D;
 
@@ -147,9 +147,9 @@ void AABB3D::calculate_box_corners()
    float size_x = max.x - min.x;
    float size_y = max.y - min.y;
    float size_z = max.z - min.z;
-   float pos_x = min.x;
-   float pos_y = min.y;
-   float pos_z = min.z;
+   float pos_x = min.x + offset.x;
+   float pos_y = min.y + offset.y;
+   float pos_z = min.z + offset.z;
     
    // Half sizes
    // TODO: Factor out the hsizes
@@ -190,10 +190,10 @@ ALLEGRO_COLOR AABB3D::build_color(float opacity)
    return ALLEGRO_COLOR{color.r*opacity, color.g*opacity, color.b*opacity, color.a*opacity};
 }
 
-std::vector<ALLEGRO_VERTEX> AABB3D::build_line_list_vertices()
+std::vector<ALLEGRO_VERTEX> AABB3D::build_line_list_vertices(AllegroFlare::Vec3D offset)
 {
    ALLEGRO_COLOR color = build_color(1.0);
-   calculate_box_corners();
+   calculate_box_corners(offset);
    std::vector<ALLEGRO_VERTEX> vertices(24); // 12 lines, 2 vertices per line
 
    // Front face edges

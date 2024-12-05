@@ -34,10 +34,10 @@ namespace AllegroFlare
          void expand(float amount=0.0f);
          bool collides(AllegroFlare::Physics::AABB3D* other=nullptr, AllegroFlare::Vec3D self_offset=AllegroFlare::Vec3D(), AllegroFlare::Vec3D other_offset=AllegroFlare::Vec3D());
          bool collides_with_point(AllegroFlare::Vec3D point=AllegroFlare::Vec3D(), AllegroFlare::Vec3D self_offset=AllegroFlare::Vec3D(), AllegroFlare::Vec3D other_offset=AllegroFlare::Vec3D());
-         void draw(ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.65f, 1.0f, 1.0f}, AllegroFlare::Vec3D offset=AllegroFlare::Vec3D());
-         void calculate_box_corners();
+         void draw(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0), ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.65f, 1.0f, 1.0f});
+         void calculate_box_corners(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0));
          ALLEGRO_COLOR build_color(float opacity=1.0f);
-         std::vector<ALLEGRO_VERTEX> build_line_list_vertices();
+         std::vector<ALLEGRO_VERTEX> build_line_list_vertices(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0));
          std::vector<ALLEGRO_VERTEX> build_triangle_list_vertices_for_faces();
       };
    }

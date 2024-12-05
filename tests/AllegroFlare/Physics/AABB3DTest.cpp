@@ -96,10 +96,18 @@ TEST_F(AllegroFlare_Physics_AABB3DTestWithAllegroRenderingFixture, CAPTURE__VISU
    );
 
    //ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0} // A lil pink color
-
    ALLEGRO_BITMAP* render_surface = al_get_target_bitmap();
    camera.setup_projection_on(render_surface);
+
+   // Box at origin
    aabb3d.draw();
+
+   // Box colored with a lil offset
+   AllegroFlare::Vec3D offset = AllegroFlare::Vec3D(4, 0, -1);
+   ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0}; // A lil pink color
+   aabb3d.draw(offset, color);
+
+
    al_flip_display();
    al_rest(2);
 }
