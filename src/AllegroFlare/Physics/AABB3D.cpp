@@ -69,6 +69,13 @@ void AABB3D::expand(float amount)
    return;
 }
 
+AllegroFlare::Vec3D AABB3D::calculate_size()
+{
+   // TODO: Test this
+   // TODO: Take into account that max and min may not be normalized (should that even be a part of this class?)
+   return max - min;
+}
+
 bool AABB3D::collides(AllegroFlare::Physics::AABB3D* other, AllegroFlare::Vec3D self_offset, AllegroFlare::Vec3D other_offset)
 {
    if (!(other))
