@@ -4,16 +4,23 @@
 #include <AllegroFlare/Physics/AABB3D.hpp>
 
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec3D.hpp>
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Camera3D.hpp>
 
 
+class AllegroFlare_Physics_AABB3DTest : public ::testing::Test {};
+class AllegroFlare_Physics_AABB3DTestWithAllegroRenderingFixture :
+   public AllegroFlare::Testing::WithAllegroRenderingFixture
+{};
 
-TEST(AllegroFlare_Physics_AABB3DTest, can_be_created_without_blowing_up)
+
+TEST_F(AllegroFlare_Physics_AABB3DTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Physics::AABB3D aabb3d;
 }
 
 
-TEST(AllegroFlare_Physics_AABB3DTest,
+TEST_F(AllegroFlare_Physics_AABB3DTest,
    expand__will_reduce_the_min_coordinates_and_increase_the_max_coordinates_by_the_amount)
 {
    AllegroFlare::Physics::AABB3D aabb3d(
@@ -28,19 +35,19 @@ TEST(AllegroFlare_Physics_AABB3DTest,
 }
 
 
-TEST(AllegroFlare_Physics_AABB3DTest, collides__will_work_as_expected)
+TEST_F(AllegroFlare_Physics_AABB3DTest, collides__will_work_as_expected)
 {
    // TODO: add tests for this case
 }
 
 
-TEST(AllegroFlare_Physics_AABB3DTest, draw__will_render_the_outline_of_the_bounding_box)
+TEST_F(AllegroFlare_Physics_AABB3DTest, draw__will_render_the_outline_of_the_bounding_box)
 {
    // TODO: add tests for this case
 }
 
 
-TEST(AllegroFlare_Physics_AABB3DTest, collides_with_point__will_return_true_if_a_point_is_within_the_box)
+TEST_F(AllegroFlare_Physics_AABB3DTest, collides_with_point__will_return_true_if_a_point_is_within_the_box)
 {
    AllegroFlare::Physics::AABB3D aabb3d(
       AllegroFlare::Vec3D(-2, -4, -7),
@@ -59,7 +66,7 @@ TEST(AllegroFlare_Physics_AABB3DTest, collides_with_point__will_return_true_if_a
 }
 
 
-TEST(AllegroFlare_Physics_AABB3DTest, collides_with_point__will_return_false_if_a_point_is_outside_the_box)
+TEST_F(AllegroFlare_Physics_AABB3DTest, collides_with_point__will_return_false_if_a_point_is_outside_the_box)
 {
    AllegroFlare::Physics::AABB3D aabb3d(
       AllegroFlare::Vec3D(-2, -4, -7),
@@ -73,6 +80,26 @@ TEST(AllegroFlare_Physics_AABB3DTest, collides_with_point__will_return_false_if_
    EXPECT_EQ(false, aabb3d.collides_with_point(AllegroFlare::Vec3D(6.001, 0, 0)));
    EXPECT_EQ(false, aabb3d.collides_with_point(AllegroFlare::Vec3D(0, 8.001, 0)));
    EXPECT_EQ(false, aabb3d.collides_with_point(AllegroFlare::Vec3D(0, 0, 12.001)));
+}
+
+
+TEST_F(AllegroFlare_Physics_AABB3DTestWithAllegroRenderingFixture, CAPTURE__VISUAL__draw__will_render_as_expected)
+{
+   AllegroFlare::Camera3D camera;
+   camera.stepout = { 0, 0, 8 };
+   camera.tilt = 0.125;
+   camera.spin = 0.25;
+
+   AllegroFlare::Physics::AABB3D aabb3d(
+      AllegroFlare::Vec3D(-1, -1, -1),
+      AllegroFlare::Vec3D(1, 1, 1)
+   );
+
+   ALLEGRO_BITMAP* render_surface = al_get_target_bitmap();
+   camera.setup_projection_on(render_surface);
+   aabb3d.draw();
+   al_flip_display();
+   al_rest(2);
 }
 
 

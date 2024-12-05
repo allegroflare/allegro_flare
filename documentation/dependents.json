@@ -2362,6 +2362,7 @@
   "ALLEGRO_VERTEX": [
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"

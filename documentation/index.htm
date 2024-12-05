@@ -24825,6 +24825,14 @@ table td
   <td class="property">max</td>
   <td class="property">AllegroFlare::Vec3D</td>
 </tr>
+<tr>
+  <td class="property">box_corners</td>
+  <td class="property">std::vector&lt;AllegroFlare::Vec3D&gt;</td>
+</tr>
+<tr>
+  <td class="property">box_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -24844,6 +24852,22 @@ table td
   <td class="method">void</td>
   <td class="method"><b>draw</b>(ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}, AllegroFlare::Vec3D offset=AllegroFlare::Vec3D())</td>
 </tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>calculate_box_corners</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_COLOR</td>
+  <td class="method"><b>build_color</b>(float opacity=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_line_list_vertices</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_triangle_list_vertices_for_faces</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -24855,6 +24879,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -50295,6 +50322,7 @@ table td
   "ALLEGRO_VERTEX": [
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
