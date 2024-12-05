@@ -24,9 +24,8 @@ properties:
 
   - name: box_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0}
+    init_with: ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}
     exposed: true
-
 
 
 methods:
@@ -116,11 +115,12 @@ methods:
     parameters:
       - name: color
         type: ALLEGRO_COLOR
-        default_argument: ALLEGRO_COLOR{1.0f, 1.0f, 0.0f, 1.0f}
+        default_argument: ALLEGRO_COLOR{0.0f, 0.65f, 1.0f, 1.0f}
       - name: offset
         type: AllegroFlare::Vec3D
         default_argument: AllegroFlare::Vec3D()
     body: |
+      box_color = color;
       // TODO: this function
       // SEE: This chat: https://chat.openai.com/chat/98d67e07-868f-4703-9675-49b9d0b48afd
 
@@ -129,29 +129,6 @@ methods:
       std::vector<ALLEGRO_VERTEX> box_triangle_vertices = build_triangle_list_vertices_for_faces();
       al_draw_prim(&box_line_vertices[0], nullptr, nullptr, 0, box_line_vertices.size(), ALLEGRO_PRIM_LINE_LIST);
       al_draw_prim(&box_triangle_vertices[0], nullptr, nullptr, 0, box_triangle_vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-
-      // TODO: this function
-      // SEE: This chat: https://chat.openai.com/chat/98d67e07-868f-4703-9675-49b9d0b48afd
-
-      //float x, float y, float z, ALLEGRO_COLOR col, float size)
-
-      //ALLEGRO_VERTEX v[6];
-      //float hsize = size/2;
-
-      //for (unsigned i=0; i<6; i++)
-         //v[i] = build_vertex(x, y, z, col, 0, 0);
-
-      //v[0].x -= hsize;
-      //v[1].x += hsize;
-
-      //v[2].y -= hsize;
-      //v[3].y += hsize;
-
-      //v[4].z -= hsize;
-      //v[5].z += hsize;
-
-      //al_draw_prim(&v, NULL, NULL, 0, 6, ALLEGRO_PRIM_LINE_LIST);
-
       return;
 
 

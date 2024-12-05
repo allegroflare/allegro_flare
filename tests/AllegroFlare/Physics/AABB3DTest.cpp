@@ -95,6 +95,8 @@ TEST_F(AllegroFlare_Physics_AABB3DTestWithAllegroRenderingFixture, CAPTURE__VISU
       AllegroFlare::Vec3D(1, 1, 1)
    );
 
+   //ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0} // A lil pink color
+
    ALLEGRO_BITMAP* render_surface = al_get_target_bitmap();
    camera.setup_projection_on(render_surface);
    aabb3d.draw();

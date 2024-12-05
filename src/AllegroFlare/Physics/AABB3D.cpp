@@ -17,7 +17,7 @@ AABB3D::AABB3D(AllegroFlare::Vec3D min, AllegroFlare::Vec3D max)
    : min(min)
    , max(max)
    , box_corners({})
-   , box_color(ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0})
+   , box_color(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0})
 {
 }
 
@@ -119,6 +119,7 @@ bool AABB3D::collides_with_point(AllegroFlare::Vec3D point, AllegroFlare::Vec3D 
 
 void AABB3D::draw(ALLEGRO_COLOR color, AllegroFlare::Vec3D offset)
 {
+   box_color = color;
    // TODO: this function
    // SEE: This chat: https://chat.openai.com/chat/98d67e07-868f-4703-9675-49b9d0b48afd
 
@@ -127,29 +128,6 @@ void AABB3D::draw(ALLEGRO_COLOR color, AllegroFlare::Vec3D offset)
    std::vector<ALLEGRO_VERTEX> box_triangle_vertices = build_triangle_list_vertices_for_faces();
    al_draw_prim(&box_line_vertices[0], nullptr, nullptr, 0, box_line_vertices.size(), ALLEGRO_PRIM_LINE_LIST);
    al_draw_prim(&box_triangle_vertices[0], nullptr, nullptr, 0, box_triangle_vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
-
-   // TODO: this function
-   // SEE: This chat: https://chat.openai.com/chat/98d67e07-868f-4703-9675-49b9d0b48afd
-
-   //float x, float y, float z, ALLEGRO_COLOR col, float size)
-
-   //ALLEGRO_VERTEX v[6];
-   //float hsize = size/2;
-
-   //for (unsigned i=0; i<6; i++)
-      //v[i] = build_vertex(x, y, z, col, 0, 0);
-
-   //v[0].x -= hsize;
-   //v[1].x += hsize;
-
-   //v[2].y -= hsize;
-   //v[3].y += hsize;
-
-   //v[4].z -= hsize;
-   //v[5].z += hsize;
-
-   //al_draw_prim(&v, NULL, NULL, 0, 6, ALLEGRO_PRIM_LINE_LIST);
-
    return;
 }
 
