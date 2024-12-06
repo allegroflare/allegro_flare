@@ -51,6 +51,7 @@ methods:
 
   - name: clear
     body: |
+      subject = nullptr;
       collidables.clear();
       currently_colliding.clear();
       entered.clear();

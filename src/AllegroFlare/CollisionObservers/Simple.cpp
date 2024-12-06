@@ -105,6 +105,7 @@ std::vector<void*> Simple::get_stayed_in() const
 
 void Simple::clear()
 {
+   subject = nullptr;
    collidables.clear();
    currently_colliding.clear();
    entered.clear();
