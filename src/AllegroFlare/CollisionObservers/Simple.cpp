@@ -103,6 +103,17 @@ std::vector<void*> Simple::get_stayed_in() const
 }
 
 
+void Simple::clear()
+{
+   collidables.clear();
+   currently_colliding.clear();
+   entered.clear();
+   exited.clear();
+   stayed_out.clear();
+   stayed_in.clear();
+   return;
+}
+
 bool Simple::currently_colliding_is_empty()
 {
    return currently_colliding.empty();

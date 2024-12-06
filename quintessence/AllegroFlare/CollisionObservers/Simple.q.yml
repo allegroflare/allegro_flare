@@ -49,6 +49,17 @@ properties:
 methods:
 
 
+  - name: clear
+    body: |
+      collidables.clear();
+      currently_colliding.clear();
+      entered.clear();
+      exited.clear();
+      stayed_out.clear();
+      stayed_in.clear();
+      return;
+
+
   - name: currently_colliding_is_empty
     type: bool
     body: |
