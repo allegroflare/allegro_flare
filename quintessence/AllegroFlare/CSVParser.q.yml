@@ -147,6 +147,7 @@ methods:
 
 
   - name: parse_row
+    static: true
     parameters:
       - name: line
         type: std::string

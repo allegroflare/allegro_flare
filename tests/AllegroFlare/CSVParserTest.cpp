@@ -36,11 +36,10 @@ TEST_F(AllegroFlare_CSVParserTest, can_be_created_without_blowing_up)
 
 TEST_F(AllegroFlare_CSVParserTest, parse_row__returns_the_row_parsed_into_tokens)
 {
-   AllegroFlare::CSVParser csv_parser;
    std::string line = "Name,Age,Address,\"City, State\",Country";
 
    std::vector<std::string> expected_columns = { "Name", "Age", "Address", "City, State", "Country" };
-   std::vector<std::string> columns = csv_parser.parse_row(line);
+   std::vector<std::string> columns = AllegroFlare::CSVParser::parse_row(line);
 
    EXPECT_EQ(expected_columns, columns);
 }

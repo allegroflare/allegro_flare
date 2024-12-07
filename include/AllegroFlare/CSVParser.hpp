@@ -41,7 +41,7 @@ namespace AllegroFlare
       int num_columns();
       std::vector<std::vector<std::string>> get_parsed_content();
       void parse();
-      std::vector<std::string> parse_row(std::string line="[unset-line]");
+      static std::vector<std::string> parse_row(std::string line="[unset-line]");
       int get_num_header_rows();
       int get_column_header_column_num_or_throw(std::string column_header_name="[unset-column_header_name]");
       bool column_header_exists(std::string column_header_name="[unset-column_header_name]");
