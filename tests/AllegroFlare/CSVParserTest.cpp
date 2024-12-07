@@ -45,6 +45,17 @@ TEST_F(AllegroFlare_CSVParserTest, parse_row__returns_the_row_parsed_into_tokens
 }
 
 
+TEST_F(AllegroFlare_CSVParserTest, parse_row__will_trim_leading_and_ending_whitespace_from_the_tokens_that_it_parses)
+{
+   std::string line = " Name, Age,Address ,  \"City, State\" ,Country  ";
+
+   std::vector<std::string> expected_columns = { "Name", "Age", "Address", "City, State", "Country" };
+   std::vector<std::string> columns = AllegroFlare::CSVParser::parse_row(line);
+
+   EXPECT_EQ(expected_columns, columns);
+}
+
+
 TEST_F(AllegroFlare_CSVParserTest,
    parse_row__will_account_for_quoted_tokens_and_escaped_quotes_within_quoted_tokens)
 {

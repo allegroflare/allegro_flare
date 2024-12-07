@@ -174,7 +174,7 @@ std::vector<std::string> CSVParser::parse_row(std::string line)
                state = ParseState::INSIDE_QUOTES;
             } else if (ch == ',') {
                // Process the token
-               tokens.push_back(token);
+               tokens.push_back(AllegroFlare::php::trim(token));
                token.clear();
             } else {
                token += ch;
