@@ -72,6 +72,8 @@ documentation:
      - Migrate this class to use "primary_update_func" and "primary_render_func" with that required update strategy,
        e.g. set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);. For now
        you should be able to use either and the player_input_controller should work
+     - Consider adding a gameplay_suspended_at so that suspending and unsuspending screens can do motion. You might also
+       simply opt to include/manage that information in the derived class.
 
 
 methods:
