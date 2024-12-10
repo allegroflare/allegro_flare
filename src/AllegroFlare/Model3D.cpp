@@ -431,6 +431,25 @@ void Model3D::displace(AllegroFlare::Vec3D displacement)
 
 
 
+void Model3D::transform(ALLEGRO_TRANSFORM *transform)
+{
+   validate_initialized_or_output_to_cerr("transform");
+   validate_not_vertex_buffer("transform");
+
+   // TODO: Test this
+   for (unsigned i=0; i<vertices.size(); i++)
+   {
+      al_transform_coordinates_3d(
+         transform, 
+         &vertices[i].x,
+         &vertices[i].y,
+         &vertices[i].z
+      );
+   }
+}
+
+
+
 
 vec3d Model3D::get_min_vertex_coordinate()
 {
