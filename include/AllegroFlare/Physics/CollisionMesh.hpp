@@ -41,7 +41,8 @@ namespace AllegroFlare
          bool is_dynamic_face_active(std::string name="[unset-name]");
          bool dynamic_face_exists(std::string name="[unset-name]");
          void load();
-         void draw(ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6}, ALLEGRO_COLOR dynamic_faces_color_on=ALLEGRO_COLOR{0.7, 0.55, 0.5, 0.7}, ALLEGRO_COLOR dynamic_faces_color_off=ALLEGRO_COLOR{0.7*0.5, 0.55*0.5, 0.5*0.5, 0.7*0.5});
+         std::vector<std::string> load_dynamic_faces(std::string root_name="[unset-root_name]", AllegroFlare::Model3D* model=nullptr);
+         void draw(ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6}, ALLEGRO_COLOR dynamic_faces_color_on=ALLEGRO_COLOR{0.7, 0.55, 0.5, 0.7}, ALLEGRO_COLOR dynamic_faces_color_off=ALLEGRO_COLOR{0.7*0.35, 0.55*0.35, 0.5*0.35, 0.7*0.35});
          static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(AllegroFlare::Vec3D vec={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6});
       };
    }

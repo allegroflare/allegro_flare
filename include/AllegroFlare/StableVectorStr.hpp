@@ -36,7 +36,7 @@ public:
       return key;
    }
 
-   std::pair<key_type, value_type&> allocate(const key_type &key)
+   value_type& allocate(const key_type &key)
    {
       if (key_to_index.find(key) != key_to_index.end())
       {
@@ -45,7 +45,7 @@ public:
 
       key_to_index[key] = data.size();
       data.emplace_back(); // Default-construct the new value
-      return {key, data.back()};
+      return data.back();
    }
 
    void remove(const key_type &key)

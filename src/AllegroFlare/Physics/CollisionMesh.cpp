@@ -212,6 +212,123 @@ void CollisionMesh::load()
    return;
 }
 
+std::vector<std::string> CollisionMesh::load_dynamic_faces(std::string root_name, AllegroFlare::Model3D* model)
+{
+   if (!(model))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::CollisionMesh::load_dynamic_faces]: error: guard \"model\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::load_dynamic_faces]: error: guard \"model\" not met");
+   }
+   // TODO: Note that model can change after loading, consider addressing this design flaw.
+   auto m = model; // TODO: update this variable in the code below
+
+   // TODO: Test this load
+   bool silence_cout = true;
+   if (!silence_cout) std::cout << "+CollisionMesh()" << std::endl;
+   if (!m)
+   {
+      std::cout << "  !*model is NULL" << std::endl;
+      return {};
+   }
+   if (m->get_num_named_objects() == 0)
+   {
+      std::cout << "  !*Model contains no named objects" << std::endl;
+      return {};
+   }
+
+   std::vector<std::string> result_face_names = {};
+   //std::vector<AllegroFlare::Physics::CollisionMeshFace*> result_faces = {};
+   int result_face_name_num = 0;
+
+   for (int o=0; o<m->get_num_named_objects(); o++)
+   {
+      if (!silence_cout) std::cout << "   parsing named object " << o << std::endl;
+      //std::cout << "      has " << m->named_objects[o].index_list.size() << " vertexes" << std::endl;
+      if (!silence_cout) std::cout << ")))" << std::endl;
+      m->named_objects[0];
+      if (!silence_cout) std::cout << ")))" << std::endl;
+      if (!silence_cout) std::cout << o << std::endl;
+      int size = m->named_objects[0].index_list.size();
+
+      if (!silence_cout) std::cout << ")))" << std::endl;
+      if (!silence_cout) std::cout << "      has " << size << " vertexes" << std::endl;
+      if (!silence_cout) std::cout << ")))" << std::endl;
+      if (m->named_objects[o].index_list.size() % 3 != 0)
+      {
+         if (!silence_cout) std::cout << "[CollisionMesh()] error: model's named_objects[].index_list.size() is not a multiple of 3; cannot load." << std::endl;
+         break;
+      }
+      std::vector<int> &index_list = m->named_objects[o].index_list;
+      for (int i=0; i<index_list.size(); i+=3)
+      {
+   /*
+         if (m->objects[o].face_index_lists[f].size() != 3)
+         {
+            std::cout << "  !object " << o << " face " << f << " has " << m->objects[o].face_index_lists.size() << " vertexes." << std::endl;
+            continue;
+         }
+   */
+         //m->objects[o].face_index_lists.size();
+
+         std::stringstream this_face_name;
+         this_face_name << root_name << "-f#" << result_face_name_num;
+         result_face_name_num++;
+
+         AllegroFlare::Physics::CollisionMeshFace &result_face = dynamic_faces.allocate(this_face_name.str());
+
+         result_face = AllegroFlare::Physics::CollisionMeshFace::build(
+            m->vertexes[index_list[i]],
+            m->vertexes[index_list[i+1]],
+            m->vertexes[index_list[i+2]],
+            o,
+            i/3,
+            AllegroFlare::vec3d(
+               m->vertexes[index_list[i]].nx,
+               m->vertexes[index_list[i]].ny,
+               m->vertexes[index_list[i]].nz
+            )
+         );
+
+         result_face_names.push_back(this_face_name.str());
+         //result_faces.push_back(&result_face);
+
+
+         /*
+         faces.push_back(AllegroFlare::Physics::CollisionMeshFace::build(
+            m->vertexes[index_list[i]],
+            m->vertexes[index_list[i+1]],
+            m->vertexes[index_list[i+2]],
+            o,
+            i/3,
+            AllegroFlare::vec3d(
+               m->vertexes[index_list[i]].nx,
+               m->vertexes[index_list[i]].ny,
+               m->vertexes[index_list[i]].nz
+            )
+         ));
+         */
+      }
+
+      //std::pair<key_type, value_type&> allocate(const key_type &key)
+      //{
+         //if (key_to_index.find(key) != key_to_index.end())
+         //{
+            //throw std::invalid_argument("Key already exists");
+         //}
+
+         //key_to_index[key] = data.size();
+         //data.emplace_back(); // Default-construct the new value
+         //return {key, data.back()};
+      //}
+   }
+
+   loaded = true;
+
+   return result_face_names; //, result_faces };
+}
+
 void CollisionMesh::draw(ALLEGRO_COLOR col, ALLEGRO_COLOR dynamic_faces_color_on, ALLEGRO_COLOR dynamic_faces_color_off)
 {
    if (!(loaded))
