@@ -25158,7 +25158,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Physics/CollisionMeshFace.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshFace.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"notes"=>["This class is triangulated the Face class is essentially a chashed version of the obj model data, that can be quickly used when calculating collisions. For the most part, the member variables should not be modified because they are all interdependent; they are left public for accessibility during physics calculations."]}</p>    <h3>Properties</h3>
+    <p>{"notes"=>["This class is triangulated the Face class is essentially a chashed version of the obj model data, that can be quickly used when calculating collisions. For the most part, the member variables should not be modified because they are all interdependent; they are left public for accessibility during physics calculations. The only exception is the \"disabled\" variable which is used to dynamically deactivate the face at any point (as when calculated in AllegroFlare/Physics/CollisionMesh)."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">av0</td>
@@ -25191,6 +25191,10 @@ table td
 <tr>
   <td class="property">centroid</td>
   <td class="property">AllegroFlare::Vec3D</td>
+</tr>
+<tr>
+  <td class="property">disabled</td>
+  <td class="property">bool</td>
 </tr>
 <tr>
   <td class="property">parent_models_object_num</td>

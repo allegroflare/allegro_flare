@@ -41,6 +41,11 @@ properties:
     init_with: '{}'
     exposed: true
 
+  - name: disabled
+    type: bool
+    init_with: false
+    exposed: true
+
   - name: parent_models_object_num
 # rename to object_num_in_parent_model
     type: int
@@ -60,7 +65,9 @@ documentation:
   - notes: 
      - This class is triangulated the Face class is essentially a chashed version of the obj model data, that can be
        quickly used when calculating collisions. For the most part, the member variables should not be modified 
-       because they are all interdependent; they are left public for accessibility during physics calculations.
+       because they are all interdependent; they are left public for accessibility during physics calculations. The
+       only exception is the "disabled" variable which is used to dynamically deactivate the face at any point (as
+       when calculated in AllegroFlare/Physics/CollisionMesh).
 
 
 methods:

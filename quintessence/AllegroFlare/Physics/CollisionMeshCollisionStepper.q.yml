@@ -344,6 +344,7 @@ methods:
       // Setup some data for this calculation
       AllegroFlare::Useful3D::IntersectData intersect_info;
 
+      // Loop over each entity while processing the faces
       for (auto &entity_info : entities)
       {
          // For every entity, do step calculations
@@ -363,9 +364,50 @@ methods:
          vec3d end_pos = position + velocity;
          AllegroFlare::Useful3D::Ray ray(start_pos, end_pos-start_pos);
 
+
+         // Create the faces processing lambda
+         // This lambda technique is used here for performance reasons, in order to operate on multiple sets of faces
+         // without performing a excessive embedded function calls.
+         // See: https://chatgpt.com/share/6757b289-6b48-800f-af6a-d5b077bb0368
+         auto process_faces = [&](auto &faces)
+         {
+            for (auto &face : faces)
+            {
+               if (face.disabled) continue;
+
+               if (face.intersect(&ray, &intersect_info))
+               {
+                  if (intersect_info.t >= 0.0f && intersect_info.t <= 1.0f)
+                  {
+                     // A collision occurred on this face
+
+                     // Capture the least collision time for this entity and the colliding face
+                     if (intersect_info.t < least_collision_time_for_this_entity)
+                     {
+                        least_collision_time_for_this_entity = intersect_info.t;
+                        least_collision_time_for_this_entity_colliding_face = &face;
+                     }
+
+                     // Capture the overall smallest collision time
+                     if (intersect_info.t < least_collision_time)
+                     {
+                        least_collision_time = intersect_info.t;
+                     }
+                  }
+               }
+            }
+         };
+
+         process_faces(mesh.get_faces_ref());
+         // TODO: process indexed faces (that may be disabled)
+         //process_faces(mesh.get_indexed_faces_ref());
+
+         /*
          // Iterate all faces, see if there was a collision
          for (auto &face : mesh.get_faces_ref())
          {
+            if (face.disabled) continue;
+
             if (face.intersect(&ray, &intersect_info))
             {
                if (intersect_info.t >= 0.0f && intersect_info.t <= 1.0f)
@@ -387,6 +429,7 @@ methods:
                }
             }
          }
+         */
 
          collision_step_infos.push_back(
             AllegroFlare::Physics::CollisionMeshCollisionStepInfo(

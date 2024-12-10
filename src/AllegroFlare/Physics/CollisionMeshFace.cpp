@@ -21,6 +21,7 @@ CollisionMeshFace::CollisionMeshFace()
    , v2({})
    , normal({})
    , centroid({})
+   , disabled(false)
    , parent_models_object_num(0)
    , parent_models_face_num(0)
 {

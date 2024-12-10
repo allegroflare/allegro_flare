@@ -29,6 +29,7 @@ namespace AllegroFlare
          AllegroFlare::Vec3D v2;
          AllegroFlare::Vec3D normal;
          AllegroFlare::Vec3D centroid;
+         bool disabled;
          int parent_models_object_num;
          int parent_models_face_num;
          CollisionMeshFace();
