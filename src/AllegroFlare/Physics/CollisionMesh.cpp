@@ -76,6 +76,69 @@ std::vector<AllegroFlare::Physics::CollisionMeshFace>& CollisionMesh::get_dynami
    return dynamic_faces.get_data();
 }
 
+void CollisionMesh::add_dynamic_face(std::string name, AllegroFlare::Physics::CollisionMeshFace face)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::CollisionMesh::add_dynamic_face]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::add_dynamic_face]: error: guard \"loaded\" not met");
+   }
+   dynamic_faces.add(name, face);
+   return;
+}
+
+void CollisionMesh::activate_dynamic_face(std::string name)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::CollisionMesh::activate_dynamic_face]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::activate_dynamic_face]: error: guard \"loaded\" not met");
+   }
+   dynamic_faces.get(name).disabled = false;
+   return;
+}
+
+void CollisionMesh::deactivate_dynamic_face(std::string name)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::CollisionMesh::deactivate_dynamic_face]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::deactivate_dynamic_face]: error: guard \"loaded\" not met");
+   }
+   dynamic_faces.get(name).disabled = true;
+   return;
+}
+
+bool CollisionMesh::is_dynamic_face_active(std::string name)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::CollisionMesh::is_dynamic_face_active]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::is_dynamic_face_active]: error: guard \"loaded\" not met");
+   }
+   return !dynamic_faces.get(name).disabled;
+}
+
+bool CollisionMesh::dynamic_face_exists(std::string name)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::CollisionMesh::dynamic_face_exists]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::dynamic_face_exists]: error: guard \"loaded\" not met");
+   }
+   return dynamic_faces.contains(name);
+}
+
 void CollisionMesh::load()
 {
    if (!(model))
@@ -149,7 +212,7 @@ void CollisionMesh::load()
    return;
 }
 
-void CollisionMesh::draw(ALLEGRO_COLOR col)
+void CollisionMesh::draw(ALLEGRO_COLOR col, ALLEGRO_COLOR dynamic_faces_color_on, ALLEGRO_COLOR dynamic_faces_color_off)
 {
    if (!(loaded))
    {
@@ -163,6 +226,7 @@ void CollisionMesh::draw(ALLEGRO_COLOR col)
    // TODO: Draw faces as semitransparent, then draw lines, see if additive is an option
    // TODO: Draw centroids and normals
    // TODO: Move this to a vertex buffer and consolidate all the vertices/faces into triangles
+   // TODO: Assemble vertexes into one structure and then draw a single prim
 
    for (auto &face : faces)
    {
@@ -172,6 +236,24 @@ void CollisionMesh::draw(ALLEGRO_COLOR col)
       vtx[1] = _create_vtx(face.v1, col);
       vtx[2] = _create_vtx(face.v2, col);
       vtx[3] = _create_vtx(face.v0, col);
+      //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
+      //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
+      //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
+      al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
+
+      // TODO: Draw centroids and normals
+      //draw_crosshair(face.centroid, color::dodgerblue, 0.5);
+      //draw_3d_line(face.centroid, face.centroid+mesh.face.normal*0.75, color::aliceblue);
+   }
+
+   for (auto &face : dynamic_faces.get_data())
+   {
+      // Draw the face (hopefully it's trangulated)
+      AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
+      vtx[0] = _create_vtx(face.v0, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
+      vtx[1] = _create_vtx(face.v1, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
+      vtx[2] = _create_vtx(face.v2, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
+      vtx[3] = _create_vtx(face.v0, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
       //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
       //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
       //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);

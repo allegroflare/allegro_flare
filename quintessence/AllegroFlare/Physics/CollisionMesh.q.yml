@@ -48,6 +48,64 @@ methods:
       return dynamic_faces.get_data();
 
 
+  - name: add_dynamic_face
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: face
+        type: AllegroFlare::Physics::CollisionMeshFace
+        default_argument: '{}'
+    guards: [ loaded ]
+    body: |
+      dynamic_faces.add(name, face);
+      return;
+
+
+  - name: activate_dynamic_face
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ loaded ]
+    body: |
+      dynamic_faces.get(name).disabled = false;
+      return;
+
+
+  - name: deactivate_dynamic_face
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ loaded ]
+    body: |
+      dynamic_faces.get(name).disabled = true;
+      return;
+
+
+  - name: is_dynamic_face_active
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ loaded ]
+    body: |
+      return !dynamic_faces.get(name).disabled;
+
+
+  - name: dynamic_face_exists
+    type: bool
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ loaded ]
+    body: |
+      return dynamic_faces.contains(name);
+
+
   - name: load
     guards: [ model, (!loaded) ]
     body: |
@@ -114,6 +172,12 @@ methods:
 # rename to color
         type: ALLEGRO_COLOR
         default_argument: 'ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6}'
+      - name: dynamic_faces_color_on
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{0.7, 0.55, 0.5, 0.7}'
+      - name: dynamic_faces_color_off
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{0.7*0.5, 0.55*0.5, 0.5*0.5, 0.7*0.5}'
     guards: [ loaded ]
     body: |
       // TODO: Validate somewhere that face is triangulated
@@ -121,6 +185,7 @@ methods:
       // TODO: Draw faces as semitransparent, then draw lines, see if additive is an option
       // TODO: Draw centroids and normals
       // TODO: Move this to a vertex buffer and consolidate all the vertices/faces into triangles
+      // TODO: Assemble vertexes into one structure and then draw a single prim
 
       for (auto &face : faces)
       {
@@ -130,6 +195,24 @@ methods:
          vtx[1] = _create_vtx(face.v1, col);
          vtx[2] = _create_vtx(face.v2, col);
          vtx[3] = _create_vtx(face.v0, col);
+         //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
+         //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
+         //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
+         al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
+
+         // TODO: Draw centroids and normals
+         //draw_crosshair(face.centroid, color::dodgerblue, 0.5);
+         //draw_3d_line(face.centroid, face.centroid+mesh.face.normal*0.75, color::aliceblue);
+      }
+
+      for (auto &face : dynamic_faces.get_data())
+      {
+         // Draw the face (hopefully it's trangulated)
+         AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
+         vtx[0] = _create_vtx(face.v0, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
+         vtx[1] = _create_vtx(face.v1, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
+         vtx[2] = _create_vtx(face.v2, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
+         vtx[3] = _create_vtx(face.v0, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
          //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
          //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
          //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
