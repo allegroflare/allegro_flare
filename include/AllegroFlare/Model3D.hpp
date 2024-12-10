@@ -82,7 +82,9 @@ namespace AllegroFlare
       void remove_named_objects(std::string object_name);
       void scale(float scale);
       void displace(AllegroFlare::Vec3D displacement);
-      void transform(ALLEGRO_TRANSFORM *transform);
+      //void transform(ALLEGRO_TRANSFORM *transform); // NOTE: There are issues with this, specifically with rotation
+                                                      // on the normal. It needs to be tested in coordination with the
+                                                      // CollisionMesh to ensure it will work as expected
 
       std::vector<ALLEGRO_VERTEX_WITH_NORMAL> &vertexes = vertices; // TODO: Remove this at some point
    };
