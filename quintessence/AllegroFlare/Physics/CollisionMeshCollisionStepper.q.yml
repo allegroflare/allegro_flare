@@ -343,7 +343,6 @@ methods:
 
       // Setup some data for this calculation
       AllegroFlare::Useful3D::IntersectData intersect_info;
-      bool draw_intersection_point = true;
 
       for (auto &entity_info : entities)
       {
@@ -371,12 +370,6 @@ methods:
 
             if (face.intersect(&ray, &intersect_info))
             {
-               //if (draw_intersection_point)
-               //{
-                  //vec3d collision_point = (end_pos-start_pos) * intersect_info.t + start_pos;
-                  //draw_crosshair(collision_point, color::pink, 0.5);
-               //}
-
                if (intersect_info.t >= 0.0f && intersect_info.t <= 1.0f)
                {
                   // A collision occurred on this face
