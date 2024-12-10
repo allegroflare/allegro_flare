@@ -445,6 +445,21 @@ void Model3D::transform(ALLEGRO_TRANSFORM *transform)
          &vertices[i].y,
          &vertices[i].z
       );
+
+      // Also transform the normal:
+      al_transform_coordinates_3d(
+         transform, 
+         &vertices[i].nx,
+         &vertices[i].ny,
+         &vertices[i].nz
+      );
+
+      AllegroFlare::Vec3D to_be_normalized =
+         AllegroFlare::Vec3D(vertices[i].nx, vertices[i].ny, vertices[i].nz).normalized();
+
+      vertices[i].nx = to_be_normalized.x;
+      vertices[i].ny = to_be_normalized.y;
+      vertices[i].nz = to_be_normalized.z;
    }
 }
 
