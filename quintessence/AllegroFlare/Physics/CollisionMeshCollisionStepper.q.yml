@@ -364,10 +364,8 @@ methods:
          AllegroFlare::Useful3D::Ray ray(start_pos, end_pos-start_pos);
 
          // Iterate all faces, see if there was a collision
-         for (unsigned f=0; f<mesh.get_faces_ref().size(); f++)
+         for (auto &face : mesh.get_faces_ref())
          {
-            AllegroFlare::Physics::CollisionMeshFace &face = mesh.get_faces_ref()[f];
-
             if (face.intersect(&ray, &intersect_info))
             {
                if (intersect_info.t >= 0.0f && intersect_info.t <= 1.0f)
