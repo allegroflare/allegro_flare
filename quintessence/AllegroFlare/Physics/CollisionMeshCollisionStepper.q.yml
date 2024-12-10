@@ -341,6 +341,10 @@ methods:
       float least_collision_time_for_this_entity = 1.0;
       collision_step_infos.clear();
 
+      // Setup some data for this calculation
+      AllegroFlare::Useful3D::IntersectData intersect_info;
+      bool draw_intersection_point = true;
+
       for (auto &entity_info : entities)
       {
          // For every entity, do step calculations
@@ -355,23 +359,23 @@ methods:
          float least_collision_time_for_this_entity = 1.0;
          AllegroFlare::Physics::CollisionMeshFace *least_collision_time_for_this_entity_colliding_face = nullptr;
 
+         // Setup some data for the iteration
+         vec3d start_pos = position;
+         vec3d end_pos = position + velocity;
+         AllegroFlare::Useful3D::Ray ray(start_pos, end_pos-start_pos);
+
          // Iterate all faces, see if there was a collision
          for (unsigned f=0; f<mesh.get_faces_ref().size(); f++)
          {
             AllegroFlare::Physics::CollisionMeshFace &face = mesh.get_faces_ref()[f];
-            AllegroFlare::Useful3D::IntersectData intersect_info;
-            vec3d start_pos = position;
-            vec3d end_pos = position + velocity;
-            AllegroFlare::Useful3D::Ray ray(start_pos, end_pos-start_pos);
 
             if (face.intersect(&ray, &intersect_info))
             {
-               bool draw_intersection_point = true;
-               if (draw_intersection_point)
-               {
-                  vec3d collision_point = (end_pos-start_pos) * intersect_info.t + start_pos;
-                  draw_crosshair(collision_point, color::pink, 0.5);
-               }
+               //if (draw_intersection_point)
+               //{
+                  //vec3d collision_point = (end_pos-start_pos) * intersect_info.t + start_pos;
+                  //draw_crosshair(collision_point, color::pink, 0.5);
+               //}
 
                if (intersect_info.t >= 0.0f && intersect_info.t <= 1.0f)
                {
