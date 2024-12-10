@@ -3342,6 +3342,9 @@
   "AllegroFlare/Physics/AABB3D": [
     "AllegroFlare/Physics/AABB3D"
   ],
+  "AllegroFlare/StableVectorStr": [
+    "AllegroFlare/Physics/CollisionMesh"
+  ],
   "AllegroFlare/Physics/CollisionMeshFace": [
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",

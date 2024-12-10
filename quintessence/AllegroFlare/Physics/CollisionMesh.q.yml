@@ -12,6 +12,12 @@ properties:
     getter: false
     xgetter_ref: explicit
 
+  - name: dynamic_faces
+    type: AllegroFlare::StableVectorStr<AllegroFlare::Physics::CollisionMeshFace>
+    init_with: '{}'
+    getter: false
+    xgetter_ref: explicit
+
   - name: loaded
     type: bool
     init_with: false
@@ -33,6 +39,13 @@ methods:
     guards: [ loaded ]
     body: |
       return faces;
+
+
+  - name: get_dynamic_faces_ref
+    type: std::vector<AllegroFlare::Physics::CollisionMeshFace>&
+    guards: [ loaded ]
+    body: |
+      return dynamic_faces.get_data();
 
 
   - name: load
@@ -162,6 +175,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::StableVectorStr
+    headers: [ AllegroFlare/StableVectorStr.hpp ]
   - symbol: AllegroFlare::Physics::CollisionMeshFace
     headers: [ AllegroFlare/Physics/CollisionMeshFace.hpp ]
   - symbol: al_draw_prim

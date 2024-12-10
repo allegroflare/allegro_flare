@@ -421,7 +421,7 @@ float CollisionMeshCollisionStepper::calculate_collisions(float min_entity_veloc
 
       process_faces(mesh.get_faces_ref());
       // TODO: process indexed faces (that may be disabled)
-      //process_faces(mesh.get_indexed_faces_ref());
+      process_faces(mesh.get_dynamic_faces_ref());
 
       /*
       // Iterate all faces, see if there was a collision

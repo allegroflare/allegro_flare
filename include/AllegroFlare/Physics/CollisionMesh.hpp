@@ -4,6 +4,7 @@
 #include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <AllegroFlare/Model3D.hpp>
 #include <AllegroFlare/Physics/CollisionMeshFace.hpp>
+#include <AllegroFlare/StableVectorStr.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
 #include <vector>
@@ -18,6 +19,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::Model3D* model;
          std::vector<AllegroFlare::Physics::CollisionMeshFace> faces;
+         AllegroFlare::StableVectorStr<AllegroFlare::Physics::CollisionMeshFace> dynamic_faces;
          bool loaded;
 
       protected:
@@ -31,6 +33,7 @@ namespace AllegroFlare
          bool get_loaded() const;
          int get_num_faces();
          std::vector<AllegroFlare::Physics::CollisionMeshFace>& get_faces_ref();
+         std::vector<AllegroFlare::Physics::CollisionMeshFace>& get_dynamic_faces_ref();
          void load();
          void draw(ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6});
          static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(AllegroFlare::Vec3D vec={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6});

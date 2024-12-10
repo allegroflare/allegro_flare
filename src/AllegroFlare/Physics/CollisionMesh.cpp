@@ -17,6 +17,7 @@ namespace Physics
 CollisionMesh::CollisionMesh()
    : model(nullptr)
    , faces({})
+   , dynamic_faces({})
    , loaded(false)
 {
 }
@@ -61,6 +62,18 @@ std::vector<AllegroFlare::Physics::CollisionMeshFace>& CollisionMesh::get_faces_
       throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::get_faces_ref]: error: guard \"loaded\" not met");
    }
    return faces;
+}
+
+std::vector<AllegroFlare::Physics::CollisionMeshFace>& CollisionMesh::get_dynamic_faces_ref()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::CollisionMesh::get_dynamic_faces_ref]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::get_dynamic_faces_ref]: error: guard \"loaded\" not met");
+   }
+   return dynamic_faces.get_data();
 }
 
 void CollisionMesh::load()
