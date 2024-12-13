@@ -125,7 +125,7 @@ TEST(AllegroFlare_StableVectorStrTest, BuildMethodProvidesSlotAndAllowsModificat
    AllegroFlare::StableVectorStr<std::string> stable_vector;
 
    // Add an uninitialized slot and modify it
-   auto value1 = stable_vector.allocate("key1");
+   auto &value1 = stable_vector.allocate("key1");
    value1 = "Hello";
 
    // Verify the built value
@@ -134,7 +134,7 @@ TEST(AllegroFlare_StableVectorStrTest, BuildMethodProvidesSlotAndAllowsModificat
    EXPECT_EQ(stable_vector.get("key1"), "Hello");
 
    // Add another slot and modify it
-   auto value2 = stable_vector.allocate("key2");
+   auto &value2 = stable_vector.allocate("key2");
    value2 = "World";
 
    // Verify the second value
