@@ -185,6 +185,35 @@ std::vector<std::string> StringTransformer::split(std::string string, char delim
    return elems;
 }
 
+std::vector<std::string> StringTransformer::split_multichar_delim(std::string string, std::string delimiter)
+{
+   if (!((!delimiter.empty())))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::StringTransformer::split_multichar_delim]: error: guard \"(!delimiter.empty())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::StringTransformer::split_multichar_delim]: error: guard \"(!delimiter.empty())\" not met");
+   }
+   std::vector<std::string> elems;
+   size_t start = 0;
+   size_t end = 0;
+
+   // Search for the delimiter and extract substrings
+   while ((end = string.find(delimiter, start)) != std::string::npos)
+   {
+      elems.push_back(string.substr(start, end - start));
+      start = end + delimiter.length();
+   }
+
+   // Add the last segment (if any)
+   if (start < string.length())
+   {
+      elems.push_back(string.substr(start));
+   }
+
+   return elems;
+}
+
 std::vector<std::string> StringTransformer::tokenize(std::string str, char delim)
 {
    std::vector<std::string> tokens = split(str, delim);

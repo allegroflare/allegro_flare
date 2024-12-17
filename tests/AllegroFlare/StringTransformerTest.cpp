@@ -71,3 +71,64 @@ TEST(AllegroFlare_StringTransformerTest, remove_non_alphanumeric__will_remove_an
 }
 
 
+TEST(AllegroFlare_StringTransformerTest, split_multichar_delim__will_split_a_string_on_a_multicharacter_delimiter)
+{
+   std::string subject = "Hello\n\nworld\n\nthis is\n\na test";
+   std::string delimiter = "\n\n";
+
+   std::vector<std::string> expected = { "Hello", "world", "this is", "a test" };
+   std::vector<std::string> actual = AllegroFlare::StringTransformer::split_multichar_delim(subject, delimiter);
+
+   EXPECT_EQ(expected.size(), actual.size()) << "Expected and actual vector sizes do not match.";
+
+   for (size_t i = 0; i < expected.size(); ++i)
+   {
+      EXPECT_EQ(expected[i], actual[i]) << "Mismatch at index " << i;
+   }
+}
+
+
+TEST(AllegroFlare_StringTransformerTest,
+   split_multichar_delim__with_no_occurrences_of_the_delimiter__will_return_the_original_string)
+{
+   std::string subject = "NoDelimiterHere";
+   std::string delimiter = "XYZ";
+
+   std::vector<std::string> expected = { "NoDelimiterHere" };
+   std::vector<std::string> actual = AllegroFlare::StringTransformer::split_multichar_delim(subject, delimiter);
+
+   EXPECT_EQ(expected.size(), actual.size()) << "Expected a single segment for no delimiter occurrences.";
+   EXPECT_EQ(expected[0], actual[0]) << "The output string should match the original input.";
+}
+
+
+TEST(AllegroFlare_StringTransformerTest,
+   split_multichar_delim__with_consecutive_delimiters__will_include_empty_strings_between_delimiters)
+{
+   std::string subject = "a--b----c";
+   std::string delimiter = "--";
+
+   std::vector<std::string> expected = { "a", "b", "", "c" };
+   std::vector<std::string> actual = AllegroFlare::StringTransformer::split_multichar_delim(subject, delimiter);
+
+   EXPECT_EQ(expected.size(), actual.size()) << "Expected and actual vector sizes do not match.";
+
+   for (size_t i = 0; i < expected.size(); ++i)
+   {
+      EXPECT_EQ(expected[i], actual[i]) << "Mismatch at index " << i;
+   }
+}
+
+
+TEST(AllegroFlare_StringTransformerTest, split_multichar_delim__on_an_empty_string__will_return_an_empty_vector)
+{
+   std::string subject = "";
+   std::string delimiter = "\n\n";
+
+   std::vector<std::string> expected = {};
+   std::vector<std::string> actual = AllegroFlare::StringTransformer::split_multichar_delim(subject, delimiter);
+
+   EXPECT_EQ(expected, actual) << "Splitting an empty string should result in an empty vector.";
+}
+
+

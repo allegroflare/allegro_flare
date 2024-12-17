@@ -229,6 +229,38 @@ methods:
       return elems;
 
 
+  - name: split_multichar_delim
+    type: std::vector<std::string>
+    static: true
+    parameters:
+      - name: string
+        type: std::string
+        default_argument: '""'
+      - name: delimiter
+        type: std::string
+        default_argument: '""'
+    guards: [ (!delimiter.empty()) ]
+    body: |
+      std::vector<std::string> elems;
+      size_t start = 0;
+      size_t end = 0;
+
+      // Search for the delimiter and extract substrings
+      while ((end = string.find(delimiter, start)) != std::string::npos)
+      {
+         elems.push_back(string.substr(start, end - start));
+         start = end + delimiter.length();
+      }
+
+      // Add the last segment (if any)
+      if (start < string.length())
+      {
+         elems.push_back(string.substr(start));
+      }
+
+      return elems;
+
+
   - name: tokenize
     static: true
     type: std::vector<std::string>
