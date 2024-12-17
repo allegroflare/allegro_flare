@@ -365,7 +365,7 @@ void Complete::initialize()
    // Setup arbitrary storyboard screen
    arbitrary_storyboard_screen.set_event_emitter(event_emitter);
    arbitrary_storyboard_screen.set_font_bin(font_bin);
-   arbitrary_storyboard_screen.set_auto_advance(true);
+   //arbitrary_storyboard_screen.set_auto_advance(true); // TODO: This was recently changed to false by default
    arbitrary_storyboard_screen.set_foreground(shared_foreground);
    arbitrary_storyboard_screen.set_background(shared_background);
    arbitrary_storyboard_screen.initialize();
