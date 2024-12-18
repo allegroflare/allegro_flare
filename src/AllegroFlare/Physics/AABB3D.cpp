@@ -69,10 +69,15 @@ void AABB3D::expand(float amount)
    return;
 }
 
+AllegroFlare::Vec3D AABB3D::calculate_centroid()
+{
+   // TODO: Test this
+   return (min + max) * 0.5f;
+}
+
 AllegroFlare::Vec3D AABB3D::calculate_size()
 {
    // TODO: Test this
-   // TODO: Take into account that max and min may not be normalized (should that even be a part of this class?)
    return max - min;
 }
 

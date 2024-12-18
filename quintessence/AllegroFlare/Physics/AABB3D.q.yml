@@ -28,6 +28,14 @@ properties:
     exposed: true
 
 
+documentation:
+
+
+  - notes:
+       - It's assumed that min and max will be properly positioned.  There are no mechanisms to ensure min and max
+         are correct relative to each other.
+
+
 methods:
 
 
@@ -47,11 +55,17 @@ methods:
       return;
 
 
+  - name: calculate_centroid
+    type: AllegroFlare::Vec3D
+    body: |
+      // TODO: Test this
+      return (min + max) * 0.5f;
+
+
   - name: calculate_size
     type: AllegroFlare::Vec3D
     body: |
       // TODO: Test this
-      // TODO: Take into account that max and min may not be normalized (should that even be a part of this class?)
       return max - min;
 
 

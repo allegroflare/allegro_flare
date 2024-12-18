@@ -24818,8 +24818,8 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Physics/AABB3D.q.yml">quintessence/AllegroFlare/Physics/AABB3D.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["It's assumed that min and max will be properly positioned.  There are no mechanisms to ensure min and max are correct relative to each other."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">min</td>
@@ -24843,6 +24843,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>expand</b>(float amount=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Vec3D</td>
+  <td class="method"><b>calculate_centroid</b>()</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::Vec3D</td>

@@ -32,6 +32,7 @@ namespace AllegroFlare
          AllegroFlare::Vec3D get_min() const;
          AllegroFlare::Vec3D get_max() const;
          void expand(float amount=0.0f);
+         AllegroFlare::Vec3D calculate_centroid();
          AllegroFlare::Vec3D calculate_size();
          bool collides(AllegroFlare::Physics::AABB3D* other=nullptr, AllegroFlare::Vec3D self_offset=AllegroFlare::Vec3D(), AllegroFlare::Vec3D other_offset=AllegroFlare::Vec3D());
          bool collides_with_point(AllegroFlare::Vec3D point=AllegroFlare::Vec3D(), AllegroFlare::Vec3D self_offset=AllegroFlare::Vec3D(), AllegroFlare::Vec3D other_offset=AllegroFlare::Vec3D());
