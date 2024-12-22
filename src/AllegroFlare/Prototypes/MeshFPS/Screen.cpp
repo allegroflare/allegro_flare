@@ -9,6 +9,7 @@
 #include <AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
 #include <allegro5/allegro_primitives.h>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

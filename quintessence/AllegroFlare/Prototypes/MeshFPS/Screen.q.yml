@@ -193,6 +193,8 @@ methods:
 
     body_dependency_symbols:
        - AllegroFlare::PlayerInputControllers::Generic
+       - std::sin
+       - std::cos
 
 
   - name: update
@@ -689,5 +691,9 @@ dependencies:
     headers: [ AllegroFlare/Camera2D.hpp ]
   - symbol: ALLEGRO_FONT
     headers: [ allegro5/allegro_font.h ]
+  - symbol: std::cos
+    headers: [ cmath ]
+  - symbol: std::sin
+    headers: [ cmath ]
 
 

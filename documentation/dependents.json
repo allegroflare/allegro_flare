@@ -3454,10 +3454,12 @@
     "AllegroFlare/Screens/Gameplay"
   ],
   "std/cos": [
-    "AllegroFlare/PlayerInputControllers/Generic"
+    "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
   "std/sin": [
-    "AllegroFlare/PlayerInputControllers/Generic"
+    "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",

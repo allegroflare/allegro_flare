@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <stdexcept>
+#include <algorithm> // for std::find_if
 
 
 
