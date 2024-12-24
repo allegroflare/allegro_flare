@@ -826,11 +826,13 @@ void TitleScreen::draw_title()
       };
       //int surface_width = 1920;
       //int surface_height = 1080;
-      al_draw_text(
+      al_draw_multiline_text(
          title_font,
          revealed_color,
          title_position_x,
          title_position_y,
+         1920,
+         al_get_font_line_height(title_font),
          ALLEGRO_ALIGN_CENTER,
          get_title_text().c_str()
       );

@@ -74,6 +74,21 @@ TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture, CAPTURE_
 
 
 TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_a_title_with_multiple_lines)
+{
+   AllegroFlare::Screens::TitleScreen title_screen;
+   title_screen.set_font_bin(&get_font_bin_ref());
+   title_screen.set_bitmap_bin(&get_bitmap_bin_ref());
+   title_screen.set_title_text("A Game Title\nThat Spans\nMultiple Lines");
+
+   title_screen.render();
+
+   al_flip_display();
+   SUCCEED();
+}
+
+
+TEST_F(AllegroFlare_Screens_TitleScreenTestWithAllegroRenderingFixture,
    CAPTURE__render__will_support_copyright_text_as_multiple_lines)
 {
    AllegroFlare::Screens::TitleScreen title_screen;
