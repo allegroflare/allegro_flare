@@ -25,6 +25,11 @@ CollisionMesh::CollisionMesh()
 
 CollisionMesh::~CollisionMesh()
 {
+   // NOTE: No additional work is expected here. The "model" member is externally owned and is expected
+   // to be destroyed in its own schedule.  It's only needed by this class before "load()" is called.  Other objects
+   // may have names to dynamic faces that will no longer be valid - it's expected that these objects will all be
+   // desroyed along with the colision mesh at the same time, however.
+   return;
 }
 
 
