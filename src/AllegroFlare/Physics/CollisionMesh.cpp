@@ -345,7 +345,7 @@ void CollisionMesh::draw(ALLEGRO_COLOR col, ALLEGRO_COLOR dynamic_faces_color_on
    }
    ALLEGRO_SHADER *previous_shader = al_get_current_shader();
    al_use_shader(nullptr);
-   // TODO: Consider that an allegro default shader is used here
+   // TODO: Consider that an allegro default shader is used here, and if there are possible side-effects
 
    // TODO: Validate somewhere that face is triangulated
    // TODO: Modify render states to render without depth check (and restore after this call)
