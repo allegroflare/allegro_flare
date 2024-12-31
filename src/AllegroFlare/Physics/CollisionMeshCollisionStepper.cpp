@@ -17,8 +17,9 @@ namespace Physics
 {
 
 
-CollisionMeshCollisionStepper::CollisionMeshCollisionStepper(AllegroFlare::Physics::CollisionMesh* collision_mesh, std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>>* _entities, float face_collision_stepout)
+CollisionMeshCollisionStepper::CollisionMeshCollisionStepper(AllegroFlare::Physics::CollisionMesh* collision_mesh, std::vector<AllegroFlare::Physics::CollisionMesh*> collision_meshes, std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>>* _entities, float face_collision_stepout)
    : collision_mesh(collision_mesh)
+   , collision_meshes(collision_meshes)
    , _entities(_entities)
    , face_collision_stepout(face_collision_stepout)
    , stepout_strategy(StepoutStrategy::STEPOUT_REVERSE_VELOCITY)
@@ -40,6 +41,12 @@ CollisionMeshCollisionStepper::~CollisionMeshCollisionStepper()
 void CollisionMeshCollisionStepper::set_collision_mesh(AllegroFlare::Physics::CollisionMesh* collision_mesh)
 {
    this->collision_mesh = collision_mesh;
+}
+
+
+void CollisionMeshCollisionStepper::set_collision_meshes(std::vector<AllegroFlare::Physics::CollisionMesh*> collision_meshes)
+{
+   this->collision_meshes = collision_meshes;
 }
 
 
@@ -88,6 +95,12 @@ void CollisionMeshCollisionStepper::set_num_collision_steps(int num_collision_st
 AllegroFlare::Physics::CollisionMesh* CollisionMeshCollisionStepper::get_collision_mesh() const
 {
    return collision_mesh;
+}
+
+
+std::vector<AllegroFlare::Physics::CollisionMesh*> CollisionMeshCollisionStepper::get_collision_meshes() const
+{
+   return collision_meshes;
 }
 
 
@@ -357,6 +370,7 @@ float CollisionMeshCollisionStepper::calculate_collisions(float min_entity_veloc
    // be ignored. Make sure it's the lesser collision time/step of the two.
 
    AllegroFlare::Physics::CollisionMesh &mesh = *collision_mesh;
+   std::vector<AllegroFlare::Physics::CollisionMesh*> &meshes = collision_meshes;
    std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>> &entities = *_entities;
    float least_collision_time = 1.0;
    float least_collision_time_for_this_entity = 1.0;
@@ -422,6 +436,16 @@ float CollisionMeshCollisionStepper::calculate_collisions(float min_entity_veloc
       process_faces(mesh.get_faces_ref());
       // TODO: process indexed faces (that may be disabled)
       process_faces(mesh.get_dynamic_faces_ref());
+
+      // TODO: Test this with multiple meshes
+      for (auto &mesh : meshes)
+      {
+         //meshes
+         process_faces(mesh->get_faces_ref());
+         // TODO: process indexed faces (that may be disabled)
+         process_faces(mesh->get_dynamic_faces_ref());
+      }
+
 
       /*
       // Iterate all faces, see if there was a collision

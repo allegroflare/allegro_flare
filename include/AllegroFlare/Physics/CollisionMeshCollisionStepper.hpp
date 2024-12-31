@@ -42,6 +42,7 @@ namespace AllegroFlare
          };
       private:
          AllegroFlare::Physics::CollisionMesh* collision_mesh;
+         std::vector<AllegroFlare::Physics::CollisionMesh*> collision_meshes;
          std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>>* _entities;
          float face_collision_stepout;
          AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy stepout_strategy;
@@ -56,10 +57,11 @@ namespace AllegroFlare
 
 
       public:
-         CollisionMeshCollisionStepper(AllegroFlare::Physics::CollisionMesh* collision_mesh=nullptr, std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>>* _entities=nullptr, float face_collision_stepout=0.001f);
+         CollisionMeshCollisionStepper(AllegroFlare::Physics::CollisionMesh* collision_mesh=nullptr, std::vector<AllegroFlare::Physics::CollisionMesh*> collision_meshes={}, std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>>* _entities=nullptr, float face_collision_stepout=0.001f);
          ~CollisionMeshCollisionStepper();
 
          void set_collision_mesh(AllegroFlare::Physics::CollisionMesh* collision_mesh);
+         void set_collision_meshes(std::vector<AllegroFlare::Physics::CollisionMesh*> collision_meshes);
          void set__entities(std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>>* _entities);
          void set_face_collision_stepout(float face_collision_stepout);
          void set_stepout_strategy(AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy stepout_strategy);
@@ -68,6 +70,7 @@ namespace AllegroFlare
          void set_gravity(float gravity);
          void set_num_collision_steps(int num_collision_steps);
          AllegroFlare::Physics::CollisionMesh* get_collision_mesh() const;
+         std::vector<AllegroFlare::Physics::CollisionMesh*> get_collision_meshes() const;
          std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>>* get__entities() const;
          float get_face_collision_stepout() const;
          AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy get_stepout_strategy() const;
