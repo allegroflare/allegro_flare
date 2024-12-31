@@ -343,6 +343,10 @@ void CollisionMesh::draw(ALLEGRO_COLOR col, ALLEGRO_COLOR dynamic_faces_color_on
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::draw]: error: guard \"loaded\" not met");
    }
+   ALLEGRO_SHADER *previous_shader = al_get_current_shader();
+   al_use_shader(nullptr);
+   // TODO: Consider that an allegro default shader is used here
+
    // TODO: Validate somewhere that face is triangulated
    // TODO: Modify render states to render without depth check (and restore after this call)
    // TODO: Draw faces as semitransparent, then draw lines, see if additive is an option
@@ -353,7 +357,8 @@ void CollisionMesh::draw(ALLEGRO_COLOR col, ALLEGRO_COLOR dynamic_faces_color_on
    for (auto &face : faces)
    {
       // Draw the face (hopefully it's trangulated)
-      AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
+      ALLEGRO_VERTEX vtx[4];
+      //AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
       vtx[0] = _create_vtx(face.v0, col);
       vtx[1] = _create_vtx(face.v1, col);
       vtx[2] = _create_vtx(face.v2, col);
@@ -361,7 +366,8 @@ void CollisionMesh::draw(ALLEGRO_COLOR col, ALLEGRO_COLOR dynamic_faces_color_on
       //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
       //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
       //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
-      al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
+      //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
+      al_draw_prim(vtx, NULL, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
 
       // TODO: Draw centroids and normals
       //draw_crosshair(face.centroid, color::dodgerblue, 0.5);
@@ -371,7 +377,8 @@ void CollisionMesh::draw(ALLEGRO_COLOR col, ALLEGRO_COLOR dynamic_faces_color_on
    for (auto &face : dynamic_faces.get_data())
    {
       // Draw the face (hopefully it's trangulated)
-      AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
+      ALLEGRO_VERTEX vtx[4];
+      //AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
       vtx[0] = _create_vtx(face.v0, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
       vtx[1] = _create_vtx(face.v1, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
       vtx[2] = _create_vtx(face.v2, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
@@ -379,27 +386,30 @@ void CollisionMesh::draw(ALLEGRO_COLOR col, ALLEGRO_COLOR dynamic_faces_color_on
       //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
       //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
       //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
-      al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
+      al_draw_prim(vtx, NULL, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
 
       // TODO: Draw centroids and normals
       //draw_crosshair(face.centroid, color::dodgerblue, 0.5);
       //draw_3d_line(face.centroid, face.centroid+mesh.face.normal*0.75, color::aliceblue);
    }
+
+   al_use_shader(previous_shader);
 }
 
-AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL CollisionMesh::_create_vtx(AllegroFlare::Vec3D vec, ALLEGRO_COLOR col)
+ALLEGRO_VERTEX CollisionMesh::_create_vtx(AllegroFlare::Vec3D vec, ALLEGRO_COLOR col)
 {
    //static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
    //{
-      AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL ret_val;
+      //AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL ret_val;
+      ALLEGRO_VERTEX ret_val;
       ret_val.x = vec.x;
       ret_val.y = vec.y;
       ret_val.z = vec.z;
       ret_val.u = 0;
       ret_val.v = 0;
-      ret_val.nx = 0;
-      ret_val.ny = 1;
-      ret_val.nz = 0;
+      //ret_val.nx = 0;
+      //ret_val.ny = 1;
+      //ret_val.nz = 0;
       ret_val.color = col;
       //return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
       return ret_val;

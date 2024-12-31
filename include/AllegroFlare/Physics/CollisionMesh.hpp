@@ -1,12 +1,12 @@
 #pragma once
 
 
-#include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <AllegroFlare/Model3D.hpp>
 #include <AllegroFlare/Physics/CollisionMeshFace.hpp>
 #include <AllegroFlare/StableVectorStr.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include <string>
 #include <vector>
 
@@ -43,7 +43,7 @@ namespace AllegroFlare
          void load();
          std::vector<std::string> load_dynamic_faces(std::string root_name="[unset-root_name]", AllegroFlare::Model3D* model=nullptr);
          void draw(ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6}, ALLEGRO_COLOR dynamic_faces_color_on=ALLEGRO_COLOR{0.7, 0.55, 0.5, 0.7}, ALLEGRO_COLOR dynamic_faces_color_off=ALLEGRO_COLOR{0.7*0.35, 0.55*0.35, 0.5*0.35, 0.7*0.35});
-         static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(AllegroFlare::Vec3D vec={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6});
+         static ALLEGRO_VERTEX _create_vtx(AllegroFlare::Vec3D vec={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6});
       };
    }
 }

@@ -24974,7 +24974,7 @@ table td
   <td class="method"><b>draw</b>(ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6}, ALLEGRO_COLOR dynamic_faces_color_on=ALLEGRO_COLOR{0.7, 0.55, 0.5, 0.7}, ALLEGRO_COLOR dynamic_faces_color_off=ALLEGRO_COLOR{0.7*0.35, 0.55*0.35, 0.5*0.35, 0.7*0.35})</td>
 </tr>
 <tr>
-  <td class="method">AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL</td>
+  <td class="method">ALLEGRO_VERTEX</td>
   <td class="method"><b>_create_vtx</b>(AllegroFlare::Vec3D vec={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{0.4, 0.41, 0.5, 0.6})</td>
 </tr>
     </table>
@@ -24993,7 +24993,7 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_VERTEX&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
@@ -50388,6 +50388,7 @@ table td
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
@@ -51380,10 +51381,6 @@ table td
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshFace"
   ],
-  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
-    "AllegroFlare/Physics/CollisionMesh",
-    "AllegroFlare/Physics/CollisionMeshFace"
-  ],
   "project": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
   ],
@@ -51411,6 +51408,9 @@ table td
   ],
   "AllegroFlare/Physics/CollisionMeshCollisionStepInfo": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
+    "AllegroFlare/Physics/CollisionMeshFace"
   ],
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Physics/CollisionMeshFace",

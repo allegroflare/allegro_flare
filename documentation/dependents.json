@@ -2363,6 +2363,7 @@
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Physics/AABB3D",
+    "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Rulers",
     "AllegroFlare/TileMaps/TileMesh"
@@ -3355,10 +3356,6 @@
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshFace"
   ],
-  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
-    "AllegroFlare/Physics/CollisionMesh",
-    "AllegroFlare/Physics/CollisionMeshFace"
-  ],
   "project": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
   ],
@@ -3386,6 +3383,9 @@
   ],
   "AllegroFlare/Physics/CollisionMeshCollisionStepInfo": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+  ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
+    "AllegroFlare/Physics/CollisionMeshFace"
   ],
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Physics/CollisionMeshFace",

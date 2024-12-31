@@ -308,6 +308,10 @@ methods:
         default_argument: 'ALLEGRO_COLOR{0.7*0.35, 0.55*0.35, 0.5*0.35, 0.7*0.35}'
     guards: [ loaded ]
     body: |
+      ALLEGRO_SHADER *previous_shader = al_get_current_shader();
+      al_use_shader(nullptr);
+      // TODO: Consider that an allegro default shader is used here
+
       // TODO: Validate somewhere that face is triangulated
       // TODO: Modify render states to render without depth check (and restore after this call)
       // TODO: Draw faces as semitransparent, then draw lines, see if additive is an option
@@ -318,7 +322,8 @@ methods:
       for (auto &face : faces)
       {
          // Draw the face (hopefully it's trangulated)
-         AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
+         ALLEGRO_VERTEX vtx[4];
+         //AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
          vtx[0] = _create_vtx(face.v0, col);
          vtx[1] = _create_vtx(face.v1, col);
          vtx[2] = _create_vtx(face.v2, col);
@@ -326,7 +331,8 @@ methods:
          //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
          //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
          //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
-         al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
+         //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
+         al_draw_prim(vtx, NULL, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
 
          // TODO: Draw centroids and normals
          //draw_crosshair(face.centroid, color::dodgerblue, 0.5);
@@ -336,7 +342,8 @@ methods:
       for (auto &face : dynamic_faces.get_data())
       {
          // Draw the face (hopefully it's trangulated)
-         AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
+         ALLEGRO_VERTEX vtx[4];
+         //AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL vtx[4];
          vtx[0] = _create_vtx(face.v0, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
          vtx[1] = _create_vtx(face.v1, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
          vtx[2] = _create_vtx(face.v2, face.disabled ? dynamic_faces_color_off : dynamic_faces_color_on);
@@ -344,18 +351,21 @@ methods:
          //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_TRIANGLE_FAN);
          //al_draw_prim(vtx, NULL, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
          //al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 3, ALLEGRO_PRIM_LINE_LIST);
-         al_draw_prim(vtx, model->vertex_declaration, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
+         al_draw_prim(vtx, NULL, NULL, 0, 4, ALLEGRO_PRIM_LINE_STRIP);
 
          // TODO: Draw centroids and normals
          //draw_crosshair(face.centroid, color::dodgerblue, 0.5);
          //draw_3d_line(face.centroid, face.centroid+mesh.face.normal*0.75, color::aliceblue);
       }
+
+      al_use_shader(previous_shader);
     body_dependency_symbols:
       - al_draw_prim
 
 
   - name: _create_vtx
-    type: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+    type: ALLEGRO_VERTEX
+    xtype: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
     static: true
     parameters:
       - name: vec
@@ -368,15 +378,16 @@ methods:
     body: |
       //static AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL _create_vtx(AllegroFlare::vec3d vec, ALLEGRO_COLOR col)
       //{
-         AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL ret_val;
+         //AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL ret_val;
+         ALLEGRO_VERTEX ret_val;
          ret_val.x = vec.x;
          ret_val.y = vec.y;
          ret_val.z = vec.z;
          ret_val.u = 0;
          ret_val.v = 0;
-         ret_val.nx = 0;
-         ret_val.ny = 1;
-         ret_val.nz = 0;
+         //ret_val.nx = 0;
+         //ret_val.ny = 1;
+         //ret_val.nz = 0;
          ret_val.color = col;
          //return build_vertex(vec.x, vec.y, vec.z, col, 0, 0);
          return ret_val;
@@ -394,8 +405,8 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
-  - symbol: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
-    headers: [ AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp ]
+  - symbol: ALLEGRO_VERTEX
+    headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
   - symbol: AllegroFlare::Model3D
