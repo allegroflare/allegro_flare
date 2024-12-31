@@ -1,11 +1,6 @@
 properties:
 
 
-  - name: model
-    type: AllegroFlare::Model3D*
-    init_with: nullptr
-    setter: true
-
   - name: faces
     type: std::vector<AllegroFlare::Physics::CollisionMeshFace>
     init_with: '{}'
@@ -29,8 +24,7 @@ methods:
 
   - name: ~destroy
     body: |
-      // NOTE: No additional work is expected here. The "model" member is externally owned and is expected
-      // to be destroyed in its own schedule.  It's only needed by this class before "load()" is called.  Other objects
+      // NOTE: No additional work is expected here. Other objects
       // may have names to dynamic faces that will no longer be valid - it's expected that these objects will all be
       // desroyed along with the colision mesh at the same time, however.
       return;
@@ -116,7 +110,11 @@ methods:
 
 
   - name: load
-    guards: [ model, (!loaded) ]
+    parameters:
+      - name: model
+        type: AllegroFlare::Model3D*
+        default_argument: nullptr
+    guards: [ model ]
     body: |
       // TODO: Note that model can change after loading, consider addressing this design flaw.
       auto m = model; // TODO: update this variable in the code below
@@ -411,5 +409,7 @@ dependencies:
     headers: [ AllegroFlare/Vec3D.hpp ]
   - symbol: AllegroFlare::Model3D
     headers: [ AllegroFlare/Model3D.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

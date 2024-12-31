@@ -15,8 +15,7 @@ namespace Physics
 
 
 CollisionMesh::CollisionMesh()
-   : model(nullptr)
-   , faces({})
+   : faces({})
    , dynamic_faces({})
    , loaded(false)
 {
@@ -25,17 +24,10 @@ CollisionMesh::CollisionMesh()
 
 CollisionMesh::~CollisionMesh()
 {
-   // NOTE: No additional work is expected here. The "model" member is externally owned and is expected
-   // to be destroyed in its own schedule.  It's only needed by this class before "load()" is called.  Other objects
+   // NOTE: No additional work is expected here. Other objects
    // may have names to dynamic faces that will no longer be valid - it's expected that these objects will all be
    // desroyed along with the colision mesh at the same time, however.
    return;
-}
-
-
-void CollisionMesh::set_model(AllegroFlare::Model3D* model)
-{
-   this->model = model;
 }
 
 
@@ -144,7 +136,7 @@ bool CollisionMesh::dynamic_face_exists(std::string name)
    return dynamic_faces.contains(name);
 }
 
-void CollisionMesh::load()
+void CollisionMesh::load(AllegroFlare::Model3D* model)
 {
    if (!(model))
    {
@@ -152,13 +144,6 @@ void CollisionMesh::load()
       error_message << "[AllegroFlare::Physics::CollisionMesh::load]: error: guard \"model\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::load]: error: guard \"model\" not met");
-   }
-   if (!((!loaded)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::CollisionMesh::load]: error: guard \"(!loaded)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::load]: error: guard \"(!loaded)\" not met");
    }
    // TODO: Note that model can change after loading, consider addressing this design flaw.
    auto m = model; // TODO: update this variable in the code below

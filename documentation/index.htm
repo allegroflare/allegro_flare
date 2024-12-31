@@ -24907,10 +24907,6 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">model</td>
-  <td class="property">AllegroFlare::Model3D*</td>
-</tr>
-<tr>
   <td class="property">faces</td>
   <td class="property">std::vector&lt;AllegroFlare::Physics::CollisionMeshFace&gt;</td>
 </tr>
@@ -24963,7 +24959,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>load</b>()</td>
+  <td class="method"><b>load</b>(AllegroFlare::Model3D* model=nullptr)</td>
 </tr>
 <tr>
   <td class="method">std::vector&lt;std::string&gt;</td>
@@ -25000,6 +24996,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Model3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Model3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48191,6 +48190,7 @@ table td
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
+    "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",

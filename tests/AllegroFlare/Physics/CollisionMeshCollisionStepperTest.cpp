@@ -74,8 +74,8 @@ public:
       if (collision_mesh) throw std::runtime_error("ya8g9du0afus0fa");
 
       collision_mesh = new AllegroFlare::Physics::CollisionMesh;
-      collision_mesh->set_model(model_bin[map_model_identifier]);
-      collision_mesh->load();
+      collision_mesh->load(model_bin[map_model_identifier]);
+      //collision_mesh->load();
    }
 
    void run_interactive_simulation()
@@ -695,8 +695,8 @@ occurs_on_a_single_entity)
    subject_placement.position = { 1920/2, 1080/2 };
    std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>> entities;
    AllegroFlare::Physics::CollisionMesh *collision_mesh = new AllegroFlare::Physics::CollisionMesh;
-   collision_mesh->set_model(model_bin["box_with_angled_walls-01z.obj"]);
-   collision_mesh->load();
+   collision_mesh->load(model_bin["box_with_angled_walls-01z.obj"]);
+   //collision_mesh->load();
 
    // Create an entity that will be stepped
    TestEntity *test_entity = new TestEntity;
@@ -739,8 +739,8 @@ occurs_on_a_single_entity)
    subject_placement.position = { 1920/2, 1080/2 };
    std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>> entities;
    AllegroFlare::Physics::CollisionMesh *collision_mesh = new AllegroFlare::Physics::CollisionMesh;
-   collision_mesh->set_model(model_bin["box_with_angled_walls-01z.obj"]);
-   collision_mesh->load();
+   collision_mesh->load(model_bin["box_with_angled_walls-01z.obj"]);
+   //collision_mesh->load();
 
    // Create an entity that will be stepped
    TestEntity *test_entity = new TestEntity;
@@ -783,8 +783,8 @@ occurs_on_multiple_entities)
    subject_placement.position = { 1920/2, 1080/2 };
    std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>> entities;
    AllegroFlare::Physics::CollisionMesh *collision_mesh = new AllegroFlare::Physics::CollisionMesh;
-   collision_mesh->set_model(model_bin["box_with_angled_walls-01z.obj"]);
-   collision_mesh->load();
+   collision_mesh->load(model_bin["box_with_angled_walls-01z.obj"]);
+   //collision_mesh->load();
 
    // Create entities that will experience "simultanious" collisions
    TestEntity *test_entity1 = new TestEntity;
@@ -857,8 +857,8 @@ will_calculate_the_collision_steps_as_expected)
    subject_placement.position = { 1920/2, 1080/2 };
    std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>> entities;
    AllegroFlare::Physics::CollisionMesh *collision_mesh = new AllegroFlare::Physics::CollisionMesh;
-   collision_mesh->set_model(model_bin["box_with_angled_walls-01z.obj"]);
-   collision_mesh->load();
+   collision_mesh->load(model_bin["box_with_angled_walls-01z.obj"]);
+   //collision_mesh->load();
 
    // Create an entities that will be stepped
    TestEntity *test_entity1 = new TestEntity;
@@ -925,8 +925,8 @@ TEST_F(AllegroFlare_Physics_CollisionMeshCollisionStepperTestWithAllegroRenderin
 
    // Load the collision mesh
    AllegroFlare::Physics::CollisionMesh *collision_mesh = new AllegroFlare::Physics::CollisionMesh;
-   collision_mesh->set_model(model_bin["magick_world-04.obj"]);
-   collision_mesh->load();
+   collision_mesh->load(model_bin["magick_world-04.obj"]);
+   //collision_mesh->load();
 
    // Build a camera
    AllegroFlare::Camera3D camera;

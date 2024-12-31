@@ -93,8 +93,8 @@ TEST_F(AllegroFlare_Prototypes_MeshFPS_ScreenTestWithAllegroFrameworksFullFixtur
 
    // Build a map
    AllegroFlare::Physics::CollisionMesh *collision_mesh = new AllegroFlare::Physics::CollisionMesh();
-   collision_mesh->set_model(get_framework_model_bin()->operator[](collision_mesh_identifier));
-   collision_mesh->load();
+   collision_mesh->load(get_framework_model_bin()->operator[](collision_mesh_identifier));
+   //collision_mesh->load();
    screen.set_collision_mesh(collision_mesh);
 
    // Create some entities
