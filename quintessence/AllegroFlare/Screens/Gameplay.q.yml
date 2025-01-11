@@ -381,6 +381,18 @@ methods:
       return;
 
 
+  - name: mouse_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller) player_input_controller->mouse_up_func(ev);
+      return;
+
+
   - name: mouse_down_func
     virtual: true
     override: true

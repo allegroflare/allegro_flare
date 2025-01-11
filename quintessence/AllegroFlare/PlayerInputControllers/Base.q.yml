@@ -161,6 +161,18 @@ methods:
       return;
 
 
+  - name: mouse_up_func
+    virtual: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ ev ]
+    body: |
+      // Override this in the derived class
+      return;
+
+
   - name: mouse_down_func
     virtual: true
     parameters:

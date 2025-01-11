@@ -115,6 +115,19 @@ void Base::joy_button_down_func(ALLEGRO_EVENT* ev)
    return;
 }
 
+void Base::mouse_up_func(ALLEGRO_EVENT* ev)
+{
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::PlayerInputControllers::Base::mouse_up_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Base::mouse_up_func]: error: guard \"ev\" not met");
+   }
+   // Override this in the derived class
+   return;
+}
+
 void Base::mouse_down_func(ALLEGRO_EVENT* ev)
 {
    if (!(ev))

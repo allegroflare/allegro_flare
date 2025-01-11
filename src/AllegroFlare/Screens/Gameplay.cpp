@@ -305,6 +305,12 @@ void Gameplay::joy_axis_func(ALLEGRO_EVENT* ev)
    return;
 }
 
+void Gameplay::mouse_up_func(ALLEGRO_EVENT* ev)
+{
+   if (player_input_controller) player_input_controller->mouse_up_func(ev);
+   return;
+}
+
 void Gameplay::mouse_down_func(ALLEGRO_EVENT* ev)
 {
    if (player_input_controller) player_input_controller->mouse_down_func(ev);
