@@ -144,6 +144,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/None.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/None.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Parallax.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ScreenCapture.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Backgrounds/Video.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/Video.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Base.q.yml">quintessence/AllegroFlare/Elements/Base.q.yml</a></li>
@@ -453,6 +454,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/Base.q.yml">quintessence/AllegroFlare/RenderSurfaces/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbuffer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml">quintessence/AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/RepeatingBitmapLogic.q.yml">quintessence/AllegroFlare/RepeatingBitmapLogic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.q.yml">quintessence/AllegroFlare/RouteEventDatas/ActivateScreenByIdentifier.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RouteEventDatas/Base.q.yml">quintessence/AllegroFlare/RouteEventDatas/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/RouteEventDatas/StartLevel.q.yml">quintessence/AllegroFlare/RouteEventDatas/StartLevel.q.yml</a></li>
@@ -6940,6 +6942,66 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Consider if it would be a better design to pass in a bitmap_bin and reference the images by identifier."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera2D*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin*&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::draw_offset_textured_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxLayer&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::RepeatingBitmapLogic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/RepeatingBitmapLogic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31587,12 +31649,21 @@ table td
   <td class="property">tile_atlas_bitmap_identifier</td>
   <td class="property">std::string</td>
 </tr>
+<tr>
+  <td class="property">background_layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -34040,6 +34111,124 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Color&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Color.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/RepeatingBitmapLogic.q.yml">quintessence/AllegroFlare/RepeatingBitmapLogic.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">column_start</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">row_start</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">column_end</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">row_end</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">loop_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">loop_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">scroll_rate_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">scroll_rate_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">placement</td>
+  <td class="property">AllegroFlare::Placement2D</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>fit_rows_and_columns_to_frame</b>(float x1=0.0f, float y1=0.0f, float x2=1920.0f, float y2=1080.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>fit_loop_width_to_bitmap_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>fit_loop_height_to_bitmap_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>fit_placement_width_to_bitamp_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>fit_placement_height_to_bitamp_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>fit_placement_dimensions_to_bitmap_dimensions</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_repeating_rows_and_columns</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48089,6 +48278,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
@@ -48122,6 +48312,7 @@ table td
     "AllegroFlare/RenderSurfaces/Base",
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -48276,6 +48467,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
@@ -48530,7 +48722,9 @@ table td
   "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/Elements/Backgrounds/Parallax",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing"
   ],
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"
@@ -48694,6 +48888,7 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
@@ -48815,6 +49010,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
@@ -48919,6 +49115,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Button",
@@ -48953,6 +49150,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -48999,6 +49197,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/Tiled/TMJObject",
@@ -49009,6 +49208,7 @@ table td
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -49765,6 +49965,7 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
@@ -49927,6 +50128,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
@@ -49973,6 +50175,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/None",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/ChapterSelect/Screen",
@@ -50002,10 +50205,15 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/draw_offset_textured_rectangle": [
-    "AllegroFlare/Elements/Backgrounds/Parallax"
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom"
   ],
   "std/vector<AllegroFlare/Elements/Backgrounds/ParallaxLayer>": [
-    "AllegroFlare/Elements/Backgrounds/Parallax"
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom"
+  ],
+  "AllegroFlare/RepeatingBitmapLogic": [
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom"
   ],
   "AllegroFlare/ScreenCapture": [
     "AllegroFlare/Elements/Backgrounds/ScreenCapture"

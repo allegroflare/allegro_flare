@@ -46,6 +46,7 @@
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
@@ -79,6 +80,7 @@
     "AllegroFlare/RenderSurfaces/Base",
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/ScreenCapture",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/PauseScreen",
@@ -233,6 +235,7 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
@@ -487,7 +490,9 @@
   "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
     "AllegroFlare/BackgroundFactory",
     "AllegroFlare/Elements/Backgrounds/Parallax",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing"
   ],
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"
@@ -651,6 +656,7 @@
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Screen",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/Achievements",
@@ -772,6 +778,7 @@
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
@@ -876,6 +883,7 @@
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/Base",
     "AllegroFlare/Elements/Button",
@@ -910,6 +918,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -956,6 +965,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/Tiled/TMJObject",
@@ -966,6 +976,7 @@
   "AllegroFlare/Camera2D": [
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -1722,6 +1733,7 @@
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
@@ -1884,6 +1896,7 @@
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
+    "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
@@ -1930,6 +1943,7 @@
     "AllegroFlare/Elements/Backgrounds/Monoplex",
     "AllegroFlare/Elements/Backgrounds/None",
     "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/Backgrounds/Video",
     "AllegroFlare/Elements/ChapterSelect/Screen",
@@ -1959,10 +1973,15 @@
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/draw_offset_textured_rectangle": [
-    "AllegroFlare/Elements/Backgrounds/Parallax"
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom"
   ],
   "std/vector<AllegroFlare/Elements/Backgrounds/ParallaxLayer>": [
-    "AllegroFlare/Elements/Backgrounds/Parallax"
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom"
+  ],
+  "AllegroFlare/RepeatingBitmapLogic": [
+    "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom"
   ],
   "AllegroFlare/ScreenCapture": [
     "AllegroFlare/Elements/Backgrounds/ScreenCapture"

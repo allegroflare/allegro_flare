@@ -1,0 +1,233 @@
+properties:
+
+
+  - name: bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: column_start
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: row_start
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: column_end
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: row_end
+    type: int
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: loop_width
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: loop_height
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: offset_x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: offset_y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: scroll_rate_x
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: scroll_rate_y
+    type: float
+    init_with: 1.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: placement
+    type: AllegroFlare::Placement2D
+    init_with: '{}'
+    constructor_arg: true
+    getter_ref: true
+    setter: true
+
+
+methods:
+
+
+  - name: fit_rows_and_columns_to_frame
+    parameters:
+      - name: x1
+        type: float
+        default_argument: 0.0f
+      - name: y1
+        type: float
+        default_argument: 0.0f
+      - name: x2
+        type: float
+        default_argument: 1920.0f
+      - name: y2
+        type: float
+        default_argument: 1080.0f
+    body: |
+      // TODO: This needs to take the placement's scale, width, align, etc, into account 
+
+      //float x_alignment_offset = loop_width * placement.align.x;
+      //float y_alignment_offset = loop_height * placement.align.y;
+
+      //x1 += x_alignment_offset;
+      //y1 += y_alignment_offset;
+      //x2 += x_alignment_offset;
+      //y2 += y_alignment_offset;
+
+      //x1 *= scroll_rate_x;
+      //y1 *= scroll_rate_y;
+      //x2 *= scroll_rate_x;
+      //x2 *= scroll_rate_y;
+
+      column_start = (int)(x1 / loop_width) - 1;
+      row_start = (int)(y1 / loop_height) - 1;
+      column_end = (int)(x2 / loop_width);
+      row_end = (int)(y2 / loop_height);
+
+      bool show_offset = false;
+      //bool show_offset = true;
+      if (show_offset)
+      {
+         column_start += 1;
+         row_start += 1;
+         column_end -= 1;
+         row_end -= 1;
+      }
+
+      return;
+
+
+  - name: fit_loop_width_to_bitmap_width
+    guards: [ bitmap ]
+    body: |
+      // TODO: Test this method
+      loop_width = al_get_bitmap_width(bitmap);
+      return;
+
+
+  - name: fit_loop_height_to_bitmap_height
+    guards: [ bitmap ]
+    body: |
+      // TODO: Test this method
+      loop_height = al_get_bitmap_height(bitmap);
+      return;
+
+
+  - name: fit_placement_width_to_bitamp_width
+    guards: [ bitmap ]
+    body: |
+      // TODO: Test this method
+      placement.size.x = al_get_bitmap_width(bitmap);
+      return;
+
+
+  - name: fit_placement_height_to_bitamp_height
+    guards: [ bitmap ]
+    body: |
+      // TODO: Test this method
+      placement.size.y = al_get_bitmap_height(bitmap);
+      return;
+
+
+  - name: fit_placement_dimensions_to_bitmap_dimensions
+    guards: [ bitmap ]
+    body: |
+      // TODO: Test this method
+      fit_placement_width_to_bitamp_width();
+      fit_placement_height_to_bitamp_height();
+      return;
+
+
+  - name: render
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized(), al_is_font_addon_initialized() ]
+    body: |
+      //float orientation
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+  - name: draw_repeating_rows_and_columns
+    body: |
+      AllegroFlare::Placement2D looping_transform;
+      for (int row=row_start; row<=row_end; row++)
+      {
+         for (int column=column_start; column<=column_end; column++)
+         {
+            looping_transform.position.x = (loop_width * column) + offset_x;
+            looping_transform.position.y = (loop_height * row) + offset_y;
+            looping_transform.start_transform();
+            placement.start_transform();
+            al_draw_bitmap(bitmap, 0, 0, 0);
+            placement.restore_transform();
+            looping_transform.restore_transform();
+         }
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Vec2D
+      - al_draw_rounded_rectangle
+      - al_draw_text
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::FontBin
+    headers: [ AllegroFlare/FontBin.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_text
+    headers: [ allegro5/allegro_font.h ]
+  - symbol: al_draw_rounded_rectangle
+    headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Placement2D
+    headers: [ AllegroFlare/Placement2D.hpp ]
+
+
