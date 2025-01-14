@@ -120,6 +120,18 @@ bool Simple::currently_colliding_is_empty()
    return currently_colliding.empty();
 }
 
+bool Simple::is_subject_currently_colliding_with(void* other)
+{
+   if (!(other))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::CollisionObservers::Simple::is_subject_currently_colliding_with]: error: guard \"other\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::CollisionObservers::Simple::is_subject_currently_colliding_with]: error: guard \"other\" not met");
+   }
+   return currently_colliding.find(other) != currently_colliding.end();
+}
+
 void Simple::passively_add_to_currently_colliding(void* collidable)
 {
    if (!(collidable))

@@ -43,6 +43,7 @@ namespace AllegroFlare
          std::vector<void*> get_stayed_in() const;
          void clear();
          bool currently_colliding_is_empty();
+         bool is_subject_currently_colliding_with(void* other=nullptr);
          void passively_add_to_currently_colliding(void* collidable=nullptr);
          void process();
       };

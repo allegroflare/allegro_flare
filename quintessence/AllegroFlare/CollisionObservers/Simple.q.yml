@@ -67,6 +67,17 @@ methods:
       return currently_colliding.empty();
 
 
+  - name: is_subject_currently_colliding_with
+    type: bool
+    parameters:
+      - name: other
+        type: void*
+        default_argument: nullptr
+    guards: [ other ]
+    body: |
+      return currently_colliding.find(other) != currently_colliding.end();
+
+
   - name: passively_add_to_currently_colliding
     parameters:
       - name: collidable
