@@ -103,6 +103,30 @@ std::vector<void*> Simple::get_stayed_in() const
 }
 
 
+std::vector<void*> &Simple::get_entered_ref()
+{
+   return entered;
+}
+
+
+std::vector<void*> &Simple::get_exited_ref()
+{
+   return exited;
+}
+
+
+std::vector<void*> &Simple::get_stayed_out_ref()
+{
+   return stayed_out;
+}
+
+
+std::vector<void*> &Simple::get_stayed_in_ref()
+{
+   return stayed_in;
+}
+
+
 void Simple::clear()
 {
    subject = nullptr;

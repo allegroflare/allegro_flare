@@ -29,21 +29,25 @@ properties:
     type: std::vector<void*>
     init_with: '{}'
     getter: true
+    getter_ref: true
 
   - name: exited
     type: std::vector<void*>
     init_with: '{}'
     getter: true
+    getter_ref: true
 
   - name: stayed_out
     type: std::vector<void*>
     init_with: '{}'
     getter: true
+    getter_ref: true
 
   - name: stayed_in
     type: std::vector<void*>
     init_with: '{}'
     getter: true
+    getter_ref: true
 
 
 methods:

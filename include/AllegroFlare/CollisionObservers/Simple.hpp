@@ -41,6 +41,10 @@ namespace AllegroFlare
          std::vector<void*> get_exited() const;
          std::vector<void*> get_stayed_out() const;
          std::vector<void*> get_stayed_in() const;
+         std::vector<void*> &get_entered_ref();
+         std::vector<void*> &get_exited_ref();
+         std::vector<void*> &get_stayed_out_ref();
+         std::vector<void*> &get_stayed_in_ref();
          void clear();
          bool currently_colliding_is_empty();
          bool is_subject_currently_colliding_with(void* other=nullptr);
