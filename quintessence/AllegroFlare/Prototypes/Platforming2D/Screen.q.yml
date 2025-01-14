@@ -434,8 +434,8 @@ methods:
 
          std::string map_filename = map_dictionary_listing.get_tmj_filename();
          std::string map_tile_atlas_bitmap_identifier = map_dictionary_listing.get_tile_atlas_bitmap_identifier();
-         std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers =
-            map_dictionary_listing.get_background_layers();
+         std::vector<AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing> background_layer_listings =
+            map_dictionary_listing.get_background_layer_listings();
 
          std::cout << "Loading map named \"" << map_name << "\" from file \"" << map_filename << "\"." << std::endl;
 
@@ -445,7 +445,7 @@ methods:
                map_name,
                map_filename,
                map_tile_atlas_bitmap_identifier,
-               background_layers
+               background_layer_listings
             );
          entity_pool.push_back(created_map);
 
@@ -1720,11 +1720,8 @@ methods:
       ALLEGRO_BITMAP *target_bitmap = al_get_target_bitmap();
       camera.setup_dimensional_projection(target_bitmap);
 
-      //ALLEGRO_STATE previous_target_bitmap;
-      //al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
-      //al_set_target_bitmap(target_bitmap);
-      camera.start_reverse_transform();
-      //camera.start_transform();
+
+      //camera.start_reverse_transform();
 
       al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
                                                                               // subsequent renders at the same
@@ -1732,9 +1729,22 @@ methods:
                                                                               // mimics the rendering of typical
                                                                               // "traditional" drawing functions
 
-      // TODO: Draw the background here, specifically AllegroFlare::Elements::Backgrounds::ParallaxWithZoom
-      // HERE
-      //AllegroFlare::Elements::Backgrounds::ParallaxWithZoom
+
+
+      // Draw the parallax background
+      // Note that the background is drawn before the camera sets the projection.
+      AllegroFlare::Elements::Backgrounds::ParallaxWithZoom parallax_with_zoom_background;
+      parallax_with_zoom_background.set_layers(currently_active_map->get_background_layers());
+      parallax_with_zoom_background.set_camera(&camera);
+      parallax_with_zoom_background.render();
+
+
+
+      //ALLEGRO_STATE previous_target_bitmap;
+      //al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
+      //al_set_target_bitmap(target_bitmap);
+      camera.start_reverse_transform();
+      //camera.start_transform();
 
 
       // TODO: Figure out how to include tile mesh with entities, including "draw_order_z" and "draw_order_group"
@@ -1795,6 +1805,7 @@ methods:
       return;
     body_dependency_symbols:
       - al_color_name
+      - AllegroFlare::Elements::Backgrounds::ParallaxWithZoom
 
 
   - name: draw_debugging
@@ -2409,5 +2420,7 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/TileAtlasRepository.hpp ]
   - symbol: AllegroFlare::Routers::Standard
     headers: [ AllegroFlare/Routers/Standard.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::ParallaxWithZoom
+    headers: [ AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.hpp ]
 
 

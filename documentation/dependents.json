@@ -492,8 +492,7 @@
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing"
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"
@@ -3886,6 +3885,10 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing"
+  ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
@@ -3945,6 +3948,9 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "ifstream": [

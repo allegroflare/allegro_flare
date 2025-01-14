@@ -448,7 +448,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_name, std::string map_json_filename, std::string tile_atlas_bitmap_identifier, std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers) const
+AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_name, std::string map_json_filename, std::string tile_atlas_bitmap_identifier, std::vector<AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing> background_layer_listings) const
 {
    if (!(bitmap_bin))
    {
@@ -513,12 +513,25 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
       throw std::runtime_error("ERROR Basic2DFactory::create_tile_map could not create collision_tile_map");
    }
 
+   // Build the parallax background_layers
+   std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers_result;
+   for (auto &background_layer_listing : background_layer_listings)
+   {
+      AllegroFlare::Elements::Backgrounds::ParallaxLayer parallax_layer_result(
+         background_layer_listing.get_anchor_x(),
+         background_layer_listing.get_anchor_y(),
+         background_layer_listing.get_offset_rate(),
+         bitmap_bin->auto_get(background_layer_listing.get_bitmap_identifier())
+      );
+      background_layers_result.push_back(parallax_layer_result);
+   }
+
    created_map->set_tile_atlas(tile_atlas);
    created_map->set_terrain_tile_mesh(terrain_tile_mesh);
    created_map->set_foreground_tile_mesh(foreground_tile_mesh);
    created_map->set_background_tile_mesh(background_tile_mesh);
    created_map->set_collision_tile_map(collision_tile_map);
-   created_map->set_background_layers(background_layers);
+   created_map->set_background_layers(background_layers_result);
    created_map->set(MAP_NAME, map_name);
 
    if (init_entities_drawing_debug) created_map->set_draw_debug(true);

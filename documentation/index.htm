@@ -435,6 +435,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader.q.yml</a></li>
@@ -30519,7 +30520,7 @@ table td
 </tr>
 <tr>
   <td class="method">AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D*</td>
-  <td class="method"><b>create_tile_map</b>(std::string map_name=&quot;[map-name-not-set]&quot;, std::string map_json_filename=&quot;[a-map-tmj-filename-that-is-not-set]&quot;, std::string tile_atlas_bitmap_identifier=&quot;[unset-tile_atlas_bitmap_identifier]&quot;, std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt; background_layers={})</td>
+  <td class="method"><b>create_tile_map</b>(std::string map_name=&quot;[map-name-not-set]&quot;, std::string map_json_filename=&quot;[a-map-tmj-filename-that-is-not-set]&quot;, std::string tile_atlas_bitmap_identifier=&quot;[unset-tile_atlas_bitmap_identifier]&quot;, std::vector&lt;AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing&gt; background_layer_listings={})</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -30625,6 +30626,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31653,8 +31657,8 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
-  <td class="property">background_layers</td>
-  <td class="property">std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;</td>
+  <td class="property">background_layer_listings</td>
+  <td class="property">std::vector&lt;AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing&gt;</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -31663,10 +31667,41 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">anchor_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">anchor_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_rate</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">bitmap_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -32257,6 +32292,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Routers::Standard&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Routers/Standard.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxWithZoom&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48727,8 +48765,7 @@ table td
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing"
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"
@@ -52121,6 +52158,10 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing"
+  ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
@@ -52180,6 +52221,9 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
+  "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "ifstream": [

@@ -13,10 +13,10 @@ namespace Platforming2D
 {
 
 
-MapDictionaryListing::MapDictionaryListing(std::string tmj_filename, std::string tile_atlas_bitmap_identifier, std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers)
+MapDictionaryListing::MapDictionaryListing(std::string tmj_filename, std::string tile_atlas_bitmap_identifier, std::vector<AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing> background_layer_listings)
    : tmj_filename(tmj_filename)
    , tile_atlas_bitmap_identifier(tile_atlas_bitmap_identifier)
-   , background_layers(background_layers)
+   , background_layer_listings(background_layer_listings)
 {
 }
 
@@ -38,9 +38,9 @@ void MapDictionaryListing::set_tile_atlas_bitmap_identifier(std::string tile_atl
 }
 
 
-void MapDictionaryListing::set_background_layers(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers)
+void MapDictionaryListing::set_background_layer_listings(std::vector<AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing> background_layer_listings)
 {
-   this->background_layers = background_layers;
+   this->background_layer_listings = background_layer_listings;
 }
 
 
@@ -56,9 +56,9 @@ std::string MapDictionaryListing::get_tile_atlas_bitmap_identifier() const
 }
 
 
-std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> MapDictionaryListing::get_background_layers() const
+std::vector<AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing> MapDictionaryListing::get_background_layer_listings() const
 {
-   return background_layers;
+   return background_layer_listings;
 }
 
 

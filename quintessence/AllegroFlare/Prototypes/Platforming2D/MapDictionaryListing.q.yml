@@ -15,8 +15,8 @@ properties:
     getter: true
     setter: true
 
-  - name: background_layers
-    type: std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
+  - name: background_layer_listings
+    type: std::vector<AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing>
     init_with: '{}'
     constructor_arg: true
     getter: true
@@ -26,7 +26,7 @@ properties:
 dependencies:
 
 
-  - symbol: AllegroFlare::Elements::Backgrounds::ParallaxLayer
-    headers: [ AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing
+    headers: [ AllegroFlare/Prototypes/Platforming2D/ParallaxLayerListing.hpp ]
 
 

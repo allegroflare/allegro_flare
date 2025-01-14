@@ -1,0 +1,32 @@
+properties:
+
+
+  - name: anchor_x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: anchor_y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: offset_rate
+    type: float
+    init_with: 1.0
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: bitmap_identifier
+    type: std::string
+    init_with: '"[unset-bitmap_identifier]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
