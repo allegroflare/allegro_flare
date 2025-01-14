@@ -665,6 +665,9 @@ functions:
       - name: tile_atlas_bitmap_identifier
         type: std::string
         default_argument: '"[unset-tile_atlas_bitmap_identifier]"'
+      - name: background_layers
+        type: std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
+        default_argument: '{}'
     guards: [ bitmap_bin ]
     body: |
       // TODO: Note that "tile_atlas_bitmap_identifier" will need to be paired with more data, such as tile size
@@ -728,6 +731,7 @@ functions:
       created_map->set_foreground_tile_mesh(foreground_tile_mesh);
       created_map->set_background_tile_mesh(background_tile_mesh);
       created_map->set_collision_tile_map(collision_tile_map);
+      created_map->set_background_layers(background_layers);
       created_map->set(MAP_NAME, map_name);
 
       if (init_entities_drawing_debug) created_map->set_draw_debug(true);
@@ -1071,5 +1075,7 @@ dependencies:
     headers: [ AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp ]
   - symbol: AllegroFlare::TileMaps::TileAtlasRepository
     headers: [ AllegroFlare/TileMaps/TileAtlasRepository.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::ParallaxLayer
+    headers: [ AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
 
 

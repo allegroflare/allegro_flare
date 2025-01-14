@@ -448,7 +448,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    return created_entity;
 }
 
-AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_name, std::string map_json_filename, std::string tile_atlas_bitmap_identifier) const
+AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFactory::create_tile_map(std::string map_name, std::string map_json_filename, std::string tile_atlas_bitmap_identifier, std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers) const
 {
    if (!(bitmap_bin))
    {
@@ -518,6 +518,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    created_map->set_foreground_tile_mesh(foreground_tile_mesh);
    created_map->set_background_tile_mesh(background_tile_mesh);
    created_map->set_collision_tile_map(collision_tile_map);
+   created_map->set_background_layers(background_layers);
    created_map->set(MAP_NAME, map_name);
 
    if (init_entities_drawing_debug) created_map->set_draw_debug(true);

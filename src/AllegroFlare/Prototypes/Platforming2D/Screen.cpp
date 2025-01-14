@@ -561,7 +561,8 @@ void Screen::load_maps_in_dictionary()
 
       std::string map_filename = map_dictionary_listing.get_tmj_filename();
       std::string map_tile_atlas_bitmap_identifier = map_dictionary_listing.get_tile_atlas_bitmap_identifier();
-      //std::string map_tile_atlas_bitmap_identifier = std::get<1>(map_dictionary_entry);
+      std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers =
+         map_dictionary_listing.get_background_layers();
 
       std::cout << "Loading map named \"" << map_name << "\" from file \"" << map_filename << "\"." << std::endl;
 
@@ -570,7 +571,8 @@ void Screen::load_maps_in_dictionary()
          factory.create_tile_map(
             map_name,
             map_filename,
-            map_tile_atlas_bitmap_identifier
+            map_tile_atlas_bitmap_identifier,
+            background_layers
          );
       entity_pool.push_back(created_map);
 
