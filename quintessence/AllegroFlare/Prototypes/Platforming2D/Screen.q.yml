@@ -1730,6 +1730,11 @@ methods:
                                                                               // mimics the rendering of typical
                                                                               // "traditional" drawing functions
 
+      // TODO: Draw the background here, specifically AllegroFlare::Elements::Backgrounds::ParallaxWithZoom
+      // HERE
+      //AllegroFlare::Elements::Backgrounds::ParallaxWithZoom
+
+
       // TODO: Figure out how to include tile mesh with entities, including "draw_order_z" and "draw_order_group"
       if (show_background_tile_mesh && background_tile_mesh_exists())
       {

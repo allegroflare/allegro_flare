@@ -57,6 +57,13 @@ properties:
     getter: true
     setter: true
 
+  - name: background_layers
+    type: std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 methods:
 
@@ -126,5 +133,7 @@ dependencies:
     headers: [ AllegroFlare/TileMaps/TileMesh.hpp ]
   - symbol: AllegroFlare::Shaders::Base
     headers: [ AllegroFlare/Shaders/Base.hpp ]
+  - symbol: AllegroFlare::Elements::Backgrounds::ParallaxLayer
+    headers: [ AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
 
 

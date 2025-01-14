@@ -486,7 +486,8 @@
   ],
   "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
     "AllegroFlare/BackgroundFactory",
-    "AllegroFlare/Elements/Backgrounds/Parallax"
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"

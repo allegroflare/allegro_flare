@@ -31322,6 +31322,10 @@ table td
   <td class="property">collision_tile_map</td>
   <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
 </tr>
+<tr>
+  <td class="property">background_layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -31354,6 +31358,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48522,7 +48529,8 @@ table td
   ],
   "AllegroFlare/Elements/Backgrounds/ParallaxLayer": [
     "AllegroFlare/BackgroundFactory",
-    "AllegroFlare/Elements/Backgrounds/Parallax"
+    "AllegroFlare/Elements/Backgrounds/Parallax",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "std/runtime_error": [
     "AllegroFlare/BacktracingException"
