@@ -1884,39 +1884,30 @@ void Screen::draw()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::draw]: error: guard \"get_terrain_tile_mesh()\" not met");
    }
-   //ALLEGRO_STATE previous_target_bitmap;
-
    ALLEGRO_BITMAP *target_bitmap = al_get_target_bitmap();
    camera.setup_dimensional_projection(target_bitmap);
 
-
-   //camera.start_reverse_transform();
 
    al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
                                                                            // subsequent renders at the same
                                                                            // z-level to overwrite. This 
                                                                            // mimics the rendering of typical
-                                                                           // "traditional" drawing functions
+                                                                           // "traditional" graphics drawing
 
 
-
-   // Draw the parallax background
-   // Note that the background is drawn before the camera sets the projection.
+   // Draw the background (parallax)
+   // Note that this background is drawn before the camera sets the projection to render the rest of the scene, as
+   // such, this background rendering uses the camera different from the rest of the rendering below.
    AllegroFlare::Elements::Backgrounds::ParallaxWithZoom parallax_with_zoom_background;
    parallax_with_zoom_background.set_layers(currently_active_map->get_background_layers());
    parallax_with_zoom_background.set_camera(&camera);
    parallax_with_zoom_background.render();
 
 
-
-   //ALLEGRO_STATE previous_target_bitmap;
-   //al_store_state(&previous_target_bitmap, ALLEGRO_STATE_TARGET_BITMAP);
-   //al_set_target_bitmap(target_bitmap);
+   // Setup the camera in order
    camera.start_reverse_transform();
-   //camera.start_transform();
 
 
-   // TODO: Figure out how to include tile mesh with entities, including "draw_order_z" and "draw_order_group"
    if (show_background_tile_mesh && background_tile_mesh_exists())
    {
       draw__before_background_tile_mesh_render_func();
@@ -1930,6 +1921,9 @@ void Screen::draw()
          currently_active_map->get_shader_for_background_tile_mesh()->deactivate();
       }
    }
+
+
+   // Draw the terrain_tile_mesh
    if (show_terrain_tile_mesh)
    {
       draw__before_terrain_tile_mesh_render_func();
@@ -1943,7 +1937,14 @@ void Screen::draw()
          currently_active_map->get_shader_for_terrain_tile_mesh()->deactivate();
       }
    }
+
+
+   // Draw entities
+   // TODO: Figure out how to include tile mesh with entities, including "draw_order_z" and "draw_order_group"
    draw_entities_sorted_by_render_order();
+
+
+   // Draw the foreground_tile_mesh
    if (show_foreground_tile_mesh && foreground_tile_mesh_exists())
    {
       draw__before_foreground_tile_mesh_render_func();
@@ -1957,11 +1958,17 @@ void Screen::draw()
          currently_active_map->get_shader_for_foreground_tile_mesh()->deactivate();
       }
    }
+
+
+   // Show the collision_tile_map
    if (show_collision_tile_map) render_collision_tile_map();
 
+
+   // Restore the camera
    camera.restore_transform();
 
-   // Indicate a hint on suspended gameplay
+
+   // Indicate a suspended gameplay hint
    if (get_gameplay_suspended() && show_visual_hint_on_suspended_gameplay)
    {
       float surface_width = al_get_bitmap_width(target_bitmap);
@@ -1969,7 +1976,6 @@ void Screen::draw()
       al_draw_filled_rectangle(100, 100, surface_width-100, surface_height-100, ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.2});
    }
 
-   //al_restore_state(&previous_target_bitmap);
 
    return;
 }
