@@ -17,14 +17,17 @@ for keyword in "$@"; do
    search_pattern="$search_pattern|$keyword"
 done
 
-# Search for the combined pattern in the CSV file and count the results
+# Search for the combined pattern in the CSV file
 results=$(grep -E "$search_pattern" "$csv_file")
-num_results=$(echo "$results" | wc -l)
 
-# Output the results
-echo "$results"
+# Sanitize the results by replacing any field containing /Users/markoates/... with [redacted]
+sanitized_results=$(echo "$results" | sed -E 's/,([^,]*\/Users\/markoates\/[^,]*),/,[redacted],/g')
+
+# Count the number of results
+num_results=$(echo "$sanitized_results" | grep -c "^")
+
+# Output the sanitized results
+echo "$sanitized_results"
 echo ""
 echo "Number of keywords: $num_keywords"
 echo "Number of results: $num_results"
-
-
