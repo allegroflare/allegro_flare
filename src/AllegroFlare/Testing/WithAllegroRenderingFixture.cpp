@@ -206,6 +206,15 @@ std::string WithAllegroRenderingFixture::get_fixtures_path()
 
 std::string WithAllegroRenderingFixture::get_data_path()
 {
+   AllegroFlare::Logger::warn_from_once(
+      "AllegroFlare::Testing::WithAllegroRenderingFixture::get_data_path",
+      "This method is depreciated, use get_data_folder_path() instead."
+   );
+   return deployment_environment.get_data_folder_path();
+}
+
+std::string WithAllegroRenderingFixture::get_data_folder_path()
+{
    return deployment_environment.get_data_folder_path();
 }
 

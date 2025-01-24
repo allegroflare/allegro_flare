@@ -156,6 +156,16 @@ methods:
   - name: get_data_path
     type: std::string
     body: |
+      AllegroFlare::Logger::warn_from_once(
+         "AllegroFlare::Testing::WithAllegroRenderingFixture::get_data_path",
+         "This method is depreciated, use get_data_folder_path() instead."
+      );
+      return deployment_environment.get_data_folder_path();
+
+
+  - name: get_data_folder_path
+    type: std::string
+    body: |
       return deployment_environment.get_data_folder_path();
 
 
