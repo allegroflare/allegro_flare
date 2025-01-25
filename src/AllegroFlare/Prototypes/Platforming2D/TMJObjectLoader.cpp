@@ -134,7 +134,11 @@ void TMJObjectLoader::load()
           );
        }
        std::string object_layer_name = object_layer_json["name"].get<std::string>();
-       std::cout << "TMJObjectLoader: loading layer named \"" << object_layer_name << "\"." << std::endl;
+       AllegroFlare::Logger::info_from(
+          "AllegroFlare::Prototypes::Platforming2D::TMJObjectLoader::load",
+          "Loading layer named \"" + object_layer_name + "\" from TMJ file \"" + filename + "\"."
+       );
+       //std::cout << "TMJObjectLoader: loading layer named \"" << object_layer_name << "\"." << std::endl;
 
        if (!object_layer_json.contains("objects"))
        {
