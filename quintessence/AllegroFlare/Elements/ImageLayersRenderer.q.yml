@@ -52,13 +52,15 @@ methods:
          if (scaled_bitmap_width <= 0.001) continue;
          if (scaled_bitmap_height <= 0.001) continue;
 
-         /*
-         float initial_x = camera->position.x - (camera->position.x * parallax_rate.x) + placement.position.x;
-         float initial_y = camera->position.y - (camera->position.y * parallax_rate.y) + placement.position.y;
+         //float initial_x = camera->position.x - (camera->position.x * parallax_rate.x) + placement.position.x;
+         //float initial_y = camera->position.y - (camera->position.y * parallax_rate.y) + placement.position.y;
+         float initial_x = camera->position.x - (camera->position.x * parallax_rate.x) + placement_x;
+         float initial_y = camera->position.y - (camera->position.y * parallax_rate.y) + placement_y;
          int num_x_repeats = 1;
          int num_y_repeats = 1;
 
-         if (plane->repeats_along_x_infinite())
+         //if (plane->repeats_along_x_infinite())
+         if (image_layer.repeat_x)
          {
             // Determine how many times the bitmap needs to repeat along the x-axis
             //float initial_x = camera->position.x - (camera->position.x * parallax_rate.x) + placement.position.x;
@@ -69,7 +71,8 @@ methods:
             num_x_repeats = std::ceil(camera_frame_width / scaled_bitmap_width) + 1;
          }
 
-         if (plane->repeats_along_y_infinite())
+         //if (plane->repeats_along_y_infinite())
+         if (image_layer.repeat_y)
          {
             //float initial_y = camera->position.y - (camera->position.y * parallax_rate.y) + placement.position.y;
             // TODO: Replace this with better non-looping math;
@@ -98,7 +101,6 @@ methods:
                );
             }
          }
-         */
       }
       return;
 
