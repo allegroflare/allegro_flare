@@ -82,9 +82,9 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest, load__will_load_
         1.0f, // parallax_y
         false, // repeat_x
         false, // repeat_y
-        1.0 // opacity // TODO: Check if this is a float when loaded from TMJ
-        //true
-        // TODO: Have AllegroFlare/Testing/Comparison/AllegroFlare/Tiled/TMJImageLayer compare color in a sensible way
+        1.0, // opacity // TODO: Check if this is a float when loaded from TMJ
+        true
+        // TODO: Have AllegroFlare/Testing/Comparison/AllegroFlare/Tiled/TMJImageLayer compare color
         //ALLEGRO_COLOR{0.2, 0.08, 0.153725, 0.2}
         //ALLEGRO_COLOR{1.0, 0.5, 0.75, 0.5}
      ),
