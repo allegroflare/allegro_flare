@@ -64,6 +64,13 @@ properties:
     getter: true
     setter: true
 
+  - name: image_layers
+    type: std::vector<AllegroFlare::Elements::ImageLayer>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 methods:
 
