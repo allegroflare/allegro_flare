@@ -120,7 +120,7 @@ methods:
     body: |
       if (bitmap_is_owned)
       {
-         AllegroFlare::Logger::throw_error(
+         AllegroFlare::Logger::warn_from(
             "AllegroFlare::Elements::ImageLayer",
             "This object owns a bitmaps that should be destroyed since \"clone_and_own_bitmap()\" was "
                "called on this object. Be sure to call \"destroy_bitmaps_if_owned()\" before destruction."

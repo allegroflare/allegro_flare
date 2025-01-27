@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/ImageLayerLoader.hpp>
 
+#include <AllegroFlare/ImageProcessing/ImageProcessor.hpp>
 #include <AllegroFlare/Tiled/TMJImageLayerLoader.hpp>
 #include <iostream>
 #include <sstream>
@@ -14,9 +15,10 @@ namespace Elements
 {
 
 
-ImageLayerLoader::ImageLayerLoader(std::string filename, AllegroFlare::BitmapBin* bitmap_bin)
+ImageLayerLoader::ImageLayerLoader(std::string filename, AllegroFlare::BitmapBin* bitmap_bin, int pixel_scale)
    : filename(filename)
    , bitmap_bin(bitmap_bin)
+   , pixel_scale(pixel_scale)
    , image_layers({})
    , loaded(false)
 {
@@ -40,13 +42,19 @@ void ImageLayerLoader::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 }
 
 
+void ImageLayerLoader::set_pixel_scale(int pixel_scale)
+{
+   this->pixel_scale = pixel_scale;
+}
+
+
 bool ImageLayerLoader::get_loaded() const
 {
    return loaded;
 }
 
 
-std::vector<AllegroFlare::Tiled::TMJImageLayer> ImageLayerLoader::get_image_layers()
+std::vector<AllegroFlare::Elements::ImageLayer> ImageLayerLoader::get_image_layers()
 {
    if (!(loaded))
    {
@@ -74,12 +82,72 @@ void ImageLayerLoader::load()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::ImageLayerLoader::load]: error: guard \"bitmap_bin\" not met");
    }
+   if (!((pixel_scale > 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::ImageLayerLoader::load]: error: guard \"(pixel_scale > 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::ImageLayerLoader::load]: error: guard \"(pixel_scale > 0)\" not met");
+   }
+   if (!((pixel_scale <= 5)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::ImageLayerLoader::load]: error: guard \"(pixel_scale <= 5)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::ImageLayerLoader::load]: error: guard \"(pixel_scale <= 5)\" not met");
+   }
    AllegroFlare::Tiled::TMJImageLayerLoader tmj_image_layer_loader(filename);
    tmj_image_layer_loader.load();
 
    loaded = true;
 
+   tmj_image_layer_loader.for_each_image_layer([this](
+      AllegroFlare::Tiled::TMJImageLayer* tmj_image_layer,
+      void* user_data) {
+         // TODO: Consider deleting the bitmap from the bitmap_bin if it was not already loaded before this function
+         ALLEGRO_BITMAP *initial_bitmap = bitmap_bin->auto_get(tmj_image_layer->image_filename);
+         ALLEGRO_BITMAP *scaled_bitmap = clone_and_scale(initial_bitmap, pixel_scale);
+
+         image_layers.push_back(AllegroFlare::Elements::ImageLayer(
+            tmj_image_layer->id,
+            tmj_image_layer->name,
+            tmj_image_layer->image_filename,
+            scaled_bitmap,
+            true, // bitmap_is_owned
+            pixel_scale
+            // TODO: Continue with rest of data transfer
+         ));
+      }
+   );
+
    return;
+}
+
+ALLEGRO_BITMAP* ImageLayerLoader::clone_and_scale(ALLEGRO_BITMAP* bitmap, int pixel_scale)
+{
+   if (!(bitmap))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::ImageLayerLoader::clone_and_scale]: error: guard \"bitmap\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::ImageLayerLoader::clone_and_scale]: error: guard \"bitmap\" not met");
+   }
+   if (!((pixel_scale >= 1)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::ImageLayerLoader::clone_and_scale]: error: guard \"(pixel_scale >= 1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::ImageLayerLoader::clone_and_scale]: error: guard \"(pixel_scale >= 1)\" not met");
+   }
+   if (!((pixel_scale < 5)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::ImageLayerLoader::clone_and_scale]: error: guard \"(pixel_scale < 5)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::ImageLayerLoader::clone_and_scale]: error: guard \"(pixel_scale < 5)\" not met");
+   }
+   AllegroFlare::ImageProcessing::ImageProcessor image_processor(bitmap);
+   return image_processor.create_pixel_perfect_scaled_render(pixel_scale);
 }
 
 

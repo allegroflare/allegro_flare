@@ -11826,8 +11826,12 @@ table td
   <td class="property">AllegroFlare::BitmapBin*</td>
 </tr>
 <tr>
+  <td class="property">pixel_scale</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">image_layers</td>
-  <td class="property">std::vector&lt;AllegroFlare::Tiled::TMJImageLayer&gt;</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::ImageLayer&gt;</td>
 </tr>
 <tr>
   <td class="property">loaded</td>
@@ -11837,12 +11841,16 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">std::vector&lt;AllegroFlare::Tiled::TMJImageLayer&gt;</td>
+  <td class="method">std::vector&lt;AllegroFlare::Elements::ImageLayer&gt;</td>
   <td class="method"><b>get_image_layers</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
   <td class="method"><b>load</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_BITMAP*</td>
+  <td class="method"><b>clone_and_scale</b>(ALLEGRO_BITMAP* bitmap=nullptr, int pixel_scale=1)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -11855,6 +11863,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJImageLayerLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJImageLayerLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ImageLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ImageLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ImageProcessing::ImageProcessor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ImageProcessing/ImageProcessor.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48762,6 +48779,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
     "AllegroFlare/Elements/ImageLayer",
+    "AllegroFlare/Elements/ImageLayerLoader",
     "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -51123,8 +51141,13 @@ table td
     "AllegroFlare/Elements/ImageLayerLoader"
   ],
   "AllegroFlare/Elements/ImageLayer": [
+    "AllegroFlare/Elements/ImageLayerLoader",
     "AllegroFlare/Elements/ImageLayersRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/ImageProcessing/ImageProcessor": [
+    "AllegroFlare/Elements/ImageLayerLoader",
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -53064,9 +53087,6 @@ table td
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord": [
     "AllegroFlare/TileMaps/PrimMeshAtlas",
-    "AllegroFlare/TileMaps/TileAtlasBuilder"
-  ],
-  "AllegroFlare/ImageProcessing/ImageProcessor": [
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "std/ceil": [

@@ -51,6 +51,7 @@
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
     "AllegroFlare/Elements/ImageLayer",
+    "AllegroFlare/Elements/ImageLayerLoader",
     "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -2412,8 +2413,13 @@
     "AllegroFlare/Elements/ImageLayerLoader"
   ],
   "AllegroFlare/Elements/ImageLayer": [
+    "AllegroFlare/Elements/ImageLayerLoader",
     "AllegroFlare/Elements/ImageLayersRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
+  ],
+  "AllegroFlare/ImageProcessing/ImageProcessor": [
+    "AllegroFlare/Elements/ImageLayerLoader",
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -4353,9 +4359,6 @@
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord": [
     "AllegroFlare/TileMaps/PrimMeshAtlas",
-    "AllegroFlare/TileMaps/TileAtlasBuilder"
-  ],
-  "AllegroFlare/ImageProcessing/ImageProcessor": [
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "std/ceil": [

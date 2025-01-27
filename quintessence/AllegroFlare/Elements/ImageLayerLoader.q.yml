@@ -13,8 +13,14 @@ properties:
     constructor_arg: true
     setter: true
 
+  - name: pixel_scale
+    type: int
+    init_with: 3
+    constructor_arg: true
+    setter: true
+
   - name: image_layers
-    type: std::vector<AllegroFlare::Tiled::TMJImageLayer>
+    type: std::vector<AllegroFlare::Elements::ImageLayer>
     init_with: '{}'
     getter: explicit
     setter: false
@@ -30,23 +36,60 @@ methods:
 
 
   - name: get_image_layers
-    type: std::vector<AllegroFlare::Tiled::TMJImageLayer>
+    type: std::vector<AllegroFlare::Elements::ImageLayer>
     guards: [ loaded ]
     body: |
       return image_layers;
 
 
   - name: load
-    guards: [ (!loaded), bitmap_bin ]
+    guards: [ (!loaded), bitmap_bin, (pixel_scale > 0), (pixel_scale <= 5) ]
     body: |
       AllegroFlare::Tiled::TMJImageLayerLoader tmj_image_layer_loader(filename);
       tmj_image_layer_loader.load();
 
       loaded = true;
 
+      tmj_image_layer_loader.for_each_image_layer([this](
+         AllegroFlare::Tiled::TMJImageLayer* tmj_image_layer,
+         void* user_data) {
+            // TODO: Consider deleting the bitmap from the bitmap_bin if it was not already loaded before this function
+            ALLEGRO_BITMAP *initial_bitmap = bitmap_bin->auto_get(tmj_image_layer->image_filename);
+            ALLEGRO_BITMAP *scaled_bitmap = clone_and_scale(initial_bitmap, pixel_scale);
+
+            image_layers.push_back(AllegroFlare::Elements::ImageLayer(
+               tmj_image_layer->id,
+               tmj_image_layer->name,
+               tmj_image_layer->image_filename,
+               scaled_bitmap,
+               true, // bitmap_is_owned
+               pixel_scale
+               // TODO: Continue with rest of data transfer
+            ));
+         }
+      );
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Tiled::TMJImageLayerLoader 
+
+
+  - name: clone_and_scale
+    type: ALLEGRO_BITMAP*
+    static: true
+    parameters:
+      - name: bitmap
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+      - name: pixel_scale
+        type: int
+        default_argument: 1
+    guards: [ bitmap, (pixel_scale >= 1), (pixel_scale < 5) ]
+    body: |
+      AllegroFlare::ImageProcessing::ImageProcessor image_processor(bitmap);
+      return image_processor.create_pixel_perfect_scaled_render(pixel_scale);
+    body_dependency_symbols:
+      - AllegroFlare::ImageProcessing::ImageProcessor
 
 
 dependencies:
@@ -58,5 +101,11 @@ dependencies:
     headers: [ AllegroFlare/Tiled/TMJImageLayer.hpp ]
   - symbol: AllegroFlare::Tiled::TMJImageLayerLoader
     headers: [ AllegroFlare/Tiled/TMJImageLayerLoader.hpp ]
+  - symbol: AllegroFlare::Elements::ImageLayer
+    headers: [ AllegroFlare/Elements/ImageLayer.hpp ]
+  - symbol: AllegroFlare::ImageProcessing::ImageProcessor
+    headers: [ AllegroFlare/ImageProcessing/ImageProcessor.hpp ]
+  - symbol: ALLEGRO_BITMAP
+    headers: [ allegro5/allegro.h ]
 
 
