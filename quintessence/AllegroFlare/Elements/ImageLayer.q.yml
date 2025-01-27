@@ -90,7 +90,9 @@ documentation:
 
 
   - notes:
-    - This class is created to work in correlation with Tiled's ImageLayer
+    - This class is created to work in correlation with Tiled's ImageLayer, and could be used as a standalone without
+      needing TMJ to import it. However, typical usage is to first load tmj into AllegroFlare/Tiled/TMJImageLayerLoader,
+      then, convert to AllegroFlare/Elements/ImageLayer.
 
 
 dependencies:
