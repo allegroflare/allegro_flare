@@ -93,10 +93,11 @@ methods:
       // Validate image layers found
       if (!image_layer_type_found)
       {
-         AllegroFlare::Logger::throw_error(
+         AllegroFlare::Logger::warn_from(
             "AllegroFlare::Tiled::TMJImageLayerLoader::load",
-            "Layer of type \"imagelayer\" not found"
+            "When loading TMJ file \"" + filename + "\". There were no layers of type \"imagelayer\". Skipping."
          );
+         loaded = true;
       }
 
 

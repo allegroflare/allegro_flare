@@ -26,7 +26,7 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    load__on_a_file_that_does_not_exist__throws_an_error)
 {
    std::string filename = "some-file-that-does-not-exist.tmj";
-   AllegroFlare::Elements::ImageLayerLoader loader(filename, &get_bitmap_bin_ref());
+   AllegroFlare::Elements::ImageLayerLoader loader(&get_bitmap_bin_ref(), filename);
 
    std::string expected_error_message = "[AllegroFlare::Tiled::TMJImageLayerLoader::load]: error: The file "
       "\"some-file-that-does-not-exist.tmj\" does not exist.";
@@ -42,8 +42,8 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    std::string maps_data_folder_path = deployment_environment.get_data_folder_path() + "maps/";
 
    AllegroFlare::Elements::ImageLayerLoader loader(
-      maps_data_folder_path + "test_map_with_image_layers-02.tmj",
-      &get_bitmap_bin_ref()
+      &get_bitmap_bin_ref(),
+      maps_data_folder_path + "test_map_with_image_layers-02.tmj"
    );
 
    loader.load();
@@ -56,8 +56,8 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string maps_data_folder_path = deployment_environment.get_data_folder_path() + "maps/";
    AllegroFlare::Elements::ImageLayerLoader loader(
-      maps_data_folder_path + "test_map_with_image_layers-02.tmj",
-      &get_bitmap_bin_ref()
+      &get_bitmap_bin_ref(),
+      maps_data_folder_path + "test_map_with_image_layers-02.tmj"
    );
 
    loader.load();
@@ -110,7 +110,7 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    std::vector<AllegroFlare::Elements::ImageLayer> actual_image_layers = loader.get_image_layers();
    //std::vector<AllegroFlare::Tiled::TMJImageLayer> actual_image_layers = loader.get_image_layers();
 
-//EXPECT_EQ(3, actual_image_layers.size());
+   EXPECT_EQ(3, actual_image_layers.size());
    //EXPECT_EQ(expected_image_layers.size(), actual_image_layers.size());
 
    //EXPECT_EQ(expected_image_layers[0], actual_image_layers[0]);

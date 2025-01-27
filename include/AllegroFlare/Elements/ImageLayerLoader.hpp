@@ -15,8 +15,8 @@ namespace AllegroFlare
       class ImageLayerLoader
       {
       private:
-         std::string filename;
          AllegroFlare::BitmapBin* bitmap_bin;
+         std::string filename;
          int pixel_scale;
          std::vector<AllegroFlare::Elements::ImageLayer> image_layers;
          bool loaded;
@@ -25,11 +25,11 @@ namespace AllegroFlare
 
 
       public:
-         ImageLayerLoader(std::string filename="[unset-filename]", AllegroFlare::BitmapBin* bitmap_bin=nullptr, int pixel_scale=3);
+         ImageLayerLoader(AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string filename="[unset-filename]", int pixel_scale=3);
          ~ImageLayerLoader();
 
-         void set_filename(std::string filename);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
+         void set_filename(std::string filename);
          void set_pixel_scale(int pixel_scale);
          bool get_loaded() const;
          std::vector<AllegroFlare::Elements::ImageLayer> get_image_layers();

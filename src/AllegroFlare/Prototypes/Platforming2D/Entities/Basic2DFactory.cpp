@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory.hpp>
 
+#include <AllegroFlare/Elements/ImageLayerLoader.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/Doors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/BackAndForthHorizontal.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/FallOnTrackingRange.hpp>
@@ -525,6 +526,16 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
       );
       background_layers_result.push_back(parallax_layer_result);
    }
+
+   // Build the image_layers
+   // TODO: Test this
+   AllegroFlare::Elements::ImageLayerLoader image_layer_loader(
+      bitmap_bin,
+      map_json_filename
+   );
+   image_layer_loader.load();
+   created_map->set_image_layers(image_layer_loader.get_image_layers());
+
 
    created_map->set_tile_atlas(tile_atlas);
    created_map->set_terrain_tile_mesh(terrain_tile_mesh);

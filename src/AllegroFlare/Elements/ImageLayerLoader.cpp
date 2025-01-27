@@ -15,9 +15,9 @@ namespace Elements
 {
 
 
-ImageLayerLoader::ImageLayerLoader(std::string filename, AllegroFlare::BitmapBin* bitmap_bin, int pixel_scale)
-   : filename(filename)
-   , bitmap_bin(bitmap_bin)
+ImageLayerLoader::ImageLayerLoader(AllegroFlare::BitmapBin* bitmap_bin, std::string filename, int pixel_scale)
+   : bitmap_bin(bitmap_bin)
+   , filename(filename)
    , pixel_scale(pixel_scale)
    , image_layers({})
    , loaded(false)
@@ -30,15 +30,15 @@ ImageLayerLoader::~ImageLayerLoader()
 }
 
 
-void ImageLayerLoader::set_filename(std::string filename)
-{
-   this->filename = filename;
-}
-
-
 void ImageLayerLoader::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    this->bitmap_bin = bitmap_bin;
+}
+
+
+void ImageLayerLoader::set_filename(std::string filename)
+{
+   this->filename = filename;
 }
 
 
@@ -99,8 +99,6 @@ void ImageLayerLoader::load()
    AllegroFlare::Tiled::TMJImageLayerLoader tmj_image_layer_loader(filename);
    tmj_image_layer_loader.load();
 
-   loaded = true;
-
    tmj_image_layer_loader.for_each_image_layer([this](
       AllegroFlare::Tiled::TMJImageLayer* tmj_image_layer,
       void* user_data) {
@@ -121,10 +119,14 @@ void ImageLayerLoader::load()
             tmj_image_layer->parallax_y,
             tmj_image_layer->repeat_x,
             tmj_image_layer->repeat_y,
-            tmj_image_layer->opacity
+            tmj_image_layer->opacity,
+            tmj_image_layer->tint_color_is_set,
+            tmj_image_layer->tint_color
          ));
       }
    );
+
+   loaded = true;
 
    return;
 }

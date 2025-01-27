@@ -1,15 +1,15 @@
 properties:
 
 
-  - name: filename
-    type: std::string
-    init_with: '"[unset-filename]"'
-    constructor_arg: true
-    setter: true
-
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: filename
+    type: std::string
+    init_with: '"[unset-filename]"'
     constructor_arg: true
     setter: true
 
@@ -48,8 +48,6 @@ methods:
       AllegroFlare::Tiled::TMJImageLayerLoader tmj_image_layer_loader(filename);
       tmj_image_layer_loader.load();
 
-      loaded = true;
-
       tmj_image_layer_loader.for_each_image_layer([this](
          AllegroFlare::Tiled::TMJImageLayer* tmj_image_layer,
          void* user_data) {
@@ -76,6 +74,8 @@ methods:
             ));
          }
       );
+
+      loaded = true;
 
       return;
     body_dependency_symbols:

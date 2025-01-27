@@ -7,6 +7,14 @@
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Tiled/TMJImageLayer.hpp>
 
 
+//#define EXPECT_WARNING_MESSAGE(code, expected_warning_message) \
+   //testing::internal::CaptureStdout(); \
+   //code; \
+   //std::string actual_cout_output = testing::internal::GetCapturedStdout(); \
+   //EXPECT_EQ(expected_warning_message, actual_cout_output);
+
+
+
 TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Tiled::TMJImageLayerLoader loader;
@@ -27,16 +35,23 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest,
 
 
 TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest,
-   load__when_no_image_layers_are_present_in_the_map__will_throw_an_error)
+   load__when_no_image_layers_are_present_in_the_map__will_output_a_warning_and_set_loaded_to_true)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string maps_data_folder_path = deployment_environment.get_data_folder_path() + "maps/";
    AllegroFlare::Tiled::TMJImageLayerLoader loader(maps_data_folder_path + "test_map_with_no_layers-01.tmj");
 
-   std::string expected_error_message = "[AllegroFlare::Tiled::TMJImageLayerLoader::load]: error: Layer of type "
-      "\"imagelayer\" not found";
+   testing::internal::CaptureStdout();
+   std::string expected_cout_output = "\x1B[1;33m[AllegroFlare::Tiled::TMJImageLayerLoader::load]: warning: "
+      "When loading TMJ file \"tests/fixtures/maps/test_map_with_no_layers-01.tmj\". There were no layers of "
+      "type \"imagelayer\". Skipping.\x1B[0m\n";
+   loader.load();
+   std::string actual_cout_output = testing::internal::GetCapturedStdout();
 
-   ASSERT_THROW_WITH_MESSAGE(loader.load(), std::runtime_error, expected_error_message);
+   EXPECT_EQ(expected_cout_output, actual_cout_output);
+
+   // TODO:
+   //EXPECT_WARNING_MESSAGE(loader.load(), expected_warning_message);
 };
 
 
