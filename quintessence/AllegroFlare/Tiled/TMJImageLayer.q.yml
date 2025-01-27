@@ -1,0 +1,102 @@
+properties:
+
+
+  - name: id
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: image_filename
+    type: std::string
+    init_with: '"[unset-image_filename]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: offset_x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: offset_y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: parallax_x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: parallax_y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: repeat_x
+    type: bool
+    init_with: false
+    constructor_arg: true
+    exposed: true
+
+  - name: repeat_y
+    type: bool
+    init_with: false
+    constructor_arg: true
+    exposed: true
+
+  - name: opacity
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: tint_color_is_set
+    type: bool
+    init_with: false
+    constructor_arg: true
+    exposed: true
+
+  - name: tint_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_TINT_COLOR
+    constructor_arg: true
+    exposed: true
+
+  - name: DEFAULT_TINT_COLOR
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: extract_image_basename_with_extension
+    type: std::string
+    body: |
+      return AllegroFlare::Tiled::TMJDataLoader::extract_last_fragment(image_filename);
+    body_dependency_symbols:
+      - AllegroFlare::Tiled::TMJDataLoader
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Tiled::TMJDataLoader
+    headers: [ AllegroFlare/Tiled/TMJDataLoader.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+

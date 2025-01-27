@@ -142,5 +142,7 @@ dependencies:
     headers: [ AllegroFlare/Shaders/Base.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::ParallaxLayer
     headers: [ AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
+  - symbol: AllegroFlare::Elements::ImageLayer
+    headers: [ AllegroFlare/Elements/ImageLayer.hpp ]
 
 

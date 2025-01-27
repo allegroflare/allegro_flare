@@ -192,6 +192,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/ImageLayer.q.yml">quintessence/AllegroFlare/Elements/ImageLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml">quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/InputDevicesList.q.yml">quintessence/AllegroFlare/Elements/InputDevicesList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
@@ -543,6 +544,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileMesh.q.yml">quintessence/AllegroFlare/TileMaps/TileMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml">quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Tiled/TMJImageLayer.q.yml">quintessence/AllegroFlare/Tiled/TMJImageLayer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Tiled/TMJImageLayerLoader.q.yml">quintessence/AllegroFlare/Tiled/TMJImageLayerLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJObject.q.yml">quintessence/AllegroFlare/Tiled/TMJObject.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJObjectCustomProperties.q.yml">quintessence/AllegroFlare/Tiled/TMJObjectCustomProperties.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
@@ -11698,6 +11701,85 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/ImageLayer.q.yml">quintessence/AllegroFlare/Elements/ImageLayer.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This class is created to work in correlation with Tiled's ImageLayer"]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tmj_id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">bitmap</td>
+  <td class="property">ALLEGRO_BITMAP*</td>
+</tr>
+<tr>
+  <td class="property">image_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">offset_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">parallax_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">parallax_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">repeat_x</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">repeat_y</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">opacity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tint_color_is_set</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">tint_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_TINT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -31451,6 +31533,10 @@ table td
   <td class="property">background_layers</td>
   <td class="property">std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;</td>
 </tr>
+<tr>
+  <td class="property">image_layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::ImageLayer&gt;</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -31486,6 +31572,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Backgrounds::ParallaxLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ImageLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ImageLayer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -44060,6 +44149,185 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Tiled/TMJImageLayer.q.yml">quintessence/AllegroFlare/Tiled/TMJImageLayer.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">image_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">offset_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">parallax_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">parallax_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">repeat_x</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">repeat_y</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">opacity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tint_color_is_set</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">tint_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_TINT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>extract_image_basename_with_extension</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Tiled/TMJImageLayerLoader.q.yml">quintessence/AllegroFlare/Tiled/TMJImageLayerLoader.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">image_layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Tiled::TMJImageLayer&gt;</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>for_each_image_layer</b>(std::function&lt;void(AllegroFlare::Tiled::TMJImageLayer*, void*)&gt; function={}, void* user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Tiled::TMJImageLayer&gt;</td>
+  <td class="method"><b>get_image_layers</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>obtain_string_or_throw</b>(std::string key=&quot;[unset-key]&quot;, nlohmann::json* object_json=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>obtain_float_or_throw</b>(std::string key=&quot;[unset-key]&quot;, nlohmann::json* object_json=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>obtain_float_or_default</b>(std::string key=&quot;[unset-key]&quot;, nlohmann::json* object_json=nullptr, float default_value=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_COLOR</td>
+  <td class="method"><b>obtain_color_or_default</b>(std::string key=&quot;[unset-key]&quot;, nlohmann::json* object_json=nullptr, ALLEGRO_COLOR default_value=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>obtain_bool_or_default</b>(std::string key=&quot;[unset-key]&quot;, nlohmann::json* object_json=nullptr, bool default_value=false)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>obtain_int_or_throw</b>(std::string key=&quot;[unset-key]&quot;, nlohmann::json* object_json=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>attempt_to_extract_custom_properties</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">bool</td>
+  <td class="private_method"><b>file_exists</b>(std::string filename=&quot;[unset-filename]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ifstream&quot;, &quot;headers&quot;=&gt;[&quot;fstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::function&quot;, &quot;headers&quot;=&gt;[&quot;functional&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJImageLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJImageLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Tiled/TMJObject.q.yml">quintessence/AllegroFlare/Tiled/TMJObject.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -48383,6 +48651,7 @@ table td
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelUnlockableRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
+    "AllegroFlare/Elements/ImageLayer",
     "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Elements/StoryboardPages/Image",
     "AllegroFlare/Elements/StoryboardPages/Image",
@@ -48451,6 +48720,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJImageLayerLoader",
     "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/AssetStudio/Database": [
@@ -48525,6 +48795,7 @@ table td
     "AllegroFlare/TileMaps/TileMesh",
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJImageLayerLoader",
     "AllegroFlare/Tiled/TMJObjectCustomProperties",
     "AllegroFlare/VirtualControlsProcessor",
     "AllegroFlare/WorldMapRenderers/Basic",
@@ -49442,6 +49713,7 @@ table td
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
     "AllegroFlare/Elements/HealthBars/Hearts",
+    "AllegroFlare/Elements/ImageLayer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/Inventory",
@@ -49513,6 +49785,8 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/TileMaps/TileMesh",
+    "AllegroFlare/Tiled/TMJImageLayer",
+    "AllegroFlare/Tiled/TMJImageLayerLoader",
     "AllegroFlare/Tiled/TMJObject",
     "AllegroFlare/UnicodeFontViewer",
     "AllegroFlare/Useful3D/Triangle",
@@ -50789,7 +51063,8 @@ table td
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/Screen",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
+    "AllegroFlare/Prototypes/TileDrive/TileDrive",
+    "AllegroFlare/Tiled/TMJImageLayerLoader"
   ],
   "std/optional": [
     "AllegroFlare/Elements/Inventory"
@@ -51106,6 +51381,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJImageLayerLoader",
     "Tileo/TMJDataLoader",
     "Tileo/TMJMeshLoader"
   ],
@@ -51422,7 +51698,9 @@ table td
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/Layouts/Text",
-    "AllegroFlare/Layouts/TileMeshWithText"
+    "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Tiled/TMJImageLayer",
+    "AllegroFlare/Tiled/TMJImageLayerLoader"
   ],
   "AllegroFlare/Tiled/TMJObject": [
     "AllegroFlare/Layouts/CursorMap",
@@ -52104,6 +52382,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJImageLayerLoader",
     "Tileo/TMJDataLoader"
   ],
   "AllegroFlare/Prototypes/Platforming2D/Entities/Base": [
@@ -52212,7 +52491,8 @@ table td
   "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader"
+    "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
+    "AllegroFlare/Tiled/TMJImageLayerLoader"
   ],
   "AllegroFlare/TileMaps/TileAtlasRepository": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
@@ -52225,6 +52505,9 @@ table td
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
+  ],
+  "AllegroFlare/Elements/ImageLayer": [
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
@@ -52680,6 +52963,9 @@ table td
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
+  ],
+  "AllegroFlare/Tiled/TMJImageLayer": [
+    "AllegroFlare/Tiled/TMJImageLayerLoader"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"

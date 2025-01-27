@@ -1,0 +1,343 @@
+properties:
+
+
+  - name: filename
+    type: std::string
+    init_with: '"[unset-filename]"'
+    constructor_arg: true
+
+  - name: image_layers
+    type: std::vector<AllegroFlare::Tiled::TMJImageLayer>
+    init_with: '{}'
+    getter: explicit
+    setter: false
+
+  - name: loaded
+    type: bool
+    init_with: false
+
+
+methods:
+
+
+  - name: for_each_image_layer
+    parameters:
+      - name: function
+        type: std::function<void(AllegroFlare::Tiled::TMJImageLayer*, void*)>
+        default_argument: '{}'
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ loaded ]
+    body: |
+      for (auto &image_layer : image_layers)
+      {
+         function(&image_layer, user_data);
+      }
+      return;
+
+
+  - name: get_image_layers
+    type: std::vector<AllegroFlare::Tiled::TMJImageLayer>
+    guards: [ loaded ]
+    body: |
+      return image_layers;
+
+
+  - name: load
+    guards: [ (!loaded) ]
+    body: |
+      if (!file_exists(filename))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Tiled::TMJImageLayerLoader::load",
+            "The file \"" + filename + "\" does not exist."
+         );
+      }
+
+      // load and validate the json data to variables
+      std::ifstream i(filename);
+      nlohmann::json source_json;
+      try
+      {
+         i >> source_json;
+      }
+      catch (const std::exception& e)
+      {
+         i.close();
+         //std::stringstream error_message;
+         //error_message << "The file \"" << filename << "\" appears to have malformed JSON. The following error was "
+                       //<< "thrown by nlohmann::json: \"" << e.what() << "\"";
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Tiled::TMJImageLayerLoader::load",
+            "The file \"" + filename + "\" appears to have malformed JSON. The following error was thrown by "
+               "nlohmann::json: \"" + e.what() + "\""
+         );
+      }
+      i.close();
+
+
+      // TODO: Account for nested "group" layer that may contain image layers
+
+      bool image_layer_type_found = false;
+      std::vector<nlohmann::json> image_layers_json;
+      for (auto &layer : source_json["layers"].items())
+      {
+         if (layer.value()["type"] == "imagelayer")
+         {
+            image_layers_json.push_back(layer.value());
+            image_layer_type_found = true;
+         }
+      }
+
+      // Validate image layers found
+      if (!image_layer_type_found)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Tiled::TMJImageLayerLoader::load",
+            "Layer of type \"imagelayer\" not found"
+         );
+      }
+
+
+      // Load the image layers one by one
+      ALLEGRO_COLOR default_color = AllegroFlare::Tiled::TMJImageLayer::DEFAULT_TINT_COLOR;
+      for (auto &image_layer_json : image_layers_json)
+      {
+          std::string name = obtain_string_or_throw("name", &image_layer_json);
+
+          AllegroFlare::Logger::info_from(
+            "AllegroFlare::Tiled::TMJImageLayerLoader::load",
+             "Loading layer named \"" + name + "\" from TMJ file \"" + filename + "\"."
+          );
+
+          std::string image_filename = obtain_string_or_throw("image", &image_layer_json);
+          int id = obtain_int_or_throw("id", &image_layer_json);
+          float offset_x = obtain_float_or_default("offsetx", &image_layer_json, 0.0f);
+          float offset_y = obtain_float_or_default("offsety", &image_layer_json, 0.0f);
+          float parallax_x = obtain_float_or_default("parallaxx", &image_layer_json, 1.0f);
+          float parallax_y = obtain_float_or_default("parallaxy", &image_layer_json, 1.0f);
+          bool repeat_x = obtain_bool_or_default("repeatx", &image_layer_json, false);
+          bool repeat_y = obtain_bool_or_default("repeaty", &image_layer_json, false);
+          float opacity = obtain_float_or_default("opacity", &image_layer_json, 1.0f);
+          bool tint_color_is_set = image_layer_json.contains("tintcolor");
+          ALLEGRO_COLOR tint_color = obtain_color_or_default("tintcolor", &image_layer_json, default_color);
+
+          image_layers.push_back(AllegroFlare::Tiled::TMJImageLayer(
+             id,
+             name,
+             image_filename,
+             offset_x,
+             offset_y,
+             parallax_x,
+             parallax_y,
+             repeat_x,
+             repeat_y,
+             opacity, // TODO: Check if this is a float when loaded from TMJ
+             tint_color_is_set,
+             tint_color
+          ));
+      }
+
+      loaded = true;
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+      - nlohmann::json
+      - std::ifstream
+
+
+  - name: obtain_string_or_throw
+    type: std::string
+    parameters:
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: object_json
+        type: nlohmann::json*
+        default_argument: nullptr
+    guards: [ object_json ]
+    body: |
+      if (!object_json->contains(key))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Tiled::TMJImageLayerLoader::obtain_string_or_throw",
+            "When parsing an \"imagelayer\" type layer, expecting a property with key \"" + key + "\" but it was not "
+               "present."
+         );
+      }
+      // TODO: validate is string
+      std::string value = object_json->operator[](key).get<std::string>();
+      return value;
+
+
+  - name: obtain_float_or_throw
+    type: float
+    parameters:
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: object_json
+        type: nlohmann::json*
+        default_argument: nullptr
+    guards: [ object_json ]
+    body: |
+      if (!object_json->contains(key))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Tiled::TMJImageLayerLoader::obtain_float_or_throw",
+            "When parsing an \"imagelayer\" type layer, expecting a property with key \"" + key + "\" but it was not "
+               "present."
+         );
+      }
+      // TODO: validate is float
+      float value = object_json->operator[](key).get<float>();
+      return value;
+
+
+  - name: obtain_float_or_default
+    type: float
+    parameters:
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: object_json
+        type: nlohmann::json*
+        default_argument: nullptr
+      - name: default_value
+        type: float
+        default_argument: 0.0f
+    guards: [ object_json ]
+    body: |
+      if (!object_json->contains(key)) return default_value;
+      // TODO: validate is float
+      float value = object_json->operator[](key).get<float>();
+      return value;
+
+
+  - name: obtain_color_or_default
+    type: ALLEGRO_COLOR
+    parameters:
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: object_json
+        type: nlohmann::json*
+        default_argument: nullptr
+      - name: default_value
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    guards: [ object_json ]
+    body: |
+      if (object_json->contains(key))
+      {
+         ALLEGRO_COLOR result_color;
+         std::string color_as_hex_string = object_json->operator[](key).get<std::string>();
+         std::tuple<float, float, float, float> extracted_rgba_f =
+            AllegroFlare::Tiled::TMJDataLoader::convert_hex_to_rgba_f(color_as_hex_string);
+         float alpha = std::get<3>(extracted_rgba_f);
+
+         result_color.r = std::get<0>(extracted_rgba_f) * alpha;
+         result_color.g = std::get<1>(extracted_rgba_f) * alpha;
+         result_color.b = std::get<2>(extracted_rgba_f) * alpha;
+         result_color.a = alpha;
+
+         return result_color;
+      }
+      return default_value;
+    body_dependency_symbols:
+       - AllegroFlare::Tiled::TMJDataLoader
+
+
+  - name: obtain_bool_or_default
+    type: bool
+    parameters:
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: object_json
+        type: nlohmann::json*
+        default_argument: nullptr
+      - name: default_value
+        type: bool
+        default_argument: false
+    guards: [ object_json ]
+    body: |
+      if (!object_json->contains(key)) return default_value;
+      // TODO: validate is bool
+      bool value = object_json->operator[](key).get<bool>();
+      return value;
+
+
+  - name: obtain_int_or_throw
+    type: int
+    parameters:
+      - name: key
+        type: std::string
+        default_argument: '"[unset-key]"'
+      - name: object_json
+        type: nlohmann::json*
+        default_argument: nullptr
+    guards: [ object_json ]
+    body: |
+      if (!object_json->contains(key))
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Tiled::TMJImageLayerLoader::obtain_int_or_throw",
+            "When parsing an \"imagelayer\" type layer, expecting a property with key \"" + key + "\" but it was not "
+               "present."
+         );
+      }
+      // TODO: validate is int
+      int value = object_json->operator[](key).get<int>();
+      return value;
+
+
+  - name: attempt_to_extract_custom_properties
+    body: |
+      // NOTE: This method is currently empty here, but an implementation exists in
+      // AllegroFlare::Tiled::TMJDataLoader::attempt_to_extract_custom_properties, though it is currently not static
+      // and will need to be made static.
+
+      // AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties custom_properties = ...
+      return;
+
+
+  - name: file_exists
+    type: bool
+    static: true
+    private: true
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+    body: |
+      return std::filesystem::exists(filename);
+    body_dependency_symbols:
+      - std::filesystem::exists
+
+
+dependencies:
+
+
+  - symbol: nlohmann::json
+    headers: [ lib/nlohmann/json.hpp ]
+  - symbol: std::filesystem::exists
+    headers: [ filesystem ]
+  - symbol: std::ifstream
+    headers: [ fstream ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: std::function
+    headers: [ functional ]
+  - symbol: AllegroFlare::Prototypes::Platforming2D::TMJObjectLoaderObjectCustomProperties
+    headers: [ AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp ]
+  - symbol: AllegroFlare::Tiled::TMJImageLayer
+    headers: [ AllegroFlare/Tiled/TMJImageLayer.hpp ]
+  - symbol: AllegroFlare::Tiled::TMJDataLoader
+    headers: [ AllegroFlare/Tiled/TMJDataLoader.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+
+

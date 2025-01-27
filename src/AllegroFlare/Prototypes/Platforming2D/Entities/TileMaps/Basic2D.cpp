@@ -17,7 +17,7 @@ namespace TileMaps
 {
 
 
-Basic2D::Basic2D(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers)
+Basic2D::Basic2D(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers, std::vector<AllegroFlare::Elements::ImageLayer> image_layers)
    : AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D()
    , tile_atlas(nullptr)
    , terrain_tile_mesh(nullptr)
@@ -28,6 +28,7 @@ Basic2D::Basic2D(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
    , shader_for_foreground_tile_mesh(nullptr)
    , collision_tile_map(nullptr)
    , background_layers(background_layers)
+   , image_layers(image_layers)
 {
 }
 
@@ -91,6 +92,12 @@ void Basic2D::set_background_layers(std::vector<AllegroFlare::Elements::Backgrou
 }
 
 
+void Basic2D::set_image_layers(std::vector<AllegroFlare::Elements::ImageLayer> image_layers)
+{
+   this->image_layers = image_layers;
+}
+
+
 AllegroFlare::TileMaps::PrimMeshAtlas* Basic2D::get_tile_atlas() const
 {
    return tile_atlas;
@@ -142,6 +149,12 @@ AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_map() const
 std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> Basic2D::get_background_layers() const
 {
    return background_layers;
+}
+
+
+std::vector<AllegroFlare::Elements::ImageLayer> Basic2D::get_image_layers() const
+{
+   return image_layers;
 }
 
 
