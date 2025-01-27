@@ -193,6 +193,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ImageLayer.q.yml">quintessence/AllegroFlare/Elements/ImageLayer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/ImageLayersRenderer.q.yml">quintessence/AllegroFlare/Elements/ImageLayersRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml">quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/InputDevicesList.q.yml">quintessence/AllegroFlare/Elements/InputDevicesList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
@@ -11722,12 +11723,20 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">image_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">bitmap</td>
   <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
 <tr>
-  <td class="property">image_filename</td>
-  <td class="property">std::string</td>
+  <td class="property">bitmap_is_owned</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">pixel_scale</td>
+  <td class="property">int</td>
 </tr>
 <tr>
   <td class="property">offset_x</td>
@@ -11766,12 +11775,24 @@ table td
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
+  <td class="property">destroyed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_TINT_COLOR</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>~destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>destroy_bitmap_if_owned</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -11780,6 +11801,44 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/ImageLayersRenderer.q.yml">quintessence/AllegroFlare/Elements/ImageLayersRenderer.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">image_layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Elements::ImageLayer&gt;*</td>
+</tr>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera2D*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ImageLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ImageLayer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48749,6 +48808,7 @@ table td
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogBoxes/Interparsable",
+    "AllegroFlare/Elements/ImageLayer",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -49580,6 +49640,7 @@ table td
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
+    "AllegroFlare/Elements/ImageLayersRenderer",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -51001,6 +51062,10 @@ table td
   ],
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
+  ],
+  "AllegroFlare/Elements/ImageLayer": [
+    "AllegroFlare/Elements/ImageLayersRenderer",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -52505,9 +52570,6 @@ table td
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
-  ],
-  "AllegroFlare/Elements/ImageLayer": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",

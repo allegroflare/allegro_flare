@@ -65,22 +65,27 @@ void ImageLayersRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::ImageLayersRenderer::render]: error: guard \"camera\" not met");
    }
-   /*
    float camera_frame_top, camera_frame_right, camera_frame_bottom, camera_frame_left;
    std::tie(camera_frame_top, camera_frame_right, camera_frame_bottom, camera_frame_left) = 
       camera->get_outermost_coordinates_trbl();
    float camera_frame_width = camera_frame_right - camera_frame_left;
    float camera_frame_height = camera_frame_bottom - camera_frame_top;
 
-   for (auto &plane : planes_background->get_planes())
+   //for (auto &plane : planes_background->get_planes())
+   for (auto &image_layer : *image_layers)
    {
-      ALLEGRO_BITMAP *bitmap = plane->get_bitmap();
+      ALLEGRO_BITMAP *bitmap = image_layer.bitmap;
       if (!bitmap) continue;
 
-      AllegroFlare::Placement2D &placement = plane->get_placement_ref();
+      //AllegroFlare::Placement2D &placement = plane->get_placement_ref();
+      float placement_x = image_layer.offset_x;
+      float placement_y = image_layer.offset_y;
 
-      AllegroFlare::Vec2D parallax_rate = plane->get_parallax_rate();
-      int pixel_scale = planes_background->get_bitmaps_cloned_and_owned_at_pixel_scale();
+      //AllegroFlare::Vec2D parallax_rate = plane->get_parallax_rate();
+      AllegroFlare::Vec2D parallax_rate = { image_layer.parallax_x, image_layer.parallax_y };
+      //int pixel_scale = planes_background->get_bitmaps_cloned_and_owned_at_pixel_scale();
+
+      int pixel_scale = image_layer.pixel_scale;
 
       int original_image_width = al_get_bitmap_width(bitmap);
       int original_image_height = al_get_bitmap_height(bitmap);
@@ -90,6 +95,7 @@ void ImageLayersRenderer::render()
       if (scaled_bitmap_width <= 0.001) continue;
       if (scaled_bitmap_height <= 0.001) continue;
 
+      /*
       float initial_x = camera->position.x - (camera->position.x * parallax_rate.x) + placement.position.x;
       float initial_y = camera->position.y - (camera->position.y * parallax_rate.y) + placement.position.y;
       int num_x_repeats = 1;
@@ -135,8 +141,8 @@ void ImageLayersRenderer::render()
             );
          }
       }
+      */
    }
-   */
    return;
 }
 

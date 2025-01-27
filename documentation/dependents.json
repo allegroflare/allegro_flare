@@ -148,6 +148,7 @@
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogBoxes/Interparsable",
+    "AllegroFlare/Elements/ImageLayer",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -979,6 +980,7 @@
     "AllegroFlare/Camera2D",
     "AllegroFlare/CameraControlStrategies2D/Base",
     "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
+    "AllegroFlare/Elements/ImageLayersRenderer",
     "AllegroFlare/Elements/WorldMapViewer",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -2400,6 +2402,10 @@
   ],
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
+  ],
+  "AllegroFlare/Elements/ImageLayer": [
+    "AllegroFlare/Elements/ImageLayersRenderer",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
@@ -3904,9 +3910,6 @@
   "AllegroFlare/Prototypes/Platforming2D/Entities/Boss": [
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Entities/BossZone"
-  ],
-  "AllegroFlare/Elements/ImageLayer": [
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
   ],
   "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Base": [
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",

@@ -13,15 +13,27 @@ properties:
     constructor_arg: true
     exposed: true
 
+  - name: image_filename
+    type: std::string
+    init_with: '"[unset-image_filename]"'
+    constructor_arg: true
+    exposed: true
+
   - name: bitmap
     type: ALLEGRO_BITMAP*
     init_with: nullptr
     constructor_arg: true
     exposed: true
 
-  - name: image_filename
-    type: std::string
-    init_with: '"[unset-image_filename]"'
+  - name: bitmap_is_owned
+    type: bool
+    init_with: false
+    constructor_arg: true
+    exposed: true
+
+  - name: pixel_scale
+    type: int
+    init_with: 1
     constructor_arg: true
     exposed: true
 
@@ -79,6 +91,12 @@ properties:
     constructor_arg: true
     exposed: true
 
+  - name: destroyed
+    type: bool
+    init_with: false
+    constructor_arg: true
+    exposed: true
+
   - name: DEFAULT_TINT_COLOR
     type: ALLEGRO_COLOR
     init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
@@ -95,6 +113,35 @@ documentation:
       then, convert to AllegroFlare/Elements/ImageLayer.
 
 
+methods:
+
+
+  - name: ~destroy
+    body: |
+      if (bitmap_is_owned)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::ImageLayer",
+            "This object owns a bitmaps that should be destroyed since \"clone_and_own_bitmap()\" was "
+               "called on this object. Be sure to call \"destroy_bitmaps_if_owned()\" before destruction."
+         );
+      }
+      destroyed = true;
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: destroy_bitmap_if_owned
+    body: |
+      if (!bitmap_is_owned) return;
+      al_destroy_bitmap(bitmap);
+      bitmap = nullptr;
+      bitmap_is_owned = false;
+      pixel_scale = 1;
+      return;
+
+
 dependencies:
 
 
@@ -102,5 +149,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 
