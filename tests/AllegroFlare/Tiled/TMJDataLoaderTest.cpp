@@ -145,14 +145,14 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, convert_hex_to_rgba_f__will_handle_6_
 }
 
 
-//TEST(AllegroFlare_Tiled_TMJDataLoaderTest, convert_hex_to_rgba_f__will_handle_8_character_hexes_and_premultiply_alpha)
-//{
-   //std::tuple<float, float, float, float> result = AllegroFlare::Tiled::TMJDataLoader::convert_hex_to_rgba_f("#80ff3366");
-   //EXPECT_FLOAT_EQ(0.499, std::get<0>(result));
-   //EXPECT_FLOAT_EQ(0.2 * 0.5, std::get<1>(result));
-   //EXPECT_FLOAT_EQ(0.4 * 0.5, std::get<2>(result));
-   //EXPECT_FLOAT_EQ(1.0 * 0.5, std::get<3>(result));
-//}
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, convert_hex_to_rgba_f__will_handle_8_character_hexes_and_premultiply_alpha)
+{
+   std::tuple<float, float, float, float> result = AllegroFlare::Tiled::TMJDataLoader::convert_hex_to_rgba_f("#80ff3366");
+   EXPECT_FLOAT_EQ(1.0, std::get<0>(result));
+   EXPECT_FLOAT_EQ(0.2, std::get<1>(result));
+   EXPECT_FLOAT_EQ(0.4, std::get<2>(result));
+   EXPECT_FLOAT_EQ((float)128 / 255, std::get<3>(result)); // NOTE: less precision on 0.5 because 128/255
+}
 
 
 TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_load_multiple_tilemap_layers)

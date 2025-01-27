@@ -741,7 +741,6 @@ std::tuple<float, float, float, float> TMJDataLoader::convert_hex_to_rgba_f(std:
       r = g = b = a = 0.0f;
    }
 
-   //TODO: return std::tuple<float, float, float, float>(r * a, g * a, b * a, a);
    return std::tuple<float, float, float, float>(r, g, b, a);
 }
 
