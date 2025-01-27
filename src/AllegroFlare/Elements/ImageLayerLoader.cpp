@@ -114,8 +114,14 @@ void ImageLayerLoader::load()
             tmj_image_layer->image_filename,
             scaled_bitmap,
             true, // bitmap_is_owned
-            pixel_scale
-            // TODO: Continue with rest of data transfer
+            pixel_scale,
+            tmj_image_layer->offset_x,
+            tmj_image_layer->offset_y,
+            tmj_image_layer->parallax_x,
+            tmj_image_layer->parallax_y,
+            tmj_image_layer->repeat_x,
+            tmj_image_layer->repeat_y,
+            tmj_image_layer->opacity
          ));
       }
    );
