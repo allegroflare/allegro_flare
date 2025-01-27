@@ -16,7 +16,7 @@ namespace AllegroFlare
       private:
          std::string filename;
          AllegroFlare::BitmapBin* bitmap_bin;
-         std::vector<AllegroFlare::Tiled::TMJImageLayer*> image_layers;
+         std::vector<AllegroFlare::Tiled::TMJImageLayer> image_layers;
          bool loaded;
 
       protected:
@@ -29,7 +29,7 @@ namespace AllegroFlare
          void set_filename(std::string filename);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          bool get_loaded() const;
-         std::vector<AllegroFlare::Tiled::TMJImageLayer*> get_image_layers();
+         std::vector<AllegroFlare::Tiled::TMJImageLayer> get_image_layers();
          void load();
       };
    }

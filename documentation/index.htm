@@ -193,6 +193,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Classic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml">quintessence/AllegroFlare/Elements/HealthBars/Hearts.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ImageLayer.q.yml">quintessence/AllegroFlare/Elements/ImageLayer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/ImageLayerLoader.q.yml">quintessence/AllegroFlare/Elements/ImageLayerLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ImageLayersRenderer.q.yml">quintessence/AllegroFlare/Elements/ImageLayersRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml">quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/InputDevicesList.q.yml">quintessence/AllegroFlare/Elements/InputDevicesList.q.yml</a></li>
@@ -11804,6 +11805,56 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/ImageLayerLoader.q.yml">quintessence/AllegroFlare/Elements/ImageLayerLoader.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">image_layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Tiled::TMJImageLayer&gt;</td>
+</tr>
+<tr>
+  <td class="property">loaded</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Tiled::TMJImageLayer&gt;</td>
+  <td class="method"><b>get_image_layers</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJImageLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJImageLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJImageLayerLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJImageLayerLoader.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48914,6 +48965,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
+    "AllegroFlare/Elements/ImageLayerLoader",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
@@ -51063,6 +51115,13 @@ table td
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
+  "AllegroFlare/Tiled/TMJImageLayer": [
+    "AllegroFlare/Elements/ImageLayerLoader",
+    "AllegroFlare/Tiled/TMJImageLayerLoader"
+  ],
+  "AllegroFlare/Tiled/TMJImageLayerLoader": [
+    "AllegroFlare/Elements/ImageLayerLoader"
+  ],
   "AllegroFlare/Elements/ImageLayer": [
     "AllegroFlare/Elements/ImageLayersRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
@@ -53025,9 +53084,6 @@ table td
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
-  ],
-  "AllegroFlare/Tiled/TMJImageLayer": [
-    "AllegroFlare/Tiled/TMJImageLayerLoader"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"

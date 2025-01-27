@@ -14,7 +14,7 @@ properties:
     setter: true
 
   - name: image_layers
-    type: std::vector<AllegroFlare::Tiled::TMJImageLayer*>
+    type: std::vector<AllegroFlare::Tiled::TMJImageLayer>
     init_with: '{}'
     getter: explicit
     setter: false
@@ -30,18 +30,20 @@ methods:
 
 
   - name: get_image_layers
-    type: std::vector<AllegroFlare::Tiled::TMJImageLayer*>
+    type: std::vector<AllegroFlare::Tiled::TMJImageLayer>
     guards: [ loaded ]
     body: |
       return image_layers;
 
 
   - name: load
-    guards: [ bitmap_bin ]
+    guards: [ (!loaded), bitmap_bin ]
     body: |
       AllegroFlare::Tiled::TMJImageLayerLoader tmj_image_layer_loader(filename);
       tmj_image_layer_loader.load();
-      
+
+      loaded = true;
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Tiled::TMJImageLayerLoader 

@@ -254,6 +254,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
+    "AllegroFlare/Elements/ImageLayerLoader",
     "AllegroFlare/Elements/Inventory",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
@@ -2403,6 +2404,13 @@
   "int32_t": [
     "AllegroFlare/Elements/HealthBars/Hearts"
   ],
+  "AllegroFlare/Tiled/TMJImageLayer": [
+    "AllegroFlare/Elements/ImageLayerLoader",
+    "AllegroFlare/Tiled/TMJImageLayerLoader"
+  ],
+  "AllegroFlare/Tiled/TMJImageLayerLoader": [
+    "AllegroFlare/Elements/ImageLayerLoader"
+  ],
   "AllegroFlare/Elements/ImageLayer": [
     "AllegroFlare/Elements/ImageLayersRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D"
@@ -4365,9 +4373,6 @@
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
-  ],
-  "AllegroFlare/Tiled/TMJImageLayer": [
-    "AllegroFlare/Tiled/TMJImageLayerLoader"
   ],
   "std/time_t": [
     "AllegroFlare/TimeStamper"

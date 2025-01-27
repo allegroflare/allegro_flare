@@ -46,7 +46,7 @@ bool ImageLayerLoader::get_loaded() const
 }
 
 
-std::vector<AllegroFlare::Tiled::TMJImageLayer*> ImageLayerLoader::get_image_layers()
+std::vector<AllegroFlare::Tiled::TMJImageLayer> ImageLayerLoader::get_image_layers()
 {
    if (!(loaded))
    {
@@ -60,6 +60,13 @@ std::vector<AllegroFlare::Tiled::TMJImageLayer*> ImageLayerLoader::get_image_lay
 
 void ImageLayerLoader::load()
 {
+   if (!((!loaded)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::ImageLayerLoader::load]: error: guard \"(!loaded)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::ImageLayerLoader::load]: error: guard \"(!loaded)\" not met");
+   }
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
@@ -69,6 +76,8 @@ void ImageLayerLoader::load()
    }
    AllegroFlare::Tiled::TMJImageLayerLoader tmj_image_layer_loader(filename);
    tmj_image_layer_loader.load();
+
+   loaded = true;
 
    return;
 }
