@@ -6917,8 +6917,8 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml">quintessence/AllegroFlare/Elements/Backgrounds/ParallaxLayer.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Line up the tmj variables with the existing and remove unused parts"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">anchor_x</td>
@@ -6936,6 +6936,58 @@ table td
   <td class="property">bitmap</td>
   <td class="property">ALLEGRO_BITMAP*</td>
 </tr>
+<tr>
+  <td class="property">tmj_id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">image_filename</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">offset_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">parallax_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">parallax_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">repeat_x</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">repeat_y</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">opacity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tint_color_is_set</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">tint_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_TINT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -6943,10 +6995,10 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP*&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_BITMAP&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48326,7 +48378,6 @@ table td
     "AllegroFlare/Elements/Backgrounds/Image",
     "AllegroFlare/Elements/Backgrounds/Parallax",
     "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
-    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom",
     "AllegroFlare/Elements/Backgrounds/ScreenCapture",
     "AllegroFlare/Elements/ChapterSelect/CarouselElementRenderers/ThumbnailWithLabelRenderer",
@@ -49378,6 +49429,7 @@ table td
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/ClearToColor",
     "AllegroFlare/Elements/Backgrounds/IconPattern",
+    "AllegroFlare/Elements/Backgrounds/ParallaxLayer",
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/DialogBoxFrame",

@@ -13,11 +13,23 @@ namespace Backgrounds
 {
 
 
-ParallaxLayer::ParallaxLayer(float anchor_x, float anchor_y, float offset_rate, ALLEGRO_BITMAP* bitmap)
+ParallaxLayer::ParallaxLayer(float anchor_x, float anchor_y, float offset_rate, ALLEGRO_BITMAP* bitmap, int tmj_id, std::string name, std::string image_filename, float offset_x, float offset_y, float parallax_x, float parallax_y, bool repeat_x, bool repeat_y, float opacity, bool tint_color_is_set, ALLEGRO_COLOR tint_color)
    : anchor_x(anchor_x)
    , anchor_y(anchor_y)
    , offset_rate(offset_rate)
    , bitmap(bitmap)
+   , tmj_id(tmj_id)
+   , name(name)
+   , image_filename(image_filename)
+   , offset_x(offset_x)
+   , offset_y(offset_y)
+   , parallax_x(parallax_x)
+   , parallax_y(parallax_y)
+   , repeat_x(repeat_x)
+   , repeat_y(repeat_y)
+   , opacity(opacity)
+   , tint_color_is_set(tint_color_is_set)
+   , tint_color(tint_color)
 {
 }
 
