@@ -23,5 +23,10 @@
 #define ASSERT_THROW_GUARD_ERROR(code, throw_from, guard_statement) \
    ASSERT_THROW_WITH_MESSAGE(code, std::runtime_error, BUILD_GUARD_ERROR_MESSAGE(throw_from, guard_statement))
 
-// TODO: See EXPECT_WARNING_MESSAGE in Elements/ImageLayerLoaderTest
+#define EXPECT_STDOUT(code, expected_warning_message) \
+   testing::internal::CaptureStdout(); \
+   code; \
+   std::string actual_cout_output = testing::internal::GetCapturedStdout(); \
+   EXPECT_EQ(expected_warning_message, actual_cout_output);
+
 
