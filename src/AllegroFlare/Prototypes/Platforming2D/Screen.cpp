@@ -7,6 +7,7 @@
 #include <AllegroFlare/CameraControlStrategies2D/SmoothSnapWithZoomEffect.hpp>
 #include <AllegroFlare/CameraControlStrategies2D/Snap.hpp>
 #include <AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.hpp>
+#include <AllegroFlare/Elements/ImageLayersRenderer.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Physics/AABB2D.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
@@ -353,6 +354,9 @@ AllegroFlare::Physics::TileMapCollisionStepper &Screen::get_collision_stepper_re
 void Screen::clear()
 {
    // TODO: Be sure to call AllegroFlare::Prototypes::Platforming2D::Screen::clear in your class's override
+
+   // TODO: Destroy "image_layers" in maps
+   // TODO: Destroy "maps"
 
    AllegroFlare::Logger::info_from(
       "AllegroFlare::Prototypes::Platforming2D::Screen::clear",
@@ -1904,8 +1908,18 @@ void Screen::draw()
    parallax_with_zoom_background.render();
 
 
+
+
    // Setup the camera in order
    camera.start_reverse_transform();
+
+
+   // TODO: Render image_layers
+   AllegroFlare::Elements::ImageLayersRenderer image_layers_renderer;
+   image_layers_renderer.set_image_layers(&currently_active_map->get_image_layers_ref());
+   image_layers_renderer.set_camera(&camera);
+   image_layers_renderer.render();
+
 
 
    if (show_background_tile_mesh && background_tile_mesh_exists())

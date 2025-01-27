@@ -13,6 +13,7 @@
 
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 TEST(AllegroFlare_TileMaps_PrimMeshAtlasTest, can_be_created_without_blowing_up)
@@ -104,14 +105,17 @@ TEST(AllegroFlare_TileMaps_PrimMeshAtlas_TileAtlasBuilderTest,
    AllegroFlare::TileMaps::PrimMeshAtlas *atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
    atlas->duplicate_bitmap_and_load(source_bitmap, 16, 16, 0); // Initializes the atlas
 
-   testing::internal::CaptureStdout();
-   delete atlas;
-   std::string expected_cout_output = "\x1B[1;33m[AllegroFlare::TileMaps::PrimMeshAtlas::~destructor]: "
-      "warning: The class was initialized but not destroyed. This likely means that a dangling pointer "
-      "was left, please review.\x1B[0m\n";
+   //testing::internal::CaptureStdout();
+   EXPECT_STDOUT(
+      delete atlas, 
+   //std::string expected_cout_output =
+      "\x1B[1;33m[AllegroFlare::TileMaps::PrimMeshAtlas::~destroy]: "
+         "warning: The class was initialized but not destroyed. This likely means that a dangling pointer "
+         "was left, please review.\x1B[0m\n"
+   );
 
-   std::string actual_cout_output = testing::internal::GetCapturedStdout();
-   EXPECT_EQ(expected_cout_output, actual_cout_output);
+   //std::string actual_cout_output = testing::internal::GetCapturedStdout();
+   //EXPECT_EQ(expected_cout_output, actual_cout_output);
 
    al_destroy_bitmap(source_bitmap);
    al_shutdown_image_addon();

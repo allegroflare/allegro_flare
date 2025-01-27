@@ -32,7 +32,7 @@ PrimMeshAtlas::~PrimMeshAtlas()
    if (initialized && !destroyed)
    {
       AllegroFlare::Logger::warn_from(
-         "AllegroFlare::TileMaps::PrimMeshAtlas::~destructor",
+         "AllegroFlare::TileMaps::PrimMeshAtlas::~destroy",
          "The class was initialized but not destroyed. This likely means that a dangling pointer was left, "
             "please review."
       );

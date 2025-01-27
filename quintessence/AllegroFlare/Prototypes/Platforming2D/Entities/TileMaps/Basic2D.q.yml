@@ -69,6 +69,7 @@ properties:
     init_with: '{}'
     constructor_arg: true
     getter: true
+    getter_ref: true
     setter: true
 
 

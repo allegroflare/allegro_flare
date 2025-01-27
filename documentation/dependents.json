@@ -3988,6 +3988,9 @@
   "AllegroFlare/Elements/Backgrounds/ParallaxWithZoom": [
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "AllegroFlare/Elements/ImageLayersRenderer": [
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
+  ],
   "ifstream": [
     "AllegroFlare/Prototypes/Platforming2D/TMJMeshLoader",
     "Tileo/TMJMeshLoader"

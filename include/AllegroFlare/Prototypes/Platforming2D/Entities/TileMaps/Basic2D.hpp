@@ -62,6 +62,7 @@ namespace AllegroFlare
                   AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map() const;
                   std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> get_background_layers() const;
                   std::vector<AllegroFlare::Elements::ImageLayer> get_image_layers() const;
+                  std::vector<AllegroFlare::Elements::ImageLayer> &get_image_layers_ref();
                   virtual void update() override;
                   virtual void draw() override;
                   virtual void destroy() override;

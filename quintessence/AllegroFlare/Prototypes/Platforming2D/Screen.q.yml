@@ -235,6 +235,9 @@ methods:
     body: |
       // TODO: Be sure to call AllegroFlare::Prototypes::Platforming2D::Screen::clear in your class's override
 
+      // TODO: Destroy "image_layers" in maps
+      // TODO: Destroy "maps"
+
       AllegroFlare::Logger::info_from(
          "AllegroFlare::Prototypes::Platforming2D::Screen::clear",
          "Deleting all entities in entity_pool."
@@ -1735,8 +1738,18 @@ methods:
       parallax_with_zoom_background.render();
 
 
+
+
       // Setup the camera in order
       camera.start_reverse_transform();
+
+
+      // TODO: Render image_layers
+      AllegroFlare::Elements::ImageLayersRenderer image_layers_renderer;
+      image_layers_renderer.set_image_layers(&currently_active_map->get_image_layers_ref());
+      image_layers_renderer.set_camera(&camera);
+      image_layers_renderer.render();
+
 
 
       if (show_background_tile_mesh && background_tile_mesh_exists())
@@ -1812,6 +1825,7 @@ methods:
     body_dependency_symbols:
       - al_color_name
       - AllegroFlare::Elements::Backgrounds::ParallaxWithZoom
+      - AllegroFlare::Elements::ImageLayersRenderer
 
 
   - name: draw_debugging
@@ -2428,5 +2442,7 @@ dependencies:
     headers: [ AllegroFlare/Routers/Standard.hpp ]
   - symbol: AllegroFlare::Elements::Backgrounds::ParallaxWithZoom
     headers: [ AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.hpp ]
+  - symbol: AllegroFlare::Elements::ImageLayersRenderer
+    headers: [ AllegroFlare/Elements/ImageLayersRenderer.hpp ]
 
 

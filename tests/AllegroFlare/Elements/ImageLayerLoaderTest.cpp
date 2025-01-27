@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/Elements/ImageLayerLoader.hpp>
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
-#include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 //#include <AllegroFlare/Testing/Comparison/AllegroFlare/Tiled/TMJImageLayer.hpp>
 
@@ -38,12 +37,9 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
 TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    load__will_not_blow_up)
 {
-   AllegroFlare::DeploymentEnvironment deployment_environment("test");
-   std::string maps_data_folder_path = deployment_environment.get_data_folder_path() + "maps/";
-
    AllegroFlare::Elements::ImageLayerLoader loader(
       &get_bitmap_bin_ref(),
-      maps_data_folder_path + "test_map_with_image_layers-02.tmj"
+      get_data_folder_path() + "maps/test_map_with_image_layers-02.tmj"
    );
 
    loader.load();
@@ -53,11 +49,9 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
 TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    load__will_load_the_expected_image_layers)
 {
-   AllegroFlare::DeploymentEnvironment deployment_environment("test");
-   std::string maps_data_folder_path = deployment_environment.get_data_folder_path() + "maps/";
    AllegroFlare::Elements::ImageLayerLoader loader(
       &get_bitmap_bin_ref(),
-      maps_data_folder_path + "test_map_with_image_layers-02.tmj"
+      get_data_folder_path() + "maps/test_map_with_image_layers-02.tmj"
    );
 
    loader.load();
@@ -111,6 +105,8 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    //std::vector<AllegroFlare::Tiled::TMJImageLayer> actual_image_layers = loader.get_image_layers();
 
    EXPECT_EQ(3, actual_image_layers.size());
+   // TODO: Continue testing on loaded data
+
    //EXPECT_EQ(expected_image_layers.size(), actual_image_layers.size());
 
    //EXPECT_EQ(expected_image_layers[0], actual_image_layers[0]);

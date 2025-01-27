@@ -158,6 +158,12 @@ std::vector<AllegroFlare::Elements::ImageLayer> Basic2D::get_image_layers() cons
 }
 
 
+std::vector<AllegroFlare::Elements::ImageLayer> &Basic2D::get_image_layers_ref()
+{
+   return image_layers;
+}
+
+
 void Basic2D::update()
 {
    // NOTE: No update on this entity
