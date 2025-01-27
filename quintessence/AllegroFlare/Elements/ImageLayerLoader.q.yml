@@ -1,0 +1,60 @@
+properties:
+
+
+  - name: filename
+    type: std::string
+    init_with: '"[unset-filename]"'
+    constructor_arg: true
+    setter: true
+
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    setter: true
+
+  - name: image_layers
+    type: std::vector<AllegroFlare::Tiled::TMJImageLayer*>
+    init_with: '{}'
+    getter: explicit
+    setter: false
+
+  - name: loaded
+    type: bool
+    init_with: false
+    getter: true
+    setter: false
+
+
+methods:
+
+
+  - name: get_image_layers
+    type: std::vector<AllegroFlare::Tiled::TMJImageLayer*>
+    guards: [ loaded ]
+    body: |
+      return image_layers;
+
+
+  - name: load
+    guards: [ bitmap_bin ]
+    body: |
+      AllegroFlare::Tiled::TMJImageLayerLoader tmj_image_layer_loader(filename);
+      tmj_image_layer_loader.load();
+      
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Tiled::TMJImageLayerLoader 
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
+  - symbol: AllegroFlare::Tiled::TMJImageLayer
+    headers: [ AllegroFlare/Tiled/TMJImageLayer.hpp ]
+  - symbol: AllegroFlare::Tiled::TMJImageLayerLoader
+    headers: [ AllegroFlare/Tiled/TMJImageLayerLoader.hpp ]
+
+
