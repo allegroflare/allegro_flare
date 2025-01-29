@@ -26,6 +26,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , tile_height(0)
    , layer_num_columns(0)
    , layer_num_rows(0)
+   , background_color(DEFAULT_BACKGROUND_COLOR)
    , tilelayers_tile_data({})
    , map_class("[unset-map_class]")
    , map_custom_properties({})
@@ -158,6 +159,18 @@ int TMJDataLoader::get_layer_num_rows()
       throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met");
    }
    return layer_num_rows;
+}
+
+ALLEGRO_COLOR TMJDataLoader::get_background_color()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJDataLoader::get_background_color]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_background_color]: error: guard \"loaded\" not met");
+   }
+   return background_color;
 }
 
 std::map<std::string, std::vector<int>> TMJDataLoader::get_tilelayers_tile_data()
@@ -305,6 +318,32 @@ bool TMJDataLoader::load()
    tile_width = j["tilewidth"]; // get width
    tile_height = j["tileheight"]; // get height
 
+
+   // Extract out the background color
+   if (!j.contains("backgroundcolor"))
+   {
+      // TODO: Test this throw
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Tiled::TMJDataLoader::load",
+         "Looking for \"backgroundcolor\" when loading \"" + filename + "\" but it does not exist. Using "
+            "AllegroFlare::Tiled::TMJDataLoader::DEFAULT_BACKGROUND_COLOR instead."
+      );
+      background_color = DEFAULT_BACKGROUND_COLOR;
+   }
+   else
+   {
+      std::string background_color_as_hex_string = j["backgroundcolor"].get<std::string>();
+      std::tuple<float, float, float, float> extracted_rgba_f =
+         convert_hex_to_rgba_f(background_color_as_hex_string);
+      background_color.r = std::get<0>(extracted_rgba_f);
+      background_color.g = std::get<1>(extracted_rgba_f);
+      background_color.b = std::get<2>(extracted_rgba_f);
+      background_color.a = 1.0f; // NOTE: Alpha here will always be defaulted to 1.0
+
+      //text__opacity = std::get<3>(extracted_rgba_f);
+   }
+   // HERE: Parse the background color
+   //tile_height = j["tileheight"]; // get height
 
 
    // Obtain the list of "tilesets" (note that multiple tilesets might be used. In the tile data, the value used

@@ -33170,6 +33170,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Prototypes::Platforming2D::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -44131,6 +44134,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">tilelayers_tile_data</td>
   <td class="property">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
 </tr>
@@ -44157,6 +44164,10 @@ table td
 <tr>
   <td class="property">objects</td>
   <td class="property">std::vector&lt;AllegroFlare::Tiled::TMJObject&gt;</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_BACKGROUND_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -44192,6 +44203,10 @@ table td
 <tr>
   <td class="method">int</td>
   <td class="method"><b>get_layer_num_rows</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_COLOR</td>
+  <td class="method"><b>get_background_color</b>()</td>
 </tr>
 <tr>
   <td class="method">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
@@ -44274,6 +44289,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObjectCustomProperties&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObjectCustomProperties.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -49905,6 +49923,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/DisplaySettings",
@@ -49922,6 +49941,7 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/TileMaps/TileMesh",
+    "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJImageLayer",
     "AllegroFlare/Tiled/TMJImageLayerLoader",
     "AllegroFlare/Tiled/TMJObject",

@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/Tiled/TMJObject.hpp>
 #include <AllegroFlare/Tiled/TMJObjectCustomProperties.hpp>
+#include <allegro5/allegro.h>
 #include <functional>
 #include <lib/nlohmann/json.hpp>
 #include <map>
@@ -18,6 +19,9 @@ namespace AllegroFlare
    {
       class TMJDataLoader
       {
+      public:
+         static constexpr ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+
       private:
          std::string filename;
          int num_columns;
@@ -26,6 +30,7 @@ namespace AllegroFlare
          int tile_height;
          int layer_num_columns;
          int layer_num_rows;
+         ALLEGRO_COLOR background_color;
          std::map<std::string, std::vector<int>> tilelayers_tile_data;
          std::string map_class;
          AllegroFlare::Tiled::TMJObjectCustomProperties map_custom_properties;
@@ -53,6 +58,7 @@ namespace AllegroFlare
          int get_tile_height();
          int get_layer_num_columns();
          int get_layer_num_rows();
+         ALLEGRO_COLOR get_background_color();
          std::map<std::string, std::vector<int>> get_tilelayers_tile_data();
          std::string get_map_class();
          AllegroFlare::Tiled::TMJObjectCustomProperties get_map_custom_properties();

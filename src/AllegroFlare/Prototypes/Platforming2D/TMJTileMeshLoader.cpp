@@ -196,6 +196,12 @@ bool TMJTileMeshLoader::load()
    int background_tilelayer_height = tmj_data_loader.get_background_tilelayer_num_rows();
    std::vector<int> background_tile_data = tmj_data_loader.get_background_tilelayer_tile_data();
 
+   // TODO: Load up background_color
+   //ALLEGRO_COLOR background_color = tmj_data_loader.get_background_color();
+   //int background_tilelayer_width = tmj_data_loader.get_background_tilelayer_num_columns();
+   //int background_tilelayer_height = tmj_data_loader.get_background_tilelayer_num_rows();
+   //std::vector<int> background_tile_data = tmj_data_loader.get_background_tilelayer_tile_data();
+
 
    // validate widths and heights match
    // TODO: Improve the validation code here
@@ -402,6 +408,7 @@ bool TMJTileMeshLoader::load()
    this->foreground_mesh = created_foreground_mesh;
    this->background_mesh = created_background_mesh;
    this->collision_tile_map = created_collision_tile_map;
+   //this->background_color = background_color;
 
    // Set loaded to true
    loaded = true;

@@ -345,6 +345,40 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_capture_tilesets)
 }
 
 
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
+   load__when_no_background_color_is_present__will_use_the_DEFAULT_BACKGROUND_COLOR)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_no_background_color-01.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   ASSERT_EQ(true, loader.load());
+
+   ALLEGRO_COLOR expected_background_color = AllegroFlare::Tiled::TMJDataLoader::DEFAULT_BACKGROUND_COLOR;
+   ALLEGRO_COLOR actual_background_color = loader.get_background_color();
+
+   EXPECT_EQ(expected_background_color.r, actual_background_color.r);
+   EXPECT_EQ(expected_background_color.g, actual_background_color.g);
+   EXPECT_EQ(expected_background_color.b, actual_background_color.b);
+   EXPECT_EQ(expected_background_color.a, actual_background_color.a);
+}
+
+
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest, load__will_extract_the_background_color)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_background_color-01.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   ASSERT_EQ(true, loader.load());
+
+   ALLEGRO_COLOR actual_background_color = loader.get_background_color();
+
+   EXPECT_EQ(0.2f, actual_background_color.r);
+   EXPECT_EQ(0.4f, actual_background_color.g);
+   EXPECT_EQ(0.6f, actual_background_color.b);
+   EXPECT_EQ(1.0f, actual_background_color.a);
+}
+
+
 //map_with_custom_properties-02.tmj
 
 

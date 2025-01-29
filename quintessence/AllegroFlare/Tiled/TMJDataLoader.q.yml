@@ -37,6 +37,11 @@ properties:
     init_with: 0
     getter: explicit
 
+  - name: background_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_BACKGROUND_COLOR
+    getter: explicit
+
   - name: tilelayers_tile_data
     type: std::map<std::string, std::vector<int>>
     init_with: '{}'
@@ -71,6 +76,12 @@ properties:
     init_with: '{}'
     getter: true
     getter_ref: true
+
+  - name: DEFAULT_BACKGROUND_COLOR
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f}'
+    constexpr: true
+    static: true
 
 
 documentation:
@@ -145,6 +156,12 @@ methods:
     type: int
     guards: [ loaded ]
     body: return layer_num_rows;
+
+
+  - name: get_background_color
+    type: ALLEGRO_COLOR
+    guards: [ loaded ]
+    body: return background_color;
 
 
   - name: get_tilelayers_tile_data
@@ -252,6 +269,32 @@ methods:
       tile_width = j["tilewidth"]; // get width
       tile_height = j["tileheight"]; // get height
 
+
+      // Extract out the background color
+      if (!j.contains("backgroundcolor"))
+      {
+         // TODO: Test this throw
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Tiled::TMJDataLoader::load",
+            "Looking for \"backgroundcolor\" when loading \"" + filename + "\" but it does not exist. Using "
+               "AllegroFlare::Tiled::TMJDataLoader::DEFAULT_BACKGROUND_COLOR instead."
+         );
+         background_color = DEFAULT_BACKGROUND_COLOR;
+      }
+      else
+      {
+         std::string background_color_as_hex_string = j["backgroundcolor"].get<std::string>();
+         std::tuple<float, float, float, float> extracted_rgba_f =
+            convert_hex_to_rgba_f(background_color_as_hex_string);
+         background_color.r = std::get<0>(extracted_rgba_f);
+         background_color.g = std::get<1>(extracted_rgba_f);
+         background_color.b = std::get<2>(extracted_rgba_f);
+         background_color.a = 1.0f; // NOTE: Alpha here will always be defaulted to 1.0
+
+         //text__opacity = std::get<3>(extracted_rgba_f);
+      }
+      // HERE: Parse the background color
+      //tile_height = j["tileheight"]; // get height
 
 
       // Obtain the list of "tilesets" (note that multiple tilesets might be used. In the tile data, the value used
@@ -898,5 +941,7 @@ dependencies:
     headers: [ AllegroFlare/Tiled/TMJObject.hpp ]
   - symbol: AllegroFlare::Tiled::TMJObjectCustomProperties
     headers: [ AllegroFlare/Tiled/TMJObjectCustomProperties.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
 
 
