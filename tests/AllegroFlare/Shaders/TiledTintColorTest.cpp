@@ -51,32 +51,18 @@ TEST_F(AllegroFlare_Shaders_TiledTintColorWithAllegroRenderingFixtureTest,
    ALLEGRO_BITMAP *image = get_bitmap_bin_ref().auto_get("cat_for_color_testing.jpg");
 
    // Some shader settings
-   //tiled_tint_color_shader.set_flat_color(ALLEGRO_COLOR{0.2, 0.8, 0.75, 1.0});
-   //tiled_tint_color_shader.set_flat_color_intensity(0.3f);
    //tiled_tint_color_shader.set_hue_shift(0.1f);
    
 
    int passes = 120 * 4;
-   float darkness = 0.0f;
    ALLEGRO_COLOR tint_color = ALLEGRO_COLOR{1, 1, 1, 1};
 
    for (int i=0; i<passes; i++)
    {
-      darkness += 0.006;
-      //tiled_tint_color_shader.set_darkness(0.2f);
-
       tint_color.r = 1.0 - (i / (float)passes);
 
       tiled_tint_color_shader.set_tint_color(tint_color);
       tiled_tint_color_shader.set_tint_color_is_used(true);
-
-      //tiled_tint_color_shader.set_saturation(1.0 - (i / (float)passes));
-
-      //tiled_tint_color_shader.set_red_channel_multiplier(0.65f);
-      //tiled_tint_color_shader.set_green_channel_multiplier(0.5f);
-      //tiled_tint_color_shader.set_blue_channel_multiplier(1.3f);
-         //tiled_tint_color_shader.set_flat_color(ALLEGRO_COLOR{0.2, 0.8, 0.75, 1.0});
-         //tiled_tint_color_shader.set_flat_color_intensity(0.3);
 
       // Render the test
       clear();

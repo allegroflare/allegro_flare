@@ -17,14 +17,6 @@ TiledTintColor::TiledTintColor()
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::TiledTintColor::TYPE, obtain_vertex_source(), obtain_fragment_source())
    , tint_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , tint_color_is_used(false)
-   , flat_color(ALLEGRO_COLOR{1, 1, 1, 1})
-   , flat_color_intensity(0.0f)
-   , darkness(0.0f)
-   , saturation(1.0f)
-   , red_channel_multiplier(1.0f)
-   , green_channel_multiplier(1.0f)
-   , blue_channel_multiplier(1.0f)
-   , hue_rotation(1.0f)
    , initialized(false)
 {
 }
@@ -47,65 +39,10 @@ bool TiledTintColor::get_tint_color_is_used() const
 }
 
 
-ALLEGRO_COLOR TiledTintColor::get_flat_color() const
-{
-   return flat_color;
-}
-
-
-float TiledTintColor::get_flat_color_intensity() const
-{
-   return flat_color_intensity;
-}
-
-
-float TiledTintColor::get_darkness() const
-{
-   return darkness;
-}
-
-
-float TiledTintColor::get_saturation() const
-{
-   return saturation;
-}
-
-
-float TiledTintColor::get_red_channel_multiplier() const
-{
-   return red_channel_multiplier;
-}
-
-
-float TiledTintColor::get_green_channel_multiplier() const
-{
-   return green_channel_multiplier;
-}
-
-
-float TiledTintColor::get_blue_channel_multiplier() const
-{
-   return blue_channel_multiplier;
-}
-
-
-float TiledTintColor::get_hue_rotation() const
-{
-   return hue_rotation;
-}
-
-
 void TiledTintColor::initialize()
 {
    if (!initialized) AllegroFlare::Shaders::Base::initialize();
    initialized = true;
-}
-
-void TiledTintColor::set_flat_color(ALLEGRO_COLOR flat_color)
-{
-   this->flat_color = flat_color;
-   if (is_active()) set_vec3("flat_color", flat_color.r, flat_color.g, flat_color.b);
-   return;
 }
 
 void TiledTintColor::set_tint_color(ALLEGRO_COLOR tint_color)
@@ -119,83 +56,6 @@ void TiledTintColor::set_tint_color_is_used(bool tint_color_is_used)
 {
    this->tint_color_is_used = tint_color_is_used;
    if (is_active()) set_bool("tint_color_is_used", tint_color_is_used);
-   return;
-}
-
-void TiledTintColor::set_saturation(float saturation)
-{
-   if (!((saturation >= 0.0f)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Shaders::TiledTintColor::set_saturation]: error: guard \"(saturation >= 0.0f)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Shaders::TiledTintColor::set_saturation]: error: guard \"(saturation >= 0.0f)\" not met");
-   }
-   if (!((saturation <= 2.0f)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Shaders::TiledTintColor::set_saturation]: error: guard \"(saturation <= 2.0f)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Shaders::TiledTintColor::set_saturation]: error: guard \"(saturation <= 2.0f)\" not met");
-   }
-   this->saturation = saturation;
-   if (is_active()) set_float("saturation", saturation);
-   return;
-}
-
-void TiledTintColor::set_flat_color_intensity(float flat_color_intensity)
-{
-   if (!((flat_color_intensity >= 0.0f)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Shaders::TiledTintColor::set_flat_color_intensity]: error: guard \"(flat_color_intensity >= 0.0f)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Shaders::TiledTintColor::set_flat_color_intensity]: error: guard \"(flat_color_intensity >= 0.0f)\" not met");
-   }
-   if (!((flat_color_intensity <= 1.0f)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Shaders::TiledTintColor::set_flat_color_intensity]: error: guard \"(flat_color_intensity <= 1.0f)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Shaders::TiledTintColor::set_flat_color_intensity]: error: guard \"(flat_color_intensity <= 1.0f)\" not met");
-   }
-   this->flat_color_intensity = flat_color_intensity;
-   if (is_active()) set_float("flat_color_intensity", flat_color_intensity);
-   return;
-}
-
-void TiledTintColor::set_darkness(float darkness)
-{
-   this->darkness = darkness;
-   if (is_active()) set_float("inv_darkness", 1.0 - darkness);
-   return;
-}
-
-void TiledTintColor::set_red_channel_multiplier(float red_channel_multiplier)
-{
-   this->red_channel_multiplier = red_channel_multiplier;
-   if (is_active()) set_float("red_channel_multiplier", red_channel_multiplier);
-   return;
-}
-
-void TiledTintColor::set_green_channel_multiplier(float green_channel_multiplier)
-{
-   this->green_channel_multiplier = green_channel_multiplier;
-   if (is_active()) set_float("green_channel_multiplier", green_channel_multiplier);
-   return;
-}
-
-void TiledTintColor::set_blue_channel_multiplier(float blue_channel_multiplier)
-{
-   this->blue_channel_multiplier = blue_channel_multiplier;
-   if (is_active()) set_float("blue_channel_multiplier", blue_channel_multiplier);
-   return;
-}
-
-void TiledTintColor::set_hue_rotation(float hue_rotation)
-{
-   this->hue_rotation = hue_rotation;
-   if (is_active()) set_float("hue_rotation", hue_rotation);
    return;
 }
 
@@ -217,14 +77,6 @@ void TiledTintColor::set_values_to_activated_shader()
 {
    set_bool("tint_color_is_used", tint_color_is_used);
    set_vec3("tint_color", tint_color.r, tint_color.g, tint_color.b);
-   set_vec3("flat_color", flat_color.r, flat_color.g, flat_color.b);
-   set_float("flat_color_intensity", flat_color_intensity);
-   set_float("inv_darkness", 1.0 - darkness);
-   set_float("red_channel_multiplier", red_channel_multiplier);
-   set_float("green_channel_multiplier", green_channel_multiplier);
-   set_float("blue_channel_multiplier", blue_channel_multiplier);
-   set_float("hue_rotation", hue_rotation);
-   set_float("saturation", saturation);
    return;
 }
 
@@ -272,24 +124,6 @@ std::string TiledTintColor::obtain_fragment_source()
 
      uniform bool tint_color_is_used;
      uniform vec3 tint_color;
-     uniform vec3 flat_color;
-     uniform float flat_color_intensity;
-     uniform float inv_darkness;
-     uniform float red_channel_multiplier;
-     uniform float green_channel_multiplier;
-     uniform float blue_channel_multiplier;
-     uniform float hue_rotation; // Normalized [0-1] value for hue rotation
-     uniform float saturation; // 0 == gray, 1.0 == normal, 2.0 == double_saturation
-
-     vec3 saturation_adjust(vec3 rgb, float adjustment)
-     // From:
-     // https://github.com/minus34/cesium1/blob/master/Cesium/Shaders/Builtin/Functions/saturation.glsl
-     {
-        // Algorithm from Chapter 16 of OpenGL Shading Language
-        const vec3 W = vec3(0.2125, 0.7154, 0.0721);
-        vec3 intensity = vec3(dot(rgb, W));
-        return mix(intensity, rgb, adjustment);
-     }
 
      vec4 hue_adjust(vec4 color, float hueAdjust)
      {
@@ -344,16 +178,6 @@ std::string TiledTintColor::obtain_fragment_source()
         return tmp;
      }
 
-     vec4 flat_color_it_plz(vec4 tmp)
-     {
-        float inverse_color_intensity = 1.0 - flat_color_intensity;
-        tmp.r = (tmp.r * inverse_color_intensity + flat_color.r * flat_color_intensity) * tmp.a;
-        tmp.g = (tmp.g * inverse_color_intensity + flat_color.g * flat_color_intensity) * tmp.a;
-        tmp.b = (tmp.b * inverse_color_intensity + flat_color.b * flat_color_intensity) * tmp.a;
-        tmp.a = tmp.a;
-        return tmp;
-     }
-
      void main()
      {
        vec4 c;
@@ -367,28 +191,12 @@ std::string TiledTintColor::obtain_fragment_source()
          c = varying_color;
        }
 
-       // Apply the 
        if (!al_alpha_test || alpha_test_func(c.a, al_alpha_func, al_alpha_test_val))
        {
-          // Apply hue rotation
-          //float angle = hue_rotation * 2.0 * 3.14159265; // Convert normalized value to radians
-          //c.rgb = rotate_hue(c.rgb, angle);
-          //c.rgb = hue_adjust(c.rgb
-          //c = hue_adjust(c, 0.0);
-          if (hue_rotation < -0.01 || hue_rotation > 0.01) c = hue_adjust(c, hue_rotation * 2.0 * 3.14159265);
-
-          // Apply saturation adjustment
-          if (saturation < 0.99 || saturation > 1.01) c.rgb = saturation_adjust(c.rgb, saturation);
-
-          // Adjust the darkness
-          c.r = c.r * inv_darkness * red_channel_multiplier;
-          c.g = c.g * inv_darkness * green_channel_multiplier;
-          c.b = c.b * inv_darkness * blue_channel_multiplier;
-
+          // Apply the tint if relevant
           if (tint_color_is_used) c = tint_color_it_plz(c);
         
           gl_FragColor = c;
-          //gl_FragColor = flat_color_it_plz(c);
        }
        else
        {
