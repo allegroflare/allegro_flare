@@ -467,6 +467,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    AllegroFlare::TileMaps::TileMesh *foreground_tile_mesh = nullptr;
    AllegroFlare::TileMaps::TileMesh *background_tile_mesh = nullptr;
    AllegroFlare::TileMaps::TileMap<int> *collision_tile_map = nullptr;
+   ALLEGRO_COLOR background_color = ALLEGRO_COLOR{0, 0, 0, 1};
    created_map = new AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D;
 
    AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader tmj_tile_mesh_loader(
@@ -481,6 +482,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    foreground_tile_mesh = tmj_tile_mesh_loader.get_foreground_mesh();
    background_tile_mesh = tmj_tile_mesh_loader.get_background_mesh();
    collision_tile_map = tmj_tile_mesh_loader.get_collision_tile_map();
+   collision_tile_map = tmj_tile_mesh_loader.get_collision_tile_map();
+   background_color = tmj_tile_mesh_loader.get_background_color();
 
    if (!tile_atlas)
    {
@@ -544,6 +547,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
    created_map->set_collision_tile_map(collision_tile_map);
    created_map->set_background_layers(background_layers_result);
    created_map->set(MAP_NAME, map_name);
+   created_map->set_background_color(background_color);
 
    if (init_entities_drawing_debug) created_map->set_draw_debug(true);
 

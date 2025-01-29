@@ -29,6 +29,7 @@ TMJTileMeshLoader::TMJTileMeshLoader(AllegroFlare::BitmapBin* bitmap_bin, std::s
    , background_mesh(nullptr)
    , foreground_mesh(nullptr)
    , collision_tile_map(nullptr)
+   , background_color(ALLEGRO_COLOR{0, 0, 0, 1})
    , loaded(false)
 {
 }
@@ -153,6 +154,18 @@ AllegroFlare::TileMaps::TileMap<int>* TMJTileMeshLoader::get_collision_tile_map(
    return collision_tile_map;
 }
 
+ALLEGRO_COLOR TMJTileMeshLoader::get_background_color()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_background_color]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::get_background_color]: error: guard \"loaded\" not met");
+   }
+   return background_color;
+}
+
 bool TMJTileMeshLoader::load()
 {
    if (!(bitmap_bin))
@@ -197,7 +210,7 @@ bool TMJTileMeshLoader::load()
    std::vector<int> background_tile_data = tmj_data_loader.get_background_tilelayer_tile_data();
 
    // TODO: Load up background_color
-   //ALLEGRO_COLOR background_color = tmj_data_loader.get_background_color();
+   ALLEGRO_COLOR background_color = tmj_data_loader.get_background_color();
    //int background_tilelayer_width = tmj_data_loader.get_background_tilelayer_num_columns();
    //int background_tilelayer_height = tmj_data_loader.get_background_tilelayer_num_rows();
    //std::vector<int> background_tile_data = tmj_data_loader.get_background_tilelayer_tile_data();
@@ -404,7 +417,7 @@ bool TMJTileMeshLoader::load()
    this->foreground_mesh = created_foreground_mesh;
    this->background_mesh = created_background_mesh;
    this->collision_tile_map = created_collision_tile_map;
-   //this->background_color = background_color;
+   this->background_color = background_color;
 
    // Set loaded to true
    loaded = true;

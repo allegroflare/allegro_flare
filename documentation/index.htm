@@ -31664,6 +31664,10 @@ table td
   <td class="property">std::vector&lt;AllegroFlare::Elements::Backgrounds::ParallaxLayer&gt;</td>
 </tr>
 <tr>
+  <td class="property">background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">image_layers</td>
   <td class="property">std::vector&lt;AllegroFlare::Elements::ImageLayer&gt;</td>
 </tr>
@@ -31705,6 +31709,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ImageLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ImageLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -32583,7 +32590,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml">quintessence/AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"todos"=>["Move the \"normalize_tile_data_from_tilesets\" functionality out of this class and make it the responsibility of the user to do this. The TMJDataLoader class should only load data from the TMJ file and make it available as data accessible from the class."]}</p>    <h3>Properties</h3>
+    <p>{"notes"=>["IMPORTANT - Do not rely on this class for TMJ loading *outside* of the Platforming2D prototype. If you need to load data from tiled, use AllegroFlare/Tiled/TMJDataLoader which is cleaner and easier to use. If you need to extend Platforming2D code, consider using Tiled/TMJDataLoader first. This class is dead code walking."]}</p>    <p>{"todos"=>["Consider refactoring the code within Platforming2D to use AllegroFlare/Tiled/TMJDataLoader and scrap this AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader class.", "Move the \"normalize_tile_data_from_tilesets\" functionality out of this class and make it the responsibility of the user to do this. The TMJDataLoader class should only load data from the TMJ file and make it available as data accessible from the class."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">filename</td>
@@ -32662,6 +32669,10 @@ table td
   <td class="property">std::vector&lt;int&gt;</td>
 </tr>
 <tr>
+  <td class="property">background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">normalize_tile_data_from_tilesets</td>
   <td class="property">bool</td>
 </tr>
@@ -32672,6 +32683,10 @@ table td
 <tr>
   <td class="property">loaded</td>
   <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_BACKGROUND_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -32749,6 +32764,10 @@ table td
   <td class="method"><b>get_collision_layer_tile_data</b>()</td>
 </tr>
 <tr>
+  <td class="method">ALLEGRO_COLOR</td>
+  <td class="method"><b>get_background_color</b>()</td>
+</tr>
+<tr>
   <td class="method">bool</td>
   <td class="method"><b>load</b>()</td>
 </tr>
@@ -32780,6 +32799,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StringFormatValidator&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StringFormatValidator.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJDataLoader&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJDataLoader.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -33096,6 +33121,10 @@ table td
   <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
 </tr>
 <tr>
+  <td class="property">background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">loaded</td>
   <td class="property">bool</td>
 </tr>
@@ -33133,6 +33162,10 @@ table td
 <tr>
   <td class="method">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
   <td class="method"><b>get_collision_tile_map</b>()</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_COLOR</td>
+  <td class="method"><b>get_background_color</b>()</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -49923,6 +49956,8 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Rulers",
@@ -51872,6 +51907,7 @@ table td
     "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Tiled/TMJImageLayer",
     "AllegroFlare/Tiled/TMJImageLayerLoader"
   ],

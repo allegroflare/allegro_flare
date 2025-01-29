@@ -64,6 +64,13 @@ properties:
     getter: true
     setter: true
 
+  - name: background_color
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: image_layers
     type: std::vector<AllegroFlare::Elements::ImageLayer>
     init_with: '{}'
@@ -145,5 +152,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/Backgrounds/ParallaxLayer.hpp ]
   - symbol: AllegroFlare::Elements::ImageLayer
     headers: [ AllegroFlare/Elements/ImageLayer.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
 
 

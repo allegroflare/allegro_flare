@@ -160,6 +160,31 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest,
+   FOCUS__create_tile_map__with_a_map_that_has_a_background_color__will_create_a_map_with_expected_background_color)
+{
+   using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
+
+   std::string data_folder_path = TEST_FIXTURES_PATH;
+   AllegroFlare::Prototypes::Platforming2D::Entities::Basic2DFactory basic2d_factory(&get_bitmap_bin_ref());
+   AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_tile_map =
+      basic2d_factory.create_tile_map(
+         "map_a",
+         TEST_FIXTURES_PATH "map1-with_background_color-01.tmj",
+         "tiles_dungeon_v1.1.png"
+      );
+
+   ALLEGRO_COLOR actual_background_color = created_tile_map->get_background_color();
+
+   EXPECT_EQ(0.0f, actual_background_color.r);
+   EXPECT_EQ(0.2f, actual_background_color.g);
+   EXPECT_EQ(0.4f, actual_background_color.b);
+   EXPECT_EQ(1.0f, actual_background_color.a);
+
+   delete created_tile_map;
+};
+
+
+TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest,
    create_entities_from_map__will_create_entities_with_the_expected_properties)
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;

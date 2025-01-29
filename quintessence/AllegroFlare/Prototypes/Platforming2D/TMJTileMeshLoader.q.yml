@@ -57,6 +57,12 @@ properties:
     init_with: nullptr
     getter: explicit
 
+  - name: background_color
+    type: ALLEGRO_COLOR
+    xinit_with: AllegroFlare::Tiled::TMJDataLoader::DEFAULT_BACKGROUND_COLOR
+    init_with: ALLEGRO_COLOR{0, 0, 0, 1}
+    getter: explicit
+
   - name: loaded
     type: bool
     init_with: false
@@ -134,6 +140,12 @@ methods:
     body: return collision_tile_map;
 
 
+  - name: get_background_color
+    type: ALLEGRO_COLOR
+    guards: [ loaded ]
+    body: return background_color;
+
+
   - name: load
     type: bool
     guards: [ bitmap_bin, (!loaded) ]
@@ -166,7 +178,7 @@ methods:
       std::vector<int> background_tile_data = tmj_data_loader.get_background_tilelayer_tile_data();
 
       // TODO: Load up background_color
-      //ALLEGRO_COLOR background_color = tmj_data_loader.get_background_color();
+      ALLEGRO_COLOR background_color = tmj_data_loader.get_background_color();
       //int background_tilelayer_width = tmj_data_loader.get_background_tilelayer_num_columns();
       //int background_tilelayer_height = tmj_data_loader.get_background_tilelayer_num_rows();
       //std::vector<int> background_tile_data = tmj_data_loader.get_background_tilelayer_tile_data();
@@ -373,7 +385,7 @@ methods:
       this->foreground_mesh = created_foreground_mesh;
       this->background_mesh = created_background_mesh;
       this->collision_tile_map = created_collision_tile_map;
-      //this->background_color = background_color;
+      this->background_color = background_color;
 
       // Set loaded to true
       loaded = true;

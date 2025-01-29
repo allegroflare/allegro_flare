@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/StringFormatValidator.hpp>
+#include <AllegroFlare/Tiled/TMJDataLoader.hpp>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -40,6 +41,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , collision_layer_num_columns(0)
    , collision_layer_num_rows(0)
    , collision_layer_tile_data({})
+   , background_color(DEFAULT_BACKGROUND_COLOR)
    , normalize_tile_data_from_tilesets(true)
    , reduce_any_non_zero_collision_layer_data_to_1(true)
    , loaded(false)
@@ -274,6 +276,18 @@ std::vector<int> TMJDataLoader::get_collision_layer_tile_data()
    return collision_layer_tile_data;
 }
 
+ALLEGRO_COLOR TMJDataLoader::get_background_color()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_background_color]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::get_background_color]: error: guard \"loaded\" not met");
+   }
+   return background_color;
+}
+
 bool TMJDataLoader::load()
 {
    if (!((!loaded)))
@@ -342,6 +356,31 @@ bool TMJDataLoader::load()
    }
 
 
+   // Extract out the background color
+   if (!j.contains("backgroundcolor"))
+   {
+      // TODO: Test this throw
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Tiled::TMJDataLoader::load",
+         "Looking for \"backgroundcolor\" when loading \"" + filename + "\" but it does not exist. Using "
+            "AllegroFlare::Tiled::TMJDataLoader::DEFAULT_BACKGROUND_COLOR instead."
+      );
+      background_color = DEFAULT_BACKGROUND_COLOR;
+   }
+   else
+   {
+      std::string background_color_as_hex_string = j["backgroundcolor"].get<std::string>();
+      std::tuple<float, float, float, float> extracted_rgba_f =
+         AllegroFlare::Tiled::TMJDataLoader::convert_hex_to_rgba_f(background_color_as_hex_string);
+      background_color.r = std::get<0>(extracted_rgba_f);
+      background_color.g = std::get<1>(extracted_rgba_f);
+      background_color.b = std::get<2>(extracted_rgba_f);
+      background_color.a = 1.0f; // NOTE: Alpha here will always be defaulted to 1.0
+
+      //text__opacity = std::get<3>(extracted_rgba_f);
+   }
+   // HERE: Parse the background color
+   //tile_height = j["tileheight"]; // get height
 
 
    //

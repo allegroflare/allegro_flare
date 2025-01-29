@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <allegro5/allegro.h>
 #include <set>
 #include <string>
 #include <vector>
@@ -14,6 +15,9 @@ namespace AllegroFlare
       {
          class TMJDataLoader
          {
+         public:
+            static constexpr ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+
          private:
             std::string filename;
             int num_columns;
@@ -34,6 +38,7 @@ namespace AllegroFlare
             int collision_layer_num_columns;
             int collision_layer_num_rows;
             std::vector<int> collision_layer_tile_data;
+            ALLEGRO_COLOR background_color;
             bool normalize_tile_data_from_tilesets;
             bool reduce_any_non_zero_collision_layer_data_to_1;
             bool loaded;
@@ -65,6 +70,7 @@ namespace AllegroFlare
             int get_collision_layer_num_columns();
             int get_collision_layer_num_rows();
             std::vector<int> get_collision_layer_tile_data();
+            ALLEGRO_COLOR get_background_color();
             bool load();
             std::vector<int> normalize_tile_data_to_tilesets_firstgids(std::vector<int> data={}, std::set<int> tilesets_firstgids={});
          };

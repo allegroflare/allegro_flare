@@ -1171,6 +1171,8 @@
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Rulers",
@@ -3120,6 +3122,7 @@
     "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Tiled/TMJImageLayer",
     "AllegroFlare/Tiled/TMJImageLayerLoader"
   ],

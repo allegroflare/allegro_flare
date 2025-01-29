@@ -5,6 +5,7 @@
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
 #include <AllegroFlare/TileMaps/TileMesh.hpp>
+#include <allegro5/allegro.h>
 #include <cstdint>
 #include <string>
 #include <tuple>
@@ -30,6 +31,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::TileMesh* background_mesh;
             AllegroFlare::TileMaps::TileMesh* foreground_mesh;
             AllegroFlare::TileMaps::TileMap<int>* collision_tile_map;
+            ALLEGRO_COLOR background_color;
             bool loaded;
 
          protected:
@@ -50,6 +52,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::TileMesh* get_background_mesh();
             AllegroFlare::TileMaps::TileMesh* get_foreground_mesh();
             AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map();
+            ALLEGRO_COLOR get_background_color();
             bool load();
             static std::tuple<bool, bool, bool, bool, int> extract_tmj_tile_flip_properties(uint32_t tmj_tile_value=0);
             AllegroFlare::TileMaps::TileMesh* create_mesh(AllegroFlare::TileMaps::PrimMeshAtlas* tile_atlas=nullptr, int num_columns=0, int num_rows=0, int tile_width=16, int tile_height=16, std::vector<int> tile_data={}, bool filter_out_flipped_tile_numbers=false);

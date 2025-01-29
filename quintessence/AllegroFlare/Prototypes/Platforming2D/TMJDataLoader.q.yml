@@ -96,6 +96,11 @@ properties:
     init_with: '{}'
     getter: explicit
 
+  - name: background_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_BACKGROUND_COLOR
+    getter: explicit
+
   - name: normalize_tile_data_from_tilesets
     type: bool
     init_with: true
@@ -109,11 +114,24 @@ properties:
     init_with: false
     getter: true
 
+  - name: DEFAULT_BACKGROUND_COLOR
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f}'
+    constexpr: true
+    static: true
+
 
 documentation:
 
 
+  - notes:
+      - IMPORTANT - Do not rely on this class for TMJ loading *outside* of the Platforming2D prototype. If you need
+        to load data from tiled, use AllegroFlare/Tiled/TMJDataLoader which is cleaner and easier to use. If you need
+        to extend Platforming2D code, consider using Tiled/TMJDataLoader first. This class is dead code walking.
+
   - todos:
+      - Consider refactoring the code within Platforming2D to use AllegroFlare/Tiled/TMJDataLoader and scrap
+        this AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader class.
       - Move the "normalize_tile_data_from_tilesets" functionality out of this class and make it the responsibility
         of the user to do this. The TMJDataLoader class should only load data from the TMJ file and make it available
         as data accessible from the class.
@@ -230,6 +248,12 @@ functions:
     body: return collision_layer_tile_data;
 
 
+  - name: get_background_color
+    type: ALLEGRO_COLOR
+    guards: [ loaded ]
+    body: return background_color;
+
+
   - name: load
     type: bool
     guards: [ (!loaded) ]
@@ -293,6 +317,31 @@ functions:
       }
 
 
+      // Extract out the background color
+      if (!j.contains("backgroundcolor"))
+      {
+         // TODO: Test this throw
+         AllegroFlare::Logger::warn_from(
+            "AllegroFlare::Tiled::TMJDataLoader::load",
+            "Looking for \"backgroundcolor\" when loading \"" + filename + "\" but it does not exist. Using "
+               "AllegroFlare::Tiled::TMJDataLoader::DEFAULT_BACKGROUND_COLOR instead."
+         );
+         background_color = DEFAULT_BACKGROUND_COLOR;
+      }
+      else
+      {
+         std::string background_color_as_hex_string = j["backgroundcolor"].get<std::string>();
+         std::tuple<float, float, float, float> extracted_rgba_f =
+            AllegroFlare::Tiled::TMJDataLoader::convert_hex_to_rgba_f(background_color_as_hex_string);
+         background_color.r = std::get<0>(extracted_rgba_f);
+         background_color.g = std::get<1>(extracted_rgba_f);
+         background_color.b = std::get<2>(extracted_rgba_f);
+         background_color.a = 1.0f; // NOTE: Alpha here will always be defaulted to 1.0
+
+         //text__opacity = std::get<3>(extracted_rgba_f);
+      }
+      // HERE: Parse the background color
+      //tile_height = j["tileheight"]; // get height
 
 
       //
@@ -868,6 +917,7 @@ functions:
       - std::ifstream
       - AllegroFlare::Logger
       - AllegroFlare::StringFormatValidator
+      - AllegroFlare::Tiled::TMJDataLoader
 
 
   - name: normalize_tile_data_to_tilesets_firstgids
@@ -924,5 +974,9 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::StringFormatValidator
     headers: [ AllegroFlare/StringFormatValidator.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Tiled::TMJDataLoader
+    headers: [ AllegroFlare/Tiled/TMJDataLoader.hpp ]
 
 

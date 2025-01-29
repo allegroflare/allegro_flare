@@ -17,7 +17,7 @@ namespace TileMaps
 {
 
 
-Basic2D::Basic2D(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers, std::vector<AllegroFlare::Elements::ImageLayer> image_layers)
+Basic2D::Basic2D(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> background_layers, ALLEGRO_COLOR background_color, std::vector<AllegroFlare::Elements::ImageLayer> image_layers)
    : AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D()
    , tile_atlas(nullptr)
    , terrain_tile_mesh(nullptr)
@@ -28,6 +28,7 @@ Basic2D::Basic2D(std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer>
    , shader_for_foreground_tile_mesh(nullptr)
    , collision_tile_map(nullptr)
    , background_layers(background_layers)
+   , background_color(background_color)
    , image_layers(image_layers)
 {
 }
@@ -92,6 +93,12 @@ void Basic2D::set_background_layers(std::vector<AllegroFlare::Elements::Backgrou
 }
 
 
+void Basic2D::set_background_color(ALLEGRO_COLOR background_color)
+{
+   this->background_color = background_color;
+}
+
+
 void Basic2D::set_image_layers(std::vector<AllegroFlare::Elements::ImageLayer> image_layers)
 {
    this->image_layers = image_layers;
@@ -149,6 +156,12 @@ AllegroFlare::TileMaps::TileMap<int>* Basic2D::get_collision_tile_map() const
 std::vector<AllegroFlare::Elements::Backgrounds::ParallaxLayer> Basic2D::get_background_layers() const
 {
    return background_layers;
+}
+
+
+ALLEGRO_COLOR Basic2D::get_background_color() const
+{
+   return background_color;
 }
 
 
