@@ -58,12 +58,17 @@ TEST_F(AllegroFlare_Shaders_TiledTintColorWithAllegroRenderingFixtureTest,
 
    int passes = 120 * 4;
    float darkness = 0.0f;
+   ALLEGRO_COLOR tint_color = ALLEGRO_COLOR{1, 1, 1, 1};
+
    for (int i=0; i<passes; i++)
    {
       darkness += 0.006;
       //tiled_tint_color_shader.set_darkness(0.2f);
 
-      tiled_tint_color_shader.set_hue_rotation((i / (float)passes));
+      tint_color.r = 1.0 - (i / (float)passes);
+
+      tiled_tint_color_shader.set_tint_color(tint_color);
+      tiled_tint_color_shader.set_tint_color_is_used(true);
 
       //tiled_tint_color_shader.set_saturation(1.0 - (i / (float)passes));
 

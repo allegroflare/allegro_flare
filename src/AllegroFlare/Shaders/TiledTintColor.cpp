@@ -15,6 +15,8 @@ namespace Shaders
 
 TiledTintColor::TiledTintColor()
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::TiledTintColor::TYPE, obtain_vertex_source(), obtain_fragment_source())
+   , tint_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , tint_color_is_used(false)
    , flat_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , flat_color_intensity(0.0f)
    , darkness(0.0f)
@@ -30,6 +32,18 @@ TiledTintColor::TiledTintColor()
 
 TiledTintColor::~TiledTintColor()
 {
+}
+
+
+ALLEGRO_COLOR TiledTintColor::get_tint_color() const
+{
+   return tint_color;
+}
+
+
+bool TiledTintColor::get_tint_color_is_used() const
+{
+   return tint_color_is_used;
 }
 
 
@@ -91,6 +105,20 @@ void TiledTintColor::set_flat_color(ALLEGRO_COLOR flat_color)
 {
    this->flat_color = flat_color;
    if (is_active()) set_vec3("flat_color", flat_color.r, flat_color.g, flat_color.b);
+   return;
+}
+
+void TiledTintColor::set_tint_color(ALLEGRO_COLOR tint_color)
+{
+   this->tint_color = tint_color;
+   if (is_active()) set_vec3("tint_color", tint_color.r, tint_color.g, tint_color.b);
+   return;
+}
+
+void TiledTintColor::set_tint_color_is_used(bool tint_color_is_used)
+{
+   this->tint_color_is_used = tint_color_is_used;
+   if (is_active()) set_bool("tint_color_is_used", tint_color_is_used);
    return;
 }
 
@@ -187,6 +215,8 @@ void TiledTintColor::activate()
 
 void TiledTintColor::set_values_to_activated_shader()
 {
+   set_bool("tint_color_is_used", tint_color_is_used);
+   set_vec3("tint_color", tint_color.r, tint_color.g, tint_color.b);
    set_vec3("flat_color", flat_color.r, flat_color.g, flat_color.b);
    set_float("flat_color_intensity", flat_color_intensity);
    set_float("inv_darkness", 1.0 - darkness);
@@ -240,6 +270,8 @@ std::string TiledTintColor::obtain_fragment_source()
 
      bool alpha_test_func(float x, int op, float compare);
 
+     uniform bool tint_color_is_used;
+     uniform vec3 tint_color;
      uniform vec3 flat_color;
      uniform float flat_color_intensity;
      uniform float inv_darkness;
@@ -302,6 +334,16 @@ std::string TiledTintColor::obtain_fragment_source()
         return color;
      }
 
+     vec4 tint_color_it_plz(vec4 tmp)
+     {
+        //float inverse_color_intensity = 1.0 - flat_color_intensity;
+        tmp.r = tmp.r * tint_color.r;
+        tmp.g = tmp.g * tint_color.g;
+        tmp.b = tmp.b * tint_color.b;
+        tmp.a = tmp.a;
+        return tmp;
+     }
+
      vec4 flat_color_it_plz(vec4 tmp)
      {
         float inverse_color_intensity = 1.0 - flat_color_intensity;
@@ -342,8 +384,11 @@ std::string TiledTintColor::obtain_fragment_source()
           c.r = c.r * inv_darkness * red_channel_multiplier;
           c.g = c.g * inv_darkness * green_channel_multiplier;
           c.b = c.b * inv_darkness * blue_channel_multiplier;
+
+          if (tint_color_is_used) c = tint_color_it_plz(c);
         
-          gl_FragColor = flat_color_it_plz(c);
+          gl_FragColor = c;
+          //gl_FragColor = flat_color_it_plz(c);
        }
        else
        {
