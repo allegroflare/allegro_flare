@@ -53,6 +53,10 @@ properties:
     init_with: '"[currently-active-map-name-unset]"'
     getter: true
 
+  - name: tiled_tint_color_shader
+    type: AllegroFlare::Shaders::TiledTintColor
+    init_with: '{}'
+
   - name: current_boss_zone
     type: AllegroFlare::Prototypes::Platforming2D::Entities::BossZone*
     init_with: nullptr
@@ -588,6 +592,10 @@ methods:
       // Setup the tile_atlas_repository
       tile_atlas_repository.set_data_path(data_folder_path);
       tile_atlas_repository.initialize();
+
+      // Initialize the TiledTintColor shader
+      tiled_tint_color_shader.initialize();
+
 
       initialized = true;
       return;
@@ -1755,6 +1763,7 @@ methods:
       AllegroFlare::Elements::ImageLayersRenderer image_layers_renderer;
       image_layers_renderer.set_image_layers(&currently_active_map->get_image_layers_ref());
       image_layers_renderer.set_camera(&camera);
+      image_layers_renderer.set_tiled_tint_color_shader(&tiled_tint_color_shader);
       image_layers_renderer.render();
 
 
@@ -2451,5 +2460,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.hpp ]
   - symbol: AllegroFlare::Elements::ImageLayersRenderer
     headers: [ AllegroFlare/Elements/ImageLayersRenderer.hpp ]
+  - symbol: AllegroFlare::Shaders::TiledTintColor
+    headers: [ AllegroFlare/Shaders/TiledTintColor.hpp ]
 
 

@@ -46,6 +46,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , tile_atlas_repository()
    , currently_active_map(nullptr)
    , currently_active_map_name("[currently-active-map-name-unset]")
+   , tiled_tint_color_shader({})
    , current_boss_zone(nullptr)
    , in_boss_zone(false)
    , entity_pool({})
@@ -714,6 +715,10 @@ void Screen::initialize()
    // Setup the tile_atlas_repository
    tile_atlas_repository.set_data_path(data_folder_path);
    tile_atlas_repository.initialize();
+
+   // Initialize the TiledTintColor shader
+   tiled_tint_color_shader.initialize();
+
 
    initialized = true;
    return;
@@ -1925,6 +1930,7 @@ void Screen::draw()
    AllegroFlare::Elements::ImageLayersRenderer image_layers_renderer;
    image_layers_renderer.set_image_layers(&currently_active_map->get_image_layers_ref());
    image_layers_renderer.set_camera(&camera);
+   image_layers_renderer.set_tiled_tint_color_shader(&tiled_tint_color_shader);
    image_layers_renderer.render();
 
 

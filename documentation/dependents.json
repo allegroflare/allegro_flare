@@ -2427,7 +2427,8 @@
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/Shaders/TiledTintColor": [
-    "AllegroFlare/Elements/ImageLayersRenderer"
+    "AllegroFlare/Elements/ImageLayersRenderer",
+    "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",

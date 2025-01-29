@@ -35,6 +35,8 @@ methods:
       float camera_frame_width = camera_frame_right - camera_frame_left;
       float camera_frame_height = camera_frame_bottom - camera_frame_top;
 
+      if (tiled_tint_color_shader) tiled_tint_color_shader->activate();
+
       //for (auto &plane : planes_background->get_planes())
       for (auto &image_layer : *image_layers)
       {
@@ -88,6 +90,14 @@ methods:
             num_y_repeats = std::ceil(camera_frame_height / scaled_bitmap_height) + 1;
          }
 
+         // Send the data to the shader
+         if (tiled_tint_color_shader)
+         {
+            bool tint_color_is_used = image_layer.tint_color_is_set;
+            tiled_tint_color_shader->set_tint_color_is_used(tint_color_is_used);
+            if (tint_color_is_used) tiled_tint_color_shader->set_tint_color(image_layer.tint_color);
+         }
+
          for (int y=0; y<num_y_repeats; y++)
          {
             for (int i=0; i<num_x_repeats; i++)
@@ -109,6 +119,8 @@ methods:
             }
          }
       }
+
+      if (tiled_tint_color_shader) tiled_tint_color_shader->deactivate();
       return;
 
 

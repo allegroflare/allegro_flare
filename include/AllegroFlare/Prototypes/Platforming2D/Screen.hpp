@@ -18,6 +18,7 @@
 #include <AllegroFlare/Prototypes/Platforming2D/MapDictionaryListing.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/TMJObjectLoaderObjectCustomProperties.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
+#include <AllegroFlare/Shaders/TiledTintColor.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileAtlasRepository.hpp>
 #include <AllegroFlare/TileMaps/TileMap.hpp>
@@ -52,6 +53,7 @@ namespace AllegroFlare
             AllegroFlare::TileMaps::TileAtlasRepository tile_atlas_repository;
             AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* currently_active_map;
             std::string currently_active_map_name;
+            AllegroFlare::Shaders::TiledTintColor tiled_tint_color_shader;
             AllegroFlare::Prototypes::Platforming2D::Entities::BossZone* current_boss_zone;
             bool in_boss_zone;
             std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> entity_pool;
