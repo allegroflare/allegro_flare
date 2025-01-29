@@ -332,7 +332,6 @@ bool TMJTileMeshLoader::load()
    int &tile_height = tmx_tile_height;
 
 
-
    // terrain
 
    AllegroFlare::TileMaps::TileMesh* created_terrain_mesh = nullptr;
@@ -345,7 +344,6 @@ bool TMJTileMeshLoader::load()
       terrain_tile_data,
       false
    );
-
 
 
    // foreground
@@ -363,7 +361,6 @@ bool TMJTileMeshLoader::load()
          false
       );
    }
-
 
 
    // background
@@ -400,7 +397,6 @@ bool TMJTileMeshLoader::load()
          created_collision_tile_map->set_tile(x, y, tile_id);
       }
    }
-
 
    // Assign all of our created objects into the final result
    this->tile_atlas = created_tile_atlas;
@@ -523,7 +519,6 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
             created_mesh->set_tile_id(x, y, tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
          }
       }
-      std::cout << std::endl;
    }
 
    for (auto &tile_coord_to_remove : tile_coords_to_remove)
