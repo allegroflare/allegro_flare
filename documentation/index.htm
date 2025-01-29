@@ -500,6 +500,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/Blinds.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/Blinds.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/DipToBlack.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/DipToBlack.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Shaders/PostProcessing/Wipe.q.yml">quintessence/AllegroFlare/Shaders/PostProcessing/Wipe.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Shaders/TiledTintColor.q.yml">quintessence/AllegroFlare/Shaders/TiledTintColor.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/SoftwareKeyboard.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Story/Characters/PersonalityDimension.q.yml">quintessence/AllegroFlare/Story/Characters/PersonalityDimension.q.yml</a></li>
@@ -11892,6 +11893,10 @@ table td
   <td class="property">camera</td>
   <td class="property">AllegroFlare::Camera2D*</td>
 </tr>
+<tr>
+  <td class="property">tiled_tint_color_shader</td>
+  <td class="property">AllegroFlare::Shaders::TiledTintColor*</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -11907,6 +11912,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ImageLayer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ImageLayer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::TiledTintColor&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/TiledTintColor.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -39900,6 +39908,121 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Shaders/TiledTintColor.q.yml">quintessence/AllegroFlare/Shaders/TiledTintColor.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">flat_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">flat_color_intensity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">darkness</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">saturation</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">red_channel_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">green_channel_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">blue_channel_multiplier</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">hue_rotation</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_flat_color</b>(ALLEGRO_COLOR flat_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_saturation</b>(float saturation=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_flat_color_intensity</b>(float flat_color_intensity=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_darkness</b>(float darkness=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_red_channel_multiplier</b>(float red_channel_multiplier=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_green_channel_multiplier</b>(float green_channel_multiplier=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_blue_channel_multiplier</b>(float blue_channel_multiplier=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_hue_rotation</b>(float hue_rotation=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>activate</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>set_values_to_activated_shader</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">std::string</td>
+  <td class="private_method"><b>obtain_vertex_source</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">std::string</td>
+  <td class="private_method"><b>obtain_fragment_source</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Shaders::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Shaders/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml">quintessence/AllegroFlare/SoftwareKeyboard/KeyboardKey.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -49971,6 +50094,7 @@ table td
     "AllegroFlare/Shaders/PostProcessing/Blinds",
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
+    "AllegroFlare/Shaders/TiledTintColor",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -51210,6 +51334,9 @@ table td
     "AllegroFlare/Elements/ImageLayerLoader",
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
+  "AllegroFlare/Shaders/TiledTintColor": [
+    "AllegroFlare/Elements/ImageLayersRenderer"
+  ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
@@ -51553,6 +51680,7 @@ table td
     "AllegroFlare/Shaders/PostProcessing/Blinds",
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
+    "AllegroFlare/Shaders/TiledTintColor",
     "Tileo/Shaders/Base"
   ],
   "AllegroFlare/RouteEventDatas/Base": [

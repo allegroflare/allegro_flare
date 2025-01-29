@@ -1186,6 +1186,7 @@
     "AllegroFlare/Shaders/PostProcessing/Blinds",
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
+    "AllegroFlare/Shaders/TiledTintColor",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -2425,6 +2426,9 @@
     "AllegroFlare/Elements/ImageLayerLoader",
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
+  "AllegroFlare/Shaders/TiledTintColor": [
+    "AllegroFlare/Elements/ImageLayersRenderer"
+  ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
@@ -2768,6 +2772,7 @@
     "AllegroFlare/Shaders/PostProcessing/Blinds",
     "AllegroFlare/Shaders/PostProcessing/DipToBlack",
     "AllegroFlare/Shaders/PostProcessing/Wipe",
+    "AllegroFlare/Shaders/TiledTintColor",
     "Tileo/Shaders/Base"
   ],
   "AllegroFlare/RouteEventDatas/Base": [

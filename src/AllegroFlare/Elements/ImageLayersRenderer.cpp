@@ -13,9 +13,10 @@ namespace Elements
 {
 
 
-ImageLayersRenderer::ImageLayersRenderer(std::vector<AllegroFlare::Elements::ImageLayer>* image_layers, AllegroFlare::Camera2D* camera)
+ImageLayersRenderer::ImageLayersRenderer(std::vector<AllegroFlare::Elements::ImageLayer>* image_layers, AllegroFlare::Camera2D* camera, AllegroFlare::Shaders::TiledTintColor* tiled_tint_color_shader)
    : image_layers(image_layers)
    , camera(camera)
+   , tiled_tint_color_shader(tiled_tint_color_shader)
 {
 }
 
@@ -37,6 +38,12 @@ void ImageLayersRenderer::set_camera(AllegroFlare::Camera2D* camera)
 }
 
 
+void ImageLayersRenderer::set_tiled_tint_color_shader(AllegroFlare::Shaders::TiledTintColor* tiled_tint_color_shader)
+{
+   this->tiled_tint_color_shader = tiled_tint_color_shader;
+}
+
+
 std::vector<AllegroFlare::Elements::ImageLayer>* ImageLayersRenderer::get_image_layers() const
 {
    return image_layers;
@@ -46,6 +53,12 @@ std::vector<AllegroFlare::Elements::ImageLayer>* ImageLayersRenderer::get_image_
 AllegroFlare::Camera2D* ImageLayersRenderer::get_camera() const
 {
    return camera;
+}
+
+
+AllegroFlare::Shaders::TiledTintColor* ImageLayersRenderer::get_tiled_tint_color_shader() const
+{
+   return tiled_tint_color_shader;
 }
 
 

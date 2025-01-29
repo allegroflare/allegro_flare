@@ -15,6 +15,13 @@ properties:
     getter: true
     setter: true
 
+  - name: tiled_tint_color_shader
+    type: AllegroFlare::Shaders::TiledTintColor*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
 
 methods:
 
@@ -112,5 +119,7 @@ dependencies:
     headers: [ AllegroFlare/Camera2D.hpp ]
   - symbol: AllegroFlare::Elements::ImageLayer
     headers: [ AllegroFlare/Elements/ImageLayer.hpp ]
+  - symbol: AllegroFlare::Shaders::TiledTintColor
+    headers: [ AllegroFlare/Shaders/TiledTintColor.hpp ]
 
 

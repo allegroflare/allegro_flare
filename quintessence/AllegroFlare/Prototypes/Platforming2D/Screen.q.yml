@@ -1722,6 +1722,13 @@ methods:
       camera.setup_dimensional_projection(target_bitmap);
 
 
+
+
+      // Clear to the background color of the map
+      // TODO: See if this is redundant and/or if clearing already occours in the framework and should be disabled
+      al_clear_to_color(currently_active_map->get_background_color());
+
+
       al_set_render_state(ALLEGRO_DEPTH_FUNCTION, ALLEGRO_RENDER_LESS_EQUAL); // less or equal allows 
                                                                               // subsequent renders at the same
                                                                               // z-level to overwrite. This 
