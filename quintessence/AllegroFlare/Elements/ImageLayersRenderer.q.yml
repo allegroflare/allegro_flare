@@ -122,6 +122,8 @@ methods:
 
       if (tiled_tint_color_shader) tiled_tint_color_shader->deactivate();
       return;
+    body_dependency_symbols:
+      - std::ceil
 
 
 dependencies:

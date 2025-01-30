@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/ImageLayersRenderer.hpp>
 
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
