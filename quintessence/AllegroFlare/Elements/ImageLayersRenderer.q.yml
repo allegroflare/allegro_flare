@@ -133,5 +133,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/ImageLayer.hpp ]
   - symbol: AllegroFlare::Shaders::TiledTintColor
     headers: [ AllegroFlare/Shaders/TiledTintColor.hpp ]
+  - symbol: std::ceil
+    headers: [ cmath ]
 
 

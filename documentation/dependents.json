@@ -2430,6 +2430,10 @@
     "AllegroFlare/Elements/ImageLayersRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "std/ceil": [
+    "AllegroFlare/Elements/ImageLayersRenderer",
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
+  ],
   "AllegroFlare/PhysicalInputDevices/Base": [
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
@@ -4376,9 +4380,6 @@
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord": [
     "AllegroFlare/TileMaps/PrimMeshAtlas",
-    "AllegroFlare/TileMaps/TileAtlasBuilder"
-  ],
-  "std/ceil": [
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "std/sqrt": [
