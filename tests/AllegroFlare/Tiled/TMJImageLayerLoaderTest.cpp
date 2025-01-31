@@ -7,13 +7,13 @@
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Tiled/TMJImageLayer.hpp>
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest, can_be_created_without_blowing_up)
+TEST(AllegroFlare_Tiled_TMJOImageLayerLoaderTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Tiled::TMJImageLayerLoader loader;
 }
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest,
+TEST(AllegroFlare_Tiled_TMJOImageLayerLoaderTest,
    load__on_a_file_that_does_not_exist__throws_an_error)
 {
    std::string filename = "some-file-that-does-not-exist.tmj";
@@ -26,7 +26,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest,
 }
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest,
+TEST(AllegroFlare_Tiled_TMJOImageLayerLoaderTest,
    load__when_no_image_layers_are_present_in_the_map__will_output_a_warning_and_set_loaded_to_true)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
@@ -42,7 +42,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest,
 };
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest, load__will_not_blow_up)
+TEST(AllegroFlare_Tiled_TMJOImageLayerLoaderTest, load__will_not_blow_up)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string maps_data_folder_path = deployment_environment.get_data_folder_path() + "maps/";
@@ -53,7 +53,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest, load__will_not_b
 };
 
 
-TEST(AllegroFlare_Prototypes_Platforming2D_TMJObjectLoaderTest, load__will_load_the_expected_image_layers)
+TEST(AllegroFlare_Tiled_TMJOImageLayerLoaderTest, load__will_load_the_expected_image_layers)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    std::string maps_data_folder_path = deployment_environment.get_data_folder_path() + "maps/";
