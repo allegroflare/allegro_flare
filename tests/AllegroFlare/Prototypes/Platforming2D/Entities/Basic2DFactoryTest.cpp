@@ -160,7 +160,7 @@ TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroR
 
 
 TEST_F(AllegroFlare_Prototypes_Platforming2D_Entities_Basic2DFactoryWithAllegroRenderingFixtureTest,
-   FOCUS__create_tile_map__with_a_map_that_has_a_background_color__will_create_a_map_with_expected_background_color)
+   create_tile_map__with_a_map_that_has_a_background_color__will_create_a_map_with_expected_background_color)
 {
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 

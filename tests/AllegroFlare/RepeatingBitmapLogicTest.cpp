@@ -43,7 +43,7 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture, CAPTURE
 #include <AllegroFlare/EventNames.hpp>
 
 TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture,
-   CAPTURE__FOCUS__INTERACTIVE__will_work_as_expected)
+   CAPTURE__INTERACTIVE__will_work_as_expected)
 {
    al_install_keyboard();
    ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
