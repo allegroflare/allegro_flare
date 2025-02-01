@@ -22,8 +22,7 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTest, can_be_created_without_blowing_up)
 
 TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture, CAPTURE__render__will_not_blow_up)
 {
-   ALLEGRO_BITMAP *bitmap = get_bitmap_bin_ref()["backgrounds/cloud_dark-01.png"];
-
+   ALLEGRO_BITMAP *bitmap = get_bitmap_bin_ref()["backgrounds/SkyAndCloud5.png"];
    AllegroFlare::Camera2D camera;
    camera.size = { 1920, 1080 };
    camera.set_zoom({ 0.8, 0.8 });
@@ -58,7 +57,7 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture,
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    ALLEGRO_FONT *font = get_any_font();
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
-   ALLEGRO_BITMAP *bitmap = bitmap_bin["backgrounds/cloud_dark-01.png"];
+   ALLEGRO_BITMAP *bitmap = bitmap_bin["backgrounds/SkyAndCloud5.png"];
 
    //AllegroFlare::Elements::Backgrounds::MultiLayer::Layers::SingleObject single_object;
    //single_object.set_bitmap(bitmap_bin.auto_get("backgrounds/Cloud2.png"));
