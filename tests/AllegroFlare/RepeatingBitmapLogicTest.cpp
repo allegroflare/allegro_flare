@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 #include <AllegroFlare/RepeatingBitmapLogic.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <AllegroFlare/Camera2D.hpp>
@@ -10,6 +11,8 @@
 class AllegroFlare_RepeatingBitmapLogicTest : public ::testing::Test {};
 class AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture
    : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{};
+class AllegroFlare_RepeatingBitmapLogicTestWithInteractionFixture : public AllegroFlare::Testing::WithInteractionFixture
 {};
 
 
@@ -38,20 +41,19 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture, CAPTURE
 }
 
 
-#include <AllegroFlare/EventEmitter.hpp>
-#include <AllegroFlare/EventNames.hpp>
+//#include <AllegroFlare/EventEmitter.hpp>
+//#include <AllegroFlare/EventNames.hpp>
 
-TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture,
-   CAPTURE__INTERACTIVE__will_work_as_expected)
+TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithInteractionFixture, CAPTURE__INTERACTIVE__will_work_as_expected)
 {
-   al_install_keyboard();
-   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-   ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
-   AllegroFlare::EventEmitter event_emitter;
-   event_emitter.initialize();
-   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
-   al_register_event_source(event_queue, al_get_keyboard_event_source());
-   al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
+   //al_install_keyboard();
+   //ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   //ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   //AllegroFlare::EventEmitter event_emitter;
+   //event_emitter.initialize();
+   //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   //al_register_event_source(event_queue, al_get_keyboard_event_source());
+   //al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // Setup our resources
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
@@ -86,12 +88,15 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture,
 
    AllegroFlare::Vec2D camera_control_movement;
 
-   al_start_timer(primary_timer);
-   bool abort = false;
-   while(!abort)
+   //al_start_timer(primary_timer);
+   //bool abort = false;
+   //while(!abort)
+   while(interactive_test_wait_for_event())
    {
-      ALLEGRO_EVENT current_event;
-      al_wait_for_event(event_queue, &current_event);
+      //ALLEGRO_EVENT current_event;
+      ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
+      //al_wait_for_event(event_queue, &current_event);
+
       switch(current_event.type)
       {
          case ALLEGRO_EVENT_TIMER:
@@ -135,6 +140,7 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture,
             draw_crosshair(0, 0); // Origin crosshair
             camera.restore_transform();
 
+            interactive_test_render_status();
             al_flip_display();
          }
          break;
@@ -179,9 +185,9 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture,
                   camera.set_zoom({ zoom, zoom });
                } break;
 
-               case ALLEGRO_KEY_ESCAPE:
-                  abort = true;
-               break;
+               //case ALLEGRO_KEY_ESCAPE:
+                  //abort = true;
+               //break;
             }
          }
          break;
@@ -211,8 +217,8 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithAllegroRenderingFixture,
       }
    }
 
-   al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
-   al_destroy_timer(primary_timer);
+   //al_unregister_event_source(event_queue, &event_emitter.get_event_source_ref());
+   //al_destroy_timer(primary_timer);
 }
 
 
