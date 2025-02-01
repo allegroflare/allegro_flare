@@ -56,8 +56,8 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithInteractionFixture, CAPTURE__INT
    //al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
    // Setup our resources
-   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   ALLEGRO_FONT *font = get_any_font();
+   //AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   //ALLEGRO_FONT *font = get_any_font();
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    ALLEGRO_BITMAP *bitmap = bitmap_bin["backgrounds/SkyAndCloud5.png"];
 
@@ -76,7 +76,7 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithInteractionFixture, CAPTURE__INT
    //single_object.get_placement_ref().align = { 0, 0 };
 
    // Setup camera variables
-   double step_duration = 1.0/60.0;
+   //double step_duration = 1.0/60.0;
    //float camera_x = 0.0f;
    //float camera_y = 0.0f;
    //float camera_velocity_x = -1.0f;
@@ -145,13 +145,13 @@ TEST_F(AllegroFlare_RepeatingBitmapLogicTestWithInteractionFixture, CAPTURE__INT
          }
          break;
 
-         case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
-         {
-            std::cout << "[AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest]: INFO: "
-                      << "Play sound effect event was emitted. "
-                      << std::endl;
-         }
-         break;
+         //case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+         //{
+            //std::cout << "[AllegroFlare_Elements_InventoryWithAllegroRenderingFixtureTest]: INFO: "
+                      //<< "Play sound effect event was emitted. "
+                      //<< std::endl;
+         //}
+         //break;
 
          case ALLEGRO_EVENT_KEY_DOWN:
          {
