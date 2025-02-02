@@ -47,6 +47,19 @@ void TMJImageLayerLoader::for_each_image_layer(std::function<void(AllegroFlare::
    return;
 }
 
+int TMJImageLayerLoader::get_num_image_layers()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJImageLayerLoader::get_num_image_layers]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJImageLayerLoader::get_num_image_layers]: error: guard \"loaded\" not met");
+   }
+   // TODO: Add test for this
+   return image_layers.size();
+}
+
 std::vector<AllegroFlare::Tiled::TMJImageLayer> TMJImageLayerLoader::get_image_layers()
 {
    if (!(loaded))

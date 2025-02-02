@@ -54,6 +54,12 @@ bool ImageLayerLoader::get_loaded() const
 }
 
 
+std::vector<AllegroFlare::Elements::ImageLayer> &ImageLayerLoader::get_image_layers_ref()
+{
+   return image_layers;
+}
+
+
 std::vector<AllegroFlare::Elements::ImageLayer> ImageLayerLoader::get_image_layers()
 {
    if (!(loaded))
@@ -99,6 +105,9 @@ void ImageLayerLoader::load()
    AllegroFlare::Tiled::TMJImageLayerLoader tmj_image_layer_loader(filename);
    tmj_image_layer_loader.load();
 
+   int num_image_layers = tmj_image_layer_loader.get_num_image_layers();
+   image_layers.reserve(num_image_layers);
+
    tmj_image_layer_loader.for_each_image_layer([this](
       AllegroFlare::Tiled::TMJImageLayer* tmj_image_layer,
       void* user_data) {
@@ -106,7 +115,7 @@ void ImageLayerLoader::load()
          ALLEGRO_BITMAP *initial_bitmap = bitmap_bin->auto_get(tmj_image_layer->image_filename);
          ALLEGRO_BITMAP *scaled_bitmap = clone_and_scale(initial_bitmap, pixel_scale);
 
-         image_layers.push_back(AllegroFlare::Elements::ImageLayer(
+         image_layers.emplace_back(//AllegroFlare::Elements::ImageLayer(
             tmj_image_layer->id,
             tmj_image_layer->name,
             tmj_image_layer->image_filename,
@@ -122,7 +131,8 @@ void ImageLayerLoader::load()
             tmj_image_layer->opacity,
             tmj_image_layer->tint_color_is_set,
             tmj_image_layer->tint_color
-         ));
+         );
+         //));
       }
    );
 

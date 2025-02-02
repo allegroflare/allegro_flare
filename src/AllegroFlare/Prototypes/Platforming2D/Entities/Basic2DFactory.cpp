@@ -537,7 +537,7 @@ AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D* Basic2DFac
       map_json_filename
    );
    image_layer_loader.load();
-   created_map->set_image_layers(image_layer_loader.get_image_layers());
+   created_map->set_image_layers(std::move(image_layer_loader.get_image_layers_ref()));
 
 
    created_map->set_tile_atlas(tile_atlas);

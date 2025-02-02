@@ -32,6 +32,7 @@ namespace AllegroFlare
          void set_filename(std::string filename);
          void set_pixel_scale(int pixel_scale);
          bool get_loaded() const;
+         std::vector<AllegroFlare::Elements::ImageLayer> &get_image_layers_ref();
          std::vector<AllegroFlare::Elements::ImageLayer> get_image_layers();
          void load();
          static ALLEGRO_BITMAP* clone_and_scale(ALLEGRO_BITMAP* bitmap=nullptr, int pixel_scale=1);

@@ -43,6 +43,9 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    );
 
    loader.load();
+
+   // Cleanup
+   for (auto &image_layer : loader.get_image_layers_ref()) image_layer.destroy_bitmap_if_owned();
 };
 
 
@@ -101,7 +104,7 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
      //),
    };
 
-   std::vector<AllegroFlare::Elements::ImageLayer> actual_image_layers = loader.get_image_layers();
+   std::vector<AllegroFlare::Elements::ImageLayer> &actual_image_layers = loader.get_image_layers_ref();
    //std::vector<AllegroFlare::Tiled::TMJImageLayer> actual_image_layers = loader.get_image_layers();
 
    EXPECT_EQ(3, actual_image_layers.size());
@@ -112,6 +115,9 @@ TEST_F(AllegroFlare_Elements_ImageLayerLoaderWithAllegroRenderingFixtureTest,
    //EXPECT_EQ(expected_image_layers[0], actual_image_layers[0]);
    //EXPECT_EQ(expected_image_layers[1], actual_image_layers[1]);
    //EXPECT_EQ(expected_image_layers[2], actual_image_layers[2]);
+
+   // Cleanup
+   for (auto &image_layer : loader.get_image_layers_ref()) image_layer.destroy_bitmap_if_owned();
 };
 
 

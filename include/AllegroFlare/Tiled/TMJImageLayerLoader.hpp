@@ -29,6 +29,7 @@ namespace AllegroFlare
          ~TMJImageLayerLoader();
 
          void for_each_image_layer(std::function<void(AllegroFlare::Tiled::TMJImageLayer*, void*)> function={}, void* user_data=nullptr);
+         int get_num_image_layers();
          std::vector<AllegroFlare::Tiled::TMJImageLayer> get_image_layers();
          void load();
          std::string obtain_string_or_throw(std::string key="[unset-key]", nlohmann::json* object_json=nullptr);

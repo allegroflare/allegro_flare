@@ -123,7 +123,8 @@ methods:
          AllegroFlare::Logger::warn_from(
             "AllegroFlare::Elements::ImageLayer::~destroy",
             "This object owns a bitmaps that should be destroyed since \"clone_and_own_bitmap()\" was "
-               "called on this object. Be sure to call \"destroy_bitmaps_if_owned()\" before destruction."
+               "called on this object. Be sure to call \"destroy_bitmaps_if_owned()\" before destruction. (For "
+               "reference, \"" + image_filename + "\")"
          );
       }
       destroyed = true;

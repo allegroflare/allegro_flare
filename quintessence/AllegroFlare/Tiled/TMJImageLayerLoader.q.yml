@@ -37,6 +37,14 @@ methods:
       return;
 
 
+  - name: get_num_image_layers
+    type: int
+    guards: [ loaded ]
+    body: |
+      // TODO: Add test for this
+      return image_layers.size();
+
+
   - name: get_image_layers
     type: std::vector<AllegroFlare::Tiled::TMJImageLayer>
     guards: [ loaded ]
