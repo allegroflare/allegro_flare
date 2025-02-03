@@ -1908,6 +1908,7 @@ methods:
         type: double
         default_argument: 0.0
     body: |
+      AllegroFlare::Screens::Gameplay::primary_update_func(time_now, delta_time);
       // TODO: Consider if there is a more elegant way to prevent logic from being performed than inferring against
       // currently_active_map. Consider a "unloaded" state or flag possibly.
       // TODO: Test this logic
@@ -1957,6 +1958,8 @@ methods:
         default_argument: nullptr
     guards: [ initialized, event ]
     body: |
+      AllegroFlare::Screens::Gameplay::key_char_func(event);
+
       switch (event->keyboard.keycode)
       {
       case ALLEGRO_KEY_1:
@@ -1986,6 +1989,8 @@ methods:
         default_argument: nullptr
     guards: [ initialized, event ]
     body: |
+      AllegroFlare::Screens::Gameplay::key_char_func(event);
+
       if (__entity_control_connector) __entity_control_connector->key_up_func(event);
 
       switch (event->keyboard.keycode)
@@ -2012,6 +2017,8 @@ methods:
         default_argument: nullptr
     guards: [ initialized, event, event_emitter ]
     body: |
+      AllegroFlare::Screens::Gameplay::key_char_func(event);
+
       if (!get_gameplay_suspended())
       {
          if (__entity_control_connector) __entity_control_connector->key_down_func(event);
@@ -2068,156 +2075,6 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Routers::Standard
-
-
-  - name: virtual_control_button_down_func
-    virtual: true
-    override: true
-    parameters:
-      - name: player
-        type: AllegroFlare::Player*
-        default_argument: nullptr
-      - name: virtual_controller
-        type: AllegroFlare::VirtualControllers::Base*
-        default_argument: nullptr
-      - name: virtual_controller_button_num
-        type: int
-        default_argument: 0
-      - name: is_repeat
-        type: bool
-        default_argument: false
-    guards: [ initialized ]
-    body: |
-      //int virtual_controller_button_num = event->user.data1;
-
-      // TODO: validate virtual controller type
-
-      if (!get_gameplay_suspended())
-      {
-         // TODO: Investigate if there are some inputs that should be "active" at unpause (like staying crouched, 
-         // continuing moving forward if paused mid-jump, etc)
-         if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
-         {
-            //player_controls.set_a_button_pressed(true);
-            //set_player_controlled_entity_jump();
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
-         {
-            //reverse_gravity();
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_Y)
-         {
-            //player_emit_projectile();
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
-         {
-            //player_controls.set_right_button_pressed(true);
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
-         {
-            //player_controls.set_left_button_pressed(true);
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_UP)
-         {
-            //player_controls.set_up_button_pressed(true);
-            //check_player_collisions_with_doors();
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
-         {
-            // TODO: block if gameplay is suspended
-            //player_controls.set_right_bumper_pressed(true);
-         }
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::VirtualControllers::GenericController
-
-
-  - name: virtual_control_button_up_func
-    virtual: true
-    override: true
-    parameters:
-      - name: player
-        type: AllegroFlare::Player*
-        default_argument: nullptr
-      - name: virtual_controller
-        type: AllegroFlare::VirtualControllers::Base*
-        default_argument: nullptr
-      - name: virtual_controller_button_num
-        type: int
-        default_argument: 0
-      - name: is_repeat
-        type: bool
-        default_argument: false
-    guards: [ initialized ]
-    body: |
-      //int virtual_controller_button_num = event->user.data1;
-
-      // TODO: validate virtual controller type
-
-      if (!get_gameplay_suspended())
-      {
-         // TODO: Investigate if there are some inputs that should be "active" at unpause (like staying crouched, 
-         // continuing moving forward if paused mid-jump, etc)
-         if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
-         {
-            //player_controls.set_a_button_pressed(false);
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
-         {
-            //player_controls.set_right_button_pressed(false);
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
-         {
-            //player_controls.set_left_button_pressed(false);
-         }
-         else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
-         {
-            //player_controls.set_right_bumper_pressed(false);
-         }
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::VirtualControllers::GenericController
-
-
-  - name: virtual_control_axis_change_func
-    virtual: true
-    override: true
-    parameters:
-      - name: event
-        type: ALLEGRO_EVENT*
-        default_argument: nullptr
-    body: |
-      //int stick = event->user.data1;
-      //int axis = event->user.data2;
-      //float position = event->user.data3 / 255.0f;
-
-      //if (stick == AllegroFlare::VirtualControllers::GenericController::PRIMARY_STICK)
-      //{
-         //if (axis == 0)
-         //{
-            //AllegroFlare::vec2d vec = player_controls.get_primary_stick_position();
-            //vec.x = position;
-            //player_controls.set_primary_stick_position(vec);
-         //}
-         //if (axis == 1)
-         //{
-            //AllegroFlare::vec2d vec = player_controls.get_primary_stick_position();
-            //vec.y = position;
-            //player_controls.set_primary_stick_position(vec);
-         //}
-      //}
-
-      //if (axis == 0 && position > 0.5) player_controls.set_right_button_pressed(true);
-      //if (axis == 0 && position < 0.5 && position > -0.5)
-      //{
-         //player_controls.set_right_button_pressed(false);
-         //player_controls.set_left_button_pressed(false);
-      //}
-      //if (axis == 0 && position < -0.5) player_controls.set_left_button_pressed(true);
-      
-      return;
 
 
   - name: user_event_func

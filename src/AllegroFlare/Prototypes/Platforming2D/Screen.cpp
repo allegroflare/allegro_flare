@@ -19,7 +19,6 @@
 #include <AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/EntityFlagNames.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
-#include <AllegroFlare/VirtualControllers/GenericController.hpp>
 #include <algorithm>
 #include <allegro5/allegro_color.h>
 #include <iomanip>
@@ -2062,6 +2061,7 @@ void Screen::toggle_show_terrain_tile_mesh()
 
 void Screen::primary_update_func(double time_now, double delta_time)
 {
+   AllegroFlare::Screens::Gameplay::primary_update_func(time_now, delta_time);
    // TODO: Consider if there is a more elegant way to prevent logic from being performed than inferring against
    // currently_active_map. Consider a "unloaded" state or flag possibly.
    // TODO: Test this logic
@@ -2116,6 +2116,8 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_char_func]: error: guard \"event\" not met");
    }
+   AllegroFlare::Screens::Gameplay::key_char_func(event);
+
    switch (event->keyboard.keycode)
    {
    case ALLEGRO_KEY_1:
@@ -2152,6 +2154,8 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_up_func]: error: guard \"event\" not met");
    }
+   AllegroFlare::Screens::Gameplay::key_char_func(event);
+
    if (__entity_control_connector) __entity_control_connector->key_up_func(event);
 
    switch (event->keyboard.keycode)
@@ -2192,6 +2196,8 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_down_func]: error: guard \"event_emitter\" not met");
    }
+   AllegroFlare::Screens::Gameplay::key_char_func(event);
+
    if (!get_gameplay_suspended())
    {
       if (__entity_control_connector) __entity_control_connector->key_down_func(event);
@@ -2245,128 +2251,6 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
          //toggle_suspend_gameplay();
       //break;
    //}
-   return;
-}
-
-void Screen::virtual_control_button_down_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::virtual_control_button_down_func]: error: guard \"initialized\" not met");
-   }
-   //int virtual_controller_button_num = event->user.data1;
-
-   // TODO: validate virtual controller type
-
-   if (!get_gameplay_suspended())
-   {
-      // TODO: Investigate if there are some inputs that should be "active" at unpause (like staying crouched, 
-      // continuing moving forward if paused mid-jump, etc)
-      if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
-      {
-         //player_controls.set_a_button_pressed(true);
-         //set_player_controlled_entity_jump();
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_X)
-      {
-         //reverse_gravity();
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_Y)
-      {
-         //player_emit_projectile();
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
-      {
-         //player_controls.set_right_button_pressed(true);
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
-      {
-         //player_controls.set_left_button_pressed(true);
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_UP)
-      {
-         //player_controls.set_up_button_pressed(true);
-         //check_player_collisions_with_doors();
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
-      {
-         // TODO: block if gameplay is suspended
-         //player_controls.set_right_bumper_pressed(true);
-      }
-   }
-   return;
-}
-
-void Screen::virtual_control_button_up_func(AllegroFlare::Player* player, AllegroFlare::VirtualControllers::Base* virtual_controller, int virtual_controller_button_num, bool is_repeat)
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Prototypes::Platforming2D::Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::virtual_control_button_up_func]: error: guard \"initialized\" not met");
-   }
-   //int virtual_controller_button_num = event->user.data1;
-
-   // TODO: validate virtual controller type
-
-   if (!get_gameplay_suspended())
-   {
-      // TODO: Investigate if there are some inputs that should be "active" at unpause (like staying crouched, 
-      // continuing moving forward if paused mid-jump, etc)
-      if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_B)
-      {
-         //player_controls.set_a_button_pressed(false);
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT)
-      {
-         //player_controls.set_right_button_pressed(false);
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_LEFT)
-      {
-         //player_controls.set_left_button_pressed(false);
-      }
-      else if (virtual_controller_button_num == AllegroFlare::VirtualControllers::GenericController::BUTTON_RIGHT_BUMPER)
-      {
-         //player_controls.set_right_bumper_pressed(false);
-      }
-   }
-   return;
-}
-
-void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* event)
-{
-   //int stick = event->user.data1;
-   //int axis = event->user.data2;
-   //float position = event->user.data3 / 255.0f;
-
-   //if (stick == AllegroFlare::VirtualControllers::GenericController::PRIMARY_STICK)
-   //{
-      //if (axis == 0)
-      //{
-         //AllegroFlare::vec2d vec = player_controls.get_primary_stick_position();
-         //vec.x = position;
-         //player_controls.set_primary_stick_position(vec);
-      //}
-      //if (axis == 1)
-      //{
-         //AllegroFlare::vec2d vec = player_controls.get_primary_stick_position();
-         //vec.y = position;
-         //player_controls.set_primary_stick_position(vec);
-      //}
-   //}
-
-   //if (axis == 0 && position > 0.5) player_controls.set_right_button_pressed(true);
-   //if (axis == 0 && position < 0.5 && position > -0.5)
-   //{
-      //player_controls.set_right_button_pressed(false);
-      //player_controls.set_left_button_pressed(false);
-   //}
-   //if (axis == 0 && position < -0.5) player_controls.set_left_button_pressed(true);
-
    return;
 }
 
