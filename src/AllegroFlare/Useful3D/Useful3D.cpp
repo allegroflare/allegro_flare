@@ -7,6 +7,13 @@
 #include <math.h> // for fabs
 
 
+// NOTE: For some reason, The archiver `ar`, `randlib` at compile-time thinks this class contains no objects. It's
+// possible the Useful3D namespace could be appearing in other locations and with duplicate symbols. To silence the
+// warnings, AllegroFlare/HeaderOnly.hpp is included below.
+// TODO: Review why the archiver thinks there are no symbols in this class (see note above).
+#include <AllegroFlare/HeaderOnly.hpp>
+
+
 namespace AllegroFlare
 {
 namespace Useful3D

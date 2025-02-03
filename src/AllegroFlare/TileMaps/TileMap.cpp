@@ -1,9 +1,4 @@
 
-
-#include <AllegroFlare/TileMaps/TileMap.hpp>
-
-
-
-// this is a header-only class
-
+// This is a header-only class
+#include <AllegroFlare/HeaderOnly.hpp>
 

@@ -1,1 +1,4 @@
-// This is a header-only struct
+
+// This is a header-only class
+#include <AllegroFlare/HeaderOnly.hpp>
+

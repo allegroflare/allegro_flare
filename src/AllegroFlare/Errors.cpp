@@ -1,5 +1,4 @@
 
-
-// see header file for depreciation details
-
+// This is a header-only class
+#include <AllegroFlare/HeaderOnly.hpp>
 

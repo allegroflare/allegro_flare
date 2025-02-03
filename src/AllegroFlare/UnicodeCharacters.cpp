@@ -1,6 +1,4 @@
 
-
-// This is header only
-//#include <AllegroFlare/UnicodeCharacters.hpp>
-
+// This is a header-only class
+#include <AllegroFlare/HeaderOnly.hpp>
 
