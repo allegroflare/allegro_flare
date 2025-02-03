@@ -28,6 +28,11 @@ public:
             player_position.y += value.y; // * 0.1;
          }
       );
+      generic_player_input_controller->set_on_joy_button_pressed(
+         [](int button_num) {
+            std::cout << "button " << button_num << " pressed." << std::endl;
+         }
+      );
       set_player_input_controller(generic_player_input_controller);
       set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    }

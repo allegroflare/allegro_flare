@@ -69,6 +69,7 @@ namespace AllegroFlare
          virtual void key_up_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void key_char_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void joy_button_down_func(ALLEGRO_EVENT* ev=nullptr) override;
+         virtual void joy_button_up_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void joy_axis_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void mouse_up_func(ALLEGRO_EVENT* ev=nullptr) override;
          virtual void mouse_down_func(ALLEGRO_EVENT* ev=nullptr) override;

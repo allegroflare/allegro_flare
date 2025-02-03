@@ -299,6 +299,12 @@ void Gameplay::joy_button_down_func(ALLEGRO_EVENT* ev)
    return;
 }
 
+void Gameplay::joy_button_up_func(ALLEGRO_EVENT* ev)
+{
+   if (player_input_controller) player_input_controller->joy_button_up_func(ev);
+   return;
+}
+
 void Gameplay::joy_axis_func(ALLEGRO_EVENT* ev)
 {
    if (player_input_controller) player_input_controller->joy_axis_func(ev);

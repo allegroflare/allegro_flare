@@ -369,6 +369,18 @@ methods:
       return;
 
 
+  - name: joy_button_up_func
+    virtual: true
+    override: true
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    body: |
+      if (player_input_controller) player_input_controller->joy_button_up_func(ev);
+      return;
+
+
   - name: joy_axis_func
     virtual: true
     override: true

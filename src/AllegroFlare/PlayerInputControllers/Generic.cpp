@@ -19,7 +19,9 @@ Generic::Generic()
    : AllegroFlare::PlayerInputControllers::Base(AllegroFlare::PlayerInputControllers::Generic::TYPE)
    , on_time_step_update({})
    , on_key_pressed({})
+   , on_key_released({})
    , on_joy_button_pressed({})
+   , on_joy_button_released({})
    , player_control_move_velocity({})
    , player_control_look_velocity({})
    , player_right_pressed(false)
@@ -47,9 +49,21 @@ void Generic::set_on_key_pressed(std::function<void(int)> on_key_pressed)
 }
 
 
+void Generic::set_on_key_released(std::function<void(int)> on_key_released)
+{
+   this->on_key_released = on_key_released;
+}
+
+
 void Generic::set_on_joy_button_pressed(std::function<void(int)> on_joy_button_pressed)
 {
    this->on_joy_button_pressed = on_joy_button_pressed;
+}
+
+
+void Generic::set_on_joy_button_released(std::function<void(int)> on_joy_button_released)
+{
+   this->on_joy_button_released = on_joy_button_released;
 }
 
 
@@ -65,9 +79,21 @@ std::function<void(int)> Generic::get_on_key_pressed() const
 }
 
 
+std::function<void(int)> Generic::get_on_key_released() const
+{
+   return on_key_released;
+}
+
+
 std::function<void(int)> Generic::get_on_joy_button_pressed() const
 {
    return on_joy_button_pressed;
+}
+
+
+std::function<void(int)> Generic::get_on_joy_button_released() const
+{
+   return on_joy_button_released;
 }
 
 
@@ -322,6 +348,13 @@ void Generic::joy_button_down_func(ALLEGRO_EVENT* ev)
 {
    // TODO: Test this
    if (on_joy_button_pressed) on_joy_button_pressed(ev->joystick.button);
+   return;
+}
+
+void Generic::joy_button_up_func(ALLEGRO_EVENT* ev)
+{
+   // TODO: Test this
+   if (on_joy_button_released) on_joy_button_released(ev->joystick.button);
    return;
 }
 

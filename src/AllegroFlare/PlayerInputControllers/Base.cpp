@@ -115,6 +115,12 @@ void Base::joy_button_down_func(ALLEGRO_EVENT* ev)
    return;
 }
 
+void Base::joy_button_up_func(ALLEGRO_EVENT* ev)
+{
+   // Override this in the derived class
+   return;
+}
+
 void Base::mouse_up_func(ALLEGRO_EVENT* ev)
 {
    if (!(ev))
