@@ -1,5 +1,8 @@
 #include <Wicked/SceneRenderer.hpp>
 
+// This is a header-only class(?)
+#include <AllegroFlare/HeaderOnly.hpp>
+
 
 
 /*

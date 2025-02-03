@@ -1,4 +1,4 @@
 
-// This is a header-only class
+#include <gtest/gtest.h>
 #include <AllegroFlare/HeaderOnly.hpp>
 

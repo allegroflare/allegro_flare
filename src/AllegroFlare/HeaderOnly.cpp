@@ -1,4 +1,4 @@
 
-// This is a header-only class
+// This class is header-only
 #include <AllegroFlare/HeaderOnly.hpp>
 
