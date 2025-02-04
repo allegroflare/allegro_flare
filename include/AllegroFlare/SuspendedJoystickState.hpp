@@ -39,6 +39,7 @@ namespace AllegroFlare
       bool get_subsequent_joystick_state_is_captured() const;
       bool get_joystick_state_changes_are_calculated() const;
       void set_joystick(ALLEGRO_JOYSTICK* joystick=nullptr);
+      bool joystick_exists();
       void reset();
       std::vector<uint32_t> get_buttons_pressed_in_initial_joystick_state();
       std::vector<uint32_t> get_buttons_pressed_in_subsequent_joystick_state();

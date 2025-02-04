@@ -36669,6 +36669,10 @@ table td
   <td class="property">AllegroFlare::SuspendedKeyboardState</td>
 </tr>
 <tr>
+  <td class="property">suspended_joystick_state</td>
+  <td class="property">AllegroFlare::SuspendedJoystickState</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -36808,6 +36812,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SuspendedJoystickState&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SuspendedJoystickState.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -40997,8 +41004,8 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/SuspendedJoystickState.q.yml">quintessence/AllegroFlare/SuspendedJoystickState.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This class will currently not perform any queries if the joystick is not active"]}</p>    <p>{"todos"=>["This class needs to know if and when the joystick changed."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">joystick</td>
@@ -41058,6 +41065,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>set_joystick</b>(ALLEGRO_JOYSTICK* joystick=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>joystick_exists</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -53020,6 +53031,9 @@ table td
     "AllegroFlare/Screens/GameWonScreen"
   ],
   "AllegroFlare/SuspendedKeyboardState": [
+    "AllegroFlare/Screens/Gameplay"
+  ],
+  "AllegroFlare/SuspendedJoystickState": [
     "AllegroFlare/Screens/Gameplay"
   ],
   "AllegroFlare/Elements/InputDeviceConfigurationList": [

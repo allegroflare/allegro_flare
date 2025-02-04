@@ -5,6 +5,7 @@
 #include <AllegroFlare/PlayerInputControllers/Base.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
+#include <AllegroFlare/SuspendedJoystickState.hpp>
 #include <AllegroFlare/SuspendedKeyboardState.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
@@ -29,6 +30,7 @@ namespace AllegroFlare
          AllegroFlare::PlayerInputControllers::Base* player_input_controller;
          bool gameplay_suspended;
          AllegroFlare::SuspendedKeyboardState suspended_keyboard_state;
+         AllegroFlare::SuspendedJoystickState suspended_joystick_state;
 
       protected:
 
@@ -48,7 +50,9 @@ namespace AllegroFlare
          AllegroFlare::PlayerInputControllers::Base* get_player_input_controller() const;
          bool get_gameplay_suspended() const;
          AllegroFlare::SuspendedKeyboardState get_suspended_keyboard_state() const;
+         AllegroFlare::SuspendedJoystickState get_suspended_joystick_state() const;
          AllegroFlare::SuspendedKeyboardState &get_suspended_keyboard_state_ref();
+         AllegroFlare::SuspendedJoystickState &get_suspended_joystick_state_ref();
          void set_player_input_controller(AllegroFlare::PlayerInputControllers::Base* player_input_controller=nullptr);
          virtual void dialog_system_switch_in_func() override;
          virtual void dialog_system_switch_out_func() override;

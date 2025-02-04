@@ -80,6 +80,15 @@ properties:
     getter: explicit
 
 
+documentation:
+
+
+  - notes:
+      - This class will currently not perform any queries if the joystick is not active
+  - todos:
+      - This class needs to know if and when the joystick changed.
+
+
 methods:
 
 
@@ -92,6 +101,12 @@ methods:
     body: |
       this->joystick = joystick;
       return;
+
+
+  - name: joystick_exists
+    type: bool
+    body: |
+      return joystick != nullptr;
 
 
   - name: reset
@@ -207,7 +222,11 @@ methods:
 
 
   - name: capture_initial_joystick_state
-    guards: [ (!initial_joystick_state_is_captured), al_is_system_installed(), al_is_joystick_installed(), joystick ]
+    guards:
+      - (!initial_joystick_state_is_captured)
+      - al_is_system_installed()
+      - al_is_joystick_installed()
+      - joystick
     body: |
       if (!al_get_joystick_active(joystick))
       {
@@ -229,7 +248,11 @@ methods:
 
 
   - name: capture_subsequent_joystick_state
-    guards: [ (!subsequent_joystick_state_is_captured), al_is_system_installed(), al_is_joystick_installed(), joystick ]
+    guards:
+      - (!subsequent_joystick_state_is_captured)
+      - al_is_system_installed()
+      - al_is_joystick_installed()
+      - joystick
     body: |
       if (!al_get_joystick_active(joystick))
       {

@@ -78,7 +78,7 @@ TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, w
 {
    AllegroFlare::Screens::Gameplay gameplay;
    framework_register_and_activate_screen("gameplay", &gameplay);
-   framework_run_loop();
+   framework_run_loop(1);
 }
 
 
@@ -88,7 +88,30 @@ TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, w
 {
    MyGameplayScreenTestClass gameplay;
    framework_register_and_activate_screen("gameplay", &gameplay);
-   framework_run_loop();
+   framework_run_loop(1);
+}
+
+
+TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, suspend_gameplay__will_not_blow_up)
+   // TODO: Make this test more specific
+   // TODO: Make this an interactive test
+{
+   MyGameplayScreenTestClass gameplay;
+   framework_register_and_activate_screen("gameplay", &gameplay);
+   gameplay.suspend_gameplay();
+
+   //framework_run_loop();
+}
+
+
+TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture,
+   FOCUS__resume_suspended_gameplay__after__suspend_gameplay__will_not_blow_up)
+{
+   MyGameplayScreenTestClass gameplay;
+   framework_register_and_activate_screen("gameplay", &gameplay);
+
+   gameplay.suspend_gameplay();
+   gameplay.resume_suspended_gameplay();
 }
 
 

@@ -4136,6 +4136,9 @@
   "AllegroFlare/SuspendedKeyboardState": [
     "AllegroFlare/Screens/Gameplay"
   ],
+  "AllegroFlare/SuspendedJoystickState": [
+    "AllegroFlare/Screens/Gameplay"
+  ],
   "AllegroFlare/Elements/InputDeviceConfigurationList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],

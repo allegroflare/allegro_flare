@@ -78,6 +78,11 @@ void SuspendedJoystickState::set_joystick(ALLEGRO_JOYSTICK* joystick)
    return;
 }
 
+bool SuspendedJoystickState::joystick_exists()
+{
+   return joystick != nullptr;
+}
+
 void SuspendedJoystickState::reset()
 {
    initial_joystick_state = ALLEGRO_JOYSTICK_STATE{};

@@ -20,6 +20,7 @@ Gameplay::Gameplay()
    , player_input_controller(nullptr)
    , gameplay_suspended(false)
    , suspended_keyboard_state({})
+   , suspended_joystick_state({})
 {
 }
 
@@ -95,9 +96,21 @@ AllegroFlare::SuspendedKeyboardState Gameplay::get_suspended_keyboard_state() co
 }
 
 
+AllegroFlare::SuspendedJoystickState Gameplay::get_suspended_joystick_state() const
+{
+   return suspended_joystick_state;
+}
+
+
 AllegroFlare::SuspendedKeyboardState &Gameplay::get_suspended_keyboard_state_ref()
 {
    return suspended_keyboard_state;
+}
+
+
+AllegroFlare::SuspendedJoystickState &Gameplay::get_suspended_joystick_state_ref()
+{
+   return suspended_joystick_state;
 }
 
 
@@ -139,7 +152,12 @@ void Gameplay::dialog_system_switch_out_func()
 void Gameplay::suspend_gameplay()
 {
    if (gameplay_suspended) return; // TODO: Should this throw? (it caused an issue in a Routers/Standard test)
+
+   ALLEGRO_JOYSTICK *joystick = (al_get_num_joysticks() == 0) ? nullptr : al_get_joystick(0); // HACK
+   suspended_joystick_state.set_joystick(joystick); // HACK
+
    suspended_keyboard_state.capture_initial_keyboard_state(); // TODO: Add guard if state cannot be captured
+   if (suspended_joystick_state.joystick_exists()) suspended_joystick_state.capture_initial_joystick_state();
    gameplay_suspended = true;
    gameplay_suspend_func();
 
@@ -155,9 +173,15 @@ void Gameplay::resume_suspended_gameplay()
    gameplay_suspended = false;
    suspended_keyboard_state.capture_subsequent_keyboard_state(); // TODO: Add guard if state cannot be captured
    suspended_keyboard_state.calculate_keyboard_state_changes(); // TODO: Add guard if state cannot be captured
+   if (suspended_joystick_state.joystick_exists())
+   {
+      suspended_joystick_state.capture_subsequent_joystick_state();
+      suspended_joystick_state.calculate_joystick_state_changes();
+   }
    gameplay_resume_func();
    send_input_changes_since_last_suspend_to_player_input_controller(); // TODO: Test this
    suspended_keyboard_state.reset();
+   suspended_joystick_state.reset();
 
    // Resume the player input controls
    if (player_input_controller) player_input_controller->gameplay_resume_func();
@@ -178,9 +202,22 @@ void Gameplay::send_input_changes_since_last_suspend_to_player_input_controller(
    //      processing a second "event".
    // Advantage of this approach is that the base class takes key_up_func and key_down_func, so this
    // technique could be used on all PlayerInputController::Base classes.
+   float time_now = al_get_time(); // TODO: Inject time when the resume occurred
+
+   // Build changed keyboard info
    std::vector<uint32_t> keys_pressed = suspended_keyboard_state.get_keys_pressed();
    std::vector<uint32_t> keys_released = suspended_keyboard_state.get_keys_released();
-   float time_now = al_get_time(); // TODO: Inject time when the resume occurred
+
+   // Build changed joystick info
+   std::map<std::pair<int, int>, std::pair<float, float>> sticks_moved;
+   std::vector<uint32_t> buttons_pressed;
+   std::vector<uint32_t> buttons_released;
+   if (suspended_joystick_state.get_joystick_state_changes_are_calculated())
+   {
+      sticks_moved = suspended_joystick_state.get_sticks_moved();
+      buttons_pressed = suspended_joystick_state.get_buttons_pressed();
+      buttons_released = suspended_joystick_state.get_buttons_released();
+   }
 
    // Process key releases (a.k.a. "key up")
    for (auto &key_released : keys_released)
@@ -210,6 +247,55 @@ void Gameplay::send_input_changes_since_last_suspend_to_player_input_controller(
       //entity_control_connector->key_down_func(&event);
    }
 
+   // Process joy presses (a.k.a. "joy button down")
+   for (auto &button_pressed : buttons_pressed)
+   {
+      ALLEGRO_EVENT event;
+      event.type = ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN;
+      event.any.source = nullptr; // TODO: Should I be using a SuspendedJoystickState event source?
+      event.any.timestamp = time_now;
+      event.joystick.id = suspended_joystick_state.get_joystick();
+      event.joystick.button = button_pressed;
+      //event.keyboard.display = nullptr; // TODO: Consider if al_get_current_display() should be used here
+
+      player_input_controller->joy_button_down_func(&event);
+   }
+
+   // HERE
+   /*
+   - name: joy_axis_func
+     virtual: true
+     parameters:
+       - name: ev
+         type: ALLEGRO_EVENT*
+         default_argument: nullptr
+     body: |
+       // Override this in the derived class
+       return;
+
+
+   - name: joy_button_down_func
+     virtual: true
+     parameters:
+       - name: ev
+         type: ALLEGRO_EVENT*
+         default_argument: nullptr
+     body: |
+       // Override this in the derived class
+       return;
+
+
+   - name: joy_button_up_func
+     virtual: true
+     parameters:
+       - name: ev
+         type: ALLEGRO_EVENT*
+         default_argument: nullptr
+     body: |
+       // Override this in the derived class
+       return;
+   */
+
    // TODO: Process additional inputs from joystick
    // TODO: Find a way to unify keyboard and joystick inputs as if single input so you could play with keyboard,
    // pause with some keys pressed (player in motion), switch to joystick, hold same inputs but as buttons, unpause,
@@ -228,9 +314,9 @@ void Gameplay::toggle_suspend_gameplay()
 void Gameplay::gameplay_suspend_func()
 {
    // Function that is called immediately after the gameplay is suspended.
-   AllegroFlare::Logger::throw_error(
+   AllegroFlare::Logger::warn_from_once(
       "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
-      "Not implemented in the base class. This method must be implemented in the derived class. Take into account "
+      "Not implemented in the base class. This method should be implemented in the derived class. Take into account "
          "the AllegroFlare/Screens/Gameplay class has a suspend_gameplay func"
    );
    return;
@@ -239,9 +325,9 @@ void Gameplay::gameplay_suspend_func()
 void Gameplay::gameplay_resume_func()
 {
    // Function that is called immediately after the gameplay is resumed.
-   AllegroFlare::Logger::throw_error(
+   AllegroFlare::Logger::warn_from_once(
       "AllegroFlare::Screens::Gameplay::gameplay_suspend_func",
-      "Not implemented in the base class. This method must be implemented in the derived class. Take into account "
+      "Not implemented in the base class. This method should be implemented in the derived class. Take into account "
          "the AllegroFlare/Screens/Gameplay class has a resume_gameplay func"
    );
    return;
