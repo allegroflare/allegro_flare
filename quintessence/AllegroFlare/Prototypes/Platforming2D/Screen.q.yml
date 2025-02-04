@@ -1989,7 +1989,7 @@ methods:
         default_argument: nullptr
     guards: [ initialized, event ]
     body: |
-      AllegroFlare::Screens::Gameplay::key_char_func(event);
+      AllegroFlare::Screens::Gameplay::key_up_func(event);
 
       if (__entity_control_connector) __entity_control_connector->key_up_func(event);
 
@@ -2017,7 +2017,7 @@ methods:
         default_argument: nullptr
     guards: [ initialized, event, event_emitter ]
     body: |
-      AllegroFlare::Screens::Gameplay::key_char_func(event);
+      AllegroFlare::Screens::Gameplay::key_down_func(event);
 
       if (!get_gameplay_suspended())
       {

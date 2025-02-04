@@ -2154,7 +2154,7 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_up_func]: error: guard \"event\" not met");
    }
-   AllegroFlare::Screens::Gameplay::key_char_func(event);
+   AllegroFlare::Screens::Gameplay::key_up_func(event);
 
    if (__entity_control_connector) __entity_control_connector->key_up_func(event);
 
@@ -2196,7 +2196,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Prototypes::Platforming2D::Screen::key_down_func]: error: guard \"event_emitter\" not met");
    }
-   AllegroFlare::Screens::Gameplay::key_char_func(event);
+   AllegroFlare::Screens::Gameplay::key_down_func(event);
 
    if (!get_gameplay_suspended())
    {
