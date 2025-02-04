@@ -110,6 +110,30 @@ std::function<void(std::pair<int, int>, std::pair<float, float>)> Generic::get_o
 }
 
 
+bool Generic::get_player_right_pressed() const
+{
+   return player_right_pressed;
+}
+
+
+bool Generic::get_player_left_pressed() const
+{
+   return player_left_pressed;
+}
+
+
+bool Generic::get_player_up_pressed() const
+{
+   return player_up_pressed;
+}
+
+
+bool Generic::get_player_down_pressed() const
+{
+   return player_down_pressed;
+}
+
+
 void Generic::player_stop_moving()
 {
    player_up_pressed = false;

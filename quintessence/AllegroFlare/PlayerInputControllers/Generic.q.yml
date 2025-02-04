@@ -57,18 +57,22 @@ properties:
   - name: player_right_pressed
     type: bool
     init_with: false
+    getter: true
 
   - name: player_left_pressed
     type: bool
     init_with: false
+    getter: true
 
   - name: player_up_pressed
     type: bool
     init_with: false
+    getter: true
 
   - name: player_down_pressed
     type: bool
     init_with: false
+    getter: true
 
   - name: TYPE
     type: char*

@@ -59,6 +59,10 @@ namespace AllegroFlare
          std::function<void(int)> get_on_joy_button_pressed() const;
          std::function<void(int)> get_on_joy_button_released() const;
          std::function<void(std::pair<int, int>, std::pair<float, float>)> get_on_joy_axis_change() const;
+         bool get_player_right_pressed() const;
+         bool get_player_left_pressed() const;
+         bool get_player_up_pressed() const;
+         bool get_player_down_pressed() const;
          virtual void update_time_step(double time_now=0.0, double delta_time=1.0 / 60.0) override;
          virtual void gameplay_suspend_func() override;
          virtual void gameplay_resume_func() override;
