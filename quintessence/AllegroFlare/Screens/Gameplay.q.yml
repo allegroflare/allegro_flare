@@ -146,9 +146,61 @@ methods:
       gameplay_resume_func();
       suspended_keyboard_state.reset();
 
+      send_input_changes_since_last_suspend_to_player_input_controller(); // TODO: Test this
+
       // Resume the player input controls
       if (player_input_controller) player_input_controller->gameplay_resume_func();
 
+      return;
+
+
+  - name: send_input_changes_since_last_suspend_to_player_input_controller
+    body: |
+      // In this techniqe, we'll build a fake ALLEGRO_EVENT and pass it into the player_input_controller.
+      // There could potentially be unidentified side effects with this approach, some example:
+      //   1) This event does not pass through the normal global event queue.
+      //   2) The "source" and "display" fields are not used in this event, but may need to be present at
+      //      some point
+      //   3) The input controller may be expecting a full pass of the event through the system before
+      //      processing a second "event".
+      // Advantage of this approach is that the base class takes key_up_func and key_down_func, so this
+      // technique could be used on all PlayerInputController::Base classes.
+      std::vector<uint32_t> keys_pressed = suspended_keyboard_state.get_keys_pressed();
+      std::vector<uint32_t> keys_released = suspended_keyboard_state.get_keys_released();
+      float time_now = al_get_time(); // TODO: Inject time when the resume occurred
+
+      // Process key releases (a.k.a. "key up")
+      for (auto &key_released : keys_released)
+      {
+         ALLEGRO_EVENT event;
+         event.type = ALLEGRO_EVENT_KEY_UP;
+         event.any.source = nullptr; // TODO: Should I be using a SuspendedKeyboardState event source?
+         event.any.timestamp = time_now;
+         event.keyboard.keycode = key_released;
+         event.keyboard.display = nullptr; // TODO: Consider if al_get_current_display() should be used here
+
+         player_input_controller->key_up_func(&event);
+         //entity_control_connector->key_up_func(&event);
+      }
+
+      // Process key presses (a.k.a. "key down")
+      for (auto &key_pressed : keys_pressed)
+      {
+         ALLEGRO_EVENT event;
+         event.type = ALLEGRO_EVENT_KEY_DOWN;
+         event.any.source = nullptr; // TODO: Should I be using a SuspendedKeyboardState event source?
+         event.any.timestamp = time_now;
+         event.keyboard.keycode = key_pressed;
+         event.keyboard.display = nullptr; // TODO: Consider if al_get_current_display() should be used here
+
+         player_input_controller->key_down_func(&event);
+         //entity_control_connector->key_down_func(&event);
+      }
+
+      // TODO: Process additional inputs from joystick
+      // TODO: Find a way to unify keyboard and joystick inputs as if single input so you could play with keyboard,
+      // pause with some keys pressed (player in motion), switch to joystick, hold same inputs but as buttons, unpause,
+      // and resume with same control state.
       return;
 
 

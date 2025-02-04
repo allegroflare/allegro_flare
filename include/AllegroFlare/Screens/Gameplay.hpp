@@ -54,6 +54,7 @@ namespace AllegroFlare
          virtual void dialog_system_switch_out_func() override;
          void suspend_gameplay();
          void resume_suspended_gameplay();
+         void send_input_changes_since_last_suspend_to_player_input_controller();
          void toggle_suspend_gameplay();
          virtual void gameplay_suspend_func();
          virtual void gameplay_resume_func();
