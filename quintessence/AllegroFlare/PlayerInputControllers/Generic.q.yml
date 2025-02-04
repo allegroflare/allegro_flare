@@ -40,6 +40,12 @@ properties:
     getter: true
     setter: true
 
+  - name: on_joy_axis_change
+    type: std::function<void(std::pair<int, int>, std::pair<float, float>)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: player_control_move_velocity
     type: AllegroFlare::Vec2D
     init_with: '{}'
@@ -526,6 +532,14 @@ methods:
                break;
             }
          } break;
+      }
+
+      if (on_joy_axis_change)
+      {
+         on_joy_axis_change(
+            std::pair(ev->joystick.axis, ev->joystick.stick),
+            std::pair(0.0f, ev->joystick.pos)
+         );
       }
 
       return;

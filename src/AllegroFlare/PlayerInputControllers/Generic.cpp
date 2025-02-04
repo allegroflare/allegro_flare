@@ -22,6 +22,7 @@ Generic::Generic()
    , on_key_released({})
    , on_joy_button_pressed({})
    , on_joy_button_released({})
+   , on_joy_axis_change({})
    , player_control_move_velocity({})
    , player_control_look_velocity({})
    , player_right_pressed(false)
@@ -67,6 +68,12 @@ void Generic::set_on_joy_button_released(std::function<void(int)> on_joy_button_
 }
 
 
+void Generic::set_on_joy_axis_change(std::function<void(std::pair<int, int>, std::pair<float, float>)> on_joy_axis_change)
+{
+   this->on_joy_axis_change = on_joy_axis_change;
+}
+
+
 std::function<void(AllegroFlare::Vec2D, double, double)> Generic::get_on_time_step_update() const
 {
    return on_time_step_update;
@@ -94,6 +101,12 @@ std::function<void(int)> Generic::get_on_joy_button_pressed() const
 std::function<void(int)> Generic::get_on_joy_button_released() const
 {
    return on_joy_button_released;
+}
+
+
+std::function<void(std::pair<int, int>, std::pair<float, float>)> Generic::get_on_joy_axis_change() const
+{
+   return on_joy_axis_change;
 }
 
 
@@ -447,6 +460,14 @@ void Generic::joy_axis_func(ALLEGRO_EVENT* ev)
             break;
          }
       } break;
+   }
+
+   if (on_joy_axis_change)
+   {
+      on_joy_axis_change(
+         std::pair(ev->joystick.axis, ev->joystick.stick),
+         std::pair(0.0f, ev->joystick.pos)
+      );
    }
 
    return;

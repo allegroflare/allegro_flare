@@ -8,6 +8,7 @@
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
 #include <functional>
+#include <utility>
 
 
 namespace AllegroFlare
@@ -25,6 +26,7 @@ namespace AllegroFlare
          std::function<void(int)> on_key_released;
          std::function<void(int)> on_joy_button_pressed;
          std::function<void(int)> on_joy_button_released;
+         std::function<void(std::pair<int, int>, std::pair<float, float>)> on_joy_axis_change;
          AllegroFlare::Vec2D player_control_move_velocity;
          AllegroFlare::Vec2D player_control_look_velocity;
          bool player_right_pressed;
@@ -50,11 +52,13 @@ namespace AllegroFlare
          void set_on_key_released(std::function<void(int)> on_key_released);
          void set_on_joy_button_pressed(std::function<void(int)> on_joy_button_pressed);
          void set_on_joy_button_released(std::function<void(int)> on_joy_button_released);
+         void set_on_joy_axis_change(std::function<void(std::pair<int, int>, std::pair<float, float>)> on_joy_axis_change);
          std::function<void(AllegroFlare::Vec2D, double, double)> get_on_time_step_update() const;
          std::function<void(int)> get_on_key_pressed() const;
          std::function<void(int)> get_on_key_released() const;
          std::function<void(int)> get_on_joy_button_pressed() const;
          std::function<void(int)> get_on_joy_button_released() const;
+         std::function<void(std::pair<int, int>, std::pair<float, float>)> get_on_joy_axis_change() const;
          virtual void update_time_step(double time_now=0.0, double delta_time=1.0 / 60.0) override;
          virtual void gameplay_suspend_func() override;
          virtual void gameplay_resume_func() override;
