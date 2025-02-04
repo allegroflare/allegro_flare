@@ -142,7 +142,7 @@ properties:
     getter: true
     setter: true
 
-  - name: __entity_control_connector
+  - name: __entity_control_connector__deprecated
     type: AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base*
     init_with: nullptr
     getter: true
@@ -261,8 +261,8 @@ methods:
       // Clear our caches
       currently_active_map = nullptr;
       currently_active_map_name = "[unset-currently_active_map_name]";
-      if (__entity_control_connector) delete __entity_control_connector;
-      __entity_control_connector = nullptr;
+      if (__entity_control_connector__deprecated) delete __entity_control_connector__deprecated;
+      __entity_control_connector__deprecated = nullptr;
       player_controlled_entity = nullptr;
       last_activated_save_point = nullptr;
       current_boss_zone = nullptr;
@@ -300,7 +300,7 @@ methods:
       - name: also_set_as_camera_tracked_object
         type: bool
         default_argument: true
-      - name: also_setup_a_basic2d___entity_control_connector
+      - name: also_setup_a_basic2d___entity_control_connector__deprecated
         type: bool
         default_argument: true
     guards: [ '(also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)' ]
@@ -336,13 +336,13 @@ methods:
       }
 
       // Setup a control connector (for now, using a Basic2D connector)
-      if (also_setup_a_basic2d___entity_control_connector)
+      if (also_setup_a_basic2d___entity_control_connector__deprecated)
       {
-         if (__entity_control_connector) delete __entity_control_connector;
+         if (__entity_control_connector__deprecated) delete __entity_control_connector__deprecated;
          auto control_connector = new AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D();
          control_connector->set_basic_2d_entity(entity);
 
-         __entity_control_connector = control_connector;
+         __entity_control_connector__deprecated = control_connector;
       }
       return;
     body_dependency_symbols:
@@ -1684,9 +1684,9 @@ methods:
          //{
             //update_player_controls_on_player_controlled_entity();
          //}
-         if (player_controlled_entity && __entity_control_connector)
+         if (player_controlled_entity && __entity_control_connector__deprecated)
          {
-            __entity_control_connector->update_player_controls_on_player_controlled_entity();
+            __entity_control_connector__deprecated->update_player_controls_on_player_controlled_entity();
          }
          update_entities();
       }
@@ -1991,7 +1991,7 @@ methods:
     body: |
       AllegroFlare::Screens::Gameplay::key_up_func(event);
 
-      if (__entity_control_connector) __entity_control_connector->key_up_func(event);
+      if (__entity_control_connector__deprecated) __entity_control_connector__deprecated->key_up_func(event);
 
       switch (event->keyboard.keycode)
       {
@@ -2021,7 +2021,7 @@ methods:
 
       if (!get_gameplay_suspended())
       {
-         if (__entity_control_connector) __entity_control_connector->key_down_func(event);
+         if (__entity_control_connector__deprecated) __entity_control_connector__deprecated->key_down_func(event);
 
          switch (event->keyboard.keycode)
          {

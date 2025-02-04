@@ -61,7 +61,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , show_foreground_tile_mesh(true)
    , show_collision_tile_map(false)
    , show_visual_hint_on_suspended_gameplay(false)
-   , __entity_control_connector(nullptr)
+   , __entity_control_connector__deprecated(nullptr)
    , collision_stepper({})
    , camera_control_strategy(nullptr)
    , create_entities_from_map_callback({})
@@ -159,9 +159,9 @@ void Screen::set_show_visual_hint_on_suspended_gameplay(bool show_visual_hint_on
 }
 
 
-void Screen::set___entity_control_connector(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* __entity_control_connector)
+void Screen::set___entity_control_connector__deprecated(AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* __entity_control_connector__deprecated)
 {
-   this->__entity_control_connector = __entity_control_connector;
+   this->__entity_control_connector__deprecated = __entity_control_connector__deprecated;
 }
 
 
@@ -291,9 +291,9 @@ bool Screen::get_show_visual_hint_on_suspended_gameplay() const
 }
 
 
-AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* Screen::get___entity_control_connector() const
+AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Base* Screen::get___entity_control_connector__deprecated() const
 {
-   return __entity_control_connector;
+   return __entity_control_connector__deprecated;
 }
 
 
@@ -377,8 +377,8 @@ void Screen::clear()
    // Clear our caches
    currently_active_map = nullptr;
    currently_active_map_name = "[unset-currently_active_map_name]";
-   if (__entity_control_connector) delete __entity_control_connector;
-   __entity_control_connector = nullptr;
+   if (__entity_control_connector__deprecated) delete __entity_control_connector__deprecated;
+   __entity_control_connector__deprecated = nullptr;
    player_controlled_entity = nullptr;
    last_activated_save_point = nullptr;
    current_boss_zone = nullptr;
@@ -404,7 +404,7 @@ void Screen::set_currently_active_map(std::string name)
    return;
 }
 
-void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, bool also_set_as_camera_tracked_object, bool also_setup_a_basic2d___entity_control_connector)
+void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* entity, bool also_set_as_camera_tracked_object, bool also_setup_a_basic2d___entity_control_connector__deprecated)
 {
    if (!((also_set_as_camera_tracked_object ? (bool)camera_control_strategy : true)))
    {
@@ -444,13 +444,13 @@ void Screen::set_player_controlled_entity(AllegroFlare::Prototypes::Platforming2
    }
 
    // Setup a control connector (for now, using a Basic2D connector)
-   if (also_setup_a_basic2d___entity_control_connector)
+   if (also_setup_a_basic2d___entity_control_connector__deprecated)
    {
-      if (__entity_control_connector) delete __entity_control_connector;
+      if (__entity_control_connector__deprecated) delete __entity_control_connector__deprecated;
       auto control_connector = new AllegroFlare::Prototypes::Platforming2D::EntityControlConnectors::Basic2D();
       control_connector->set_basic_2d_entity(entity);
 
-      __entity_control_connector = control_connector;
+      __entity_control_connector__deprecated = control_connector;
    }
    return;
 }
@@ -1834,9 +1834,9 @@ void Screen::update()
       //{
          //update_player_controls_on_player_controlled_entity();
       //}
-      if (player_controlled_entity && __entity_control_connector)
+      if (player_controlled_entity && __entity_control_connector__deprecated)
       {
-         __entity_control_connector->update_player_controls_on_player_controlled_entity();
+         __entity_control_connector__deprecated->update_player_controls_on_player_controlled_entity();
       }
       update_entities();
    }
@@ -2156,7 +2156,7 @@ void Screen::key_up_func(ALLEGRO_EVENT* event)
    }
    AllegroFlare::Screens::Gameplay::key_up_func(event);
 
-   if (__entity_control_connector) __entity_control_connector->key_up_func(event);
+   if (__entity_control_connector__deprecated) __entity_control_connector__deprecated->key_up_func(event);
 
    switch (event->keyboard.keycode)
    {
@@ -2200,7 +2200,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
 
    if (!get_gameplay_suspended())
    {
-      if (__entity_control_connector) __entity_control_connector->key_down_func(event);
+      if (__entity_control_connector__deprecated) __entity_control_connector__deprecated->key_down_func(event);
 
       switch (event->keyboard.keycode)
       {
