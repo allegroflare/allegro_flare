@@ -121,7 +121,7 @@ void AccidentalStacker::solve_one_from_top(int column_to_place_on)
 
       // Go through the list of pitches and look for any octaves to the current note, placing their accidentals
       // in the same column
-      for (int j=0; j<pitches.size(); j++)
+      for (int j=0; j<(int)pitches.size(); j++)
       {
          auto &possible_octave_to_pitch = pitches[j];
          int possible_octave_pitch_staff_position = possible_octave_to_pitch.get_staff_position();
@@ -178,7 +178,7 @@ void AccidentalStacker::solve_one_from_bottom(int column_to_place_on)
 
       // Go through the list of pitches and look for any octaves to the current note, placing their accidentals
       // in the same column
-      for (int j=0; j<pitches.size(); j++)
+      for (int j=0; j<(int)pitches.size(); j++)
       {
          auto &possible_octave_to_pitch = pitches[j];
          int possible_octave_pitch_staff_position = possible_octave_to_pitch.get_staff_position();
@@ -285,9 +285,9 @@ bool AccidentalStacker::can_fit(int current_column, int target_column)
       if (column == target_column) target_column_elements.push_back(stack_item);
    }
 
-   for (int i=0; i<current_column_elements.size(); ++i)
+   for (int i=0; i<(int)current_column_elements.size(); ++i)
    {
-      for (int j=0; j<target_column_elements.size(); ++j)
+      for (int j=0; j<(int)target_column_elements.size(); ++j)
       {
          int row_of_current_item = current_column_elements[i].second.second;
          int row_of_target_item = target_column_elements[j].second.second;
