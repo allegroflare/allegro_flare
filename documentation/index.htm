@@ -17502,6 +17502,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>emit_post_joystick_connected_notification_event</b>(std::string joystick_name=&quot;[unset-joystick_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>emit_play_sound_effect_event</b>(std::string sound_effect_identifier=&quot;[unset-sound-effect-identifier]&quot;)</td>
 </tr>
 <tr>
@@ -17553,6 +17557,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
@@ -51775,6 +51782,9 @@ table td
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR": [

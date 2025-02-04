@@ -430,6 +430,19 @@ void EventEmitter::emit_post_unlocked_achievement_notification_event(std::string
    emit_event(ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION, data_to_pass);
 }
 
+void EventEmitter::emit_post_joystick_connected_notification_event(std::string joystick_name)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::EventEmitter::emit_post_joystick_connected_notification_event]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::EventEmitter::emit_post_joystick_connected_notification_event]: error: guard \"initialized\" not met");
+   }
+   intptr_t data_to_pass = (intptr_t)(void *)(new std::string(joystick_name));
+   emit_event(ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION, data_to_pass);
+}
+
 void EventEmitter::emit_play_sound_effect_event(std::string sound_effect_identifier)
 {
    if (!(initialized))

@@ -429,6 +429,19 @@ functions:
       - ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION
 
 
+  - name: emit_post_joystick_connected_notification_event
+    parameters:
+      - name: joystick_name
+        type: std::string
+        default_argument: '"[unset-joystick_name]"'
+    guards: [ initialized ]
+    body: |
+      intptr_t data_to_pass = (intptr_t)(void *)(new std::string(joystick_name));
+      emit_event(ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION, data_to_pass);
+    body_dependency_symbols:
+      - ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION
+
+
   - name: emit_play_sound_effect_event
     parameters:
       - name: sound_effect_identifier
@@ -518,6 +531,8 @@ dependencies:
   - symbol: ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION
+    headers: [ AllegroFlare/EventNames.hpp ]
+  - symbol: ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION
     headers: [ AllegroFlare/EventNames.hpp ]
   - symbol: ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR
     headers: [ AllegroFlare/EventNames.hpp ]

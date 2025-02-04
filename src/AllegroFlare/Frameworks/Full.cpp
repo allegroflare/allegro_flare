@@ -2126,7 +2126,11 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
       case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
          screens.joy_config_funcs(&this_event);
          // NOTE: input_devices_list.handle_reconfiguration does not occur here, it's currently managed in the
-         // virtual_controls_processor which may not be the best place
+         // virtual_controls_processor which may not be the best place. This domain requires a bit of review,
+         // as there is an input_devices_list that is involved and needs to be accounted for. Posting notifications
+         // events may need review (should have callbacks that can be used to produce events?). See the body of
+         // virtual_controls_processor.handle_joystick_device_configuration_change_event() for a little more direction.
+
          virtual_controls_processor.handle_joystick_device_configuration_change_event(&this_event);
       break;
 
@@ -2410,6 +2414,25 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                           AllegroFlare::NotificationsFactory notifications_factory;
                           notifications.add(
                              notifications_factory.create_achievement_unlocked_notification(*data)
+                          );
+                          delete data;
+                       }
+                    }
+                  break;
+
+                  case ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION:
+                    {
+                       // TODO: handle other types of notifications and pass data on event
+                       std::string *data = (std::string *)this_event.user.data1;
+                       if (!data)
+                       {
+                          // TODO: add an error message
+                       }
+                       else
+                       {
+                          AllegroFlare::NotificationsFactory notifications_factory;
+                          notifications.add(
+                             notifications_factory.create_joystick_connected_notification(*data)
                           );
                           delete data;
                        }

@@ -2738,6 +2738,9 @@
   "ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
   ],
+  "ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION": [
+    "AllegroFlare/EventEmitter"
+  ],
   "ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR": [
     "AllegroFlare/EventEmitter"
   ],

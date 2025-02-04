@@ -314,12 +314,41 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
       throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event\" not met");
    }
    // TODO: Implement this function
-   AllegroFlare::Logger::warn_from_once(
-      "VirtualControlsProcessor::handle_joystick_device_configuration_event",
-      "not implemented"
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_event",
+      "Reconfiguring joysticks"
    );
-   // TODO: Remove this throw
-   //throw std::runtime_error("VirtualControlsProcessor::handle_joystick_device_configuration_change_event: not implemented");
+
+   // NOTE: This domain requires a bit of review, as there is an input_devices_list member that is involved and
+   // *should* be used to handle/manage the connection and disconnection logic. It's unclear It may opt to produce
+   // events (or should be modified to have callbacks that can be used to produce events).
+   // TODO: Use "input_devices_list" to manage the connection/disconnection logic.
+
+   int num_joysticks_before = al_get_num_joysticks();
+   al_reconfigure_joysticks();
+   int num_joysticks_after = al_get_num_joysticks();
+
+   // If the number of joysticks increased, emit an event that a joystick was connected
+   // TODO: Have this emit the correct number of joysticks changes in the event more than one is connected
+   // TODO: Have this emit the correct name of the newly connected joystick (for now, it simply collects the name
+   // of the first joystick.
+   bool need_to_emit_post_joystick_connected_notification_event = false;
+   if (num_joysticks_after > num_joysticks_before) need_to_emit_post_joystick_connected_notification_event = true;
+   if (need_to_emit_post_joystick_connected_notification_event)
+   {
+      // TODO: Make this obtain the newly connected joystick (and not the joystick at position 0)
+      ALLEGRO_JOYSTICK *newly_connected_joystick = al_get_joystick(0);
+      std::string newly_connected_joystick_name = al_get_joystick_name(newly_connected_joystick);
+
+      // Emit the joystick connected notification event
+      event_emitter->emit_post_joystick_connected_notification_event(newly_connected_joystick_name);
+   }
+
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_event",
+      "Joystick reconfiguration finished."
+   );
+
    return;
 }
 
