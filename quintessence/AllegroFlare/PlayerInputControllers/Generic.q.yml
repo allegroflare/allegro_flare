@@ -375,6 +375,8 @@ methods:
         type: ALLEGRO_EVENT*
         default_argument: nullptr
     body: |
+      if (on_key_released) on_key_released(ev->keyboard.keycode);
+
       switch(ev->keyboard.keycode)
       {
          case ALLEGRO_KEY_UP:

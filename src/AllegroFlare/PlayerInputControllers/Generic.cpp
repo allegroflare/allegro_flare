@@ -314,6 +314,8 @@ void Generic::key_down_func(ALLEGRO_EVENT* ev)
 
 void Generic::key_up_func(ALLEGRO_EVENT* ev)
 {
+   if (on_key_released) on_key_released(ev->keyboard.keycode);
+
    switch(ev->keyboard.keycode)
    {
       case ALLEGRO_KEY_UP:
