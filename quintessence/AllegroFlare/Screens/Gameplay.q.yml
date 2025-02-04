@@ -144,9 +144,8 @@ methods:
       suspended_keyboard_state.capture_subsequent_keyboard_state(); // TODO: Add guard if state cannot be captured
       suspended_keyboard_state.calculate_keyboard_state_changes(); // TODO: Add guard if state cannot be captured
       gameplay_resume_func();
-      suspended_keyboard_state.reset();
-
       send_input_changes_since_last_suspend_to_player_input_controller(); // TODO: Test this
+      suspended_keyboard_state.reset();
 
       // Resume the player input controls
       if (player_input_controller) player_input_controller->gameplay_resume_func();
@@ -156,6 +155,8 @@ methods:
 
   - name: send_input_changes_since_last_suspend_to_player_input_controller
     body: |
+      if (!player_input_controller) return;
+
       // In this techniqe, we'll build a fake ALLEGRO_EVENT and pass it into the player_input_controller.
       // There could potentially be unidentified side effects with this approach, some example:
       //   1) This event does not pass through the normal global event queue.

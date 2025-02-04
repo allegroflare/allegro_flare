@@ -156,9 +156,8 @@ void Gameplay::resume_suspended_gameplay()
    suspended_keyboard_state.capture_subsequent_keyboard_state(); // TODO: Add guard if state cannot be captured
    suspended_keyboard_state.calculate_keyboard_state_changes(); // TODO: Add guard if state cannot be captured
    gameplay_resume_func();
-   suspended_keyboard_state.reset();
-
    send_input_changes_since_last_suspend_to_player_input_controller(); // TODO: Test this
+   suspended_keyboard_state.reset();
 
    // Resume the player input controls
    if (player_input_controller) player_input_controller->gameplay_resume_func();
@@ -168,6 +167,8 @@ void Gameplay::resume_suspended_gameplay()
 
 void Gameplay::send_input_changes_since_last_suspend_to_player_input_controller()
 {
+   if (!player_input_controller) return;
+
    // In this techniqe, we'll build a fake ALLEGRO_EVENT and pass it into the player_input_controller.
    // There could potentially be unidentified side effects with this approach, some example:
    //   1) This event does not pass through the normal global event queue.
@@ -180,6 +181,11 @@ void Gameplay::send_input_changes_since_last_suspend_to_player_input_controller(
    std::vector<uint32_t> keys_pressed = suspended_keyboard_state.get_keys_pressed();
    std::vector<uint32_t> keys_released = suspended_keyboard_state.get_keys_released();
    float time_now = al_get_time(); // TODO: Inject time when the resume occurred
+
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::Screens::Gameplay::send_input_changes_since_last_suspend_to_player_input_controller",
+      "foobar boobaz"
+   );
 
    // Process key releases (a.k.a. "key up")
    for (auto &key_released : keys_released)
