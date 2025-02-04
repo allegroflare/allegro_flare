@@ -261,6 +261,40 @@ void Gameplay::send_input_changes_since_last_suspend_to_player_input_controller(
       player_input_controller->joy_button_down_func(&event);
    }
 
+   // Process joy presses (a.k.a. "joy button up")
+   for (auto &button_pressed : buttons_pressed)
+   {
+      ALLEGRO_EVENT event;
+      event.type = ALLEGRO_EVENT_JOYSTICK_BUTTON_UP;
+      event.any.source = nullptr; // TODO: Should I be using a SuspendedJoystickState event source?
+      event.any.timestamp = time_now;
+      event.joystick.id = suspended_joystick_state.get_joystick();
+      event.joystick.button = button_pressed;
+      //event.keyboard.display = nullptr; // TODO: Consider if al_get_current_display() should be used here
+
+      player_input_controller->joy_button_up_func(&event);
+   }
+
+   // Process joy axes changes (a.k.a. "joy axis")
+   for (auto &stick_moved : sticks_moved)
+   {
+      ALLEGRO_EVENT event;
+      event.type = ALLEGRO_EVENT_JOYSTICK_AXIS;
+      event.any.source = nullptr; // TODO: Should I be using a SuspendedJoystickState event source?
+      event.any.timestamp = time_now;
+      event.joystick.id = suspended_joystick_state.get_joystick();
+
+      //AllegroFlare::SuspendedJoystickState::sticks_moved ==> [std::make_pair(stick_num, axis_num)] =
+         //{ stick_delta, subsequent_joystick_state.stick[stick_num].axis[axis_num] };
+
+      event.joystick.stick = stick_moved.first.first; // TODO: Validate this is correct
+      event.joystick.axis = stick_moved.first.second; // TODO: Validate this is correct
+      event.joystick.pos = stick_moved.second.second; // TODO: Validate this is correct
+      //event.keyboard.display = nullptr; // TODO: Consider if al_get_current_display() should be used here
+
+      player_input_controller->joy_axis_func(&event);
+   }
+
    // HERE
    /*
    - name: joy_axis_func
