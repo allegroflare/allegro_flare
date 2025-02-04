@@ -1,8 +1,12 @@
 
 #include <gtest/gtest.h>
 
+#include <AllegroFlare/Elements/NotificationRenderer.hpp>
+
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
+#include <AllegroFlare/Elements/Notifications/JoystickConnected.hpp>
 
 
 class AllegroFlare_Elements_NotificationRendererTest : public ::testing::Test
@@ -13,9 +17,6 @@ class AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture
 {};
 
 
-#include <AllegroFlare/Elements/NotificationRenderer.hpp>
-
-#include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
 
 TEST_F(AllegroFlare_Elements_NotificationRendererTest, can_be_created_without_blowing_up)
 {
@@ -57,7 +58,22 @@ TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture
    );
    notification_renderer.render();
    al_flip_display();
-   sleep_for(1);
+   //sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__render__will_render_a_JoystickConnected_type_notification)
+{
+   AllegroFlare::Elements::Notifications::JoystickConnected joystick_connected_notification;
+   AllegroFlare::Elements::NotificationRenderer notification_renderer(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      &joystick_connected_notification
+   );
+   notification_renderer.render();
+   al_flip_display();
+   //sleep_for(1);
 }
 
 

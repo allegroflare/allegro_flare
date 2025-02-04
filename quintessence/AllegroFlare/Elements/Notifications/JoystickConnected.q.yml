@@ -1,0 +1,26 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::Notifications::Base
+    scope: public
+    init_with: '"JoystickConnected"'
+
+
+properties:
+
+
+  - name: joystick_name
+    type: std::string
+    init_with: '"[unset-joystick_name]"'
+    constructor_arg: true
+    getter: true
+    setter: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::Notifications::Base
+    headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
+
+

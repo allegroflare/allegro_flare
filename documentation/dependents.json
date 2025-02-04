@@ -260,6 +260,7 @@
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
@@ -596,6 +597,7 @@
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -733,6 +735,7 @@
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -1124,6 +1127,7 @@
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
@@ -1719,6 +1723,7 @@
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
@@ -1732,6 +1737,7 @@
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/UI/IntSpinner",
@@ -2534,6 +2540,7 @@
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked",
+    "AllegroFlare/Elements/Notifications/JoystickConnected",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Notifications",
     "AllegroFlare/Notifications",
@@ -2544,11 +2551,18 @@
   ],
   "AllegroFlare/Elements/Notifications/AchievementUnlocked": [
     "AllegroFlare/Elements/NotificationRenderer",
-    "AllegroFlare/NotificationsFactory",
     "AllegroFlare/NotificationsFactory"
   ],
+  "AllegroFlare/Elements/Notifications/JoystickConnected": [
+    "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/NotificationsFactory"
+  ],
+  "AllegroFlare/Elements/NotificationRenderers/JoystickConnected": [
+    "AllegroFlare/Elements/NotificationRenderer"
+  ],
   "AllegroFlare/MotionFX/Sparkles2": [
-    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked"
+    "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected"
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/Notifications/Base",

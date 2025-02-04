@@ -3,7 +3,9 @@
 #include <AllegroFlare/Elements/NotificationRenderer.hpp>
 
 #include <AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp>
+#include <AllegroFlare/Elements/NotificationRenderers/JoystickConnected.hpp>
 #include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
+#include <AllegroFlare/Elements/Notifications/JoystickConnected.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <sstream>
@@ -151,6 +153,22 @@ void NotificationRenderer::render()
          achievement_unlocked_notification->get_name()
       );
       achievement_unlocked_renderer.render();
+   }
+   else if (notification->is_type("JoystickConnected"))
+   {
+      AllegroFlare::Elements::Notifications::JoystickConnected *joystick_connected_notification =
+         dynamic_cast<AllegroFlare::Elements::Notifications::JoystickConnected*>(notification);
+      AllegroFlare::Elements::NotificationRenderers::JoystickConnected joystick_connected_renderer(
+         bitmap_bin,
+         font_bin,
+         x,
+         y,
+         width,
+         height,
+         joystick_connected_notification->get_created_at(),
+         joystick_connected_notification->get_joystick_name()
+      );
+      joystick_connected_renderer.render();
    }
    else
    {

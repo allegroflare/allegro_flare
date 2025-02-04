@@ -76,6 +76,22 @@ functions:
          );
          achievement_unlocked_renderer.render();
       }
+      else if (notification->is_type("JoystickConnected"))
+      {
+         AllegroFlare::Elements::Notifications::JoystickConnected *joystick_connected_notification =
+            dynamic_cast<AllegroFlare::Elements::Notifications::JoystickConnected*>(notification);
+         AllegroFlare::Elements::NotificationRenderers::JoystickConnected joystick_connected_renderer(
+            bitmap_bin,
+            font_bin,
+            x,
+            y,
+            width,
+            height,
+            joystick_connected_notification->get_created_at(),
+            joystick_connected_notification->get_joystick_name()
+         );
+         joystick_connected_renderer.render();
+      }
       else
       {
          std::stringstream error_message;
@@ -89,6 +105,8 @@ functions:
       - al_is_primitives_addon_initialized
       - AllegroFlare::Elements::Notifications::AchievementUnlocked
       - AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked
+      - AllegroFlare::Elements::Notifications::JoystickConnected
+      - AllegroFlare::Elements::NotificationRenderers::JoystickConnected
       - std::stringstream
 
 
@@ -114,6 +132,10 @@ dependencies:
     headers: [ AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.hpp ]
   - symbol: AllegroFlare::Elements::Notifications::AchievementUnlocked
     headers: [ AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp ]
+  - symbol: AllegroFlare::Elements::Notifications::JoystickConnected
+    headers: [ AllegroFlare/Elements/Notifications/JoystickConnected.hpp ]
+  - symbol: AllegroFlare::Elements::NotificationRenderers::JoystickConnected
+    headers: [ AllegroFlare/Elements/NotificationRenderers/JoystickConnected.hpp ]
   - symbol: AllegroFlare::Elements::Notifications::Base
     headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
   - symbol: AllegroFlare::FontBin
