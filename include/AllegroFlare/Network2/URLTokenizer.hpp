@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <cstddef>
 #include <string>
 #include <utility>
 
@@ -13,8 +14,8 @@ namespace AllegroFlare
       {
       private:
          std::string full_url;
-         static bool has_min_length(std::string string="", int min=0);
-         static bool fits_max_length(std::string string="", int max=0);
+         static bool has_min_length(std::string string="", std::size_t min=0);
+         static bool fits_max_length(std::string string="", std::size_t max=0);
          static bool only_numerical_characters(std::string string="");
          static std::string trim(std::string s="");
 

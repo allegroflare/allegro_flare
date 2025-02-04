@@ -98,12 +98,12 @@ std::pair<std::string, std::string> URLTokenizer::split_tokens()
    return result;
 }
 
-bool URLTokenizer::has_min_length(std::string string, int min)
+bool URLTokenizer::has_min_length(std::string string, std::size_t min)
 {
    return (string.length() >= min);
 }
 
-bool URLTokenizer::fits_max_length(std::string string, int max)
+bool URLTokenizer::fits_max_length(std::string string, std::size_t max)
 {
    return (string.length() <= max);
 }

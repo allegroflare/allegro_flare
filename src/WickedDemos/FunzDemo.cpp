@@ -305,7 +305,7 @@ void FunzDemo::set_targets_to_currents()
 
 void FunzDemo::rescale_entity_ids()
 {
-   for (int i=0; i<entities.size(); i++) { entities[i]->__set_id(i); }
+   for (int i=0; i<(int)entities.size(); i++) { entities[i]->__set_id(i); }
    Entity::__set_next_id(entities.size());
 }
 

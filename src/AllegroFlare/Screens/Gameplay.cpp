@@ -182,11 +182,6 @@ void Gameplay::send_input_changes_since_last_suspend_to_player_input_controller(
    std::vector<uint32_t> keys_released = suspended_keyboard_state.get_keys_released();
    float time_now = al_get_time(); // TODO: Inject time when the resume occurred
 
-   AllegroFlare::Logger::info_from(
-      "AllegroFlare::Screens::Gameplay::send_input_changes_since_last_suspend_to_player_input_controller",
-      "foobar boobaz"
-   );
-
    // Process key releases (a.k.a. "key up")
    for (auto &key_released : keys_released)
    {
