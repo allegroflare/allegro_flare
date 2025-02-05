@@ -2439,6 +2439,25 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
                     }
                   break;
 
+                  case ALLEGRO_FLARE_EVENT_POST_JOYSTICK_DISCONNECTED_NOTIFICATION:
+                    {
+                       // TODO: handle other types of notifications and pass data on event
+                       std::string *data = (std::string *)this_event.user.data1;
+                       if (!data)
+                       {
+                          // TODO: add an error message
+                       }
+                       else
+                       {
+                          AllegroFlare::NotificationsFactory notifications_factory;
+                          notifications.add(
+                             notifications_factory.create_joystick_disconnected_notification(*data)
+                          );
+                          delete data;
+                       }
+                    }
+                  break;
+
                   case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:
                      {
                         AllegroFlare::Achievement *data1 = (AllegroFlare::Achievement *)this_event.user.data1;

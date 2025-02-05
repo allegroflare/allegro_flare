@@ -33,6 +33,22 @@ functions:
       - al_is_system_installed
 
 
+  - name: create_joystick_disconnected_notification
+    type: AllegroFlare::Elements::Notifications::JoystickDisconnected*
+    parameters:
+      - name: joystick_name
+        type: std::string
+        default_argument: '"[unset-joystick_name]"'
+    guards: [ al_is_system_installed() ]
+    body: |
+      AllegroFlare::Elements::Notifications::JoystickDisconnected *result =
+         new AllegroFlare::Elements::Notifications::JoystickDisconnected(joystick_name);
+      result->set_created_at(al_get_time());
+      return result;
+    body_dependency_symbols:
+      - al_is_system_installed
+
+
 dependencies:
 
 
@@ -44,5 +60,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp ]
   - symbol: AllegroFlare::Elements::Notifications::JoystickConnected
     headers: [ AllegroFlare/Elements/Notifications/JoystickConnected.hpp ]
+  - symbol: AllegroFlare::Elements::Notifications::JoystickDisconnected
+    headers: [ AllegroFlare/Elements/Notifications/JoystickDisconnected.hpp ]
 
 

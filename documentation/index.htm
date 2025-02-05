@@ -17632,6 +17632,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>emit_post_joystick_disconnected_notification_event</b>(std::string joystick_name=&quot;[unset-joystick_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>emit_play_sound_effect_event</b>(std::string sound_effect_identifier=&quot;[unset-sound-effect-identifier]&quot;)</td>
 </tr>
 <tr>
@@ -17686,6 +17690,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_POST_JOYSTICK_DISCONNECTED_NOTIFICATION&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventNames.hpp&quot;]}</td>
@@ -20021,6 +20028,18 @@ table td
   <td class="property">std::vector&lt;AllegroFlare::PhysicalInputDevices::Base*&gt;</td>
 </tr>
 <tr>
+  <td class="property">first_time_connected_joysticks_after_reconfiguration</td>
+  <td class="property">std::vector&lt;AllegroFlare::PhysicalInputDevices::Base*&gt;</td>
+</tr>
+<tr>
+  <td class="property">previously_known_joysticks_connected_after_reconfiguration</td>
+  <td class="property">std::vector&lt;AllegroFlare::PhysicalInputDevices::Base*&gt;</td>
+</tr>
+<tr>
+  <td class="property">previously_known_joysticks_disconnected_after_reconfiguration</td>
+  <td class="property">std::vector&lt;AllegroFlare::PhysicalInputDevices::Base*&gt;</td>
+</tr>
+<tr>
   <td class="property">updated_at</td>
   <td class="property">float</td>
 </tr>
@@ -20066,6 +20085,14 @@ table td
 <tr>
   <td class="method">int</td>
   <td class="method"><b>num_connected_joysticks</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>num_joysticks_connected_after_last_reconfiguration</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>num_joysticks_disconnected_after_last_reconfiguration</b>()</td>
 </tr>
 <tr>
   <td class="private_method">AllegroFlare::PhysicalInputDevices::Joysticks::Base*</td>
@@ -25003,6 +25030,10 @@ table td
   <td class="method">AllegroFlare::Elements::Notifications::JoystickConnected*</td>
   <td class="method"><b>create_joystick_connected_notification</b>(std::string joystick_name=&quot;[unset-joystick_name]&quot;)</td>
 </tr>
+<tr>
+  <td class="method">AllegroFlare::Elements::Notifications::JoystickDisconnected*</td>
+  <td class="method"><b>create_joystick_disconnected_notification</b>(std::string joystick_name=&quot;[unset-joystick_name]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -25017,6 +25048,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::JoystickConnected&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/JoystickConnected.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::JoystickDisconnected&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/JoystickDisconnected.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -51740,7 +51774,8 @@ table td
     "AllegroFlare/Elements/NotificationRenderer"
   ],
   "AllegroFlare/Elements/Notifications/JoystickDisconnected": [
-    "AllegroFlare/Elements/NotificationRenderer"
+    "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/NotificationsFactory"
   ],
   "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected": [
     "AllegroFlare/Elements/NotificationRenderer"
@@ -51925,6 +51960,9 @@ table td
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_POST_JOYSTICK_DISCONNECTED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR": [

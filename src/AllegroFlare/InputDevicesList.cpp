@@ -17,6 +17,9 @@ namespace AllegroFlare
 
 InputDevicesList::InputDevicesList()
    : devices({})
+   , first_time_connected_joysticks_after_reconfiguration({})
+   , previously_known_joysticks_connected_after_reconfiguration({})
+   , previously_known_joysticks_disconnected_after_reconfiguration({})
    , updated_at(0.0f)
 {
 }
@@ -24,6 +27,24 @@ InputDevicesList::InputDevicesList()
 
 InputDevicesList::~InputDevicesList()
 {
+}
+
+
+std::vector<AllegroFlare::PhysicalInputDevices::Base*> InputDevicesList::get_first_time_connected_joysticks_after_reconfiguration() const
+{
+   return first_time_connected_joysticks_after_reconfiguration;
+}
+
+
+std::vector<AllegroFlare::PhysicalInputDevices::Base*> InputDevicesList::get_previously_known_joysticks_connected_after_reconfiguration() const
+{
+   return previously_known_joysticks_connected_after_reconfiguration;
+}
+
+
+std::vector<AllegroFlare::PhysicalInputDevices::Base*> InputDevicesList::get_previously_known_joysticks_disconnected_after_reconfiguration() const
+{
+   return previously_known_joysticks_disconnected_after_reconfiguration;
 }
 
 
@@ -151,6 +172,17 @@ int InputDevicesList::num_connected_joysticks()
    return count;
 }
 
+int InputDevicesList::num_joysticks_connected_after_last_reconfiguration()
+{
+   return previously_known_joysticks_connected_after_reconfiguration.size() +
+      first_time_connected_joysticks_after_reconfiguration.size();
+}
+
+int InputDevicesList::num_joysticks_disconnected_after_last_reconfiguration()
+{
+   return previously_known_joysticks_disconnected_after_reconfiguration.size();
+}
+
 AllegroFlare::PhysicalInputDevices::Joysticks::Base* InputDevicesList::find_joystick_device_by_al_joystick(ALLEGRO_JOYSTICK* al_joystick)
 {
    // TODO: Test this function
@@ -179,10 +211,9 @@ void InputDevicesList::handle_reconfigured_joystick()
 
    std::vector<AllegroFlare::PhysicalInputDevices::Base*>
       previously_known_joysticks_connected_at_start = get_connected_joysticks();
-   std::vector<AllegroFlare::PhysicalInputDevices::Base*>
-      previously_known_joysticks_connected_after_reconfiguration;
-   std::vector<AllegroFlare::PhysicalInputDevices::Base*>
-      previously_known_joysticks_that_became_disconnected;
+   previously_known_joysticks_connected_after_reconfiguration.clear();
+   previously_known_joysticks_disconnected_after_reconfiguration.clear();
+   first_time_connected_joysticks_after_reconfiguration.clear();
 
    // Handle *new* joysticks added
    al_reconfigure_joysticks();
@@ -215,6 +246,8 @@ void InputDevicesList::handle_reconfigured_joystick()
          devices.push_back(joystick);
 
          list_is_modified = true;
+
+         first_time_connected_joysticks_after_reconfiguration.push_back(joystick);
       }
 
       if (!joystick->get_connected())
@@ -237,12 +270,12 @@ void InputDevicesList::handle_reconfigured_joystick()
       previously_known_joysticks_connected_at_start.end(),
       previously_known_joysticks_connected_after_reconfiguration.begin(),
       previously_known_joysticks_connected_after_reconfiguration.end(),
-      std::back_inserter(previously_known_joysticks_that_became_disconnected)
+      std::back_inserter(previously_known_joysticks_disconnected_after_reconfiguration)
    );
 
    // Mark existing connected joysticks as disconnected
    for (auto &previously_known_joystick_that_became_disconnected
-      : previously_known_joysticks_that_became_disconnected)
+      : previously_known_joysticks_disconnected_after_reconfiguration)
    {
       previously_known_joystick_that_became_disconnected->set_connected(false);
       list_is_modified = true;

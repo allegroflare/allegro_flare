@@ -2568,7 +2568,8 @@
     "AllegroFlare/Elements/NotificationRenderer"
   ],
   "AllegroFlare/Elements/Notifications/JoystickDisconnected": [
-    "AllegroFlare/Elements/NotificationRenderer"
+    "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/NotificationsFactory"
   ],
   "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected": [
     "AllegroFlare/Elements/NotificationRenderer"
@@ -2753,6 +2754,9 @@
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION": [
+    "AllegroFlare/EventEmitter"
+  ],
+  "ALLEGRO_FLARE_EVENT_POST_JOYSTICK_DISCONNECTED_NOTIFICATION": [
     "AllegroFlare/EventEmitter"
   ],
   "ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR": [

@@ -58,6 +58,7 @@ namespace AllegroFlare
       void emit_achievement_unlocked_game_event(std::string achievement_name="[unset-achievement_name]");
       void emit_post_unlocked_achievement_notification_event(std::string achievement_name="[unset-achievement_name]");
       void emit_post_joystick_connected_notification_event(std::string joystick_name="[unset-joystick_name]");
+      void emit_post_joystick_disconnected_notification_event(std::string joystick_name="[unset-joystick_name]");
       void emit_play_sound_effect_event(std::string sound_effect_identifier="[unset-sound-effect-identifier]");
       void emit_play_music_track_event(std::string music_track_identifier="[unset-music-track-identifier]");
       void emit_stop_all_music_tracks_event();
