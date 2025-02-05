@@ -216,8 +216,11 @@ void InputDevicesList::handle_reconfigured_joystick()
    previously_known_joysticks_disconnected_after_reconfiguration.clear();
    first_time_connected_joysticks_after_reconfiguration.clear();
 
-   // Handle *new* joysticks added
+   // Capture the joystick changes
    al_reconfigure_joysticks();
+   double reconfiguration_occurred_at = al_get_time(); // TODO: Pass in event time
+
+   // Handle *new* joysticks added
    int num_joysticks = al_get_num_joysticks();
    for (int i=0; i<num_joysticks; i++)
    {
@@ -269,11 +272,7 @@ void InputDevicesList::handle_reconfigured_joystick()
       list_is_modified = true;
    }
 
-   if (list_is_modified)
-   {
-      //al_rest(1.0000); // Not sure why this was here?
-      updated_at = al_get_time(); // TODO: Pass in event time
-   }
+   if (list_is_modified) updated_at = reconfiguration_occurred_at;
 
    return;
 }
