@@ -190,6 +190,7 @@ functions:
 
 
       // Handle notifications on joysticks connected
+      // HERE
       if (num_joysticks_connected > 0)
       {
          // TODO: Make this obtain the newly connected joystick name(s) from input_devices_list (and not the joystick

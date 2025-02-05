@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <unordered_set>
 
 
 namespace AllegroFlare
@@ -166,6 +167,31 @@ int InputDevicesList::num_joysticks_connected_after_last_reconfiguration()
 int InputDevicesList::num_joysticks_disconnected_after_last_reconfiguration()
 {
    return previously_known_joysticks_disconnected_after_reconfiguration.size();
+}
+
+std::vector<AllegroFlare::PhysicalInputDevices::Base*> InputDevicesList::get_joysticks_connected_after_last_reconfiguration()
+{
+   std::unordered_set<AllegroFlare::PhysicalInputDevices::Base*> unique_joysticks;
+
+   // Insert elements from the first vector
+   unique_joysticks.insert(
+      first_time_connected_joysticks_after_reconfiguration.begin(),
+      first_time_connected_joysticks_after_reconfiguration.end()
+   );
+
+   // Insert elements from the second vector
+   unique_joysticks.insert(
+      previously_known_joysticks_connected_after_reconfiguration.begin(),
+      previously_known_joysticks_connected_after_reconfiguration.end()
+   );
+
+   // Convert unordered_set back to vector
+   return std::vector<AllegroFlare::PhysicalInputDevices::Base*>(unique_joysticks.begin(), unique_joysticks.end());
+}
+
+std::vector<AllegroFlare::PhysicalInputDevices::Base*> InputDevicesList::get_joysticks_disconnected_after_last_reconfiguration()
+{
+   return previously_known_joysticks_disconnected_after_reconfiguration;
 }
 
 AllegroFlare::PhysicalInputDevices::Joysticks::Base* InputDevicesList::find_joystick_device_by_al_joystick(ALLEGRO_JOYSTICK* al_joystick)

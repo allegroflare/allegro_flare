@@ -328,6 +328,7 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
 
 
    // Handle notifications on joysticks connected
+   // HERE
    if (num_joysticks_connected > 0)
    {
       // TODO: Make this obtain the newly connected joystick name(s) from input_devices_list (and not the joystick

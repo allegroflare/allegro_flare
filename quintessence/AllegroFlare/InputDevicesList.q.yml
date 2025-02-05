@@ -166,6 +166,35 @@ functions:
       return previously_known_joysticks_disconnected_after_reconfiguration.size();
 
 
+  - name: get_joysticks_connected_after_last_reconfiguration
+    type: std::vector<AllegroFlare::PhysicalInputDevices::Base*>
+    body: |
+      std::unordered_set<AllegroFlare::PhysicalInputDevices::Base*> unique_joysticks;
+
+      // Insert elements from the first vector
+      unique_joysticks.insert(
+         first_time_connected_joysticks_after_reconfiguration.begin(),
+         first_time_connected_joysticks_after_reconfiguration.end()
+      );
+
+      // Insert elements from the second vector
+      unique_joysticks.insert(
+         previously_known_joysticks_connected_after_reconfiguration.begin(),
+         previously_known_joysticks_connected_after_reconfiguration.end()
+      );
+
+      // Convert unordered_set back to vector
+      return std::vector<AllegroFlare::PhysicalInputDevices::Base*>(unique_joysticks.begin(), unique_joysticks.end());
+    body_dependency_symbols:
+      - std::unordered_set
+
+
+  - name: get_joysticks_disconnected_after_last_reconfiguration
+    type: std::vector<AllegroFlare::PhysicalInputDevices::Base*>
+    body: |
+      return previously_known_joysticks_disconnected_after_reconfiguration;
+
+
   - name: find_joystick_device_by_al_joystick
     private: true
     type: AllegroFlare::PhysicalInputDevices::Joysticks::Base*
