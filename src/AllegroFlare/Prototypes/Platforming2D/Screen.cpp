@@ -1159,6 +1159,13 @@ void Screen::reposition_player_controlled_entity_to_door_destination(AllegroFlar
    return;
 }
 
+void Screen::attempt_to_enter_currently_collided_with_door()
+{
+   // TODO: See how this correlates with suspended_key_state
+   check_player_collisions_with_doors();
+   return;
+}
+
 void Screen::check_player_collisions_with_doors()
 {
    if (!(player_controlled_entity))
@@ -2217,7 +2224,7 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
          case ALLEGRO_KEY_UP:
             //player_control_velocity.y = -1.0;
             //player_controls.set_up_button_pressed(true);
-            check_player_collisions_with_doors(); // TODO: See how this correlates with suspended_key_state
+            //check_player_collisions_with_doors(); // TODO: See how this correlates with suspended_key_state
          break;
 
          case ALLEGRO_KEY_DOWN:
@@ -2240,7 +2247,8 @@ void Screen::key_down_func(ALLEGRO_EVENT* event)
          case ALLEGRO_KEY_ESCAPE:
             // TODO: Consider moving route events to separate file (so this class does not need to include the)
             // entire router.
-            event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
+            //attempt_to_pause_game();
+            //event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
          break;
       }
    }

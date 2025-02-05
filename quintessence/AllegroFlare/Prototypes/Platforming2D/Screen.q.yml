@@ -1026,6 +1026,13 @@ methods:
       return;
 
 
+  - name: attempt_to_enter_currently_collided_with_door
+    body: |
+      // TODO: See how this correlates with suspended_key_state
+      check_player_collisions_with_doors();
+      return;
+
+
   - name: check_player_collisions_with_doors
     private: true
     guards: [ player_controlled_entity, event_emitter ]
@@ -2038,7 +2045,7 @@ methods:
             case ALLEGRO_KEY_UP:
                //player_control_velocity.y = -1.0;
                //player_controls.set_up_button_pressed(true);
-               check_player_collisions_with_doors(); // TODO: See how this correlates with suspended_key_state
+               //check_player_collisions_with_doors(); // TODO: See how this correlates with suspended_key_state
             break;
 
             case ALLEGRO_KEY_DOWN:
@@ -2061,7 +2068,8 @@ methods:
             case ALLEGRO_KEY_ESCAPE:
                // TODO: Consider moving route events to separate file (so this class does not need to include the)
                // entire router.
-               event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
+               //attempt_to_pause_game();
+               //event_emitter->emit_router_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
             break;
          }
       }
