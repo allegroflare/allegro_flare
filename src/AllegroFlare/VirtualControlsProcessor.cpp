@@ -313,13 +313,6 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_change_event]: error: guard \"event\" not met");
    }
-   //input_devices_list->handle_reconfigured_joystick();
-
-   //std::vector<AllegroFlare::PhysicalInputDevices::Base*> newly_connected_joysticks =
-      //input_device_list->get_connected_joysticks();
-   //std::vector<AllegroFlare::PhysicalInputDevices::Base*> newly_disconnected_joysticks =
-      //input_device_list->get_disconnected_joysticks();
-
    // TODO: Implement this function
    AllegroFlare::Logger::info_from(
       "AllegroFlare::VirtualControlsProcessor::handle_joystick_device_configuration_event",
@@ -334,8 +327,7 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
    int num_joysticks_disconnected = input_devices_list->num_joysticks_disconnected_after_last_reconfiguration();
 
 
-   //bool need_to_emit_post_joystick_connected_notification_event = false;
-   //if (num_joysticks_after > num_joysticks_before) need_to_emit_post_joystick_connected_notification_event = true;
+   // Handle notifications on joysticks connected
    if (num_joysticks_connected > 0)
    {
       // TODO: Make this obtain the newly connected joystick name(s) from input_devices_list (and not the joystick
@@ -347,10 +339,7 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
       event_emitter->emit_post_joystick_connected_notification_event(newly_connected_joystick_name);
    }
 
-   //bool need_to_emit_post_joystick_disconnected_notification_event = false;
-   //if (num_joysticks_after < num_joysticks_before) need_to_emit_post_joystick_disconnected_notification_event = true;
-   //emit_post_joystick_disconnected_notification_event
-   //if (need_to_emit_post_joystick_disconnected_notification_event)
+   // Handle notifications on joysticks disconnected
    if (num_joysticks_disconnected > 0)
    {
       // Emit the joystick connected notification event
@@ -358,58 +347,6 @@ void VirtualControlsProcessor::handle_joystick_device_configuration_change_event
             "" // TODO: Obtain name(s) from input_devices_list
          );
    }
-
-
-
-   // NOTE: This domain requires a bit of review, as there is an input_devices_list member that is involved and
-   // *should* be used to handle/manage the connection and disconnection logic. It's unclear It may opt to produce
-   // events (or should be modified to have callbacks that can be used to produce events).
-   // TODO: Use "input_devices_list" to manage the connection/disconnection logic.
-
-   /*
-   //ALLEGRO_JOYSTICK *potentially_newly_disconnected_joystick = al_get_joystick(0);
-   ALLEGRO_JOYSTICK *potentially_newly_disconnected_joystick = nullptr;
-   std::string potentially_newly_disconnected_joystick_name = "";
-   if (potentially_newly_disconnected_joystick)
-   {
-      //potentially_newly_disconnected_joystick_name = al_get_joystick_name(potentially_newly_disconnected_joystick);
-   }
-
-   int num_joysticks_before = al_get_num_joysticks();
-   al_reconfigure_joysticks();
-   int num_joysticks_after = al_get_num_joysticks();
-
-   // If the number of joysticks increased, emit an event that a joystick was connected
-   // TODO: Have this emit the correct number of joysticks changes in the event more than one is connected
-   // TODO: Have this emit the correct name of the newly connected joystick (for now, it simply collects the name
-   // of the first joystick.
-   bool need_to_emit_post_joystick_connected_notification_event = false;
-   if (num_joysticks_after > num_joysticks_before) need_to_emit_post_joystick_connected_notification_event = true;
-   if (need_to_emit_post_joystick_connected_notification_event)
-   {
-      // TODO: Make this obtain the newly connected joystick (and not the joystick at position 0)
-      ALLEGRO_JOYSTICK *newly_connected_joystick = al_get_joystick(0);
-      std::string newly_connected_joystick_name = al_get_joystick_name(newly_connected_joystick);
-
-      // Emit the joystick connected notification event
-      event_emitter->emit_post_joystick_connected_notification_event(newly_connected_joystick_name);
-   }
-
-   bool need_to_emit_post_joystick_disconnected_notification_event = false;
-   if (num_joysticks_after < num_joysticks_before) need_to_emit_post_joystick_disconnected_notification_event = true;
-   //emit_post_joystick_disconnected_notification_event
-   if (need_to_emit_post_joystick_disconnected_notification_event)
-   {
-      // TODO: Make this obtain the newly connected joystick (and not the joystick at position 0)
-      //ALLEGRO_JOYSTICK *newly_disconnected_joystick = al_get_joystick(0);
-      //std::string newly_connected_joystick_name = al_get_joystick_name(newly_connected_joystick);
-
-      // Emit the joystick connected notification event
-      event_emitter->emit_post_joystick_disconnected_notification_event(
-            "Unknown Joystick" //potentially_newly_disconnected_joystick_name
-         );
-   }
-   */
 
 
    AllegroFlare::Logger::info_from(
