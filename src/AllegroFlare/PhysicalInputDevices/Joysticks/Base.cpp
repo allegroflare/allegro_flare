@@ -104,6 +104,18 @@ bool Base::setup()
       buttons[i] = al_get_joystick_button_name(al_joystick, i);
    }
 
+   // TODO: consider the following data
+   //al_get_joystick_active
+   //al_get_joystick_name
+   //al_get_joystick_stick_name
+   //al_get_joystick_axis_name
+   //al_get_joystick_button_name
+   //al_get_joystick_stick_flags
+   //al_get_joystick_num_sticks
+   //al_get_joystick_num_axes
+   //al_get_joystick_num_buttons
+   //al_get_joystick_state
+
    has_been_setup = true;
    return true;
 }

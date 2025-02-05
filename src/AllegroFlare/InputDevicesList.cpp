@@ -90,9 +90,11 @@ void InputDevicesList::initialize()
       //al_get_joystick_num_buttons
       //al_get_joystick_state
 
-      AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
-         new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
-      joystick->set_al_joystick(al_joystick);
+      //AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
+         //new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
+      //joystick->set_al_joystick(al_joystick);
+      //joystick->set_name(al_get_joystick_name(al_joystick));
+      AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick = create_new_joystick(al_joystick);
       joystick->set_connected(true);
 
       devices.push_back(joystick);
@@ -205,6 +207,22 @@ bool InputDevicesList::joystick_device_exists_with_al_joystick(ALLEGRO_JOYSTICK*
    return (find_joystick_device_by_al_joystick(al_joystick) != nullptr);
 }
 
+AllegroFlare::PhysicalInputDevices::Joysticks::Base* InputDevicesList::create_new_joystick(ALLEGRO_JOYSTICK* al_joystick)
+{
+   if (!(al_joystick))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::InputDevicesList::create_new_joystick]: error: guard \"al_joystick\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::InputDevicesList::create_new_joystick]: error: guard \"al_joystick\" not met");
+   }
+   AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
+      new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
+   joystick->set_al_joystick(al_joystick);
+   joystick->setup(); // Will populate the joystick name, button names, etc on this Joystick
+   return joystick;
+}
+
 void InputDevicesList::handle_reconfigured_joystick()
 {
    bool list_is_modified = false;
@@ -241,8 +259,10 @@ void InputDevicesList::handle_reconfigured_joystick()
       if (!joystick_is_known)
       {
          // This is a newly connected joystick
-         joystick = new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
-         joystick->set_al_joystick(al_joystick);
+         joystick = create_new_joystick(al_joystick);
+         //new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
+         //joystick->set_al_joystick(al_joystick);
+         //joystick->set_name(al_get_joystick_name(al_joystick));
          devices.push_back(joystick);
 
          list_is_modified = true;
@@ -283,7 +303,7 @@ void InputDevicesList::handle_reconfigured_joystick()
 
    if (list_is_modified)
    {
-      al_rest(1.0000);
+      //al_rest(1.0000); // Not sure why this was here?
       updated_at = al_get_time(); // TODO: Pass in event time
    }
 

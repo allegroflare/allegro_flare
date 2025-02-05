@@ -73,9 +73,11 @@ functions:
          //al_get_joystick_num_buttons
          //al_get_joystick_state
 
-         AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
-            new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
-         joystick->set_al_joystick(al_joystick);
+         //AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
+            //new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
+         //joystick->set_al_joystick(al_joystick);
+         //joystick->set_name(al_get_joystick_name(al_joystick));
+         AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick = create_new_joystick(al_joystick);
          joystick->set_connected(true);
 
          devices.push_back(joystick);
@@ -217,6 +219,21 @@ functions:
       return (find_joystick_device_by_al_joystick(al_joystick) != nullptr);
 
 
+  - name: create_new_joystick
+    type: AllegroFlare::PhysicalInputDevices::Joysticks::Base*
+    parameters:
+      - name: al_joystick
+        type: ALLEGRO_JOYSTICK*
+        default_argument: nullptr
+    guards: [ al_joystick ]
+    body: |
+      AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
+         new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
+      joystick->set_al_joystick(al_joystick);
+      joystick->setup(); // Will populate the joystick name, button names, etc on this Joystick
+      return joystick;
+
+
   - name: handle_reconfigured_joystick
     body: |
       bool list_is_modified = false;
@@ -253,8 +270,10 @@ functions:
          if (!joystick_is_known)
          {
             // This is a newly connected joystick
-            joystick = new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
-            joystick->set_al_joystick(al_joystick);
+            joystick = create_new_joystick(al_joystick);
+            //new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
+            //joystick->set_al_joystick(al_joystick);
+            //joystick->set_name(al_get_joystick_name(al_joystick));
             devices.push_back(joystick);
 
             list_is_modified = true;
@@ -295,7 +314,7 @@ functions:
 
       if (list_is_modified)
       {
-         al_rest(1.0000);
+         //al_rest(1.0000); // Not sure why this was here?
          updated_at = al_get_time(); // TODO: Pass in event time
       }
 

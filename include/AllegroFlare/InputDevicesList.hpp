@@ -43,6 +43,7 @@ namespace AllegroFlare
       int num_connected_joysticks();
       int num_joysticks_connected_after_last_reconfiguration();
       int num_joysticks_disconnected_after_last_reconfiguration();
+      AllegroFlare::PhysicalInputDevices::Joysticks::Base* create_new_joystick(ALLEGRO_JOYSTICK* al_joystick=nullptr);
       void handle_reconfigured_joystick();
    };
 }
