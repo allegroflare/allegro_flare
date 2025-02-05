@@ -7,6 +7,7 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Elements/Notifications/AchievementUnlocked.hpp>
 #include <AllegroFlare/Elements/Notifications/JoystickConnected.hpp>
+#include <AllegroFlare/Elements/Notifications/JoystickDisconnected.hpp>
 
 
 class AllegroFlare_Elements_NotificationRendererTest : public ::testing::Test
@@ -63,7 +64,7 @@ TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture
 
 
 TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__render__will_render_a_JoystickConnected_type_notification)
+   CAPTURE__render__will_render_a_JoystickConnected_type_notification)
 {
    AllegroFlare::Elements::Notifications::JoystickConnected joystick_connected_notification;
    AllegroFlare::Elements::NotificationRenderer notification_renderer(
@@ -73,7 +74,20 @@ TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture
    );
    notification_renderer.render();
    al_flip_display();
-   //sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_Elements_NotificationRendererTestWithAllegroRenderingFixture,
+   CAPTURE__render__will_render_a_JoystickDisconnected_type_notification)
+{
+   AllegroFlare::Elements::Notifications::JoystickDisconnected joystick_disconnected_notification;
+   AllegroFlare::Elements::NotificationRenderer notification_renderer(
+      &get_bitmap_bin_ref(),
+      &get_font_bin_ref(),
+      &joystick_disconnected_notification
+   );
+   notification_renderer.render();
+   al_flip_display();
 }
 
 

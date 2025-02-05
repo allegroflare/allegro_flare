@@ -206,9 +206,11 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderers/JoystickConnected.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/JoystickConnected.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Notifications/Base.q.yml">quintessence/AllegroFlare/Elements/Notifications/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Notifications/JoystickConnected.q.yml">quintessence/AllegroFlare/Elements/Notifications/JoystickConnected.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Notifications/JoystickDisconnected.q.yml">quintessence/AllegroFlare/Elements/Notifications/JoystickDisconnected.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/NotificationsRenderer.q.yml">quintessence/AllegroFlare/Elements/NotificationsRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml</a></li>
@@ -13982,6 +13984,12 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::NotificationRenderers::JoystickConnected&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/NotificationRenderers/JoystickConnected.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::JoystickDisconnected&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/JoystickDisconnected.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::NotificationRenderers::JoystickDisconnected&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -14201,6 +14209,100 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected.q.yml">quintessence/AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">created_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_achievement_box</b>(std::string title=&quot;[unset-title]&quot;, std::string description=&quot;[unset-description]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_item_title_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_item_description_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_icon_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">void</td>
+  <td class="private_method"><b>draw_unicode_character</b>(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int x=0, int y=0, uint32_t icon=61444, int flags=0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_filled_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MotionFX::Sparkles2&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MotionFX/Sparkles2.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml">quintessence/AllegroFlare/Elements/Notifications/AchievementUnlocked.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -14269,6 +14371,30 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/Notifications/JoystickConnected.q.yml">quintessence/AllegroFlare/Elements/Notifications/JoystickConnected.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">joystick_name</td>
+  <td class="property">std::string</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Notifications::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Notifications/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Notifications/JoystickDisconnected.q.yml">quintessence/AllegroFlare/Elements/Notifications/JoystickDisconnected.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
@@ -49307,6 +49433,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/StoryboardPages/ClubCattLogo",
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
@@ -49644,6 +49771,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -49782,6 +49910,7 @@ table td
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected",
     "AllegroFlare/Elements/RollingCredits/RollingCredits",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
@@ -50174,6 +50303,7 @@ table td
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",
@@ -50770,6 +50900,7 @@ table td
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen"
@@ -50784,6 +50915,7 @@ table td
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/Text",
     "AllegroFlare/Elements/UI/IntSpinner",
@@ -51587,6 +51719,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderer",
     "AllegroFlare/Elements/Notifications/AchievementUnlocked",
     "AllegroFlare/Elements/Notifications/JoystickConnected",
+    "AllegroFlare/Elements/Notifications/JoystickDisconnected",
     "AllegroFlare/Elements/NotificationsRenderer",
     "AllegroFlare/Notifications",
     "AllegroFlare/Notifications",
@@ -51606,9 +51739,16 @@ table td
   "AllegroFlare/Elements/NotificationRenderers/JoystickConnected": [
     "AllegroFlare/Elements/NotificationRenderer"
   ],
+  "AllegroFlare/Elements/Notifications/JoystickDisconnected": [
+    "AllegroFlare/Elements/NotificationRenderer"
+  ],
+  "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected": [
+    "AllegroFlare/Elements/NotificationRenderer"
+  ],
   "AllegroFlare/MotionFX/Sparkles2": [
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
-    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected"
+    "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
+    "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected"
   ],
   "std/vector<std/vector<std/string>>": [
     "AllegroFlare/Elements/Notifications/Base",

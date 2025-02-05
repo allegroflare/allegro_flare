@@ -92,6 +92,22 @@ functions:
          );
          joystick_connected_renderer.render();
       }
+      else if (notification->is_type("JoystickDisconnected"))
+      {
+         AllegroFlare::Elements::Notifications::JoystickDisconnected *joystick_disconnected_notification =
+            dynamic_cast<AllegroFlare::Elements::Notifications::JoystickDisconnected*>(notification);
+         AllegroFlare::Elements::NotificationRenderers::JoystickDisconnected joystick_disconnected_renderer(
+            bitmap_bin,
+            font_bin,
+            x,
+            y,
+            width,
+            height,
+            joystick_disconnected_notification->get_created_at(),
+            joystick_disconnected_notification->get_joystick_name()
+         );
+         joystick_disconnected_renderer.render();
+      }
       else
       {
          std::stringstream error_message;
@@ -107,6 +123,8 @@ functions:
       - AllegroFlare::Elements::NotificationRenderers::AchievementUnlocked
       - AllegroFlare::Elements::Notifications::JoystickConnected
       - AllegroFlare::Elements::NotificationRenderers::JoystickConnected
+      - AllegroFlare::Elements::Notifications::JoystickDisconnected
+      - AllegroFlare::Elements::NotificationRenderers::JoystickDisconnected
       - std::stringstream
 
 
@@ -136,6 +154,10 @@ dependencies:
     headers: [ AllegroFlare/Elements/Notifications/JoystickConnected.hpp ]
   - symbol: AllegroFlare::Elements::NotificationRenderers::JoystickConnected
     headers: [ AllegroFlare/Elements/NotificationRenderers/JoystickConnected.hpp ]
+  - symbol: AllegroFlare::Elements::Notifications::JoystickDisconnected
+    headers: [ AllegroFlare/Elements/Notifications/JoystickDisconnected.hpp ]
+  - symbol: AllegroFlare::Elements::NotificationRenderers::JoystickDisconnected
+    headers: [ AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected.hpp ]
   - symbol: AllegroFlare::Elements::Notifications::Base
     headers: [ AllegroFlare/Elements/Notifications/Base.hpp ]
   - symbol: AllegroFlare::FontBin
