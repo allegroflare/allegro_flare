@@ -77,23 +77,6 @@ void InputDevicesList::initialize()
    for (int i=0; i<num_joysticks; i++)
    {
       ALLEGRO_JOYSTICK *al_joystick = al_get_joystick(i);
-
-      // TODO: consider the following data
-      //al_get_joystick_active
-      //al_get_joystick_name
-      //al_get_joystick_stick_name
-      //al_get_joystick_axis_name
-      //al_get_joystick_button_name
-      //al_get_joystick_stick_flags
-      //al_get_joystick_num_sticks
-      //al_get_joystick_num_axes
-      //al_get_joystick_num_buttons
-      //al_get_joystick_state
-
-      //AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
-         //new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
-      //joystick->set_al_joystick(al_joystick);
-      //joystick->set_name(al_get_joystick_name(al_joystick));
       AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick = create_new_joystick(al_joystick);
       joystick->set_connected(true);
 
@@ -240,18 +223,6 @@ void InputDevicesList::handle_reconfigured_joystick()
    {
       ALLEGRO_JOYSTICK *al_joystick = al_get_joystick(i);
 
-      // TODO: consider the following data
-      //al_get_joystick_active
-      //al_get_joystick_name
-      //al_get_joystick_stick_name
-      //al_get_joystick_axis_name
-      //al_get_joystick_button_name
-      //al_get_joystick_stick_flags
-      //al_get_joystick_num_sticks
-      //al_get_joystick_num_axes
-      //al_get_joystick_num_buttons
-      //al_get_joystick_state
-
       AllegroFlare::PhysicalInputDevices::Joysticks::Base *joystick =
          find_joystick_device_by_al_joystick(al_joystick);
       bool joystick_is_known = (joystick != nullptr);
@@ -260,9 +231,6 @@ void InputDevicesList::handle_reconfigured_joystick()
       {
          // This is a newly connected joystick
          joystick = create_new_joystick(al_joystick);
-         //new AllegroFlare::PhysicalInputDevices::Joysticks::Base();
-         //joystick->set_al_joystick(al_joystick);
-         //joystick->set_name(al_get_joystick_name(al_joystick));
          devices.push_back(joystick);
 
          list_is_modified = true;
