@@ -190,24 +190,23 @@ functions:
 
 
       // Handle notifications on joysticks connected
-      // HERE
-      if (num_joysticks_connected > 0)
+      for (auto &joystick_connected_after_last_reconfiguration :
+         input_devices_list->get_joysticks_connected_after_last_reconfiguration())
       {
-         // TODO: Make this obtain the newly connected joystick name(s) from input_devices_list (and not the joystick
-         // at position 0)
-         ALLEGRO_JOYSTICK *newly_connected_joystick = al_get_joystick(0);
-         std::string newly_connected_joystick_name = al_get_joystick_name(newly_connected_joystick);
+         std::string newly_connected_joystick_name =
+            joystick_connected_after_last_reconfiguration->get_name();
 
          // Emit the joystick connected notification event
          event_emitter->emit_post_joystick_connected_notification_event(newly_connected_joystick_name);
       }
 
       // Handle notifications on joysticks disconnected
-      if (num_joysticks_disconnected > 0)
+      for (auto &joystick_disconnected_after_last_reconfiguration :
+         input_devices_list->get_joysticks_disconnected_after_last_reconfiguration())
       {
          // Emit the joystick connected notification event
          event_emitter->emit_post_joystick_disconnected_notification_event(
-               "" // TODO: Obtain name(s) from input_devices_list
+               joystick_disconnected_after_last_reconfiguration->get_name()
             );
       }
 
