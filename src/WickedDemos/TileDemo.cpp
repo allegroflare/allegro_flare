@@ -696,7 +696,7 @@ void TileDemo::update_entities()
 
 void TileDemo::delete_entities_flagged_for_deletion()
 {
-   for (int i=0; i<get_current_map_entities_ref().size(); i++)
+   for (int i=0; i<(int)get_current_map_entities_ref().size(); i++)
    {
       if (get_current_map_entities_ref()[i]->exists(PLEASE_DELETE))
       {
