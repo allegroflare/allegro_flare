@@ -21,6 +21,7 @@ Gameplay::Gameplay()
    , gameplay_suspended(false)
    , suspended_keyboard_state({})
    , suspended_joystick_state({})
+   , disable_escape_key_pauses_game(false)
 {
 }
 
@@ -51,6 +52,12 @@ void Gameplay::set_on_finished_callback_func(std::function<void(AllegroFlare::Sc
 void Gameplay::set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data)
 {
    this->on_finished_callback_func_user_data = on_finished_callback_func_user_data;
+}
+
+
+void Gameplay::set_disable_escape_key_pauses_game(bool disable_escape_key_pauses_game)
+{
+   this->disable_escape_key_pauses_game = disable_escape_key_pauses_game;
 }
 
 
@@ -99,6 +106,12 @@ AllegroFlare::SuspendedKeyboardState Gameplay::get_suspended_keyboard_state() co
 AllegroFlare::SuspendedJoystickState Gameplay::get_suspended_joystick_state() const
 {
    return suspended_joystick_state;
+}
+
+
+bool Gameplay::get_disable_escape_key_pauses_game() const
+{
+   return disable_escape_key_pauses_game;
 }
 
 
@@ -451,6 +464,13 @@ void Gameplay::virtual_control_button_up_func(AllegroFlare::Player* player, Alle
 void Gameplay::key_down_func(ALLEGRO_EVENT* ev)
 {
    if (player_input_controller) player_input_controller->key_down_func(ev);
+
+   switch (ev->keyboard.keycode)
+   {
+      case ALLEGRO_KEY_ESCAPE: {
+         if (!disable_escape_key_pauses_game) call_on_paused_callback_func();
+      } break;
+   }
    return;
 }
 
@@ -469,6 +489,15 @@ void Gameplay::key_char_func(ALLEGRO_EVENT* ev)
 void Gameplay::joy_button_down_func(ALLEGRO_EVENT* ev)
 {
    if (player_input_controller) player_input_controller->joy_button_down_func(ev);
+
+   //if (ev->joystick.button)
+   //{
+      // TODO: Work in this button feature when it is available:
+      //case ALLEGRO_GAMEPAD_BUTTON_START: {
+         // TODO: Test this behavior
+         //if (!disable_start_button_pauses_game) call_on_paused_callback_func();
+      //} break;
+   //}
    return;
 }
 

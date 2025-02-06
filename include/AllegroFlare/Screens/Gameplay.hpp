@@ -31,6 +31,7 @@ namespace AllegroFlare
          bool gameplay_suspended;
          AllegroFlare::SuspendedKeyboardState suspended_keyboard_state;
          AllegroFlare::SuspendedJoystickState suspended_joystick_state;
+         bool disable_escape_key_pauses_game;
 
       protected:
 
@@ -43,6 +44,7 @@ namespace AllegroFlare
          void set_on_paused_callback_func_user_data(void* on_paused_callback_func_user_data);
          void set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func);
          void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data);
+         void set_disable_escape_key_pauses_game(bool disable_escape_key_pauses_game);
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_paused_callback_func() const;
          void* get_on_paused_callback_func_user_data() const;
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_finished_callback_func() const;
@@ -51,6 +53,7 @@ namespace AllegroFlare
          bool get_gameplay_suspended() const;
          AllegroFlare::SuspendedKeyboardState get_suspended_keyboard_state() const;
          AllegroFlare::SuspendedJoystickState get_suspended_joystick_state() const;
+         bool get_disable_escape_key_pauses_game() const;
          AllegroFlare::SuspendedKeyboardState &get_suspended_keyboard_state_ref();
          AllegroFlare::SuspendedJoystickState &get_suspended_joystick_state_ref();
          void set_player_input_controller(AllegroFlare::PlayerInputControllers::Base* player_input_controller=nullptr);

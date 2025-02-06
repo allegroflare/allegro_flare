@@ -56,6 +56,12 @@ properties:
     getter: true
     getter_ref: true
 
+  - name: disable_escape_key_pauses_game
+    type: bool
+    init_with: false
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Screens/Gameplay"'
@@ -496,6 +502,13 @@ methods:
         default_argument: nullptr
     body: |
       if (player_input_controller) player_input_controller->key_down_func(ev);
+
+      switch (ev->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_ESCAPE: {
+            if (!disable_escape_key_pauses_game) call_on_paused_callback_func();
+         } break;
+      }
       return;
 
 
@@ -532,6 +545,15 @@ methods:
         default_argument: nullptr
     body: |
       if (player_input_controller) player_input_controller->joy_button_down_func(ev);
+
+      //if (ev->joystick.button)
+      //{
+         // TODO: Work in this button feature when it is available:
+         //case ALLEGRO_GAMEPAD_BUTTON_START: {
+            // TODO: Test this behavior
+            //if (!disable_start_button_pauses_game) call_on_paused_callback_func();
+         //} break;
+      //}
       return;
 
 
