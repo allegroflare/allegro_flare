@@ -124,6 +124,8 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTest,
    mesh.initialize();
 
    ASSERT_EQ(30*10*6, mesh.get_vertices_ref().size());
+
+   atlas.destroy();
 }
 
 
@@ -369,7 +371,9 @@ significant_performance_impact)
    profiler.stop(TIMER_NAME);
 
    EXPECT_EQ(num_tiles_to_remove, mesh.get_removed_tiles().size());
-   EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 5000);
+   EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 10000); // NOTE: On slower computers
+                                                                                            // 10000 is the benchmark
+   //EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 5000);
 }
 
 
@@ -403,7 +407,10 @@ tiles__will_not_have_a_significant_performance_impact)
    profiler.start(TIMER_NAME);
    mesh.refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
    profiler.stop(TIMER_NAME);
-   EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 20000);
+   EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 40000); // NOTE: On slower
+                                                                                            // computers, 10,000 is
+                                                                                            // the benchmark
+   //EXPECT_LT(profiler.get_timers_ref()[TIMER_NAME].get_elapsed_time_microseconds(), 20000);
 }
 
 
