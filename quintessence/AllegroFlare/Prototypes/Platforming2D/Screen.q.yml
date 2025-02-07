@@ -444,7 +444,10 @@ methods:
          std::vector<AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing> background_layer_listings =
             map_dictionary_listing.get_background_layer_listings();
 
-         std::cout << "Loading map named \"" << map_name << "\" from file \"" << map_filename << "\"." << std::endl;
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Prototypes::Platforming2D::Screen",
+            "Loading map named \"" + map_name + "\" from file \"" + map_filename + "\"."
+         );
 
          // Create the tile map, add it to the entity pool
          AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map =
@@ -910,6 +913,7 @@ methods:
       - AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper
       - std::numeric_limits
       - std::fixed
+      - AllegroFlare::Logger
 
 
   - name: check_and_respond_if_player_death
@@ -2327,5 +2331,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/ImageLayersRenderer.hpp ]
   - symbol: AllegroFlare::Shaders::TiledTintColor
     headers: [ AllegroFlare/Shaders/TiledTintColor.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

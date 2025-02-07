@@ -228,7 +228,7 @@ std::pair<int, int> Live::get_display_size()
 void Live::manually_mark_screensaver_as_inhibited()
 {
    screensaver_inhibited = true;
-   std::cout << "manually_mark: " << screensaver_inhibited << std::endl;
+   //std::cout << "manually_mark: " << screensaver_inhibited << std::endl;
    return;
 }
 
@@ -243,7 +243,11 @@ void Live::enable_inhibit_screensaver()
       );
    }
    screensaver_inhibited = true;
-   std::cout << "enable_inhibit: " << screensaver_inhibited << std::endl;
+   // TODO: Test this message
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::DisplaySettingsInterfaces::Live::enable_inhibit_screensaver",
+      "Screensaver inhibited successfully."
+   );
    return;
 }
 
@@ -258,16 +262,18 @@ void Live::disable_inhibit_screensaver()
       );
    }
    screensaver_inhibited = false;
-   std::cout << "disable_inhibit: " << screensaver_inhibited << std::endl;
+   // TODO: Test this message
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::DisplaySettingsInterfaces::Live::enable_inhibit_screensaver",
+      "Screensaver inhibiting has been disabled and is no longer in effect."
+   );
    return;
 }
 
 void Live::toggle_inhibit_screensaver()
 {
-   std::cout << "toggle inhibit (before): " << screensaver_inhibited << std::endl;
    if (screensaver_inhibited) disable_inhibit_screensaver();
    else enable_inhibit_screensaver();
-   std::cout << "toggle inhibit (after): " << screensaver_inhibited << std::endl;
    return;
 }
 

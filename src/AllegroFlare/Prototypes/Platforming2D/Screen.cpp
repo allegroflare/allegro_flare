@@ -9,6 +9,7 @@
 #include <AllegroFlare/Elements/Backgrounds/ParallaxWithZoom.hpp>
 #include <AllegroFlare/Elements/ImageLayersRenderer.hpp>
 #include <AllegroFlare/EventNames.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Physics/AABB2D.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepper.hpp>
 #include <AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp>
@@ -569,7 +570,10 @@ void Screen::load_maps_in_dictionary()
       std::vector<AllegroFlare::Prototypes::Platforming2D::ParallaxLayerListing> background_layer_listings =
          map_dictionary_listing.get_background_layer_listings();
 
-      std::cout << "Loading map named \"" << map_name << "\" from file \"" << map_filename << "\"." << std::endl;
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Prototypes::Platforming2D::Screen",
+         "Loading map named \"" + map_name + "\" from file \"" + map_filename + "\"."
+      );
 
       // Create the tile map, add it to the entity pool
       AllegroFlare::Prototypes::Platforming2D::Entities::TileMaps::Basic2D *created_map =

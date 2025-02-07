@@ -540,14 +540,14 @@ bool TMJDataLoader::load()
       {
          if (override_tile_data[i] != 0)
          {
-            std::cout << ".";
+            //std::cout << ".";
             override_count++;
             layer_tile_data[i] = override_tile_data[i];
          }
       }
       AllegroFlare::Logger::info_from(
          "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
-         std::to_string(override_count) + " tiles overrided."
+         std::to_string(override_count) + " tiles overridden."
       );
    }
 
@@ -675,14 +675,14 @@ bool TMJDataLoader::load()
       {
          if (override_tile_data[i] != 0)
          {
-            std::cout << ".";
+            //std::cout << ".";
             override_count++;
             background_tilelayer_tile_data[i] = override_tile_data[i];
          }
       }
       AllegroFlare::Logger::info_from(
          "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
-         std::to_string(override_count) + " tiles overrided in background."
+         std::to_string(override_count) + " tiles overridden in background."
       );
    }
 
@@ -817,14 +817,14 @@ bool TMJDataLoader::load()
       {
          if (override_tile_data[i] != 0)
          {
-            std::cout << ".";
+            //std::cout << ".";
             override_count++;
             foreground_tilelayer_tile_data[i] = override_tile_data[i];
          }
       }
       AllegroFlare::Logger::info_from(
          "AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
-         std::to_string(override_count) + " tiles overrided in foreground."
+         std::to_string(override_count) + " tiles overridden in foreground."
       );
    }
 
