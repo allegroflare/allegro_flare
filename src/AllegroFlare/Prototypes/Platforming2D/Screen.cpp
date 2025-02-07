@@ -744,7 +744,7 @@ void Screen::player_emit_projectile(float magnitude)
    }
    using namespace AllegroFlare::Prototypes::Platforming2D::EntityFlagNames;
 
-   AllegroFlare::vec2d player_pos = player_controlled_entity->get_place_ref().position;
+   AllegroFlare::vec2d player_pos = player_controlled_entity->get_placement_ref().position;
    //AllegroFlare::vec2d player_center_pos = player_pos;
    //AllegroFlare::vec2d aim_dir = player_controls.get_primary_stick_position(); //.normalized();
    AllegroFlare::vec2d aim_pos = { 1.0, 0.0 }; //player_controls.get_primary_stick_position(); //.normalized();
@@ -852,8 +852,8 @@ void Screen::update_entities()
          }
          else
          {
-            entity->set("player_character_x", player_controlled_entity->get_place_ref().position.x);
-            entity->set("player_character_y", player_controlled_entity->get_place_ref().position.y);
+            entity->set("player_character_x", player_controlled_entity->get_placement_ref().position.x);
+            entity->set("player_character_y", player_controlled_entity->get_placement_ref().position.y);
          }
       }
       entity->update();
@@ -875,7 +875,7 @@ void Screen::update_entities()
       // Calculate the consequential collision values in this step
       //
 
-      AllegroFlare::Placement2D &place = entity->get_place_ref();
+      AllegroFlare::Placement2D &place = entity->get_placement_ref();
       AllegroFlare::Placement2D &velocity = entity->get_velocity_ref();
 
       // Handle the case where entity does not interact with world tile mesh
@@ -1092,7 +1092,7 @@ void Screen::position_entity_bottom_most_edge(AllegroFlare::Prototypes::Platform
 
    entity->set(ON_MAP_NAME, map_name);
    entity->x = x;
-   entity->get_place_ref().set_bottommost_coordinate(y-y_offset);
+   entity->get_placement_ref().set_bottommost_coordinate(y-y_offset);
    return;
 }
 
@@ -1190,14 +1190,14 @@ void Screen::check_player_collisions_with_doors()
 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
-   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_placement_ref();
 
    //float player_x = player_controlled_entity->get_place_ref().position.x;
    //float player_y = player_controlled_entity->get_place_ref().position.y + 16;
 
    for (auto &entity : collection_helper.select_doors())
    {
-      if (entity->get_place_ref().collide(player_placement)) //player_x, player_y, 4, 4, 4, 4))
+      if (entity->get_placement_ref().collide(player_placement)) //player_x, player_y, 4, 4, 4, 4))
       {
          AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *door =
             static_cast<AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D*>(entity);
@@ -1436,7 +1436,7 @@ void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
 
    float player_x = player_controlled_entity->x;
    float player_y = player_controlled_entity->y;
-   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_placement_ref();
 
    // NOTE: This technique only accounts for *one* player controled entity. If the player controlled entity is
    // swapped with another entity, or, if there are multiple player_controlled_entities, this technique will require
@@ -1447,7 +1447,7 @@ void Screen::update_player_collisions_with_COLLIDES_WITH_PLAYER()
       // TODO: Be alert that multiple collisions could cause multiple callbacks and some potentially undefined
       // result state
       //if (entity->get_place_ref().collide(&pla->get_placement_ref())); //player_x, player_y, 0, 0, 0, 0))
-      if (entity->get_place_ref().collide(player_placement)) //player_x, player_y, 0, 0, 0, 0))
+      if (entity->get_placement_ref().collide(player_placement)) //player_x, player_y, 0, 0, 0, 0))
       {
          entity->on_collides_with_player(player_controlled_entity);
          on_player_controlled_entity_collision_with_entity(player_controlled_entity, entity);
@@ -1541,7 +1541,7 @@ void Screen::update_player_collisions_with_collectables()
 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
-   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_placement_ref();
       //if (entity->get_place_ref().collide(player_placement))
    //float player_x = player_controlled_entity->get_place_ref().position.x;
    //float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
@@ -1549,7 +1549,7 @@ void Screen::update_player_collisions_with_collectables()
 
    for (auto &entity : collection_helper.select_collectable_by_player())
    {
-      if (entity->get_place_ref().collide(player_placement))
+      if (entity->get_placement_ref().collide(player_placement))
       //if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
       {
          entity->set(PLEASE_DELETE);
@@ -1600,7 +1600,7 @@ void Screen::update_player_collisions_with_save_points()
 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
-   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_placement_ref();
       //if (entity->get_place_ref().collide(player_placement))
    //float player_x = player_controlled_entity->get_place_ref().position.x;
    //float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
@@ -1609,7 +1609,7 @@ void Screen::update_player_collisions_with_save_points()
 
    for (auto &entity : collection_helper.select_save_points())
    {
-      if (entity->get_place_ref().collide(player_placement))
+      if (entity->get_placement_ref().collide(player_placement))
       //if (entity->get_place_ref().collide(player_x, player_y, 4, 4, 4, 4))
       {
          last_activated_save_point = entity;
@@ -1634,11 +1634,11 @@ void Screen::update_player_collisions_with_interactables()
 
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
-   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_placement_ref();
 
    for (auto &entity : collection_helper.select_interactable_by_player())
    {
-      if (entity->get_place_ref().collide(player_placement)) //player_x, player_y, 0, 0, 0, 0))
+      if (entity->get_placement_ref().collide(player_placement)) //player_x, player_y, 0, 0, 0, 0))
       {
          //entity->on_collides_with_player(player_controlled_entity);
          on_player_controlled_entity_collision_with_interactable(player_controlled_entity, entity);
@@ -1725,7 +1725,7 @@ void Screen::update_player_collisions_with_boss_zones()
    //float player_y = player_controlled_entity->get_place_ref().position.y; // TODO: Replace this with
                                                                           // player center position
 
-   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_placement_ref();
    //for (auto &entity : collection_helper.select_boss_zones())
    //{
       // TODO: Determine what a good default action would be here, consider "entering" and "exiting" the zone
@@ -1742,7 +1742,7 @@ void Screen::update_player_collisions_with_boss_zones()
 
    for (auto &entity : collection_helper.select_boss_zones())
    {
-      if (entity->get_place_ref().collide(player_placement)) // Consider an alternative to this collision
+      if (entity->get_placement_ref().collide(player_placement)) // Consider an alternative to this collision
       //if (entity->get_place_ref().collide(player_x, player_y)) // Consider an alternative to this collision
       {
          first_collided_boss_zone =
@@ -1789,7 +1789,7 @@ void Screen::update_player_collisions_with_goalposts()
    std::vector<AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D*> _entities = get_current_map_entities();
    AllegroFlare::Prototypes::Platforming2D::EntityCollectionHelper collection_helper(&_entities);
 
-   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_place_ref();
+   AllegroFlare::Placement2D &player_placement = player_controlled_entity->get_placement_ref();
    // TODO: Change this collision to the player_controlled_entity's center, OR, make it configurable
    //float player_x = player_controlled_entity->get_place_ref().position.x;
    //float player_y = player_controlled_entity->get_place_ref().position.y + 16; // TODO: Replace this with
@@ -1797,7 +1797,7 @@ void Screen::update_player_collisions_with_goalposts()
 
    for (auto &entity : collection_helper.select_goalposts())
    {
-      if (entity->get_place_ref().collide(player_placement))
+      if (entity->get_placement_ref().collide(player_placement))
       //if (entity->get_place_ref().collide(player_x, player_y, 8, 8, 8, 8))
       {
          // TODO: Consider what default behavior would be good here
@@ -2032,13 +2032,13 @@ void Screen::draw_debugging()
          );
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "player_character");
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_x: %f", 
-            player_controlled_entity->get_place_ref().position.x
+            player_controlled_entity->get_placement_ref().position.x
          );
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  position_y: %f", 
-            player_controlled_entity->get_place_ref().position.y
+            player_controlled_entity->get_placement_ref().position.y
          );
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  bottom_most_edge: %f", 
-            player_controlled_entity->get_place_ref().get_bottommost_coordinate()
+            player_controlled_entity->get_placement_ref().get_bottommost_coordinate()
          );
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 20, 30 + lh*l++, ALLEGRO_ALIGN_LEFT, "  velocity_x: %f", 
             player_controlled_entity->get_velocity_ref().position.x

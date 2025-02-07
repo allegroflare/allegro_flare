@@ -123,8 +123,8 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    //ALLEGRO_BITMAP *bitmap = bitmap_bin->operator[](bitmap_filename);
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *result =
       new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
-   result->get_place_ref().size.x = width;
-   result->get_place_ref().size.y = height;
+   result->get_placement_ref().size.x = width;
+   result->get_placement_ref().size.y = height;
    //result->set_bitmap(bitmap);
    result->set(ON_MAP_NAME, map_name);
    //result->fit_to_bitmap();
@@ -147,10 +147,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* Basic2DFacto
 
    Entities::FrameAnimated2D *result = new Entities::FrameAnimated2D;
    result->set_animation_book(animation_book);
-   result->get_place_ref().position.x = x;
-   result->get_place_ref().position.y = y;
-   result->get_place_ref().size.x = w;
-   result->get_place_ref().size.y = h;
+   result->get_placement_ref().position.x = x;
+   result->get_placement_ref().position.y = y;
+   result->get_placement_ref().size.x = w;
+   result->get_placement_ref().size.y = h;
    result->set_animation(initial_animation_name);
    //result->fit_to_bitmap(); // <-- TODO: don't think this is necessary, done automatically with "set_animation"
    result->set_bitmap_alignment_strategy(bitmap_alignment_strategy);
@@ -173,10 +173,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    vector = vector.normalized();
    vector *= magnitude;
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity = new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
-   created_entity->get_place_ref().position.x = x;
-   created_entity->get_place_ref().position.y = y;
-   created_entity->get_place_ref().size.x = width;
-   created_entity->get_place_ref().size.y = height;
+   created_entity->get_placement_ref().position.x = x;
+   created_entity->get_placement_ref().position.y = y;
+   created_entity->get_placement_ref().size.x = width;
+   created_entity->get_placement_ref().size.y = height;
    created_entity->get_velocity_ref().position.x = vector.x;
    created_entity->get_velocity_ref().position.y = vector.y;
    created_entity->set(NOT_AFFECTED_BY_GRAVITY);
@@ -194,10 +194,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *entity =
      new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
-   entity->get_place_ref().position.x = x;
-   entity->get_place_ref().position.y = y;
-   entity->get_place_ref().size.x = width;
-   entity->get_place_ref().size.y = height;
+   entity->get_placement_ref().position.x = x;
+   entity->get_placement_ref().position.y = y;
+   entity->get_placement_ref().size.x = width;
+   entity->get_placement_ref().size.y = height;
    entity->set(ON_MAP_NAME, map_name);
 
    entity->set(NOT_AFFECTED_BY_GRAVITY);
@@ -214,10 +214,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity =
       new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
-   created_entity->get_place_ref().size.x = width;
-   created_entity->get_place_ref().size.y = height;
-   created_entity->get_place_ref().position.x = x;
-   created_entity->get_place_ref().position.y = y;
+   created_entity->get_placement_ref().size.x = width;
+   created_entity->get_placement_ref().size.y = height;
+   created_entity->get_placement_ref().position.x = x;
+   created_entity->get_placement_ref().position.y = y;
 
    // create the movement strategy
    //AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft* movement_strategy =
@@ -246,10 +246,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity =
       new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
-   created_entity->get_place_ref().size.x = width;
-   created_entity->get_place_ref().size.y = height;
-   created_entity->get_place_ref().position.x = x;
-   created_entity->get_place_ref().position.y = y;
+   created_entity->get_placement_ref().size.x = width;
+   created_entity->get_placement_ref().size.y = height;
+   created_entity->get_placement_ref().position.x = x;
+   created_entity->get_placement_ref().position.y = y;
 
    // create the movement strategy
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::HoppingLeft* movement_strategy =
@@ -278,10 +278,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity =
       new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
-   created_entity->get_place_ref().size.x = width;
-   created_entity->get_place_ref().size.y = height;
-   created_entity->get_place_ref().position.x = x;
-   created_entity->get_place_ref().position.y = y;
+   created_entity->get_placement_ref().size.x = width;
+   created_entity->get_placement_ref().size.y = height;
+   created_entity->get_placement_ref().position.x = x;
+   created_entity->get_placement_ref().position.y = y;
 
    // create the movement strategy
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::ReflectOffWalls* movement_strategy =
@@ -320,10 +320,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base* Basic2DFactory
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base *created_entity =
       new AllegroFlare::Prototypes::Platforming2D::Entities::Enemies::Base;
-   created_entity->get_place_ref().size.x = width;
-   created_entity->get_place_ref().size.y = height;
-   created_entity->get_place_ref().position.x = x;
-   created_entity->get_place_ref().position.y = y;
+   created_entity->get_placement_ref().size.x = width;
+   created_entity->get_placement_ref().size.y = height;
+   created_entity->get_placement_ref().position.x = x;
+   created_entity->get_placement_ref().position.y = y;
 
    // create the movement strategy
    AllegroFlare::Prototypes::Platforming2D::Entities::MovementStrategies2D::FlappingWithRandomness* movement_strategy =
@@ -356,10 +356,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    // create the entity
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity =
       new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
-   created_entity->get_place_ref().size.x = 15.0f;
-   created_entity->get_place_ref().size.y = 15.0f;
-   created_entity->get_place_ref().position.x = x;
-   created_entity->get_place_ref().position.y = y;
+   created_entity->get_placement_ref().size.x = 15.0f;
+   created_entity->get_placement_ref().size.y = 15.0f;
+   created_entity->get_placement_ref().position.x = x;
+   created_entity->get_placement_ref().position.y = y;
 
    // give it a noticable box color
    created_entity->set_debug_box_color(player_collectable_box_color);
@@ -379,10 +379,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    // create the door entity
    AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *created_door =
       new AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D;
-   created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
-   created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
-   created_door->get_place_ref().position.x = x;
-   created_door->get_place_ref().position.y = y;
+   created_door->get_placement_ref().size.x = (32.0f - 8.0f) - 1.0f;
+   created_door->get_placement_ref().size.y = (32.0f + 8.0f) - 1.0f;
+   created_door->get_placement_ref().position.x = x;
+   created_door->get_placement_ref().position.y = y;
    created_door->set_game_event_name_to_emit(""); // TODO: fix this requirement:
                                                   // this must be set to blank to not activate as an event
    created_door->set_target_map_name(target_map_name);
@@ -406,10 +406,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
 
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D *created_door = new AllegroFlare::Prototypes::Platforming2D::Entities::Doors::Basic2D;
-   created_door->get_place_ref().size.x = (32.0f - 8.0f) - 1.0f;
-   created_door->get_place_ref().size.y = (32.0f + 8.0f) - 1.0f;
-   created_door->get_place_ref().position.x = x;
-   created_door->get_place_ref().position.y = y;
+   created_door->get_placement_ref().size.x = (32.0f - 8.0f) - 1.0f;
+   created_door->get_placement_ref().size.y = (32.0f + 8.0f) - 1.0f;
+   created_door->get_placement_ref().position.x = x;
+   created_door->get_placement_ref().position.y = y;
    created_door->set_game_event_name_to_emit(game_event_name_to_emit);
    //created_door->set_target_map_name(target_map_name);
    //created_door->set_target_spawn_x(target_spawn_x);
@@ -433,10 +433,10 @@ AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* Basic2DFactory::crea
    // create the enemy
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D *created_entity =
       new AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D;
-   created_entity->get_place_ref().size.x = 16.0f - 1.0f;
-   created_entity->get_place_ref().size.y = 32.0f - 1.0f;
-   created_entity->get_place_ref().position.x = x;
-   created_entity->get_place_ref().position.y = y;
+   created_entity->get_placement_ref().size.x = 16.0f - 1.0f;
+   created_entity->get_placement_ref().size.y = 32.0f - 1.0f;
+   created_entity->get_placement_ref().position.x = x;
+   created_entity->get_placement_ref().position.y = y;
 
    // give it a noticable box color
    created_entity->set_debug_box_color(goalpost_box_color);
