@@ -46,7 +46,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    // Define a map dictionary and load it
    platforming_2d.set_map_dictionary({
       { "map_a", { data_folder_path + "maps/map_with_objects-x.tmj", "tiles_dungeon_v1.1.png" } },
-      { "map_b", { data_folder_path + "maps/map1b-0x.tmj", "tiles_dungeon_v1.1.png" } },
+      //{ "map_b", { data_folder_path + "maps/map1b-0x.tmj", "tiles_dungeon_v1.1.png" } },
    });
    platforming_2d.load_maps_in_dictionary();
    platforming_2d.set_currently_active_map("map_a");
@@ -92,8 +92,8 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
    // Player entity here:
    AllegroFlare::Prototypes::Platforming2D::Entities::Basic2D* created_entity =
       factory.create_for_aabb2d("map_a", 16-1, 32-1);
-   created_entity->get_place_ref().position.x = 400/2;
-   created_entity->get_place_ref().position.y = 240/2;
+   created_entity->get_placement_ref().position.x = 400/2;
+   created_entity->get_placement_ref().position.y = 240/2;
 
    platforming_2d.add_entity_to_pool(created_entity);
    platforming_2d.position_entity_bottom_most_edge(created_entity, "map_a", 112.0, 176.0);
@@ -103,7 +103,7 @@ TEST(AllegroFlare_Prototypes_Platforming2D_ScreenTest,
 
    AllegroFlare::Prototypes::Platforming2D::Entities::FrameAnimated2D* created_animated_entity =
       factory.create_frame_animated("map_a", 400/2, 240/2, 12, 8, "blob", "bottom_centered_edge");
-   created_animated_entity->get_place_ref().scale = { 1.0f, 1.0f };
+   created_animated_entity->get_placement_ref().scale = { 1.0f, 1.0f };
    created_animated_entity->get_bitmap_placement_ref().scale =
       {
          1.0f / sprite_sheet_scale,

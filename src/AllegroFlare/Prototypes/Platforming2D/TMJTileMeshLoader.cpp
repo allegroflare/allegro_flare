@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Prototypes/Platforming2D/TMJDataLoader.hpp>
 #include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
 #include <iostream>
@@ -541,7 +542,14 @@ AllegroFlare::TileMaps::TileMesh* TMJTileMeshLoader::create_mesh(AllegroFlare::T
    }
 
    created_mesh->refresh_vertex_buffer();
+   created_mesh->refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer(); // TODO: Check if only
+                                                                                       // refresh_index_buffer() is
+                                                                                       // needed here.
    //std::cout << "Tiles removed from index in TileMesh: " << tile_coords_to_remove.size() << std::endl;
+   AllegroFlare::Logger::info_from(
+      "AllegroFlare::Prototypes::Platforming2D::TMJTileMeshLoader::create_mesh",
+      tile_coords_to_remove.size() + " tiles removed from index in TileMesh."
+   );
 
    return created_mesh;
 }
