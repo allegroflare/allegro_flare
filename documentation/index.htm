@@ -23184,6 +23184,10 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>__dummy_dependency_trigger</b>(int foo=0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>set_instance</b>(AllegroFlare::Logger* instance_to_use=nullptr)</td>
 </tr>
 <tr>
@@ -23308,6 +23312,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Instrumentation::PrimaryProcessEventMetric&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ClassAndMethodNameInference&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ClassAndMethodNameInference.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -52508,6 +52515,9 @@ table td
     "AllegroFlare/Logger"
   ],
   "AllegroFlare/Instrumentation/PrimaryProcessEventMetric": [
+    "AllegroFlare/Logger"
+  ],
+  "AllegroFlare/ClassAndMethodNameInference": [
     "AllegroFlare/Logger"
   ],
   "AllegroFlare/MotionComposer/Messages/Clear": [

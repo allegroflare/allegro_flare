@@ -47,6 +47,15 @@ Logger::~Logger()
 }
 
 
+void Logger::__dummy_dependency_trigger(int foo)
+{
+   // This method triggers inclusion of AllegroFlare/ClassAndMethodNameInference.hpp, which contains:
+   // "THIS_CLASS_NAME" - macro you can use to get the current class name as a string
+   // "THIS_METHOD_NAME" - macro to get the current method name as a string
+   // "THIS_CLASS_AND_METHOD_NAME" - macro to get the current class::and_method_name as a string
+   return;
+}
+
 void Logger::set_instance(AllegroFlare::Logger* instance_to_use)
 {
    if (!((!instance)))

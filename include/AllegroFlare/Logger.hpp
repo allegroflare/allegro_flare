@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/ClassAndMethodNameInference.hpp>
 #include <AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <fstream>
@@ -37,6 +38,7 @@ namespace AllegroFlare
       Logger();
       ~Logger();
 
+      void __dummy_dependency_trigger(int foo=0);
       static void set_instance(AllegroFlare::Logger* instance_to_use=nullptr);
       static void clear_instance();
       static bool has_instance();

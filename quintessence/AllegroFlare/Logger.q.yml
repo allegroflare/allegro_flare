@@ -93,6 +93,20 @@ properties:
 methods:
 
 
+  - name: __dummy_dependency_trigger
+    parameters:
+      - name: foo
+        type: int
+        default_argument: 0
+        default_argument_dependency_symbols: [ 'AllegroFlare::ClassAndMethodNameInference' ]
+    body: |
+      // This method triggers inclusion of AllegroFlare/ClassAndMethodNameInference.hpp, which contains:
+      // "THIS_CLASS_NAME" - macro you can use to get the current class name as a string
+      // "THIS_METHOD_NAME" - macro to get the current method name as a string
+      // "THIS_CLASS_AND_METHOD_NAME" - macro to get the current class::and_method_name as a string
+      return;
+
+
   - name: set_instance
     static: true
     parameters:
@@ -644,5 +658,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::Instrumentation::PrimaryProcessEventMetric
     headers: [ AllegroFlare/Instrumentation/PrimaryProcessEventMetric.hpp ]
+  - symbol: AllegroFlare::ClassAndMethodNameInference
+    headers: [ AllegroFlare/ClassAndMethodNameInference.hpp ]
 
 

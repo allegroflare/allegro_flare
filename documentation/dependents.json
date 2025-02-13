@@ -3278,6 +3278,9 @@
   "AllegroFlare/Instrumentation/PrimaryProcessEventMetric": [
     "AllegroFlare/Logger"
   ],
+  "AllegroFlare/ClassAndMethodNameInference": [
+    "AllegroFlare/Logger"
+  ],
   "AllegroFlare/MotionComposer/Messages/Clear": [
     "AllegroFlare/MotionComposer/MessageFactory"
   ],
