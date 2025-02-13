@@ -41,4 +41,12 @@ TEST(AllegroFlare_Runners_CompleteTest,
 }
 
 
+TEST(AllegroFlare_Runners_CompleteTest,
+   DISABLED__run__on_closing__will_destroy_the_runner)
+{
+   // TODO: Consider if this test is even needed
+}
+
+
+
 

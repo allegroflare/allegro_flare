@@ -257,6 +257,19 @@ AllegroFlare::Screens::Gameplay* Complete::create_primary_gameplay_screen(Allegr
    return nullptr;
 }
 
+void Complete::destroy_primary_gameplay_screen()
+{
+   // NOTE: This destruction is for the primary_gameplay_screen, but there could (should?) certainly be destruction
+   // methods for the other classes created here as well. It's possible to just simply add a "destroy" method, but
+   // the user may want more granular control.
+
+   // NOTE: Implementation to be managed by the derived class
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return;
+}
+
 void Complete::handle_primary_gameplay_screen_paused()
 {
    // NOTE: Implementation to be managed by the derived class

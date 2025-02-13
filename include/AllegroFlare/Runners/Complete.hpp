@@ -75,6 +75,7 @@ namespace AllegroFlare
          AllegroFlare::Elements::Backgrounds::Base* shared_foreground;
          ReleaseInfo release_info;
          bool initialized;
+         bool destroyed;
 
       protected:
 
@@ -106,6 +107,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::RollingCredits &get_rolling_credits_screen_ref();
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          void initialize();
+         void destroy();
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_gameplay_paused_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_gameplay_unpaused_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);

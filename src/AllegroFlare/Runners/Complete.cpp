@@ -53,6 +53,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , shared_foreground(nullptr)
    , release_info({})
    , initialized(false)
+   , destroyed(false)
 {
 }
 
@@ -197,6 +198,7 @@ void Complete::game_event_func(AllegroFlare::GameEvent* game_event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Runners::Complete::game_event_func]: error: guard \"game_event\" not met");
    }
+   // TODO: See if this have "guards: [ initialized, (!destroyed) ]" as well?
    game_configuration->handle_game_event(game_event);
    return;
 }
@@ -209,6 +211,13 @@ void Complete::initialize()
       error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"(!initialized)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"(!initialized)\" not met");
+   }
+   if (!((!destroyed)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Runners::Complete::initialize]: error: guard \"(!destroyed)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::initialize]: error: guard \"(!destroyed)\" not met");
    }
    if (!(framework))
    {
@@ -444,6 +453,29 @@ void Complete::initialize()
 
    initialized = true;
 
+   return;
+}
+
+void Complete::destroy()
+{
+   if (!((!destroyed)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Runners::Complete::destroy]: error: guard \"(!destroyed)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::destroy]: error: guard \"(!destroyed)\" not met");
+   }
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Runners::Complete::destroy]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::destroy]: error: guard \"initialized\" not met");
+   }
+   game_configuration->destroy_primary_gameplay_screen();
+   // TODO: Add additional destroy virtual methods for each object created
+   // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
+   destroyed = true;
    return;
 }
 
@@ -1116,6 +1148,8 @@ void Complete::run(AllegroFlare::GameConfigurations::Complete* game_configuratio
    framework->register_screen("runner", &runner);
 
    framework->run_loop();
+
+   runner.destroy();
 
    delete framework;
    return;

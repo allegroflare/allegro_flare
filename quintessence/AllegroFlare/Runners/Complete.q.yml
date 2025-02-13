@@ -157,6 +157,10 @@ properties:
     type: bool
     init_with: false
 
+  - name: destroyed
+    type: bool
+    init_with: false
+
   - name: MY_ROUTE_EVENT_ACTIVATE_MY_CUSTOM_SCREEN
     type: uint32_t
     init_with: AllegroFlare::Routers::Standard::EVENT_LAST_EVENT+1
@@ -176,6 +180,15 @@ properties:
     constexpr: true
 
 
+documentation:
+
+
+  - notes:
+      - This class is a screen who's primary function is to initialize the primary framework; create the primary
+        game system screens; delegate to a configuration to create gameplay screens; own, and deallocate the screens
+        of the game system; and pass along game events to the user's game_configuration.
+
+
 methods:
 
 
@@ -191,6 +204,7 @@ methods:
           - AllegroFlare::ForwardDeclarations::AllegroFlare::GameConfigurations::Complete
     guards: [ game_event ]
     body: |
+      // TODO: See if this have "guards: [ initialized, (!destroyed) ]" as well?
       game_configuration->handle_game_event(game_event);
       return;
 
@@ -198,6 +212,7 @@ methods:
   - name: initialize
     guards:
       - (!initialized)
+      - (!destroyed)
       - framework
       - event_emitter
       - bitmap_bin
@@ -397,6 +412,16 @@ methods:
       - AllegroFlare::StoryboardFactory
       - AllegroFlare::Color
       - AllegroFlare::LoadASavedGame::SaveSlots::Empty
+
+
+  - name: destroy
+    guards: [ (!destroyed), initialized ]
+    body: |
+      game_configuration->destroy_primary_gameplay_screen();
+      // TODO: Add additional destroy virtual methods for each object created
+      // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
+      destroyed = true;
+      return;
 
 
   - name: on_route_event_unhandled_func
@@ -1047,6 +1072,8 @@ methods:
       framework->register_screen("runner", &runner);
 
       framework->run_loop();
+
+      runner.destroy();
 
       delete framework;
       return;

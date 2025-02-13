@@ -18456,6 +18456,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>destroy_primary_gameplay_screen</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>handle_primary_gameplay_screen_paused</b>()</td>
 </tr>
 <tr>
@@ -35485,8 +35489,8 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Runners/Complete.q.yml">quintessence/AllegroFlare/Runners/Complete.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This class is a screen who's primary function is to initialize the primary framework; create the primary game system screens; delegate to a configuration to create gameplay screens; own, and deallocate the screens of the game system; and pass along game events to the user's game_configuration."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">framework</td>
@@ -35609,6 +35613,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">destroyed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">MY_ROUTE_EVENT_ACTIVATE_MY_CUSTOM_SCREEN</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -35630,6 +35638,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>destroy</b>()</td>
 </tr>
 <tr>
   <td class="method">bool</td>

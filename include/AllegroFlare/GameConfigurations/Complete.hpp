@@ -65,6 +65,7 @@ namespace AllegroFlare
          virtual AllegroFlare::Elements::Backgrounds::Base* create_shared_foreground();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_new_game_intro_storyboard_pages();
          virtual AllegroFlare::Screens::Gameplay* create_primary_gameplay_screen(AllegroFlare::Runners::Complete* runner=nullptr);
+         virtual void destroy_primary_gameplay_screen();
          virtual void handle_primary_gameplay_screen_paused();
          virtual void handle_primary_gameplay_screen_unpaused();
          virtual void handle_primary_gameplay_screen_finished();
