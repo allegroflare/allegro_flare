@@ -53,6 +53,12 @@ namespace AllegroFlare
 
       al_destroy_bitmap(bmp);
    }
+
+
+   std::string BitmapBin::build_standard_path(std::string data_folder_path)
+   {
+      return data_folder_path + "bitmaps/"; // TODO: Consider moving "bitmaps/" to a constant
+   }
 }
 
 

@@ -7,6 +7,7 @@
    catch (...) { FAIL() << "Expected " # raised_exception_type; }
 
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 
 
 TEST(AllegroFlare_FontBinTest, can_be_crated_without_blowing_up)
@@ -47,6 +48,17 @@ TEST(AllegroFlare_FontBinTest, validate__without_the_ttf_addon_initialized__outp
                                       "\n";
    ASSERT_EQ(expected_cout_output, output);
    al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_FontBinTest, build_standard_path__will_return_a_string_for_the_folder_where_the_assets_are_located)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
+
+   std::string expected_path = "tests/fixtures/fonts/";
+   std::string actual_path = AllegroFlare::FontBin::build_standard_path(deployment_environment.get_data_folder_path());
+
+   EXPECT_EQ(expected_path, actual_path);
 }
 
 

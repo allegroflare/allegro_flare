@@ -79,6 +79,13 @@ namespace AllegroFlare
    {
       al_destroy_font(f);
    }
+
+
+
+   std::string FontBin::build_standard_path(std::string data_folder_path)
+   {
+      return data_folder_path + "fonts/"; // TODO: Consider moving "fonts/" to a constant
+   }
 }
 
 

@@ -17,6 +17,8 @@ namespace AllegroFlare
       ALLEGRO_BITMAP *load_data(std::string identifier) override;
       void destroy_data(ALLEGRO_BITMAP *bmp) override;
       bool validate() override;
+
+      static std::string build_standard_path(std::string data_folder_path);
    };
 }
 

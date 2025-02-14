@@ -55,3 +55,15 @@ TEST(AllegroFlare_BitmapBinTest, DISABLED__destroy_data__after_shutdown__will_th
 }
 
 
+TEST(AllegroFlare_BitmapBinTest, build_standard_path__will_return_a_string_for_the_folder_where_the_assets_are_located)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST);
+
+   std::string expected_path = "tests/fixtures/bitmaps/";
+   std::string actual_path =
+      AllegroFlare::BitmapBin::build_standard_path(deployment_environment.get_data_folder_path());
+
+   EXPECT_EQ(expected_path, actual_path);
+}
+
+
