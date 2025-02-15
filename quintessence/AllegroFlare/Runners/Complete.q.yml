@@ -138,7 +138,8 @@ properties:
     init_with: nullptr
 
   - name: pause_screen
-    type: AllegroFlare::Screens::PauseScreen*
+    xtype: AllegroFlare::Screens::PauseScreen*
+    type: AllegroFlare::Screens::Base*
     init_with: nullptr
 
   - name: shared_background

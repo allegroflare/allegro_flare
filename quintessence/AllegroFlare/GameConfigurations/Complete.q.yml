@@ -405,7 +405,8 @@ methods:
 
   - name: create_pause_screen
     virtual: true
-    type: AllegroFlare::Screens::PauseScreen*
+    xtype: AllegroFlare::Screens::PauseScreen*
+    type: AllegroFlare::Screens::Base*
     parameters:
       - name: runner
         type: AllegroFlare::Runners::Complete*

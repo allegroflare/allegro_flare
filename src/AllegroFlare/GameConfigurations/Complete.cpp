@@ -332,7 +332,7 @@ AllegroFlare::Screens::Subscreen::Screen* Complete::create_primary_gameplay_subs
    return nullptr;
 }
 
-AllegroFlare::Screens::PauseScreen* Complete::create_pause_screen(AllegroFlare::Runners::Complete* runner)
+AllegroFlare::Screens::Base* Complete::create_pause_screen(AllegroFlare::Runners::Complete* runner)
 {
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::GameConfigurations::Base::create_pause_screen",
