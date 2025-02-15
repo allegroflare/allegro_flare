@@ -341,6 +341,15 @@ AllegroFlare::Screens::Base* Complete::create_pause_screen(AllegroFlare::Runners
    return nullptr;
 }
 
+void Complete::destroy_pause_screen()
+{
+   AllegroFlare::Logger::warn_from(
+      THIS_CLASS_AND_METHOD_NAME,
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return;
+}
+
 void Complete::handle_arbitrary_storyboard_screen_finished()
 {
    AllegroFlare::Logger::throw_error(

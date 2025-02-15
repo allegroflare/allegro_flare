@@ -71,6 +71,7 @@ namespace AllegroFlare
          virtual void handle_primary_gameplay_screen_finished();
          virtual AllegroFlare::Screens::Subscreen::Screen* create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner=nullptr);
          virtual AllegroFlare::Screens::Base* create_pause_screen(AllegroFlare::Runners::Complete* runner=nullptr);
+         virtual void destroy_pause_screen();
          virtual void handle_arbitrary_storyboard_screen_finished();
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_arbitrary_storyboard_pages_by_identifier(std::string identifier="[unset-identifier]");
          virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages();

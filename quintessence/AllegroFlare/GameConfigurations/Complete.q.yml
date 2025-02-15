@@ -419,6 +419,16 @@ methods:
       return nullptr;
 
 
+  - name: destroy_pause_screen
+    virtual: true
+    body: |
+      AllegroFlare::Logger::warn_from(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
+
+
   - name: handle_arbitrary_storyboard_screen_finished
     virtual: true
     body: |
