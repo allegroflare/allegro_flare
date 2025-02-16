@@ -1,0 +1,112 @@
+properties:
+
+
+  - name: previous_accumulated_playtime_msec
+    type: std::chrono::milliseconds
+    init_with: '{}'
+    getter: true
+
+  - name: current_playtime_timer
+    type: AllegroFlare::Timer
+    init_with: '{}'
+
+
+methods:
+
+
+  - name: start
+    body: |
+      current_playtime_timer.start();
+      return;
+
+
+  - name: pause
+    body: |
+      current_playtime_timer.pause();
+      return;
+
+
+  - name: unpause
+    body: |
+      // TODO: Test this unpause works as expected to restart the tier
+      current_playtime_timer.start();
+      return;
+
+
+  - name: calculate_total_playtime
+    type: std::chrono::milliseconds
+    body: |
+      std::chrono::milliseconds current_playtime(current_playtime_timer.get_elapsed_time_milliseconds());
+      return previous_accumulated_playtime_msec + current_playtime;
+
+
+  - name: formatted_current_total_playtime_hms
+    type: std::string
+    body: |
+      // NOTE: Will appear as "2h 42m 12s", and will not include hours if it is 0.
+      // TODO: Test this works with very large numbers like 800+ hours
+      AllegroFlare::TimerFormatter timer_formatter(calculate_total_playtime().count());
+      return timer_formatter.format_hms();
+    body_dependency_symbols:
+      - AllegroFlare::TimerFormatter
+
+
+  - name: to_string
+    type: std::string
+    body: |
+      return milliseconds_to_string(calculate_total_playtime());
+
+
+  - name: from_string
+    parameters:
+      - name: milliseconds_str
+        type: std::string
+        default_argument: '"0"'
+    body: |
+      previous_accumulated_playtime_msec = milliseconds_from_string(milliseconds_str);
+      current_playtime_timer.stop();
+      current_playtime_timer.reset();
+
+
+  - name: milliseconds_to_string
+    static: true
+    type: std::string
+    parameters:
+      - name: milliseconds
+        type: std::chrono::milliseconds
+        default_argument: '{}'
+    body: |
+      std::stringstream ss;
+      ss << milliseconds.count();
+      return ss.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: milliseconds_from_string
+    static: true
+    type: std::chrono::milliseconds
+    parameters:
+      - name: milliseconds_str
+        type: std::string
+        default_argument: '"0"'
+    body: |
+      std::stringstream ss(milliseconds_str);
+      int64_t value;
+      ss >> value;
+      return std::chrono::milliseconds(value);
+    body_dependency_symbols:
+      - std::stringstream
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
+  - symbol: std::chrono::milliseconds
+    headers: [ chrono ]
+  - symbol: AllegroFlare::TimerFormatter
+    headers: [ AllegroFlare/TimerFormatter.hpp ]
+
+

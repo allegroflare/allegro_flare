@@ -373,6 +373,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Player.q.yml">quintessence/AllegroFlare/Player.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PlayerInputControllers/Base.q.yml">quintessence/AllegroFlare/PlayerInputControllers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PlayerInputControllers/Generic.q.yml">quintessence/AllegroFlare/PlayerInputControllers/Generic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/PlaytimeTracker.q.yml">quintessence/AllegroFlare/PlaytimeTracker.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ProfilerRenderer.q.yml">quintessence/AllegroFlare/ProfilerRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/Entity.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml">quintessence/AllegroFlare/Prototypes/CubeShooter/EntityFactory.q.yml</a></li>
@@ -26622,6 +26623,76 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/PlaytimeTracker.q.yml">quintessence/AllegroFlare/PlaytimeTracker.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">previous_accumulated_playtime_msec</td>
+  <td class="property">std::chrono::milliseconds</td>
+</tr>
+<tr>
+  <td class="property">current_playtime_timer</td>
+  <td class="property">AllegroFlare::Timer</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>start</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>pause</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>unpause</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::chrono::milliseconds</td>
+  <td class="method"><b>calculate_total_playtime</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>formatted_current_total_playtime_hms</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>to_string</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>from_string</b>(std::string milliseconds_str=&quot;0&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>milliseconds_to_string</b>(std::chrono::milliseconds milliseconds={})</td>
+</tr>
+<tr>
+  <td class="method">std::chrono::milliseconds</td>
+  <td class="method"><b>milliseconds_from_string</b>(std::string milliseconds_str=&quot;0&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::chrono::milliseconds&quot;, &quot;headers&quot;=&gt;[&quot;chrono&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TimerFormatter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TimerFormatter.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/ProfilerRenderer.q.yml">quintessence/AllegroFlare/ProfilerRenderer.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -52629,10 +52700,12 @@ table td
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
   ],
   "AllegroFlare/TimerFormatter": [
-    "AllegroFlare/Elements/Stopwatch"
+    "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/PlaytimeTracker"
   ],
   "AllegroFlare/Timer": [
     "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/PlaytimeTracker",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
@@ -53514,6 +53587,10 @@ table td
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
+  "std/chrono/milliseconds": [
+    "AllegroFlare/PlaytimeTracker",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
@@ -54341,9 +54418,6 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "al_init_image_addon": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "std/chrono/milliseconds": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/this_thread/sleep_for": [

@@ -2707,10 +2707,12 @@
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn"
   ],
   "AllegroFlare/TimerFormatter": [
-    "AllegroFlare/Elements/Stopwatch"
+    "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/PlaytimeTracker"
   ],
   "AllegroFlare/Timer": [
     "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/PlaytimeTracker",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
@@ -3592,6 +3594,10 @@
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
+  "std/chrono/milliseconds": [
+    "AllegroFlare/PlaytimeTracker",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/Prototypes/CubeShooter/Entity": [
     "AllegroFlare/Prototypes/CubeShooter/EntityFactory",
     "AllegroFlare/Prototypes/CubeShooter/PlayerMovementControl",
@@ -4419,9 +4425,6 @@
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "al_init_image_addon": [
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
-  ],
-  "std/chrono/milliseconds": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/this_thread/sleep_for": [
