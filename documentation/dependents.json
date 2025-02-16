@@ -2992,6 +2992,9 @@
   "std/istreambuf_iterator": [
     "AllegroFlare/GameProgressAndStateInfos/Base"
   ],
+  "AllegroFlare/PlaytimeTracker": [
+    "AllegroFlare/GameSession"
+  ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
   ],

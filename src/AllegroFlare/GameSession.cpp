@@ -16,6 +16,7 @@ GameSession::GameSession()
    : started_at(0.0f)
    , ended_at(0.0f)
    , active(false)
+   , playtime_tracker()
    , game_progress_and_state_info(nullptr)
 {
 }
@@ -53,6 +54,12 @@ bool GameSession::get_active() const
 AllegroFlare::GameProgressAndStateInfos::Base* GameSession::get_game_progress_and_state_info() const
 {
    return game_progress_and_state_info;
+}
+
+
+AllegroFlare::PlaytimeTracker &GameSession::get_playtime_tracker_ref()
+{
+   return playtime_tracker;
 }
 
 

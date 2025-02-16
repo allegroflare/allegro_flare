@@ -19006,6 +19006,10 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">playtime_tracker</td>
+  <td class="property">AllegroFlare::PlaytimeTracker</td>
+</tr>
+<tr>
   <td class="property">game_progress_and_state_info</td>
   <td class="property">AllegroFlare::GameProgressAndStateInfos::Base*</td>
 </tr>
@@ -19038,6 +19042,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::GameProgressAndStateInfos::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/GameProgressAndStateInfos/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PlaytimeTracker&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PlaytimeTracker.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -52984,6 +52991,9 @@ table td
   ],
   "std/istreambuf_iterator": [
     "AllegroFlare/GameProgressAndStateInfos/Base"
+  ],
+  "AllegroFlare/PlaytimeTracker": [
+    "AllegroFlare/GameSession"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

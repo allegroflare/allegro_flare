@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
+#include <AllegroFlare/PlaytimeTracker.hpp>
 #include <allegro5/allegro.h>
 
 
@@ -13,6 +14,7 @@ namespace AllegroFlare
       float started_at;
       float ended_at;
       bool active;
+      AllegroFlare::PlaytimeTracker playtime_tracker;
       AllegroFlare::GameProgressAndStateInfos::Base* game_progress_and_state_info;
 
    protected:
@@ -27,6 +29,7 @@ namespace AllegroFlare
       float get_ended_at() const;
       bool get_active() const;
       AllegroFlare::GameProgressAndStateInfos::Base* get_game_progress_and_state_info() const;
+      AllegroFlare::PlaytimeTracker &get_playtime_tracker_ref();
       void start_session(float started_at=al_get_time());
       void end_session(float ended_at=al_get_time());
       bool is_active();

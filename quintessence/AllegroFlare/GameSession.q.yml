@@ -16,6 +16,11 @@ properties:
     init_with: false
     getter: true
 
+  - name: playtime_tracker
+    type: AllegroFlare::PlaytimeTracker
+    init_with: ''
+    getter_ref: true
+
   - name: game_progress_and_state_info
     type: AllegroFlare::GameProgressAndStateInfos::Base*
     init_with: nullptr
@@ -23,7 +28,7 @@ properties:
     setter: true
 
 
-functions:
+methods:
 
 
   - name: start_session
@@ -73,5 +78,7 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::GameProgressAndStateInfos::Base
     headers: [ AllegroFlare/GameProgressAndStateInfos/Base.hpp ]
+  - symbol: AllegroFlare::PlaytimeTracker
+    headers: [ AllegroFlare/PlaytimeTracker.hpp ]
 
 
