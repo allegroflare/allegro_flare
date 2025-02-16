@@ -257,7 +257,7 @@ namespace AllegroFlare
          void TODO();
          void set_reveal_duration(double reveal_duration=DEFAULT_REVEAL_DURATION);
          void initialize();
-         void destroy();
+         virtual void destroy() override;
          void start();
          void set_font_name(std::string font_name="[unset-font_name]");
          void set_state(uint32_t state=STATE_UNDEF, bool override_if_busy=false);

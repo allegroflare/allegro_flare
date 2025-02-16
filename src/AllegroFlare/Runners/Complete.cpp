@@ -9,6 +9,7 @@
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/RouteEventDatas/StartLevel.hpp>
+#include <AllegroFlare/Screens/TitledMenuScreen.hpp>
 #include <AllegroFlare/StoryboardFactory.hpp>
 #include <iostream>
 #include <sstream>
@@ -111,7 +112,7 @@ AllegroFlare::Screens::Storyboard &Complete::get_intro_storyboard_screen_ref()
 }
 
 
-AllegroFlare::Screens::TitleScreen &Complete::get_title_screen_ref()
+AllegroFlare::Screens::TitledMenuScreen &Complete::get_title_screen_ref()
 {
    return title_screen;
 }
@@ -324,14 +325,16 @@ void Complete::initialize()
    );
 
    // Setup title screen
-   title_screen.set_event_emitter(event_emitter);
+   title_screen.set_data_folder_path(get_framework()->get_data_folder_path());
    title_screen.set_title_text(game_configuration->title_screen_title());
-   title_screen.set_menu_options(game_configuration->build_title_screen_menu_options());
-   title_screen.set_font_bin(font_bin);
-   title_screen.set_copyright_text(game_configuration->build_copyright_text(&release_info));
-   title_screen.set_foreground(shared_foreground);
-   title_screen.set_background(shared_background);
-   //title_screen.initialize(); // NOTE: Initialization is not necessary for this screen
+   title_screen.set_footer_text(game_configuration->build_copyright_text(&release_info));
+   title_screen.set_menu_options({
+      { "Start new game", "start_new_game" }, // NOTE: This value is a constant expected by Routers/Complete
+      { "Credits", "goto_credits_screen" }, // NOTE: This value is a constant expected by Routers/Complete
+      { "Exit", "quit" } // NOTE: This value is a constant expected by Routers/Complete
+   });
+   title_screen.set_menu_font_name("RobotoCondensed-Regular.ttf");
+   title_screen.initialize();
 
    // Setup the display settings screen
    display_settings_screen.set_event_emitter(event_emitter);
@@ -474,6 +477,8 @@ void Complete::destroy()
    }
    game_configuration->destroy_primary_gameplay_screen();
    game_configuration->destroy_pause_screen();
+
+   title_screen.destroy();
    // TODO: Add additional destroy virtual methods for each object created
    // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
    destroyed = true;
@@ -987,7 +992,7 @@ void Complete::setup_router()
       }
    );
    title_screen.set_on_finished_callback_func(
-      [this](AllegroFlare::Screens::TitleScreen* screen, void* data) {
+      [this](AllegroFlare::Screens::TitledMenuScreen* screen, void* data) {
          this->router.emit_route_event(
             AllegroFlare::Routers::Standard::EVENT_TITLE_SCREEN_FINISHED,
             nullptr,
@@ -996,8 +1001,8 @@ void Complete::setup_router()
       }
    );
    title_screen.set_on_menu_choice_callback_func(
-      [this](AllegroFlare::Screens::TitleScreen* screen, void* data) {
-         std::string menu_choice = screen->infer_current_menu_option_value();
+      [this](AllegroFlare::Screens::TitledMenuScreen* screen, std::string menu_choice, void* data) {
+         //std::string menu_choice = screen->infer_current_menu_option_value();
 
          if (menu_choice == "start_new_game")
          {

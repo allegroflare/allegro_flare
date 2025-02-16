@@ -252,7 +252,7 @@ properties:
 
   - name: on_menu_choice_callback_func
     type: std::function<void(AllegroFlare::Screens::TitledMenuScreen*, std::string, void*)>
-    init_with: ''
+    init_with: '{}'
     getter: true
     setter: true
 
@@ -519,9 +519,7 @@ documentation:
 
 
   - todos:
-      - Account for screen when there are no menu options
-      - Add "empty_state_text", "empty_state_text_color", "empty_state_text_x", "empty_state_text_y"
-        "empty_state_text_reveal_duration", "empty_state_text_font", "empty_state_text_font_size"
+      - Add behavior for advancing when no menu options are present
 
 
 methods:
@@ -577,6 +575,8 @@ methods:
 
 
   - name: destroy
+    virtual: true
+    override: true
     guards: [ initialized, (!destroyed) ]
     body: |
       bitmap_bin.clear();
@@ -624,6 +624,7 @@ methods:
       switch (state)
       {
          case STATE_REVEALING:
+            title_revealed = false; // TODO: Test this
             reveal_started_at = state_accumulated_age;
             cursor_position = 0;
             showing_menu = false;
@@ -857,7 +858,7 @@ methods:
       std::string current_menu_option_value = infer_current_menu_option_value();
       on_menu_choice_callback_func(this, current_menu_option_value, on_menu_choice_callback_func_user_data);
       return;
-    
+
 
   - name: select_menu_option
     private: true
@@ -1702,9 +1703,9 @@ methods:
 
       // Menus
       result->set_menu_options({
-         { "Start new game", "start_new_game" },
-         { "Credits", "show_credits" },
-         { "Exit", "exit_game*" }
+         { "Start new game", "start_new_game" }, // NOTE: This value is a constant expected by Routers/Complete
+         { "Credits", "goto_credits_screen" }, // NOTE: This value is a constant expected by Routers/Complete
+         { "Exit", "quit" } // NOTE: This value is a constant expected by Routers/Complete
       });
 
       // Menu Font

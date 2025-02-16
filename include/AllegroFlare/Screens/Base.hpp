@@ -34,6 +34,7 @@ namespace AllegroFlare
       public:
          Base(std::string type="Base");
          virtual ~Base();
+         virtual void destroy();
 
          //void set_type(std::string type);
          std::string get_type();

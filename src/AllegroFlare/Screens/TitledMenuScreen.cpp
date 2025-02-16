@@ -63,7 +63,7 @@ TitledMenuScreen::TitledMenuScreen(std::string data_folder_path, std::size_t sur
    , upcase_empty_state_text(false)
    , on_menu_selection_change_callback_func()
    , on_menu_selection_change_callback_func_user_data(nullptr)
-   , on_menu_choice_callback_func()
+   , on_menu_choice_callback_func({})
    , on_menu_choice_callback_func_user_data(nullptr)
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
@@ -940,6 +940,7 @@ void TitledMenuScreen::set_state(uint32_t state, bool override_if_busy)
    switch (state)
    {
       case STATE_REVEALING:
+         title_revealed = false; // TODO: Test this
          reveal_started_at = state_accumulated_age;
          cursor_position = 0;
          showing_menu = false;
@@ -1933,9 +1934,9 @@ AllegroFlare::Screens::TitledMenuScreen* TitledMenuScreen::create_standard_title
 
    // Menus
    result->set_menu_options({
-      { "Start new game", "start_new_game" },
-      { "Credits", "show_credits" },
-      { "Exit", "exit_game*" }
+      { "Start new game", "start_new_game" }, // NOTE: This value is a constant expected by Routers/Complete
+      { "Credits", "goto_credits_screen" }, // NOTE: This value is a constant expected by Routers/Complete
+      { "Exit", "quit" } // NOTE: This value is a constant expected by Routers/Complete
    });
 
    // Menu Font

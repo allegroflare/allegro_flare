@@ -88,6 +88,7 @@
     "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Shaders/Multitexture",
@@ -189,6 +190,7 @@
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/Subscreen/Element",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration",
     "AllegroFlare/TextFormatters/Basic",
@@ -311,6 +313,7 @@
     "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/StoryboardFactory",
@@ -686,6 +689,7 @@
     "AllegroFlare/Screens/Subscreen/Panes/Base",
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -801,6 +805,7 @@
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -852,6 +857,7 @@
     "AllegroFlare/Screens/Subscreen/Element",
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
@@ -877,6 +883,7 @@
     "AllegroFlare/DialogTree/NodeBank",
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/StringTransformer"
   ],
   "std/reverse": [
@@ -934,6 +941,7 @@
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
@@ -1190,6 +1198,7 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Shaders/AllegroDefault",
     "AllegroFlare/Shaders/FlatColor",
     "AllegroFlare/Shaders/Multitexture",
@@ -1334,6 +1343,7 @@
     "AllegroFlare/Screens/SettingsScreen",
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/SyncOracle",
@@ -1507,6 +1517,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -1733,7 +1744,8 @@
     "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected",
     "AllegroFlare/Rulers",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen"
   ],
   "al_draw_text": [
     "AllegroFlare/Elements/AchievementsList",
@@ -1879,6 +1891,7 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Transition",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
@@ -1962,6 +1975,7 @@
     "AllegroFlare/MotionKit",
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard"
   ],
   "AllegroFlare/Elements/Backgrounds/Base": [
@@ -1988,6 +2002,7 @@
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/RollingCredits",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
   ],
@@ -2099,6 +2114,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Screens/Subscreen/Panes/Base",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Entities/Basic2D"
   ],
@@ -2159,6 +2175,8 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/VirtualControlsProcessor",
@@ -2188,6 +2206,8 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "AllegroFlare/VirtualControllers/GenericController",
@@ -2213,6 +2233,8 @@
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/Version",
     "AllegroFlare/Screens/WorldMapScreen",
     "WickedDemos/TileDemo"
@@ -2333,7 +2355,8 @@
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen"
   ],
   "AllegroFlare/TextFormatters/Basic": [
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
@@ -2375,7 +2398,8 @@
     "AllegroFlare/InputHints",
     "AllegroFlare/Screens/GameWonScreen",
     "AllegroFlare/Screens/PauseScreen",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen"
   ],
   "char": [
     "AllegroFlare/Elements/DialogRoll",
@@ -2694,7 +2718,8 @@
   ],
   "AllegroFlare/MotionKit": [
     "AllegroFlare/Elements/StoryboardPages/ImageWithAdvancingText",
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen"
   ],
   "CatDetective/Chronicle/Panes/Base": [
     "AllegroFlare/Elements/WorldMapViewer"
@@ -4000,6 +4025,7 @@
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/Storyboard",
     "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/VirtualControlsProcessor",
     "WickedDemos/TileDemo"
   ],
@@ -4154,6 +4180,10 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/DisplaySettings"
   ],
+  "AllegroFlare/Screens/TitledMenuScreen": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/Screens/TitledMenuScreen"
+  ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],
@@ -4218,7 +4248,15 @@
     "AllegroFlare/Screens/SubscreenFactory"
   ],
   "ALLEGRO_FLARE_EVENT_START_NEW_GAME": [
-    "AllegroFlare/Screens/TitleScreen"
+    "AllegroFlare/Screens/TitleScreen",
+    "AllegroFlare/Screens/TitledMenuScreen"
+  ],
+  "AllegroFlare/Screens/TitledMenuScreen/OutlineStrokeAlignment": [
+    "AllegroFlare/Screens/TitledMenuScreen"
+  ],
+  "std/sqrt": [
+    "AllegroFlare/Screens/TitledMenuScreen",
+    "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/TransitionFX/Base": [
     "AllegroFlare/Screens/Transition"
@@ -4423,9 +4461,6 @@
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord": [
     "AllegroFlare/TileMaps/PrimMeshAtlas",
-    "AllegroFlare/TileMaps/TileAtlasBuilder"
-  ],
-  "std/sqrt": [
     "AllegroFlare/TileMaps/TileAtlasBuilder"
   ],
   "AllegroFlare/TileMaps/TileAtlasRepositoryRecord": [

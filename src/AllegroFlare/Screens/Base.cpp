@@ -32,6 +32,7 @@ Base::~Base()
 //{
    //this->type = type;
 //}
+void Base::destroy() {}
 
 
 std::string Base::get_type()

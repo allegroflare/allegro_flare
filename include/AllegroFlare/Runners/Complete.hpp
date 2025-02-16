@@ -25,7 +25,7 @@
 #include <AllegroFlare/Screens/SettingsScreen.hpp>
 #include <AllegroFlare/Screens/Storyboard.hpp>
 #include <AllegroFlare/Screens/Subscreen/Screen.hpp>
-#include <AllegroFlare/Screens/TitleScreen.hpp>
+#include <AllegroFlare/Screens/TitledMenuScreen.hpp>
 #include <AllegroFlare/Screens/Version.hpp>
 #include <ReleaseInfo.hpp>
 #include <cstdint>
@@ -54,7 +54,7 @@ namespace AllegroFlare
          AllegroFlare::Routers::Standard router;
          AllegroFlare::Screens::Storyboard intro_logos_screen;
          AllegroFlare::Screens::Storyboard intro_storyboard_screen;
-         AllegroFlare::Screens::TitleScreen title_screen;
+         AllegroFlare::Screens::TitledMenuScreen title_screen;
          AllegroFlare::Screens::DisplaySettings display_settings_screen;
          AllegroFlare::Screens::Achievements achievements_screen;
          AllegroFlare::Screens::Version version_screen;
@@ -91,7 +91,7 @@ namespace AllegroFlare
          AllegroFlare::ModelBin* get_model_bin() const;
          AllegroFlare::Screens::Storyboard &get_intro_logos_screen_ref();
          AllegroFlare::Screens::Storyboard &get_intro_storyboard_screen_ref();
-         AllegroFlare::Screens::TitleScreen &get_title_screen_ref();
+         AllegroFlare::Screens::TitledMenuScreen &get_title_screen_ref();
          AllegroFlare::Screens::DisplaySettings &get_display_settings_screen_ref();
          AllegroFlare::Screens::Achievements &get_achievements_screen_ref();
          AllegroFlare::Screens::Version &get_version_screen_ref();
@@ -106,7 +106,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::RollingCredits &get_rolling_credits_screen_ref();
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          void initialize();
-         void destroy();
+         virtual void destroy() override;
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_gameplay_paused_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_gameplay_unpaused_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
