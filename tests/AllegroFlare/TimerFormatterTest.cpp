@@ -16,7 +16,7 @@ TEST(AllegroFlare_TimerFormatterTest, can_be_created_without_arguments)
 
 TEST(AllegroFlare_TimerFormatterTest, format__formats_the_milliseconds_to_the_expected_format)
 {
-   int milliseconds = 107289418;
+   int64_t milliseconds = 107289418;
 
    TimerFormatter formatter(milliseconds);
 
@@ -38,9 +38,33 @@ TEST(AllegroFlare_TimerFormatterTest, format__with_no_hours_passed__formats_to_t
 }
 
 
+TEST(AllegroFlare_TimerFormatterTest, format_hms__formats_the_milliseconds_to_the_expected_format)
+{
+   int64_t milliseconds = 107289418;
+
+   TimerFormatter formatter(milliseconds);
+
+   std::string expected_format = "29h 48m 9s";
+   std::string actual_format = formatter.format_hms();
+
+   ASSERT_EQ(expected_format, actual_format);
+}
+
+
+TEST(AllegroFlare_TimerFormatterTest, format_hms__with_no_hours_passed__formats_to_the_expected_format)
+{
+   TimerFormatter formatter(0);
+
+   std::string expected_format = "0m 0s";
+   std::string actual_format = formatter.format_hms();
+
+   ASSERT_EQ(expected_format, actual_format);
+}
+
+
 TEST(AllegroFlare_TimerFormatterTest, infer_hours_fragment__will_return_the_expected_hours_component)
 {
-   int milliseconds = 107289418;
+   int64_t milliseconds = 107289418;
    TimerFormatter formatter(milliseconds);
 
    std::string expected_hours_fragment = "29";
@@ -52,7 +76,7 @@ TEST(AllegroFlare_TimerFormatterTest, infer_hours_fragment__will_return_the_expe
 
 TEST(AllegroFlare_TimerFormatterTest, infer_minutes_fragment__will_return_the_expected_minutes_component)
 {
-   int milliseconds = 107289418;
+   int64_t milliseconds = 107289418;
    TimerFormatter formatter(milliseconds);
 
    std::string expected_minutes_fragment = "48";
@@ -64,7 +88,7 @@ TEST(AllegroFlare_TimerFormatterTest, infer_minutes_fragment__will_return_the_ex
 
 TEST(AllegroFlare_TimerFormatterTest, infer_seconds_fragment__will_return_the_expected_seconds_component)
 {
-   int milliseconds = 107289418;
+   int64_t milliseconds = 107289418;
    TimerFormatter formatter(milliseconds);
 
    std::string expected_seconds_fragment = "09";
@@ -76,7 +100,7 @@ TEST(AllegroFlare_TimerFormatterTest, infer_seconds_fragment__will_return_the_ex
 
 TEST(AllegroFlare_TimerFormatterTest, infer_milliseconds_fragment__will_return_the_expected_milliseconds_component)
 {
-   int milliseconds = 107289418;
+   int64_t milliseconds = 107289418;
    TimerFormatter formatter(milliseconds);
 
    std::string expected_milliseconds_fragment = "418";
@@ -86,9 +110,10 @@ TEST(AllegroFlare_TimerFormatterTest, infer_milliseconds_fragment__will_return_t
 }
 
 
-TEST(AllegroFlare_TimerFormatterTest, infer_milliseconds_fragment__with_a_number_value_less_than_three_digits__will_padd_as_expected_with_zeros)
+TEST(AllegroFlare_TimerFormatterTest,
+   infer_milliseconds_fragment__with_a_number_value_less_than_three_digits__will_padd_as_expected_with_zeros)
 {
-   int milliseconds = 1;
+   int64_t milliseconds = 1;
    TimerFormatter formatter(milliseconds);
 
    std::string expected_milliseconds_fragment = "001";

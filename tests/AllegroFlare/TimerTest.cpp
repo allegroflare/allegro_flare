@@ -61,6 +61,23 @@ TEST(AllegroFlare_TimerTest, pause__will_prevent_stop_the_timer_from_incrementin
 }
 
 
+TEST(AllegroFlare_TimerTest, start__after_pause__will_prevent_resume_incrementing_time_without_including_paused_time)
+{
+   Timer timer;
+   timer.start();
+   SLEEP_FOR(60000); // 0.06 of a second (60 milliseconds)
+   timer.pause();
+   SLEEP_FOR(240000); // 0.24 of a second (240 milliseconds)
+   timer.start();
+   SLEEP_FOR(60000); // 0.06 of a second (60 milliseconds)
+   timer.stop();
+
+   int ellapsed_time_milliseconds = timer.get_elapsed_time_milliseconds();
+
+   EXPECT_LE(ellapsed_time_milliseconds, 200);
+}
+
+
 TEST(AllegroFlare_TimerTest, DISABLED_FOR_WIN__get_ellapsed_time_microeconds__will_return_the_elapsed_time)
 {
    Timer timer;
