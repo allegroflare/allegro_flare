@@ -63,6 +63,34 @@ AllegroFlare::PlaytimeTracker &GameSession::get_playtime_tracker_ref()
 }
 
 
+void GameSession::start_or_resume_playtime_tracking()
+{
+   if (!(active))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::GameSession::start_or_resume_playtime_tracking]: error: guard \"active\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::GameSession::start_or_resume_playtime_tracking]: error: guard \"active\" not met");
+   }
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "Starting (or resuming) playtime tracking.");
+   playtime_tracker.start();
+   return;
+}
+
+void GameSession::suspend_playtime_tracking()
+{
+   if (!(active))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::GameSession::suspend_playtime_tracking]: error: guard \"active\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::GameSession::suspend_playtime_tracking]: error: guard \"active\" not met");
+   }
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "Suspending playtime tracking.");
+   playtime_tracker.pause();
+   return;
+}
+
 void GameSession::start_session(float started_at)
 {
    if (!((!active)))

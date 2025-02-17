@@ -31,6 +31,22 @@ properties:
 methods:
 
 
+  - name: start_or_resume_playtime_tracking
+    guards: [ active ]
+    body: |
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "Starting (or resuming) playtime tracking.");
+      playtime_tracker.start();
+      return;
+
+
+  - name: suspend_playtime_tracking
+    guards: [ active ]
+    body: |
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "Suspending playtime tracking.");
+      playtime_tracker.pause();
+      return;
+
+
   - name: start_session
     parameters:
       - name: started_at

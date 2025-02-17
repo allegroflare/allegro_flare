@@ -30,6 +30,8 @@ namespace AllegroFlare
       bool get_active() const;
       AllegroFlare::GameProgressAndStateInfos::Base* get_game_progress_and_state_info() const;
       AllegroFlare::PlaytimeTracker &get_playtime_tracker_ref();
+      void start_or_resume_playtime_tracking();
+      void suspend_playtime_tracking();
       void start_session(float started_at=al_get_time());
       void end_session(float ended_at=al_get_time());
       bool is_active();
