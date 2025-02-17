@@ -596,6 +596,44 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       }},
 
 
+      // Suspend and resume playtime
+      { EVENT_SUSPEND_ACCUMULATING_PLAYTIME, [this](){
+         //if (playtime is suspended) // throw
+         // TODO: Check if playtime_tracker is active, if game_session is valid, etc...
+         game_session.get_playtime_tracker_ref().pause();
+
+         // HERE
+         //if (!game_session.is_active())
+         //{
+            //AllegroFlare::Logger::throw_error(
+               //"AllegroFlare::Routers::Standard::on_route_event",
+               //"When handling an EVENT_EXIT_TO_TITLE_SCREEN, the game_session is expected to be active but it "
+                  //"was not."
+            //);
+         //}
+
+         // End the session
+         //game_session.end_session();
+      }},
+      { EVENT_RESUME_ACCUMULATING_PLAYTIME, [this](){
+         //if (playtime is suspended) // throw
+         // TODO: Check if playtime_tracker is paused or has not started, if game_session is valid, etc...
+         game_session.get_playtime_tracker_ref().start();
+
+         // HERE
+         //if (!game_session.is_active())
+         //{
+            //AllegroFlare::Logger::throw_error(
+               //"AllegroFlare::Routers::Standard::on_route_event",
+               //"When handling an EVENT_EXIT_TO_TITLE_SCREEN, the game_session is expected to be active but it "
+                  //"was not."
+            //);
+         //}
+
+         // End the session
+         //game_session.end_session();
+      }},
+
       // Screens finished events
 
       { EVENT_INTRO_LOGOS_SCREEN_FINISHED, [this](){
