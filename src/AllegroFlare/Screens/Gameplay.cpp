@@ -382,6 +382,7 @@ void Gameplay::gameplay_resume_func()
 
 void Gameplay::primary_timer_func()
 {
+   // TODO: Consider throwing here and forcing downstream migration to "primary_update_func"
    if (player_input_controller)
    {
       double time_now = al_get_time();
