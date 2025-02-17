@@ -572,7 +572,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: Test playtime is paused on this event
          // TODO: Consider if game time spent in the pause screen (on the map screen? on inventory changes, etc?)
          // should be counted towards accumulated play time or not.
-         suspend_accumulating_playtime();
+         //suspend_accumulating_playtime();
 
          // Call the callback
          // TODO: Test this conditional
@@ -613,7 +613,8 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: Test playtime is resumed on this event
          // TODO: Consider if game time spent in the pause screen (on the map screen? on inventory changes, etc?)
          // should be counted towards accumulated play time or not.
-         start_or_resume_accumulating_playtime();
+         // NOTE: For now, this has been moved up into the game configuration
+         //start_or_resume_accumulating_playtime();
       }},
       { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
          // Validate an active session

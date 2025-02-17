@@ -597,8 +597,10 @@ EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_SCREEN_route_event)
 }
 
 
+/*
+// NOTE: This behavior no longer exists
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_PAUSE_GAME_event__will_suspend_playtime_tracking)
+   DISABLED__on_route_event__with_an_EVENT_PAUSE_GAME_event__will_suspend_playtime_tracking)
 {
    AllegroFlare::GameSession &game_session = router.get_game_session_ref();
    AllegroFlare::PlaytimeTracker &playtime_tracker = game_session.get_playtime_tracker_ref();
@@ -612,6 +614,7 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
    EXPECT_EQ(false, playtime_tracker.is_tracking());
 }
+*/
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
@@ -627,6 +630,8 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 }
 
 
+/*
+// NOTE: This behavior no longer exists
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_UNPAUSE_GAME_event__will_resume_suspended_playtime_tracking)
 {
@@ -641,6 +646,7 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
    EXPECT_EQ(true, playtime_tracker.is_tracking());
 }
+*/
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
@@ -653,45 +659,5 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    router.on_route_event(AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME);
    EXPECT_EQ(1, call_count);
 }
-
-
-/* // NOTE: This component no longer has this behavior
-// TODO: Remove these tests
-TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_PAUSE_GAME_event__will_call_the_suspend_gameplay_method_on_the_\
-pause_managed_gameplay_screen)
-{
-   al_install_keyboard(); // TODO: Add an option to the gameplay_screen_class to disable capturing the keyboard on
-                          // suspend, then remove this line and the al_uninstall_keyboard() at the end of the test.
-
-   GameplayScreenTestClass gameplay_screen_test_class;
-   router.set_pause_managed_gameplay_screen(&gameplay_screen_test_class);
-
-   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
-   EXPECT_EQ(1, gameplay_screen_test_class.gameplay_suspend_func_call_count);
-
-   al_uninstall_keyboard();
-}
-
-
-TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
-   on_route_event__with_an_EVENT_UNPAUSE_GAME_event__will_call_the_resume_gameplay_method_on_the_\
-unpause_managed_gameplay_screen)
-{
-   al_install_keyboard(); // TODO: Add an option to the gameplay_screen_class to disable capturing the keyboard on
-                          // resume, then remove this line and the al_uninstall_keyboard() at the end of the test.
-
-   GameplayScreenTestClass gameplay_screen_test_class;
-   router.set_pause_managed_gameplay_screen(&gameplay_screen_test_class);
-
-   // Suspend the gameplay (gameplay must be suspended for resume_suspended_gameplay() to call the callback)
-   gameplay_screen_test_class.suspend_gameplay();
-
-   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME);
-   EXPECT_EQ(1, gameplay_screen_test_class.gameplay_resume_func_call_count);
-
-   al_uninstall_keyboard();
-}
-*/
 
 
