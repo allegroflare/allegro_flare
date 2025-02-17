@@ -55,7 +55,7 @@ methods:
         default_argument_dependency_symbols: [ al_get_time ]
     guards: [ (!active) ]
     body: |
-      AllegroFlare::Logger::info_from("AllegroFlare::GameSession::start_session", "Starting session.");
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "Starting session.");
       active = true;
       this->started_at = started_at;
       return;
@@ -71,7 +71,7 @@ methods:
         default_argument_dependency_symbols: [ al_get_time ]
     guards: [ active ]
     body: |
-      AllegroFlare::Logger::info_from("AllegroFlare::GameSession::start_session", "Ending session.");
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "Ending session.");
       active = false;
       this->ended_at = ended_at;
       return;
