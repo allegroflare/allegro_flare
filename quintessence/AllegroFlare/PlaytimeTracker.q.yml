@@ -33,6 +33,13 @@ methods:
       return;
 
 
+  - name: is_tracking
+    type: bool
+    body: |
+      // TODO: Test this unpause works as expected to restart the tier
+      return current_playtime_timer.is_running();
+
+
   - name: calculate_total_playtime
     type: std::chrono::milliseconds
     body: |

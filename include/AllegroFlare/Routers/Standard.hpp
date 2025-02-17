@@ -158,6 +158,8 @@ namespace AllegroFlare
          void* get_on_arbitrary_storyboard_screen_activated_func_user_data() const;
          AllegroFlare::GameSession &get_game_session_ref();
          void emit_route_event(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f);
+         void suspend_accumulating_playtime();
+         void start_or_resume_accumulating_playtime();
          static std::string name_for_route_event(uint32_t route_event=0);
          virtual void on_route_event(uint32_t route_event=EVENT_UNDEFINED, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f) override;
       };

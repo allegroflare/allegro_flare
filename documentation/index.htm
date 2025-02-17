@@ -26658,6 +26658,10 @@ table td
   <td class="method"><b>unpause</b>()</td>
 </tr>
 <tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_tracking</b>()</td>
+</tr>
+<tr>
   <td class="method">std::chrono::milliseconds</td>
   <td class="method"><b>calculate_total_playtime</b>()</td>
 </tr>
@@ -35377,6 +35381,14 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>emit_route_event</b>(uint32_t route_event=0, AllegroFlare::RouteEventDatas::Base* route_event_data=nullptr, float time_now=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>suspend_accumulating_playtime</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>start_or_resume_accumulating_playtime</b>()</td>
 </tr>
 <tr>
   <td class="method">std::string</td>

@@ -25,6 +25,7 @@ namespace AllegroFlare
       void start();
       void pause();
       void unpause();
+      bool is_tracking();
       std::chrono::milliseconds calculate_total_playtime();
       std::string formatted_current_total_playtime_hms();
       std::string to_string();

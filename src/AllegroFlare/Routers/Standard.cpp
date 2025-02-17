@@ -307,6 +307,32 @@ void Standard::emit_route_event(uint32_t route_event, AllegroFlare::RouteEventDa
    return;
 }
 
+void Standard::suspend_accumulating_playtime()
+{
+   if (!(game_session.is_active()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Routers::Standard::suspend_accumulating_playtime]: error: guard \"game_session.is_active()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Routers::Standard::suspend_accumulating_playtime]: error: guard \"game_session.is_active()\" not met");
+   }
+   game_session.get_playtime_tracker_ref().pause();
+   return;
+}
+
+void Standard::start_or_resume_accumulating_playtime()
+{
+   if (!(game_session.is_active()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Routers::Standard::start_or_resume_accumulating_playtime]: error: guard \"game_session.is_active()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Routers::Standard::start_or_resume_accumulating_playtime]: error: guard \"game_session.is_active()\" not met");
+   }
+   game_session.get_playtime_tracker_ref().start();
+   return;
+}
+
 std::string Standard::name_for_route_event(uint32_t route_event)
 {
    static const std::unordered_map<uint32_t, std::string> event_names {
@@ -541,6 +567,11 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          }
       }},
       { EVENT_PAUSE_GAME, [this](){
+         // TODO: Test playtime is paused on this event
+         // TODO: Consider if game time spent in the pause screen (on the map screen? on inventory changes, etc?)
+         // should be counted towards accumulated play time or not.
+         suspend_accumulating_playtime();
+
          // Call the callback
          // TODO: Test this conditional
          if (!on_gameplay_paused_func)
@@ -576,6 +607,11 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             // Call the callback
             on_gameplay_unpaused_func(this, on_gameplay_unpaused_func_user_data); // TODO: Test this
          }
+
+         // TODO: Test playtime is resumed on this event
+         // TODO: Consider if game time spent in the pause screen (on the map screen? on inventory changes, etc?)
+         // should be counted towards accumulated play time or not.
+         start_or_resume_accumulating_playtime();
       }},
       { EVENT_EXIT_TO_TITLE_SCREEN, [this](){
          // Validate an active session
@@ -598,40 +634,10 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
 
       // Suspend and resume playtime
       { EVENT_SUSPEND_ACCUMULATING_PLAYTIME, [this](){
-         //if (playtime is suspended) // throw
-         // TODO: Check if playtime_tracker is active, if game_session is valid, etc...
-         game_session.get_playtime_tracker_ref().pause();
-
-         // HERE
-         //if (!game_session.is_active())
-         //{
-            //AllegroFlare::Logger::throw_error(
-               //"AllegroFlare::Routers::Standard::on_route_event",
-               //"When handling an EVENT_EXIT_TO_TITLE_SCREEN, the game_session is expected to be active but it "
-                  //"was not."
-            //);
-         //}
-
-         // End the session
-         //game_session.end_session();
+         suspend_accumulating_playtime();
       }},
       { EVENT_RESUME_ACCUMULATING_PLAYTIME, [this](){
-         //if (playtime is suspended) // throw
-         // TODO: Check if playtime_tracker is paused or has not started, if game_session is valid, etc...
-         game_session.get_playtime_tracker_ref().start();
-
-         // HERE
-         //if (!game_session.is_active())
-         //{
-            //AllegroFlare::Logger::throw_error(
-               //"AllegroFlare::Routers::Standard::on_route_event",
-               //"When handling an EVENT_EXIT_TO_TITLE_SCREEN, the game_session is expected to be active but it "
-                  //"was not."
-            //);
-         //}
-
-         // End the session
-         //game_session.end_session();
+         start_or_resume_accumulating_playtime();
       }},
 
       // Screens finished events

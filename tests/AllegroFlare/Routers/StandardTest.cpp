@@ -598,8 +598,27 @@ EVENT_ACTIVATE_INTRO_LOGOS_SCREEN_SCREEN_route_event)
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_PAUSE_GAME_event__will_suspend_playtime_tracking)
+{
+   AllegroFlare::GameSession &game_session = router.get_game_session_ref();
+   AllegroFlare::PlaytimeTracker &playtime_tracker = game_session.get_playtime_tracker_ref();
+
+   game_session.start_session();
+   playtime_tracker.start();
+
+   ASSERT_EQ(true, playtime_tracker.is_tracking());
+
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_PAUSE_GAME);
+
+   EXPECT_EQ(false, playtime_tracker.is_tracking());
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_PAUSE_GAME_event__will_call_the_on_gameplay_paused_func)
 {
+   router.get_game_session_ref().start_session(); // TODO: Alternatively, add option to disable playtime tracking
+
    int call_count = 0;
    router.set_on_gameplay_paused_func(my_on_gameplay_paused_func);
    router.set_on_gameplay_paused_func_user_data(&call_count);
@@ -609,8 +628,25 @@ TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
 
 
 TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
+   on_route_event__with_an_EVENT_UNPAUSE_GAME_event__will_resume_suspended_playtime_tracking)
+{
+   AllegroFlare::GameSession &game_session = router.get_game_session_ref();
+   AllegroFlare::PlaytimeTracker &playtime_tracker = game_session.get_playtime_tracker_ref();
+
+   game_session.start_session();
+
+   ASSERT_EQ(false, playtime_tracker.is_tracking());
+
+   router.on_route_event(AllegroFlare::Routers::Standard::EVENT_UNPAUSE_GAME);
+
+   EXPECT_EQ(true, playtime_tracker.is_tracking());
+}
+
+
+TEST_F(AllegroFlare_Routers_StandardTestWithSetup,
    on_route_event__with_an_EVENT_UNPAUSE_GAME_event__will_call_the_on_gameplay_unpaused_func)
 {
+   router.get_game_session_ref().start_session(); // TODO: Alternatively, add option to disable playtime tracking
    int call_count = 0;
    router.set_on_gameplay_unpaused_func(my_on_gameplay_unpaused_func);
    router.set_on_gameplay_unpaused_func_user_data(&call_count);

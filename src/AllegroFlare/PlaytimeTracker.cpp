@@ -47,6 +47,12 @@ void PlaytimeTracker::unpause()
    return;
 }
 
+bool PlaytimeTracker::is_tracking()
+{
+   // TODO: Test this unpause works as expected to restart the tier
+   return current_playtime_timer.is_running();
+}
+
 std::chrono::milliseconds PlaytimeTracker::calculate_total_playtime()
 {
    std::chrono::milliseconds current_playtime(current_playtime_timer.get_elapsed_time_milliseconds());
