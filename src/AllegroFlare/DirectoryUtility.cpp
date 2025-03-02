@@ -162,7 +162,7 @@ namespace AllegroFlare
 
    const char *DirectoryUtility::find(std::string filename)
       // returns the full file path from the current directory
-      // this could be made more effecient with a binary search
+      // this could be made more efficient with a binary search
    {
       for (unsigned i=0; i<path.size(); i++)
          if (filename == al_get_path_filename(path[i]))
