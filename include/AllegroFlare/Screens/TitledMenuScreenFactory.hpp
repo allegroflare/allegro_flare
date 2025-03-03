@@ -13,6 +13,8 @@ namespace AllegroFlare
       {
       public:
          static constexpr char* DEFAULT_DATA_FOLDER_PATH = (char*)"[unset-data_folder_path]";
+         static constexpr char* RESUME_PAUSED_GAMEPLAY_EVENT_NAME = (char*)"resume_suspended_gameplay";
+         static constexpr char* EXIT_TO_TITLE_SCREEN_EVENT_NAME = (char*)"exit_to_title_screen";
 
       private:
 

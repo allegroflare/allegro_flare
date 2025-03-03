@@ -43,8 +43,8 @@ AllegroFlare::Screens::TitledMenuScreen* TitledMenuScreenFactory::create_standar
 
    // Menus
    result->set_menu_options({
-      { "Resume", "resume" },
-      { "Exit to Title Screen", "exit_to_title_screen" },
+      { "Resume", RESUME_PAUSED_GAMEPLAY_EVENT_NAME },
+      { "Exit to Title Screen", EXIT_TO_TITLE_SCREEN_EVENT_NAME },
    });
    result->set_show_triangle_cursor(true);
 

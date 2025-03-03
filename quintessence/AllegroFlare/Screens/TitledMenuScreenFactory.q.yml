@@ -7,6 +7,18 @@ properties:
     static: true
     constexpr: true
 
+  - name: RESUME_PAUSED_GAMEPLAY_EVENT_NAME
+    type: char*
+    init_with: '(char*)"resume_suspended_gameplay"'
+    static: true
+    constexpr: true
+
+  - name: EXIT_TO_TITLE_SCREEN_EVENT_NAME
+    type: char*
+    init_with: '(char*)"exit_to_title_screen"'
+    static: true
+    constexpr: true
+
 
 methods:
 
@@ -33,8 +45,8 @@ methods:
 
       // Menus
       result->set_menu_options({
-         { "Resume", "resume" },
-         { "Exit to Title Screen", "exit_to_title_screen" },
+         { "Resume", RESUME_PAUSED_GAMEPLAY_EVENT_NAME },
+         { "Exit to Title Screen", EXIT_TO_TITLE_SCREEN_EVENT_NAME },
       });
       result->set_show_triangle_cursor(true);
 
