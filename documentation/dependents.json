@@ -4191,7 +4191,8 @@
   ],
   "AllegroFlare/Screens/TitledMenuScreen": [
     "AllegroFlare/Runners/Complete",
-    "AllegroFlare/Screens/TitledMenuScreen"
+    "AllegroFlare/Screens/TitledMenuScreen",
+    "AllegroFlare/Screens/TitledMenuScreenFactory"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
