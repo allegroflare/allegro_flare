@@ -1907,6 +1907,14 @@ AllegroFlare::Screens::TitledMenuScreen* TitledMenuScreen::create_standard_pause
    });
    result->set_show_triangle_cursor(true);
 
+   // Pause screen menu should be usable instantly with no delay
+   // TODO: Test this
+   result->set_reveal_duration(0.0);
+
+   // Unpausing should occour instantly
+   // TODO: Test this
+   result->set_menu_option_chosen_to_activation_delay(0.0);
+
    // Menu Font
    result->set_menu_font_name("RobotoCondensed-Regular.ttf");
 
