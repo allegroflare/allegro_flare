@@ -91,6 +91,28 @@ void GameSession::suspend_playtime_tracking()
    return;
 }
 
+void GameSession::save()
+{
+   if (!(active))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::GameSession::save]: error: guard \"active\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::GameSession::save]: error: guard \"active\" not met");
+   }
+   if (!(game_progress_and_state_info))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::GameSession::save]: error: guard \"game_progress_and_state_info\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::GameSession::save]: error: guard \"game_progress_and_state_info\" not met");
+   }
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "Saving game progress...");
+   game_progress_and_state_info->save();
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "...game progress saved successfully.");
+   return;
+}
+
 void GameSession::start_session(float started_at)
 {
    if (!((!active)))

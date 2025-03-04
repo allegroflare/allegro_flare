@@ -441,6 +441,7 @@ std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> Complete::build_save
 void Complete::load_game_progress_and_state_info_into_universe()
 {
    // TODO: This method
+   // TODO: Determine, how is this different from "load_game_progress_and_state_info"
    return;
 }
 
@@ -498,23 +499,41 @@ void Complete::load_game_progress_and_state_info(AllegroFlare::GameSession* game
    return;
 }
 
-void Complete::setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
+void Complete::setup_new_game_progress_and_state_info_DEPRECATED(AllegroFlare::GameSession* game_session)
 {
    if (!(game_session))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::GameConfigurations::Complete::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      error_message << "[AllegroFlare::GameConfigurations::Complete::setup_new_game_progress_and_state_info_DEPRECATED]: error: guard \"game_session\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met");
+      throw std::runtime_error("[AllegroFlare::GameConfigurations::Complete::setup_new_game_progress_and_state_info_DEPRECATED]: error: guard \"game_session\" not met");
    }
+   // NOTE: Use create_game_progress_and_state_info_saver_loader() instead.
    // TODO: This method
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::GameConfigurations::Base::setup_new_game_progress_and_state_info",
-      "Not implemented in the base class. This method must be implemented in the derived class"
+      "DEPRECATED. Use create_game_progress_and_state_info_saver_loader() instead"
    );
    //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
      //game_session->get_game_progress_and_state_info();
    return;
+}
+
+AllegroFlare::GameProgressAndStateInfos::Base* Complete::create_game_progress_and_state_info_saver_loader()
+{
+   // NOTE: *** This is the newest preferred method for creating the games' game progress and state info. Note
+   // that a GameProgressAndStateInfo object represents a games' *specialization* to save and load, but on creation
+   // it does not represent an explicit save or load, or any creation of a session.  This class, after being created,
+   // is then handed off to the game_session, owned and located in the router.
+
+   // TODO: This method
+   AllegroFlare::Logger::throw_error(
+      "AllegroFlare::GameConfigurations::Base::create_game_progress_and_state_info_saver_loader",
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
+     //game_session->get_game_progress_and_state_info();
+   return nullptr;
 }
 
 void Complete::load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session)

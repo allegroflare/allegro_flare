@@ -47,6 +47,15 @@ methods:
       return;
 
 
+  - name: save
+    guards: [ active, game_progress_and_state_info ]
+    body: |
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "Saving game progress...");
+      game_progress_and_state_info->save();
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME, "...game progress saved successfully.");
+      return;
+
+
   - name: start_session
     parameters:
       - name: started_at

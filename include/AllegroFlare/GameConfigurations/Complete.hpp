@@ -10,6 +10,7 @@
 #include <AllegroFlare/ForwardDeclarations/AllegroFlare/GameConfigurations/Complete.hpp>
 #include <AllegroFlare/ForwardDeclarations/AllegroFlare/Runners/Complete.hpp>
 #include <AllegroFlare/GameEvent.hpp>
+#include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Levels/Base.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
@@ -79,7 +80,8 @@ namespace AllegroFlare
          virtual void load_game_progress_and_state_info_into_universe();
          virtual void save_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
-         virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
+         virtual void setup_new_game_progress_and_state_info_DEPRECATED(AllegroFlare::GameSession* game_session=nullptr);
+         virtual AllegroFlare::GameProgressAndStateInfos::Base* create_game_progress_and_state_info_saver_loader();
          virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr);
          virtual std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();

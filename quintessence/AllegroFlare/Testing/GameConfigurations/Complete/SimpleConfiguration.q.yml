@@ -202,7 +202,7 @@ methods:
       return;
 
 
-  - name: setup_new_game_progress_and_state_info
+  - name: setup_new_game_progress_and_state_info_DEPRECATED
     virtual: true
     override: true
     parameters:
@@ -215,6 +215,16 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::GameProgressAndStateInfos::Base
+
+
+  - name: create_game_progress_and_state_info_saver_loader
+    virtual: true
+    override: true
+    type: AllegroFlare::GameProgressAndStateInfos::Base*
+    body: |
+      return new AllegroFlare::Testing::GameProgressAndStateInfos::Stub();
+    body_dependency_symbols:
+      - AllegroFlare::Testing::GameProgressAndStateInfos::Stub
 
 
   - name: load_last_played_session_or_start_new
@@ -335,5 +345,7 @@ dependencies:
     headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
   - symbol: AllegroFlare::Screens::Subscreen::Screen
     headers: [ AllegroFlare/Screens/Subscreen/Screen.hpp ]
+  - symbol: AllegroFlare::Testing::GameProgressAndStateInfos::Stub
+    headers: [ AllegroFlare/Testing/GameProgressAndStateInfos/Stub.hpp ]
 
 

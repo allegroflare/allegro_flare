@@ -4383,6 +4383,9 @@
   ":AllegroFlare/DisplaySettingsInterfaces/Base": [
     "AllegroFlare/Testing/AllegroFlare/DisplaySettingsInterfaces/DisplayMock"
   ],
+  "AllegroFlare/Testing/GameProgressAndStateInfos/Stub": [
+    "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
   "random": [
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
   ],

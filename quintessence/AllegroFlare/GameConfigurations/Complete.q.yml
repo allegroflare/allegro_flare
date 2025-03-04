@@ -532,6 +532,7 @@ methods:
     virtual: true
     body: |
       // TODO: This method
+      // TODO: Determine, how is this different from "load_game_progress_and_state_info"
       return;
 
 
@@ -568,7 +569,7 @@ methods:
 #      - AllegroFlare::UsefulPHP
 
 
-  - name: setup_new_game_progress_and_state_info
+  - name: setup_new_game_progress_and_state_info_DEPRECATED
     virtual: true
     parameters:
       - name: game_session
@@ -576,14 +577,36 @@ methods:
         default_argument: nullptr
     guards: [ game_session ]
     body: |
+      // NOTE: Use create_game_progress_and_state_info_saver_loader() instead.
       // TODO: This method
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::GameConfigurations::Base::setup_new_game_progress_and_state_info",
-         "Not implemented in the base class. This method must be implemented in the derived class"
+         "DEPRECATED. Use create_game_progress_and_state_info_saver_loader() instead"
       );
       //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
         //game_session->get_game_progress_and_state_info();
       return;
+    body_dependency_symbols:
+      - AllegroFlare::GameProgressAndStateInfos::Base
+
+
+  - name: create_game_progress_and_state_info_saver_loader
+    virtual: true
+    type: AllegroFlare::GameProgressAndStateInfos::Base*
+    body: |
+      // NOTE: *** This is the newest preferred method for creating the games' game progress and state info. Note
+      // that a GameProgressAndStateInfo object represents a games' *specialization* to save and load, but on creation
+      // it does not represent an explicit save or load, or any creation of a session.  This class, after being created,
+      // is then handed off to the game_session, owned and located in the router.
+
+      // TODO: This method
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::GameConfigurations::Base::create_game_progress_and_state_info_saver_loader",
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      //AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info =
+        //game_session->get_game_progress_and_state_info();
+      return nullptr;
     body_dependency_symbols:
       - AllegroFlare::GameProgressAndStateInfos::Base
 

@@ -341,6 +341,7 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_EXIT_GAME, "EVENT_EXIT_GAME"},
       {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
       {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
+      {EVENT_SAVE_GAME, "EVENT_SAVE_GAME"},
       {EVENT_PAUSE_GAME, "EVENT_PAUSE_GAME"},
       {EVENT_UNPAUSE_GAME, "EVENT_UNPAUSE_GAME"},
       {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
@@ -455,7 +456,12 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
 
       { EVENT_START_NEW_GAME, [this](){
          // Start new session
-         if (game_session.is_active()) { game_session.end_session(); }
+         if (game_session.is_active())
+         {
+            // TODO: Consider a confirmation dialog somewhere, e.g. "Would you like to save existing progress before
+            // starting a new game?"
+            game_session.end_session();
+         }
 
          // TODO: Test this method callback
          if (on_create_new_session_func)
@@ -567,6 +573,20 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
                emit_route_event(EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN);
             }
          }
+      }},
+      { EVENT_SAVE_GAME, [this](){
+         if (!game_session.is_active())
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "When handling EVENT_SAVE_GAME, the game session is not currently active."
+            );
+         }
+
+         // TODO: Add info log here?
+         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Saving game...");
+         game_session.save();
+         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "...game saved successfully.");
       }},
       { EVENT_PAUSE_GAME, [this](){
          // TODO: Test playtime is paused on this event
@@ -729,6 +749,8 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          activate_screen(NEW_GAME_INTRO_STORYBOARD_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_LEVEL_SELECT_SCREEN, [this](){
+         // TODO: Consider a special case here to "skip" directly to next step if the level select screen is empty
+         // or auto-advances. I think this most likely will be a callback with a value returned.
          activate_screen(LEVEL_SELECT_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_GAME_OVER_SCREEN, [this](){

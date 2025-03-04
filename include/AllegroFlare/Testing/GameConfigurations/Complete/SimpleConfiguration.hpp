@@ -9,6 +9,7 @@
 #include <AllegroFlare/Elements/StoryboardPages/Base.hpp>
 #include <AllegroFlare/GameConfigurations/Complete.hpp>
 #include <AllegroFlare/GameEvent.hpp>
+#include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/Levels/Base.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
@@ -60,7 +61,8 @@ namespace AllegroFlare
                virtual std::vector<AllegroFlare::Elements::StoryboardPages::Base *> create_intro_storyboard_pages() override;
                virtual std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> build_save_slots_for_load_a_saved_game_screen() override;
                virtual void load_game_progress_and_state_info_into_universe() override;
-               virtual void setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr) override;
+               virtual void setup_new_game_progress_and_state_info_DEPRECATED(AllegroFlare::GameSession* game_session=nullptr) override;
+               virtual AllegroFlare::GameProgressAndStateInfos::Base* create_game_progress_and_state_info_saver_loader() override;
                virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr) override;
                virtual void load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr) override;
                virtual std::string build_copyright_text(ReleaseInfo* release_info=nullptr) override;

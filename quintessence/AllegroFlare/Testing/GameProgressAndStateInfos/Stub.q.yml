@@ -1,0 +1,15 @@
+parent_classes:
+
+
+  - class: AllegroFlare::GameProgressAndStateInfos::Base
+    scope: public
+    init_with: ''
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::GameProgressAndStateInfos::Base
+    headers: [ AllegroFlare/GameProgressAndStateInfos/Base.hpp ]
+
+

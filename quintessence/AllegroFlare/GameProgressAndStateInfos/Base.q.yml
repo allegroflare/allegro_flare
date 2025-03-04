@@ -31,7 +31,7 @@ documentation:
 
   - notes:
       - If the save folder does not exist on save, it will be created. Possibly an initialize requirement
-        could check the presence of the folder , and save_file_filename would be required to be non-folder.
+        could check the presence of the folder, and save_file_filename would be required to be non-folder.
   - todos:
       - Save multiple save files, keeping the previous versions up to n files. Currently only one file is used
         and if there were a writing error it could break the entire save file. Special considerations should be taken

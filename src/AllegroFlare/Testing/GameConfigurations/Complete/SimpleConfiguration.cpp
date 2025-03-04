@@ -9,6 +9,7 @@
 #include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/TemplatedText.hpp>
+#include <AllegroFlare/Testing/GameProgressAndStateInfos/Stub.hpp>
 #include <AllegroFlare/UnicodeCharacters.hpp>
 #include <ReleaseInfo.hpp>
 #include <iostream>
@@ -129,17 +130,22 @@ void SimpleConfiguration::load_game_progress_and_state_info_into_universe()
    return;
 }
 
-void SimpleConfiguration::setup_new_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
+void SimpleConfiguration::setup_new_game_progress_and_state_info_DEPRECATED(AllegroFlare::GameSession* game_session)
 {
    if (!(game_session))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met.";
+      error_message << "[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::setup_new_game_progress_and_state_info_DEPRECATED]: error: guard \"game_session\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::setup_new_game_progress_and_state_info]: error: guard \"game_session\" not met");
+      throw std::runtime_error("[AllegroFlare::Testing::GameConfigurations::Complete::SimpleConfiguration::setup_new_game_progress_and_state_info_DEPRECATED]: error: guard \"game_session\" not met");
    }
    // Nothing to do
    return;
+}
+
+AllegroFlare::GameProgressAndStateInfos::Base* SimpleConfiguration::create_game_progress_and_state_info_saver_loader()
+{
+   return new AllegroFlare::Testing::GameProgressAndStateInfos::Stub();
 }
 
 void SimpleConfiguration::load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session)

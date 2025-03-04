@@ -5,6 +5,7 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/Elements/Backgrounds/ClearToColor.hpp>
 #include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/GameProgressAndStateInfos/Base.hpp>
 #include <AllegroFlare/GameSession.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -711,8 +712,27 @@ void Complete::setup_router()
    router.set_on_create_new_session_func(
       [this](AllegroFlare::Routers::Standard* screen, void* user_data) {
          // TODO: Test this method
+
          AllegroFlare::GameSession &game_session = screen->get_game_session_ref();
-         this->game_configuration->setup_new_game_progress_and_state_info(&game_session); // NOTE: user_data is not necessary
+
+         // TODO: Test this case
+         if (game_session.get_game_progress_and_state_info() != nullptr)
+         {
+            AllegroFlare::Logger::info_from(
+               "AllegroFlare::Runners::Complete::setup_router",
+               "In the on_create_new_session_func callback, the game_session already has a created "
+                  "\"game_progress_and_state_info\" member present. This is expected to be empty at this point, "
+                  "with the member only being created once, here, at the beginning of the application's setup."
+            );
+         }
+
+         // Create the game_progress_and_state_info saver/loader object. This is created on a per-game basis
+         // by the configuration.
+         AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info_saver_loader =
+            this->game_configuration->create_game_progress_and_state_info_saver_loader();
+
+         // Assigns the created game progress and state info to the game session object
+         game_session.set_game_progress_and_state_info(game_progress_and_state_info_saver_loader);
       }
    );
    //router.set_on_create_new_session_func_user_data(this);
