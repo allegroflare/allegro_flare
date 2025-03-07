@@ -319,6 +319,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/LicensesInUse.q.yml">quintessence/AllegroFlare/LicensesInUse.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderer.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Base.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Basic.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Basic.q.yml</a></li>
@@ -22785,6 +22786,85 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">location_of_save</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">date_and_time_of_save</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_location_name_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_details_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
@@ -50343,6 +50423,7 @@ table td
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionFX/Sparkles2",
     "AllegroFlare/MotionFX/Sparkles2",
@@ -50708,6 +50789,7 @@ table td
     "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
@@ -50845,6 +50927,7 @@ table td
     "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionComposer/TrackView",
@@ -51038,6 +51121,7 @@ table td
     "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
     "AllegroFlare/MusicNotation/Beam",
@@ -51837,6 +51921,7 @@ table td
     "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/FixedRoom2D/DialogSystem",
@@ -51999,6 +52084,7 @@ table td
     "AllegroFlare/Layouts/TileMeshWithText",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty",
     "AllegroFlare/MusicNotation/Beam",
     "AllegroFlare/ProfilerRenderer",

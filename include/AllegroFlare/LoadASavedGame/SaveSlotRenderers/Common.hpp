@@ -24,7 +24,8 @@ namespace AllegroFlare
             float y;
             float width;
             float height;
-            ALLEGRO_FONT* obtain_font();
+            ALLEGRO_FONT* obtain_location_name_font();
+            ALLEGRO_FONT* obtain_details_font();
 
          protected:
 
