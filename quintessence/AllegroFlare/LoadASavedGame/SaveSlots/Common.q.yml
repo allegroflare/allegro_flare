@@ -1,0 +1,49 @@
+parent_classes:
+
+
+  - class: AllegroFlare::LoadASavedGame::SaveSlots::Base
+    scope: public
+    init_with: AllegroFlare::LoadASavedGame::SaveSlots::Common::TYPE
+
+
+properties:
+
+
+  - name: screenshot_of_gameplay_at_save_identifier
+    type: std::string
+    init_with: '"[unset-screenshot_of_gameplay_at_save_identifier]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: location_of_save
+    type: std::string
+    init_with: '"[unset-location_of_save]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: date_and_time_of_save
+    type: std::string
+    init_with: '"[unset-date_and_time_of_save]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: time_since_text
+    type: std::string
+    init_with: '"[unset-time_since_text]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/LoadASavedGame/SaveSlots/Common"'
+    static: true
+    constexpr: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Base
+    headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
+
+

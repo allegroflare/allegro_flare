@@ -22682,6 +22682,10 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
   <td class="property">font_bin</td>
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
@@ -22708,6 +22712,9 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -22723,6 +22730,9 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Common&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Basic.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -22736,6 +22746,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlotRenderers::Common&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -22821,11 +22834,19 @@ table td
   <td class="property">AllegroFlare::FontBin*</td>
 </tr>
 <tr>
+  <td class="property">screenshot_of_gameplay_at_save_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
   <td class="property">location_of_save</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">date_and_time_of_save</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">time_since_text</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
@@ -22843,6 +22864,14 @@ table td
 <tr>
   <td class="property">height</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_WIDTH</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_HEIGHT</td>
+  <td class="property">int</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -50423,6 +50452,7 @@ table td
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionFX/Sparkles2",
@@ -53436,6 +53466,9 @@ table td
   "AllegroFlare/Layouts/Text": [
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Common": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Basic": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
@@ -53447,6 +53480,9 @@ table td
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
   "AllegroFlare/LoadASavedGame/Screen": [

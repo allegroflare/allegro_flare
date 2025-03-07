@@ -82,7 +82,8 @@ TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRenderers_CommonTestWithAllegroRender
 {
    AllegroFlare::LoadASavedGame::SaveSlotRenderers::Common basic(
          &get_bitmap_bin_ref(),
-         &get_font_bin_ref()
+         &get_font_bin_ref(),
+         "scene3-01.jpg"
       );
    basic.set_x(1920/2);
    basic.set_y(1080/2);

@@ -15,11 +15,17 @@ namespace AllegroFlare
       {
          class Common
          {
+         public:
+            static constexpr int DEFAULT_WIDTH = 560;
+            static constexpr int DEFAULT_HEIGHT = 155;
+
          private:
             AllegroFlare::BitmapBin* bitmap_bin;
             AllegroFlare::FontBin* font_bin;
+            std::string screenshot_of_gameplay_at_save_identifier;
             std::string location_of_save;
             std::string date_and_time_of_save;
+            std::string time_since_text;
             float x;
             float y;
             float width;
@@ -31,19 +37,23 @@ namespace AllegroFlare
 
 
          public:
-            Common(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string location_of_save="Location of Save", std::string date_and_time_of_save="12/14/2024 3:20PM");
+            Common(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string screenshot_of_gameplay_at_save_identifier="[unset-screenshot_of_gameplay_at_save_identifier]", std::string location_of_save="Location of Save", std::string date_and_time_of_save="12/14/2024 3:20PM", std::string time_since_text="12 minutes ago");
             ~Common();
 
             void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
             void set_font_bin(AllegroFlare::FontBin* font_bin);
+            void set_screenshot_of_gameplay_at_save_identifier(std::string screenshot_of_gameplay_at_save_identifier);
             void set_location_of_save(std::string location_of_save);
             void set_date_and_time_of_save(std::string date_and_time_of_save);
+            void set_time_since_text(std::string time_since_text);
             void set_x(float x);
             void set_y(float y);
             void set_width(float width);
             void set_height(float height);
+            std::string get_screenshot_of_gameplay_at_save_identifier() const;
             std::string get_location_of_save() const;
             std::string get_date_and_time_of_save() const;
+            std::string get_time_since_text() const;
             float get_x() const;
             float get_y() const;
             float get_width() const;

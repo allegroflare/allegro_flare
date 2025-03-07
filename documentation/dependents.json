@@ -275,6 +275,7 @@
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/MotionFX/Sparkles2",
@@ -3288,6 +3289,9 @@
   "AllegroFlare/Layouts/Text": [
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
+  "AllegroFlare/LoadASavedGame/SaveSlots/Common": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Basic": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
@@ -3299,6 +3303,9 @@
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty": [
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+  ],
+  "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
   "AllegroFlare/LoadASavedGame/Screen": [

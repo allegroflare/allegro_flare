@@ -1,6 +1,13 @@
 properties:
 
 
+  - name: bitmap_bin
+    type: AllegroFlare::BitmapBin*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: font_bin
     type: AllegroFlare::FontBin*
     init_with: nullptr
@@ -41,6 +48,7 @@ methods:
       - al_is_system_installed()
       - al_is_primitives_addon_initialized()
       - al_is_font_addon_initialized()
+      - bitmap_bin
       - font_bin
       - save_slot
     body: |
@@ -57,6 +65,25 @@ methods:
          renderer.set_width(slot_width);
          renderer.set_height(slot_height);
          renderer.set_save_name(as->get_save_name());
+         renderer.render();
+      }
+      else if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Common::TYPE))
+      {
+         // TODO: Test this rendering type
+         AllegroFlare::LoadASavedGame::SaveSlots::Common *as =
+            static_cast<AllegroFlare::LoadASavedGame::SaveSlots::Common*>(save_slot);
+
+         AllegroFlare::LoadASavedGame::SaveSlotRenderers::Common renderer;
+         renderer.set_bitmap_bin(bitmap_bin);
+         renderer.set_font_bin(font_bin);
+         renderer.set_x(x);
+         renderer.set_y(y);
+         renderer.set_width(slot_width);
+         renderer.set_height(slot_height);
+         renderer.set_screenshot_of_gameplay_at_save_identifier(as->screenshot_of_gameplay_at_save_identifier);
+         renderer.set_location_of_save(as->location_of_save);
+         renderer.set_date_and_time_of_save(as->date_and_time_of_save);
+         renderer.set_time_since_text(as->time_since_text);
          renderer.render();
       }
       else if (save_slot->is_type(AllegroFlare::LoadASavedGame::SaveSlots::Empty::TYPE))
@@ -83,9 +110,11 @@ methods:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
       - al_draw_text
+      - AllegroFlare::LoadASavedGame::SaveSlots::Common
       - AllegroFlare::LoadASavedGame::SaveSlots::Basic
       - AllegroFlare::LoadASavedGame::SaveSlots::Empty
       - AllegroFlare::LoadASavedGame::SaveSlotRenderers::Basic
+      - AllegroFlare::LoadASavedGame::SaveSlotRenderers::Common
       - AllegroFlare::LoadASavedGame::SaveSlotRenderers::Empty
 
 
@@ -100,6 +129,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::BitmapBin
+    headers: [ AllegroFlare/BitmapBin.hpp ]
   - symbol: AllegroFlare::FontBin
     headers: [ AllegroFlare/FontBin.hpp ]
   - symbol: ALLEGRO_FONT
@@ -110,6 +141,8 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Common
+    headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp ]
   - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Basic
     headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Basic.hpp ]
   - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Empty
@@ -120,5 +153,7 @@ dependencies:
     headers: [ AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.hpp ]
   - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Base
     headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
+  - symbol: AllegroFlare::LoadASavedGame::SaveSlotRenderers::Common
+    headers: [ AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common.hpp ]
 
 
