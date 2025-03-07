@@ -156,6 +156,13 @@ methods:
          // NOTE: Any image will be stretched to fit the screenshot space
          // NOTE: Screenshots are 16:9
          ALLEGRO_BITMAP* screenshot = bitmap_bin->auto_get(screenshot_of_gameplay_at_save_identifier);
+         if (!screenshot)
+         {
+            AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+               "screenshot is required in this component (for now)."
+            );
+         }
+
          al_draw_scaled_bitmap(
             screenshot,
             0,

@@ -323,6 +323,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlotRenderers/Empty.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Base.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Basic.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Basic.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Common.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Common.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Empty.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Empty.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/LoadASavedGame/Screen.q.yml">quintessence/AllegroFlare/LoadASavedGame/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Logger.q.yml">quintessence/AllegroFlare/Logger.q.yml</a></li>
@@ -23013,6 +23014,46 @@ table td
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">save_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Common.q.yml">quintessence/AllegroFlare/LoadASavedGame/SaveSlots/Common.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">screenshot_of_gameplay_at_save_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">location_of_save</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">date_and_time_of_save</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">time_since_text</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
@@ -53105,6 +53146,7 @@ table td
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlots/Common",
     "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"

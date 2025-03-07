@@ -115,7 +115,7 @@ TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRendererTestWithAllegroRenderingFixtu
    common_save_slot.screenshot_of_gameplay_at_save_identifier = "scene3-01.jpg";
    common_save_slot.location_of_save = "Southern Outpost";
    common_save_slot.date_and_time_of_save = "3/7/2025 4:18PM";
-   common_save_slot.time_since_text = "3 minutes";
+   common_save_slot.time_since_text = "3 minutes ago";
    save_slot_renderer.set_slot_width(AllegroFlare::LoadASavedGame::SaveSlotRenderers::Common::DEFAULT_WIDTH);
    save_slot_renderer.set_slot_height(AllegroFlare::LoadASavedGame::SaveSlotRenderers::Common::DEFAULT_HEIGHT);
    save_slot_renderer.render(&common_save_slot);

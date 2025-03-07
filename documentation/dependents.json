@@ -2928,6 +2928,7 @@
     "AllegroFlare/GameConfigurations/Complete",
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
     "AllegroFlare/LoadASavedGame/SaveSlots/Basic",
+    "AllegroFlare/LoadASavedGame/SaveSlots/Common",
     "AllegroFlare/LoadASavedGame/SaveSlots/Empty",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"

@@ -381,6 +381,7 @@ void Screen::render_save_slots()
       float y = y_cursor + y_distance*i;
       // HERE: Continue on this
       AllegroFlare::LoadASavedGame::SaveSlotRenderer renderer;
+      renderer.set_bitmap_bin(bitmap_bin);
       renderer.set_font_bin(font_bin);
       renderer.render(
          save_slot,

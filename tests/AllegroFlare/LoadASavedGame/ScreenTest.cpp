@@ -7,6 +7,7 @@
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 //#include <AllegroFlare/Frameworks/Full.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Basic.hpp>
+#include <AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Empty.hpp>
 
 class AllegroFlare_LoadASavedGame_ScreenTest : public ::testing::Test {};
@@ -39,7 +40,7 @@ TEST_F(AllegroFlare_LoadASavedGame_ScreenTest, type__has_the_expected_value_matc
 
 
 TEST_F(AllegroFlare_LoadASavedGame_ScreenTestWithAllegroFrameworksFullFixture,
-   TIMED_INTERACTIVE__will_run_as_expected)
+   CAPTURE__TIMED_INTERACTIVE__will_run_as_expected)
 {
    AllegroFlare::LoadASavedGame::Screen screen;
    screen.set_event_emitter(get_framework_event_emitter());
@@ -50,7 +51,7 @@ TEST_F(AllegroFlare_LoadASavedGame_ScreenTestWithAllegroFrameworksFullFixture,
    screen.set_save_slots({
       new AllegroFlare::LoadASavedGame::SaveSlots::Basic("Saved Game 1"),
       new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
-      new AllegroFlare::LoadASavedGame::SaveSlots::Empty(),
+      new AllegroFlare::LoadASavedGame::SaveSlots::Empty()
    });
 
    screen.initialize();
