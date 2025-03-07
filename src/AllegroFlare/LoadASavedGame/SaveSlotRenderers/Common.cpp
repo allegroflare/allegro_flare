@@ -171,53 +171,73 @@ void Common::render()
    AllegroFlare::Vec2D padding = {0, 0};
    float cumulative_line_spacing = 0;
 
+   float text_x = x + 60;
+   float text_y = y + 20;
    ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
    ALLEGRO_COLOR border_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
 
-   // Draw the fill
-   al_draw_filled_rounded_rectangle(
-      x - padding.x,
-      y - padding.y,
-      x + width + padding.x,
-      y + height + padding.y,
-      8.0f,
-      8.0f,
-      fill_color
-   );
+   { // fill and border
+      // Draw the fill
+      al_draw_filled_rounded_rectangle(
+         x - padding.x,
+         y - padding.y,
+         x + width + padding.x,
+         y + height + padding.y,
+         8.0f,
+         8.0f,
+         fill_color
+      );
 
-   // Draw the border
-   al_draw_rounded_rectangle(
-      x - padding.x,
-      y - padding.y,
-      x + width + padding.x,
-      y + height + padding.y,
-      8.0f,
-      8.0f,
-      border_color,
-      3.0f
-   );
+      // Draw the border
+      al_draw_rounded_rectangle(
+         x - padding.x,
+         y - padding.y,
+         x + width + padding.x,
+         y + height + padding.y,
+         8.0f,
+         8.0f,
+         border_color,
+         3.0f
+      );
+   }
 
-   // The location of the save
-   cumulative_line_spacing = 20;
-   al_draw_text(
-      location_name_font,
-      ALLEGRO_COLOR{1, 1, 1, 1},
-      x+60,
-      y+cumulative_line_spacing,
-      ALLEGRO_ALIGN_LEFT,
-      location_of_save.c_str()
-   );
-   cumulative_line_spacing += location_name_font_line_height + 8;
+   { // screenshot
+      // Draw the screenshot frame
+      al_draw_rounded_rectangle(
+         x - padding.x,
+         y - padding.y,
+         x + width + padding.x,
+         y + height + padding.y,
+         8.0f,
+         8.0f,
+         border_color,
+         3.0f
+      );
+   }
 
-   // The date_and_time_of_save
-   al_draw_text(
-      details_font,
-      ALLEGRO_COLOR{1, 1, 1, 1},
-      x+60,
-      y+cumulative_line_spacing,
-      ALLEGRO_ALIGN_LEFT,
-      date_and_time_of_save.c_str()
-   );
+   { // info text
+      // The location of the save
+      cumulative_line_spacing = 0;
+      al_draw_text(
+         location_name_font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         text_x,
+         text_y+cumulative_line_spacing,
+         ALLEGRO_ALIGN_LEFT,
+         location_of_save.c_str()
+      );
+      cumulative_line_spacing += location_name_font_line_height + 8;
+
+      // The date_and_time_of_save
+      al_draw_text(
+         details_font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         text_x,
+         text_y+cumulative_line_spacing,
+         ALLEGRO_ALIGN_LEFT,
+         date_and_time_of_save.c_str()
+      );
+   }
 
    return;
 }

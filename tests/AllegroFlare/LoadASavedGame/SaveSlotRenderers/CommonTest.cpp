@@ -84,7 +84,10 @@ TEST_F(AllegroFlare_LoadASavedGame_SaveSlotRenderers_CommonTestWithAllegroRender
          &get_bitmap_bin_ref(),
          &get_font_bin_ref()
       );
+   basic.set_x(1920/2);
+   basic.set_y(1080/2);
    basic.render();
+   draw_crosshair(basic.get_x(), basic.get_y());
    al_flip_display();
    sleep_for(1);
 }
