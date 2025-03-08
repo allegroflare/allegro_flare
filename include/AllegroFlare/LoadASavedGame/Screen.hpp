@@ -72,6 +72,7 @@ namespace AllegroFlare
          virtual void on_deactivate() override;
          void move_cursor_up();
          void move_cursor_down();
+         AllegroFlare::LoadASavedGame::SaveSlots::Base* get_currently_selected_save_slot();
          void exit_screen();
          void activate_current_focused_menu_option();
          void erase_current_focused_save_slot();

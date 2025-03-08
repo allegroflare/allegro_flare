@@ -286,8 +286,16 @@ void Screen::move_cursor_down()
 {
    if (save_slots.empty()) return;
    cursor_position++;
-   if (cursor_position > save_slots.size()) cursor_position -= save_slots.size();
+   if (cursor_position >= save_slots.size()) cursor_position -= save_slots.size();
    return;
+}
+
+AllegroFlare::LoadASavedGame::SaveSlots::Base* Screen::get_currently_selected_save_slot()
+{
+   if (save_slots.empty()) return nullptr;
+   // TODO: This assumes that the cursor will never be in an invalid position. Please review this to be sure that
+   // is the case.
+   return save_slots[cursor_position];
 }
 
 void Screen::exit_screen()

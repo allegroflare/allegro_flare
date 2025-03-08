@@ -331,10 +331,13 @@ void Complete::initialize()
    title_screen.set_footer_text(game_configuration->build_copyright_text(&release_info));
    title_screen.set_menu_options({
       { "Start new game", "start_new_game" }, // NOTE: This value is a constant expected by Routers/Complete
+      { "Load a saved game", "goto_load_a_saved_game_screen" }, // NOTE: This value is a constant expected by Routers/Complete
       { "Credits", "goto_credits_screen" }, // NOTE: This value is a constant expected by Routers/Complete
       { "Exit", "quit" } // NOTE: This value is a constant expected by Routers/Complete
    });
    title_screen.set_menu_font_name("RobotoCondensed-Regular.ttf");
+   title_screen.set_foreground(shared_foreground);
+   title_screen.set_background(shared_background);
    title_screen.initialize();
 
    // Setup the display settings screen
@@ -872,10 +875,29 @@ void Complete::setup_router()
       [this](AllegroFlare::LoadASavedGame::Screen* screen, void* data) {
          (void)(this); // TODO: Consider if this argument could be removed
          // TODO: Handle here
-         AllegroFlare::Logger::info_from(
-           "Router::setup_router",
-           "in on_menu_choice_callback_func, Currently there is no action implemented on this callback"
-        );
+         AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info_saver_loader =
+            router.get_game_session_ref().get_game_progress_and_state_info();
+
+         AllegroFlare::LoadASavedGame::SaveSlots::Base *currently_selected_save_slot =
+            screen->get_currently_selected_save_slot();
+
+         if (!currently_selected_save_slot)
+         {
+            AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+               "in load_a_saved_game_screens on_menu_choice_callback_func, a currently_selected_save_slot is "
+               "expected to be present but is not."
+            );
+         }
+
+         std::string filename_for_selected_slot = currently_selected_save_slot->get_filename();
+         game_progress_and_state_info_saver_loader->set_save_file_filename(filename_for_selected_slot);
+
+         game_progress_and_state_info_saver_loader->load();
+         // HERE: Do a game_progress_and_state_info->load()
+         //AllegroFlare::Logger::info_from(
+           //"Router::setup_router",
+           //"in on_menu_choice_callback_func, Currently there is no action implemented on this callback"
+         //);
       }
    );
    load_a_saved_game_screen.set_on_erase_focused_save_slot_func(
@@ -1097,6 +1119,14 @@ void Complete::setup_router()
          {
             this->router.emit_route_event(
                AllegroFlare::Routers::Standard::EVENT_ACTIVATE_CREDITS_SCREEN,
+               nullptr,
+               al_get_time()
+            );
+         }
+         else if (menu_choice == "goto_load_a_saved_game_screen")
+         {
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LOAD_A_SAVED_GAME_SCREEN,
                nullptr,
                al_get_time()
             );

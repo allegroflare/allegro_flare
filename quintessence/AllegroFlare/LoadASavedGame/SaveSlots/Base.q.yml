@@ -7,6 +7,12 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: filename
+    type: std::string
+    init_with: '"saves/save.sav"'
+    getter: true
+    setter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/LoadASavedGame/SaveSlots/Base"'
