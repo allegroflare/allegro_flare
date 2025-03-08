@@ -18509,6 +18509,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>load_save_file_content_into_gameplay</b>(std::string save_file_content=&quot;[unset-save_file_content]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>save_game_progress_and_state_info</b>(AllegroFlare::GameSession* game_session=nullptr)</td>
 </tr>
 <tr>
@@ -35428,6 +35432,14 @@ table td
 </tr>
 <tr>
   <td class="property">on_continue_from_last_save_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">on_load_save_file_content_into_gameplay_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_load_save_file_content_into_gameplay_func_user_data</td>
   <td class="property">void*</td>
 </tr>
 <tr>

@@ -768,7 +768,6 @@ void Complete::setup_router()
 
    //router.set_on_before_activate_screen_func(AllegroFlare::Runners::Complete::on_before_activate_screen_func);
    //router.set_on_before_activate_screen_func_user_data(this);
-   // HERE
    router.set_on_before_activate_screen_func(
       [this](std::string activating, std::string current, AllegroFlare::Routers::Base*, void*) {
          //: std::function<void(
@@ -777,6 +776,31 @@ void Complete::setup_router()
          this->game_configuration->before_activate_screen_callback(activating, current);
       });
    router.set_on_before_activate_screen_func_user_data(this);
+
+   // When loading save file content
+   //router.set_on_load_save_file_content_into_gameplay_func(
+      // HERE:
+      // HERE:
+      // HERE:
+      // TODO: Tweak this callback func signature
+      //std::function<void(AllegroFlare::Routers::Standard*, void*)>
+      //[](AllegroFlare::Routers::Standard*, void*) {
+         //(void)(this);  // NOTE: For now
+      //});
+   //router.set_set_on_load_save_file_content_into_gameplay_func_user_data(this);
+
+   /*
+     type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+     init_with: '{}'
+     getter: true
+     setter: true
+
+   - name: on_load_save_file_content_into_gameplay_user_data
+     type: void*
+     init_with: nullptr
+     getter: true
+     setter: true
+   */
 
 
    // Set the routes

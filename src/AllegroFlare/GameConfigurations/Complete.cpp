@@ -445,6 +445,15 @@ void Complete::load_game_progress_and_state_info_into_universe()
    return;
 }
 
+void Complete::load_save_file_content_into_gameplay(std::string save_file_content)
+{
+   // TODO: This method
+   AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+      "Not implemented in the base class. This method must be implemented in the derived class."
+   );
+   return;
+}
+
 void Complete::save_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
 {
    if (!(game_session))

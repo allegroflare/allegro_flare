@@ -29,6 +29,8 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , on_create_new_session_func_user_data(nullptr)
    , on_continue_from_last_save_func({})
    , on_continue_from_last_save_func_user_data(nullptr)
+   , on_load_save_file_content_into_gameplay_func({})
+   , on_load_save_file_content_into_gameplay_func_user_data(nullptr)
    , on_gameplay_paused_func({})
    , on_gameplay_paused_func_user_data(nullptr)
    , on_gameplay_unpaused_func({})
@@ -105,6 +107,18 @@ void Standard::set_on_continue_from_last_save_func(std::function<void(AllegroFla
 void Standard::set_on_continue_from_last_save_func_user_data(void* on_continue_from_last_save_func_user_data)
 {
    this->on_continue_from_last_save_func_user_data = on_continue_from_last_save_func_user_data;
+}
+
+
+void Standard::set_on_load_save_file_content_into_gameplay_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_load_save_file_content_into_gameplay_func)
+{
+   this->on_load_save_file_content_into_gameplay_func = on_load_save_file_content_into_gameplay_func;
+}
+
+
+void Standard::set_on_load_save_file_content_into_gameplay_func_user_data(void* on_load_save_file_content_into_gameplay_func_user_data)
+{
+   this->on_load_save_file_content_into_gameplay_func_user_data = on_load_save_file_content_into_gameplay_func_user_data;
 }
 
 
@@ -225,6 +239,18 @@ std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_co
 void* Standard::get_on_continue_from_last_save_func_user_data() const
 {
    return on_continue_from_last_save_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_load_save_file_content_into_gameplay_func() const
+{
+   return on_load_save_file_content_into_gameplay_func;
+}
+
+
+void* Standard::get_on_load_save_file_content_into_gameplay_func_user_data() const
+{
+   return on_load_save_file_content_into_gameplay_func_user_data;
 }
 
 
@@ -508,6 +534,24 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             );
          }
          // TODO: Implement an callback on this event
+      }},
+      { EVENT_LOAD_A_SAVED_GAME, [this](){
+         // TODO: Test this callback
+         if (on_load_save_file_content_into_gameplay_func)
+         {
+            on_load_save_file_content_into_gameplay_func(
+               this,
+               on_load_save_file_content_into_gameplay_func_user_data
+            );
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "on EVENT_LOAD_A_SAVED_GAME, expecting an \"on_load_save_file_content_into_gameplay_func\" to be "
+                  "present, but it is not."
+            );
+         }
       }},
       { EVENT_WIN_GAME, [this](){
          // TODO: Finish the actions in this event

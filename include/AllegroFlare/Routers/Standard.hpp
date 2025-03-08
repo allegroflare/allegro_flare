@@ -100,6 +100,8 @@ namespace AllegroFlare
          void* on_create_new_session_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func;
          void* on_continue_from_last_save_func_user_data;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> on_load_save_file_content_into_gameplay_func;
+         void* on_load_save_file_content_into_gameplay_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_paused_func;
          void* on_gameplay_paused_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_unpaused_func;
@@ -128,6 +130,8 @@ namespace AllegroFlare
          void set_on_create_new_session_func_user_data(void* on_create_new_session_func_user_data);
          void set_on_continue_from_last_save_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_continue_from_last_save_func);
          void set_on_continue_from_last_save_func_user_data(void* on_continue_from_last_save_func_user_data);
+         void set_on_load_save_file_content_into_gameplay_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_load_save_file_content_into_gameplay_func);
+         void set_on_load_save_file_content_into_gameplay_func_user_data(void* on_load_save_file_content_into_gameplay_func_user_data);
          void set_on_gameplay_paused_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_paused_func);
          void set_on_gameplay_paused_func_user_data(void* on_gameplay_paused_func_user_data);
          void set_on_gameplay_unpaused_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_unpaused_func);
@@ -148,6 +152,8 @@ namespace AllegroFlare
          void* get_on_create_new_session_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_continue_from_last_save_func() const;
          void* get_on_continue_from_last_save_func_user_data() const;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_load_save_file_content_into_gameplay_func() const;
+         void* get_on_load_save_file_content_into_gameplay_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_gameplay_paused_func() const;
          void* get_on_gameplay_paused_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_gameplay_unpaused_func() const;

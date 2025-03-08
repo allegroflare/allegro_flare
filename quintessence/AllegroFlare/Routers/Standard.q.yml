@@ -76,6 +76,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_load_save_file_content_into_gameplay_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_load_save_file_content_into_gameplay_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: on_gameplay_paused_func
     type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
     init_with: '{}'
@@ -572,6 +584,24 @@ methods:
                );
             }
             // TODO: Implement an callback on this event
+         }},
+         { EVENT_LOAD_A_SAVED_GAME, [this](){
+            // TODO: Test this callback
+            if (on_load_save_file_content_into_gameplay_func)
+            {
+               on_load_save_file_content_into_gameplay_func(
+                  this,
+                  on_load_save_file_content_into_gameplay_func_user_data
+               );
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "on EVENT_LOAD_A_SAVED_GAME, expecting an \"on_load_save_file_content_into_gameplay_func\" to be "
+                     "present, but it is not."
+               );
+            }
          }},
          { EVENT_WIN_GAME, [this](){
             // TODO: Finish the actions in this event
