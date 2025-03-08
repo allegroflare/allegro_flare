@@ -23121,20 +23121,16 @@ table td
     <p>{"todos"=>["add a technique to clear a save slot (after confirmation dialog)"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">event_emitter</td>
-  <td class="property">AllegroFlare::EventEmitter*</td>
+  <td class="property">data_folder_path</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">bitmap_bin</td>
-  <td class="property">AllegroFlare::BitmapBin*</td>
+  <td class="property">AllegroFlare::BitmapBin</td>
 </tr>
 <tr>
   <td class="property">font_bin</td>
-  <td class="property">AllegroFlare::FontBin*</td>
-</tr>
-<tr>
-  <td class="property">model_bin</td>
-  <td class="property">AllegroFlare::ModelBin*</td>
+  <td class="property">AllegroFlare::FontBin</td>
 </tr>
 <tr>
   <td class="property">save_slots</td>
@@ -23185,6 +23181,14 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">destroyed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_DATA_FOLDER_PATH</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -23193,27 +23197,19 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>set_event_emitter</b>(AllegroFlare::EventEmitter* event_emitter=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">void</td>
-  <td class="method"><b>set_bitmap_bin</b>(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">void</td>
-  <td class="method"><b>set_font_bin</b>(AllegroFlare::FontBin* font_bin=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">void</td>
-  <td class="method"><b>set_model_bin</b>(AllegroFlare::ModelBin* model_bin=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">void</td>
   <td class="method"><b>set_save_slots</b>(std::vector&lt;AllegroFlare::LoadASavedGame::SaveSlots::Base*&gt; save_slots={})</td>
 </tr>
 <tr>
   <td class="method">void</td>
   <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>~destroy</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -23225,6 +23221,14 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>reveal_screen</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>handling_user_input</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>move_cursor_up</b>()</td>
 </tr>
 <tr>
@@ -23232,7 +23236,7 @@ table td
   <td class="method"><b>move_cursor_down</b>()</td>
 </tr>
 <tr>
-  <td class="method">AllegroFlare::LoadASavedGame::SaveSlots::Base*</td>
+  <td class="method">std::pair&lt;int, AllegroFlare::LoadASavedGame::SaveSlots::Base*&gt;</td>
   <td class="method"><b>get_currently_selected_save_slot</b>()</td>
 </tr>
 <tr>
@@ -23248,12 +23252,16 @@ table td
   <td class="method"><b>erase_current_focused_save_slot</b>()</td>
 </tr>
 <tr>
-  <td class="method">void</td>
-  <td class="method"><b>select_current_focused_menu_option</b>()</td>
+  <td class="method">bool</td>
+  <td class="method"><b>can_exit_screen</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>can_select_current_focused_menu_option</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>update</b>()</td>
+  <td class="method"><b>select_current_focused_menu_option</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -23266,6 +23274,14 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>render_save_slots</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_update_func</b>(double time_now=0.0, double time_step=0.0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_render_func</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -23286,6 +23302,14 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>set_state</b>(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>begin_shutdown_after_selection</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>complete_shutdown_and_activate_current_focused_menu_option</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>

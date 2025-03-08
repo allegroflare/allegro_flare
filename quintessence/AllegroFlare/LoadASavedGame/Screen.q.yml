@@ -9,25 +9,19 @@ parent_classes:
 properties:
 
 
-  - name: event_emitter
-    type: AllegroFlare::EventEmitter*
-    init_with: nullptr
+  - name: data_folder_path
+    type: std::string
+    init_with: DEFAULT_DATA_FOLDER_PATH
     constructor_arg: true
+    setter: before_initialized
 
   - name: bitmap_bin
-    type: AllegroFlare::BitmapBin*
-    init_with: nullptr
-    constructor_arg: true
+    type: AllegroFlare::BitmapBin
+    init_with: '{}'
 
   - name: font_bin
-    type: AllegroFlare::FontBin*
-    init_with: nullptr
-    constructor_arg: true
-
-  - name: model_bin
-    type: AllegroFlare::ModelBin*
-    init_with: nullptr
-    constructor_arg: true
+    type: AllegroFlare::FontBin
+    init_with: '{}'
 
   - name: save_slots
     type: std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*>
@@ -92,6 +86,18 @@ properties:
   - name: initialized
     type: bool
     init_with: false
+    getter: true
+
+  - name: destroyed
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: DEFAULT_DATA_FOLDER_PATH
+    type: char*
+    init_with: '(char*)"[unset-data_folder_path]"'
+    static: true
+    constexpr: true
 
   - name: TYPE
     type: char*
@@ -107,10 +113,11 @@ enums:
     enumerators:
       - STATE_UNDEF
       - STATE_REVEALING
-      - STATE_REVEALED_AND_AWAITING_USER_INPUT
+      - STATE_REVEALED_AND_HANDLING_USER_INPUT
       - STATE_MENU_OPTION_IS_CHOSEN
       - __UNIMPLEMENTED__STATE_AWAITING_USER_CONFIRMATION
       - STATE_CLOSING_DOWN
+      - STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION
       - STATE_FINISHED
 
 
@@ -122,50 +129,6 @@ documentation:
 
 
 methods:
-
-
-  - name: set_event_emitter
-    guards: [ (!initialized) ]
-    parameters:
-      - name: event_emitter
-        type: AllegroFlare::EventEmitter*
-        default_argument: nullptr
-    body: |
-      this->event_emitter = event_emitter;
-      return;
-
-
-  - name: set_bitmap_bin
-    guards: [ (!initialized) ]
-    parameters:
-      - name: bitmap_bin
-        type: AllegroFlare::BitmapBin*
-        default_argument: nullptr
-    body: |
-      this->bitmap_bin = bitmap_bin;
-      return;
-
-
-  - name: set_font_bin
-    guards: [ (!initialized) ]
-    parameters:
-      - name: font_bin
-        type: AllegroFlare::FontBin*
-        default_argument: nullptr
-    body: |
-      this->font_bin = font_bin;
-      return;
-
-
-  - name: set_model_bin
-    guards: [ (!initialized) ]
-    parameters:
-      - name: model_bin
-        type: AllegroFlare::ModelBin*
-        default_argument: nullptr
-    body: |
-      this->model_bin = model_bin;
-      return;
 
 
   - name: set_save_slots
@@ -183,18 +146,43 @@ methods:
   - name: initialize
     guards:
       - (!initialized)
+      - (!destroyed)
       - al_is_system_installed()
       - al_is_primitives_addon_initialized()
       - al_is_font_addon_initialized()
-      - event_emitter
-      - bitmap_bin
-      - font_bin
-      - model_bin
+      - (data_folder_path != DEFAULT_DATA_FOLDER_PATH)
     body: |
+      set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+      bitmap_bin.set_full_path(AllegroFlare::BitmapBin::build_standard_path(data_folder_path));
+      font_bin.set_full_path(AllegroFlare::FontBin::build_standard_path(data_folder_path));
       initialized = true;
       return;
     body_dependency_symbols:
       - al_is_primitives_addon_initialized
+
+
+  - name: destroy
+    virtual: true
+    override: true
+    guards: [ initialized, (!destroyed) ]
+    body: |
+      bitmap_bin.clear();
+      font_bin.clear();
+      destroyed = true;
+      return;
+
+
+  - name: ~destroy
+    body: |
+      if (initialized && !destroyed)
+      {
+         AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME,
+            "This instance is being destroyed but the destroy() method has not been called."
+         );
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: on_activate
@@ -203,6 +191,7 @@ methods:
     guards: [ initialized ]
     body: |
       cursor_position = 0;
+      reveal_screen();
       //emit_event_to_update_input_hints_bar();
       //emit_show_and_size_input_hints_bar_event();
       return;
@@ -217,9 +206,23 @@ methods:
       return;
 
 
+  - name: reveal_screen
+    body: |
+      set_state(STATE_REVEALING);
+      return;
+
+
+  - name: handling_user_input
+    type: bool
+    body: |
+      return is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT);
+
+
   - name: move_cursor_up
     body: |
       if (save_slots.empty()) return;
+      if (!handling_user_input()) return;
+
       cursor_position--;
       if (cursor_position < 0) cursor_position += save_slots.size();
       return;
@@ -228,18 +231,20 @@ methods:
   - name: move_cursor_down
     body: |
       if (save_slots.empty()) return;
+      if (!handling_user_input()) return;
+
       cursor_position++;
       if (cursor_position >= save_slots.size()) cursor_position -= save_slots.size();
       return;
 
 
   - name: get_currently_selected_save_slot
-    type: AllegroFlare::LoadASavedGame::SaveSlots::Base*
+    type: std::pair<int, AllegroFlare::LoadASavedGame::SaveSlots::Base*>
     body: |
-      if (save_slots.empty()) return nullptr;
+      if (save_slots.empty()) return std::make_pair(-1, nullptr);
       // TODO: This assumes that the cursor will never be in an invalid position. Please review this to be sure that
       // is the case.
-      return save_slots[cursor_position];
+      return { cursor_position, save_slots[cursor_position] };
 
 
   - name: exit_screen
@@ -301,18 +306,31 @@ methods:
       - AllegroFlare::Logger
 
 
-  - name: select_current_focused_menu_option
+  - name: can_exit_screen
+    type: bool
     body: |
-      // For now, do a direct call to activate the option
-      activate_current_focused_menu_option();
+      // User can exit the screen when it is still revealing and when it's handling normal input
+      if (is_state(STATE_REVEALING)) return true;
+      if (is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)) return true;
+      return false;
+
+
+  - name: can_select_current_focused_menu_option
+    type: bool
+    body: |
+      if (!is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)) return false;
+      return true;
+
+
+  - name: select_current_focused_menu_option
+    guards: [ is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT) ]
+    body: |
+      // For now, do a direct call to activate the option. In the future, this would begin a shutdown state, the end
+      // of which would then "activate" the current selected menu option.
+      set_state(STATE_MENU_OPTION_IS_CHOSEN);
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
-
-
-  - name: update
-    body: |
-      return;
 
 
   - name: render
@@ -349,8 +367,8 @@ methods:
          float y = y_cursor + y_distance*i;
          // HERE: Continue on this
          AllegroFlare::LoadASavedGame::SaveSlotRenderer renderer;
-         renderer.set_bitmap_bin(bitmap_bin);
-         renderer.set_font_bin(font_bin);
+         renderer.set_bitmap_bin(&bitmap_bin);
+         renderer.set_font_bin(&font_bin);
          renderer.render(
             save_slot,
             x,
@@ -388,13 +406,37 @@ methods:
       - AllegroFlare::LoadASavedGame::SaveSlotRenderer
 
 
+  - name: primary_update_func
+    virtual: true
+    override: true
+    parameters:
+      - name: time_now
+        type: double
+        default_argument: 0.0
+      - name: time_step
+        type: double
+        default_argument: 0.0
+    body: |
+      //state_accumulated_age += time_step;
+      update_state(time_now); // TODO: Sort out proper time accumulation
+      return;
+
+
+  - name: primary_render_func
+    virtual: true
+    override: true
+    guards: [ initialized ]
+    body: |
+      render();
+      return;
+
+
   - name: primary_timer_func
     virtual: true
     override: true
     guards: [ initialized ]
     body: |
-      update();
-      render();
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Not expected to be in this code path.");
       return;
 
 
@@ -423,11 +465,11 @@ methods:
 
          case ALLEGRO_KEY_Q:
          case ALLEGRO_KEY_X:
-            exit_screen();
+            if (can_exit_screen()) exit_screen();
          break;
 
          case ALLEGRO_KEY_ENTER:
-            select_current_focused_menu_option();
+            if (can_select_current_focused_menu_option()) select_current_focused_menu_option();
          break;
       }
       return;
@@ -487,10 +529,19 @@ methods:
          case STATE_REVEALING:
          break;
 
-         case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+         case STATE_REVEALED_AND_HANDLING_USER_INPUT:
+         break;
+
+         case STATE_MENU_OPTION_IS_CHOSEN:
          break;
 
          case STATE_CLOSING_DOWN:
+         break;
+
+         case STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION:
+         break;
+
+         case STATE_FINISHED:
          break;
 
          default:
@@ -509,6 +560,23 @@ methods:
       - AllegroFlare::Logger
 
 
+  - name: begin_shutdown_after_selection
+    guards: [ is_state(STATE_MENU_OPTION_IS_CHOSEN) ]
+    body: |
+      set_state(STATE_CLOSING_DOWN);
+      return;
+
+
+  - name: complete_shutdown_and_activate_current_focused_menu_option
+    guards: [ is_state(STATE_CLOSING_DOWN) ]
+    body: |
+      // HERE
+      set_state(STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION);
+      activate_current_focused_menu_option();
+      set_state(STATE_FINISHED);
+      return;
+
+
   - name: update_state
     parameters:
       - name: time_now
@@ -521,12 +589,24 @@ methods:
       switch (state)
       {
          case STATE_REVEALING:
+            if (age > 1.0) set_state(STATE_REVEALED_AND_HANDLING_USER_INPUT);
          break;
 
-         case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+         case STATE_REVEALED_AND_HANDLING_USER_INPUT:
+         break;
+
+         case STATE_MENU_OPTION_IS_CHOSEN:
+            if (age > 1.0) begin_shutdown_after_selection();
          break;
 
          case STATE_CLOSING_DOWN:
+            if (age > 1.0) complete_shutdown_and_activate_current_focused_menu_option();
+         break;
+
+         case STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION:
+         break;
+
+         case STATE_FINISHED:
          break;
 
          default:
@@ -553,8 +633,11 @@ methods:
       std::set<uint32_t> valid_states =
       {
          STATE_REVEALING,
-         STATE_REVEALED_AND_AWAITING_USER_INPUT,
+         STATE_REVEALED_AND_HANDLING_USER_INPUT,
+         STATE_MENU_OPTION_IS_CHOSEN,
          STATE_CLOSING_DOWN,
+         STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION,
+         STATE_FINISHED,
       };
       return (valid_states.count(state) > 0);
     body_dependency_symbols:
@@ -584,9 +667,8 @@ methods:
   - name: obtain_heading_font
     private: true
     type: ALLEGRO_FONT*
-    guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Oswald-Medium.ttf -56");
+      return font_bin["Oswald-Medium.ttf -74"];
 
 
 dependencies:

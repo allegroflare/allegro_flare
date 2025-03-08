@@ -391,14 +391,15 @@ void Complete::initialize()
    //);
 
    // Setup load a saved game screen
-   load_a_saved_game_screen.set_event_emitter(event_emitter);
-   load_a_saved_game_screen.set_bitmap_bin(bitmap_bin);
-   load_a_saved_game_screen.set_font_bin(font_bin);
-   load_a_saved_game_screen.set_model_bin(model_bin); // Currently not used, but required
-   load_a_saved_game_screen.initialize();
+   load_a_saved_game_screen.set_data_folder_path(get_framework()->get_data_folder_path());
+   //load_a_saved_game_screen.set_event_emitter(event_emitter);
+   //load_a_saved_game_screen.set_bitmap_bin(bitmap_bin);
+   //load_a_saved_game_screen.set_font_bin(font_bin);
+   //load_a_saved_game_screen.set_model_bin(model_bin); // Currently not used, but required
    load_a_saved_game_screen.set_foreground(shared_foreground);
    load_a_saved_game_screen.set_background(shared_background);
    load_a_saved_game_screen.set_save_slots(game_configuration->build_save_slots_for_load_a_saved_game_screen());
+   load_a_saved_game_screen.initialize();
 
    // TODO: Setup level select screen
    level_select_screen.set_event_emitter(event_emitter);
@@ -454,9 +455,8 @@ void Complete::initialize()
    // Load up our sound effects and music tracks
    game_configuration->load_audio_controller(&framework->get_audio_controller_ref());
 
-   // TODO: Consider adding a free-for-all, "post-initialization" method to the configuration. Would be useful
-   // for example, for setting up and configuring the settings on the dialog system or anything else left
-   // un specified.
+   // A free-for-all, "post-initialization" method for the configuration. This is useful, for example, for tweaking
+   // the styling of the dialog system, making customizations to any of the standard screens, etc.
    game_configuration->on_runner_after_initialization_func(this);
 
    initialized = true;
@@ -484,6 +484,7 @@ void Complete::destroy()
    game_configuration->destroy_pause_screen();
 
    title_screen.destroy();
+   load_a_saved_game_screen.destroy();
    // TODO: Add additional destroy virtual methods for each object created
    // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
    destroyed = true;
@@ -796,6 +797,17 @@ void Complete::setup_router()
          // TODO: Obtain save file content to pass down into method
          std::string save_file_content = "{}";
          this->game_configuration->load_save_file_content_into_gameplay(save_file_content);
+
+         // Start the primary_gameplay_screen
+         // TODO: Determine if this is the preferred next action. If the load_a_saved_game_screen is of a save
+         // style that starts a new game after loading a save slot, then the next step in the game would be to
+         // begin the opening storyboard screen. Otherwise, it may want to activate the primary gameplay screen,
+         // it may need to go to the level select screen, or need to trigger some other unknown event.
+         this->router.emit_route_event(
+            AllegroFlare::Routers::Standard::EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN,
+            nullptr,
+            al_get_time()
+         );
       });
    router.set_on_load_save_file_content_into_gameplay_func_user_data(this);
 
@@ -908,7 +920,29 @@ void Complete::setup_router()
    );
    load_a_saved_game_screen.set_on_menu_choice_callback_func(
       [this](AllegroFlare::LoadASavedGame::Screen* screen, void* data) {
-         // TODO: Handle here
+         // TODO: Test this callback
+         int position_of_save_slot = -1;
+         AllegroFlare::LoadASavedGame::SaveSlots::Base* currently_selected_save_slot = nullptr;
+         std::string filename_for_save_slot = "[unset-filename_for_save_slot]";
+        
+         std::tie(position_of_save_slot, currently_selected_save_slot) = screen->get_currently_selected_save_slot();
+
+         if (!currently_selected_save_slot)
+         {
+            AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+               "In on_menu_choice_callback_func for load_a_saved_game_screen, currently_selected_save_slot is "
+               "nullptr and required for this callback. Ensure that the LoadASavedGame is validating the presence "
+               "of the save slot before submitting the menu choice."
+            );
+         }
+
+         filename_for_save_slot = currently_selected_save_slot->get_filename();
+
+         AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+            "In on_menu_choice_callback_func for load_a_saved_game_screen, sending event to load from save file \""
+            + filename_for_save_slot + "\" currently in save slot " + std::to_string(position_of_save_slot) + "."
+         );
+
          this->router.emit_route_event(
             AllegroFlare::Routers::Standard::EVENT_LOAD_A_SAVED_GAME,
             nullptr, // TODO: Pass along data required to determine which save data to load
@@ -922,7 +956,7 @@ void Complete::setup_router()
          (void)(this); // TODO: Consider if this argument could be removed
          AllegroFlare::Logger::info_from(
            "Router::setup_router",
-           "in on_erase_focused_save_slot_func, Currently there is no action implemented on this callback"
+           "In on_erase_focused_save_slot_func, Currently there is no action implemented on this callback"
         );
       }
    );
@@ -1083,18 +1117,18 @@ void Complete::setup_router()
                al_get_time()
             );
          }
-         else if (menu_choice == "quit")
-         {
-            this->router.emit_route_event(
-               AllegroFlare::Routers::Standard::EVENT_EXIT_GAME,
-               nullptr,
-               al_get_time()
-            );
-         }
          else if (menu_choice == "goto_load_a_saved_game_screen")
          {
             this->router.emit_route_event(
                AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LOAD_A_SAVED_GAME_SCREEN,
+               nullptr,
+               al_get_time()
+            );
+         }
+         else if (menu_choice == "quit")
+         {
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_EXIT_GAME,
                nullptr,
                al_get_time()
             );

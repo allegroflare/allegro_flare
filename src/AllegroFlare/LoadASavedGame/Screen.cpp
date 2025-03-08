@@ -17,12 +17,11 @@ namespace LoadASavedGame
 {
 
 
-Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, AllegroFlare::ModelBin* model_bin)
+Screen::Screen(std::string data_folder_path)
    : AllegroFlare::Screens::Base(AllegroFlare::LoadASavedGame::Screen::TYPE)
-   , event_emitter(event_emitter)
-   , bitmap_bin(bitmap_bin)
-   , font_bin(font_bin)
-   , model_bin(model_bin)
+   , data_folder_path(data_folder_path)
+   , bitmap_bin({})
+   , font_bin({})
    , save_slots({})
    , cursor_position(0)
    , on_menu_choice_callback_func({})
@@ -35,12 +34,27 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , state_is_busy(false)
    , state_changed_at(0.0f)
    , initialized(false)
+   , destroyed(false)
 {
 }
 
 
 Screen::~Screen()
 {
+   if (initialized && !destroyed)
+   {
+      AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME,
+         "This instance is being destroyed but the destroy() method has not been called."
+      );
+   }
+   return;
+}
+
+
+void Screen::set_data_folder_path(std::string data_folder_path)
+{
+   if (get_initialized()) throw std::runtime_error("[Screen::set_data_folder_path]: error: guard \"get_initialized()\" not met.");
+   this->data_folder_path = data_folder_path;
 }
 
 
@@ -128,57 +142,17 @@ uint32_t Screen::get_state() const
 }
 
 
-void Screen::set_event_emitter(AllegroFlare::EventEmitter* event_emitter)
+bool Screen::get_initialized() const
 {
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::set_event_emitter]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::set_event_emitter]: error: guard \"(!initialized)\" not met");
-   }
-   this->event_emitter = event_emitter;
-   return;
+   return initialized;
 }
 
-void Screen::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
+
+bool Screen::get_destroyed() const
 {
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::set_bitmap_bin]: error: guard \"(!initialized)\" not met");
-   }
-   this->bitmap_bin = bitmap_bin;
-   return;
+   return destroyed;
 }
 
-void Screen::set_font_bin(AllegroFlare::FontBin* font_bin)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::set_font_bin]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::set_font_bin]: error: guard \"(!initialized)\" not met");
-   }
-   this->font_bin = font_bin;
-   return;
-}
-
-void Screen::set_model_bin(AllegroFlare::ModelBin* model_bin)
-{
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::set_model_bin]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::set_model_bin]: error: guard \"(!initialized)\" not met");
-   }
-   this->model_bin = model_bin;
-   return;
-}
 
 void Screen::set_save_slots(std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> save_slots)
 {
@@ -203,6 +177,13 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"(!initialized)\" not met");
    }
+   if (!((!destroyed)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"(!destroyed)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"(!destroyed)\" not met");
+   }
    if (!(al_is_system_installed()))
    {
       std::stringstream error_message;
@@ -224,35 +205,39 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"al_is_font_addon_initialized()\" not met");
    }
-   if (!(event_emitter))
+   if (!((data_folder_path != DEFAULT_DATA_FOLDER_PATH)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"event_emitter\" not met.";
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"event_emitter\" not met");
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met");
    }
-   if (!(bitmap_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"bitmap_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"bitmap_bin\" not met");
-   }
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"font_bin\" not met");
-   }
-   if (!(model_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"model_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::initialize]: error: guard \"model_bin\" not met");
-   }
+   set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+   bitmap_bin.set_full_path(AllegroFlare::BitmapBin::build_standard_path(data_folder_path));
+   font_bin.set_full_path(AllegroFlare::FontBin::build_standard_path(data_folder_path));
    initialized = true;
+   return;
+}
+
+void Screen::destroy()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::destroy]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::destroy]: error: guard \"initialized\" not met");
+   }
+   if (!((!destroyed)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::destroy]: error: guard \"(!destroyed)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::destroy]: error: guard \"(!destroyed)\" not met");
+   }
+   bitmap_bin.clear();
+   font_bin.clear();
+   destroyed = true;
    return;
 }
 
@@ -266,6 +251,7 @@ void Screen::on_activate()
       throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::on_activate]: error: guard \"initialized\" not met");
    }
    cursor_position = 0;
+   reveal_screen();
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
    return;
@@ -284,9 +270,22 @@ void Screen::on_deactivate()
    return;
 }
 
+void Screen::reveal_screen()
+{
+   set_state(STATE_REVEALING);
+   return;
+}
+
+bool Screen::handling_user_input()
+{
+   return is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT);
+}
+
 void Screen::move_cursor_up()
 {
    if (save_slots.empty()) return;
+   if (!handling_user_input()) return;
+
    cursor_position--;
    if (cursor_position < 0) cursor_position += save_slots.size();
    return;
@@ -295,17 +294,19 @@ void Screen::move_cursor_up()
 void Screen::move_cursor_down()
 {
    if (save_slots.empty()) return;
+   if (!handling_user_input()) return;
+
    cursor_position++;
    if (cursor_position >= save_slots.size()) cursor_position -= save_slots.size();
    return;
 }
 
-AllegroFlare::LoadASavedGame::SaveSlots::Base* Screen::get_currently_selected_save_slot()
+std::pair<int, AllegroFlare::LoadASavedGame::SaveSlots::Base*> Screen::get_currently_selected_save_slot()
 {
-   if (save_slots.empty()) return nullptr;
+   if (save_slots.empty()) return std::make_pair(-1, nullptr);
    // TODO: This assumes that the cursor will never be in an invalid position. Please review this to be sure that
    // is the case.
-   return save_slots[cursor_position];
+   return { cursor_position, save_slots[cursor_position] };
 }
 
 void Screen::exit_screen()
@@ -361,15 +362,32 @@ void Screen::erase_current_focused_save_slot()
    return;
 }
 
-void Screen::select_current_focused_menu_option()
+bool Screen::can_exit_screen()
 {
-   // For now, do a direct call to activate the option
-   activate_current_focused_menu_option();
-   return;
+   // User can exit the screen when it is still revealing and when it's handling normal input
+   if (is_state(STATE_REVEALING)) return true;
+   if (is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)) return true;
+   return false;
 }
 
-void Screen::update()
+bool Screen::can_select_current_focused_menu_option()
 {
+   if (!is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)) return false;
+   return true;
+}
+
+void Screen::select_current_focused_menu_option()
+{
+   if (!(is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::select_current_focused_menu_option]: error: guard \"is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::select_current_focused_menu_option]: error: guard \"is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)\" not met");
+   }
+   // For now, do a direct call to activate the option. In the future, this would begin a shutdown state, the end
+   // of which would then "activate" the current selected menu option.
+   set_state(STATE_MENU_OPTION_IS_CHOSEN);
    return;
 }
 
@@ -407,8 +425,8 @@ void Screen::render_save_slots()
       float y = y_cursor + y_distance*i;
       // HERE: Continue on this
       AllegroFlare::LoadASavedGame::SaveSlotRenderer renderer;
-      renderer.set_bitmap_bin(bitmap_bin);
-      renderer.set_font_bin(font_bin);
+      renderer.set_bitmap_bin(&bitmap_bin);
+      renderer.set_font_bin(&font_bin);
       renderer.render(
          save_slot,
          x,
@@ -444,6 +462,26 @@ void Screen::render_save_slots()
    return;
 }
 
+void Screen::primary_update_func(double time_now, double time_step)
+{
+   //state_accumulated_age += time_step;
+   update_state(time_now); // TODO: Sort out proper time accumulation
+   return;
+}
+
+void Screen::primary_render_func()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::primary_render_func]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::primary_render_func]: error: guard \"initialized\" not met");
+   }
+   render();
+   return;
+}
+
 void Screen::primary_timer_func()
 {
    if (!(initialized))
@@ -453,8 +491,7 @@ void Screen::primary_timer_func()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::primary_timer_func]: error: guard \"initialized\" not met");
    }
-   update();
-   render();
+   AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Not expected to be in this code path.");
    return;
 }
 
@@ -483,11 +520,11 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
 
       case ALLEGRO_KEY_Q:
       case ALLEGRO_KEY_X:
-         exit_screen();
+         if (can_exit_screen()) exit_screen();
       break;
 
       case ALLEGRO_KEY_ENTER:
-         select_current_focused_menu_option();
+         if (can_select_current_focused_menu_option()) select_current_focused_menu_option();
       break;
    }
    return;
@@ -537,10 +574,19 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
       case STATE_REVEALING:
       break;
 
-      case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+      case STATE_REVEALED_AND_HANDLING_USER_INPUT:
+      break;
+
+      case STATE_MENU_OPTION_IS_CHOSEN:
       break;
 
       case STATE_CLOSING_DOWN:
+      break;
+
+      case STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION:
+      break;
+
+      case STATE_FINISHED:
       break;
 
       default:
@@ -554,6 +600,35 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
    this->state = state;
    state_changed_at = al_get_time();
 
+   return;
+}
+
+void Screen::begin_shutdown_after_selection()
+{
+   if (!(is_state(STATE_MENU_OPTION_IS_CHOSEN)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::begin_shutdown_after_selection]: error: guard \"is_state(STATE_MENU_OPTION_IS_CHOSEN)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::begin_shutdown_after_selection]: error: guard \"is_state(STATE_MENU_OPTION_IS_CHOSEN)\" not met");
+   }
+   set_state(STATE_CLOSING_DOWN);
+   return;
+}
+
+void Screen::complete_shutdown_and_activate_current_focused_menu_option()
+{
+   if (!(is_state(STATE_CLOSING_DOWN)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::complete_shutdown_and_activate_current_focused_menu_option]: error: guard \"is_state(STATE_CLOSING_DOWN)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::complete_shutdown_and_activate_current_focused_menu_option]: error: guard \"is_state(STATE_CLOSING_DOWN)\" not met");
+   }
+   // HERE
+   set_state(STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION);
+   activate_current_focused_menu_option();
+   set_state(STATE_FINISHED);
    return;
 }
 
@@ -571,12 +646,24 @@ void Screen::update_state(float time_now)
    switch (state)
    {
       case STATE_REVEALING:
+         if (age > 1.0) set_state(STATE_REVEALED_AND_HANDLING_USER_INPUT);
       break;
 
-      case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+      case STATE_REVEALED_AND_HANDLING_USER_INPUT:
+      break;
+
+      case STATE_MENU_OPTION_IS_CHOSEN:
+         if (age > 1.0) begin_shutdown_after_selection();
       break;
 
       case STATE_CLOSING_DOWN:
+         if (age > 1.0) complete_shutdown_and_activate_current_focused_menu_option();
+      break;
+
+      case STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION:
+      break;
+
+      case STATE_FINISHED:
       break;
 
       default:
@@ -595,8 +682,11 @@ bool Screen::is_valid_state(uint32_t state)
    std::set<uint32_t> valid_states =
    {
       STATE_REVEALING,
-      STATE_REVEALED_AND_AWAITING_USER_INPUT,
+      STATE_REVEALED_AND_HANDLING_USER_INPUT,
+      STATE_MENU_OPTION_IS_CHOSEN,
       STATE_CLOSING_DOWN,
+      STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION,
+      STATE_FINISHED,
    };
    return (valid_states.count(state) > 0);
 }
@@ -613,14 +703,7 @@ float Screen::infer_current_state_age(float time_now)
 
 ALLEGRO_FONT* Screen::obtain_heading_font()
 {
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::obtain_heading_font]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::obtain_heading_font]: error: guard \"font_bin\" not met");
-   }
-   return font_bin->auto_get("Oswald-Medium.ttf -56");
+   return font_bin["Oswald-Medium.ttf -74"];
 }
 
 
