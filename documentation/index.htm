@@ -23169,6 +23169,18 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -23272,12 +23284,28 @@ table td
   <td class="method"><b>virtual_control_axis_change_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
 </tr>
 <tr>
-  <td class="private_method">ALLEGRO_FONT*</td>
-  <td class="private_method"><b>obtain_heading_font</b>()</td>
+  <td class="method">void</td>
+  <td class="method"><b>set_state</b>(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update_state</b>(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_valid_state</b>(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_state</b>(uint32_t possible_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_current_state_age</b>(float time_now=al_get_time())</td>
 </tr>
 <tr>
   <td class="private_method">ALLEGRO_FONT*</td>
-  <td class="private_method"><b>obtain_text_font</b>()</td>
+  <td class="private_method"><b>obtain_heading_font</b>()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>

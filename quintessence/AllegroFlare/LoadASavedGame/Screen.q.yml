@@ -75,6 +75,20 @@ properties:
     getter: true
     setter: true
 
+  - name: state
+    type: uint32_t
+    init_with: STATE_UNDEF
+    getter: true
+    setter: explicit
+
+  - name: state_is_busy
+    type: bool
+    init_with: false
+
+  - name: state_changed_at
+    type: float
+    init_with: 0.0f
+
   - name: initialized
     type: bool
     init_with: false
@@ -84,6 +98,20 @@ properties:
     init_with: '(char*)"AllegroFlare/LoadASavedGame/Screen"'
     static: true
     constexpr: true
+
+
+enums:
+
+
+  - scope: public
+    enumerators:
+      - STATE_UNDEF
+      - STATE_REVEALING
+      - STATE_REVEALED_AND_AWAITING_USER_INPUT
+      - STATE_MENU_OPTION_IS_CHOSEN
+      - __UNIMPLEMENTED__STATE_AWAITING_USER_CONFIRMATION
+      - STATE_CLOSING_DOWN
+      - STATE_FINISHED
 
 
 documentation:
@@ -298,7 +326,15 @@ methods:
     body: |
       ALLEGRO_FONT *font = obtain_heading_font();
       float line_height = al_get_font_line_height(font);
-      al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 260-line_height, ALLEGRO_ALIGN_CENTER, "Load a Saved Game");
+      std::string title_text = "Select a Save Slot";
+      al_draw_text(
+         font,
+         ALLEGRO_COLOR{1, 1, 1, 1},
+         1920/2,
+         260-line_height,
+         ALLEGRO_ALIGN_CENTER,
+         title_text.c_str()
+      );
       return;
 
 
@@ -432,20 +468,125 @@ methods:
       return;
 
 
+  - name: set_state
+    parameters:
+      - name: state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+      - name: override_if_busy
+        type: bool
+        default_argument: false
+    guards: [ is_valid_state(state) ]
+    body: |
+      if (this->state == state) return;
+      if (!override_if_busy && state_is_busy) return;
+      uint32_t previous_state = this->state;
+
+      switch (state)
+      {
+         case STATE_REVEALING:
+         break;
+
+         case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+         break;
+
+         case STATE_CLOSING_DOWN:
+         break;
+
+         default:
+            AllegroFlare::Logger::throw_error(
+               "ClassName::set_state",
+               "Unable to handle case for state \"" + std::to_string(state) + "\""
+            );
+         break;
+      }
+
+      this->state = state;
+      state_changed_at = al_get_time();
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: update_state
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    guards: [ is_valid_state(state) ]
+    body: |
+      float age = infer_current_state_age(time_now);
+
+      switch (state)
+      {
+         case STATE_REVEALING:
+         break;
+
+         case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+         break;
+
+         case STATE_CLOSING_DOWN:
+         break;
+
+         default:
+            AllegroFlare::Logger::throw_error(
+               "ClassName::update_state",
+               "Unable to handle case for state \"" + std::to_string(state) + "\""
+            );
+         break;
+      }
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: is_valid_state
+    type: bool
+    static: true
+    parameters:
+      - name: state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+      std::set<uint32_t> valid_states =
+      {
+         STATE_REVEALING,
+         STATE_REVEALED_AND_AWAITING_USER_INPUT,
+         STATE_CLOSING_DOWN,
+      };
+      return (valid_states.count(state) > 0);
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_state
+    type: bool
+    parameters:
+      - name: possible_state
+        type: uint32_t
+        default_argument: STATE_UNDEF
+    body: |
+     return (state == possible_state);
+
+
+  - name: infer_current_state_age
+    type: float
+    parameters:
+      - name: time_now
+        type: float
+        default_argument: al_get_time()
+    body: |
+      return (time_now - state_changed_at);
+
+
   - name: obtain_heading_font
     private: true
     type: ALLEGRO_FONT*
     guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Regular.ttf -46");
-
-
-  - name: obtain_text_font
-    private: true
-    type: ALLEGRO_FONT*
-    guards: [ font_bin ]
-    body: |
-      return font_bin->auto_get("Inter-Regular.ttf -32");
+      return font_bin->auto_get("Oswald-Medium.ttf -56");
 
 
 dependencies:

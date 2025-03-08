@@ -62,3 +62,45 @@ TEST_F(AllegroFlare_LoadASavedGame_ScreenTestWithAllegroFrameworksFullFixture,
 }
 
 
+
+/*
+         case STATE_REVEALING:
+            title_revealed = false; // TODO: Test this
+            reveal_started_at = state_accumulated_age;
+            cursor_position = 0;
+            showing_menu = false;
+            showing_footer_text = false;
+            menu_option_chosen = false;
+            menu_option_activated = false;
+            menu_option_chosen_at = 0.0f;
+         break;
+
+         case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+            menu_option_chosen = false;
+            menu_option_activated = false;
+            title_revealed = true;
+            showing_menu = true;
+            showing_footer_text = true;
+            if (menu_options.empty()) showing_empty_state_text = true;
+         break;
+
+         case STATE_MENU_OPTION_IS_CHOSEN:
+            menu_option_chosen = true;
+            menu_option_activated = false;
+            menu_option_chosen_at = state_accumulated_age;
+         break;
+
+         case STATE_AWAITING_USER_CONFIRMATION:
+            showing_confirmation_dialog = true;
+         break;
+
+         case STATE_FINISHED:
+         break;
+
+         default:
+            throw std::runtime_error("weird error");
+         break;
+
+*/
+
+

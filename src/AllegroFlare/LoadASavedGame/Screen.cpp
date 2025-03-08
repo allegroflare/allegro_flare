@@ -6,6 +6,7 @@
 #include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -30,6 +31,9 @@ Screen::Screen(AllegroFlare::EventEmitter* event_emitter, AllegroFlare::BitmapBi
    , on_erase_focused_save_slot_func_user_data(nullptr)
    , on_exit_callback_func({})
    , on_exit_callback_func_user_data(nullptr)
+   , state(STATE_UNDEF)
+   , state_is_busy(false)
+   , state_changed_at(0.0f)
    , initialized(false)
 {
 }
@@ -115,6 +119,12 @@ std::function<void(AllegroFlare::LoadASavedGame::Screen*, void*)> Screen::get_on
 void* Screen::get_on_exit_callback_func_user_data() const
 {
    return on_exit_callback_func_user_data;
+}
+
+
+uint32_t Screen::get_state() const
+{
+   return state;
 }
 
 
@@ -374,7 +384,15 @@ void Screen::render_title()
 {
    ALLEGRO_FONT *font = obtain_heading_font();
    float line_height = al_get_font_line_height(font);
-   al_draw_text(font, ALLEGRO_COLOR{1, 1, 1, 1}, 1920/2, 260-line_height, ALLEGRO_ALIGN_CENTER, "Load a Saved Game");
+   std::string title_text = "Select a Save Slot";
+   al_draw_text(
+      font,
+      ALLEGRO_COLOR{1, 1, 1, 1},
+      1920/2,
+      260-line_height,
+      ALLEGRO_ALIGN_CENTER,
+      title_text.c_str()
+   );
    return;
 }
 
@@ -501,6 +519,98 @@ void Screen::virtual_control_axis_change_func(ALLEGRO_EVENT* ev)
    return;
 }
 
+void Screen::set_state(uint32_t state, bool override_if_busy)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::set_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::set_state]: error: guard \"is_valid_state(state)\" not met");
+   }
+   if (this->state == state) return;
+   if (!override_if_busy && state_is_busy) return;
+   uint32_t previous_state = this->state;
+
+   switch (state)
+   {
+      case STATE_REVEALING:
+      break;
+
+      case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      default:
+         AllegroFlare::Logger::throw_error(
+            "ClassName::set_state",
+            "Unable to handle case for state \"" + std::to_string(state) + "\""
+         );
+      break;
+   }
+
+   this->state = state;
+   state_changed_at = al_get_time();
+
+   return;
+}
+
+void Screen::update_state(float time_now)
+{
+   if (!(is_valid_state(state)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::LoadASavedGame::Screen::update_state]: error: guard \"is_valid_state(state)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::update_state]: error: guard \"is_valid_state(state)\" not met");
+   }
+   float age = infer_current_state_age(time_now);
+
+   switch (state)
+   {
+      case STATE_REVEALING:
+      break;
+
+      case STATE_REVEALED_AND_AWAITING_USER_INPUT:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      default:
+         AllegroFlare::Logger::throw_error(
+            "ClassName::update_state",
+            "Unable to handle case for state \"" + std::to_string(state) + "\""
+         );
+      break;
+   }
+
+   return;
+}
+
+bool Screen::is_valid_state(uint32_t state)
+{
+   std::set<uint32_t> valid_states =
+   {
+      STATE_REVEALING,
+      STATE_REVEALED_AND_AWAITING_USER_INPUT,
+      STATE_CLOSING_DOWN,
+   };
+   return (valid_states.count(state) > 0);
+}
+
+bool Screen::is_state(uint32_t possible_state)
+{
+   return (state == possible_state);
+}
+
+float Screen::infer_current_state_age(float time_now)
+{
+   return (time_now - state_changed_at);
+}
+
 ALLEGRO_FONT* Screen::obtain_heading_font()
 {
    if (!(font_bin))
@@ -510,19 +620,7 @@ ALLEGRO_FONT* Screen::obtain_heading_font()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::obtain_heading_font]: error: guard \"font_bin\" not met");
    }
-   return font_bin->auto_get("Inter-Regular.ttf -46");
-}
-
-ALLEGRO_FONT* Screen::obtain_text_font()
-{
-   if (!(font_bin))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::LoadASavedGame::Screen::obtain_text_font]: error: guard \"font_bin\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::LoadASavedGame::Screen::obtain_text_font]: error: guard \"font_bin\" not met");
-   }
-   return font_bin->auto_get("Inter-Regular.ttf -32");
+   return font_bin->auto_get("Oswald-Medium.ttf -56");
 }
 
 
