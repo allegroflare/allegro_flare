@@ -438,23 +438,27 @@ void Screen::render_save_slots()
       bool this_save_slot_is_focused = (i == cursor_position);
       if (this_save_slot_is_focused)
       {
-         float roundness = 6.0f;
-         float padding_x = 20;
-         float padding_y = 15;
-         float slot_width = renderer.get_slot_width();
-         float slot_h_width = slot_width/2;
-         float slot_height = renderer.get_slot_height();
-         float slot_h_height = slot_height/2;
-         al_draw_rounded_rectangle(
-            x-slot_h_width - padding_x,
-            y-slot_h_height - padding_y,
-            x+slot_h_width + padding_x,
-            y+slot_h_height + padding_y,
-            roundness,
-            roundness,
-            ALLEGRO_COLOR{1, 1, 1, 1},
-            6.0
-         );
+         bool drawing_cursor = infer_currently_drawing_user_cursor();
+         if (drawing_cursor)
+         {
+            float roundness = 6.0f;
+            float padding_x = 20;
+            float padding_y = 15;
+            float slot_width = renderer.get_slot_width();
+            float slot_h_width = slot_width/2;
+            float slot_height = renderer.get_slot_height();
+            float slot_h_height = slot_height/2;
+            al_draw_rounded_rectangle(
+               x-slot_h_width - padding_x,
+               y-slot_h_height - padding_y,
+               x+slot_h_width + padding_x,
+               y+slot_h_height + padding_y,
+               roundness,
+               roundness,
+               ALLEGRO_COLOR{1, 1, 1, 1},
+               6.0
+            );
+         }
       }
 
       i++;
@@ -646,7 +650,7 @@ void Screen::update_state(float time_now)
    switch (state)
    {
       case STATE_REVEALING:
-         if (age > 1.0) set_state(STATE_REVEALED_AND_HANDLING_USER_INPUT);
+         if (age > 0.25) set_state(STATE_REVEALED_AND_HANDLING_USER_INPUT);
       break;
 
       case STATE_REVEALED_AND_HANDLING_USER_INPUT:
@@ -699,6 +703,12 @@ bool Screen::is_state(uint32_t possible_state)
 float Screen::infer_current_state_age(float time_now)
 {
    return (time_now - state_changed_at);
+}
+
+bool Screen::infer_currently_drawing_user_cursor()
+{
+   if (is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)) return true;
+   return false;
 }
 
 ALLEGRO_FONT* Screen::obtain_heading_font()

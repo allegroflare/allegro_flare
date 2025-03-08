@@ -115,6 +115,7 @@ namespace AllegroFlare
          static bool is_valid_state(uint32_t state=STATE_UNDEF);
          bool is_state(uint32_t possible_state=STATE_UNDEF);
          float infer_current_state_age(float time_now=al_get_time());
+         bool infer_currently_drawing_user_cursor();
       };
    }
 }
