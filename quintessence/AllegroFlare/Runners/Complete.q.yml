@@ -697,16 +697,26 @@ methods:
       router.set_on_before_activate_screen_func_user_data(this);
 
       // When loading save file content
-      //router.set_on_load_save_file_content_into_gameplay_func(
-         // HERE:
-         // HERE:
-         // HERE:
-         // TODO: Tweak this callback func signature
-         //std::function<void(AllegroFlare::Routers::Standard*, void*)>
-         //[](AllegroFlare::Routers::Standard*, void*) {
-            //(void)(this);  // NOTE: For now
-         //});
-      //router.set_set_on_load_save_file_content_into_gameplay_func_user_data(this);
+      router.set_on_load_save_file_content_into_gameplay_func(
+         // TODO: Test this callback
+         // TODO: Ensure this callback is thoroughly vetted with the right purpose. It was thrown together ad-hoc for
+         // the purpose of this code block, but might not fully contain the comprehensive solution expected. Please
+         // review.
+         // TODO: Determine if this callback func signature needs to be tweaked with more proper arguments
+         [this](AllegroFlare::Routers::Standard* router, void* user_data) {
+            if (!this->game_configuration)
+            {
+               AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+                  "In router.on_load_save_file_content_into_gameplay_func lambda, a game_configuration is "
+                  "required and expected but is not present."
+               );
+            }
+
+            // TODO: Obtain save file content to pass down into method
+            std::string save_file_content = "{}";
+            this->game_configuration->load_save_file_content_into_gameplay(save_file_content);
+         });
+      router.set_on_load_save_file_content_into_gameplay_func_user_data(this);
       
       /*
         type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
@@ -817,39 +827,12 @@ methods:
       );
       load_a_saved_game_screen.set_on_menu_choice_callback_func(
          [this](AllegroFlare::LoadASavedGame::Screen* screen, void* data) {
-            (void)(this); // TODO: Consider if this argument could be removed
             // TODO: Handle here
-            AllegroFlare::GameProgressAndStateInfos::Base *game_progress_and_state_info_saver_loader =
-               router.get_game_session_ref().get_game_progress_and_state_info();
-
-            AllegroFlare::LoadASavedGame::SaveSlots::Base *currently_selected_save_slot =
-               screen->get_currently_selected_save_slot();
-
-            if (!currently_selected_save_slot)
-            {
-               AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
-                  "in load_a_saved_game_screens on_menu_choice_callback_func, a currently_selected_save_slot is "
-                  "required to be present but is not. A correct factoring would be to have the LoadASavedGame screen "
-                  "verify a valid save slot is selected and valid before being submitted."
-               );
-            }
-            if (!game_progress_and_state_info_saver_loader)
-            {
-               AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
-                  "in load_a_saved_game_screens on_menu_choice_callback_func, a "
-                  "game_progress_and_state_info_saver_loader is required to be present but is not."
-               );
-            }
-
-            std::string filename_for_selected_slot = currently_selected_save_slot->get_filename();
-            game_progress_and_state_info_saver_loader->set_save_file_filename(filename_for_selected_slot);
-
-            game_progress_and_state_info_saver_loader->load();
-            // HERE: Do a game_progress_and_state_info->load()
-            //AllegroFlare::Logger::info_from(
-              //"Router::setup_router",
-              //"in on_menu_choice_callback_func, Currently there is no action implemented on this callback"
-            //);
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_LOAD_A_SAVED_GAME,
+               nullptr, // TODO: Pass along data required to determine which save data to load
+               al_get_time()
+            );
          }
       );
       load_a_saved_game_screen.set_on_erase_focused_save_slot_func(
