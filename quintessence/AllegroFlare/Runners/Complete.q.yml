@@ -803,9 +803,17 @@ methods:
 
             if (!currently_selected_save_slot)
             {
-               AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+               AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
                   "in load_a_saved_game_screens on_menu_choice_callback_func, a currently_selected_save_slot is "
-                  "expected to be present but is not."
+                  "required to be present but is not. A correct factoring would be to have the LoadASavedGame screen "
+                  "verify a valid save slot is selected and valid before being submitted."
+               );
+            }
+            if (!game_progress_and_state_info_saver_loader)
+            {
+               AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+                  "in load_a_saved_game_screens on_menu_choice_callback_func, a "
+                  "game_progress_and_state_info_saver_loader is required to be present but is not."
                );
             }
 
