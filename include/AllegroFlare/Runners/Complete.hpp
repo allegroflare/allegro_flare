@@ -14,6 +14,7 @@
 #include <AllegroFlare/ModelBin.hpp>
 #include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/SampleBin.hpp>
+#include <AllegroFlare/SavingAndLoading/SavingAndLoading.hpp>
 #include <AllegroFlare/Screens/Achievements.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Screens/DisplaySettings.hpp>
@@ -52,6 +53,7 @@ namespace AllegroFlare
          AllegroFlare::ModelBin* model_bin;
          AllegroFlare::GameConfigurations::Complete* game_configuration;
          AllegroFlare::Routers::Standard router;
+         AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading;
          AllegroFlare::Screens::Storyboard intro_logos_screen;
          AllegroFlare::Screens::Storyboard intro_storyboard_screen;
          AllegroFlare::Screens::TitledMenuScreen title_screen;
@@ -89,6 +91,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin* get_font_bin() const;
          AllegroFlare::SampleBin* get_sample_bin() const;
          AllegroFlare::ModelBin* get_model_bin() const;
+         AllegroFlare::SavingAndLoading::SavingAndLoading &get_saving_and_loading_ref();
          AllegroFlare::Screens::Storyboard &get_intro_logos_screen_ref();
          AllegroFlare::Screens::Storyboard &get_intro_storyboard_screen_ref();
          AllegroFlare::Screens::TitledMenuScreen &get_title_screen_ref();

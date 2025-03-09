@@ -21,7 +21,7 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    saving_and_loading.set_data_folder_path(deployment_environment.get_data_folder_path());
    saving_and_loading.set_num_profiles(2);
    saving_and_loading.set_num_manual_save_slots(3);
-   saving_and_loading.set_num_auto_save_slots(5);
+   saving_and_loading.set_num_autosave_save_slots(5);
    saving_and_loading.set_num_quicksave_save_slots(7);
    saving_and_loading.initialize();
 
@@ -35,6 +35,8 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
    AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading(temporary_directory);
 
+   saving_and_loading.set_num_profiles(1);
+   saving_and_loading.initialize();
    saving_and_loading.create_save_file_directories_if_they_do_not_exist();
 
    std::string expected_save_directory = temporary_directory + "saves/";

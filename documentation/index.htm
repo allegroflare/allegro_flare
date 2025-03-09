@@ -18411,6 +18411,22 @@ table td
   <td class="method"><b>primary_display_icon_filename</b>()</td>
 </tr>
 <tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_num_save_profiles</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_num_manual_save_slots</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_num_autosave_save_slots</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_num_quicksave_save_slots</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>on_runner_after_initialization_func</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
 </tr>
@@ -35866,6 +35882,10 @@ table td
   <td class="property">AllegroFlare::Routers::Standard</td>
 </tr>
 <tr>
+  <td class="property">saving_and_loading</td>
+  <td class="property">AllegroFlare::SavingAndLoading::SavingAndLoading</td>
+</tr>
+<tr>
   <td class="property">intro_logos_screen</td>
   <td class="property">AllegroFlare::Screens::Storyboard</td>
 </tr>
@@ -36145,6 +36165,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::TitledMenuScreen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/TitledMenuScreen.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SavingAndLoading.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -36249,7 +36272,7 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
-  <td class="property">num_auto_save_slots</td>
+  <td class="property">num_autosave_save_slots</td>
   <td class="property">int</td>
 </tr>
 <tr>
@@ -36278,6 +36301,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>scan_for_existing_save_files_and_load_header_files</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -54691,6 +54718,9 @@ table td
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/TitledMenuScreenFactory"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading": [
+    "AllegroFlare/Runners/Complete"
   ],
   "AllegroFlare/SavingAndLoading/SaveSlot": [
     "AllegroFlare/SavingAndLoading/SaveSlot",

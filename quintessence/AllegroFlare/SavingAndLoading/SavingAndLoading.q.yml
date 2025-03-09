@@ -20,7 +20,7 @@ properties:
     setter: before_initialized
     getter: true
 
-  - name: num_auto_save_slots
+  - name: num_autosave_save_slots
     type: int
     init_with: 0
     setter: before_initialized
@@ -59,20 +59,21 @@ methods:
 
   - name: initialize
     guards:
+      - (!initialized)
       - (data_folder_path != DEFAULT_DATA_FOLDER_PATH)
       - (num_profiles > 0)
       - (num_profiles <= 6)
       - (num_manual_save_slots >= 0)
       - (num_manual_save_slots <= 99)
-      - (num_auto_save_slots >= 0)
-      - (num_auto_save_slots <= 90)
+      - (num_autosave_save_slots >= 0)
+      - (num_autosave_save_slots <= 90)
       - (num_quicksave_save_slots >= 0)
       - (num_quicksave_save_slots <= 10)
     body: |
       // TODO: Test guards
       save_slots.clear();
 
-      int total_save_slots = num_profiles * (num_manual_save_slots + num_auto_save_slots + num_quicksave_save_slots);
+      int total_save_slots = num_profiles * (num_manual_save_slots + num_autosave_save_slots + num_quicksave_save_slots);
       save_slots.resize(total_save_slots);
 
       for (int profile_i=0; profile_i<num_profiles; profile_i++)
@@ -87,12 +88,12 @@ methods:
             );
          }
 
-         for (int auto_save_i=0; auto_save_i<num_auto_save_slots; auto_save_i++)
+         for (int autosave_save_i=0; autosave_save_i<num_autosave_save_slots; autosave_save_i++)
          {
             AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
                data_folder_path,
                profile_i + 1,
-               auto_save_i + 1,
+               autosave_save_i + 1,
                AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_AUTO_SAVE
             );
          }
@@ -108,16 +109,19 @@ methods:
          }
       }
 
-      // Create the necessary directories
-      // TODO: Consider if this should be added here
-      create_save_file_directories_if_they_do_not_exist();
-
       initialized = true;
 
       return;
 
 
+  - name: scan_for_existing_save_files_and_load_header_files
+    body: |
+      // TODO: This method
+      return;
+
+
   - name: create_save_file_directories_if_they_do_not_exist
+    guards: [ initialized ]
     body: |
       // TODO: Test this with a temporary directory
       std::string standard_saves_path = AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(

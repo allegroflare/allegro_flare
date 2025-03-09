@@ -4213,6 +4213,9 @@
     "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/TitledMenuScreenFactory"
   ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading": [
+    "AllegroFlare/Runners/Complete"
+  ],
   "AllegroFlare/SavingAndLoading/SaveSlot": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading"

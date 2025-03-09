@@ -33,6 +33,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , model_bin(model_bin)
    , game_configuration(game_configuration)
    , router()
+   , saving_and_loading()
    , intro_logos_screen()
    , intro_storyboard_screen()
    , title_screen()
@@ -98,6 +99,12 @@ AllegroFlare::SampleBin* Complete::get_sample_bin() const
 AllegroFlare::ModelBin* Complete::get_model_bin() const
 {
    return model_bin;
+}
+
+
+AllegroFlare::SavingAndLoading::SavingAndLoading &Complete::get_saving_and_loading_ref()
+{
+   return saving_and_loading;
 }
 
 
@@ -273,10 +280,23 @@ void Complete::initialize()
    // Create some references for convenience
    AllegroFlare::Achievements &achievements = framework->get_achievements_ref();
    AllegroFlare::AudioController &audio_controller = framework->get_audio_controller_ref();
+   std::string data_folder_path = get_framework()->get_data_folder_path();
 
-   // Pass along the runner into the configuration (for convenience)
+   // Pass along this runner into the configuration (for convenience)
    // TODO: Review this as a design concept, should the dependencies in game_configuration be more explicit
    game_configuration->set_runner(this);
+
+   // Setup the saving and loading system
+   // TODO: Should this be moved to framework? (maybe not, because the number of save slots is configured
+   // by the game);
+   saving_and_loading.set_data_folder_path(data_folder_path);
+   saving_and_loading.set_num_profiles(game_configuration->get_num_save_profiles());
+   saving_and_loading.set_num_manual_save_slots(game_configuration->get_num_manual_save_slots());
+   saving_and_loading.set_num_autosave_save_slots(game_configuration->get_num_autosave_save_slots());
+   saving_and_loading.set_num_quicksave_save_slots(game_configuration->get_num_quicksave_save_slots());
+   saving_and_loading.initialize();
+   saving_and_loading.create_save_file_directories_if_they_do_not_exist();
+   saving_and_loading.scan_for_existing_save_files_and_load_header_files();
 
    // Create the shared background
    shared_background = game_configuration->create_shared_background();
@@ -326,7 +346,7 @@ void Complete::initialize()
    );
 
    // Setup title screen
-   title_screen.set_data_folder_path(get_framework()->get_data_folder_path());
+   title_screen.set_data_folder_path(data_folder_path);
    title_screen.set_title_text(game_configuration->title_screen_title());
    title_screen.set_footer_text(game_configuration->build_copyright_text(&release_info));
    title_screen.set_menu_options(game_configuration->build_title_screen_menu_options());
@@ -391,7 +411,7 @@ void Complete::initialize()
    //);
 
    // Setup load a saved game screen
-   load_a_saved_game_screen.set_data_folder_path(get_framework()->get_data_folder_path());
+   load_a_saved_game_screen.set_data_folder_path(data_folder_path);
    //load_a_saved_game_screen.set_event_emitter(event_emitter);
    //load_a_saved_game_screen.set_bitmap_bin(bitmap_bin);
    //load_a_saved_game_screen.set_font_bin(font_bin);

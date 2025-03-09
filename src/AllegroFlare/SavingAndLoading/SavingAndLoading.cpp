@@ -20,7 +20,7 @@ SavingAndLoading::SavingAndLoading(std::string data_folder_path)
    : data_folder_path(data_folder_path)
    , num_profiles(0)
    , num_manual_save_slots(0)
-   , num_auto_save_slots(0)
+   , num_autosave_save_slots(0)
    , num_quicksave_save_slots(0)
    , save_slots({})
    , initialized(false)
@@ -54,10 +54,10 @@ void SavingAndLoading::set_num_manual_save_slots(int num_manual_save_slots)
 }
 
 
-void SavingAndLoading::set_num_auto_save_slots(int num_auto_save_slots)
+void SavingAndLoading::set_num_autosave_save_slots(int num_autosave_save_slots)
 {
-   if (get_initialized()) throw std::runtime_error("[SavingAndLoading::set_num_auto_save_slots]: error: guard \"get_initialized()\" not met.");
-   this->num_auto_save_slots = num_auto_save_slots;
+   if (get_initialized()) throw std::runtime_error("[SavingAndLoading::set_num_autosave_save_slots]: error: guard \"get_initialized()\" not met.");
+   this->num_autosave_save_slots = num_autosave_save_slots;
 }
 
 
@@ -86,9 +86,9 @@ int SavingAndLoading::get_num_manual_save_slots() const
 }
 
 
-int SavingAndLoading::get_num_auto_save_slots() const
+int SavingAndLoading::get_num_autosave_save_slots() const
 {
-   return num_auto_save_slots;
+   return num_autosave_save_slots;
 }
 
 
@@ -111,6 +111,13 @@ int SavingAndLoading::num_save_slots()
 
 void SavingAndLoading::initialize()
 {
+   if (!((!initialized)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(!initialized)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(!initialized)\" not met");
+   }
    if (!((data_folder_path != DEFAULT_DATA_FOLDER_PATH)))
    {
       std::stringstream error_message;
@@ -146,19 +153,19 @@ void SavingAndLoading::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_manual_save_slots <= 99)\" not met");
    }
-   if (!((num_auto_save_slots >= 0)))
+   if (!((num_autosave_save_slots >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_auto_save_slots >= 0)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_autosave_save_slots >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_auto_save_slots >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_autosave_save_slots >= 0)\" not met");
    }
-   if (!((num_auto_save_slots <= 90)))
+   if (!((num_autosave_save_slots <= 90)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_auto_save_slots <= 90)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_autosave_save_slots <= 90)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_auto_save_slots <= 90)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(num_autosave_save_slots <= 90)\" not met");
    }
    if (!((num_quicksave_save_slots >= 0)))
    {
@@ -177,7 +184,7 @@ void SavingAndLoading::initialize()
    // TODO: Test guards
    save_slots.clear();
 
-   int total_save_slots = num_profiles * (num_manual_save_slots + num_auto_save_slots + num_quicksave_save_slots);
+   int total_save_slots = num_profiles * (num_manual_save_slots + num_autosave_save_slots + num_quicksave_save_slots);
    save_slots.resize(total_save_slots);
 
    for (int profile_i=0; profile_i<num_profiles; profile_i++)
@@ -192,12 +199,12 @@ void SavingAndLoading::initialize()
          );
       }
 
-      for (int auto_save_i=0; auto_save_i<num_auto_save_slots; auto_save_i++)
+      for (int autosave_save_i=0; autosave_save_i<num_autosave_save_slots; autosave_save_i++)
       {
          AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
             data_folder_path,
             profile_i + 1,
-            auto_save_i + 1,
+            autosave_save_i + 1,
             AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_AUTO_SAVE
          );
       }
@@ -213,17 +220,26 @@ void SavingAndLoading::initialize()
       }
    }
 
-   // Create the necessary directories
-   // TODO: Consider if this should be added here
-   create_save_file_directories_if_they_do_not_exist();
-
    initialized = true;
 
    return;
 }
 
+void SavingAndLoading::scan_for_existing_save_files_and_load_header_files()
+{
+   // TODO: This method
+   return;
+}
+
 void SavingAndLoading::create_save_file_directories_if_they_do_not_exist()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::create_save_file_directories_if_they_do_not_exist]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::create_save_file_directories_if_they_do_not_exist]: error: guard \"initialized\" not met");
+   }
    // TODO: Test this with a temporary directory
    std::string standard_saves_path = AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(
       data_folder_path

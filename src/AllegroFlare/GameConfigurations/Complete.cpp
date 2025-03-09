@@ -77,6 +77,26 @@ std::string Complete::primary_display_icon_filename()
    return "icons/allegro-flare-generic-icon-1024.png";
 }
 
+int Complete::get_num_save_profiles()
+{
+   return 1;
+}
+
+int Complete::get_num_manual_save_slots()
+{
+   return 3;
+}
+
+int Complete::get_num_autosave_save_slots()
+{
+   return 0;
+}
+
+int Complete::get_num_quicksave_save_slots()
+{
+   return 0;
+}
+
 void Complete::on_runner_after_initialization_func(AllegroFlare::Runners::Complete* runner)
 {
    // TODO: Consider renaming this method to align with other methods

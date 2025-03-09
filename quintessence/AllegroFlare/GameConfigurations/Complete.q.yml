@@ -62,6 +62,34 @@ methods:
       return "icons/allegro-flare-generic-icon-1024.png";
 
 
+  - name: get_num_save_profiles
+    virtual: true
+    type: int
+    body: |
+      return 1;
+
+
+  - name: get_num_manual_save_slots
+    virtual: true
+    type: int
+    body: |
+      return 3;
+
+
+  - name: get_num_autosave_save_slots
+    virtual: true
+    type: int
+    body: |
+      return 0;
+
+
+  - name: get_num_quicksave_save_slots
+    virtual: true
+    type: int
+    body: |
+      return 0;
+
+
   - name: on_runner_after_initialization_func
     virtual: true
     parameters:
