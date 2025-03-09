@@ -45,7 +45,7 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
 
 
 TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
-   FOCUS__scan_for_existing_save_files_and_load_header_data__will_look_in_the_directory_for_save_files_and_load_the_\
+   scan_for_existing_save_files_and_load_header_data__will_look_in_the_directory_for_save_files_and_load_the_\
 header_data_into_save_slots)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
@@ -64,10 +64,17 @@ header_data_into_save_slots)
    std::vector<AllegroFlare::SavingAndLoading::SaveSlot> &result_save_slots = saving_and_loading.get_save_slots_ref();
    EXPECT_EQ(30, saving_and_loading.num_save_slots());
 
+   // TODO: Improve this testing robustness, including a test for a malformed save file, and various error cases, and
+   // presence of more save files
+   // TODO: Consider testing for expected save data fixture files
    int loaded_save_slots = 0;
    for (auto &save_slot : result_save_slots)
    {
-      if (save_slot.header_data_exists()) loaded_save_slots++;
+      if (save_slot.header_data_exists())
+      {
+         EXPECT_EQ("The Front Room", save_slot.get_header_data()->location_of_save);
+         loaded_save_slots++;
+      }
    }
    EXPECT_EQ(1, loaded_save_slots);
 }

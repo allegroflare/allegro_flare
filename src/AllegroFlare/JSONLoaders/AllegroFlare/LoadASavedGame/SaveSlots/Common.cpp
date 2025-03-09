@@ -19,6 +19,7 @@ void to_json(nlohmann::json& j, const Common& v)
 
 void from_json(const nlohmann::json& j, Common& v)
 {
+// TODO: Catch nlohmann's thrown exceptions and wrap them in an AllegroFlare::Logger::throw_error
    j.at("screenshot_of_gameplay_at_save_identifier").get_to(v.screenshot_of_gameplay_at_save_identifier);
    j.at("location_of_save").get_to(v.location_of_save);
    j.at("date_and_time_of_save").get_to(v.date_and_time_of_save);
