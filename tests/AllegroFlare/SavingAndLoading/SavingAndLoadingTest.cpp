@@ -44,3 +44,25 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
 }
 
 
+TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
+   FOCUS__scan_for_existing_save_files_and_load_header_files__will_look_in_the_directory_for_save_files_and_load_the_\
+header_data_into_save_slots)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+
+   AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading;
+   saving_and_loading.set_data_folder_path(deployment_environment.get_data_folder_path() + "test_saves/");
+   saving_and_loading.set_num_profiles(2);
+   saving_and_loading.set_num_manual_save_slots(3);
+   saving_and_loading.set_num_autosave_save_slots(5);
+   saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.initialize();
+   saving_and_loading.create_save_file_directories_if_they_do_not_exist();
+
+   saving_and_loading.scan_for_existing_save_files_and_load_header_files();
+
+   //std::vector<AllegroFlare::SavingAndLoading::SaveSlot> &result_save_slots = saving_and_loading.get_save_slots_ref();
+   //result_save_slots.size()
+}
+
+

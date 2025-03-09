@@ -2,8 +2,10 @@
 
 #include <AllegroFlare/SavingAndLoading/SaveSlot.hpp>
 
+#include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/SavingAndLoading/StandardSavesPath.hpp>
 #include <filesystem>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -92,12 +94,33 @@ AllegroFlare::SavingAndLoading::SaveSlot SaveSlot::construct(std::string data_fo
    return result_save_slot;
 }
 
+std::string SaveSlot::obtain_header_file_data()
+{
+   if (!(header_file_exists()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SaveSlot::obtain_header_file_data]: error: guard \"header_file_exists()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SaveSlot::obtain_header_file_data]: error: guard \"header_file_exists()\" not met");
+   }
+   std::string file_path = build_full_path_to_header_file();
+   std::ifstream file(file_path);
+   if (!file)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "Could not open file: \"" + file_path + "\". This is unexpected because the logic flow up to this point "
+           "is expected to have already validated the presence of the file."
+      );
+   }
+   std::ostringstream buffer;
+   buffer << file.rdbuf();
+   return buffer.str();
+}
+
 bool SaveSlot::header_file_exists()
 {
    // TODO: Test this
-   std::string standard_saves_path =
-      AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
-   std::string full_path_to_header_filename = standard_saves_path + build_header_filename();
+   std::string full_path_to_header_filename = build_full_path_to_header_file();
    // TODO: Ensure is a file and not a directory or other entry
    return std::filesystem::exists(full_path_to_header_filename);
    return true;
@@ -106,20 +129,34 @@ bool SaveSlot::header_file_exists()
 bool SaveSlot::content_file_exists()
 {
    // TODO: Test this
-   std::string standard_saves_path =
-      AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
-   std::string full_path_to_content_filename = standard_saves_path + build_content_filename();
+   //std::string standard_saves_path =
+      //AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
+   std::string full_path_to_content_filename = build_full_path_to_content_file();
    // TODO: Ensure is a file and not a directory or other entry
    return std::filesystem::exists(full_path_to_content_filename);
    return true;
 }
 
-std::string SaveSlot::build_header_filename()
+std::string SaveSlot::build_full_path_to_header_file()
+{
+   std::string standard_saves_path =
+      AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
+   return standard_saves_path + build_header_basename();
+}
+
+std::string SaveSlot::build_full_path_to_content_file()
+{
+   std::string standard_saves_path =
+      AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
+   return standard_saves_path + build_content_basename();
+}
+
+std::string SaveSlot::build_header_basename()
 {
    return build_filename_basename() + ".header.sav";
 }
 
-std::string SaveSlot::build_content_filename()
+std::string SaveSlot::build_content_basename()
 {
    return build_filename_basename() + ".sav";
 }

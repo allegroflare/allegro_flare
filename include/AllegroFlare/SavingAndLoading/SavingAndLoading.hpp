@@ -42,6 +42,7 @@ namespace AllegroFlare
          int get_num_autosave_save_slots() const;
          int get_num_quicksave_save_slots() const;
          bool get_initialized() const;
+         std::vector<AllegroFlare::SavingAndLoading::SaveSlot> &get_save_slots_ref();
          int num_save_slots();
          void initialize();
          void scan_for_existing_save_files_and_load_header_files();

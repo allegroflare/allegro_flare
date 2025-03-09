@@ -41,10 +41,13 @@ namespace AllegroFlare
          int get_save_slot_position() const;
          uint32_t get_save_slot_type() const;
          static AllegroFlare::SavingAndLoading::SaveSlot construct(std::string data_folder_path="[unset-data_folder_path]", int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF);
+         std::string obtain_header_file_data();
          bool header_file_exists();
          bool content_file_exists();
-         std::string build_header_filename();
-         std::string build_content_filename();
+         std::string build_full_path_to_header_file();
+         std::string build_full_path_to_content_file();
+         std::string build_header_basename();
+         std::string build_content_basename();
          static std::string obtain_save_slot_type_string(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF);
          static bool is_valid_type(uint32_t type=SAVE_SLOT_TYPE_UNDEF);
       };

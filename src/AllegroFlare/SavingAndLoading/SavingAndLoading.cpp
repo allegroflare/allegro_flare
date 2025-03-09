@@ -6,6 +6,7 @@
 #include <AllegroFlare/SavingAndLoading/StandardSavesPath.hpp>
 #include <filesystem>
 #include <iostream>
+#include <lib/nlohmann/json.hpp>
 #include <sstream>
 #include <stdexcept>
 
@@ -104,6 +105,12 @@ bool SavingAndLoading::get_initialized() const
 }
 
 
+std::vector<AllegroFlare::SavingAndLoading::SaveSlot> &SavingAndLoading::get_save_slots_ref()
+{
+   return save_slots;
+}
+
+
 int SavingAndLoading::num_save_slots()
 {
    return save_slots.size();
@@ -185,38 +192,38 @@ void SavingAndLoading::initialize()
    save_slots.clear();
 
    int total_save_slots = num_profiles * (num_manual_save_slots + num_autosave_save_slots + num_quicksave_save_slots);
-   save_slots.resize(total_save_slots);
+   save_slots.reserve(total_save_slots);
 
    for (int profile_i=0; profile_i<num_profiles; profile_i++)
    {
       for (int manual_save_i=0; manual_save_i<num_manual_save_slots; manual_save_i++)
       {
-         AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
+         save_slots.emplace_back(AllegroFlare::SavingAndLoading::SaveSlot::construct(
             data_folder_path,
             profile_i + 1,
             manual_save_i + 1,
             AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_MANUAL_SAVE
-         );
+         ));
       }
 
       for (int autosave_save_i=0; autosave_save_i<num_autosave_save_slots; autosave_save_i++)
       {
-         AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
+         save_slots.emplace_back(AllegroFlare::SavingAndLoading::SaveSlot::construct(
             data_folder_path,
             profile_i + 1,
             autosave_save_i + 1,
             AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_AUTO_SAVE
-         );
+         ));
       }
 
       for (int quicksave_save_i=0; quicksave_save_i<num_quicksave_save_slots; quicksave_save_i++)
       {
-         AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
+         save_slots.emplace_back(AllegroFlare::SavingAndLoading::SaveSlot::construct(
             data_folder_path,
             profile_i + 1,
             quicksave_save_i + 1,
             AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_QUICK_SAVE
-         );
+         ));
       }
    }
 
@@ -227,7 +234,18 @@ void SavingAndLoading::initialize()
 
 void SavingAndLoading::scan_for_existing_save_files_and_load_header_files()
 {
-   // TODO: This method
+   for (auto &save_slot : save_slots)
+   {
+      bool header_file_exists = save_slot.header_file_exists();
+      bool content_file_exists = save_slot.content_file_exists();
+      if (header_file_exists && content_file_exists)
+      {
+         // TODO: Implement this loading/parsing
+         //std::string file_content = save_slot.obtain_header_file_data();
+         //nlohmann::json parsed_json = nlohmann::json::parse(file_content);
+         //parsed_json.get_to(save_slot); // TODO: Good enough?
+      }
+   }
    return;
 }
 

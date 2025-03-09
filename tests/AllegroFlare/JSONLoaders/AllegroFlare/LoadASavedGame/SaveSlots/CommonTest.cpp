@@ -30,7 +30,7 @@ R"({
 
 
 TEST(AllegroFlare_JSONLoaders_AllegroFlare_LoadASavedGame_SaveSlots_CommonTest,
-   DISABLED__from_json__loads_json_data_into_the_object)
+   from_json__loads_json_data_into_the_object)
 {
    std::string json =
 R"({

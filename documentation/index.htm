@@ -36203,6 +36203,10 @@ table td
   <td class="method"><b>construct</b>(std::string data_folder_path=&quot;[unset-data_folder_path]&quot;, int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF)</td>
 </tr>
 <tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>obtain_header_file_data</b>()</td>
+</tr>
+<tr>
   <td class="method">bool</td>
   <td class="method"><b>header_file_exists</b>()</td>
 </tr>
@@ -36212,11 +36216,19 @@ table td
 </tr>
 <tr>
   <td class="method">std::string</td>
-  <td class="method"><b>build_header_filename</b>()</td>
+  <td class="method"><b>build_full_path_to_header_file</b>()</td>
 </tr>
 <tr>
   <td class="method">std::string</td>
-  <td class="method"><b>build_content_filename</b>()</td>
+  <td class="method"><b>build_full_path_to_content_file</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_header_basename</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_content_basename</b>()</td>
 </tr>
 <tr>
   <td class="private_method">std::string</td>
@@ -36247,6 +36259,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::StandardSavesPath&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/StandardSavesPath.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ostringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36330,6 +36348,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::AllegroFlare::LoadASavedGame::SaveSlots::Common&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -50692,6 +50716,7 @@ table td
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/Gameplay",
@@ -53395,6 +53420,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJImageLayerLoader",
     "Tileo/TMJDataLoader",
@@ -54730,11 +54756,17 @@ table td
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
+  "std/ostringstream": [
+    "AllegroFlare/SavingAndLoading/SaveSlot"
+  ],
   "std/filesystem/path": [
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
   ],
   "std/filesystem/create_directories": [
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common": [
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "AllegroFlare/Elements/AchievementsList": [

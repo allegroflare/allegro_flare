@@ -12,7 +12,7 @@ TEST(AllegroFlare_SavingAndLoading_SaveSlotTest, can_be_created_without_blowing_
 
 
 TEST(AllegroFlare_SavingAndLoading_SaveSlotTest,
-   build_content_filename__will_produce_the_correct_filename_for_the_save_content_file)
+   build_content_basename__will_produce_the_correct_filename_for_the_save_content_file)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
@@ -25,8 +25,8 @@ TEST(AllegroFlare_SavingAndLoading_SaveSlotTest,
       //2, 32, AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_MANUAL_SAVE
    //);
    std::string expected_save_slot_content_filename = "profile_002-manual_save-position_032.sav";
-   std::string actual_save_slot_content_filename = save_slot.build_content_filename();
-   EXPECT_EQ(expected_save_slot_content_filename, actual_save_slot_content_filename);
+   std::string actual_save_slot_content_filename = save_slot.build_content_basename();
+   EXPECT_EQ(expected_save_slot_content_filename, actual_save_slot_content_basename);
 }
 
 
