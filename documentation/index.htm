@@ -474,6 +474,8 @@ table td
   <li><a href="#quintessence/AllegroFlare/Rulers.q.yml">quintessence/AllegroFlare/Rulers.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Runners/Base.q.yml">quintessence/AllegroFlare/Runners/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Runners/Complete.q.yml">quintessence/AllegroFlare/Runners/Complete.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml">quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml">quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ScreenCapture.q.yml">quintessence/AllegroFlare/ScreenCapture.q.yml</a></li>
@@ -36149,6 +36151,143 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">data_folder_path</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">profile_id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">save_slot_position</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">save_slot_type</td>
+  <td class="property">uint32_t</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">AllegroFlare::SavingAndLoading::SaveSlot</td>
+  <td class="method"><b>construct</b>(std::string data_folder_path=&quot;[unset-data_folder_path]&quot;, int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>header_file_exists</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>content_file_exists</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_header_filename</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>build_content_filename</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">std::string</td>
+  <td class="private_method"><b>build_filename_basename</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>obtain_save_slot_type_string</b>(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_valid_type</b>(uint32_t type=SAVE_SLOT_TYPE_UNDEF)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveSlot&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SaveSlot.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::setw&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::setfill&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::exists&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml">quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">data_folder_path</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">num_profiles</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_manual_save_slots</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_auto_save_slots</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_quicksave_save_slots</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">save_slots</td>
+  <td class="property">std::vector&lt;AllegroFlare::SavingAndLoading::SaveSlot&gt;</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_DATA_FOLDER_PATH</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>num_save_slots</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveSlot&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SaveSlot.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -50414,6 +50553,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJDataLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
+    "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJImageLayerLoader",
     "Tileo/TMJDataLoader"
@@ -50812,12 +50952,14 @@ table td
     "AllegroFlare/BitmapInfo"
   ],
   "std/setw": [
-    "AllegroFlare/BitmapInfo"
+    "AllegroFlare/BitmapInfo",
+    "AllegroFlare/SavingAndLoading/SaveSlot"
   ],
   "std/setfill": [
     "AllegroFlare/BitmapInfo",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/UnicodeFontViewer",
     "Wicked/Hud"
   ],
@@ -54501,6 +54643,10 @@ table td
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/Screens/TitledMenuScreenFactory"
+  ],
+  "AllegroFlare/SavingAndLoading/SaveSlot": [
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"

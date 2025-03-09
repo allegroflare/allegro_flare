@@ -1,17 +1,114 @@
 properties:
 
 
+  - name: data_folder_path
+    type: std::string
+    init_with: DEFAULT_DATA_FOLDER_PATH
+    setter: before_initialized
+    getter: true
+
+  - name: num_profiles
+    type: int
+    init_with: 0
+    setter: before_initialized
+    getter: true
+    
+  - name: num_manual_save_slots
+    type: int
+    init_with: 0
+    setter: before_initialized
+    getter: true
+
+  - name: num_auto_save_slots
+    type: int
+    init_with: 0
+    setter: before_initialized
+    getter: true
+
+  - name: num_quicksave_save_slots
+    type: int
+    init_with: 0
+    setter: before_initialized
+    getter: true
+
   - name: save_slots
     type: std::vector<AllegroFlare::SavingAndLoading::SaveSlot>
     init_with: '{}'
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: DEFAULT_DATA_FOLDER_PATH
+    type: char*
+    init_with: '(char*)"[unset-data_folder_path]"'
+    static: true
+    constexpr: true
 
 
 methods:
 
 
-  - name: setup
+  - name: num_save_slots
+    type: int
     body: |
-      // TODO: This method
+      return save_slots.size();
+
+
+  - name: initialize
+    guards:
+      - (data_folder_path != DEFAULT_DATA_FOLDER_PATH)
+      - (num_profiles > 0)
+      - (num_profiles <= 6)
+      - (num_manual_save_slots >= 0)
+      - (num_manual_save_slots <= 99)
+      - (num_auto_save_slots >= 0)
+      - (num_auto_save_slots <= 90)
+      - (num_quicksave_save_slots >= 0)
+      - (num_quicksave_save_slots <= 10)
+    body: |
+      // TODO: Test guards
+      save_slots.clear();
+
+      int total_save_slots = num_profiles * (num_manual_save_slots + num_auto_save_slots + num_quicksave_save_slots);
+      save_slots.resize(total_save_slots);
+
+      for (int profile_i=0; profile_i<num_profiles; profile_i++)
+      {
+         for (int manual_save_i=0; manual_save_i<num_manual_save_slots; manual_save_i++)
+         {
+            AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
+               data_folder_path,
+               profile_i + 1,
+               manual_save_i + 1,
+               AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_MANUAL_SAVE
+            );
+         }
+
+         for (int auto_save_i=0; auto_save_i<num_auto_save_slots; auto_save_i++)
+         {
+            AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
+               data_folder_path,
+               profile_i + 1,
+               auto_save_i + 1,
+               AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_AUTO_SAVE
+            );
+         }
+
+         for (int quicksave_save_i=0; quicksave_save_i<num_quicksave_save_slots; quicksave_save_i++)
+         {
+            AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
+               data_folder_path,
+               profile_i + 1,
+               quicksave_save_i + 1,
+               AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_QUICK_SAVE
+            );
+         }
+      }
+
+      initialized = true;
+
       return;
 
 
