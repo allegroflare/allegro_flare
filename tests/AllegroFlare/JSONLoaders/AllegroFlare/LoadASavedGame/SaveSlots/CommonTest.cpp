@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
+#include <AllegroFlare/Testing/Comparison/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
 //#include <AllegroFlare/Testing/Comparison/AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
 
 
@@ -51,7 +52,7 @@ R"({
    expected.time_since_text = "28 minutes ago";
 
    //// TODO: add comparison
-   //EXPECT_EQ(expected, actual);
+   EXPECT_EQ(expected, actual);
 }
 
 
