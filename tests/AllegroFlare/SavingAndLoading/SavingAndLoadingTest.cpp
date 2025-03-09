@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/SavingAndLoading/SavingAndLoading.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
+#include <AllegroFlare/Testing/TemporaryDirectoryCreator.hpp>
 
 
 TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest, can_be_created_without_blowing_up)
@@ -25,6 +26,19 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    saving_and_loading.initialize();
 
    EXPECT_EQ(30, saving_and_loading.num_save_slots());
+}
+
+
+TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
+   create_save_file_directories_if_they_do_not_exist__will_create_the_directories)
+{
+   std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
+   AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading(temporary_directory);
+
+   saving_and_loading.create_save_file_directories_if_they_do_not_exist();
+
+   std::string expected_save_directory = temporary_directory + "saves/";
+   EXPECT_EQ(true, std::filesystem::exists(expected_save_directory));
 }
 
 

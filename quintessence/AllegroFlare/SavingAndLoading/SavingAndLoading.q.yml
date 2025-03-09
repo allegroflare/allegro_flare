@@ -4,6 +4,7 @@ properties:
   - name: data_folder_path
     type: std::string
     init_with: DEFAULT_DATA_FOLDER_PATH
+    constructor_arg: true
     setter: before_initialized
     getter: true
 
@@ -117,7 +118,6 @@ methods:
 
 
   - name: create_save_file_directories_if_they_do_not_exist
-    private: true
     body: |
       // TODO: Test this with a temporary directory
       std::string standard_saves_path = AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(

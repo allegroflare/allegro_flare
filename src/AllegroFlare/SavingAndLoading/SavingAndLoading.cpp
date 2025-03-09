@@ -16,8 +16,8 @@ namespace SavingAndLoading
 {
 
 
-SavingAndLoading::SavingAndLoading()
-   : data_folder_path(DEFAULT_DATA_FOLDER_PATH)
+SavingAndLoading::SavingAndLoading(std::string data_folder_path)
+   : data_folder_path(data_folder_path)
    , num_profiles(0)
    , num_manual_save_slots(0)
    , num_auto_save_slots(0)

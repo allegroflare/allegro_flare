@@ -23,13 +23,12 @@ namespace AllegroFlare
          int num_quicksave_save_slots;
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot> save_slots;
          bool initialized;
-         void create_save_file_directories_if_they_do_not_exist();
 
       protected:
 
 
       public:
-         SavingAndLoading();
+         SavingAndLoading(std::string data_folder_path=DEFAULT_DATA_FOLDER_PATH);
          ~SavingAndLoading();
 
          void set_data_folder_path(std::string data_folder_path);
@@ -45,6 +44,7 @@ namespace AllegroFlare
          bool get_initialized() const;
          int num_save_slots();
          void initialize();
+         void create_save_file_directories_if_they_do_not_exist();
       };
    }
 }

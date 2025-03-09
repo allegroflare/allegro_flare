@@ -18,9 +18,8 @@ TEST(AllegroFlare_SavingAndLoading_StandardSavesPathTest,
    std::string actual_path = AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(
       deployment_environment.get_data_folder_path()
    );
-   expected_path = "..";
+   std::string expected_path = "tests/fixtures/saves/";
    EXPECT_EQ(expected_path, actual_path);
 }
-
 
 
