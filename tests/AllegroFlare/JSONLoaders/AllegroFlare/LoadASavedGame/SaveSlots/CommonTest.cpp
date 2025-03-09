@@ -3,7 +3,6 @@
 
 #include <AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
-//#include <AllegroFlare/Testing/Comparison/AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
 
 
 TEST(AllegroFlare_JSONLoaders_AllegroFlare_LoadASavedGame_SaveSlots_CommonTest,
@@ -51,7 +50,6 @@ R"({
    expected.date_and_time_of_save = "2025/03/08 6:45PM";
    expected.time_since_text = "28 minutes ago";
 
-   //// TODO: add comparison
    EXPECT_EQ(expected, actual);
 }
 
