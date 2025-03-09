@@ -121,6 +121,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
     "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJImageLayerLoader",
     "Tileo/TMJDataLoader"
@@ -185,6 +186,7 @@
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -4215,6 +4217,17 @@
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
+  "AllegroFlare/SavingAndLoading/StandardSavesPath": [
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "std/filesystem/path": [
+    "AllegroFlare/SavingAndLoading/SavingAndLoading",
+    "AllegroFlare/Testing/TemporaryDirectoryCreator"
+  ],
+  "std/filesystem/create_directories": [
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],
@@ -4417,9 +4430,6 @@
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
   ],
   "filesystem": [
-    "AllegroFlare/Testing/TemporaryDirectoryCreator"
-  ],
-  "std/filesystem/path": [
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
   ],
   "std/tmpnam": [

@@ -68,11 +68,14 @@ methods:
     type: bool
     body: |
       // TODO: Test this
-      std::string full_path_to_header_filename = data_folder_path + "saves/" + build_header_filename();
+      std::string standard_saves_path =
+         AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
+      std::string full_path_to_header_filename = standard_saves_path + build_header_filename();
       // TODO: Ensure is a file and not a directory or other entry
       return std::filesystem::exists(full_path_to_header_filename);
       return true;
     body_dependency_symbols:
+      - AllegroFlare::SavingAndLoading::StandardSavesPath
       - std::filesystem::exists
 
 
@@ -80,11 +83,14 @@ methods:
     type: bool
     body: |
       // TODO: Test this
-      std::string full_path_to_content_filename = data_folder_path + "saves/" + build_content_filename();
+      std::string standard_saves_path =
+         AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
+      std::string full_path_to_content_filename = standard_saves_path + build_content_filename();
       // TODO: Ensure is a file and not a directory or other entry
       return std::filesystem::exists(full_path_to_content_filename);
       return true;
     body_dependency_symbols:
+      - AllegroFlare::SavingAndLoading::StandardSavesPath
       - std::filesystem::exists
 
 
@@ -177,5 +183,7 @@ dependencies:
     headers: [ iomanip ]
   - symbol: std::filesystem::exists
     headers: [ filesystem ]
+  - symbol: AllegroFlare::SavingAndLoading::StandardSavesPath
+    headers: [ AllegroFlare/SavingAndLoading/StandardSavesPath.hpp ]
 
 

@@ -1,0 +1,26 @@
+properties:
+
+
+  - name: DEFAULT_DATA_FOLDER_PATH
+    type: char*
+    init_with: '(char*)"[unset-data_folder_path]"'
+    static: true
+    constexpr: true
+
+
+methods:
+
+
+  - name: build_standard_path
+    type: std::string
+    static: true
+    parameters:
+      - name: data_folder_path
+        type: std::string
+        default_argument: DEFAULT_DATA_FOLDER_PATH
+    guards: [ (data_folder_path != DEFAULT_DATA_FOLDER_PATH) ]
+    body: |
+      return data_folder_path + "saves/";
+
+
+

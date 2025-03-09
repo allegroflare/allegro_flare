@@ -107,9 +107,52 @@ methods:
          }
       }
 
+      // Create the necessary directories
+      // TODO: Consider if this should be added here
+      create_save_file_directories_if_they_do_not_exist();
+
       initialized = true;
 
       return;
+
+
+  - name: create_save_file_directories_if_they_do_not_exist
+    private: true
+    body: |
+      // TODO: Test this with a temporary directory
+      std::string standard_saves_path = AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(
+         data_folder_path
+      );
+      // Extract the directory part from the file path
+      std::filesystem::path dir_path = std::filesystem::path(standard_saves_path).parent_path();
+
+      // Create directories if they do not exist
+      if (!dir_path.empty() && !std::filesystem::exists(dir_path))
+      {
+         if (std::filesystem::create_directories(dir_path))
+         {
+            AllegroFlare::Logger::info_from(
+               "AllegroFlare::GameProgressAndStateInfos::Base::create_directories_to_save_file_if_they_do_not_exist",
+               "The expected directories to the save file were not initially present, but were created successfully."
+            );
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::GameProgressAndStateInfos::Base::create_directories_to_save_file_if_they_do_not_exist",
+               "Failed to load the save file."
+            );
+            //std::cerr << "Failed to create directories!" << std::endl;
+            return;  // Exit if directory creation fails
+         }
+      }
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+      - AllegroFlare::SavingAndLoading::StandardSavesPath
+      - std::filesystem::path
+      - std::filesystem::exists
+      - std::filesystem::create_directories
 
 
 dependencies:
@@ -117,6 +160,15 @@ dependencies:
 
   - symbol: AllegroFlare::SavingAndLoading::SaveSlot
     headers: [ AllegroFlare/SavingAndLoading/SaveSlot.hpp ]
-
+  - symbol: std::filesystem::path
+    headers: [ filesystem ]
+  - symbol: std::filesystem::exists
+    headers: [ filesystem ]
+  - symbol: std::filesystem::create_directories
+    headers: [ filesystem ]
+  - symbol: AllegroFlare::SavingAndLoading::StandardSavesPath
+    headers: [ AllegroFlare/SavingAndLoading/StandardSavesPath.hpp ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

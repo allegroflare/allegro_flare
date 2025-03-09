@@ -23,6 +23,7 @@ namespace AllegroFlare
          int num_quicksave_save_slots;
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot> save_slots;
          bool initialized;
+         void create_save_file_directories_if_they_do_not_exist();
 
       protected:
 

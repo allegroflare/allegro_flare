@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/SavingAndLoading/SaveSlot.hpp>
 
+#include <AllegroFlare/SavingAndLoading/StandardSavesPath.hpp>
 #include <filesystem>
 #include <iomanip>
 #include <iostream>
@@ -94,7 +95,9 @@ AllegroFlare::SavingAndLoading::SaveSlot SaveSlot::construct(std::string data_fo
 bool SaveSlot::header_file_exists()
 {
    // TODO: Test this
-   std::string full_path_to_header_filename = data_folder_path + "saves/" + build_header_filename();
+   std::string standard_saves_path =
+      AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
+   std::string full_path_to_header_filename = standard_saves_path + build_header_filename();
    // TODO: Ensure is a file and not a directory or other entry
    return std::filesystem::exists(full_path_to_header_filename);
    return true;
@@ -103,7 +106,9 @@ bool SaveSlot::header_file_exists()
 bool SaveSlot::content_file_exists()
 {
    // TODO: Test this
-   std::string full_path_to_content_filename = data_folder_path + "saves/" + build_content_filename();
+   std::string standard_saves_path =
+      AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
+   std::string full_path_to_content_filename = standard_saves_path + build_content_filename();
    // TODO: Ensure is a file and not a directory or other entry
    return std::filesystem::exists(full_path_to_content_filename);
    return true;
