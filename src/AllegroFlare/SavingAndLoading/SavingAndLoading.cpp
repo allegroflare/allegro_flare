@@ -6,7 +6,6 @@
 #include <AllegroFlare/SavingAndLoading/StandardSavesPath.hpp>
 #include <filesystem>
 #include <iostream>
-#include <lib/nlohmann/json.hpp>
 #include <sstream>
 #include <stdexcept>
 
@@ -232,19 +231,11 @@ void SavingAndLoading::initialize()
    return;
 }
 
-void SavingAndLoading::scan_for_existing_save_files_and_load_header_files()
+void SavingAndLoading::scan_for_existing_save_files_and_load_header_data()
 {
    for (auto &save_slot : save_slots)
    {
-      bool header_file_exists = save_slot.header_file_exists();
-      bool content_file_exists = save_slot.content_file_exists();
-      if (header_file_exists && content_file_exists)
-      {
-         // TODO: Implement this loading/parsing
-         //std::string file_content = save_slot.obtain_header_file_data();
-         //nlohmann::json parsed_json = nlohmann::json::parse(file_content);
-         //parsed_json.get_to(save_slot); // TODO: Good enough?
-      }
+      save_slot.load_header_from_file_if_exists_or_clear();
    }
    return;
 }

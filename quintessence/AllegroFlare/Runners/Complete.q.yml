@@ -245,7 +245,7 @@ methods:
       saving_and_loading.set_num_quicksave_save_slots(game_configuration->get_num_quicksave_save_slots());
       saving_and_loading.initialize();
       saving_and_loading.create_save_file_directories_if_they_do_not_exist();
-      saving_and_loading.scan_for_existing_save_files_and_load_header_files();
+      saving_and_loading.scan_for_existing_save_files_and_load_header_data();
 
       // Create the shared background
       shared_background = game_configuration->create_shared_background();

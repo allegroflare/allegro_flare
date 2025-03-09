@@ -2,12 +2,14 @@
 
 #include <AllegroFlare/SavingAndLoading/SaveSlot.hpp>
 
+#include <AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/SavingAndLoading/StandardSavesPath.hpp>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <lib/nlohmann/json.hpp>
 #include <sstream>
 #include <stdexcept>
 #include <unordered_map>
@@ -23,6 +25,7 @@ SaveSlot::SaveSlot()
    : data_folder_path("[unset-data_folder_path]")
    , profile_id(0)
    , save_slot_position(0)
+   , header_data(nullptr)
    , save_slot_type(SAVE_SLOT_TYPE_UNDEF)
 {
 }
@@ -54,6 +57,12 @@ int SaveSlot::get_profile_id() const
 int SaveSlot::get_save_slot_position() const
 {
    return save_slot_position;
+}
+
+
+AllegroFlare::LoadASavedGame::SaveSlots::Common* SaveSlot::get_header_data() const
+{
+   return header_data;
 }
 
 
@@ -117,6 +126,58 @@ std::string SaveSlot::obtain_header_file_data()
    return buffer.str();
 }
 
+bool SaveSlot::header_data_exists()
+{
+   return header_data != nullptr;
+}
+
+void SaveSlot::load_header_from_file_if_exists_or_clear()
+{
+   // TODO: Test this
+   // Cleaer header data if some has already been loaded into this slot
+   if (header_data_exists()) delete_header_data();
+
+   bool _header_file_exists = header_file_exists();
+   bool _content_file_exists = content_file_exists();
+   if (!_header_file_exists && !_content_file_exists)
+   {
+      // Neither header nor content files exist
+      // Do nothing
+   }
+   else if ((_header_file_exists && !_content_file_exists) || (!_header_file_exists && _content_file_exists))
+   {
+      // Either header or content files exists, but not both
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "When loading header data, either the header OR the content file is present but not both. It's expected "
+            "that both files are present. Please improve this error message to output filenames for easier "
+            "debugging."
+      );
+   }
+   else if (_header_file_exists && _content_file_exists)
+   {
+      // Both header and content files exist
+      std::string file_content = obtain_header_file_data();
+      nlohmann::json parsed_json = nlohmann::json::parse(file_content);
+      header_data = new AllegroFlare::LoadASavedGame::SaveSlots::Common;
+      parsed_json.get_to(*header_data); // TODO: Good enough?
+   }
+   else
+   {
+      // Either header or content files exists, but not both
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Unexpected code path");
+   }
+
+   return;
+}
+
+void SaveSlot::delete_header_data()
+{
+   if (header_data == nullptr) return;
+   delete header_data;
+   header_data = nullptr;
+   return;
+}
+
 bool SaveSlot::header_file_exists()
 {
    // TODO: Test this
@@ -129,8 +190,6 @@ bool SaveSlot::header_file_exists()
 bool SaveSlot::content_file_exists()
 {
    // TODO: Test this
-   //std::string standard_saves_path =
-      //AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(data_folder_path);
    std::string full_path_to_content_filename = build_full_path_to_content_file();
    // TODO: Ensure is a file and not a directory or other entry
    return std::filesystem::exists(full_path_to_content_filename);

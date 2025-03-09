@@ -36192,6 +36192,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">header_data</td>
+  <td class="property">AllegroFlare::LoadASavedGame::SaveSlots::Common*</td>
+</tr>
+<tr>
   <td class="property">save_slot_type</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -36205,6 +36209,18 @@ table td
 <tr>
   <td class="method">std::string</td>
   <td class="method"><b>obtain_header_file_data</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>header_data_exists</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load_header_from_file_if_exists_or_clear</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>delete_header_data</b>()</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -36266,6 +36282,15 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Common&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::AllegroFlare::LoadASavedGame::SaveSlots::Common&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -36322,7 +36347,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>scan_for_existing_save_files_and_load_header_files</b>()</td>
+  <td class="method"><b>scan_for_existing_save_files_and_load_header_data</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -36348,12 +36373,6 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::AllegroFlare::LoadASavedGame::SaveSlots::Common&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp&quot;]}</td>
-</tr>
-<tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;nlohmann::json&quot;, &quot;headers&quot;=&gt;[&quot;lib/nlohmann/json.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -53420,7 +53439,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJObjectLoader",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshTMJDataLoader",
-    "AllegroFlare/SavingAndLoading/SavingAndLoading",
+    "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJImageLayerLoader",
     "Tileo/TMJDataLoader",
@@ -53828,7 +53847,8 @@ table td
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Common": [
-    "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
+    "AllegroFlare/LoadASavedGame/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/SaveSlot"
   ],
   "AllegroFlare/LoadASavedGame/SaveSlots/Basic": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
@@ -54759,14 +54779,14 @@ table td
   "std/ostringstream": [
     "AllegroFlare/SavingAndLoading/SaveSlot"
   ],
+  "AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common": [
+    "AllegroFlare/SavingAndLoading/SaveSlot"
+  ],
   "std/filesystem/path": [
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
   ],
   "std/filesystem/create_directories": [
-    "AllegroFlare/SavingAndLoading/SavingAndLoading"
-  ],
-  "AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common": [
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "AllegroFlare/Elements/AchievementsList": [
