@@ -1,0 +1,181 @@
+properties:
+
+
+  - name: data_folder_path
+    type: std::string
+    init_with: '"[unset-data_folder_path]"'
+    getter: true
+    setter: true
+
+  - name: profile_id
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: save_slot_position
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: save_slot_type
+    type: uint32_t
+    init_with: SAVE_SLOT_TYPE_UNDEF
+    getter: true
+
+
+enums:
+
+
+  - name: SaveSlotType
+    scope: public
+    enumerators:
+      - SAVE_SLOT_TYPE_UNDEF
+      - SAVE_SLOT_TYPE_MANUAL_SAVE
+      - SAVE_SLOT_TYPE_AUTO_SAVE
+      - SAVE_SLOT_TYPE_QUICK_SAVE
+
+
+methods:
+
+
+  - name: construct
+    static: true
+    type: AllegroFlare::SavingAndLoading::SaveSlot
+    parameters:
+      - name: data_folder_path
+        type: std::string
+        default_argument: '"[unset-data_folder_path]"'
+      - name: profile_id
+        type: int
+        default_argument: 0
+      - name: save_slot_position
+        type: int
+        default_argument: 0
+      - name: save_slot_type
+        type: uint32_t
+        default_argument: SAVE_SLOT_TYPE_UNDEF
+    guards: [ (profile_id > 0), (save_slot_position > 0), is_valid_type(save_slot_type) ]
+    body: |
+      AllegroFlare::SavingAndLoading::SaveSlot result_save_slot;
+      result_save_slot.data_folder_path = data_folder_path;
+      result_save_slot.profile_id = profile_id;
+      result_save_slot.save_slot_position = save_slot_position;
+      result_save_slot.save_slot_type = save_slot_type;
+      return result_save_slot;
+
+
+  - name: header_file_exists
+    type: bool
+    body: |
+      // TODO: Test this
+      std::string full_path_to_header_filename = data_folder_path + "saves/" + build_header_filename();
+      // TODO: Ensure is a file and not a directory or other entry
+      return std::filesystem::exists(full_path_to_header_filename);
+      return true;
+    body_dependency_symbols:
+      - std::filesystem::exists
+
+
+  - name: content_file_exists
+    type: bool
+    body: |
+      // TODO: Test this
+      std::string full_path_to_content_filename = data_folder_path + "saves/" + build_content_filename();
+      // TODO: Ensure is a file and not a directory or other entry
+      return std::filesystem::exists(full_path_to_content_filename);
+      return true;
+    body_dependency_symbols:
+      - std::filesystem::exists
+
+
+  - name: build_header_filename
+    type: std::string
+    body: |
+      return build_filename_basename() + ".header.sav";
+
+
+  - name: build_content_filename
+    type: std::string
+    body: |
+      return build_filename_basename() + ".sav";
+
+
+  - name: build_filename_basename
+    private: true
+    type: std::string
+    body: |
+      std::stringstream ss;
+      ss << "profile_" << std::setw(3) << std::setfill('0') << profile_id
+         << "-"
+         << obtain_save_slot_type_string(save_slot_type)
+         << "-"
+         << "position_" << std::setw(3) << std::setfill('0') << save_slot_position;
+      return ss.str();
+    body_dependency_symbols:
+      - std::stringstream
+      - std::setw
+      - std::setfill
+
+
+  - name: obtain_save_slot_type_string
+    type: std::string
+    static: true
+    parameters:
+      - name: save_slot_type
+        type: uint32_t
+        default_argument: SAVE_SLOT_TYPE_UNDEF
+    body: |
+      static const std::unordered_map<uint32_t, std::string> event_names {
+         { SAVE_SLOT_TYPE_MANUAL_SAVE, "manual_save" },
+         { SAVE_SLOT_TYPE_AUTO_SAVE, "autosave" },
+         { SAVE_SLOT_TYPE_QUICK_SAVE, "quicksave" },
+      };
+
+      auto it = event_names.find(save_slot_type);
+
+      if (it == event_names.end())
+      {
+         return "SAVE_SLOT_TYPE_UNKNOWN";
+      }
+      else
+      {
+         return it->second;
+      }
+    body_dependency_symbols:
+      - std::unordered_map
+
+
+  - name: is_valid_type
+    type: bool
+    static: true
+    parameters:
+      - name: type
+        type: uint32_t
+        default_argument: SAVE_SLOT_TYPE_UNDEF
+    body: |
+      static const std::unordered_map<uint32_t, std::string> event_names {
+         { SAVE_SLOT_TYPE_MANUAL_SAVE, "manual_save" },
+         { SAVE_SLOT_TYPE_AUTO_SAVE, "autosave" },
+         { SAVE_SLOT_TYPE_QUICK_SAVE, "quicksave" },
+      };
+
+      auto it = event_names.find(type);
+      if (it == event_names.end()) return false;
+      return true;
+    body_dependency_symbols:
+      - std::unordered_map
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::SavingAndLoading::SaveSlot
+    headers: [ AllegroFlare/SavingAndLoading/SaveSlot.hpp ]
+  - symbol: std::setw
+    headers: [ iomanip ]
+  - symbol: std::setfill
+    headers: [ iomanip ]
+  - symbol: std::filesystem::exists
+    headers: [ filesystem ]
+
+
