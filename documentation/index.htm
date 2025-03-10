@@ -475,6 +475,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Runners/Base.q.yml">quintessence/AllegroFlare/Runners/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Runners/Complete.q.yml">quintessence/AllegroFlare/Runners/Complete.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SaveSlotRenderer.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlotRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml">quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/StandardSavesPath.q.yml">quintessence/AllegroFlare/SavingAndLoading/StandardSavesPath.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
@@ -36314,6 +36315,93 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/SavingAndLoading/SaveSlotRenderer.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlotRenderer.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">screenshot_of_gameplay_at_save_identifier</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">location_of_save</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">date_and_time_of_save</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">time_since_text</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_WIDTH</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_HEIGHT</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_location_name_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_details_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml">quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -50879,6 +50967,7 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -51251,6 +51340,7 @@ table td
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -51376,6 +51466,7 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -51567,6 +51658,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/Tiled/TMJObject",
@@ -52356,6 +52448,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
     "AllegroFlare/WorldMapRenderers/Basic"
@@ -52521,6 +52614,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",

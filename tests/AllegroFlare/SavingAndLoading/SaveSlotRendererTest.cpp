@@ -80,22 +80,21 @@ TEST_F(AllegroFlare_SavingAndLoading_SaveSlotRendererTest, render__without_a_bit
 TEST_F(AllegroFlare_SavingAndLoading_SaveSlotRendererTestWithAllegroRenderingFixture,
    CAPTURE__render__will_not_blow_up)
 {
-   AllegroFlare::Placement2D place;
-   place.position.x = 1920/2;
-   place.position.y = 1080/2;
-
-   place.start_transform();
    AllegroFlare::SavingAndLoading::SaveSlotRenderer renderer(
          &get_bitmap_bin_ref(),
          &get_font_bin_ref(),
          "scene3-01.jpg"
       );
-   //draw_crosshair(renderer.get_x(), renderer.get_y());
-   renderer.set_x(0);
-   renderer.set_y(0);
+
+   AllegroFlare::Placement2D place;
+   place.position.x = 1920/2;
+   place.position.y = 1080/2;
+   place.size.x = renderer.get_width();
+   place.size.y = renderer.get_height();
+   place.start_transform();
    renderer.render();
    place.restore_transform();
-   //draw_crosshair(renderer.get_x(), renderer.get_y());
+
    al_flip_display();
    sleep_for(1);
 }

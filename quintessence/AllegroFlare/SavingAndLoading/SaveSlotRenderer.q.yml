@@ -41,18 +41,6 @@ properties:
     getter: true
     setter: true
 
-  - name: x
-    type: float
-    init_with: 1920/2
-    getter: true
-    setter: true
-
-  - name: y
-    type: float
-    init_with: 1080/3
-    getter: true
-    setter: true
-
   - name: width
     type: float
     init_with: DEFAULT_WIDTH
@@ -90,6 +78,8 @@ methods:
       - bitmap_bin
       - font_bin
     body: |
+      float x = 0; // TODO: Factor out x
+      float y = 0; // TODO: Factor out y
       float screenshot_width = 1920/9;
       float screenshot_x_padding = 20;
       float screenshot_height = 1080/9;

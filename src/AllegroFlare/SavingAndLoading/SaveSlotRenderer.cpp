@@ -23,8 +23,6 @@ SaveSlotRenderer::SaveSlotRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroF
    , location_of_save(location_of_save)
    , date_and_time_of_save(date_and_time_of_save)
    , time_since_text(time_since_text)
-   , x(1920/2)
-   , y(1080/3)
    , width(DEFAULT_WIDTH)
    , height(DEFAULT_HEIGHT)
 {
@@ -72,18 +70,6 @@ void SaveSlotRenderer::set_time_since_text(std::string time_since_text)
 }
 
 
-void SaveSlotRenderer::set_x(float x)
-{
-   this->x = x;
-}
-
-
-void SaveSlotRenderer::set_y(float y)
-{
-   this->y = y;
-}
-
-
 void SaveSlotRenderer::set_width(float width)
 {
    this->width = width;
@@ -117,18 +103,6 @@ std::string SaveSlotRenderer::get_date_and_time_of_save() const
 std::string SaveSlotRenderer::get_time_since_text() const
 {
    return time_since_text;
-}
-
-
-float SaveSlotRenderer::get_x() const
-{
-   return x;
-}
-
-
-float SaveSlotRenderer::get_y() const
-{
-   return y;
 }
 
 
@@ -181,6 +155,8 @@ void SaveSlotRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::SaveSlotRenderer::render]: error: guard \"font_bin\" not met");
    }
+   float x = 0; // TODO: Factor out x
+   float y = 0; // TODO: Factor out y
    float screenshot_width = 1920/9;
    float screenshot_x_padding = 20;
    float screenshot_height = 1080/9;

@@ -24,8 +24,6 @@ namespace AllegroFlare
          std::string location_of_save;
          std::string date_and_time_of_save;
          std::string time_since_text;
-         float x;
-         float y;
          float width;
          float height;
          ALLEGRO_FONT* obtain_location_name_font();
@@ -44,16 +42,12 @@ namespace AllegroFlare
          void set_location_of_save(std::string location_of_save);
          void set_date_and_time_of_save(std::string date_and_time_of_save);
          void set_time_since_text(std::string time_since_text);
-         void set_x(float x);
-         void set_y(float y);
          void set_width(float width);
          void set_height(float height);
          std::string get_screenshot_of_gameplay_at_save_identifier() const;
          std::string get_location_of_save() const;
          std::string get_date_and_time_of_save() const;
          std::string get_time_since_text() const;
-         float get_x() const;
-         float get_y() const;
          float get_width() const;
          float get_height() const;
          void render();
