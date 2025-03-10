@@ -80,3 +80,32 @@ header_data_into_save_slots)
 }
 
 
+TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
+   get_autosave_save_slots__will_return_all_save_slots_of_the_type_SAVE_SLOT_TYPE_AUTO_SAVE_belonging_to_a_profile)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+
+   AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading;
+   saving_and_loading.set_data_folder_path(deployment_environment.get_data_folder_path() + "test_saves/");
+   saving_and_loading.set_num_profiles(2);
+   //saving_and_loading.set_num_manual_save_slots(3);
+   saving_and_loading.set_num_autosave_save_slots(5);
+   //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.initialize();
+
+   //saving_and_loading.create_save_file_directories_if_they_do_not_exist();
+   //saving_and_loading.scan_for_existing_save_files_and_load_header_data();
+
+   std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> autosave_save_slots =
+      saving_and_loading.get_autosave_save_slots(1);
+
+   EXPECT_EQ(5, autosave_save_slots.size());
+   for (auto &save_slot : autosave_save_slots)
+   {
+      ASSERT_NE(nullptr, save_slot);
+      EXPECT_EQ(true, save_slot->is_autosave_save());
+      EXPECT_EQ(1, save_slot->get_profile_id());
+   }
+}
+
+

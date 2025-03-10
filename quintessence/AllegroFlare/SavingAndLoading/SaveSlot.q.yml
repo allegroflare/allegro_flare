@@ -45,6 +45,35 @@ enums:
 methods:
 
 
+  - name: is_manual_save
+    type: bool
+    body: |
+      return save_slot_type == SAVE_SLOT_TYPE_MANUAL_SAVE;
+
+
+  - name: is_autosave_save
+    type: bool
+    body: |
+      return save_slot_type == SAVE_SLOT_TYPE_AUTO_SAVE;
+
+
+  - name: is_quicksave_save
+    type: bool
+    body: |
+      return save_slot_type == SAVE_SLOT_TYPE_QUICK_SAVE;
+
+
+  - name: is_profile_id
+    type: bool
+    parameters:
+      - name: profile_id
+        type: int
+        default_argument: 0
+    guards: [ (profile_id >= 1) ]
+    body: |
+      return this->profile_id == profile_id;
+
+
   - name: construct
     static: true
     type: AllegroFlare::SavingAndLoading::SaveSlot
@@ -61,7 +90,7 @@ methods:
       - name: save_slot_type
         type: uint32_t
         default_argument: SAVE_SLOT_TYPE_UNDEF
-    guards: [ (profile_id > 0), (save_slot_position > 0), is_valid_type(save_slot_type) ]
+    guards: [ (profile_id >= 1), (save_slot_position > 0), is_valid_type(save_slot_type) ]
     body: |
       AllegroFlare::SavingAndLoading::SaveSlot result_save_slot;
       result_save_slot.data_folder_path = data_folder_path;

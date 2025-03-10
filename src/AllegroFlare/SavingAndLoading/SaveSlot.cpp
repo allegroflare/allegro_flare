@@ -72,14 +72,41 @@ uint32_t SaveSlot::get_save_slot_type() const
 }
 
 
-AllegroFlare::SavingAndLoading::SaveSlot SaveSlot::construct(std::string data_folder_path, int profile_id, int save_slot_position, uint32_t save_slot_type)
+bool SaveSlot::is_manual_save()
 {
-   if (!((profile_id > 0)))
+   return save_slot_type == SAVE_SLOT_TYPE_MANUAL_SAVE;
+}
+
+bool SaveSlot::is_autosave_save()
+{
+   return save_slot_type == SAVE_SLOT_TYPE_AUTO_SAVE;
+}
+
+bool SaveSlot::is_quicksave_save()
+{
+   return save_slot_type == SAVE_SLOT_TYPE_QUICK_SAVE;
+}
+
+bool SaveSlot::is_profile_id(int profile_id)
+{
+   if (!((profile_id >= 1)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SaveSlot::construct]: error: guard \"(profile_id > 0)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SaveSlot::is_profile_id]: error: guard \"(profile_id >= 1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SaveSlot::construct]: error: guard \"(profile_id > 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SaveSlot::is_profile_id]: error: guard \"(profile_id >= 1)\" not met");
+   }
+   return this->profile_id == profile_id;
+}
+
+AllegroFlare::SavingAndLoading::SaveSlot SaveSlot::construct(std::string data_folder_path, int profile_id, int save_slot_position, uint32_t save_slot_type)
+{
+   if (!((profile_id >= 1)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SaveSlot::construct]: error: guard \"(profile_id >= 1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SaveSlot::construct]: error: guard \"(profile_id >= 1)\" not met");
    }
    if (!((save_slot_position > 0)))
    {

@@ -112,7 +112,40 @@ std::vector<AllegroFlare::SavingAndLoading::SaveSlot> &SavingAndLoading::get_sav
 
 int SavingAndLoading::num_save_slots()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::num_save_slots]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::num_save_slots]: error: guard \"initialized\" not met");
+   }
    return save_slots.size();
+}
+
+std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_autosave_save_slots(int profile_id)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::get_autosave_save_slots]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_autosave_save_slots]: error: guard \"initialized\" not met");
+   }
+   std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> result;
+   result.reserve(num_autosave_save_slots);
+   for (auto &save_slot : save_slots)
+   {
+      if (save_slot.is_autosave_save() && save_slot.is_profile_id(profile_id)) result.push_back(&save_slot);
+   }
+   if (result.size() != num_autosave_save_slots)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "When querying for save slots, the number of retrieved autosave slots (" + std::to_string(result.size())
+            + ") did not match the number of autosave slots configured on the class (" + 
+            std::to_string(num_autosave_save_slots) + ")."
+      );
+   }
+   return result;
 }
 
 void SavingAndLoading::initialize()
@@ -233,6 +266,13 @@ void SavingAndLoading::initialize()
 
 void SavingAndLoading::scan_for_existing_save_files_and_load_header_data()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::scan_for_existing_save_files_and_load_header_data]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::scan_for_existing_save_files_and_load_header_data]: error: guard \"initialized\" not met");
+   }
    AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
       "Starting scan for save files..."
    );
@@ -273,15 +313,13 @@ void SavingAndLoading::create_save_file_directories_if_they_do_not_exist()
    {
       if (std::filesystem::create_directories(dir_path))
       {
-         AllegroFlare::Logger::info_from(
-            "AllegroFlare::GameProgressAndStateInfos::Base::create_directories_to_save_file_if_they_do_not_exist",
+         AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
             "The expected directories to the save file were not initially present, but were created successfully."
          );
       }
       else
       {
-         AllegroFlare::Logger::throw_error(
-            "AllegroFlare::GameProgressAndStateInfos::Base::create_directories_to_save_file_if_they_do_not_exist",
+         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
             "Failed to load the save file."
          );
          //std::cerr << "Failed to create directories!" << std::endl;
