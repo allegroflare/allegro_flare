@@ -233,10 +233,22 @@ void SavingAndLoading::initialize()
 
 void SavingAndLoading::scan_for_existing_save_files_and_load_header_data()
 {
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+      "Starting scan for save files..."
+   );
+   int num_files_found = 0;
    for (auto &save_slot : save_slots)
    {
       save_slot.load_header_from_file_if_exists_or_clear();
+      if (save_slot.header_data_exists()) num_files_found++;
    }
+   bool plural_slots = (num_files_found != 1);
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+      "...Scan for save files finished. "
+      + std::to_string(num_files_found)
+      + " save slot"
+      + (plural_slots ? "s were" : " was") + " found."
+   );
    return;
 }
 
