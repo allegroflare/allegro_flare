@@ -47,9 +47,10 @@ namespace AllegroFlare
          bool is_autosave_save();
          bool is_quicksave_save();
          bool is_profile_id(int profile_id=0);
+         bool is_empty();
+         bool header_data_exists();
          static AllegroFlare::SavingAndLoading::SaveSlot construct(std::string data_folder_path="[unset-data_folder_path]", int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF);
          std::string obtain_header_file_data();
-         bool header_data_exists();
          void load_header_from_file_if_exists_or_clear();
          void delete_header_data();
          bool header_file_exists();

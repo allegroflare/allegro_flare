@@ -474,9 +474,11 @@ table td
   <li><a href="#quintessence/AllegroFlare/Rulers.q.yml">quintessence/AllegroFlare/Rulers.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Runners/Base.q.yml">quintessence/AllegroFlare/Runners/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Runners/Complete.q.yml">quintessence/AllegroFlare/Runners/Complete.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.q.yml">quintessence/AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SaveSlotRenderer.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlotRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml">quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SavingAndLoading/Screen.q.yml">quintessence/AllegroFlare/SavingAndLoading/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/StandardSavesPath.q.yml">quintessence/AllegroFlare/SavingAndLoading/StandardSavesPath.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml">quintessence/AllegroFlare/SceneGraph/Entities/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml">quintessence/AllegroFlare/SceneGraph/EntityPool.q.yml</a></li>
@@ -36176,6 +36178,81 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.q.yml">quintessence/AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin*</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin*</td>
+</tr>
+<tr>
+  <td class="property">text_label</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_WIDTH</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_HEIGHT</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_location_name_font</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_details_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_text&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_draw_rounded_rectangle&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -36220,16 +36297,20 @@ table td
   <td class="method"><b>is_profile_id</b>(int profile_id=0)</td>
 </tr>
 <tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_empty</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>header_data_exists</b>()</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::SavingAndLoading::SaveSlot</td>
   <td class="method"><b>construct</b>(std::string data_folder_path=&quot;[unset-data_folder_path]&quot;, int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF)</td>
 </tr>
 <tr>
   <td class="method">std::string</td>
   <td class="method"><b>obtain_header_file_data</b>()</td>
-</tr>
-<tr>
-  <td class="method">bool</td>
-  <td class="method"><b>header_data_exists</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -36447,6 +36528,10 @@ table td
 </tr>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::SavingAndLoading::SaveSlot*&gt;</td>
+  <td class="method"><b>get_manual_save_slots</b>(int profile_id=1)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::SavingAndLoading::SaveSlot*&gt;</td>
   <td class="method"><b>get_autosave_save_slots</b>(int profile_id=1)</td>
 </tr>
 <tr>
@@ -36481,6 +36566,290 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/SavingAndLoading/Screen.q.yml">quintessence/AllegroFlare/SavingAndLoading/Screen.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Add a technique to clear a save slot (after confirmation dialog)", "Modify/Audit guards to include \"destroyed\""]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">data_folder_path</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">bitmap_bin</td>
+  <td class="property">AllegroFlare::BitmapBin</td>
+</tr>
+<tr>
+  <td class="property">font_bin</td>
+  <td class="property">AllegroFlare::FontBin</td>
+</tr>
+<tr>
+  <td class="property">saving_and_loading</td>
+  <td class="property">AllegroFlare::SavingAndLoading::SavingAndLoading*</td>
+</tr>
+<tr>
+  <td class="property">cursor_position</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::SavingAndLoading::Screen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_menu_choice_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">on_erase_focused_save_slot_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::SavingAndLoading::Screen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_erase_focused_save_slot_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">on_exit_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::SavingAndLoading::Screen*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_exit_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">state</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
+  <td class="property">state_is_busy</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">state_changed_at</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">destroyed</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_DATA_FOLDER_PATH</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>~destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_activate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_deactivate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>reveal_screen</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>handling_user_input</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::SavingAndLoading::SaveSlot*&gt;</td>
+  <td class="method"><b>get_save_slots</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">std::vector&lt;AllegroFlare::SavingAndLoading::SaveSlot*&gt;</td>
+  <td class="private_method"><b>get_manual_save_slots</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_up</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_cursor_down</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::SavingAndLoading::SaveSlot*</td>
+  <td class="method"><b>get_currently_selected_save_slot</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>exit_screen</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>activate_current_focused_menu_option</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>erase_current_focused_save_slot</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>can_exit_screen</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>can_select_current_focused_menu_option</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>select_current_focused_menu_option</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_title</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_save_slots</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_update_func</b>(double time_now=0.0, double time_step=0.0)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_render_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>primary_timer_func</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>key_char_func</b>(ALLEGRO_EVENT* event=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_button_down_func</b>(AllegroFlare::Player* player=nullptr, AllegroFlare::VirtualControllers::Base* virtual_controller=nullptr, int virtual_controller_button_num=0, bool is_repeat=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>virtual_control_axis_change_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_state</b>(uint32_t state=STATE_UNDEF, bool override_if_busy=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>begin_shutdown_after_selection</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>complete_shutdown_and_activate_current_focused_menu_option</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update_state</b>(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_valid_state</b>(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_state</b>(uint32_t possible_state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_current_state_age</b>(float time_now=al_get_time())</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>infer_currently_drawing_user_cursor</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">ALLEGRO_FONT*</td>
+  <td class="private_method"><b>obtain_heading_font</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitmapBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitmapBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::EventEmitter&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/EventEmitter.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ModelBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ModelBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Player&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Player.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VirtualControllers::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VirtualControllers/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveSlot&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SaveSlot.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::EmptySaveSlotRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveSlotRenderer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SaveSlotRenderer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SavingAndLoading.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -50845,6 +51214,7 @@ table td
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -50967,7 +51337,9 @@ table td
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -51340,7 +51712,9 @@ table td
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -51466,7 +51840,9 @@ table td
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -51519,6 +51895,7 @@ table td
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Rulers",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -51609,6 +51986,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitledMenuScreen",
@@ -51658,6 +52036,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
@@ -51756,6 +52135,7 @@ table td
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -52005,6 +52385,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameWonScreen",
@@ -52175,6 +52556,7 @@ table td
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -52448,6 +52830,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
@@ -52551,6 +52934,7 @@ table td
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -52614,6 +52998,7 @@ table td
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
@@ -52838,6 +53223,7 @@ table td
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -52869,6 +53255,7 @@ table td
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -54880,11 +55267,13 @@ table td
     "AllegroFlare/Screens/TitledMenuScreenFactory"
   ],
   "AllegroFlare/SavingAndLoading/SavingAndLoading": [
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/SavingAndLoading/SaveSlot": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
-    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+    "AllegroFlare/SavingAndLoading/SavingAndLoading",
+    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/SavingAndLoading/StandardSavesPath": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
@@ -54902,6 +55291,15 @@ table td
   ],
   "std/filesystem/create_directories": [
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "AllegroFlare/SavingAndLoading/Screen": [
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
+  "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer": [
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
+  "AllegroFlare/SavingAndLoading/SaveSlotRenderer": [
+    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"

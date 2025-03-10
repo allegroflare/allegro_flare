@@ -99,6 +99,16 @@ bool SaveSlot::is_profile_id(int profile_id)
    return this->profile_id == profile_id;
 }
 
+bool SaveSlot::is_empty()
+{
+   return !header_data_exists();
+}
+
+bool SaveSlot::header_data_exists()
+{
+   return header_data != nullptr;
+}
+
 AllegroFlare::SavingAndLoading::SaveSlot SaveSlot::construct(std::string data_folder_path, int profile_id, int save_slot_position, uint32_t save_slot_type)
 {
    if (!((profile_id >= 1)))
@@ -151,11 +161,6 @@ std::string SaveSlot::obtain_header_file_data()
    std::ostringstream buffer;
    buffer << file.rdbuf();
    return buffer.str();
-}
-
-bool SaveSlot::header_data_exists()
-{
-   return header_data != nullptr;
 }
 
 void SaveSlot::load_header_from_file_if_exists_or_clear()

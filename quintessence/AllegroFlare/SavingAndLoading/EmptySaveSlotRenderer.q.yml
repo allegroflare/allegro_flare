@@ -13,30 +13,9 @@ properties:
     constructor_arg: true
     setter: true
 
-  - name: screenshot_of_gameplay_at_save_identifier
+  - name: text_label
     type: std::string
-    init_with: '"[unset-screenshot_of_gameplay_at_save_identifier]"'
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: location_of_save
-    type: std::string
-    init_with: '"Location of Save"'
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: date_and_time_of_save
-    type: std::string
-    init_with: '"12/14/2024 3:20PM"'
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: time_since_text
-    type: std::string
-    init_with: '"12 minutes ago"'
+    init_with: '"Empty"'
     constructor_arg: true
     getter: true
     setter: true
@@ -78,6 +57,7 @@ methods:
       - bitmap_bin
       - font_bin
     body: |
+      // TODO: Clean this up
       float x = 0; // TODO: Factor out x
       float y = 0; // TODO: Factor out y
       float screenshot_width = 1920/9;
@@ -100,7 +80,7 @@ methods:
       float text_x = x + screenshot_width + screenshot_x_padding*2;
       float text_y = y + 12;
       ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
-      ALLEGRO_COLOR border_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+      ALLEGRO_COLOR border_color = ALLEGRO_COLOR{0.2, 0.2, 0.2, 1.0};
 
       { // fill and border
          // Draw the fill
@@ -127,87 +107,16 @@ methods:
          );
       }
 
-      { // screenshot
-         // Draw the screenshot frame
-         float screenshot_x = x+screenshot_x_padding;
-         float screenshot_y = y+height/2 - (int)(screenshot_height/2);
-         //float screenshot_w = 350/2;
-         //float screenshot_h = 220/2;
-         al_draw_rectangle(
-            screenshot_x,
-            screenshot_y,
-            screenshot_x + screenshot_width,
-            screenshot_y + screenshot_height,
-            border_color,
-            2.0f
-         );
-
-         // Draw the image
-         // NOTE: Any image will be stretched to fit the screenshot space
-         // NOTE: Screenshots are 16:9
-         ALLEGRO_BITMAP* screenshot = bitmap_bin->auto_get(screenshot_of_gameplay_at_save_identifier);
-         if (!screenshot)
-         {
-            AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
-               "screenshot is required in this component (for now)."
-            );
-         }
-
-         al_draw_scaled_bitmap(
-            screenshot,
-            0,
-            0,
-            al_get_bitmap_width(screenshot),
-            al_get_bitmap_height(screenshot),
-            screenshot_x,
-            screenshot_y,
-            screenshot_width,
-            screenshot_height,
-            0
-         );
-      }
-
       cumulative_line_spacing = 0;
       { // save data text
          // The location of the save
          al_draw_text(
             location_name_font,
-            ALLEGRO_COLOR{1, 1, 1, 1},
-            text_x,
-            text_y+cumulative_line_spacing,
-            ALLEGRO_ALIGN_LEFT,
-            location_of_save.c_str()
-         );
-         cumulative_line_spacing += location_name_font_line_height + 1;
-
-         // The date_and_time_of_save
-         al_draw_text(
-            details_font,
-            ALLEGRO_COLOR{1, 1, 1, 1},
-            text_x,
-            text_y+cumulative_line_spacing,
-            ALLEGRO_ALIGN_LEFT,
-            date_and_time_of_save.c_str()
-         );
-         cumulative_line_spacing += details_font_line_height + 2;
-      }
-
-      { // time since text
-         // The time_since text
-         ALLEGRO_FONT *time_since_font = details_font;
-         ALLEGRO_COLOR time_since_color = ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}; // a minty green
-
-         int time_since_font_line_height = al_get_font_line_height(time_since_font);
-
-         al_draw_text(
-            time_since_font,
-            time_since_color,
-            text_x,
-            text_y+cumulative_line_spacing,
-            //x + width - padding.x-screenshot_x_padding,
-            //y + height - padding.y - time_since_font_line_height - 5,
-            ALLEGRO_ALIGN_LEFT,
-            time_since_text.c_str()
+            border_color,
+            width/2,
+            height/2-location_name_font_line_height / 2,
+            ALLEGRO_ALIGN_CENTER,
+            text_label.c_str()
          );
       }
 

@@ -188,6 +188,7 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/Gameplay",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -310,7 +311,9 @@
     "AllegroFlare/Prototypes/TileDrive/TerrainMeshFactory",
     "AllegroFlare/Prototypes/TileDrive/TileDrive",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -683,7 +686,9 @@
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -809,7 +814,9 @@
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/Rulers",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameOverScreen",
     "AllegroFlare/Screens/GameWonScreen",
@@ -862,6 +869,7 @@
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Rulers",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -952,6 +960,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/TitleScreen",
     "AllegroFlare/Screens/TitledMenuScreen",
@@ -1001,6 +1010,7 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
@@ -1099,6 +1109,7 @@
     "AllegroFlare/Prototypes/CubeShooter/Screen",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/InputDeviceConfiguration",
     "AllegroFlare/Screens/LevelSelectScreen",
@@ -1348,6 +1359,7 @@
     "AllegroFlare/Prototypes/Platforming2D/EntityControlConnectors/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/TileDrive/Screen",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/GameWonScreen",
@@ -1518,6 +1530,7 @@
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -1791,6 +1804,7 @@
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/WorldMapRenderer",
@@ -1894,6 +1908,7 @@
     "AllegroFlare/Routers/Base",
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -1957,6 +1972,7 @@
     "AllegroFlare/Prototypes/MindDive/TunnelRenderer",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/RepeatingBitmapLogic",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
@@ -2181,6 +2197,7 @@
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -2212,6 +2229,7 @@
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/Achievements",
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Screens/DisplaySettings",
@@ -4223,11 +4241,13 @@
     "AllegroFlare/Screens/TitledMenuScreenFactory"
   ],
   "AllegroFlare/SavingAndLoading/SavingAndLoading": [
-    "AllegroFlare/Runners/Complete"
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/SavingAndLoading/SaveSlot": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
-    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+    "AllegroFlare/SavingAndLoading/SavingAndLoading",
+    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/SavingAndLoading/StandardSavesPath": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
@@ -4245,6 +4265,15 @@
   ],
   "std/filesystem/create_directories": [
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "AllegroFlare/SavingAndLoading/Screen": [
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
+  "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer": [
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
+  "AllegroFlare/SavingAndLoading/SaveSlotRenderer": [
+    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"

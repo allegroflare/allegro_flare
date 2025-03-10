@@ -74,6 +74,18 @@ methods:
       return this->profile_id == profile_id;
 
 
+  - name: is_empty
+    type: bool
+    body: |
+      return !header_data_exists();
+
+
+  - name: header_data_exists
+    type: bool
+    body: |
+      return header_data != nullptr;
+
+
   - name: construct
     static: true
     type: AllegroFlare::SavingAndLoading::SaveSlot
@@ -120,12 +132,6 @@ methods:
       - AllegroFlare::Logger
       - std::ifstream
       - std::ostringstream
-
-
-  - name: header_data_exists
-    type: bool
-    body: |
-      return header_data != nullptr;
 
 
   - name: load_header_from_file_if_exists_or_clear

@@ -122,6 +122,32 @@ int SavingAndLoading::num_save_slots()
    return save_slots.size();
 }
 
+std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_manual_save_slots(int profile_id)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::get_manual_save_slots]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_manual_save_slots]: error: guard \"initialized\" not met");
+   }
+   std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> result;
+   result.reserve(num_manual_save_slots);
+   for (auto &save_slot : save_slots)
+   {
+      if (save_slot.is_manual_save() && save_slot.is_profile_id(profile_id)) result.push_back(&save_slot);
+   }
+   if (result.size() != num_manual_save_slots)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "When querying for save slots, the number of retrieved manual slots (" + std::to_string(result.size())
+            + ") did not match the number of manual slots configured on the class (" +
+            std::to_string(num_manual_save_slots) + ")."
+      );
+   }
+   return result;
+}
+
 std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_autosave_save_slots(int profile_id)
 {
    if (!(initialized))
@@ -141,7 +167,7 @@ std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_aut
    {
       AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
          "When querying for save slots, the number of retrieved autosave slots (" + std::to_string(result.size())
-            + ") did not match the number of autosave slots configured on the class (" + 
+            + ") did not match the number of autosave slots configured on the class (" +
             std::to_string(num_autosave_save_slots) + ")."
       );
    }
