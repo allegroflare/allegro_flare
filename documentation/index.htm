@@ -47064,11 +47064,29 @@ table td
   <td class="method">std::string</td>
   <td class="method"><b>generate_now_timestamp_utc</b>()</td>
 </tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>to_iso_8601_time_str</b>(std::tm* time_obj=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">std::tuple&lt;bool, std::tm, int&gt;</td>
+  <td class="method"><b>str_to_iso_8601_time</b>(std::string iso_time=&quot;&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::tm</td>
+  <td class="method"><b>create_local_time_now</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::time_t&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;, &quot;ctime&quot;, &quot;iomanip&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tm&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::istringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55588,6 +55606,12 @@ table td
     "AllegroFlare/Tiled/TMJObject"
   ],
   "std/time_t": [
+    "AllegroFlare/TimeStamper"
+  ],
+  "std/tm": [
+    "AllegroFlare/TimeStamper"
+  ],
+  "std/istringstream": [
     "AllegroFlare/TimeStamper"
   ],
   "cross_product": [

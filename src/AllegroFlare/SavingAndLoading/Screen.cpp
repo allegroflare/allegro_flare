@@ -459,7 +459,7 @@ void Screen::render_save_slots()
 {
    float save_slot_width = AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_WIDTH;
    float save_slot_height = AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_HEIGHT;
-   float y_distance = 1080/6;
+   float y_distance = 1080/6 + 20;
    float y_cursor = 400;
 
    AllegroFlare::Placement2D placement;
@@ -489,6 +489,14 @@ void Screen::render_save_slots()
          AllegroFlare::SavingAndLoading::SaveSlotRenderer renderer;
          renderer.set_bitmap_bin(&bitmap_bin);
          renderer.set_font_bin(&font_bin);
+
+         // Fill the renderer with save slot data
+         renderer.set_screenshot_of_gameplay_at_save_identifier(
+            save_slot->get_header_data()->screenshot_of_gameplay_at_save_identifier
+         );
+         renderer.set_time_since_text("");
+         renderer.set_date_and_time_of_save("");
+
          renderer.render();
       }
 

@@ -19,6 +19,7 @@ static void setup_saving_and_loading_backend(
    saving_and_loading->set_num_profiles(1);
    saving_and_loading->set_num_manual_save_slots(3);
    saving_and_loading->initialize();
+   saving_and_loading->scan_for_existing_save_files_and_load_header_data();
 }
 
 
