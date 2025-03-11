@@ -6,6 +6,8 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.hpp>
 #include <AllegroFlare/SavingAndLoading/SaveSlotRenderer.hpp>
+#include <AllegroFlare/TimeAgo.hpp>
+#include <AllegroFlare/TimeStamper.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <set>
@@ -490,13 +492,27 @@ void Screen::render_save_slots()
          renderer.set_bitmap_bin(&bitmap_bin);
          renderer.set_font_bin(&font_bin);
 
-         // Fill the renderer with save slot data
+         // Calculate and format time information
+         std::time_t time_now = std::time(nullptr);
+         std::time_t save_time__seconds_since_epoch =
+            save_slot->get_header_data()->save_time__seconds_since_epoch;
+         std::string user_friendly_time_of_save =
+            AllegroFlare::TimeStamper::user_friendly_time(save_time__seconds_since_epoch);
+         std::string time_ago_since_save_string =
+            AllegroFlare::TimeAgo::time_ago(save_time__seconds_since_epoch, time_now);
+
+         // Fill renderer with data
+         std::string time_of_save_str = save_slot->get_header_data()->date_and_time_of_save;
+         renderer.set_date_and_time_of_save(user_friendly_time_of_save);
+         renderer.set_time_since_text(time_ago_since_save_string);
          renderer.set_screenshot_of_gameplay_at_save_identifier(
             save_slot->get_header_data()->screenshot_of_gameplay_at_save_identifier
          );
-         renderer.set_time_since_text("");
-         renderer.set_date_and_time_of_save("");
+         renderer.set_location_of_save(
+            save_slot->get_header_data()->location_of_save
+         );
 
+         // Render the slot
          renderer.render();
       }
 

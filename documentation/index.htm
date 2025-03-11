@@ -567,6 +567,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJObject.q.yml">quintessence/AllegroFlare/Tiled/TMJObject.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJObjectCustomProperties.q.yml">quintessence/AllegroFlare/Tiled/TMJObjectCustomProperties.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Time.q.yml">quintessence/AllegroFlare/Time.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/TimeAgo.q.yml">quintessence/AllegroFlare/TimeAgo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Timeline/ActorFactory.q.yml">quintessence/AllegroFlare/Timeline/ActorFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TransitionFX/Base.q.yml">quintessence/AllegroFlare/TransitionFX/Base.q.yml</a></li>
@@ -23087,6 +23088,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">save_time__seconds_since_epoch</td>
+  <td class="property">std::time_t</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -23098,6 +23103,9 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::LoadASavedGame::SaveSlots::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::time_t&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36851,6 +36859,12 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement2D.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TimeAgo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TimeAgo.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TimeStamper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TimeStamper.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -47055,6 +47069,36 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/TimeAgo.q.yml">quintessence/AllegroFlare/TimeAgo.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<p>This class contains no properties</p>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>time_ago</b>(std::time_t past_time=std::time(0), std::time_t current_time=std::time(0))</td>
+</tr>
+<tr>
+  <td class="method">std::time_t</td>
+  <td class="method"><b>generate_time_now_since_epoch</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>format</b>(int value=0, std::string unit=&quot;[unset-unit]&quot;)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::time_t&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/TimeStamper.q.yml">quintessence/AllegroFlare/TimeStamper.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -47066,15 +47110,15 @@ table td
 </tr>
 <tr>
   <td class="method">std::string</td>
-  <td class="method"><b>to_iso_8601_time_str</b>(std::tm* time_obj=nullptr)</td>
+  <td class="method"><b>generate_time_now_utc_iso8601</b>()</td>
 </tr>
 <tr>
-  <td class="method">std::tuple&lt;bool, std::tm, int&gt;</td>
-  <td class="method"><b>str_to_iso_8601_time</b>(std::string iso_time=&quot;&quot;)</td>
+  <td class="method">std::time_t</td>
+  <td class="method"><b>generate_time_now_since_epoch</b>()</td>
 </tr>
 <tr>
-  <td class="method">std::tm</td>
-  <td class="method"><b>create_local_time_now</b>()</td>
+  <td class="method">std::string</td>
+  <td class="method"><b>user_friendly_time</b>(std::time_t time_=std::time(nullptr))</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -47083,10 +47127,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::time_t&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;, &quot;ctime&quot;, &quot;iomanip&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tm&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::istringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::istringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tm&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -54385,6 +54429,11 @@ table td
   "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
+  "std/time_t": [
+    "AllegroFlare/LoadASavedGame/SaveSlots/Common",
+    "AllegroFlare/TimeAgo",
+    "AllegroFlare/TimeStamper"
+  ],
   "AllegroFlare/LoadASavedGame/Screen": [
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Runners/Complete"
@@ -55319,6 +55368,12 @@ table td
   "AllegroFlare/SavingAndLoading/SaveSlotRenderer": [
     "AllegroFlare/SavingAndLoading/Screen"
   ],
+  "AllegroFlare/TimeAgo": [
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
+  "AllegroFlare/TimeStamper": [
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],
@@ -55605,13 +55660,10 @@ table td
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
   ],
-  "std/time_t": [
+  "std/istringstream": [
     "AllegroFlare/TimeStamper"
   ],
   "std/tm": [
-    "AllegroFlare/TimeStamper"
-  ],
-  "std/istringstream": [
     "AllegroFlare/TimeStamper"
   ],
   "cross_product": [

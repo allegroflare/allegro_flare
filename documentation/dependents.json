@@ -3341,6 +3341,11 @@
   "AllegroFlare/LoadASavedGame/SaveSlotRenderers/Common": [
     "AllegroFlare/LoadASavedGame/SaveSlotRenderer"
   ],
+  "std/time_t": [
+    "AllegroFlare/LoadASavedGame/SaveSlots/Common",
+    "AllegroFlare/TimeAgo",
+    "AllegroFlare/TimeStamper"
+  ],
   "AllegroFlare/LoadASavedGame/Screen": [
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Runners/Complete"
@@ -4275,6 +4280,12 @@
   "AllegroFlare/SavingAndLoading/SaveSlotRenderer": [
     "AllegroFlare/SavingAndLoading/Screen"
   ],
+  "AllegroFlare/TimeAgo": [
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
+  "AllegroFlare/TimeStamper": [
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
   "AllegroFlare/Elements/AchievementsList": [
     "AllegroFlare/Screens/Achievements"
   ],
@@ -4561,13 +4572,10 @@
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
   ],
-  "std/time_t": [
+  "std/istringstream": [
     "AllegroFlare/TimeStamper"
   ],
   "std/tm": [
-    "AllegroFlare/TimeStamper"
-  ],
-  "std/istringstream": [
     "AllegroFlare/TimeStamper"
   ],
   "cross_product": [

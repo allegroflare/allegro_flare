@@ -78,7 +78,7 @@ TEST_F(AllegroFlare_SavingAndLoading_ScreenTest, type__has_the_expected_value_ma
 
 
 TEST_F(AllegroFlare_SavingAndLoading_ScreenTestWithInteractionFixture,
-   FOCUS__INTERACTIVE__will_work_as_expected)
+   FOCUS__CAPTURE__INTERACTIVE__will_work_as_expected)
 {
    setup_saving_and_loading_backend();
 

@@ -2,8 +2,9 @@
 
 
 #include <ctime>
+#include <iomanip>
+#include <sstream>
 #include <string>
-#include <tuple>
 
 
 namespace AllegroFlare
@@ -19,10 +20,10 @@ namespace AllegroFlare
       TimeStamper();
       ~TimeStamper();
 
-      std::string generate_now_timestamp_utc();
-      static std::string to_iso_8601_time_str(std::tm* time_obj=nullptr);
-      static std::tuple<bool, std::tm, int> str_to_iso_8601_time(std::string iso_time="");
-      static std::tm create_local_time_now();
+      static std::string generate_now_timestamp_utc();
+      static std::string generate_time_now_utc_iso8601();
+      static std::time_t generate_time_now_since_epoch();
+      static std::string user_friendly_time(std::time_t time_=std::time(nullptr));
    };
 }
 

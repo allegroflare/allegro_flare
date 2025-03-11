@@ -20,6 +20,7 @@ TEST(AllegroFlare_JSONLoaders_AllegroFlare_LoadASavedGame_SaveSlots_CommonTest,
 R"({
   "date_and_time_of_save": "2025/03/08 6:45PM",
   "location_of_save": "The Front Room",
+  "save_time__seconds_since_epoch": 0,
   "screenshot_of_gameplay_at_save_identifier": "slot_1_screenshot-01.jpg",
   "time_since_text": "28 minutes ago"
 })";
@@ -36,6 +37,7 @@ TEST(AllegroFlare_JSONLoaders_AllegroFlare_LoadASavedGame_SaveSlots_CommonTest,
 R"({
   "date_and_time_of_save": "2025/03/08 6:45PM",
   "location_of_save": "The Front Room",
+  "save_time__seconds_since_epoch": 0,
   "screenshot_of_gameplay_at_save_identifier": "slot_1_screenshot-01.jpg",
   "time_since_text": "28 minutes ago"
 })";
@@ -48,6 +50,7 @@ R"({
    expected.screenshot_of_gameplay_at_save_identifier = "slot_1_screenshot-01.jpg";
    expected.location_of_save = "The Front Room";
    expected.date_and_time_of_save = "2025/03/08 6:45PM";
+   expected.save_time__seconds_since_epoch = 0;
    expected.time_since_text = "28 minutes ago";
 
    EXPECT_EQ(expected, actual);

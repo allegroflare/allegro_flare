@@ -33,6 +33,12 @@ properties:
     constructor_arg: true
     exposed: true
 
+  - name: save_time__seconds_since_epoch
+    type: std::time_t
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/LoadASavedGame/SaveSlots/Common"'
@@ -45,5 +51,7 @@ dependencies:
 
   - symbol: AllegroFlare::LoadASavedGame::SaveSlots::Base
     headers: [ AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp ]
+  - symbol: std::time_t
+    headers: [ ctime ]
 
 

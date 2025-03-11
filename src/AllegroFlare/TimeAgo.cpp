@@ -2,9 +2,7 @@
 
 #include <AllegroFlare/TimeAgo.hpp>
 
-#include <iostream>
-#include <sstream>
-#include <stdexcept>
+#include <ctime>
 
 
 namespace AllegroFlare
@@ -21,73 +19,73 @@ TimeAgo::~TimeAgo()
 }
 
 
-std::string TimeAgo::time_ago(std::tm* past, std::tm* current)
+std::string TimeAgo::time_ago(std::time_t past_time, std::time_t current_time)
 {
-   if (!(past))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TimeAgo::time_ago]: error: guard \"past\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TimeAgo::time_ago]: error: guard \"past\" not met");
-   }
-   if (!(current))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TimeAgo::time_ago]: error: guard \"current\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TimeAgo::time_ago]: error: guard \"current\" not met");
-   }
-   std::time_t past_time = std::mktime(const_cast<std::tm*>(past));
-   std::time_t current_time = std::mktime(const_cast<std::tm*>(current));
+   //std::time_t current_time = std::time(0);
+   double diff_seconds = difftime(current_time, past_time);
 
-   double seconds = std::difftime(current_time, past_time);
+   // Calculate time difference in different units
+   const int seconds_in_minute = 60;
+   const int seconds_in_hour = 3600;
+   const int seconds_in_day = 86400;
+   const int seconds_in_month = 2592000; // Approximation (30 days)
+   const int seconds_in_year = 31536000; // Approximation (365 days)
 
-   if (seconds < 0)
+   const int margin_of_error_for_just_now = 14; // 0-14 seconds is "Just now", 15 seconds is "15 seconds ago"
+
+   if (diff_seconds < 0)
    {
       return "Invalid time (future date)";
    }
-
-   struct TimeUnit
+   else if (diff_seconds <= margin_of_error_for_just_now)
    {
-      const char* name;
-      int duration;
-   };
-
-   static const TimeUnit time_units[] = {
-      {"year", 31536000},
-      {"month", 2592000},
-      {"week", 604800},
-      {"day", 86400},
-      {"hour", 3600},
-      {"minute", 60},
-      {"second", 1}
-   };
-
-   for (const auto& unit : time_units)
+      return "Just now";
+   }
+   else if (diff_seconds < seconds_in_minute)
    {
-      int value = static_cast<int>(seconds / unit.duration);
-      if (value >= 1)
-      {
-         std::ostringstream oss;
-         oss << value << " " << unit.name << (value > 1 ? "s" : "") << " ago";
-         return oss.str();
-      }
+      //return std::to_string(static_cast<int>(diff_seconds)) + " seconds ago";
+      return format(static_cast<int>(diff_seconds), "second");
+      //return std::to_string(static_cast<int>(diff_seconds)) + " seconds ago";
+   }
+   else if (diff_seconds < seconds_in_hour)
+   {
+      //return std::to_string(static_cast<int>(diff_seconds / seconds_in_minute)) + " minutes ago";
+      return format(static_cast<int>(diff_seconds / seconds_in_minute), "minute");
+   }
+   else if (diff_seconds < seconds_in_day)
+   {
+      //return std::to_string(static_cast<int>(diff_seconds / seconds_in_hour)) + " hours ago";
+      return format(static_cast<int>(diff_seconds / seconds_in_hour), "hour");
+   }
+   else if (diff_seconds < seconds_in_month)
+   {
+      //return std::to_string(static_cast<int>(diff_seconds / seconds_in_day)) + " days ago";
+      return format(static_cast<int>(diff_seconds / seconds_in_day), "day");
+   }
+   else if (diff_seconds < seconds_in_year)
+   {
+      //return std::to_string(static_cast<int>(diff_seconds / seconds_in_month)) + " months ago";
+      return format(static_cast<int>(diff_seconds / seconds_in_month), "month");
+   }
+   else
+   {
+      //return std::to_string(static_cast<int>(diff_seconds / seconds_in_year)) + " years ago";
+      return format(static_cast<int>(diff_seconds / seconds_in_year), "year");
    }
 
-   return "Just now";
+   // TODO: Consider throwing error
+
+   return "Error";
 }
 
-std::tm TimeAgo::create_local_time_now()
+std::time_t TimeAgo::generate_time_now_since_epoch()
 {
-   // Get current time
-   std::time_t t = std::time(nullptr);
-   std::tm local_tm = *std::localtime(&t);
-   return local_tm;
+   return std::time(nullptr);
+}
 
-   // Convert to ISO 8601 string
-   //std::string iso_time = get_iso_8601_time(local_tm);
-   //std::cout << "Generated ISO 8601 time: " << iso_time << std::endl;
-   //return;
+std::string TimeAgo::format(int value, std::string unit)
+{
+   return std::to_string(value) + " " + unit + (value == 1 ? "" : "s") + " ago";
 }
 
 

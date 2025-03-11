@@ -16,6 +16,7 @@ TEST(AllegroFlare_Testing_Comparison_AllegroFlare_LoadASavedGame_SaveSlots_Commo
       "\"screenshot_of_gameplay_at_save_identifier\": \"" + object.screenshot_of_gameplay_at_save_identifier + "\", "
       "\"location_of_save\": \"" + object.location_of_save + "\", "
       "\"date_and_time_of_save\": \"" + object.date_and_time_of_save + "\", "
+      "\"save_time__seconds_since_epoch\": \"0\", "
       "\"time_since_text\": \"" + object.time_since_text + "\", "
       ")";
    std::string actual_output = ss.str();
