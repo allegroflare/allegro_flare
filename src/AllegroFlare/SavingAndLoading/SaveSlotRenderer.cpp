@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <unordered_map>
 
 
 namespace AllegroFlare
@@ -16,13 +17,14 @@ namespace SavingAndLoading
 {
 
 
-SaveSlotRenderer::SaveSlotRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string screenshot_of_gameplay_at_save_identifier, std::string location_of_save, std::string date_and_time_of_save, std::string time_since_text)
+SaveSlotRenderer::SaveSlotRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string screenshot_of_gameplay_at_save_identifier, std::string location_of_save, std::string date_and_time_of_save, std::string time_since_text, uint32_t save_slot_type)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , screenshot_of_gameplay_at_save_identifier(screenshot_of_gameplay_at_save_identifier)
    , location_of_save(location_of_save)
    , date_and_time_of_save(date_and_time_of_save)
    , time_since_text(time_since_text)
+   , save_slot_type(save_slot_type)
    , width(DEFAULT_WIDTH)
    , height(DEFAULT_HEIGHT)
 {
@@ -70,6 +72,12 @@ void SaveSlotRenderer::set_time_since_text(std::string time_since_text)
 }
 
 
+void SaveSlotRenderer::set_save_slot_type(uint32_t save_slot_type)
+{
+   this->save_slot_type = save_slot_type;
+}
+
+
 void SaveSlotRenderer::set_width(float width)
 {
    this->width = width;
@@ -106,6 +114,12 @@ std::string SaveSlotRenderer::get_time_since_text() const
 }
 
 
+uint32_t SaveSlotRenderer::get_save_slot_type() const
+{
+   return save_slot_type;
+}
+
+
 float SaveSlotRenderer::get_width() const
 {
    return width;
@@ -117,6 +131,11 @@ float SaveSlotRenderer::get_height() const
    return height;
 }
 
+
+void SaveSlotRenderer::__dependency_trigger(uint32_t dep1)
+{
+   return;
+}
 
 void SaveSlotRenderer::render()
 {
@@ -242,6 +261,31 @@ void SaveSlotRenderer::render()
          screenshot_height,
          0
       );
+
+      { // Save slot type (presented as text over the screenshot)
+         float type_label_x = (int)(screenshot_x + screenshot_width * 0.5);
+         float type_label_y = (int)(screenshot_y + screenshot_height - (details_font_line_height * 1.125));
+
+         ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.6};
+         ALLEGRO_COLOR text_color = ALLEGRO_COLOR{0.7, 0.7, 0.7, 0.7};
+
+         al_draw_filled_rectangle(
+            screenshot_x,
+            screenshot_y + screenshot_height - details_font_line_height * 1.25,
+            screenshot_x + screenshot_width,
+            screenshot_y + screenshot_height,
+            fill_color
+         );
+
+         al_draw_text(
+            details_font,
+            text_color,
+            type_label_x,
+            type_label_y,
+            ALLEGRO_ALIGN_CENTER,
+            obtain_save_slot_type_string_for_presentation(save_slot_type).c_str()
+         );
+      }
    }
 
    cumulative_line_spacing = 0;
@@ -289,6 +333,26 @@ void SaveSlotRenderer::render()
    }
 
    return;
+}
+
+std::string SaveSlotRenderer::obtain_save_slot_type_string_for_presentation(uint32_t save_slot_type)
+{
+   static const std::unordered_map<uint32_t, std::string> event_names {
+      { AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE, "Manual Save" },
+      { AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_AUTO_SAVE, "Autosave" },
+      { AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_QUICK_SAVE, "Quicksave" },
+   };
+
+   auto it = event_names.find(save_slot_type);
+
+   if (it == event_names.end())
+   {
+      return "SAVE_SLOT_TYPE_UNKNOWN";
+   }
+   else
+   {
+      return it->second;
+   }
 }
 
 ALLEGRO_FONT* SaveSlotRenderer::obtain_location_name_font()

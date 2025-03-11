@@ -86,6 +86,8 @@ TEST_F(AllegroFlare_SavingAndLoading_SaveSlotRendererTestWithAllegroRenderingFix
          "scene3-01.jpg"
       );
 
+   renderer.set_save_slot_type(AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_AUTO_SAVE);
+
    AllegroFlare::Placement2D place;
    place.position.x = 1920/2;
    place.position.y = 1080/2;

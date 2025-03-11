@@ -257,13 +257,13 @@ std::string SaveSlot::build_filename_basename()
    std::stringstream ss;
    ss << "profile_" << std::setw(3) << std::setfill('0') << profile_id
       << "-"
-      << obtain_save_slot_type_string(save_slot_type)
+      << obtain_save_slot_type_string_for_filename(save_slot_type)
       << "-"
       << "position_" << std::setw(3) << std::setfill('0') << save_slot_position;
    return ss.str();
 }
 
-std::string SaveSlot::obtain_save_slot_type_string(uint32_t save_slot_type)
+std::string SaveSlot::obtain_save_slot_type_string_for_filename(uint32_t save_slot_type)
 {
    static const std::unordered_map<uint32_t, std::string> event_names {
       { SAVE_SLOT_TYPE_MANUAL_SAVE, "manual_save" },

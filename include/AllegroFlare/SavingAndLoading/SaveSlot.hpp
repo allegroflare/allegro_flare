@@ -59,7 +59,7 @@ namespace AllegroFlare
          std::string build_full_path_to_content_file();
          std::string build_header_basename();
          std::string build_content_basename();
-         static std::string obtain_save_slot_type_string(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF);
+         static std::string obtain_save_slot_type_string_for_filename(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF);
          static bool is_valid_type(uint32_t type=SAVE_SLOT_TYPE_UNDEF);
       };
    }

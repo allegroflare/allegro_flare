@@ -4251,6 +4251,7 @@
   ],
   "AllegroFlare/SavingAndLoading/SaveSlot": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/SavingAndLoading/Screen"
   ],

@@ -505,6 +505,7 @@ void Screen::render_save_slots()
          std::string time_of_save_str = save_slot->get_header_data()->date_and_time_of_save;
          renderer.set_date_and_time_of_save(user_friendly_time_of_save);
          renderer.set_time_since_text(time_ago_since_save_string);
+         renderer.set_save_slot_type(save_slot->get_save_slot_type());
          renderer.set_screenshot_of_gameplay_at_save_identifier(
             save_slot->get_header_data()->screenshot_of_gameplay_at_save_identifier
          );

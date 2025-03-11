@@ -36358,7 +36358,7 @@ table td
 </tr>
 <tr>
   <td class="method">std::string</td>
-  <td class="method"><b>obtain_save_slot_type_string</b>(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF)</td>
+  <td class="method"><b>obtain_save_slot_type_string_for_filename</b>(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF)</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -36433,6 +36433,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">save_slot_type</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
   <td class="property">width</td>
   <td class="property">float</td>
 </tr>
@@ -36453,7 +36457,15 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>__dependency_trigger</b>(uint32_t dep1=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>obtain_save_slot_type_string_for_presentation</b>(uint32_t save_slot_type=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF)</td>
 </tr>
 <tr>
   <td class="private_method">ALLEGRO_FONT*</td>
@@ -36483,6 +36495,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveSlot&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SaveSlot.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55339,6 +55354,7 @@ table td
   ],
   "AllegroFlare/SavingAndLoading/SaveSlot": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/SavingAndLoading/Screen"
   ],

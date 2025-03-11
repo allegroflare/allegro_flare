@@ -41,6 +41,13 @@ properties:
     getter: true
     setter: true
 
+  - name: save_slot_type
+    type: uint32_t
+    init_with: AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: width
     type: float
     init_with: DEFAULT_WIDTH
@@ -67,6 +74,16 @@ properties:
 
 
 methods:
+
+
+  - name: __dependency_trigger
+    parameters:
+      - name: dep1
+        type: uint32_t
+        default_argument: AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF
+        default_argument_dependency_symbols: [ 'AllegroFlare::SavingAndLoading::SaveSlot' ]
+    body: |
+      return;
 
 
   - name: render
@@ -165,6 +182,31 @@ methods:
             screenshot_height,
             0
          );
+
+         { // Save slot type (presented as text over the screenshot)
+            float type_label_x = (int)(screenshot_x + screenshot_width * 0.5);
+            float type_label_y = (int)(screenshot_y + screenshot_height - (details_font_line_height * 1.125));
+
+            ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.6};
+            ALLEGRO_COLOR text_color = ALLEGRO_COLOR{0.7, 0.7, 0.7, 0.7};
+
+            al_draw_filled_rectangle(
+               screenshot_x,
+               screenshot_y + screenshot_height - details_font_line_height * 1.25,
+               screenshot_x + screenshot_width,
+               screenshot_y + screenshot_height,
+               fill_color
+            );
+
+            al_draw_text(
+               details_font,
+               text_color,
+               type_label_x,
+               type_label_y,
+               ALLEGRO_ALIGN_CENTER,
+               obtain_save_slot_type_string_for_presentation(save_slot_type).c_str()
+            );
+         }
       }
 
       cumulative_line_spacing = 0;
@@ -218,6 +260,34 @@ methods:
       - al_draw_text
 
 
+  - name: obtain_save_slot_type_string_for_presentation
+    type: std::string
+    static: true
+    parameters:
+      - name: save_slot_type
+        type: uint32_t
+        default_argument: AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF
+    body: |
+      static const std::unordered_map<uint32_t, std::string> event_names {
+         { AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE, "Manual Save" },
+         { AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_AUTO_SAVE, "Autosave" },
+         { AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_QUICK_SAVE, "Quicksave" },
+      };
+
+      auto it = event_names.find(save_slot_type);
+
+      if (it == event_names.end())
+      {
+         return "SAVE_SLOT_TYPE_UNKNOWN";
+      }
+      else
+      {
+         return it->second;
+      }
+    body_dependency_symbols:
+      - std::unordered_map
+
+
   - name: obtain_location_name_font
     private: true
     type: ALLEGRO_FONT*
@@ -249,5 +319,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::SavingAndLoading::SaveSlot
+    headers: [ AllegroFlare/SavingAndLoading/SaveSlot.hpp ]
 
 
