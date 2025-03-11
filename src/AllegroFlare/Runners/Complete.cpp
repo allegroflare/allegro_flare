@@ -41,6 +41,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , achievements_screen()
    , version_screen()
    , load_a_saved_game_screen()
+   , saving_and_loading_screen()
    , new_game_intro_storyboard_screen()
    , level_select_screen()
    , arbitrary_storyboard_screen()
@@ -147,6 +148,12 @@ AllegroFlare::Screens::Version &Complete::get_version_screen_ref()
 AllegroFlare::LoadASavedGame::Screen &Complete::get_load_a_saved_game_screen_ref()
 {
    return load_a_saved_game_screen;
+}
+
+
+AllegroFlare::SavingAndLoading::Screen &Complete::get_saving_and_loading_screen_ref()
+{
+   return saving_and_loading_screen;
 }
 
 
@@ -421,6 +428,17 @@ void Complete::initialize()
    load_a_saved_game_screen.set_save_slots(game_configuration->build_save_slots_for_load_a_saved_game_screen());
    load_a_saved_game_screen.initialize();
 
+   // Setup saving and loading screen
+   saving_and_loading_screen.set_data_folder_path(data_folder_path);
+   //load_a_saved_game_screen.set_event_emitter(event_emitter);
+   //load_a_saved_game_screen.set_bitmap_bin(bitmap_bin);
+   //load_a_saved_game_screen.set_font_bin(font_bin);
+   //load_a_saved_game_screen.set_model_bin(model_bin); // Currently not used, but required
+   saving_and_loading_screen.set_foreground(shared_foreground);
+   saving_and_loading_screen.set_background(shared_background);
+   saving_and_loading_screen.set_saving_and_loading(&saving_and_loading);
+   saving_and_loading_screen.initialize();
+
    // TODO: Setup level select screen
    level_select_screen.set_event_emitter(event_emitter);
    level_select_screen.set_bitmap_bin(bitmap_bin);
@@ -505,6 +523,7 @@ void Complete::destroy()
 
    title_screen.destroy();
    load_a_saved_game_screen.destroy();
+   saving_and_loading_screen.destroy(); // TODO: See if this is necessary
    // TODO: Add additional destroy virtual methods for each object created
    // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
    destroyed = true;
@@ -900,7 +919,8 @@ void Complete::setup_router()
    );
    router.register_screen(
       AllegroFlare::Routers::Standard::LOAD_A_SAVED_GAME_SCREEN_IDENTIFIER,
-      &load_a_saved_game_screen
+      //&load_a_saved_game_screen
+      &saving_and_loading_screen
    );
    router.register_screen(
       AllegroFlare::Routers::Standard::CREDITS_SCREEN_IDENTIFIER,
@@ -989,6 +1009,37 @@ void Complete::setup_router()
          );
       }
    );
+   saving_and_loading_screen.set_on_exit_callback_func([this](AllegroFlare::SavingAndLoading::Screen*, void*){
+      // TODO: Fix this callback to return to account for coming from an arbitrary previous screen.
+      // Typically you would have something like swap back to the title screen, or pause or other screen.
+      this->router.emit_route_event(
+         AllegroFlare::Routers::Standard::EVENT_ACTIVATE_TITLE_SCREEN,
+         nullptr,
+         al_get_time()
+      );
+   });
+   saving_and_loading_screen.set_on_erase_focused_save_slot_func([](AllegroFlare::SavingAndLoading::Screen*, void*){
+      // TODO: Test this callback
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Runners::Complete::setup_router",
+         "There is not implementation for this feature."
+      );
+   });
+   saving_and_loading_screen.set_on_menu_choice_callback_func([this](AllegroFlare::SavingAndLoading::Screen*, void*){
+      // TODO: Test this callback
+      // TODO: Have the system load the save file
+      AllegroFlare::Logger::info_from(
+         "AllegroFlare::Runners::Complete::setup_router",
+        "In on_menu_choice_callback in saving_and_loading_screen, This feature is currently not implemented and "
+           "will now simply start a new game."
+     );
+
+      this->router.emit_route_event(
+         AllegroFlare::Routers::Standard::EVENT_LOAD_A_SAVED_GAME,
+         nullptr, // TODO: Pass along data required to determine which save data to load
+         al_get_time()
+      );
+   });
    new_game_intro_storyboard_screen.set_on_finished_callback_func(
       [this](AllegroFlare::Screens::Storyboard* screen, void* data) {
          this->router.emit_route_event(

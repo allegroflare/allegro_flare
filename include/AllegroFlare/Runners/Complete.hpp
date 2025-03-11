@@ -15,6 +15,7 @@
 #include <AllegroFlare/Routers/Standard.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/SavingAndLoading/SavingAndLoading.hpp>
+#include <AllegroFlare/SavingAndLoading/Screen.hpp>
 #include <AllegroFlare/Screens/Achievements.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Screens/DisplaySettings.hpp>
@@ -61,6 +62,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::Achievements achievements_screen;
          AllegroFlare::Screens::Version version_screen;
          AllegroFlare::LoadASavedGame::Screen load_a_saved_game_screen;
+         AllegroFlare::SavingAndLoading::Screen saving_and_loading_screen;
          AllegroFlare::Screens::Storyboard new_game_intro_storyboard_screen;
          AllegroFlare::Screens::LevelSelectScreen level_select_screen;
          AllegroFlare::Screens::Storyboard arbitrary_storyboard_screen;
@@ -99,6 +101,7 @@ namespace AllegroFlare
          AllegroFlare::Screens::Achievements &get_achievements_screen_ref();
          AllegroFlare::Screens::Version &get_version_screen_ref();
          AllegroFlare::LoadASavedGame::Screen &get_load_a_saved_game_screen_ref();
+         AllegroFlare::SavingAndLoading::Screen &get_saving_and_loading_screen_ref();
          AllegroFlare::Screens::Storyboard &get_new_game_intro_storyboard_screen_ref();
          AllegroFlare::Screens::LevelSelectScreen &get_level_select_screen_ref();
          AllegroFlare::Screens::Storyboard &get_arbitrary_storyboard_screen_ref();

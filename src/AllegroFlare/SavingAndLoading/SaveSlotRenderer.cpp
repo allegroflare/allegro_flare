@@ -262,6 +262,7 @@ void SaveSlotRenderer::render()
          0
       );
 
+      if (!save_slot_type_is_manual_save())
       { // Save slot type (presented as text over the screenshot)
          float type_label_x = (int)(screenshot_x + screenshot_width * 0.5);
          float type_label_y = (int)(screenshot_y + screenshot_height - (details_font_line_height * 1.125));
@@ -333,6 +334,11 @@ void SaveSlotRenderer::render()
    }
 
    return;
+}
+
+bool SaveSlotRenderer::save_slot_type_is_manual_save()
+{
+   return save_slot_type == AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE;
 }
 
 std::string SaveSlotRenderer::obtain_save_slot_type_string_for_presentation(uint32_t save_slot_type)

@@ -183,6 +183,7 @@ methods:
             0
          );
 
+         if (!save_slot_type_is_manual_save())
          { // Save slot type (presented as text over the screenshot)
             float type_label_x = (int)(screenshot_x + screenshot_width * 0.5);
             float type_label_y = (int)(screenshot_y + screenshot_height - (details_font_line_height * 1.125));
@@ -258,6 +259,12 @@ methods:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
       - al_draw_text
+
+
+  - name: save_slot_type_is_manual_save
+    type: bool
+    body: |
+      return save_slot_type == AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE;
 
 
   - name: obtain_save_slot_type_string_for_presentation

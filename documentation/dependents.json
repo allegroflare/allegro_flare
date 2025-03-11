@@ -4249,6 +4249,10 @@
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/SavingAndLoading/Screen"
   ],
+  "AllegroFlare/SavingAndLoading/Screen": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
   "AllegroFlare/SavingAndLoading/SaveSlot": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
@@ -4271,9 +4275,6 @@
   ],
   "std/filesystem/create_directories": [
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
-  ],
-  "AllegroFlare/SavingAndLoading/Screen": [
-    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer": [
     "AllegroFlare/SavingAndLoading/Screen"

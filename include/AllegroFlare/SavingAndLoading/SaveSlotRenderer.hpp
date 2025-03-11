@@ -57,6 +57,7 @@ namespace AllegroFlare
          float get_height() const;
          void __dependency_trigger(uint32_t dep1=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF);
          void render();
+         bool save_slot_type_is_manual_save();
          static std::string obtain_save_slot_type_string_for_presentation(uint32_t save_slot_type=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF);
       };
    }

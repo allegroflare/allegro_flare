@@ -35925,6 +35925,10 @@ table td
   <td class="property">AllegroFlare::LoadASavedGame::Screen</td>
 </tr>
 <tr>
+  <td class="property">saving_and_loading_screen</td>
+  <td class="property">AllegroFlare::SavingAndLoading::Screen</td>
+</tr>
+<tr>
   <td class="property">new_game_intro_storyboard_screen</td>
   <td class="property">AllegroFlare::Screens::Storyboard</td>
 </tr>
@@ -36178,6 +36182,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SavingAndLoading.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/Screen.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36462,6 +36469,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>save_slot_type_is_manual_save</b>()</td>
 </tr>
 <tr>
   <td class="method">std::string</td>
@@ -55352,6 +55363,10 @@ table td
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/SavingAndLoading/Screen"
   ],
+  "AllegroFlare/SavingAndLoading/Screen": [
+    "AllegroFlare/Runners/Complete",
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
   "AllegroFlare/SavingAndLoading/SaveSlot": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
@@ -55374,9 +55389,6 @@ table td
   ],
   "std/filesystem/create_directories": [
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
-  ],
-  "AllegroFlare/SavingAndLoading/Screen": [
-    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer": [
     "AllegroFlare/SavingAndLoading/Screen"
