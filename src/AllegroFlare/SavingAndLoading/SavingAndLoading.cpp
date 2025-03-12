@@ -318,42 +318,42 @@ void SavingAndLoading::scan_for_existing_save_files_and_load_header_data()
    return;
 }
 
-void SavingAndLoading::save_to_save_slot(int profile_id, int save_slot_position, std::string content)
+void SavingAndLoading::save_to_manual_save_slot(int profile_id, int save_slot_position, std::string content)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"initialized\" not met");
    }
    if (!((profile_id >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"(profile_id >= 0)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(profile_id >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"(profile_id >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(profile_id >= 0)\" not met");
    }
    if (!((profile_id <= num_profiles)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"(profile_id <= num_profiles)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(profile_id <= num_profiles)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"(profile_id <= num_profiles)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(profile_id <= num_profiles)\" not met");
    }
    if (!((save_slot_position >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"(save_slot_position >= 0)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(save_slot_position >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"(save_slot_position >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(save_slot_position >= 0)\" not met");
    }
    if (!((save_slot_position <= num_manual_save_slots)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"(save_slot_position <= num_manual_save_slots)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(save_slot_position <= num_manual_save_slots)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: guard \"(save_slot_position <= num_manual_save_slots)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(save_slot_position <= num_manual_save_slots)\" not met");
    }
    AllegroFlare::SavingAndLoading::SaveSlot* save_slot = find_save_slot(
       profile_id,

@@ -140,7 +140,7 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
 
 
 TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
-   save_to_save_slot__will_save_the_content_to_the_expected_save_slot)
+   save_to_manual_save_slot__will_save_the_content_to_the_expected_save_slot)
 {
    std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
    std::cout << "NOTE: This test is saving to temporary directory: \"" + temporary_directory + "\"." << std::endl;
@@ -152,14 +152,14 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    //saving_and_loading.set_num_quicksave_save_slots(7);
    saving_and_loading.initialize();
 
-   saving_and_loading.save_to_save_slot(2, 1, "{\"foo\":\"bar\"}");
+   saving_and_loading.save_to_manual_save_slot(2, 1, "{\"foo\":\"bar\"}");
 
    // TODO: Check for existene of file, or other stubbed save behavior
 }
 
 
 TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
-   save_to_save_slot__on_a_save_slot_that_is_outside_the_range__will_throw_an_error__1)
+   save_to_manual_save_slot__on_a_save_slot_that_is_outside_the_range__will_throw_an_error__1)
 {
    std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
    std::cout << "NOTE: This test is saving to temporary directory: \"" + temporary_directory + "\"." << std::endl;
@@ -171,10 +171,11 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    //saving_and_loading.set_num_quicksave_save_slots(7);
    saving_and_loading.initialize();
 
-   std::string expected_error_message = "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: "
+   std::string expected_error_message =
+      "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: "
       "guard \"(profile_id <= num_profiles)\" not met";
    EXPECT_THROW_WITH_MESSAGE(
-      saving_and_loading.save_to_save_slot(999, 123, "{}"),
+      saving_and_loading.save_to_manual_save_slot(999, 123, "{}"),
       std::runtime_error,
       expected_error_message
    );
@@ -182,7 +183,7 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
 
 
 TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
-   save_to_save_slot__on_a_save_slot_that_is_outside_the_range__will_throw_an_error__2)
+   save_to_manual_save_slot__on_a_save_slot_that_is_outside_the_range__will_throw_an_error__2)
 {
    std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
    std::cout << "NOTE: This test is saving to temporary directory: \"" + temporary_directory + "\"." << std::endl;
@@ -194,10 +195,11 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    //saving_and_loading.set_num_quicksave_save_slots(7);
    saving_and_loading.initialize();
 
-   std::string expected_error_message = "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: "
+   std::string expected_error_message =
+      "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: "
       "guard \"(save_slot_position <= num_manual_save_slots)\" not met";
    EXPECT_THROW_WITH_MESSAGE(
-      saving_and_loading.save_to_save_slot(1, 999, "{}"),
+      saving_and_loading.save_to_manual_save_slot(1, 999, "{}"),
       std::runtime_error,
       expected_error_message
    );

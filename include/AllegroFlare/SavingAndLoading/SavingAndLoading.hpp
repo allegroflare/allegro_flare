@@ -49,7 +49,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> get_autosave_save_slots(int profile_id=1);
          void initialize();
          void scan_for_existing_save_files_and_load_header_data();
-         void save_to_save_slot(int profile_id=0, int save_slot_position=0, std::string content="[unset-content]");
+         void save_to_manual_save_slot(int profile_id=0, int save_slot_position=0, std::string content="[unset-content]");
          AllegroFlare::SavingAndLoading::SaveSlot* find_save_slot(int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF);
          void create_save_file_directories_if_they_do_not_exist();
       };

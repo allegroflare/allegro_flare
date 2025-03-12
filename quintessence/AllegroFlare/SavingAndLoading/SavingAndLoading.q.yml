@@ -190,7 +190,7 @@ methods:
       return;
 
 
-  - name: save_to_save_slot
+  - name: save_to_manual_save_slot
     parameters:
       - name: profile_id
         type: int
