@@ -138,3 +138,22 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
 }
 
 
+TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
+   save_to_save_slot__will_save_the_content_to_the_expected_save_slot)
+{
+   std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
+   std::cout << "NOTE: This test is saving to temporary directory: \"" + temporary_directory + "\"." << std::endl;
+
+   AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading(temporary_directory + "/");
+   saving_and_loading.set_num_profiles(2);
+   saving_and_loading.set_num_manual_save_slots(3);
+   //saving_and_loading.set_num_autosave_save_slots(5);
+   //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.initialize();
+
+   saving_and_loading.save_to_save_slot(2, 1, "{\"foo\":\"bar\"}");
+
+   // TODO: Check for existene of file, or other stubbed save behavior
+}
+
+
