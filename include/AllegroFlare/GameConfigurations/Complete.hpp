@@ -83,6 +83,7 @@ namespace AllegroFlare
          virtual std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*> build_save_slots_for_load_a_saved_game_screen();
          virtual void load_game_progress_and_state_info_into_universe();
          virtual void load_save_file_content_into_gameplay(std::string save_file_content="[unset-save_file_content]");
+         virtual std::string build_save_file_content_for_current_game();
          virtual void save_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_game_progress_and_state_info(AllegroFlare::GameSession* game_session=nullptr);
          virtual void setup_new_game_progress_and_state_info_DEPRECATED(AllegroFlare::GameSession* game_session=nullptr);

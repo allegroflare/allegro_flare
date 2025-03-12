@@ -355,10 +355,12 @@ void SavingAndLoading::save_to_manual_save_slot(int profile_id, int save_slot_po
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_manual_save_slot]: error: guard \"(save_slot_position <= num_manual_save_slots)\" not met");
    }
+   // TODO: Find a way to not pass along copy of string data (for performance?)
    save_to_save_slot(
       profile_id,
       save_slot_position,
-      AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE
+      AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE,
+      content
    );
    return;
 }

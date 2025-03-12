@@ -208,10 +208,12 @@ methods:
       - (save_slot_position >= 0)
       - (save_slot_position <= num_manual_save_slots)
     body: |
+      // TODO: Find a way to not pass along copy of string data (for performance?)
       save_to_save_slot(
          profile_id,
          save_slot_position,
-         AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE
+         AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE,
+         content
       );
       return;
 

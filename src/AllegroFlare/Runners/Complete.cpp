@@ -859,7 +859,7 @@ void Complete::setup_router()
       });
    router.set_on_before_activate_screen_func_user_data(this);
 
-   // When loading save file content
+   // When assembling saving and loading content for save file
    router.set_on_load_save_file_content_into_gameplay_func(
       // TODO: Test this callback
       // TODO: Ensure this callback is thoroughly vetted with the right purpose. It was thrown together ad-hoc for
@@ -902,10 +902,11 @@ void Complete::setup_router()
          );
 
          // Save the actual content to the save slot
+         std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
          saving_and_loading.save_to_manual_save_slot(
             current_save_profile_id,
             1, // Save slot position // TODO: Make this configurable
-            "{\"from\", \"Runners/Complete\"}"
+            save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
          );
 
          // TODO: Improve this info message
