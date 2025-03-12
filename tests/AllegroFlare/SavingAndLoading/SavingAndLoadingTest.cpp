@@ -4,6 +4,7 @@
 #include <AllegroFlare/SavingAndLoading/SavingAndLoading.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <AllegroFlare/Testing/TemporaryDirectoryCreator.hpp>
+#include <AllegroFlare/Testing/ErrorAssertions.hpp>
 
 
 TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest, can_be_created_without_blowing_up)
@@ -154,6 +155,52 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    saving_and_loading.save_to_save_slot(2, 1, "{\"foo\":\"bar\"}");
 
    // TODO: Check for existene of file, or other stubbed save behavior
+}
+
+
+TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
+   save_to_save_slot__on_a_save_slot_that_is_outside_the_range__will_throw_an_error__1)
+{
+   std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
+   std::cout << "NOTE: This test is saving to temporary directory: \"" + temporary_directory + "\"." << std::endl;
+
+   AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading(temporary_directory + "/");
+   saving_and_loading.set_num_profiles(2);
+   saving_and_loading.set_num_manual_save_slots(3);
+   //saving_and_loading.set_num_autosave_save_slots(5);
+   //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.initialize();
+
+   std::string expected_error_message = "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: "
+      "guard \"(profile_id <= num_profiles)\" not met";
+   EXPECT_THROW_WITH_MESSAGE(
+      saving_and_loading.save_to_save_slot(999, 123, "{}"),
+      std::runtime_error,
+      expected_error_message
+   );
+}
+
+
+TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
+   save_to_save_slot__on_a_save_slot_that_is_outside_the_range__will_throw_an_error__2)
+{
+   std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
+   std::cout << "NOTE: This test is saving to temporary directory: \"" + temporary_directory + "\"." << std::endl;
+
+   AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading(temporary_directory + "/");
+   saving_and_loading.set_num_profiles(1);
+   saving_and_loading.set_num_manual_save_slots(1);
+   //saving_and_loading.set_num_autosave_save_slots(5);
+   //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.initialize();
+
+   std::string expected_error_message = "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_save_slot]: error: "
+      "guard \"(save_slot_position <= num_manual_save_slots)\" not met";
+   EXPECT_THROW_WITH_MESSAGE(
+      saving_and_loading.save_to_save_slot(1, 999, "{}"),
+      std::runtime_error,
+      expected_error_message
+   );
 }
 
 
