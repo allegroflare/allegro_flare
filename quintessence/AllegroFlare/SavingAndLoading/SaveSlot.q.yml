@@ -223,6 +223,36 @@ methods:
       - AllegroFlare::JSONLoaders::AllegroFlare::LoadASavedGame::SaveSlots::Common
 
 
+  - name: load_data_from_content_file
+    type: std::string
+    body: |
+      // TODO: Test this
+      // Cleaer header data if some has already been loaded into this slot
+      if (!header_data_exists())
+      {
+         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+            "When loading content data, there is not any header data created on this save slot, indicating that no "
+            "save exists on this save slot."
+         );
+      }
+
+      bool _content_file_exists = content_file_exists();
+      if (!_content_file_exists)
+      {
+         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+            "It appears that no content file exists for this save slot, despite that header data does exist. It "
+            "appears something may have gone wrong with the saving/loading system."
+         );
+      }
+
+      // Load the actual file content
+      std::string full_path_to_content_filename = build_full_path_to_content_file();
+      return read_file(full_path_to_content_filename);
+    body_dependency_symbols:
+      - nlohmann::json
+      - AllegroFlare::JSONLoaders::AllegroFlare::LoadASavedGame::SaveSlots::Common
+
+
   - name: delete_header_data
     body: |
       if (header_data == nullptr) return;
@@ -393,6 +423,7 @@ methods:
 
   - name: write_file
     type: bool
+    private: true
     parameters:
       - name: filename
         type: std::string
@@ -401,7 +432,10 @@ methods:
         type: std::string
         default_argument: '"[unset-content]"'
     body: |
-      std::cout << "Writing file \"" << filename << "\"." << std::endl;
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+         "Writing file \"" + filename + "\"."
+      );
+      //std::cout << "Writing file \"" << filename << "\"." << std::endl;
       // TODO: Find some way to avoid the *content duplication into this method
       std::ofstream file;
       file.open(filename.c_str());
@@ -409,6 +443,27 @@ methods:
       file << content.c_str();
       file.close();
       return true;
+
+
+  - name: read_file
+    type: std::string
+    private: true
+    parameters:
+      - name: filename
+        type: std::string
+        default_argument: '"[unset-filename]"'
+    guards: [ 'std::filesystem::exists(filename)' ]
+    body: |
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+         "Reading file \"" + filename + "\"."
+      );
+      //std::cout << "Reading file \"" << filename << "\"." << std::endl;
+      std::ifstream file(filename.c_str());
+      if (!file.is_open()) return "[error: unable to open file]";
+      std::stringstream buffer;
+      buffer << file.rdbuf();
+      file.close();
+      return buffer.str();
 
 
 dependencies:

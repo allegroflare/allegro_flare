@@ -48,32 +48,3 @@ TEST(AllegroFlare_Runners_CompleteTest,
 }
 
 
-
-/*
-  - name: num_profiles
-    type: int
-    init_with: 0
-    setter: before_initialized
-    getter: true
-    
-  - name: num_manual_save_slots
-    type: int
-    init_with: 0
-    setter: before_initialized
-    getter: true
-
-  - name: num_autosave_save_slots
-    type: int
-    init_with: 0
-    setter: before_initialized
-    getter: true
-
-  - name: num_quicksave_save_slots
-    type: int
-    init_with: 0
-    setter: before_initialized
-    getter: true
-*/
-
-
-

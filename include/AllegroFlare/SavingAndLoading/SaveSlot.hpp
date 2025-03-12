@@ -29,6 +29,8 @@ namespace AllegroFlare
          AllegroFlare::LoadASavedGame::SaveSlots::Common* header_data;
          uint32_t save_slot_type;
          std::string build_filename_basename();
+         bool write_file(std::string filename="[unset-filename]", std::string content="[unset-content]");
+         std::string read_file(std::string filename="[unset-filename]");
 
       protected:
 
@@ -53,6 +55,7 @@ namespace AllegroFlare
          std::string obtain_header_file_data();
          void save_to_slot(std::string* content_for_content_file=nullptr);
          void load_header_from_file_if_exists_or_clear();
+         std::string load_data_from_content_file();
          void delete_header_data();
          bool header_file_exists();
          bool content_file_exists();
@@ -63,7 +66,6 @@ namespace AllegroFlare
          static std::string obtain_save_slot_type_string_for_filename(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF);
          void create_save_file_directories_if_they_do_not_exist();
          static bool is_valid_type(uint32_t type=SAVE_SLOT_TYPE_UNDEF);
-         bool write_file(std::string filename="[unset-filename]", std::string content="[unset-content]");
       };
    }
 }

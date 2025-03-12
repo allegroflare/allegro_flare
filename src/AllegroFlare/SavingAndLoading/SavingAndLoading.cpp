@@ -418,6 +418,27 @@ void SavingAndLoading::save_to_save_slot(int profile_id, int save_slot_position,
    return;
 }
 
+std::string SavingAndLoading::load_content_from_manual_save_content_file(int profile_id, int save_slot_position)
+{
+   AllegroFlare::SavingAndLoading::SaveSlot* save_slot = find_save_slot(
+      profile_id,
+      save_slot_position,
+      AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE
+   );
+
+   if (!save_slot)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "Could not find save slot for profile_id \"" + std::to_string(profile_id) + "\" at save_slot_position \""
+            "\"" + std::to_string(save_slot_position) + "\".  Either this exceeds the number of configured slots \""
+            "for this type, exceeds the number of profiles, or there was an error with internal setup when "
+            "creating the save slots. There could also be a problem with the query."
+      );
+   }
+
+   return save_slot->load_data_from_content_file();
+}
+
 AllegroFlare::SavingAndLoading::SaveSlot* SavingAndLoading::find_save_slot(int profile_id, int save_slot_position, uint32_t save_slot_type)
 {
    if (!(initialized))

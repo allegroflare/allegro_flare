@@ -244,6 +244,32 @@ void SaveSlot::load_header_from_file_if_exists_or_clear()
    return;
 }
 
+std::string SaveSlot::load_data_from_content_file()
+{
+   // TODO: Test this
+   // Cleaer header data if some has already been loaded into this slot
+   if (!header_data_exists())
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "When loading content data, there is not any header data created on this save slot, indicating that no "
+         "save exists on this save slot."
+      );
+   }
+
+   bool _content_file_exists = content_file_exists();
+   if (!_content_file_exists)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "It appears that no content file exists for this save slot, despite that header data does exist. It "
+         "appears something may have gone wrong with the saving/loading system."
+      );
+   }
+
+   // Load the actual file content
+   std::string full_path_to_content_filename = build_full_path_to_content_file();
+   return read_file(full_path_to_content_filename);
+}
+
 void SaveSlot::delete_header_data()
 {
    if (header_data == nullptr) return;
@@ -370,7 +396,10 @@ bool SaveSlot::is_valid_type(uint32_t type)
 
 bool SaveSlot::write_file(std::string filename, std::string content)
 {
-   std::cout << "Writing file \"" << filename << "\"." << std::endl;
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+      "Writing file \"" + filename + "\"."
+   );
+   //std::cout << "Writing file \"" << filename << "\"." << std::endl;
    // TODO: Find some way to avoid the *content duplication into this method
    std::ofstream file;
    file.open(filename.c_str());
@@ -378,6 +407,27 @@ bool SaveSlot::write_file(std::string filename, std::string content)
    file << content.c_str();
    file.close();
    return true;
+}
+
+std::string SaveSlot::read_file(std::string filename)
+{
+   if (!(std::filesystem::exists(filename)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SaveSlot::read_file]: error: guard \"std::filesystem::exists(filename)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SaveSlot::read_file]: error: guard \"std::filesystem::exists(filename)\" not met");
+   }
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+      "Reading file \"" + filename + "\"."
+   );
+   //std::cout << "Reading file \"" << filename << "\"." << std::endl;
+   std::ifstream file(filename.c_str());
+   if (!file.is_open()) return "[error: unable to open file]";
+   std::stringstream buffer;
+   buffer << file.rdbuf();
+   file.close();
+   return buffer.str();
 }
 
 

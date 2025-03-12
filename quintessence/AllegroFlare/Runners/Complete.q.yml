@@ -65,6 +65,12 @@ properties:
     getter: explicit
     setter: explicit
 
+  - name: current_save_slot_position
+    type: int
+    init_with: 0
+    getter: explicit
+    setter: explicit
+
   - name: intro_logos_screen
     type: AllegroFlare::Screens::Storyboard
     init_with: ''
@@ -259,6 +265,7 @@ methods:
       saving_and_loading.scan_for_existing_save_files_and_load_header_data();
       set_current_save_profile_id(1); // TODO: Eventually, have this automatically loaded at start time from
                                       // the most recently used profile
+      set_current_save_slot_position(1); // TODO: Eventually, have this automataically loaded at start time
 
       // Create the shared background
       shared_background = game_configuration->create_shared_background();
@@ -498,6 +505,27 @@ methods:
       - (current_save_profile_id <= saving_and_loading.get_num_profiles())
     body: |
       this->current_save_profile_id = current_save_profile_id;
+      return;
+
+
+  - name: get_current_save_slot_position
+    type: int
+    guards: [ initialized ]
+    body: |
+      return current_save_slot_position;
+
+
+  - name: set_current_save_slot_position
+    parameters:
+      - name: current_save_slot_position
+        type: int
+        default_argument: 1
+    guards:
+      - saving_and_loading.get_initialized()
+      - (current_save_slot_position >= 1)
+      - (current_save_slot_position <= saving_and_loading.get_num_profiles())
+    body: |
+      this->current_save_slot_position = current_save_slot_position;
       return;
 
 
@@ -777,9 +805,25 @@ methods:
                );
             }
 
+            AllegroFlare::Logger::info_from(
+               "AllegroFlare::Runners::Complete::setup_router",
+               "Starting loading..."
+            );
+
             // TODO: Obtain save file content to pass down into method
-            std::string save_file_content = "{}";
+            //std::string save_file_content = "{}"; // TODO: Load from save slot // HERE
+            std::string save_file_content = saving_and_loading.load_content_from_manual_save_content_file(
+               current_save_profile_id,
+               current_save_slot_position
+               //1 // Save slot position // TODO: Make this configurable
+               //save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
+            );
             this->game_configuration->load_save_file_content_into_gameplay(save_file_content);
+
+            AllegroFlare::Logger::info_from(
+               "AllegroFlare::Runners::Complete::setup_router",
+               "... loading finished."
+            );
 
             // Start the primary_gameplay_screen
             // TODO: Determine if this is the preferred next action. If the load_a_saved_game_screen is of a save
@@ -807,7 +851,7 @@ methods:
             std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
             saving_and_loading.save_to_manual_save_slot(
                current_save_profile_id,
-               1, // Save slot position // TODO: Make this configurable
+               current_save_slot_position, //1, // Save slot position // TODO: Make this configurable
                save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
             );
 
