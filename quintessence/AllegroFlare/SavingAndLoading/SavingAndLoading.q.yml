@@ -208,11 +208,43 @@ methods:
       - (save_slot_position >= 0)
       - (save_slot_position <= num_manual_save_slots)
     body: |
+      save_to_save_slot(
+         profile_id,
+         save_slot_position,
+         AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE
+      );
+      return;
+
+
+  - name: save_to_save_slot
+    private: true
+    parameters:
+      - name: profile_id
+        type: int
+        default_argument: 0
+      - name: save_slot_position
+        type: int
+        default_argument: 0
+      - name: save_slot_type
+        type: uint32_t
+        default_argument: AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF
+      - name: content
+        type: std::string
+        default_argument: '"[unset-content]"'
+    guards:
+      - initialized
+      - (profile_id >= 0)
+      - (profile_id <= num_profiles)
+      - (save_slot_position >= 0)
+    body: |
+      // TODO: Consider guarding save_slot_position based on type
+
       AllegroFlare::SavingAndLoading::SaveSlot* save_slot = find_save_slot(
          profile_id,
          save_slot_position,
-         AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_MANUAL_SAVE // NOTE: Make this optionable
+         save_slot_type
       );
+
       if (!save_slot)
       {
          AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
@@ -224,7 +256,7 @@ methods:
       }
 
       // TODO: Consider if info messages should be added here and after
-      save_slot->save_to_slot(&content); // HERE
+      save_slot->save_to_slot(&content);
       return;
 
 

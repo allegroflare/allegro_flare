@@ -24,6 +24,7 @@ namespace AllegroFlare
          int num_quicksave_save_slots;
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot> save_slots;
          bool initialized;
+         void save_to_save_slot(int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF, std::string content="[unset-content]");
 
       protected:
 
