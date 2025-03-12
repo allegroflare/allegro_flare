@@ -5,6 +5,7 @@
 #include <AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/SavingAndLoading/StandardSavesPath.hpp>
+#include <AllegroFlare/TimeStamper.hpp>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -163,6 +164,47 @@ std::string SaveSlot::obtain_header_file_data()
    return buffer.str();
 }
 
+void SaveSlot::save_to_slot(std::string* content_for_content_file)
+{
+   // Create new header data if it does not exist
+   if (!header_data) header_data = new AllegroFlare::LoadASavedGame::SaveSlots::Common;
+
+   // Create the directory for the save files if it does not exist
+   create_save_file_directories_if_they_do_not_exist();
+
+   // Fill header data with this current save data
+   std::time_t save_time_since_epoch = AllegroFlare::TimeStamper::generate_time_now_since_epoch();
+   std::string user_friendly_time = AllegroFlare::TimeStamper::user_friendly_time(save_time_since_epoch);
+
+   // Populate the header data
+   header_data->screenshot_of_gameplay_at_save_identifier = "scene3-01.jpg";
+   header_data->location_of_save = "Unknown Location";
+   header_data->date_and_time_of_save = user_friendly_time;
+   header_data->time_since_text = "[unset-time_since_text]"; // TODO: Remove this property from the class
+   header_data->save_time__seconds_since_epoch = save_time_since_epoch;
+
+   // TODO: Consider a write-to-temp-then swap
+   // Build the header file
+   nlohmann::json j = *header_data;
+   std::string content_for_header_file = j.dump(2);
+   std::string filename_for_header_file = build_full_path_to_header_file();
+   if (!write_file(filename_for_header_file, content_for_header_file))
+   {
+      AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME, "header file did not not save successfully");
+   }
+
+   // Build the content file
+   // TODO: Save content from injected
+   // TODO: Optimize this to avoid duplication of content;
+   std::string content_file_content = (content_for_content_file == nullptr) ? "{}" : *content_for_content_file;
+   std::string filename_for_content_file = build_full_path_to_content_file();
+   if (!write_file(filename_for_content_file, content_file_content))
+   {
+      AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME, "content file did not not save successfully");
+   }
+   return;
+}
+
 void SaveSlot::load_header_from_file_if_exists_or_clear()
 {
    // TODO: Test this
@@ -283,6 +325,36 @@ std::string SaveSlot::obtain_save_slot_type_string_for_filename(uint32_t save_sl
    }
 }
 
+void SaveSlot::create_save_file_directories_if_they_do_not_exist()
+{
+   // TODO: Test this with a temporary directory
+   std::string standard_saves_path = AllegroFlare::SavingAndLoading::StandardSavesPath::build_standard_path(
+      data_folder_path
+   );
+   // Extract the directory part from the file path
+   std::filesystem::path dir_path = std::filesystem::path(standard_saves_path).parent_path();
+
+   // Create directories if they do not exist
+   if (!dir_path.empty() && !std::filesystem::exists(dir_path))
+   {
+      if (std::filesystem::create_directories(dir_path))
+      {
+         AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+            "The expected directories to the save file were not initially present, but were created successfully."
+         );
+      }
+      else
+      {
+         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+            "Failed to load the save file."
+         );
+         //std::cerr << "Failed to create directories!" << std::endl;
+         return;  // Exit if directory creation fails
+      }
+   }
+   return;
+}
+
 bool SaveSlot::is_valid_type(uint32_t type)
 {
    static const std::unordered_map<uint32_t, std::string> event_names {
@@ -293,6 +365,18 @@ bool SaveSlot::is_valid_type(uint32_t type)
 
    auto it = event_names.find(type);
    if (it == event_names.end()) return false;
+   return true;
+}
+
+bool SaveSlot::write_file(std::string filename, std::string content)
+{
+   std::cout << "Writing file \"" << filename << "\"." << std::endl;
+   // TODO: Find some way to avoid the *content duplication into this method
+   std::ofstream file;
+   file.open(filename.c_str());
+   if (!file.is_open()) return false;
+   file << content.c_str();
+   file.close();
    return true;
 }
 

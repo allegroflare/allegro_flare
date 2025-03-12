@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/SavingAndLoading/SaveSlot.hpp>
 #include <AllegroFlare/DeploymentEnvironment.hpp>
+#include <AllegroFlare/Testing/TemporaryDirectoryCreator.hpp>
 
 
 TEST(AllegroFlare_SavingAndLoading_SaveSlotTest, can_be_created_without_blowing_up)
@@ -37,5 +38,37 @@ TEST(AllegroFlare_SavingAndLoading_SaveSlotTest,
    std::string actual_save_slot_header_basename = save_slot.build_header_basename();
    EXPECT_EQ(expected_save_slot_header_basename, actual_save_slot_header_basename);
 }
+
+
+TEST(AllegroFlare_SavingAndLoading_SaveSlotTest,
+   save_to_slot__will_save_the_header_file_and_content_file_with_the_expected_data)
+{
+   std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
+   std::string data_folder_path = temporary_directory + "/";
+   std::cout << "Data folder path: " << data_folder_path << std::endl;
+   //AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   //std::string data_folder_path = deployment_environment.get_data_folder_path();
+   AllegroFlare::SavingAndLoading::SaveSlot save_slot = AllegroFlare::SavingAndLoading::SaveSlot::construct(
+      data_folder_path, 2, 7, AllegroFlare::SavingAndLoading::SaveSlot::SaveSlotType::SAVE_SLOT_TYPE_AUTO_SAVE
+   );
+
+   std::cout << "Header file name: " << save_slot.build_full_path_to_content_file() << std::endl;
+
+   save_slot.save_to_slot();
+
+   //std::string expected_save_slot_header_basename = "profile_002-autosave-position_032.header.sav";
+   //std::string actual_save_slot_header_basename = save_slot.build_header_basename();
+   //EXPECT_EQ(expected_save_slot_header_basename, actual_save_slot_header_basename);
+}
+
+
+/*
+   std::ofstream file;
+   file.open(filename.c_str());
+   if (!file.is_open()) return false;
+   file << contents.c_str();
+   file.close();
+   return true;
+*/
 
 

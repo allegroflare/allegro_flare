@@ -51,6 +51,7 @@ namespace AllegroFlare
          bool header_data_exists();
          static AllegroFlare::SavingAndLoading::SaveSlot construct(std::string data_folder_path="[unset-data_folder_path]", int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF);
          std::string obtain_header_file_data();
+         void save_to_slot(std::string* content_for_content_file=nullptr);
          void load_header_from_file_if_exists_or_clear();
          void delete_header_data();
          bool header_file_exists();
@@ -60,7 +61,9 @@ namespace AllegroFlare
          std::string build_header_basename();
          std::string build_content_basename();
          static std::string obtain_save_slot_type_string_for_filename(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF);
+         void create_save_file_directories_if_they_do_not_exist();
          static bool is_valid_type(uint32_t type=SAVE_SLOT_TYPE_UNDEF);
+         bool write_file(std::string filename="[unset-filename]", std::string content="[unset-content]");
       };
    }
 }

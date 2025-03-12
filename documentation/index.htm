@@ -36329,6 +36329,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>save_to_slot</b>(std::string* content_for_content_file=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>load_header_from_file_if_exists_or_clear</b>()</td>
 </tr>
 <tr>
@@ -36368,8 +36372,16 @@ table td
   <td class="method"><b>obtain_save_slot_type_string_for_filename</b>(uint32_t save_slot_type=SAVE_SLOT_TYPE_UNDEF)</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>create_save_file_directories_if_they_do_not_exist</b>()</td>
+</tr>
+<tr>
   <td class="method">bool</td>
   <td class="method"><b>is_valid_type</b>(uint32_t type=SAVE_SLOT_TYPE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>write_file</b>(std::string filename=&quot;[unset-filename]&quot;, std::string content=&quot;[unset-content]&quot;)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -36403,6 +36415,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::JSONLoaders::AllegroFlare::LoadASavedGame::SaveSlots::Common&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TimeStamper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TimeStamper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::path&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem::create_directories&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55383,11 +55404,17 @@ table td
   "AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common": [
     "AllegroFlare/SavingAndLoading/SaveSlot"
   ],
+  "AllegroFlare/TimeStamper": [
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/SavingAndLoading/Screen"
+  ],
   "std/filesystem/path": [
+    "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/Testing/TemporaryDirectoryCreator"
   ],
   "std/filesystem/create_directories": [
+    "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer": [
@@ -55397,9 +55424,6 @@ table td
     "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/TimeAgo": [
-    "AllegroFlare/SavingAndLoading/Screen"
-  ],
-  "AllegroFlare/TimeStamper": [
     "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/Elements/AchievementsList": [
