@@ -33,6 +33,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_manual_save_callback_func
+    type: std::function<void(AllegroFlare::Screens::Gameplay*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_manual_save_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: player_input_controller
     type: AllegroFlare::PlayerInputControllers::Base*
     init_with: nullptr
@@ -321,6 +333,20 @@ methods:
       // TODO: Find a way to unify keyboard and joystick inputs as if single input so you could play with keyboard,
       // pause with some keys pressed (player in motion), switch to joystick, hold same inputs but as buttons, unpause,
       // and resume with same control state.
+      return;
+
+
+  - name: save_to_manual_save
+    body: |
+      if (!on_manual_save_callback_func)
+      {
+         AllegroFlare::Logger::warn_from_once(THIS_CLASS_AND_METHOD_NAME,
+            "Expecting this class to have \"on_manual_save_callback_func\" defined but it is not. Unable to delegate "
+            "this method to the callback to handle it."
+         );
+         return;
+      }
+      on_manual_save_callback_func(this, on_manual_save_callback_func_user_data);
       return;
 
 

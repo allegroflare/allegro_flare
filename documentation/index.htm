@@ -35529,6 +35529,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_save_game_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_save_game_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">on_gameplay_paused_func</td>
   <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, void*)&gt;</td>
 </tr>
@@ -35897,6 +35905,10 @@ table td
   <td class="property">AllegroFlare::SavingAndLoading::SavingAndLoading</td>
 </tr>
 <tr>
+  <td class="property">current_save_profile_id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">intro_logos_screen</td>
   <td class="property">AllegroFlare::Screens::Storyboard</td>
 </tr>
@@ -36018,6 +36030,14 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_current_save_profile_id</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_current_save_profile_id</b>(int current_save_profile_id=1)</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -38153,6 +38173,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_manual_save_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::Gameplay*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_manual_save_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">player_input_controller</td>
   <td class="property">AllegroFlare::PlayerInputControllers::Base*</td>
 </tr>
@@ -38202,6 +38230,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>send_input_changes_since_last_suspend_to_player_input_controller</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>save_to_manual_save</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>

@@ -88,6 +88,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_save_game_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_save_game_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: on_gameplay_paused_func
     type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
     init_with: '{}'
@@ -320,7 +332,7 @@ enums:
       - EVENT_START_NEW_GAME
       - EVENT_CONTINUE_FROM_LAST_SAVE
       - EVENT_LOAD_A_SAVED_GAME
-      - EVENT_SAVE_GAME
+      - EVENT_SAVE_TO_MANUAL_SAVE
       - EVENT_PAUSE_GAME
       - EVENT_UNPAUSE_GAME
       - EVENT_WIN_GAME
@@ -417,7 +429,7 @@ methods:
          {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
          {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
          {EVENT_LOAD_A_SAVED_GAME, "EVENT_LOAD_A_SAVED_GAME" },
-         {EVENT_SAVE_GAME, "EVENT_SAVE_GAME"},
+         {EVENT_SAVE_TO_MANUAL_SAVE, "EVENT_SAVE_TO_MANUAL_SAVE"},
          {EVENT_PAUSE_GAME, "EVENT_PAUSE_GAME"},
          {EVENT_UNPAUSE_GAME, "EVENT_UNPAUSE_GAME"},
          {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
@@ -669,19 +681,12 @@ methods:
                }
             }
          }},
-         { EVENT_SAVE_GAME, [this](){
-            if (!game_session.is_active())
+         { EVENT_SAVE_TO_MANUAL_SAVE, [this](){
+            // TODO: Consider that this callback method should be renamed or organized differently
+            if (on_save_game_func)
             {
-               AllegroFlare::Logger::throw_error(
-                  "AllegroFlare::Routers::Standard::on_route_event",
-                  "When handling EVENT_SAVE_GAME, the game session is not currently active."
-               );
+               on_save_game_func(this, on_save_game_func_user_data);
             }
-
-            // TODO: Add info log here?
-            AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Saving game...");
-            game_session.save();
-            AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "...game saved successfully.");
          }},
          { EVENT_PAUSE_GAME, [this](){
             // TODO: Test playtime is paused on this event

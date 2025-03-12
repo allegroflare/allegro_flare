@@ -59,6 +59,12 @@ properties:
     init_with: ''
     getter_ref: true
 
+  - name: current_save_profile_id
+    type: int
+    init_with: 0
+    getter: explicit
+    setter: explicit
+
   - name: intro_logos_screen
     type: AllegroFlare::Screens::Storyboard
     init_with: ''
@@ -251,6 +257,8 @@ methods:
       saving_and_loading.initialize();
       saving_and_loading.create_save_file_directories_if_they_do_not_exist();
       saving_and_loading.scan_for_existing_save_files_and_load_header_data();
+      set_current_save_profile_id(1); // TODO: Eventually, have this automatically loaded at start time from
+                                      // the most recently used profile
 
       // Create the shared background
       shared_background = game_configuration->create_shared_background();
@@ -469,6 +477,27 @@ methods:
       // TODO: Add additional destroy virtual methods for each object created
       // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
       destroyed = true;
+      return;
+
+
+  - name: get_current_save_profile_id
+    type: int
+    guards: [ initialized ]
+    body: |
+      return current_save_profile_id;
+
+
+  - name: set_current_save_profile_id
+    parameters:
+      - name: current_save_profile_id
+        type: int
+        default_argument: 1
+    guards:
+      - saving_and_loading.get_initialized()
+      - (current_save_profile_id >= 1)
+      - (current_save_profile_id <= saving_and_loading.get_num_profiles())
+    body: |
+      this->current_save_profile_id = current_save_profile_id;
       return;
 
 
@@ -764,6 +793,31 @@ methods:
             );
          });
       router.set_on_load_save_file_content_into_gameplay_func_user_data(this);
+
+      // When saving
+      router.set_on_save_game_func(
+         [this](AllegroFlare::Routers::Standard* router, void* user_data) {
+            // TODO: Improve this info message
+            AllegroFlare::Logger::info_from(
+               THIS_CLASS_AND_METHOD_NAME,
+               "Saving game..."
+            );
+
+            // Save the actual content to the save slot
+            saving_and_loading.save_to_manual_save_slot(
+               current_save_profile_id,
+               1, // Save slot position // TODO: Make this configurable
+               "{\"from\", \"Runners/Complete\"}"
+            );
+
+            // TODO: Improve this info message
+            AllegroFlare::Logger::info_from(
+               THIS_CLASS_AND_METHOD_NAME,
+               "...game saved successfully."
+            );
+         }
+      );
+      router.set_on_save_game_func_user_data(nullptr); // Not sure what would be passed here
       
       /*
         type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
@@ -993,6 +1047,16 @@ methods:
          [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
             this->router.emit_route_event(
                AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
+               nullptr,
+               al_get_time()
+            );
+         }
+      );
+      primary_gameplay_screen->set_on_manual_save_callback_func(
+         [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
+            // TODO: Here, emit route event for now. Consider making this an explicit event handling
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_SAVE_TO_MANUAL_SAVE,
                nullptr,
                al_get_time()
             );

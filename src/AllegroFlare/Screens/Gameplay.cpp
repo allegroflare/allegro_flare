@@ -17,6 +17,8 @@ Gameplay::Gameplay()
    , on_paused_callback_func_user_data(nullptr)
    , on_finished_callback_func()
    , on_finished_callback_func_user_data(nullptr)
+   , on_manual_save_callback_func()
+   , on_manual_save_callback_func_user_data(nullptr)
    , player_input_controller(nullptr)
    , gameplay_suspended(false)
    , suspended_keyboard_state({})
@@ -55,6 +57,18 @@ void Gameplay::set_on_finished_callback_func_user_data(void* on_finished_callbac
 }
 
 
+void Gameplay::set_on_manual_save_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_manual_save_callback_func)
+{
+   this->on_manual_save_callback_func = on_manual_save_callback_func;
+}
+
+
+void Gameplay::set_on_manual_save_callback_func_user_data(void* on_manual_save_callback_func_user_data)
+{
+   this->on_manual_save_callback_func_user_data = on_manual_save_callback_func_user_data;
+}
+
+
 void Gameplay::set_disable_escape_key_pauses_game(bool disable_escape_key_pauses_game)
 {
    this->disable_escape_key_pauses_game = disable_escape_key_pauses_game;
@@ -82,6 +96,18 @@ std::function<void(AllegroFlare::Screens::Gameplay*, void*)> Gameplay::get_on_fi
 void* Gameplay::get_on_finished_callback_func_user_data() const
 {
    return on_finished_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::Gameplay*, void*)> Gameplay::get_on_manual_save_callback_func() const
+{
+   return on_manual_save_callback_func;
+}
+
+
+void* Gameplay::get_on_manual_save_callback_func_user_data() const
+{
+   return on_manual_save_callback_func_user_data;
 }
 
 
@@ -347,6 +373,20 @@ void Gameplay::send_input_changes_since_last_suspend_to_player_input_controller(
    // TODO: Find a way to unify keyboard and joystick inputs as if single input so you could play with keyboard,
    // pause with some keys pressed (player in motion), switch to joystick, hold same inputs but as buttons, unpause,
    // and resume with same control state.
+   return;
+}
+
+void Gameplay::save_to_manual_save()
+{
+   if (!on_manual_save_callback_func)
+   {
+      AllegroFlare::Logger::warn_from_once(THIS_CLASS_AND_METHOD_NAME,
+         "Expecting this class to have \"on_manual_save_callback_func\" defined but it is not. Unable to delegate "
+         "this method to the callback to handle it."
+      );
+      return;
+   }
+   on_manual_save_callback_func(this, on_manual_save_callback_func_user_data);
    return;
 }
 

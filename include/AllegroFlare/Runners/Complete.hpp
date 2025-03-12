@@ -55,6 +55,7 @@ namespace AllegroFlare
          AllegroFlare::GameConfigurations::Complete* game_configuration;
          AllegroFlare::Routers::Standard router;
          AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading;
+         int current_save_profile_id;
          AllegroFlare::Screens::Storyboard intro_logos_screen;
          AllegroFlare::Screens::Storyboard intro_storyboard_screen;
          AllegroFlare::Screens::TitledMenuScreen title_screen;
@@ -113,6 +114,8 @@ namespace AllegroFlare
          virtual void game_event_func(AllegroFlare::GameEvent* game_event=nullptr) override;
          void initialize();
          virtual void destroy() override;
+         int get_current_save_profile_id();
+         void set_current_save_profile_id(int current_save_profile_id=1);
          static bool on_route_event_unhandled_func(uint32_t unhandled_event=0, AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_gameplay_paused_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);
          static bool on_gameplay_unpaused_func(AllegroFlare::Routers::Standard* router=nullptr, void* user_data=nullptr);

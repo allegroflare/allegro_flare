@@ -34,6 +34,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , game_configuration(game_configuration)
    , router()
    , saving_and_loading()
+   , current_save_profile_id(0)
    , intro_logos_screen()
    , intro_storyboard_screen()
    , title_screen()
@@ -304,6 +305,8 @@ void Complete::initialize()
    saving_and_loading.initialize();
    saving_and_loading.create_save_file_directories_if_they_do_not_exist();
    saving_and_loading.scan_for_existing_save_files_and_load_header_data();
+   set_current_save_profile_id(1); // TODO: Eventually, have this automatically loaded at start time from
+                                   // the most recently used profile
 
    // Create the shared background
    shared_background = game_configuration->create_shared_background();
@@ -527,6 +530,45 @@ void Complete::destroy()
    // TODO: Add additional destroy virtual methods for each object created
    // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
    destroyed = true;
+   return;
+}
+
+int Complete::get_current_save_profile_id()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Runners::Complete::get_current_save_profile_id]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::get_current_save_profile_id]: error: guard \"initialized\" not met");
+   }
+   return current_save_profile_id;
+}
+
+void Complete::set_current_save_profile_id(int current_save_profile_id)
+{
+   if (!(saving_and_loading.get_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Runners::Complete::set_current_save_profile_id]: error: guard \"saving_and_loading.get_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_save_profile_id]: error: guard \"saving_and_loading.get_initialized()\" not met");
+   }
+   if (!((current_save_profile_id >= 1)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Runners::Complete::set_current_save_profile_id]: error: guard \"(current_save_profile_id >= 1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_save_profile_id]: error: guard \"(current_save_profile_id >= 1)\" not met");
+   }
+   if (!((current_save_profile_id <= saving_and_loading.get_num_profiles())))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Runners::Complete::set_current_save_profile_id]: error: guard \"(current_save_profile_id <= saving_and_loading.get_num_profiles())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_save_profile_id]: error: guard \"(current_save_profile_id <= saving_and_loading.get_num_profiles())\" not met");
+   }
+   this->current_save_profile_id = current_save_profile_id;
    return;
 }
 
@@ -850,6 +892,31 @@ void Complete::setup_router()
       });
    router.set_on_load_save_file_content_into_gameplay_func_user_data(this);
 
+   // When saving
+   router.set_on_save_game_func(
+      [this](AllegroFlare::Routers::Standard* router, void* user_data) {
+         // TODO: Improve this info message
+         AllegroFlare::Logger::info_from(
+            THIS_CLASS_AND_METHOD_NAME,
+            "Saving game..."
+         );
+
+         // Save the actual content to the save slot
+         saving_and_loading.save_to_manual_save_slot(
+            current_save_profile_id,
+            1, // Save slot position // TODO: Make this configurable
+            "{\"from\", \"Runners/Complete\"}"
+         );
+
+         // TODO: Improve this info message
+         AllegroFlare::Logger::info_from(
+            THIS_CLASS_AND_METHOD_NAME,
+            "...game saved successfully."
+         );
+      }
+   );
+   router.set_on_save_game_func_user_data(nullptr); // Not sure what would be passed here
+
    /*
      type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
      init_with: '{}'
@@ -1078,6 +1145,16 @@ void Complete::setup_router()
       [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
          this->router.emit_route_event(
             AllegroFlare::Routers::Standard::EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
+            nullptr,
+            al_get_time()
+         );
+      }
+   );
+   primary_gameplay_screen->set_on_manual_save_callback_func(
+      [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
+         // TODO: Here, emit route event for now. Consider making this an explicit event handling
+         this->router.emit_route_event(
+            AllegroFlare::Routers::Standard::EVENT_SAVE_TO_MANUAL_SAVE,
             nullptr,
             al_get_time()
          );

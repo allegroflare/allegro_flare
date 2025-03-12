@@ -31,6 +31,8 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , on_continue_from_last_save_func_user_data(nullptr)
    , on_load_save_file_content_into_gameplay_func({})
    , on_load_save_file_content_into_gameplay_func_user_data(nullptr)
+   , on_save_game_func({})
+   , on_save_game_func_user_data(nullptr)
    , on_gameplay_paused_func({})
    , on_gameplay_paused_func_user_data(nullptr)
    , on_gameplay_unpaused_func({})
@@ -119,6 +121,18 @@ void Standard::set_on_load_save_file_content_into_gameplay_func(std::function<vo
 void Standard::set_on_load_save_file_content_into_gameplay_func_user_data(void* on_load_save_file_content_into_gameplay_func_user_data)
 {
    this->on_load_save_file_content_into_gameplay_func_user_data = on_load_save_file_content_into_gameplay_func_user_data;
+}
+
+
+void Standard::set_on_save_game_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_save_game_func)
+{
+   this->on_save_game_func = on_save_game_func;
+}
+
+
+void Standard::set_on_save_game_func_user_data(void* on_save_game_func_user_data)
+{
+   this->on_save_game_func_user_data = on_save_game_func_user_data;
 }
 
 
@@ -254,6 +268,18 @@ void* Standard::get_on_load_save_file_content_into_gameplay_func_user_data() con
 }
 
 
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_save_game_func() const
+{
+   return on_save_game_func;
+}
+
+
+void* Standard::get_on_save_game_func_user_data() const
+{
+   return on_save_game_func_user_data;
+}
+
+
 std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_gameplay_paused_func() const
 {
    return on_gameplay_paused_func;
@@ -368,7 +394,7 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
       {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
       {EVENT_LOAD_A_SAVED_GAME, "EVENT_LOAD_A_SAVED_GAME" },
-      {EVENT_SAVE_GAME, "EVENT_SAVE_GAME"},
+      {EVENT_SAVE_TO_MANUAL_SAVE, "EVENT_SAVE_TO_MANUAL_SAVE"},
       {EVENT_PAUSE_GAME, "EVENT_PAUSE_GAME"},
       {EVENT_UNPAUSE_GAME, "EVENT_UNPAUSE_GAME"},
       {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
@@ -619,19 +645,12 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             }
          }
       }},
-      { EVENT_SAVE_GAME, [this](){
-         if (!game_session.is_active())
+      { EVENT_SAVE_TO_MANUAL_SAVE, [this](){
+         // TODO: Consider that this callback method should be renamed or organized differently
+         if (on_save_game_func)
          {
-            AllegroFlare::Logger::throw_error(
-               "AllegroFlare::Routers::Standard::on_route_event",
-               "When handling EVENT_SAVE_GAME, the game session is not currently active."
-            );
+            on_save_game_func(this, on_save_game_func_user_data);
          }
-
-         // TODO: Add info log here?
-         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Saving game...");
-         game_session.save();
-         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "...game saved successfully.");
       }},
       { EVENT_PAUSE_GAME, [this](){
          // TODO: Test playtime is paused on this event

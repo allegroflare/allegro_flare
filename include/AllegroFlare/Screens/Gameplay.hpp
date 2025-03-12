@@ -27,6 +27,8 @@ namespace AllegroFlare
          void* on_paused_callback_func_user_data;
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func;
          void* on_finished_callback_func_user_data;
+         std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_manual_save_callback_func;
+         void* on_manual_save_callback_func_user_data;
          AllegroFlare::PlayerInputControllers::Base* player_input_controller;
          bool gameplay_suspended;
          AllegroFlare::SuspendedKeyboardState suspended_keyboard_state;
@@ -44,11 +46,15 @@ namespace AllegroFlare
          void set_on_paused_callback_func_user_data(void* on_paused_callback_func_user_data);
          void set_on_finished_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_finished_callback_func);
          void set_on_finished_callback_func_user_data(void* on_finished_callback_func_user_data);
+         void set_on_manual_save_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_manual_save_callback_func);
+         void set_on_manual_save_callback_func_user_data(void* on_manual_save_callback_func_user_data);
          void set_disable_escape_key_pauses_game(bool disable_escape_key_pauses_game);
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_paused_callback_func() const;
          void* get_on_paused_callback_func_user_data() const;
          std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_finished_callback_func() const;
          void* get_on_finished_callback_func_user_data() const;
+         std::function<void(AllegroFlare::Screens::Gameplay*, void*)> get_on_manual_save_callback_func() const;
+         void* get_on_manual_save_callback_func_user_data() const;
          AllegroFlare::PlayerInputControllers::Base* get_player_input_controller() const;
          bool get_gameplay_suspended() const;
          AllegroFlare::SuspendedKeyboardState get_suspended_keyboard_state() const;
@@ -62,6 +68,7 @@ namespace AllegroFlare
          void suspend_gameplay();
          void resume_suspended_gameplay();
          void send_input_changes_since_last_suspend_to_player_input_controller();
+         void save_to_manual_save();
          void toggle_suspend_gameplay();
          virtual void gameplay_suspend_func();
          virtual void gameplay_resume_func();
