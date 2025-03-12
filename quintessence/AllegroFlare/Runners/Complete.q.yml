@@ -263,8 +263,7 @@ methods:
       saving_and_loading.initialize();
       saving_and_loading.create_save_file_directories_if_they_do_not_exist();
       saving_and_loading.scan_for_existing_save_files_and_load_header_data();
-      set_current_save_profile_id(1); // TODO: Eventually, have this automatically loaded at start time from
-                                      // the most recently used profile
+      set_current_save_profile_id(1); // TODO: Eventually, have this automatically loaded at start time
       set_current_save_slot_position(1); // TODO: Eventually, have this automataically loaded at start time
 
       // Create the shared background
@@ -1042,11 +1041,11 @@ methods:
       saving_and_loading_screen.set_on_menu_choice_callback_func([this](AllegroFlare::SavingAndLoading::Screen*, void*){
          // TODO: Test this callback
          // TODO: Have the system load the save file
-         AllegroFlare::Logger::info_from(
-            "AllegroFlare::Runners::Complete::setup_router",
-           "In on_menu_choice_callback in saving_and_loading_screen, This feature is currently not implemented and "
-              "will now simply start a new game."
-        );
+         //AllegroFlare::Logger::info_from(
+            //"AllegroFlare::Runners::Complete::setup_router",
+           //"In on_menu_choice_callback in saving_and_loading_screen, This feature is currently not implemented and "
+              //"will now simply start a new game."
+         //);
 
          this->router.emit_route_event(
             AllegroFlare::Routers::Standard::EVENT_LOAD_A_SAVED_GAME,
