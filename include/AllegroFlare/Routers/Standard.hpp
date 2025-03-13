@@ -49,6 +49,7 @@ namespace AllegroFlare
             EVENT_START_NEW_GAME,
             EVENT_CONTINUE_FROM_LAST_SAVE,
             EVENT_LOAD_A_SAVED_GAME,
+            EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT,
             EVENT_SAVE_TO_MANUAL_SAVE,
             EVENT_SAVE_TO_AUTOSAVE_SAVE,
             EVENT_SAVE_TO_QUICKSAVE_SAVE,
@@ -104,6 +105,8 @@ namespace AllegroFlare
          void* on_continue_from_last_save_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_load_save_file_content_into_gameplay_func;
          void* on_load_save_file_content_into_gameplay_func_user_data;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> on_start_new_game_with_empty_save_slot_func;
+         void* on_start_new_game_with_empty_save_slot_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, std::string, void*)> on_save_game_func;
          void* on_save_game_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_paused_func;
@@ -136,6 +139,8 @@ namespace AllegroFlare
          void set_on_continue_from_last_save_func_user_data(void* on_continue_from_last_save_func_user_data);
          void set_on_load_save_file_content_into_gameplay_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_load_save_file_content_into_gameplay_func);
          void set_on_load_save_file_content_into_gameplay_func_user_data(void* on_load_save_file_content_into_gameplay_func_user_data);
+         void set_on_start_new_game_with_empty_save_slot_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_start_new_game_with_empty_save_slot_func);
+         void set_on_start_new_game_with_empty_save_slot_func_user_data(void* on_start_new_game_with_empty_save_slot_func_user_data);
          void set_on_save_game_func(std::function<void(AllegroFlare::Routers::Standard*, std::string, void*)> on_save_game_func);
          void set_on_save_game_func_user_data(void* on_save_game_func_user_data);
          void set_on_gameplay_paused_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_paused_func);
@@ -160,6 +165,8 @@ namespace AllegroFlare
          void* get_on_continue_from_last_save_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_load_save_file_content_into_gameplay_func() const;
          void* get_on_load_save_file_content_into_gameplay_func_user_data() const;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_start_new_game_with_empty_save_slot_func() const;
+         void* get_on_start_new_game_with_empty_save_slot_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, std::string, void*)> get_on_save_game_func() const;
          void* get_on_save_game_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_gameplay_paused_func() const;

@@ -31,6 +31,8 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , on_continue_from_last_save_func_user_data(nullptr)
    , on_load_save_file_content_into_gameplay_func({})
    , on_load_save_file_content_into_gameplay_func_user_data(nullptr)
+   , on_start_new_game_with_empty_save_slot_func({})
+   , on_start_new_game_with_empty_save_slot_func_user_data(nullptr)
    , on_save_game_func({})
    , on_save_game_func_user_data(nullptr)
    , on_gameplay_paused_func({})
@@ -121,6 +123,18 @@ void Standard::set_on_load_save_file_content_into_gameplay_func(std::function<vo
 void Standard::set_on_load_save_file_content_into_gameplay_func_user_data(void* on_load_save_file_content_into_gameplay_func_user_data)
 {
    this->on_load_save_file_content_into_gameplay_func_user_data = on_load_save_file_content_into_gameplay_func_user_data;
+}
+
+
+void Standard::set_on_start_new_game_with_empty_save_slot_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_start_new_game_with_empty_save_slot_func)
+{
+   this->on_start_new_game_with_empty_save_slot_func = on_start_new_game_with_empty_save_slot_func;
+}
+
+
+void Standard::set_on_start_new_game_with_empty_save_slot_func_user_data(void* on_start_new_game_with_empty_save_slot_func_user_data)
+{
+   this->on_start_new_game_with_empty_save_slot_func_user_data = on_start_new_game_with_empty_save_slot_func_user_data;
 }
 
 
@@ -268,6 +282,18 @@ void* Standard::get_on_load_save_file_content_into_gameplay_func_user_data() con
 }
 
 
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_start_new_game_with_empty_save_slot_func() const
+{
+   return on_start_new_game_with_empty_save_slot_func;
+}
+
+
+void* Standard::get_on_start_new_game_with_empty_save_slot_func_user_data() const
+{
+   return on_start_new_game_with_empty_save_slot_func_user_data;
+}
+
+
 std::function<void(AllegroFlare::Routers::Standard*, std::string, void*)> Standard::get_on_save_game_func() const
 {
    return on_save_game_func;
@@ -394,6 +420,7 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
       {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
       {EVENT_LOAD_A_SAVED_GAME, "EVENT_LOAD_A_SAVED_GAME" },
+      {EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT, "START_NEW_GAME_ON_EMPTY_SAVE_SLOT" },
       {EVENT_SAVE_TO_MANUAL_SAVE, "EVENT_SAVE_TO_MANUAL_SAVE"},
       {EVENT_SAVE_TO_AUTOSAVE_SAVE, "EVENT_SAVE_TO_AUTOSAVE_SAVE"},
       {EVENT_SAVE_TO_QUICKSAVE_SAVE, "EVENT_SAVE_TO_QUICKSAVE_SAVE"},
@@ -562,6 +589,24 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
             );
          }
          // TODO: Implement an callback on this event
+      }},
+      { EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT, [this](){
+         // TODO: Test this callback
+         if (on_start_new_game_with_empty_save_slot_func)
+         {
+            on_start_new_game_with_empty_save_slot_func(
+               this,
+               on_start_new_game_with_empty_save_slot_func_user_data
+            );
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "on EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT, expecting an "
+                  "\"on_start_new_game_with_empty_save_slot_func\" to be present, but it is not."
+            );
+         }
       }},
       { EVENT_LOAD_A_SAVED_GAME, [this](){
          // TODO: Test this callback

@@ -858,6 +858,14 @@ methods:
             );
          });
       router.set_on_load_save_file_content_into_gameplay_func_user_data(this);
+      router.set_on_start_new_game_with_empty_save_slot_func(
+         [](AllegroFlare::Routers::Standard* router, void* user_data) {
+            // TODO: This method
+            // HERE
+            AllegroFlare::Logger::info_from(
+               "AllegroFlare::Runners::Complete::setup_router",
+               "In definition for on_start_new_game_with_empty_save_slot_func, this method is not implemented");
+         });
 
       // When saving
       router.set_on_save_game_func(
@@ -1118,19 +1126,37 @@ methods:
          );
       });
       saving_and_loading_screen.set_on_menu_choice_callback_func([this](AllegroFlare::SavingAndLoading::Screen*, void*){
-         // TODO: Test this callback
-         // TODO: Have the system load the save file
-         //AllegroFlare::Logger::info_from(
-            //"AllegroFlare::Runners::Complete::setup_router",
-           //"In on_menu_choice_callback in saving_and_loading_screen, This feature is currently not implemented and "
-              //"will now simply start a new game."
-         //);
+         // TODO: Test this callback, and the branching logic
+         // This usage of event emitting could be redundant? Consider direct calls instead of emitted events
+         AllegroFlare::SavingAndLoading::SaveSlot *currently_selected_save_slot_in_the_saving_and_loading_screen =
+            saving_and_loading_screen.get_currently_selected_save_slot();
 
-         this->router.emit_route_event(
-            AllegroFlare::Routers::Standard::EVENT_LOAD_A_SAVED_GAME,
-            nullptr, // TODO: Pass along data required to determine which save data to load
-            al_get_time()
-         );
+         if (!currently_selected_save_slot_in_the_saving_and_loading_screen)
+         {
+            AllegroFlare::Logger::throw_error("AllegroFlare::Runners::Complete::setup_router",
+               "In on_menu_choice_callback_func for saving_and_loading_screen, unable to obtain the currently "
+                  "selected save slot from the saving_and_loading_screen, a nullptr was returned."
+            );
+         }
+
+         bool currently_selected_save_slot_is_empty =
+            currently_selected_save_slot_in_the_saving_and_loading_screen->is_empty();
+         if (currently_selected_save_slot_is_empty)
+         {
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT,
+               nullptr, // TODO: Pass along data required to determine which save data to load
+               al_get_time()
+            );
+         }
+         else
+         {
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_LOAD_A_SAVED_GAME,
+               nullptr, // TODO: Pass along data required to determine which save data to load
+               al_get_time()
+            );
+         }
       });
       new_game_intro_storyboard_screen.set_on_finished_callback_func(
          [this](AllegroFlare::Screens::Storyboard* screen, void* data) {

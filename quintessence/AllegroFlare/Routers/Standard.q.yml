@@ -88,6 +88,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_start_new_game_with_empty_save_slot_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_start_new_game_with_empty_save_slot_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: on_save_game_func
     type: std::function<void(AllegroFlare::Routers::Standard*, std::string, void*)>
     init_with: '{}'
@@ -332,6 +344,7 @@ enums:
       - EVENT_START_NEW_GAME
       - EVENT_CONTINUE_FROM_LAST_SAVE
       - EVENT_LOAD_A_SAVED_GAME
+      - EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT
       - EVENT_SAVE_TO_MANUAL_SAVE
       - EVENT_SAVE_TO_AUTOSAVE_SAVE
       - EVENT_SAVE_TO_QUICKSAVE_SAVE
@@ -431,6 +444,7 @@ methods:
          {EVENT_START_NEW_GAME, "EVENT_START_NEW_GAME"},
          {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
          {EVENT_LOAD_A_SAVED_GAME, "EVENT_LOAD_A_SAVED_GAME" },
+         {EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT, "START_NEW_GAME_ON_EMPTY_SAVE_SLOT" },
          {EVENT_SAVE_TO_MANUAL_SAVE, "EVENT_SAVE_TO_MANUAL_SAVE"},
          {EVENT_SAVE_TO_AUTOSAVE_SAVE, "EVENT_SAVE_TO_AUTOSAVE_SAVE"},
          {EVENT_SAVE_TO_QUICKSAVE_SAVE, "EVENT_SAVE_TO_QUICKSAVE_SAVE"},
@@ -600,6 +614,24 @@ methods:
                );
             }
             // TODO: Implement an callback on this event
+         }},
+         { EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT, [this](){
+            // TODO: Test this callback
+            if (on_start_new_game_with_empty_save_slot_func)
+            {
+               on_start_new_game_with_empty_save_slot_func(
+                  this,
+                  on_start_new_game_with_empty_save_slot_func_user_data
+               );
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "on EVENT_START_NEW_GAME_ON_EMPTY_SAVE_SLOT, expecting an "
+                     "\"on_start_new_game_with_empty_save_slot_func\" to be present, but it is not."
+               );
+            }
          }},
          { EVENT_LOAD_A_SAVED_GAME, [this](){
             // TODO: Test this callback
