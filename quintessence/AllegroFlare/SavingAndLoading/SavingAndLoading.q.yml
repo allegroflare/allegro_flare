@@ -87,12 +87,11 @@ methods:
 
   - name: get_autosave_save_slots
     type: std::vector<AllegroFlare::SavingAndLoading::SaveSlot*>
-    guards: [ initialized ]
     parameters:
       - name: profile_id
         type: int
         default_argument: 1
-    guards: [ (profile_id >= 1), (profile_id <= num_profiles) ]
+    guards: [ initialized, (profile_id >= 1), (profile_id <= num_profiles) ]
     body: |
       std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> result;
       result.reserve(num_autosave_save_slots);
@@ -109,6 +108,35 @@ methods:
          );
       }
       return result;
+
+
+  - name: sort_by_empty_then_oldest
+    type: std::vector<AllegroFlare::SavingAndLoading::SaveSlot*>
+    parameters:
+      - name: save_slots
+        type: std::vector<AllegroFlare::SavingAndLoading::SaveSlot*>
+        default_argument: '{}'
+    body: |
+      std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> sorted_result;
+      std::sort(sorted_result.begin(), sorted_result.end(),
+         [](AllegroFlare::SavingAndLoading::SaveSlot* a, // TODO: Use const... I suppose.
+            AllegroFlare::SavingAndLoading::SaveSlot* b)
+         {
+            bool a_is_empty = a->is_empty(); //(a->header_data == nullptr);
+            bool b_is_empty = b->is_empty(); //(b->header_data == nullptr);
+
+            if (a_is_empty != b_is_empty)
+            {
+               return a_is_empty; // Empty slots come first
+            }
+            if (!a_is_empty && !b_is_empty)
+            {
+               return a->get_header_data()->save_time__seconds_since_epoch <
+                      b->get_header_data()->save_time__seconds_since_epoch; // Sort by oldest save time
+            }
+            return false;
+         });
+      return sorted_result;
 
 
   - name: initialize

@@ -157,6 +157,20 @@ std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_aut
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_autosave_save_slots]: error: guard \"initialized\" not met");
    }
+   if (!((profile_id >= 1)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::get_autosave_save_slots]: error: guard \"(profile_id >= 1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_autosave_save_slots]: error: guard \"(profile_id >= 1)\" not met");
+   }
+   if (!((profile_id <= num_profiles)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::get_autosave_save_slots]: error: guard \"(profile_id <= num_profiles)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_autosave_save_slots]: error: guard \"(profile_id <= num_profiles)\" not met");
+   }
    std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> result;
    result.reserve(num_autosave_save_slots);
    for (auto &save_slot : save_slots)
@@ -172,6 +186,30 @@ std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_aut
       );
    }
    return result;
+}
+
+std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::sort_by_empty_then_oldest(std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> save_slots)
+{
+   std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> sorted_result;
+   std::sort(sorted_result.begin(), sorted_result.end(),
+      [](AllegroFlare::SavingAndLoading::SaveSlot* a, // TODO: Use const... I suppose.
+         AllegroFlare::SavingAndLoading::SaveSlot* b)
+      {
+         bool a_is_empty = a->is_empty(); //(a->header_data == nullptr);
+         bool b_is_empty = b->is_empty(); //(b->header_data == nullptr);
+
+         if (a_is_empty != b_is_empty)
+         {
+            return a_is_empty; // Empty slots come first
+         }
+         if (!a_is_empty && !b_is_empty)
+         {
+            return a->get_header_data()->save_time__seconds_since_epoch <
+                   b->get_header_data()->save_time__seconds_since_epoch; // Sort by oldest save time
+         }
+         return false;
+      });
+   return sorted_result;
 }
 
 void SavingAndLoading::initialize()
