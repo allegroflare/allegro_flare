@@ -870,7 +870,7 @@ methods:
                      "AllegroFlare::Runners::Complete::setup_router",
                      "In on_save_callback_func, attempted to save an \"autosave\" type save, but there are no "
                         "autosave save slots in the current configuration. To set the number of autosave slots in "
-                        "your game's derived GameConfiguration by overriding \"int get_num_autosave_save_slots()\" to "
+                        "your game's derived GameConfiguration, override \"int get_num_autosave_save_slots()\" to "
                         "return the number of slots you want to have available in your game."
                   );
                }
@@ -891,7 +891,7 @@ methods:
                      "AllegroFlare::Runners::Complete::setup_router",
                      "In on_save_callback_func, attempted to save an \"quicksave\" type save, but there are no "
                         "quicksave save slots in the current configuration. To set the number of quicksave slots in "
-                        "your game's derived GameConfiguration by overriding \"int get_num_quicksave_save_slots()\" to "
+                        "your game's derived GameConfiguration, override \"int get_num_quicksave_save_slots()\" to "
                         "return the number of slots you want to have available in your game."
                   );
                }
