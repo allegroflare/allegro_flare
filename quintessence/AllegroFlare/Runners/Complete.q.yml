@@ -65,7 +65,7 @@ properties:
     getter: explicit
     setter: explicit
 
-  - name: current_save_slot_position
+  - name: current_manual_save_slot_position
     type: int
     init_with: 0
     getter: explicit
@@ -264,7 +264,7 @@ methods:
       saving_and_loading.create_save_file_directories_if_they_do_not_exist();
       saving_and_loading.scan_for_existing_save_files_and_load_header_data();
       set_current_save_profile_id(1); // TODO: Eventually, have this automatically loaded at start time
-      set_current_save_slot_position(1); // TODO: Eventually, have this automataically loaded at start time
+      set_current_manual_save_slot_position(1); // TODO: Eventually, have this automataically loaded at start time
 
       // Create the shared background
       shared_background = game_configuration->create_shared_background();
@@ -507,24 +507,24 @@ methods:
       return;
 
 
-  - name: get_current_save_slot_position
+  - name: get_current_manual_save_slot_position
     type: int
     guards: [ initialized ]
     body: |
-      return current_save_slot_position;
+      return current_manual_save_slot_position;
 
 
-  - name: set_current_save_slot_position
+  - name: set_current_manual_save_slot_position
     parameters:
-      - name: current_save_slot_position
+      - name: current_manual_save_slot_position
         type: int
         default_argument: 1
     guards:
       - saving_and_loading.get_initialized()
-      - (current_save_slot_position >= 1)
-      - (current_save_slot_position <= saving_and_loading.get_num_profiles())
+      - (current_manual_save_slot_position >= 1)
+      - (current_manual_save_slot_position <= saving_and_loading.get_num_profiles())
     body: |
-      this->current_save_slot_position = current_save_slot_position;
+      this->current_manual_save_slot_position = current_manual_save_slot_position;
       return;
 
 
@@ -813,7 +813,7 @@ methods:
             //std::string save_file_content = "{}"; // TODO: Load from save slot // HERE
             std::string save_file_content = saving_and_loading.load_content_from_manual_save_content_file(
                current_save_profile_id,
-               current_save_slot_position
+               current_manual_save_slot_position
                //1 // Save slot position // TODO: Make this configurable
                //save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
             );
@@ -839,20 +839,54 @@ methods:
 
       // When saving
       router.set_on_save_game_func(
-         [this](AllegroFlare::Routers::Standard* router, void* user_data) {
+         [this](AllegroFlare::Routers::Standard* router, std::string save_type, void* user_data) {
+
+            // Possible values for save_type in this context are "manual", "autosave", or "quicksave"
+
             // TODO: Improve this info message
             AllegroFlare::Logger::info_from(
                THIS_CLASS_AND_METHOD_NAME,
                "Saving game..."
             );
 
-            // Save the actual content to the save slot
-            std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
-            saving_and_loading.save_to_manual_save_slot(
-               current_save_profile_id,
-               current_save_slot_position, //1, // Save slot position // TODO: Make this configurable
-               save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
-            );
+            if (save_type == "manual")
+            {
+               // Save the actual content to the save slot
+               std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
+               saving_and_loading.save_to_manual_save_slot(
+                  current_save_profile_id,
+                  current_manual_save_slot_position, //1, // Save slot position // TODO: Make this configurable
+                  save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
+               );
+            }
+            else if (save_type == "autosave")
+            {
+               // HERE
+               // TODO: Confirm autosave is available
+               std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
+               saving_and_loading.save_to_autosave(
+                  current_save_profile_id,
+                  save_file_content
+               );
+            }
+            else if (save_type == "quicksave")
+            {
+               // HERE
+               // TODO: Confirm quicksave is available
+               std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
+               saving_and_loading.save_to_quicksave(
+                  current_save_profile_id,
+                  save_file_content
+               );
+            }
+            else
+            {
+               // TODO: Test this
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Runners::Complete::setup_router",
+                  "In on_save_callback_func, an invalid save_type argument \"" + save_type + "\" was provided."
+               );
+            }
 
             // TODO: Improve this info message
             AllegroFlare::Logger::info_from(
@@ -1101,6 +1135,26 @@ methods:
             // TODO: Here, emit route event for now. Consider making this an explicit event handling
             this->router.emit_route_event(
                AllegroFlare::Routers::Standard::EVENT_SAVE_TO_MANUAL_SAVE,
+               nullptr,
+               al_get_time()
+            );
+         }
+      );
+      primary_gameplay_screen->set_on_autosave_save_callback_func(
+         [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
+            // TODO: Here, emit route event for now. Consider making this an explicit event handling
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_SAVE_TO_AUTOSAVE_SAVE,
+               nullptr,
+               al_get_time()
+            );
+         }
+      );
+      primary_gameplay_screen->set_on_quicksave_save_callback_func(
+         [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
+            // TODO: Here, emit route event for now. Consider making this an explicit event handling
+            this->router.emit_route_event(
+               AllegroFlare::Routers::Standard::EVENT_SAVE_TO_QUICKSAVE_SAVE,
                nullptr,
                al_get_time()
             );

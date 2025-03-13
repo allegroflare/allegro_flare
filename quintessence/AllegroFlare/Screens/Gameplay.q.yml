@@ -45,6 +45,30 @@ properties:
     getter: true
     setter: true
 
+  - name: on_autosave_save_callback_func
+    type: std::function<void(AllegroFlare::Screens::Gameplay*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_autosave_save_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: on_quicksave_save_callback_func
+    type: std::function<void(AllegroFlare::Screens::Gameplay*, void*)>
+    init_with: ''
+    getter: true
+    setter: true
+
+  - name: on_quicksave_save_callback_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: player_input_controller
     type: AllegroFlare::PlayerInputControllers::Base*
     init_with: nullptr
@@ -347,6 +371,34 @@ methods:
          return;
       }
       on_manual_save_callback_func(this, on_manual_save_callback_func_user_data);
+      return;
+
+
+  - name: save_to_autosave_save
+    body: |
+      if (!on_autosave_save_callback_func)
+      {
+         AllegroFlare::Logger::warn_from_once(THIS_CLASS_AND_METHOD_NAME,
+            "Expecting this class to have \"on_autosave_save_callback_func\" defined but it is not. Unable to delegate "
+            "this method to the callback to handle it."
+         );
+         return;
+      }
+      on_autosave_save_callback_func(this, on_autosave_save_callback_func_user_data);
+      return;
+
+
+  - name: save_to_quicksave_save
+    body: |
+      if (!on_quicksave_save_callback_func)
+      {
+         AllegroFlare::Logger::warn_from_once(THIS_CLASS_AND_METHOD_NAME,
+            "Expecting this class to have \"on_quicksave_save_callback_func\" defined but it is not. Unable to "
+            "delegate this method to the callback to handle it."
+         );
+         return;
+      }
+      on_quicksave_save_callback_func(this, on_quicksave_save_callback_func_user_data);
       return;
 
 

@@ -124,7 +124,7 @@ void Standard::set_on_load_save_file_content_into_gameplay_func_user_data(void* 
 }
 
 
-void Standard::set_on_save_game_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_save_game_func)
+void Standard::set_on_save_game_func(std::function<void(AllegroFlare::Routers::Standard*, std::string, void*)> on_save_game_func)
 {
    this->on_save_game_func = on_save_game_func;
 }
@@ -268,7 +268,7 @@ void* Standard::get_on_load_save_file_content_into_gameplay_func_user_data() con
 }
 
 
-std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_save_game_func() const
+std::function<void(AllegroFlare::Routers::Standard*, std::string, void*)> Standard::get_on_save_game_func() const
 {
    return on_save_game_func;
 }
@@ -395,6 +395,8 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
       {EVENT_LOAD_A_SAVED_GAME, "EVENT_LOAD_A_SAVED_GAME" },
       {EVENT_SAVE_TO_MANUAL_SAVE, "EVENT_SAVE_TO_MANUAL_SAVE"},
+      {EVENT_SAVE_TO_AUTOSAVE_SAVE, "EVENT_SAVE_TO_AUTOSAVE_SAVE"},
+      {EVENT_SAVE_TO_QUICKSAVE_SAVE, "EVENT_SAVE_TO_QUICKSAVE_SAVE"},
       {EVENT_PAUSE_GAME, "EVENT_PAUSE_GAME"},
       {EVENT_UNPAUSE_GAME, "EVENT_UNPAUSE_GAME"},
       {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
@@ -649,7 +651,21 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          // TODO: Consider that this callback method should be renamed or organized differently
          if (on_save_game_func)
          {
-            on_save_game_func(this, on_save_game_func_user_data);
+            on_save_game_func(this, "manual", on_save_game_func_user_data);
+         }
+      }},
+      { EVENT_SAVE_TO_AUTOSAVE_SAVE, [this](){
+         // TODO: Consider that this callback method should be renamed or organized differently
+         if (on_save_game_func)
+         {
+            on_save_game_func(this, "autosave", on_save_game_func_user_data);
+         }
+      }},
+      { EVENT_SAVE_TO_QUICKSAVE_SAVE, [this](){
+         // TODO: Consider that this callback method should be renamed or organized differently
+         if (on_save_game_func)
+         {
+            on_save_game_func(this, "quicksave", on_save_game_func_user_data);
          }
       }},
       { EVENT_PAUSE_GAME, [this](){

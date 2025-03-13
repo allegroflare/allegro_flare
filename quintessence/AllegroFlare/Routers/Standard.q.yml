@@ -89,7 +89,7 @@ properties:
     setter: true
 
   - name: on_save_game_func
-    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    type: std::function<void(AllegroFlare::Routers::Standard*, std::string, void*)>
     init_with: '{}'
     getter: true
     setter: true
@@ -333,6 +333,8 @@ enums:
       - EVENT_CONTINUE_FROM_LAST_SAVE
       - EVENT_LOAD_A_SAVED_GAME
       - EVENT_SAVE_TO_MANUAL_SAVE
+      - EVENT_SAVE_TO_AUTOSAVE_SAVE
+      - EVENT_SAVE_TO_QUICKSAVE_SAVE
       - EVENT_PAUSE_GAME
       - EVENT_UNPAUSE_GAME
       - EVENT_WIN_GAME
@@ -430,6 +432,8 @@ methods:
          {EVENT_CONTINUE_FROM_LAST_SAVE, "EVENT_CONTINUE_FROM_LAST_SAVE"},
          {EVENT_LOAD_A_SAVED_GAME, "EVENT_LOAD_A_SAVED_GAME" },
          {EVENT_SAVE_TO_MANUAL_SAVE, "EVENT_SAVE_TO_MANUAL_SAVE"},
+         {EVENT_SAVE_TO_AUTOSAVE_SAVE, "EVENT_SAVE_TO_AUTOSAVE_SAVE"},
+         {EVENT_SAVE_TO_QUICKSAVE_SAVE, "EVENT_SAVE_TO_QUICKSAVE_SAVE"},
          {EVENT_PAUSE_GAME, "EVENT_PAUSE_GAME"},
          {EVENT_UNPAUSE_GAME, "EVENT_UNPAUSE_GAME"},
          {EVENT_WIN_GAME, "EVENT_WIN_GAME"},
@@ -685,7 +689,21 @@ methods:
             // TODO: Consider that this callback method should be renamed or organized differently
             if (on_save_game_func)
             {
-               on_save_game_func(this, on_save_game_func_user_data);
+               on_save_game_func(this, "manual", on_save_game_func_user_data);
+            }
+         }},
+         { EVENT_SAVE_TO_AUTOSAVE_SAVE, [this](){
+            // TODO: Consider that this callback method should be renamed or organized differently
+            if (on_save_game_func)
+            {
+               on_save_game_func(this, "autosave", on_save_game_func_user_data);
+            }
+         }},
+         { EVENT_SAVE_TO_QUICKSAVE_SAVE, [this](){
+            // TODO: Consider that this callback method should be renamed or organized differently
+            if (on_save_game_func)
+            {
+               on_save_game_func(this, "quicksave", on_save_game_func_user_data);
             }
          }},
          { EVENT_PAUSE_GAME, [this](){

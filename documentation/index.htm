@@ -35534,7 +35534,7 @@ table td
 </tr>
 <tr>
   <td class="property">on_save_game_func</td>
-  <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, void*)&gt;</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Routers::Standard*, std::string, void*)&gt;</td>
 </tr>
 <tr>
   <td class="property">on_save_game_func_user_data</td>
@@ -35913,7 +35913,7 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
-  <td class="property">current_save_slot_position</td>
+  <td class="property">current_manual_save_slot_position</td>
   <td class="property">int</td>
 </tr>
 <tr>
@@ -36049,11 +36049,11 @@ table td
 </tr>
 <tr>
   <td class="method">int</td>
-  <td class="method"><b>get_current_save_slot_position</b>()</td>
+  <td class="method"><b>get_current_manual_save_slot_position</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>set_current_save_slot_position</b>(int current_save_slot_position=1)</td>
+  <td class="method"><b>set_current_manual_save_slot_position</b>(int current_manual_save_slot_position=1)</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -36644,6 +36644,14 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>save_to_manual_save_slot</b>(int profile_id=0, int save_slot_position=0, std::string content=&quot;[unset-content]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>save_to_autosave</b>(int profile_id=0, std::string content=&quot;[unset-content]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>save_to_quicksave</b>(int profile_id=0, std::string content=&quot;[unset-content]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">void</td>
@@ -38209,6 +38217,22 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_autosave_save_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::Gameplay*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_autosave_save_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">on_quicksave_save_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Screens::Gameplay*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_quicksave_save_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">player_input_controller</td>
   <td class="property">AllegroFlare::PlayerInputControllers::Base*</td>
 </tr>
@@ -38262,6 +38286,14 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>save_to_manual_save</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>save_to_autosave_save</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>save_to_quicksave_save</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>

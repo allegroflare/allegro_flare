@@ -35,7 +35,7 @@ Complete::Complete(AllegroFlare::Frameworks::Full* framework, AllegroFlare::Even
    , router()
    , saving_and_loading()
    , current_save_profile_id(0)
-   , current_save_slot_position(0)
+   , current_manual_save_slot_position(0)
    , intro_logos_screen()
    , intro_storyboard_screen()
    , title_screen()
@@ -307,7 +307,7 @@ void Complete::initialize()
    saving_and_loading.create_save_file_directories_if_they_do_not_exist();
    saving_and_loading.scan_for_existing_save_files_and_load_header_data();
    set_current_save_profile_id(1); // TODO: Eventually, have this automatically loaded at start time
-   set_current_save_slot_position(1); // TODO: Eventually, have this automataically loaded at start time
+   set_current_manual_save_slot_position(1); // TODO: Eventually, have this automataically loaded at start time
 
    // Create the shared background
    shared_background = game_configuration->create_shared_background();
@@ -573,42 +573,42 @@ void Complete::set_current_save_profile_id(int current_save_profile_id)
    return;
 }
 
-int Complete::get_current_save_slot_position()
+int Complete::get_current_manual_save_slot_position()
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Runners::Complete::get_current_save_slot_position]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::get_current_manual_save_slot_position]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Runners::Complete::get_current_save_slot_position]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::get_current_manual_save_slot_position]: error: guard \"initialized\" not met");
    }
-   return current_save_slot_position;
+   return current_manual_save_slot_position;
 }
 
-void Complete::set_current_save_slot_position(int current_save_slot_position)
+void Complete::set_current_manual_save_slot_position(int current_manual_save_slot_position)
 {
    if (!(saving_and_loading.get_initialized()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Runners::Complete::set_current_save_slot_position]: error: guard \"saving_and_loading.get_initialized()\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::set_current_manual_save_slot_position]: error: guard \"saving_and_loading.get_initialized()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_save_slot_position]: error: guard \"saving_and_loading.get_initialized()\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_manual_save_slot_position]: error: guard \"saving_and_loading.get_initialized()\" not met");
    }
-   if (!((current_save_slot_position >= 1)))
+   if (!((current_manual_save_slot_position >= 1)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Runners::Complete::set_current_save_slot_position]: error: guard \"(current_save_slot_position >= 1)\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::set_current_manual_save_slot_position]: error: guard \"(current_manual_save_slot_position >= 1)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_save_slot_position]: error: guard \"(current_save_slot_position >= 1)\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_manual_save_slot_position]: error: guard \"(current_manual_save_slot_position >= 1)\" not met");
    }
-   if (!((current_save_slot_position <= saving_and_loading.get_num_profiles())))
+   if (!((current_manual_save_slot_position <= saving_and_loading.get_num_profiles())))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Runners::Complete::set_current_save_slot_position]: error: guard \"(current_save_slot_position <= saving_and_loading.get_num_profiles())\" not met.";
+      error_message << "[AllegroFlare::Runners::Complete::set_current_manual_save_slot_position]: error: guard \"(current_manual_save_slot_position <= saving_and_loading.get_num_profiles())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_save_slot_position]: error: guard \"(current_save_slot_position <= saving_and_loading.get_num_profiles())\" not met");
+      throw std::runtime_error("[AllegroFlare::Runners::Complete::set_current_manual_save_slot_position]: error: guard \"(current_manual_save_slot_position <= saving_and_loading.get_num_profiles())\" not met");
    }
-   this->current_save_slot_position = current_save_slot_position;
+   this->current_manual_save_slot_position = current_manual_save_slot_position;
    return;
 }
 
@@ -924,7 +924,7 @@ void Complete::setup_router()
          //std::string save_file_content = "{}"; // TODO: Load from save slot // HERE
          std::string save_file_content = saving_and_loading.load_content_from_manual_save_content_file(
             current_save_profile_id,
-            current_save_slot_position
+            current_manual_save_slot_position
             //1 // Save slot position // TODO: Make this configurable
             //save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
          );
@@ -950,20 +950,54 @@ void Complete::setup_router()
 
    // When saving
    router.set_on_save_game_func(
-      [this](AllegroFlare::Routers::Standard* router, void* user_data) {
+      [this](AllegroFlare::Routers::Standard* router, std::string save_type, void* user_data) {
+
+         // Possible values for save_type in this context are "manual", "autosave", or "quicksave"
+
          // TODO: Improve this info message
          AllegroFlare::Logger::info_from(
             THIS_CLASS_AND_METHOD_NAME,
             "Saving game..."
          );
 
-         // Save the actual content to the save slot
-         std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
-         saving_and_loading.save_to_manual_save_slot(
-            current_save_profile_id,
-            current_save_slot_position, //1, // Save slot position // TODO: Make this configurable
-            save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
-         );
+         if (save_type == "manual")
+         {
+            // Save the actual content to the save slot
+            std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
+            saving_and_loading.save_to_manual_save_slot(
+               current_save_profile_id,
+               current_manual_save_slot_position, //1, // Save slot position // TODO: Make this configurable
+               save_file_content // Something like "{\"from\", \"Runners/Complete\"}"
+            );
+         }
+         else if (save_type == "autosave")
+         {
+            // HERE
+            // TODO: Confirm autosave is available
+            std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
+            saving_and_loading.save_to_autosave(
+               current_save_profile_id,
+               save_file_content
+            );
+         }
+         else if (save_type == "quicksave")
+         {
+            // HERE
+            // TODO: Confirm quicksave is available
+            std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
+            saving_and_loading.save_to_quicksave(
+               current_save_profile_id,
+               save_file_content
+            );
+         }
+         else
+         {
+            // TODO: Test this
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Runners::Complete::setup_router",
+               "In on_save_callback_func, an invalid save_type argument \"" + save_type + "\" was provided."
+            );
+         }
 
          // TODO: Improve this info message
          AllegroFlare::Logger::info_from(
@@ -1212,6 +1246,26 @@ void Complete::setup_router()
          // TODO: Here, emit route event for now. Consider making this an explicit event handling
          this->router.emit_route_event(
             AllegroFlare::Routers::Standard::EVENT_SAVE_TO_MANUAL_SAVE,
+            nullptr,
+            al_get_time()
+         );
+      }
+   );
+   primary_gameplay_screen->set_on_autosave_save_callback_func(
+      [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
+         // TODO: Here, emit route event for now. Consider making this an explicit event handling
+         this->router.emit_route_event(
+            AllegroFlare::Routers::Standard::EVENT_SAVE_TO_AUTOSAVE_SAVE,
+            nullptr,
+            al_get_time()
+         );
+      }
+   );
+   primary_gameplay_screen->set_on_quicksave_save_callback_func(
+      [this](AllegroFlare::Screens::Gameplay* screen, void* data) {
+         // TODO: Here, emit route event for now. Consider making this an explicit event handling
+         this->router.emit_route_event(
+            AllegroFlare::Routers::Standard::EVENT_SAVE_TO_QUICKSAVE_SAVE,
             nullptr,
             al_get_time()
          );

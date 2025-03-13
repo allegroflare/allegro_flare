@@ -365,6 +365,76 @@ void SavingAndLoading::save_to_manual_save_slot(int profile_id, int save_slot_po
    return;
 }
 
+void SavingAndLoading::save_to_autosave(int profile_id, std::string content)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_autosave]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_autosave]: error: guard \"initialized\" not met");
+   }
+   if (!((profile_id >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_autosave]: error: guard \"(profile_id >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_autosave]: error: guard \"(profile_id >= 0)\" not met");
+   }
+   if (!((profile_id <= num_profiles)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_autosave]: error: guard \"(profile_id <= num_profiles)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_autosave]: error: guard \"(profile_id <= num_profiles)\" not met");
+   }
+   // TODO: Test this
+   // TODO: Find a way to not pass along copy of string data (for performance?)
+   // TODO: Confirm an autosave slot is available, or throw an error.
+   save_to_save_slot(
+      profile_id,
+      1, // TODO: Obtain either an empty save slot, or find the most recent autosave to overwrite
+      AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_AUTO_SAVE,
+      content
+   );
+   return;
+}
+
+void SavingAndLoading::save_to_quicksave(int profile_id, std::string content)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_quicksave]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_quicksave]: error: guard \"initialized\" not met");
+   }
+   if (!((profile_id >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_quicksave]: error: guard \"(profile_id >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_quicksave]: error: guard \"(profile_id >= 0)\" not met");
+   }
+   if (!((profile_id <= num_profiles)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_quicksave]: error: guard \"(profile_id <= num_profiles)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::save_to_quicksave]: error: guard \"(profile_id <= num_profiles)\" not met");
+   }
+   // TODO: Test this
+   // TODO: Find a way to not pass along copy of string data (for performance?)
+   // TODO: Confirm a quicksave slot is available, or throw an error.
+   save_to_save_slot(
+      profile_id,
+      1, // TODO: Obtain either an empty save slot, or find the most recent quicksave to overwrite
+      AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_QUICK_SAVE,
+      content
+   );
+   return;
+}
+
 void SavingAndLoading::save_to_save_slot(int profile_id, int save_slot_position, uint32_t save_slot_type, std::string content)
 {
    if (!(initialized))

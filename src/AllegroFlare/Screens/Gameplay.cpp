@@ -19,6 +19,10 @@ Gameplay::Gameplay()
    , on_finished_callback_func_user_data(nullptr)
    , on_manual_save_callback_func()
    , on_manual_save_callback_func_user_data(nullptr)
+   , on_autosave_save_callback_func()
+   , on_autosave_save_callback_func_user_data(nullptr)
+   , on_quicksave_save_callback_func()
+   , on_quicksave_save_callback_func_user_data(nullptr)
    , player_input_controller(nullptr)
    , gameplay_suspended(false)
    , suspended_keyboard_state({})
@@ -69,6 +73,30 @@ void Gameplay::set_on_manual_save_callback_func_user_data(void* on_manual_save_c
 }
 
 
+void Gameplay::set_on_autosave_save_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_autosave_save_callback_func)
+{
+   this->on_autosave_save_callback_func = on_autosave_save_callback_func;
+}
+
+
+void Gameplay::set_on_autosave_save_callback_func_user_data(void* on_autosave_save_callback_func_user_data)
+{
+   this->on_autosave_save_callback_func_user_data = on_autosave_save_callback_func_user_data;
+}
+
+
+void Gameplay::set_on_quicksave_save_callback_func(std::function<void(AllegroFlare::Screens::Gameplay*, void*)> on_quicksave_save_callback_func)
+{
+   this->on_quicksave_save_callback_func = on_quicksave_save_callback_func;
+}
+
+
+void Gameplay::set_on_quicksave_save_callback_func_user_data(void* on_quicksave_save_callback_func_user_data)
+{
+   this->on_quicksave_save_callback_func_user_data = on_quicksave_save_callback_func_user_data;
+}
+
+
 void Gameplay::set_disable_escape_key_pauses_game(bool disable_escape_key_pauses_game)
 {
    this->disable_escape_key_pauses_game = disable_escape_key_pauses_game;
@@ -108,6 +136,30 @@ std::function<void(AllegroFlare::Screens::Gameplay*, void*)> Gameplay::get_on_ma
 void* Gameplay::get_on_manual_save_callback_func_user_data() const
 {
    return on_manual_save_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::Gameplay*, void*)> Gameplay::get_on_autosave_save_callback_func() const
+{
+   return on_autosave_save_callback_func;
+}
+
+
+void* Gameplay::get_on_autosave_save_callback_func_user_data() const
+{
+   return on_autosave_save_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Screens::Gameplay*, void*)> Gameplay::get_on_quicksave_save_callback_func() const
+{
+   return on_quicksave_save_callback_func;
+}
+
+
+void* Gameplay::get_on_quicksave_save_callback_func_user_data() const
+{
+   return on_quicksave_save_callback_func_user_data;
 }
 
 
@@ -387,6 +439,34 @@ void Gameplay::save_to_manual_save()
       return;
    }
    on_manual_save_callback_func(this, on_manual_save_callback_func_user_data);
+   return;
+}
+
+void Gameplay::save_to_autosave_save()
+{
+   if (!on_autosave_save_callback_func)
+   {
+      AllegroFlare::Logger::warn_from_once(THIS_CLASS_AND_METHOD_NAME,
+         "Expecting this class to have \"on_autosave_save_callback_func\" defined but it is not. Unable to delegate "
+         "this method to the callback to handle it."
+      );
+      return;
+   }
+   on_autosave_save_callback_func(this, on_autosave_save_callback_func_user_data);
+   return;
+}
+
+void Gameplay::save_to_quicksave_save()
+{
+   if (!on_quicksave_save_callback_func)
+   {
+      AllegroFlare::Logger::warn_from_once(THIS_CLASS_AND_METHOD_NAME,
+         "Expecting this class to have \"on_quicksave_save_callback_func\" defined but it is not. Unable to "
+         "delegate this method to the callback to handle it."
+      );
+      return;
+   }
+   on_quicksave_save_callback_func(this, on_quicksave_save_callback_func_user_data);
    return;
 }
 

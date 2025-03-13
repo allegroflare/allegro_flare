@@ -218,6 +218,56 @@ methods:
       return;
 
 
+  - name: save_to_autosave
+    parameters:
+      - name: profile_id
+        type: int
+        default_argument: 0
+      - name: content
+        type: std::string
+        default_argument: '"[unset-content]"'
+    guards:
+      - initialized
+      - (profile_id >= 0)
+      - (profile_id <= num_profiles)
+    body: |
+      // TODO: Test this
+      // TODO: Find a way to not pass along copy of string data (for performance?)
+      // TODO: Confirm an autosave slot is available, or throw an error.
+      save_to_save_slot(
+         profile_id,
+         1, // TODO: Obtain either an empty save slot, or find the most recent autosave to overwrite
+         AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_AUTO_SAVE,
+         content
+      );
+      return;
+
+
+  - name: save_to_quicksave
+    parameters:
+      - name: profile_id
+        type: int
+        default_argument: 0
+      - name: content
+        type: std::string
+        default_argument: '"[unset-content]"'
+    guards:
+      - initialized
+      - (profile_id >= 0)
+      - (profile_id <= num_profiles)
+    body: |
+      // TODO: Test this
+      // TODO: Find a way to not pass along copy of string data (for performance?)
+      // TODO: Confirm a quicksave slot is available, or throw an error.
+      save_to_save_slot(
+         profile_id,
+         1, // TODO: Obtain either an empty save slot, or find the most recent quicksave to overwrite
+         AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_QUICK_SAVE,
+         content
+      );
+      return;
+
+
   - name: save_to_save_slot
     private: true
     parameters:
