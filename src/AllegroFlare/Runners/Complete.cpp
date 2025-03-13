@@ -970,12 +970,34 @@ void Complete::setup_router()
       });
    router.set_on_load_save_file_content_into_gameplay_func_user_data(this);
    router.set_on_start_new_game_with_empty_save_slot_func(
-      [](AllegroFlare::Routers::Standard* router, void* user_data) {
-         // TODO: This method
-         // HERE
-         AllegroFlare::Logger::info_from(
-            "AllegroFlare::Runners::Complete::setup_router",
-            "In definition for on_start_new_game_with_empty_save_slot_func, this method is not implemented");
+      [this](AllegroFlare::Routers::Standard* router, void* user_data) {
+         // NOTE: I don't think there's anything to do here.
+         // TODO: You could consider saving an *inital* save file for the user. Alternatively (as it's currently
+         // set up) no saving to the current save slot will occur until the gameplay causes the first save.
+
+         // Obtain and assign the save slot position
+         AllegroFlare::SavingAndLoading::SaveSlot *currently_selected_save_slot_in_the_saving_and_loading_screen =
+            saving_and_loading_screen.get_currently_selected_save_slot();
+
+         if (!currently_selected_save_slot_in_the_saving_and_loading_screen)
+         {
+            AllegroFlare::Logger::throw_error("AllegroFlare::Runners::Complete::setup_router",
+               "When attempting to obtain the currently selected save slot from the saving_and_loading screen, "
+                  "a nullptr was returned."
+            );
+         }
+
+         int manual_save_slot_position =
+            currently_selected_save_slot_in_the_saving_and_loading_screen->get_save_slot_position();
+         current_manual_save_slot_position = manual_save_slot_position; // Is this necessary?
+
+         // Immediately progress to starting the game, note this is different from loading a saved game which
+         // emits EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN, allowing new game storyboards to activate
+         this->router.emit_route_event(
+            AllegroFlare::Routers::Standard::EVENT_START_NEW_GAME,
+            nullptr,
+            al_get_time()
+         );
       });
 
    // When saving
