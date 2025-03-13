@@ -962,6 +962,7 @@ void Complete::setup_router()
 
          if (save_type == "manual")
          {
+            // TODO: Test this
             // Save the actual content to the save slot
             std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
             saving_and_loading.save_to_manual_save_slot(
@@ -972,8 +973,19 @@ void Complete::setup_router()
          }
          else if (save_type == "autosave")
          {
-            // HERE
-            // TODO: Confirm autosave is available
+            // Confirm autosave is available before attempting save
+            if (!saving_and_loading.has_autosave_save_slots())
+            {
+               // TODO: Test this
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Runners::Complete::setup_router",
+                  "In on_save_callback_func, attempted to save an \"autosave\" type save, but there are no "
+                     "autosave save slots in the current configuration. To set the number of autosave slots in "
+                     "your game's derived GameConfiguration by overriding \"int get_num_autosave_save_slots()\" to "
+                     "return the number of slots you want to have available in your game."
+               );
+            }
+
             std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
             saving_and_loading.save_to_autosave(
                current_save_profile_id,
@@ -982,8 +994,19 @@ void Complete::setup_router()
          }
          else if (save_type == "quicksave")
          {
-            // HERE
-            // TODO: Confirm quicksave is available
+            // Confirm quicksave is available before attempting save
+            if (!saving_and_loading.has_quicksave_save_slots())
+            {
+               // TODO: Test this
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Runners::Complete::setup_router",
+                  "In on_save_callback_func, attempted to save an \"quicksave\" type save, but there are no "
+                     "quicksave save slots in the current configuration. To set the number of quicksave slots in "
+                     "your game's derived GameConfiguration by overriding \"int get_num_quicksave_save_slots()\" to "
+                     "return the number of slots you want to have available in your game."
+               );
+            }
+
             std::string save_file_content = this->game_configuration->build_save_file_content_for_current_game();
             saving_and_loading.save_to_quicksave(
                current_save_profile_id,

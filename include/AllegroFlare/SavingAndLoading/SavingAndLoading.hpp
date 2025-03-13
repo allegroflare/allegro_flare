@@ -48,7 +48,8 @@ namespace AllegroFlare
          int num_save_slots();
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> get_manual_save_slots(int profile_id=1);
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> get_autosave_save_slots(int profile_id=1);
-         std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> sort_by_empty_then_oldest(std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> save_slots={});
+         std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> get_quicksave_save_slots(int profile_id=1);
+         static void sort_by_empty_then_oldest(std::vector<AllegroFlare::SavingAndLoading::SaveSlot*>* unsorted_save_slots=nullptr);
          void initialize();
          void scan_for_existing_save_files_and_load_header_data();
          void save_to_manual_save_slot(int profile_id=0, int save_slot_position=0, std::string content="[unset-content]");
@@ -56,6 +57,8 @@ namespace AllegroFlare
          void save_to_quicksave(int profile_id=0, std::string content="[unset-content]");
          std::string load_content_from_manual_save_content_file(int profile_id=0, int save_slot_position=0);
          AllegroFlare::SavingAndLoading::SaveSlot* find_save_slot(int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF);
+         bool has_quicksave_save_slots();
+         bool has_autosave_save_slots();
          void create_save_file_directories_if_they_do_not_exist();
       };
    }

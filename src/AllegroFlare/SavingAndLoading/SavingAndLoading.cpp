@@ -171,6 +171,7 @@ std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_aut
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_autosave_save_slots]: error: guard \"(profile_id <= num_profiles)\" not met");
    }
+   // TODO: Test this
    std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> result;
    result.reserve(num_autosave_save_slots);
    for (auto &save_slot : save_slots)
@@ -188,10 +189,59 @@ std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_aut
    return result;
 }
 
-std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::sort_by_empty_then_oldest(std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> save_slots)
+std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::get_quicksave_save_slots(int profile_id)
 {
-   std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> sorted_result;
-   std::sort(sorted_result.begin(), sorted_result.end(),
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::get_quicksave_save_slots]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_quicksave_save_slots]: error: guard \"initialized\" not met");
+   }
+   if (!((profile_id >= 1)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::get_quicksave_save_slots]: error: guard \"(profile_id >= 1)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_quicksave_save_slots]: error: guard \"(profile_id >= 1)\" not met");
+   }
+   if (!((profile_id <= num_profiles)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::get_quicksave_save_slots]: error: guard \"(profile_id <= num_profiles)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::get_quicksave_save_slots]: error: guard \"(profile_id <= num_profiles)\" not met");
+   }
+   // TODO: Test this
+   std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> result;
+   result.reserve(num_quicksave_save_slots);
+   for (auto &save_slot : save_slots)
+   {
+      if (save_slot.is_quicksave_save() && save_slot.is_profile_id(profile_id)) result.push_back(&save_slot);
+   }
+   if (result.size() != num_quicksave_save_slots)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "When querying for save slots, the number of retrieved quicksave slots (" + std::to_string(result.size())
+            + ") did not match the number of quicksave slots configured on the class (" +
+            std::to_string(num_quicksave_save_slots) + ")."
+      );
+   }
+   return result;
+}
+
+void SavingAndLoading::sort_by_empty_then_oldest(std::vector<AllegroFlare::SavingAndLoading::SaveSlot*>* unsorted_save_slots)
+{
+   if (!(unsorted_save_slots))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::sort_by_empty_then_oldest]: error: guard \"unsorted_save_slots\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::sort_by_empty_then_oldest]: error: guard \"unsorted_save_slots\" not met");
+   }
+   // TODO: Test this result
+   //std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> sorted_result;
+   std::sort(unsorted_save_slots->begin(), unsorted_save_slots->end(),
       [](AllegroFlare::SavingAndLoading::SaveSlot* a, // TODO: Use const... I suppose.
          AllegroFlare::SavingAndLoading::SaveSlot* b)
       {
@@ -209,7 +259,8 @@ std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> SavingAndLoading::sort_by
          }
          return false;
       });
-   return sorted_result;
+   //return sorted_result;
+   return;
 }
 
 void SavingAndLoading::initialize()
@@ -428,13 +479,33 @@ void SavingAndLoading::save_to_autosave(int profile_id, std::string content)
    }
    // TODO: Test this
    // TODO: Find a way to not pass along copy of string data (for performance?)
-   // TODO: Confirm an autosave slot is available, or throw an error.
-   save_to_save_slot(
-      profile_id,
-      1, // TODO: Obtain either an empty save slot, or find the most recent autosave to overwrite
-      AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_AUTO_SAVE,
-      content
-   );
+
+   // Ensure there are actually save slots in this configuration
+   if (num_autosave_save_slots == 0)
+   {
+      // No autosave slots are available in this current configuration
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "There are no autosave slots in this current configuration. To add autosave slots, be sure to call "
+         "\"set_num_autosave_slots(int num_of_slots)\" before calling \"initialize()\" on this class."
+      );
+   }
+
+   // Obtain autosave slots on this profile and sort them by order for use
+   std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> save_slots = get_autosave_save_slots(profile_id);
+   sort_by_empty_then_oldest(&save_slots);
+
+   // Confirm the number of save_slots returned is not empty
+   if (save_slots.empty())
+   {
+      // No autosave slots are available in this current configuration
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "The number of save_slots returned was 0. This is unexpected at this point in the logic flow."
+      );
+   }
+
+   AllegroFlare::SavingAndLoading::SaveSlot* save_slot_to_use = save_slots[0];
+   save_slot_to_use->save_to_slot(&content);
+
    return;
 }
 
@@ -463,13 +534,33 @@ void SavingAndLoading::save_to_quicksave(int profile_id, std::string content)
    }
    // TODO: Test this
    // TODO: Find a way to not pass along copy of string data (for performance?)
-   // TODO: Confirm a quicksave slot is available, or throw an error.
-   save_to_save_slot(
-      profile_id,
-      1, // TODO: Obtain either an empty save slot, or find the most recent quicksave to overwrite
-      AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_QUICK_SAVE,
-      content
-   );
+
+   // Ensure there are actually save slots in this configuration
+   if (num_quicksave_save_slots == 0)
+   {
+      // No quicksave slots are available in this current configuration
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "There are no quicksave slots in this current configuration. To add quicksave slots, be sure to call "
+         "\"set_num_quicksave_slots(int num_of_slots)\" before calling \"initialize()\" on this class."
+      );
+   }
+
+   // Obtain quicksave slots on this profile and sort them by order for use
+   std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> save_slots = get_quicksave_save_slots(profile_id);
+   sort_by_empty_then_oldest(&save_slots);
+
+   // Confirm the number of save_slots returned is not empty
+   if (save_slots.empty())
+   {
+      // No quicksave slots are available in this current configuration
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "The number of save_slots returned was 0. This is unexpected at this point in the logic flow."
+      );
+   }
+
+   AllegroFlare::SavingAndLoading::SaveSlot* save_slot_to_use = save_slots[0];
+   save_slot_to_use->save_to_slot(&content);
+
    return;
 }
 
@@ -592,6 +683,32 @@ AllegroFlare::SavingAndLoading::SaveSlot* SavingAndLoading::find_save_slot(int p
       return &save_slot;
    }
    return nullptr;
+}
+
+bool SavingAndLoading::has_quicksave_save_slots()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::has_quicksave_save_slots]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::has_quicksave_save_slots]: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   return num_quicksave_save_slots > 0;
+}
+
+bool SavingAndLoading::has_autosave_save_slots()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::has_autosave_save_slots]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::has_autosave_save_slots]: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   return num_autosave_save_slots > 0;
 }
 
 void SavingAndLoading::create_save_file_directories_if_they_do_not_exist()
