@@ -36762,6 +36762,10 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">mode</td>
+  <td class="property">uint32_t</td>
+</tr>
+<tr>
   <td class="property">state</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -36803,6 +36807,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>~destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_mode</b>(uint32_t mode=MODE_UNDEF)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -36919,6 +36927,14 @@ table td
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>is_valid_state</b>(uint32_t state=STATE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_valid_mode</b>(uint32_t mode=MODE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_mode</b>(uint32_t possible_mode=MODE_UNDEF)</td>
 </tr>
 <tr>
   <td class="method">bool</td>

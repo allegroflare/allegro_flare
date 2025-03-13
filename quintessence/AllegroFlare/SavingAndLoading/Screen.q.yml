@@ -68,6 +68,12 @@ properties:
     getter: true
     setter: true
 
+  - name: mode
+    type: uint32_t
+    init_with: MODE_UNDEF
+    getter: true
+    setter: explicit
+
   - name: state
     type: uint32_t
     init_with: STATE_UNDEF
@@ -108,6 +114,15 @@ properties:
 enums:
 
 
+  - name: Mode
+    scope: public
+    enumerators:
+      - MODE_UNDEF
+      - MODE_USER_CAN_CHOOSE_POPULATED_SLOT_OR_EMPTY_SLOT
+      - MODE_USER_CAN_CHOOSE_POPULATED_SLOT_ONLY
+      - MODE_USER_CAN_CHOOSE_EMPTY_SLOT_ONLY
+
+
   - scope: public
     enumerators:
       - STATE_UNDEF
@@ -140,6 +155,7 @@ methods:
       - al_is_font_addon_initialized()
       - (data_folder_path != DEFAULT_DATA_FOLDER_PATH)
       - saving_and_loading
+      - (mode != MODE_UNDEF)
     body: |
       set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
       bitmap_bin.set_full_path(AllegroFlare::BitmapBin::build_standard_path(data_folder_path));
@@ -172,6 +188,16 @@ methods:
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
+
+
+  - name: set_mode
+    parameters:
+      - name: mode
+        type: uint32_t
+        default_argument: MODE_UNDEF
+    guards: [ is_valid_mode(mode) ]
+    body: |
+      this->mode = mode;
 
 
   - name: on_activate
@@ -324,8 +350,14 @@ methods:
   - name: can_select_current_focused_menu_option
     type: bool
     body: |
+      AllegroFlare::SavingAndLoading::SaveSlot* currently_selected_save_slot = get_currently_selected_save_slot();
+
+      if (!currently_selected_save_slot) return false;
       if (!is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)) return false;
-      return true;
+      if (is_mode(MODE_USER_CAN_CHOOSE_POPULATED_SLOT_OR_EMPTY_SLOT)) return true;
+      if (is_mode(MODE_USER_CAN_CHOOSE_POPULATED_SLOT_ONLY) && !currently_selected_save_slot->is_empty()) return true;
+      if (is_mode(MODE_USER_CAN_CHOOSE_EMPTY_SLOT_ONLY) && currently_selected_save_slot->is_empty()) return true;
+      return false;
 
 
   - name: select_current_focused_menu_option
@@ -694,6 +726,35 @@ methods:
       return (valid_states.count(state) > 0);
     body_dependency_symbols:
       - std::set
+
+
+  - name: is_valid_mode
+    type: bool
+    static: true
+    parameters:
+      - name: mode
+        type: uint32_t
+        default_argument: MODE_UNDEF
+    body: |
+      std::set<uint32_t> valid_modes =
+      {
+         MODE_USER_CAN_CHOOSE_POPULATED_SLOT_ONLY,
+         MODE_USER_CAN_CHOOSE_POPULATED_SLOT_OR_EMPTY_SLOT,
+         MODE_USER_CAN_CHOOSE_EMPTY_SLOT_ONLY,
+      };
+      return (valid_modes.count(mode) > 0);
+    body_dependency_symbols:
+      - std::set
+
+
+  - name: is_mode
+    type: bool
+    parameters:
+      - name: possible_mode
+        type: uint32_t
+        default_argument: MODE_UNDEF
+    body: |
+     return (mode == possible_mode);
 
 
   - name: is_state

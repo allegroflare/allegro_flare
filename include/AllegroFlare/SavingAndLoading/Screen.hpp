@@ -29,6 +29,13 @@ namespace AllegroFlare
 
       public:
 
+         enum Mode
+         {
+            MODE_UNDEF = 0,
+            MODE_USER_CAN_CHOOSE_POPULATED_SLOT_OR_EMPTY_SLOT,
+            MODE_USER_CAN_CHOOSE_POPULATED_SLOT_ONLY,
+            MODE_USER_CAN_CHOOSE_EMPTY_SLOT_ONLY,
+         };
          enum
          {
             STATE_UNDEF = 0,
@@ -52,6 +59,7 @@ namespace AllegroFlare
          void* on_erase_focused_save_slot_func_user_data;
          std::function<void(AllegroFlare::SavingAndLoading::Screen*, void*)> on_exit_callback_func;
          void* on_exit_callback_func_user_data;
+         uint32_t mode;
          uint32_t state;
          bool state_is_busy;
          float state_changed_at;
@@ -81,11 +89,13 @@ namespace AllegroFlare
          void* get_on_erase_focused_save_slot_func_user_data() const;
          std::function<void(AllegroFlare::SavingAndLoading::Screen*, void*)> get_on_exit_callback_func() const;
          void* get_on_exit_callback_func_user_data() const;
+         uint32_t get_mode() const;
          uint32_t get_state() const;
          bool get_initialized() const;
          bool get_destroyed() const;
          void initialize();
          virtual void destroy() override;
+         void set_mode(uint32_t mode=MODE_UNDEF);
          virtual void on_activate() override;
          virtual void on_deactivate() override;
          void reveal_screen();
@@ -114,6 +124,8 @@ namespace AllegroFlare
          void complete_shutdown_and_activate_current_focused_menu_option();
          void update_state(float time_now=al_get_time());
          static bool is_valid_state(uint32_t state=STATE_UNDEF);
+         static bool is_valid_mode(uint32_t mode=MODE_UNDEF);
+         bool is_mode(uint32_t possible_mode=MODE_UNDEF);
          bool is_state(uint32_t possible_state=STATE_UNDEF);
          float infer_current_state_age(float time_now=al_get_time());
          bool infer_currently_drawing_user_cursor();

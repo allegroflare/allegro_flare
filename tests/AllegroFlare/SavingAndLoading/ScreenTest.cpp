@@ -102,6 +102,7 @@ TEST_F(AllegroFlare_SavingAndLoading_ScreenTestWithInteractionFixture,
       abort(); // Exit the test
    });
    screen.set_saving_and_loading(&saving_and_loading);
+   screen.set_mode(AllegroFlare::SavingAndLoading::Screen::MODE_USER_CAN_CHOOSE_POPULATED_SLOT_ONLY);
    //screen.set_save_slots({
       //new AllegroFlare::SavingAndLoading::SaveSlot(),
       //new AllegroFlare::SavingAndLoading::SaveSlot(),
@@ -164,11 +165,7 @@ TEST_F(AllegroFlare_SavingAndLoading_ScreenTestWithAllegroFrameworksFullFixture,
 
    AllegroFlare::SavingAndLoading::Screen screen(get_framework_data_folder_path());
    screen.set_saving_and_loading(&saving_and_loading);
-   //screen.set_save_slots({
-      //new AllegroFlare::SavingAndLoading::SaveSlot(),
-      //new AllegroFlare::SavingAndLoading::SaveSlot(),
-      //new AllegroFlare::SavingAndLoading::SaveSlot(),
-   //});
+   screen.set_mode(AllegroFlare::SavingAndLoading::Screen::MODE_USER_CAN_CHOOSE_POPULATED_SLOT_OR_EMPTY_SLOT);
 
    screen.initialize();
 

@@ -34,6 +34,7 @@ Screen::Screen(std::string data_folder_path)
    , on_erase_focused_save_slot_func_user_data(nullptr)
    , on_exit_callback_func({})
    , on_exit_callback_func_user_data(nullptr)
+   , mode(MODE_UNDEF)
    , state(STATE_UNDEF)
    , state_is_busy(false)
    , state_changed_at(0.0f)
@@ -141,6 +142,12 @@ void* Screen::get_on_exit_callback_func_user_data() const
 }
 
 
+uint32_t Screen::get_mode() const
+{
+   return mode;
+}
+
+
 uint32_t Screen::get_state() const
 {
    return state;
@@ -210,6 +217,13 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::initialize]: error: guard \"saving_and_loading\" not met");
    }
+   if (!((mode != MODE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::Screen::initialize]: error: guard \"(mode != MODE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::initialize]: error: guard \"(mode != MODE_UNDEF)\" not met");
+   }
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    bitmap_bin.set_full_path(AllegroFlare::BitmapBin::build_standard_path(data_folder_path));
    font_bin.set_full_path(AllegroFlare::FontBin::build_standard_path(data_folder_path));
@@ -237,6 +251,18 @@ void Screen::destroy()
    font_bin.clear();
    destroyed = true;
    return;
+}
+
+void Screen::set_mode(uint32_t mode)
+{
+   if (!(is_valid_mode(mode)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::Screen::set_mode]: error: guard \"is_valid_mode(mode)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::set_mode]: error: guard \"is_valid_mode(mode)\" not met");
+   }
+   this->mode = mode;
 }
 
 void Screen::on_activate()
@@ -415,8 +441,14 @@ bool Screen::can_exit_screen()
 
 bool Screen::can_select_current_focused_menu_option()
 {
+   AllegroFlare::SavingAndLoading::SaveSlot* currently_selected_save_slot = get_currently_selected_save_slot();
+
+   if (!currently_selected_save_slot) return false;
    if (!is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT)) return false;
-   return true;
+   if (is_mode(MODE_USER_CAN_CHOOSE_POPULATED_SLOT_OR_EMPTY_SLOT)) return true;
+   if (is_mode(MODE_USER_CAN_CHOOSE_POPULATED_SLOT_ONLY) && !currently_selected_save_slot->is_empty()) return true;
+   if (is_mode(MODE_USER_CAN_CHOOSE_EMPTY_SLOT_ONLY) && currently_selected_save_slot->is_empty()) return true;
+   return false;
 }
 
 void Screen::select_current_focused_menu_option()
@@ -774,6 +806,22 @@ bool Screen::is_valid_state(uint32_t state)
       STATE_FINISHED,
    };
    return (valid_states.count(state) > 0);
+}
+
+bool Screen::is_valid_mode(uint32_t mode)
+{
+   std::set<uint32_t> valid_modes =
+   {
+      MODE_USER_CAN_CHOOSE_POPULATED_SLOT_ONLY,
+      MODE_USER_CAN_CHOOSE_POPULATED_SLOT_OR_EMPTY_SLOT,
+      MODE_USER_CAN_CHOOSE_EMPTY_SLOT_ONLY,
+   };
+   return (valid_modes.count(mode) > 0);
+}
+
+bool Screen::is_mode(uint32_t possible_mode)
+{
+   return (mode == possible_mode);
 }
 
 bool Screen::is_state(uint32_t possible_state)

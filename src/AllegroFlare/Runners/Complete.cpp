@@ -441,6 +441,9 @@ void Complete::initialize()
    saving_and_loading_screen.set_foreground(shared_foreground);
    saving_and_loading_screen.set_background(shared_background);
    saving_and_loading_screen.set_saving_and_loading(&saving_and_loading);
+   saving_and_loading_screen.set_mode(
+         AllegroFlare::SavingAndLoading::Screen::MODE_USER_CAN_CHOOSE_POPULATED_SLOT_OR_EMPTY_SLOT
+      );
    saving_and_loading_screen.initialize();
 
    // TODO: Setup level select screen
@@ -904,16 +907,35 @@ void Complete::setup_router()
       // TODO: Test this callback
       // TODO: Ensure this callback is thoroughly vetted with the right purpose. It was thrown together ad-hoc for
       // the purpose of this code block, but might not fully contain the comprehensive solution expected. Please
-      // review.
+      // review. Some things found:
+      //  - This callback assumes the save file content to load is determined by the currently selected slot
+      //    in the saving_and_loading_screen. This could be flakey or cause unexpected user experience.
+      //  - Storing the current_manual_save_slot_position on this class might not align with different save styles
       // TODO: Determine if this callback func signature needs to be tweaked with more proper arguments
       [this](AllegroFlare::Routers::Standard* router, void* user_data) {
          if (!this->game_configuration)
          {
-            AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Runners::Complete::setup_router",
                "In router.on_load_save_file_content_into_gameplay_func lambda, a game_configuration is "
                "required and expected but is not present."
             );
          }
+
+         AllegroFlare::SavingAndLoading::SaveSlot *currently_selected_save_slot_in_the_saving_and_loading_screen =
+            saving_and_loading_screen.get_currently_selected_save_slot();
+
+         if (!currently_selected_save_slot_in_the_saving_and_loading_screen)
+         {
+            AllegroFlare::Logger::throw_error("AllegroFlare::Runners::Complete::setup_router",
+               "When attempting to obtain the currently selected save slot from the saving_and_loading screen, "
+                  "a nullptr was returned."
+            );
+         }
+
+         int manual_save_slot_position =
+            currently_selected_save_slot_in_the_saving_and_loading_screen->get_save_slot_position();
+         current_manual_save_slot_position = manual_save_slot_position; // Is this necessary?
 
          AllegroFlare::Logger::info_from(
             "AllegroFlare::Runners::Complete::setup_router",
