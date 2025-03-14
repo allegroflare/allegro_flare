@@ -483,6 +483,24 @@ std::string Complete::build_save_file_content_for_current_game()
    return "{}";
 }
 
+void Complete::handle_save_file_loading_finished()
+{
+   AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+      "Not implemented in the base class. This method must be implemented in the derived class. Typically you might "
+      "emit an event to activate a gameplay screen, or level select screen, etc. depending on what game state was "
+      "loaded and where the player should start."
+   );
+
+   // Typically, either of these two
+   //router->emit_route_event(
+      //AllegroFlare::Routers::Standard::EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN,
+      ////AllegroFlare::Routers::Standard::EVENT_ACTIVATE_LEVEL_SELECT_SCREEN,
+      //nullptr,
+      //al_get_time()
+   //);
+   return;
+}
+
 void Complete::save_game_progress_and_state_info(AllegroFlare::GameSession* game_session)
 {
    if (!(game_session))

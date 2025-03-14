@@ -61,6 +61,7 @@ namespace AllegroFlare
             EVENT_EXIT_TO_TITLE_SCREEN,
             EVENT_INTRO_LOGOS_SCREEN_FINISHED,
             EVENT_INTRO_STORYBOARD_SCREEN_FINISHED,
+            EVENT_SAVE_FILE_LOADING_FINISHED,
             EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED,
             EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED,
             EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED,
@@ -113,6 +114,8 @@ namespace AllegroFlare
          void* on_gameplay_paused_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_unpaused_func;
          void* on_gameplay_unpaused_func_user_data;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> on_save_file_loading_finished_func;
+         void* on_save_file_loading_finished_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_primary_gameplay_screen_finished_func;
          void* on_primary_gameplay_screen_finished_func_user_data;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> on_arbitrary_storyboard_screen_finished_func;
@@ -147,6 +150,8 @@ namespace AllegroFlare
          void set_on_gameplay_paused_func_user_data(void* on_gameplay_paused_func_user_data);
          void set_on_gameplay_unpaused_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_gameplay_unpaused_func);
          void set_on_gameplay_unpaused_func_user_data(void* on_gameplay_unpaused_func_user_data);
+         void set_on_save_file_loading_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_save_file_loading_finished_func);
+         void set_on_save_file_loading_finished_func_user_data(void* on_save_file_loading_finished_func_user_data);
          void set_on_primary_gameplay_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_primary_gameplay_screen_finished_func);
          void set_on_primary_gameplay_screen_finished_func_user_data(void* on_primary_gameplay_screen_finished_func_user_data);
          void set_on_arbitrary_storyboard_screen_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_arbitrary_storyboard_screen_finished_func);
@@ -173,6 +178,8 @@ namespace AllegroFlare
          void* get_on_gameplay_paused_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_gameplay_unpaused_func() const;
          void* get_on_gameplay_unpaused_func_user_data() const;
+         std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_save_file_loading_finished_func() const;
+         void* get_on_save_file_loading_finished_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_primary_gameplay_screen_finished_func() const;
          void* get_on_primary_gameplay_screen_finished_func_user_data() const;
          std::function<void(AllegroFlare::Routers::Standard*, void*)> get_on_arbitrary_storyboard_screen_finished_func() const;

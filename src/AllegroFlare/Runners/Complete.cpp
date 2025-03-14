@@ -963,12 +963,26 @@ void Complete::setup_router()
          // begin the opening storyboard screen. Otherwise, it may want to activate the primary gameplay screen,
          // it may need to go to the level select screen, or need to trigger some other unknown event.
          this->router.emit_route_event(
-            AllegroFlare::Routers::Standard::EVENT_ACTIVATE_PRIMARY_GAMEPLAY_SCREEN,
+            AllegroFlare::Routers::Standard::EVENT_SAVE_FILE_LOADING_FINISHED,
             nullptr,
             al_get_time()
          );
       });
    router.set_on_load_save_file_content_into_gameplay_func_user_data(this);
+   router.set_on_save_file_loading_finished_func(
+      [this](AllegroFlare::Routers::Standard* router, void* user_data) {
+         if (!this->game_configuration)
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Runners::Complete::setup_router",
+               "In router.on_load_save_file_content_into_gameplay_func lambda, a game_configuration is "
+               "required and expected but is not present."
+            );
+         }
+         this->game_configuration->handle_save_file_loading_finished();
+      });
+   router.set_on_save_file_loading_finished_func_user_data(this); // NOTE: Is this necessary?
+
    router.set_on_start_new_game_with_empty_save_slot_func(
       [this](AllegroFlare::Routers::Standard* router, void* user_data) {
          // NOTE: I don't think there's anything to do here.

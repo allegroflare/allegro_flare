@@ -136,6 +136,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_save_file_loading_finished_func
+    type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_save_file_loading_finished_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: on_primary_gameplay_screen_finished_func
     type: std::function<void(AllegroFlare::Routers::Standard*, void*)>
     init_with: '{}'
@@ -358,6 +370,7 @@ enums:
    # Notifications, used to advance to next screen
       - EVENT_INTRO_LOGOS_SCREEN_FINISHED
       - EVENT_INTRO_STORYBOARD_SCREEN_FINISHED
+      - EVENT_SAVE_FILE_LOADING_FINISHED
       - EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED
       - EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED
       - EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED
@@ -456,6 +469,7 @@ methods:
          {EVENT_EXIT_TO_TITLE_SCREEN, "EVENT_EXIT_TO_TITLE_SCREEN"},
          {EVENT_INTRO_LOGOS_SCREEN_FINISHED, "EVENT_INTRO_LOGOS_SCREEN_FINISHED"},
          {EVENT_INTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_INTRO_STORYBOARD_SCREEN_FINISHED"},
+         {EVENT_SAVE_FILE_LOADING_FINISHED, "EVENT_SAVE_FILE_LOADING_FINISHED"},
          {EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED"},
          {EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, "EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED"},
          {EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED, "EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED"},
@@ -820,6 +834,24 @@ methods:
          }},
          { EVENT_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
             emit_route_event(EVENT_ACTIVATE_TITLE_SCREEN);
+         }},
+         { EVENT_SAVE_FILE_LOADING_FINISHED, [this](){
+            if (on_save_file_loading_finished_func)
+            {
+               // TODO: Consider if this should return a boolean on success
+               on_save_file_loading_finished_func(
+                     this,
+                     on_save_file_loading_finished_func_user_data
+                  );
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Routers::Standard::on_route_event",
+                  "on EVENT_SAVE_FILE_LOADING_FINISHED, expecting an "
+                     "\"on_save_file_loading_finished_func\" to be present, but it is not."
+               );
+            }
          }},
          { EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
             emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);

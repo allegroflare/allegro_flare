@@ -39,6 +39,8 @@ Standard::Standard(AllegroFlare::EventEmitter* event_emitter, std::function<bool
    , on_gameplay_paused_func_user_data(nullptr)
    , on_gameplay_unpaused_func({})
    , on_gameplay_unpaused_func_user_data(nullptr)
+   , on_save_file_loading_finished_func({})
+   , on_save_file_loading_finished_func_user_data(nullptr)
    , on_primary_gameplay_screen_finished_func({})
    , on_primary_gameplay_screen_finished_func_user_data(nullptr)
    , on_arbitrary_storyboard_screen_finished_func({})
@@ -171,6 +173,18 @@ void Standard::set_on_gameplay_unpaused_func(std::function<void(AllegroFlare::Ro
 void Standard::set_on_gameplay_unpaused_func_user_data(void* on_gameplay_unpaused_func_user_data)
 {
    this->on_gameplay_unpaused_func_user_data = on_gameplay_unpaused_func_user_data;
+}
+
+
+void Standard::set_on_save_file_loading_finished_func(std::function<void(AllegroFlare::Routers::Standard*, void*)> on_save_file_loading_finished_func)
+{
+   this->on_save_file_loading_finished_func = on_save_file_loading_finished_func;
+}
+
+
+void Standard::set_on_save_file_loading_finished_func_user_data(void* on_save_file_loading_finished_func_user_data)
+{
+   this->on_save_file_loading_finished_func_user_data = on_save_file_loading_finished_func_user_data;
 }
 
 
@@ -330,6 +344,18 @@ void* Standard::get_on_gameplay_unpaused_func_user_data() const
 }
 
 
+std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_save_file_loading_finished_func() const
+{
+   return on_save_file_loading_finished_func;
+}
+
+
+void* Standard::get_on_save_file_loading_finished_func_user_data() const
+{
+   return on_save_file_loading_finished_func_user_data;
+}
+
+
 std::function<void(AllegroFlare::Routers::Standard*, void*)> Standard::get_on_primary_gameplay_screen_finished_func() const
 {
    return on_primary_gameplay_screen_finished_func;
@@ -432,6 +458,7 @@ std::string Standard::name_for_route_event(uint32_t route_event)
       {EVENT_EXIT_TO_TITLE_SCREEN, "EVENT_EXIT_TO_TITLE_SCREEN"},
       {EVENT_INTRO_LOGOS_SCREEN_FINISHED, "EVENT_INTRO_LOGOS_SCREEN_FINISHED"},
       {EVENT_INTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_INTRO_STORYBOARD_SCREEN_FINISHED"},
+      {EVENT_SAVE_FILE_LOADING_FINISHED, "EVENT_SAVE_FILE_LOADING_FINISHED"},
       {EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, "EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED"},
       {EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, "EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED"},
       {EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED, "EVENT_ARBITRARY_STORYBOARD_SCREEN_FINISHED"},
@@ -795,6 +822,24 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       }},
       { EVENT_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
          emit_route_event(EVENT_ACTIVATE_TITLE_SCREEN);
+      }},
+      { EVENT_SAVE_FILE_LOADING_FINISHED, [this](){
+         if (on_save_file_loading_finished_func)
+         {
+            // TODO: Consider if this should return a boolean on success
+            on_save_file_loading_finished_func(
+                  this,
+                  on_save_file_loading_finished_func_user_data
+               );
+         }
+         else
+         {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::Routers::Standard::on_route_event",
+               "on EVENT_SAVE_FILE_LOADING_FINISHED, expecting an "
+                  "\"on_save_file_loading_finished_func\" to be present, but it is not."
+            );
+         }
       }},
       { EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
          emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
