@@ -617,6 +617,60 @@ void SavingAndLoading::save_to_save_slot(int profile_id, int save_slot_position,
    return;
 }
 
+void SavingAndLoading::delete_header_and_content_files_and_clear_save_slot(int profile_id, int save_slot_position, uint32_t save_slot_type)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"initialized\" not met");
+   }
+   if (!((profile_id >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(profile_id >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(profile_id >= 0)\" not met");
+   }
+   if (!((profile_id <= num_profiles)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(profile_id <= num_profiles)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(profile_id <= num_profiles)\" not met");
+   }
+   if (!((save_slot_position >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(save_slot_position >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(save_slot_position >= 0)\" not met");
+   }
+   // TODO: Test this
+
+   AllegroFlare::SavingAndLoading::SaveSlot* save_slot = find_save_slot(
+      profile_id,
+      save_slot_position,
+      save_slot_type
+   );
+
+   if (!save_slot)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+         "Could not find save slot for profile_id \"" + std::to_string(profile_id) + "\" of type \"[type-is-not-"
+            "populated-in-this-error-message]\" at save_slot_position \""
+            "\"" + std::to_string(save_slot_position) + "\".  Either this exceeds the number of configured slots \""
+            "for this type, exceeds the number of profiles, or there was an error with internal setup when "
+            "creating the save slots. There could also be a problem with the query."
+      );
+   }
+
+   // Delete everything on this save slot
+   save_slot->delete_header_and_content_files_and_clear();
+   return;
+}
+
 std::string SavingAndLoading::load_content_from_manual_save_content_file(int profile_id, int save_slot_position)
 {
    AllegroFlare::SavingAndLoading::SaveSlot* save_slot = find_save_slot(
