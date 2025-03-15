@@ -36612,15 +36612,15 @@ table td
     <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
-  <td class="property">game_start_style</td>
+  <td class="property">start_style</td>
   <td class="property">AllegroFlare::SavingAndLoading::SaveStyles::StartStyle</td>
 </tr>
 <tr>
-  <td class="property">in_game_save_style</td>
+  <td class="property">save_style</td>
   <td class="property">AllegroFlare::SavingAndLoading::SaveStyles::SaveStyle</td>
 </tr>
 <tr>
-  <td class="property">in_game_load_style</td>
+  <td class="property">load_style</td>
   <td class="property">AllegroFlare::SavingAndLoading::SaveStyles::LoadStyle</td>
 </tr>
 <tr>
@@ -36631,8 +36631,16 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
   <td class="method">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
   <td class="method"><b>obtain_context_sensitive_menu_items_for_starting_or_loading_the_game</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>infer_existing_save_data_exists</b>()</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -36645,6 +36653,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveStyles::SaveStyle&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -51529,6 +51540,7 @@ table td
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/SavingAndLoading/SaveStyles",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",

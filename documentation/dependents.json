@@ -187,6 +187,7 @@
     "AllegroFlare/Routers/Standard",
     "AllegroFlare/Runners/Complete",
     "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/SavingAndLoading/SaveStyles",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",

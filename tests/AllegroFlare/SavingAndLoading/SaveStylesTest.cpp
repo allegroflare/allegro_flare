@@ -10,15 +10,14 @@ TEST(AllegroFlare_SavingAndLoading_SaveStylesTest, can_be_created_without_blowin
 }
 
 
-/*
+TEST(AllegroFlare_SavingAndLoading_SaveStylesTest, initialize__will_not_blow_up)
+{
+   AllegroFlare::SavingAndLoading::SaveStyles save_styles(
+      AllegroFlare::SavingAndLoading::SaveStyles::StartStyle::GAME_START_STYLE_A,
+      AllegroFlare::SavingAndLoading::SaveStyles::SaveStyle::GAME_SAVE_STYLE_4,
+      AllegroFlare::SavingAndLoading::SaveStyles::LoadStyle::GAME_LOAD_STYLE_0
+   );
+   save_styles.initialize();
+}
 
-      - GAME_START_STYLE_A
-      - GAME_START_STYLE_B
-      - GAME_START_STYLE_C
-      - GAME_START_STYLE_D
-      - GAME_START_STYLE_E
-      - GAME_START_STYLE_F
-      - GAME_START_STYLE_G
-
-*/
 
