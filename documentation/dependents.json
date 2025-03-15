@@ -4282,6 +4282,15 @@
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
+  "AllegroFlare/SavingAndLoading/SaveStyles/StartStyle": [
+    "AllegroFlare/SavingAndLoading/SaveStyles"
+  ],
+  "AllegroFlare/SavingAndLoading/SaveStyles/LoadStyle": [
+    "AllegroFlare/SavingAndLoading/SaveStyles"
+  ],
+  "AllegroFlare/SavingAndLoading/SaveStyles/SaveStyle": [
+    "AllegroFlare/SavingAndLoading/SaveStyles"
+  ],
   "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer": [
     "AllegroFlare/SavingAndLoading/Screen"
   ],

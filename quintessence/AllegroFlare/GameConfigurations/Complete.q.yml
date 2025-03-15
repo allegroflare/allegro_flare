@@ -727,6 +727,68 @@ methods:
       return;
 
 
+  - name: obtain_context_sensitive_menu_items_for_starting_or_loading_the_game
+    virtual: true
+    type: std::vector<std::pair<std::string, std::string>>
+    body: |
+      std::vector<std::pair<std::string, std::string>> game_start_options = {
+
+
+
+         // Start style A (Metroid Prime):
+         //{ "Play",              "goto_load_a_saved_game_screen" },
+
+
+
+         // Start style B (Fade to White) (with no saves)
+         //{ "Start new game",    "continue_from_last_save" },
+
+         // Start style B (Fade to White) (with existing saves)
+         //{ "Continue",          "..." }, // Loads the most recent save, Will advance to wherever the game wants
+         //{ "Start new game",    "..." }, // Will prompt to erase all save data
+
+
+
+         // Start style C (Zelda:BOTW) (with no saves)
+         //{ "Start new game",    "..." },
+
+         // Start style C (Zelda:BOTW) (with existing saves)
+         //{ "Continue",          "..." }, // Will advance to the load_a_saved_game_screen (with list of recent saves)
+         //{ "Start new game",    "..." }, // Will prompt to erase all save data
+
+
+
+         // Start style D (Tunic) (with no saves) (This is the same as Start Style A, but with convenience),
+                                                  // Tunic has up to 10 save slots
+         //{ "Start new game",    "..." },
+
+         // Start style D (Tunic) (with existing saves)
+         //{ "Continue",          "..." }, // Will load the most recent save, from the most recent profile
+         //{ "New game",          "..." },
+         //{ "Load game",         "..." },
+
+
+
+         // Start style E (Final Fantasy), same as Start Style D, but there are many save slots
+
+
+
+         // Start style F (Mega Man)
+         //{ "Start game",        "..." },
+         //{ "Enter passcode",    "..." },
+
+
+
+         // Start style G (Signalis, Wolfenstein II: The New Colossus)
+         //{ "Start game",        "..." }, // Will continue from last most recent save on this profile
+         //{ "Change profile",    "..." },
+
+
+
+      };
+      return game_start_options;
+
+
   - name: build_title_screen_menu_options
     virtual: true
     type: std::vector<std::pair<std::string, std::string>>

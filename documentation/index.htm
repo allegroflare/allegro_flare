@@ -477,6 +477,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.q.yml">quintessence/AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlot.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SaveSlotRenderer.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveSlotRenderer.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SaveStyles.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveStyles.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml">quintessence/AllegroFlare/SavingAndLoading/SavingAndLoading.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/Screen.q.yml">quintessence/AllegroFlare/SavingAndLoading/Screen.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/SavingAndLoading/StandardSavesPath.q.yml">quintessence/AllegroFlare/SavingAndLoading/StandardSavesPath.q.yml</a></li>
@@ -18568,6 +18569,10 @@ table td
 </tr>
 <tr>
   <td class="method">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
+  <td class="method"><b>obtain_context_sensitive_menu_items_for_starting_or_loading_the_game</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
   <td class="method"><b>build_title_screen_menu_options</b>()</td>
 </tr>
 <tr>
@@ -36594,6 +36599,52 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveSlot&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SaveSlot.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/SavingAndLoading/SaveStyles.q.yml">quintessence/AllegroFlare/SavingAndLoading/SaveStyles.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">game_start_style</td>
+  <td class="property">AllegroFlare::SavingAndLoading::SaveStyles::StartStyle</td>
+</tr>
+<tr>
+  <td class="property">in_game_save_style</td>
+  <td class="property">AllegroFlare::SavingAndLoading::SaveStyles::SaveStyle</td>
+</tr>
+<tr>
+  <td class="property">in_game_load_style</td>
+  <td class="property">AllegroFlare::SavingAndLoading::SaveStyles::LoadStyle</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
+  <td class="method"><b>obtain_context_sensitive_menu_items_for_starting_or_loading_the_game</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveStyles::StartStyle&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveStyles::LoadStyle&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SaveStyles::SaveStyle&quot;, &quot;headers&quot;=&gt;[]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55572,6 +55623,15 @@ table td
   "std/filesystem/create_directories": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "AllegroFlare/SavingAndLoading/SaveStyles/StartStyle": [
+    "AllegroFlare/SavingAndLoading/SaveStyles"
+  ],
+  "AllegroFlare/SavingAndLoading/SaveStyles/LoadStyle": [
+    "AllegroFlare/SavingAndLoading/SaveStyles"
+  ],
+  "AllegroFlare/SavingAndLoading/SaveStyles/SaveStyle": [
+    "AllegroFlare/SavingAndLoading/SaveStyles"
   ],
   "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer": [
     "AllegroFlare/SavingAndLoading/Screen"

@@ -91,6 +91,7 @@ namespace AllegroFlare
          virtual AllegroFlare::GameProgressAndStateInfos::Base* create_game_progress_and_state_info_saver_loader();
          virtual void load_last_played_session_or_start_new(AllegroFlare::GameSession* game_session=nullptr);
          virtual void load_audio_controller(AllegroFlare::AudioController* audio_controller=nullptr);
+         virtual std::vector<std::pair<std::string, std::string>> obtain_context_sensitive_menu_items_for_starting_or_loading_the_game();
          virtual std::vector<std::pair<std::string, std::string>> build_title_screen_menu_options();
          virtual std::string build_copyright_text(ReleaseInfo* release_info=nullptr);
          virtual std::vector<AllegroFlare::Elements::RollingCredits::Sections::Base*> build_rolling_credits_sections();
