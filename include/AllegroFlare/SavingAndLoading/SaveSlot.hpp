@@ -57,6 +57,7 @@ namespace AllegroFlare
          void load_header_from_file_if_exists_or_clear();
          std::string load_data_from_content_file();
          void delete_header_data();
+         void delete_header_and_content_files_and_clear();
          bool header_file_exists();
          bool content_file_exists();
          std::string build_full_path_to_header_file();

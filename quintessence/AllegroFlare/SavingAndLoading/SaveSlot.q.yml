@@ -261,6 +261,74 @@ methods:
       return;
 
 
+  - name: delete_header_and_content_files_and_clear
+    body: |
+      // NOTE: If no files are present, no result or warning output, currently. If there's reason to change this
+      // then feel free to.
+
+      // Delete data file for header data
+      std::string full_path_to_header_file = build_full_path_to_header_file();
+      bool header_file_exists = std::filesystem::exists(full_path_to_header_file);
+      if (!header_file_exists)
+      {
+         // TODO: Nothing
+      }
+      else
+      {
+         // TODO: Logging?
+         bool header_file_removed = std::filesystem::remove(full_path_to_header_file);
+         bool header_file_exists_after_removal = std::filesystem::exists(full_path_to_header_file);
+         if (!header_file_exists_after_removal)
+         {
+            AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME,
+               "When trying to delete the save header file at \"" + full_path_to_header_file + "\", it was not "
+               "deleted when this system attempted to delete it. There may be another application using the file. "
+               "It may need to be deleted manually."
+            );
+         }
+         else
+         {
+            AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+               "Save header file at \"" + full_path_to_header_file + "\" was deleted successfully."
+            );
+         }
+      }
+
+      // Delete data file for content data
+      std::string full_path_to_content_file = build_full_path_to_content_file();
+      bool content_file_exists = std::filesystem::exists(full_path_to_content_file);
+      if (!content_file_exists)
+      {
+         // TODO: Nothing
+      }
+      else
+      {
+         // TODO: Logging?
+         bool content_file_removed = std::filesystem::remove(full_path_to_content_file);
+         bool content_file_exists_after_removal = std::filesystem::exists(full_path_to_content_file);
+         if (!content_file_exists_after_removal)
+         {
+            AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME,
+               "When trying to delete the save content file at \"" + full_path_to_content_file + "\", it was not "
+               "deleted when this system attempted to delete it. There may be another application using the file. "
+               "It may need to be deleted manually."
+            );
+         }
+         else
+         {
+            AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+               "Save content file at \"" + full_path_to_content_file + "\" was deleted successfully."
+            );
+         }
+      }
+
+      // Clear header data
+      delete_header_data();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
   - name: header_file_exists
     type: bool
     body: |
