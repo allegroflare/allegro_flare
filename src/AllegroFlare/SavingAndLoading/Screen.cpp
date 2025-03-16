@@ -579,6 +579,17 @@ void Screen::render_save_slots()
    return;
 }
 
+void Screen::delete_save_slot_at_current_cursor()
+{
+   AllegroFlare::SavingAndLoading::SaveSlot* currently_selected_save_slot = get_currently_selected_save_slot();
+   if (!currently_selected_save_slot)
+   {
+      // TOOD: Consider info message
+   }
+   currently_selected_save_slot->delete_header_and_content_files_and_clear();
+   return;
+}
+
 void Screen::primary_update_func(double time_now, double time_step)
 {
    //state_accumulated_age += time_step;
@@ -623,26 +634,32 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
    }
    switch(event->keyboard.keycode)
    {
-      case ALLEGRO_KEY_UP:
+      case ALLEGRO_KEY_UP: {
          move_cursor_up();
-      break;
+      } break;
 
-      case ALLEGRO_KEY_DOWN:
+      case ALLEGRO_KEY_DOWN: {
          move_cursor_down();
-      break;
+      } break;
 
-      case ALLEGRO_KEY_D:
+      case ALLEGRO_KEY_D: {
          erase_current_focused_save_slot();
-      break;
+      } break;
 
       case ALLEGRO_KEY_Q:
-      case ALLEGRO_KEY_X:
+      case ALLEGRO_KEY_X: {
          if (can_exit_screen()) exit_screen();
-      break;
+      } break;
 
-      case ALLEGRO_KEY_ENTER:
+      case ALLEGRO_KEY_DELETE:
+      case ALLEGRO_KEY_BACKSPACE:
+      case ALLEGRO_KEY_PAD_DELETE: {
+         delete_save_slot_at_current_cursor();
+      } break;
+
+      case ALLEGRO_KEY_ENTER: {
          if (can_select_current_focused_menu_option()) select_current_focused_menu_option();
-      break;
+      } break;
    }
    return;
 }

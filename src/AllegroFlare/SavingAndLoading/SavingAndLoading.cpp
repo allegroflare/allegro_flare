@@ -617,37 +617,38 @@ void SavingAndLoading::save_to_save_slot(int profile_id, int save_slot_position,
    return;
 }
 
-void SavingAndLoading::delete_header_and_content_files_and_clear_save_slot(int profile_id, int save_slot_position, uint32_t save_slot_type)
+void SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED(int profile_id, int save_slot_position, uint32_t save_slot_type)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED]: error: guard \"initialized\" not met");
    }
    if (!((profile_id >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(profile_id >= 0)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED]: error: guard \"(profile_id >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(profile_id >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED]: error: guard \"(profile_id >= 0)\" not met");
    }
    if (!((profile_id <= num_profiles)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(profile_id <= num_profiles)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED]: error: guard \"(profile_id <= num_profiles)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(profile_id <= num_profiles)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED]: error: guard \"(profile_id <= num_profiles)\" not met");
    }
    if (!((save_slot_position >= 0)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(save_slot_position >= 0)\" not met.";
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED]: error: guard \"(save_slot_position >= 0)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_header_and_content_files_and_clear_save_slot]: error: guard \"(save_slot_position >= 0)\" not met");
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DEPRECATED]: error: guard \"(save_slot_position >= 0)\" not met");
    }
    // TODO: Test this
+   // TODO: Consider guarding for save slot count based on type
 
    AllegroFlare::SavingAndLoading::SaveSlot* save_slot = find_save_slot(
       profile_id,

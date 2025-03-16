@@ -113,6 +113,7 @@ namespace AllegroFlare
          void render();
          void render_title();
          void render_save_slots();
+         void delete_save_slot_at_current_cursor();
          virtual void primary_update_func(double time_now=0.0, double time_step=0.0) override;
          virtual void primary_render_func() override;
          virtual void primary_timer_func() override;

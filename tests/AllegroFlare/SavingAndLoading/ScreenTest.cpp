@@ -6,7 +6,7 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture.hpp>
 #include <AllegroFlare/Testing/WithInteractionFixture.hpp>
-//#include <AllegroFlare/Frameworks/Full.hpp>
+#include <AllegroFlare/Testing/TemporaryDirectoryCreator.hpp>
 #include <AllegroFlare/SavingAndLoading/SaveSlot.hpp>
 
 
@@ -15,10 +15,30 @@ static void setup_saving_and_loading_backend(
    std::string data_folder_path
 )
 {
-   saving_and_loading->set_data_folder_path(data_folder_path);
+   // Tests may include deleting save files, so this setup will copy fixture save files into a temporary directory and
+   // have the saving_and_loading system work from there.
+
+   // Setup a temporary directory
+   std::string temporary_directory = AllegroFlare::Testing::TemporaryDirectoryCreator().create().string();
+   std::cout << "NOTE: This test is running saving_and_loading files in a temporary directory: \""
+      + temporary_directory + "\"." << std::endl;
+
+   // Setup saving and loading
+   saving_and_loading->set_data_folder_path(temporary_directory + "/");
    saving_and_loading->set_num_profiles(1);
    saving_and_loading->set_num_manual_save_slots(3);
    saving_and_loading->initialize();
+   saving_and_loading->create_save_file_directories_if_they_do_not_exist();
+
+   // Copy test save files into the save directory
+   std::string source_header_file = data_folder_path + "/saves/profile_001-manual_save-position_002.header.sav";
+   std::string source_content_file = data_folder_path + "/saves/profile_001-manual_save-position_002.sav";
+   std::string destination_header_file = temporary_directory + "/saves/profile_001-manual_save-position_002.header.sav";
+   std::string destination_content_file = temporary_directory + "/saves/profile_001-manual_save-position_002.sav";
+   std::filesystem::copy_file(source_header_file, destination_header_file);
+   std::filesystem::copy_file(source_content_file, destination_content_file);
+   
+   // Scan the file system for files
    saving_and_loading->scan_for_existing_save_files_and_load_header_data();
 }
 

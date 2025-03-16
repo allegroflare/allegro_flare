@@ -410,7 +410,7 @@ methods:
       return;
 
 
-  - name: delete_header_and_content_files_and_clear_save_slot
+  - name: __delete_header_and_content_files_and_clear_save_slot__DEPRECATED
     private: true
     parameters:
       - name: profile_id
@@ -429,6 +429,7 @@ methods:
       - (save_slot_position >= 0)
     body: |
       // TODO: Test this
+      // TODO: Consider guarding for save slot count based on type
 
       AllegroFlare::SavingAndLoading::SaveSlot* save_slot = find_save_slot(
          profile_id,

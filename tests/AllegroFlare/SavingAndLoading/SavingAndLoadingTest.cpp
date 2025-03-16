@@ -206,3 +206,10 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
 }
 
 
+TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
+   DISABLED____delete_header_and_content_files_and_clear_save_slot__will_delete_save_slot_data)
+{
+   // TODO
+}
+
+
