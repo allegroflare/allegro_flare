@@ -111,6 +111,7 @@ namespace AllegroFlare
          void erase_current_focused_save_slot();
          bool can_exit_screen();
          bool can_select_current_focused_menu_option();
+         bool current_focused_menu_option_is_an_empty_slot();
          void select_current_focused_menu_option();
          void render();
          void render_title();

@@ -361,6 +361,14 @@ methods:
       return false;
 
 
+  - name: current_focused_menu_option_is_an_empty_slot
+    type: bool
+    body: |
+      AllegroFlare::SavingAndLoading::SaveSlot* currently_selected_save_slot = get_currently_selected_save_slot();
+      if (!currently_selected_save_slot) return false;
+      return currently_selected_save_slot->is_empty();
+
+
   - name: select_current_focused_menu_option
     guards: [ is_state(STATE_REVEALED_AND_HANDLING_USER_INPUT) ]
     body: |
@@ -705,8 +713,7 @@ methods:
             case ALLEGRO_KEY_DELETE:
             case ALLEGRO_KEY_BACKSPACE:
             case ALLEGRO_KEY_PAD_DELETE: {
-               //delete_save_slot_at_current_cursor();
-               set_state(STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA);
+               if (!current_focused_menu_option_is_an_empty_slot()) set_state(STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA);
             } break;
 
             case ALLEGRO_KEY_ENTER: {
