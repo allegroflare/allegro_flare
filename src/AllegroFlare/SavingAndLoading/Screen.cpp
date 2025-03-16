@@ -8,6 +8,7 @@
 #include <AllegroFlare/SavingAndLoading/SaveSlotRenderer.hpp>
 #include <AllegroFlare/TimeAgo.hpp>
 #include <AllegroFlare/TimeStamper.hpp>
+#include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
 #include <set>
@@ -470,6 +471,7 @@ void Screen::render()
 {
    render_title();
    render_save_slots();
+   render_dialogs_overlay();
    return;
 }
 
@@ -579,6 +581,124 @@ void Screen::render_save_slots()
    return;
 }
 
+void Screen::render_dialogs_overlay()
+{
+   if (!is_state(STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA)) return;
+
+   float box_width = 1920/3;
+   float box_height = 1080/5;
+
+   AllegroFlare::Placement2D placement;
+   placement.position.x = 1920/2;
+   placement.position.y = 1080/2;
+   placement.size.x = box_width;
+   placement.size.y = box_height;
+
+   placement.start_transform();
+
+   // Backfill
+   al_draw_filled_rectangle(
+      0,
+      0,
+      box_width,
+      box_height,
+      al_color_name("darkred")
+   );
+
+   // Outline
+   float outline_padding = 20.0f;
+   float outline_stroke_thickness = 26.0f;
+   float roundness = 20.0f;
+   al_draw_rounded_rectangle(
+      -outline_padding,
+      -outline_padding,
+      box_width+outline_padding,
+      box_height+outline_padding,
+      roundness,
+      roundness,
+      al_color_name("firebrick"),
+      outline_stroke_thickness
+   );
+
+   ALLEGRO_FONT *heading_font = obtain_heading_font();
+   float primary_text_line_height = al_get_font_line_height(heading_font);
+   ALLEGRO_FONT *text_font = obtain_text_font();
+   float text_font_line_height = al_get_font_line_height(text_font);
+   float text_padding = 20;
+
+   std::string primary_text = "WARNING";
+   std::string secondary_text = "Are you sure you want to delete this save data?";
+
+   // Primary text
+   al_draw_text(
+      heading_font,
+      ALLEGRO_COLOR{1, 1, 1, 1},
+      box_width/2,
+      box_height/2-primary_text_line_height-30,
+      ALLEGRO_ALIGN_CENTER,
+      primary_text.c_str()
+   );
+
+   // Body text
+   al_draw_multiline_text(
+      text_font,
+      ALLEGRO_COLOR{1, 1, 1, 1},
+      box_width/2,
+      box_height/2-text_font_line_height+10,
+      box_width - text_padding * 2,
+      text_font_line_height,
+      ALLEGRO_ALIGN_CENTER,
+      secondary_text.c_str()
+   );
+
+   // YES / NO instructions
+   {
+      float choice_text_y = box_height - box_height/6 * 2;
+      ALLEGRO_COLOR action_text_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+      ALLEGRO_COLOR hint_text_color = ALLEGRO_COLOR{0.7, 0.7, 0.7, 0.7};
+
+      al_draw_text(
+         text_font,
+         action_text_color,
+         box_width/4 * 3,
+         choice_text_y,
+         ALLEGRO_ALIGN_CENTER,
+         "DELETE"
+      );
+
+      al_draw_text(
+         text_font,
+         hint_text_color,
+         box_width/4 * 3,
+         choice_text_y + text_font_line_height,
+         ALLEGRO_ALIGN_CENTER,
+         "(press ENTER key)"
+      );
+
+      al_draw_text(
+         text_font,
+         action_text_color,
+         box_width/4,
+         choice_text_y,
+         ALLEGRO_ALIGN_CENTER,
+         "CANCEL"
+      );
+
+      al_draw_text(
+         text_font,
+         hint_text_color,
+         box_width/4,
+         choice_text_y + text_font_line_height,
+         ALLEGRO_ALIGN_CENTER,
+         "(press ESCAPE key)"
+      );
+   }
+
+   placement.restore_transform();
+
+   return;
+}
+
 void Screen::delete_save_slot_at_current_cursor()
 {
    AllegroFlare::SavingAndLoading::SaveSlot* currently_selected_save_slot = get_currently_selected_save_slot();
@@ -632,34 +752,53 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::key_char_func]: error: guard \"event\" not met");
    }
-   switch(event->keyboard.keycode)
+   if (is_state(STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA))
    {
-      case ALLEGRO_KEY_UP: {
-         move_cursor_up();
-      } break;
+      switch(event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_X:
+         case ALLEGRO_KEY_ESCAPE: {
+            set_state(STATE_REVEALED_AND_HANDLING_USER_INPUT);
+         } break;
 
-      case ALLEGRO_KEY_DOWN: {
-         move_cursor_down();
-      } break;
+         case ALLEGRO_KEY_ENTER: {
+            delete_save_slot_at_current_cursor();
+            set_state(STATE_REVEALED_AND_HANDLING_USER_INPUT);
+         } break;
+      }
+   }
+   else
+   {
+      switch(event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP: {
+            move_cursor_up();
+         } break;
 
-      case ALLEGRO_KEY_D: {
-         erase_current_focused_save_slot();
-      } break;
+         case ALLEGRO_KEY_DOWN: {
+            move_cursor_down();
+         } break;
 
-      case ALLEGRO_KEY_Q:
-      case ALLEGRO_KEY_X: {
-         if (can_exit_screen()) exit_screen();
-      } break;
+         case ALLEGRO_KEY_D: {
+            erase_current_focused_save_slot();
+         } break;
 
-      case ALLEGRO_KEY_DELETE:
-      case ALLEGRO_KEY_BACKSPACE:
-      case ALLEGRO_KEY_PAD_DELETE: {
-         delete_save_slot_at_current_cursor();
-      } break;
+         case ALLEGRO_KEY_Q:
+         case ALLEGRO_KEY_X: {
+            if (can_exit_screen()) exit_screen();
+         } break;
 
-      case ALLEGRO_KEY_ENTER: {
-         if (can_select_current_focused_menu_option()) select_current_focused_menu_option();
-      } break;
+         case ALLEGRO_KEY_DELETE:
+         case ALLEGRO_KEY_BACKSPACE:
+         case ALLEGRO_KEY_PAD_DELETE: {
+            //delete_save_slot_at_current_cursor();
+            set_state(STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA);
+         } break;
+
+         case ALLEGRO_KEY_ENTER: {
+            if (can_select_current_focused_menu_option()) select_current_focused_menu_option();
+         } break;
+      }
    }
    return;
 }
@@ -715,6 +854,9 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
       break;
 
       case STATE_CLOSING_DOWN:
+      break;
+
+      case STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA:
       break;
 
       case STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION:
@@ -794,6 +936,9 @@ void Screen::update_state(float time_now)
          if (age > 1.0) complete_shutdown_and_activate_current_focused_menu_option();
       break;
 
+      case STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA:
+      break;
+
       case STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION:
       break;
 
@@ -820,6 +965,7 @@ bool Screen::is_valid_state(uint32_t state)
       STATE_MENU_OPTION_IS_CHOSEN,
       STATE_CLOSING_DOWN,
       STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION,
+      STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA,
       STATE_FINISHED,
    };
    return (valid_states.count(state) > 0);
@@ -859,7 +1005,26 @@ bool Screen::infer_currently_drawing_user_cursor()
 
 ALLEGRO_FONT* Screen::obtain_heading_font()
 {
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::Screen::obtain_heading_font]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::obtain_heading_font]: error: guard \"initialized\" not met");
+   }
    return font_bin["Oswald-Medium.ttf -74"];
+}
+
+ALLEGRO_FONT* Screen::obtain_text_font()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::Screen::obtain_text_font]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::obtain_text_font]: error: guard \"initialized\" not met");
+   }
+   return font_bin["RobotoCondensed-Regular.ttf -32"];
 }
 
 

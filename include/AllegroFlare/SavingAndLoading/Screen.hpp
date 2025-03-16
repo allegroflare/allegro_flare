@@ -43,6 +43,7 @@ namespace AllegroFlare
             STATE_REVEALED_AND_HANDLING_USER_INPUT,
             STATE_MENU_OPTION_IS_CHOSEN,
             __UNIMPLEMENTED__STATE_AWAITING_USER_CONFIRMATION,
+            STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA,
             STATE_CLOSING_DOWN,
             STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION,
             STATE_FINISHED,
@@ -67,6 +68,7 @@ namespace AllegroFlare
          bool destroyed;
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> get_manual_save_slots();
          ALLEGRO_FONT* obtain_heading_font();
+         ALLEGRO_FONT* obtain_text_font();
 
       protected:
 
@@ -113,6 +115,7 @@ namespace AllegroFlare
          void render();
          void render_title();
          void render_save_slots();
+         void render_dialogs_overlay();
          void delete_save_slot_at_current_cursor();
          virtual void primary_update_func(double time_now=0.0, double time_step=0.0) override;
          virtual void primary_render_func() override;

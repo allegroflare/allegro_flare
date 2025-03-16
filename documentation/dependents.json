@@ -2602,6 +2602,7 @@
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "WickedDemos/TileDemo",
     "WickedDemos/TileDemo"
