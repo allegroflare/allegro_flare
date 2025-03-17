@@ -16,8 +16,11 @@ namespace SavingAndLoading
 {
 
 
-SavingAndLoading::SavingAndLoading(std::string data_folder_path)
+SavingAndLoading::SavingAndLoading(std::string data_folder_path, AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle start_style, AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle save_style, AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle load_style)
    : data_folder_path(data_folder_path)
+   , start_style(start_style)
+   , save_style(save_style)
+   , load_style(load_style)
    , num_profiles(0)
    , num_manual_save_slots(0)
    , num_autosave_save_slots(0)
@@ -37,6 +40,27 @@ void SavingAndLoading::set_data_folder_path(std::string data_folder_path)
 {
    if (get_initialized()) throw std::runtime_error("[SavingAndLoading::set_data_folder_path]: error: guard \"get_initialized()\" not met.");
    this->data_folder_path = data_folder_path;
+}
+
+
+void SavingAndLoading::set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle start_style)
+{
+   if (get_initialized()) throw std::runtime_error("[SavingAndLoading::set_start_style]: error: guard \"get_initialized()\" not met.");
+   this->start_style = start_style;
+}
+
+
+void SavingAndLoading::set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle save_style)
+{
+   if (get_initialized()) throw std::runtime_error("[SavingAndLoading::set_save_style]: error: guard \"get_initialized()\" not met.");
+   this->save_style = save_style;
+}
+
+
+void SavingAndLoading::set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle load_style)
+{
+   if (get_initialized()) throw std::runtime_error("[SavingAndLoading::set_load_style]: error: guard \"get_initialized()\" not met.");
+   this->load_style = load_style;
 }
 
 
@@ -71,6 +95,24 @@ void SavingAndLoading::set_num_quicksave_save_slots(int num_quicksave_save_slots
 std::string SavingAndLoading::get_data_folder_path() const
 {
    return data_folder_path;
+}
+
+
+AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle SavingAndLoading::get_start_style() const
+{
+   return start_style;
+}
+
+
+AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle SavingAndLoading::get_save_style() const
+{
+   return save_style;
+}
+
+
+AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle SavingAndLoading::get_load_style() const
+{
+   return load_style;
 }
 
 
@@ -278,6 +320,27 @@ void SavingAndLoading::initialize()
       error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(data_folder_path != DEFAULT_DATA_FOLDER_PATH)\" not met");
+   }
+   if (!((start_style != StartStyle::GAME_START_STYLE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(start_style != StartStyle::GAME_START_STYLE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(start_style != StartStyle::GAME_START_STYLE_UNDEF)\" not met");
+   }
+   if (!((save_style != SaveStyle::GAME_SAVE_STYLE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(save_style != SaveStyle::GAME_SAVE_STYLE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(save_style != SaveStyle::GAME_SAVE_STYLE_UNDEF)\" not met");
+   }
+   if (!((load_style != LoadStyle::GAME_LOAD_STYLE_UNDEF)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(load_style != LoadStyle::GAME_LOAD_STYLE_UNDEF)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::initialize]: error: guard \"(load_style != LoadStyle::GAME_LOAD_STYLE_UNDEF)\" not met");
    }
    if (!((num_profiles > 0)))
    {
@@ -801,6 +864,186 @@ void SavingAndLoading::create_save_file_directories_if_they_do_not_exist()
       }
    }
    return;
+}
+
+std::vector<std::pair<std::string, std::string>> SavingAndLoading::obtain_context_sensitive_menu_items_for_starting_or_loading_the_game()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::obtain_context_sensitive_menu_items_for_starting_or_loading_the_game]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::obtain_context_sensitive_menu_items_for_starting_or_loading_the_game]: error: guard \"initialized\" not met");
+   }
+   // TODO: Review the correctness of the action names (should be constants, too) for each menu item.
+   switch (start_style)
+   {
+      case StartStyle::GAME_START_STYLE_A: {
+         return {
+            { "Play", "goto_load_a_saved_game_screen" },
+         };
+      } break;
+
+      case StartStyle::GAME_START_STYLE_B: { // 1 profile, 1 save. Save slot is never interacted with
+         if (!infer_existing_save_data_exists())
+         {
+            return {
+               { "Start new game", "start_new_game" },
+            };
+         }
+         else
+         {
+            return {
+               { "Continue",       "continue_from_last_save" },
+               { "Start new game", "prompt_to_clear_existing_data_then_start_new_game" }, // TODO: Fulfill this
+            };
+         }
+      } break;
+
+      case StartStyle::GAME_START_STYLE_C: { // 1 profile, multiple saves. Saves are listed by time desc
+         if (!infer_existing_save_data_exists())
+         {
+            return {
+               { "Start new game", "start_new_game" }
+            };
+         }
+         else
+         {
+            return {
+               { "Continue",       "goto_load_a_saved_game_screen" },
+               { "Start new game", "prompt_to_clear_existing_data_then_start_new_game" }, // TODO: Fulfill this
+            };
+         }
+      } break;
+
+      case StartStyle::GAME_START_STYLE_D: { // Tunic style
+         if (!infer_existing_save_data_exists())
+         {
+            return {
+               { "Start new game", "start_new_game" },
+            };
+         }
+         else
+         {
+            return {
+               { "Continue",  "load_most_recent_save_file_and_start_game" }, // TODO: Fulfill this
+               { "New game",  "[unset-action_name_for_new_game]" }, // NOTE: TODO: This option is contingent on there
+                                                                    // being an available save slot. Review if this
+                                                                    // is true
+                                                                    // TODO: Fulfill this
+               { "Load game", "[unset-action_name_for_load_game]" }, // TODO: Fulfill this
+            };
+         }
+      } break;
+
+      case StartStyle::GAME_START_STYLE_E: {
+         if (!infer_existing_save_data_exists())
+         {
+            return {
+               { "Start new game", "start_new_game" },
+            };
+         }
+         else
+         {
+            return {
+               { "Continue",  "load_most_recent_save_file_and_start_game" }, // TODO: Fulfill this
+               { "New game",  "[unset-action_name_for_new_game]" }, // TODO: Fulfill this
+               { "Load game", "[unset-action_name_for_load_game]" }, // TODO: Fulfill this
+            };
+         }
+      } break;
+
+      case StartStyle::GAME_START_STYLE_F: { // No real profies or save slots
+         return {
+            { "Start game", "start_new_game" },
+            { "Enter passcode", "goto_enter_passcode_screen" },
+         };
+      } break;
+
+      case StartStyle::GAME_START_STYLE_G: {
+         return {
+            { "Start game", "start_new_game" },
+            { "Change profile", "goto_change_save_profile_screen" }, // TODO: Fulfill this
+         };
+      } break;
+
+      default: {
+         AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+            "Unexpected logic path to here (1). Please review."
+         );
+      } break;
+   }
+
+   AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+      "Unexpected logic path to here (2). Please review."
+   );
+
+   return {};
+
+   //std::vector<std::pair<std::string, std::string>> game_start_options = {
+
+
+
+      // Start style A (Metroid Prime):
+      //{ "Play",              "goto_load_a_saved_game_screen" },
+
+
+
+      // Start style B (Fade to White) (with no saves)
+      //{ "Start new game",    "..." },
+
+      // Start style B (Fade to White) (with existing saves)
+      //{ "Continue",          "..." }, // Loads the most recent save, Will advance to wherever the game wants
+      //{ "Start new game",    "..." }, // Will prompt to erase all save data
+
+
+
+      // Start style C (Zelda:BOTW) (with no saves)
+      //{ "Start new game",    "..." },
+
+      // Start style C (Zelda:BOTW) (with existing saves)
+      //{ "Continue",          "..." }, // Will advance to the load_a_saved_game_screen (with list of recent saves)
+      //{ "Start new game",    "..." }, // Will prompt to erase all save data
+
+
+
+      // Start style D (Tunic) (with no saves) (This is the same as Start Style A, but with convenience),
+                                               // Tunic has up to 10 save slots
+      //{ "Start new game",    "..." },
+
+      // Start style D (Tunic) (with existing saves)
+      //{ "Continue",          "..." }, // Will load the most recent save, from the most recent profile
+      //{ "New game",          "..." },
+      //{ "Load game",         "..." },
+
+
+
+      // Start style E (Final Fantasy), same as Start Style D, but there are many save slots
+
+
+
+      // Start style F (Mega Man)
+      //{ "Start game",        "..." },
+      //{ "Enter passcode",    "..." },
+
+
+
+      // Start style G (Signalis, Wolfenstein II: The New Colossus)
+      //{ "Start game",        "..." }, // Will continue from last most recent save on this profile
+      //{ "Change profile",    "..." },
+
+
+
+   //};
+   //return game_start_options;
+}
+
+bool SavingAndLoading::infer_existing_save_data_exists()
+{
+   // TODO: Save slots need to be scanned first; should this be enforced with a warning or guard?
+   // TODO: Test this
+   for (auto &save_slot : save_slots) if (save_slot.header_data_exists()) return true;
+   return false;
 }
 
 

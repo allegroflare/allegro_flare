@@ -18432,6 +18432,18 @@ table td
   <td class="method"><b>get_num_quicksave_save_slots</b>()</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle</td>
+  <td class="method"><b>get_saving_and_loading_start_style</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle</td>
+  <td class="method"><b>get_saving_and_loading_save_style</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle</td>
+  <td class="method"><b>get_saving_and_loading_load_style</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>on_runner_after_initialization_func</b>(AllegroFlare::Runners::Complete* runner=nullptr)</td>
 </tr>
@@ -18673,6 +18685,15 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Screens::Subscreen::Screen&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Screens/Subscreen/Screen.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SavingAndLoading.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SavingAndLoading.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/SavingAndLoading.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -36677,6 +36698,18 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">start_style</td>
+  <td class="property">AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle</td>
+</tr>
+<tr>
+  <td class="property">save_style</td>
+  <td class="property">AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle</td>
+</tr>
+<tr>
+  <td class="property">load_style</td>
+  <td class="property">AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle</td>
+</tr>
+<tr>
   <td class="property">num_profiles</td>
   <td class="property">int</td>
 </tr>
@@ -36775,6 +36808,14 @@ table td
   <td class="method">void</td>
   <td class="method"><b>create_save_file_directories_if_they_do_not_exist</b>()</td>
 </tr>
+<tr>
+  <td class="method">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
+  <td class="method"><b>obtain_context_sensitive_menu_items_for_starting_or_loading_the_game</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>infer_existing_save_data_exists</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -36792,6 +36833,18 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::StandardSavesPath&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/SavingAndLoading/StandardSavesPath.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle&quot;, &quot;headers&quot;=&gt;[]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
@@ -51569,6 +51622,7 @@ table td
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SaveStyles",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/Gameplay",
@@ -54409,6 +54463,18 @@ table td
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/SubscreenFactory",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/LoadStyle": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/SaveStyle": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/StartStyle": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "std/istreambuf_iterator": [
     "AllegroFlare/GameProgressAndStateInfos/Base"

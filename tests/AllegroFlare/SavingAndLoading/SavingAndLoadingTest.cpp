@@ -24,6 +24,9 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    saving_and_loading.set_num_manual_save_slots(3);
    saving_and_loading.set_num_autosave_save_slots(5);
    saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
 
    EXPECT_EQ(30, saving_and_loading.num_save_slots());
@@ -37,6 +40,9 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    AllegroFlare::SavingAndLoading::SavingAndLoading saving_and_loading(temporary_directory);
 
    saving_and_loading.set_num_profiles(1);
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
    saving_and_loading.create_save_file_directories_if_they_do_not_exist();
 
@@ -57,6 +63,9 @@ header_data_into_save_slots)
    saving_and_loading.set_num_manual_save_slots(3);
    saving_and_loading.set_num_autosave_save_slots(5);
    saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
 
    saving_and_loading.create_save_file_directories_if_they_do_not_exist();
@@ -92,6 +101,9 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    //saving_and_loading.set_num_manual_save_slots(3);
    saving_and_loading.set_num_autosave_save_slots(5);
    //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
 
    //saving_and_loading.create_save_file_directories_if_they_do_not_exist();
@@ -121,6 +133,9 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    saving_and_loading.set_num_manual_save_slots(3);
    //saving_and_loading.set_num_autosave_save_slots(5);
    //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
 
    //saving_and_loading.create_save_file_directories_if_they_do_not_exist();
@@ -150,6 +165,9 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    saving_and_loading.set_num_manual_save_slots(3);
    //saving_and_loading.set_num_autosave_save_slots(5);
    //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
 
    saving_and_loading.save_to_manual_save_slot(2, 1, "{\"foo\":\"bar\"}");
@@ -169,6 +187,9 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    saving_and_loading.set_num_manual_save_slots(3);
    //saving_and_loading.set_num_autosave_save_slots(5);
    //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
 
    std::string expected_error_message =
@@ -193,6 +214,9 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
    saving_and_loading.set_num_manual_save_slots(1);
    //saving_and_loading.set_num_autosave_save_slots(5);
    //saving_and_loading.set_num_quicksave_save_slots(7);
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
 
    std::string expected_error_message =

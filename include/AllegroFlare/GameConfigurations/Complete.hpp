@@ -15,6 +15,7 @@
 #include <AllegroFlare/Levels/Base.hpp>
 #include <AllegroFlare/LoadASavedGame/SaveSlots/Base.hpp>
 #include <AllegroFlare/Runners/Complete.hpp>
+#include <AllegroFlare/SavingAndLoading/SavingAndLoading.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/Screens/Subscreen/Screen.hpp>
@@ -57,6 +58,9 @@ namespace AllegroFlare
          virtual int get_num_manual_save_slots();
          virtual int get_num_autosave_save_slots();
          virtual int get_num_quicksave_save_slots();
+         virtual AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle get_saving_and_loading_start_style();
+         virtual AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle get_saving_and_loading_save_style();
+         virtual AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle get_saving_and_loading_load_style();
          virtual void on_runner_after_initialization_func(AllegroFlare::Runners::Complete* runner=nullptr);
          virtual void before_activate_screen_callback(std::string screen_identifier_that_will_activate="[unset-screen_identifier_that_will_activate]", std::string currently_active_screen_identifier="[unset-currently_active_screen_identifier]");
          virtual void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);

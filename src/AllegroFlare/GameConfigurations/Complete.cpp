@@ -97,6 +97,21 @@ int Complete::get_num_quicksave_save_slots()
    return 0;
 }
 
+AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle Complete::get_saving_and_loading_start_style()
+{
+   return AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A;
+}
+
+AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle Complete::get_saving_and_loading_save_style()
+{
+   return AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4;
+}
+
+AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle Complete::get_saving_and_loading_load_style()
+{
+   return AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0;
+}
+
 void Complete::on_runner_after_initialization_func(AllegroFlare::Runners::Complete* runner)
 {
    // TODO: Consider renaming this method to align with other methods

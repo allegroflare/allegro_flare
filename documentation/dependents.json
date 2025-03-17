@@ -189,6 +189,7 @@
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SaveStyles",
     "AllegroFlare/SavingAndLoading/SavingAndLoading",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading",
     "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/Gameplay",
@@ -3029,6 +3030,18 @@
     "AllegroFlare/Screens/Subscreen/Screen",
     "AllegroFlare/Screens/SubscreenFactory",
     "AllegroFlare/Testing/GameConfigurations/Complete/SimpleConfiguration"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/LoadStyle": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/SaveStyle": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
+  ],
+  "AllegroFlare/SavingAndLoading/SavingAndLoading/StartStyle": [
+    "AllegroFlare/GameConfigurations/Complete",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "std/istreambuf_iterator": [
     "AllegroFlare/GameProgressAndStateInfos/Base"

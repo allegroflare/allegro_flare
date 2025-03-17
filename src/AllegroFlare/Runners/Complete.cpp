@@ -303,6 +303,10 @@ void Complete::initialize()
    saving_and_loading.set_num_manual_save_slots(game_configuration->get_num_manual_save_slots());
    saving_and_loading.set_num_autosave_save_slots(game_configuration->get_num_autosave_save_slots());
    saving_and_loading.set_num_quicksave_save_slots(game_configuration->get_num_quicksave_save_slots());
+   // TODO: Make these styles configurable in the gmae_configuration
+   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading.initialize();
    saving_and_loading.create_save_file_directories_if_they_do_not_exist();
    saving_and_loading.scan_for_existing_save_files_and_load_header_data();

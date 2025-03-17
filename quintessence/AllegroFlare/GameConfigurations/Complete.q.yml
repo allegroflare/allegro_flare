@@ -90,6 +90,27 @@ methods:
       return 0;
 
 
+  - name: get_saving_and_loading_start_style
+    virtual: true
+    type: AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle
+    body: |
+      return AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A;
+
+
+  - name: get_saving_and_loading_save_style
+    virtual: true
+    type: AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle
+    body: |
+      return AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4;
+
+
+  - name: get_saving_and_loading_load_style
+    virtual: true
+    type: AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle
+    body: |
+      return AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0;
+
+
   - name: on_runner_after_initialization_func
     virtual: true
     parameters:
@@ -973,5 +994,11 @@ dependencies:
     headers: [ AllegroFlare/Screens/PauseScreen.hpp ]
   - symbol: AllegroFlare::Screens::Subscreen::Screen
     headers: [ AllegroFlare/Screens/Subscreen/Screen.hpp ]
+  - symbol: AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle
+    headers: [ AllegroFlare/SavingAndLoading/SavingAndLoading.hpp ]
+  - symbol: AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle
+    headers: [ AllegroFlare/SavingAndLoading/SavingAndLoading.hpp ]
+  - symbol: AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle
+    headers: [ AllegroFlare/SavingAndLoading/SavingAndLoading.hpp ]
 
 
