@@ -105,6 +105,7 @@ namespace AllegroFlare
          void save_to_manual_save_slot(int profile_id=0, int save_slot_position=0, std::string content="[unset-content]");
          void save_to_autosave(int profile_id=0, std::string content="[unset-content]");
          void save_to_quicksave(int profile_id=0, std::string content="[unset-content]");
+         void delete_all_save_data();
          std::string load_content_from_manual_save_content_file(int profile_id=0, int save_slot_position=0);
          AllegroFlare::SavingAndLoading::SaveSlot* find_save_slot(int profile_id=0, int save_slot_position=0, uint32_t save_slot_type=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF);
          bool has_quicksave_save_slots();

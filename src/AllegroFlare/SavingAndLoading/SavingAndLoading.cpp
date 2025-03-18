@@ -735,6 +735,33 @@ void SavingAndLoading::__delete_header_and_content_files_and_clear_save_slot__DE
    return;
 }
 
+void SavingAndLoading::delete_all_save_data()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_all_save_data]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SavingAndLoading::SavingAndLoading::delete_all_save_data]: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+      "Preparing to delete all existing save data..."
+   );
+
+   // Delete everything on all the save slots
+   for (auto &save_slot : save_slots)
+   {
+      save_slot.delete_header_and_content_files_and_clear();
+   }
+
+   AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+      "...All existing save data has been cleared."
+   );
+   return;
+}
+
 std::string SavingAndLoading::load_content_from_manual_save_content_file(int profile_id, int save_slot_position)
 {
    AllegroFlare::SavingAndLoading::SaveSlot* save_slot = find_save_slot(

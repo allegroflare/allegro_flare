@@ -237,3 +237,10 @@ TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
 }
 
 
+TEST(AllegroFlare_SavingAndLoading_SavingAndLoadingTest,
+   DISABLED____delete_all_save_data__will_remove_all_existing_save_files_and_clear_save_slot_headers)
+{
+   // TODO
+}
+
+

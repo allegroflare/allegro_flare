@@ -523,6 +523,27 @@ methods:
       return;
 
 
+  - name: delete_all_save_data
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+         "Preparing to delete all existing save data..."
+      );
+
+      // Delete everything on all the save slots
+      for (auto &save_slot : save_slots)
+      {
+         save_slot.delete_header_and_content_files_and_clear();
+      }
+
+      AllegroFlare::Logger::info_from(THIS_CLASS_AND_METHOD_NAME,
+         "...All existing save data has been cleared."
+      );
+      return;
+
+
 # TODO: Consider renaming this method to something less literal
   - name: load_content_from_manual_save_content_file
     type: std::string
