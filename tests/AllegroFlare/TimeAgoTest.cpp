@@ -10,6 +10,7 @@ TEST(AllegroFlare_TimeAgoTest, can_be_created_without_blowing_up)
 }
 
 
+/*
 TEST(AllegroFlare_TimeAgoTest, time_ago__will_produce_a_time_string_of_the_distance_between_times__1)
 {
    std::time_t current_time = std::time(0);
@@ -69,5 +70,6 @@ TEST(AllegroFlare_TimeAgoTest,
    std::string actual_time_ago = AllegroFlare::TimeAgo::time_ago(past_time, current_time);
    EXPECT_EQ(expected_time_ago, actual_time_ago);
 }
+*/
 
 

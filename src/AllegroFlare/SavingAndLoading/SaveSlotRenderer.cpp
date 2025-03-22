@@ -18,13 +18,14 @@ namespace SavingAndLoading
 {
 
 
-SaveSlotRenderer::SaveSlotRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string screenshot_of_gameplay_at_save_identifier, std::string location_of_save, std::string date_and_time_of_save, std::string time_since_text, uint32_t save_slot_type)
+SaveSlotRenderer::SaveSlotRenderer(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string screenshot_of_gameplay_at_save_identifier, std::string location_of_save, std::string date_and_time_of_save, std::string time_since_text, std::time_t time_since_value, uint32_t save_slot_type)
    : bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , screenshot_of_gameplay_at_save_identifier(screenshot_of_gameplay_at_save_identifier)
    , location_of_save(location_of_save)
    , date_and_time_of_save(date_and_time_of_save)
    , time_since_text(time_since_text)
+   , time_since_value(time_since_value)
    , save_slot_type(save_slot_type)
    , width(DEFAULT_WIDTH)
    , height(DEFAULT_HEIGHT)
@@ -73,6 +74,12 @@ void SaveSlotRenderer::set_time_since_text(std::string time_since_text)
 }
 
 
+void SaveSlotRenderer::set_time_since_value(std::time_t time_since_value)
+{
+   this->time_since_value = time_since_value;
+}
+
+
 void SaveSlotRenderer::set_save_slot_type(uint32_t save_slot_type)
 {
    this->save_slot_type = save_slot_type;
@@ -115,6 +122,12 @@ std::string SaveSlotRenderer::get_time_since_text() const
 }
 
 
+std::time_t SaveSlotRenderer::get_time_since_value() const
+{
+   return time_since_value;
+}
+
+
 uint32_t SaveSlotRenderer::get_save_slot_type() const
 {
    return save_slot_type;
@@ -136,6 +149,21 @@ float SaveSlotRenderer::get_height() const
 void SaveSlotRenderer::__dependency_trigger(uint32_t dep1)
 {
    return;
+}
+
+ALLEGRO_COLOR SaveSlotRenderer::infer_time_since_text_color(std::time_t time_since_value)
+{
+   ALLEGRO_COLOR time_since_color;
+   std::time_t green_threshold = 30 * 60; // 30 minutes will be the threshold for green (feel free to tweak)
+   if (time_since_value >= green_threshold)
+   {
+      time_since_color = ALLEGRO_COLOR{0.52, 0.53, 0.56, 1.0}; // a darker gray
+   }
+   else
+   {
+      time_since_color = ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}; // a minty green
+   }
+   return time_since_color;
 }
 
 void SaveSlotRenderer::render()
@@ -318,7 +346,7 @@ void SaveSlotRenderer::render()
    { // time since text
       // The time_since text
       ALLEGRO_FONT *time_since_font = details_font;
-      ALLEGRO_COLOR time_since_color = ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}; // a minty green
+      ALLEGRO_COLOR time_since_color = infer_time_since_text_color(time_since_value);
 
       int time_since_font_line_height = al_get_font_line_height(time_since_font);
 

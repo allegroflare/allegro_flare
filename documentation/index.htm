@@ -36558,6 +36558,10 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">time_since_value</td>
+  <td class="property">std::time_t</td>
+</tr>
+<tr>
   <td class="property">save_slot_type</td>
   <td class="property">uint32_t</td>
 </tr>
@@ -36583,6 +36587,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>__dependency_trigger</b>(uint32_t dep1=AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">ALLEGRO_COLOR</td>
+  <td class="method"><b>infer_time_since_text_color</b>(std::time_t time_since_value=0)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -36630,6 +36638,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_html&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::time_t&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -47469,7 +47483,7 @@ table td
 <p>This class contains no properties</p>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
-  <td class="method">std::string</td>
+  <td class="method">std::pair&lt;std::time_t, std::string&gt;</td>
   <td class="method"><b>time_ago</b>(std::time_t past_time=std::time(0), std::time_t current_time=std::time(0))</td>
 </tr>
 <tr>
@@ -52704,6 +52718,7 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Rulers",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -54843,6 +54858,7 @@ table td
   ],
   "std/time_t": [
     "AllegroFlare/LoadASavedGame/SaveSlots/Common",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/TimeAgo",
     "AllegroFlare/TimeStamper"
   ],

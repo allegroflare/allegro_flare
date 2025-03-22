@@ -1222,6 +1222,7 @@
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
     "AllegroFlare/Prototypes/TileDrive/Hud/Hud",
     "AllegroFlare/Rulers",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/Screens/DisplaySettings",
     "AllegroFlare/Screens/PauseScreen",
     "AllegroFlare/Screens/Storyboard",
@@ -3361,6 +3362,7 @@
   ],
   "std/time_t": [
     "AllegroFlare/LoadASavedGame/SaveSlots/Common",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
     "AllegroFlare/TimeAgo",
     "AllegroFlare/TimeStamper"
   ],

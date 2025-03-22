@@ -19,7 +19,7 @@ TimeAgo::~TimeAgo()
 }
 
 
-std::string TimeAgo::time_ago(std::time_t past_time, std::time_t current_time)
+std::pair<std::time_t, std::string> TimeAgo::time_ago(std::time_t past_time, std::time_t current_time)
 {
    //std::time_t current_time = std::time(0);
    double diff_seconds = difftime(current_time, past_time);
@@ -35,47 +35,47 @@ std::string TimeAgo::time_ago(std::time_t past_time, std::time_t current_time)
 
    if (diff_seconds < 0)
    {
-      return "Invalid time (future date)";
+      return { 0, "Invalid time (future date)" };
    }
    else if (diff_seconds <= margin_of_error_for_just_now)
    {
-      return "Just now";
+      return { 0, "Just now" };
    }
    else if (diff_seconds < seconds_in_minute)
    {
       //return std::to_string(static_cast<int>(diff_seconds)) + " seconds ago";
-      return format(static_cast<int>(diff_seconds), "second");
+      return { diff_seconds, format(static_cast<int>(diff_seconds), "second") };
       //return std::to_string(static_cast<int>(diff_seconds)) + " seconds ago";
    }
    else if (diff_seconds < seconds_in_hour)
    {
       //return std::to_string(static_cast<int>(diff_seconds / seconds_in_minute)) + " minutes ago";
-      return format(static_cast<int>(diff_seconds / seconds_in_minute), "minute");
+      return { diff_seconds, format(static_cast<int>(diff_seconds / seconds_in_minute), "minute") };
    }
    else if (diff_seconds < seconds_in_day)
    {
       //return std::to_string(static_cast<int>(diff_seconds / seconds_in_hour)) + " hours ago";
-      return format(static_cast<int>(diff_seconds / seconds_in_hour), "hour");
+      return { diff_seconds, format(static_cast<int>(diff_seconds / seconds_in_hour), "hour") };
    }
    else if (diff_seconds < seconds_in_month)
    {
       //return std::to_string(static_cast<int>(diff_seconds / seconds_in_day)) + " days ago";
-      return format(static_cast<int>(diff_seconds / seconds_in_day), "day");
+      return { diff_seconds, format(static_cast<int>(diff_seconds / seconds_in_day), "day") };
    }
    else if (diff_seconds < seconds_in_year)
    {
       //return std::to_string(static_cast<int>(diff_seconds / seconds_in_month)) + " months ago";
-      return format(static_cast<int>(diff_seconds / seconds_in_month), "month");
+      return { diff_seconds, format(static_cast<int>(diff_seconds / seconds_in_month), "month") };
    }
    else
    {
       //return std::to_string(static_cast<int>(diff_seconds / seconds_in_year)) + " years ago";
-      return format(static_cast<int>(diff_seconds / seconds_in_year), "year");
+      return { diff_seconds, format(static_cast<int>(diff_seconds / seconds_in_year), "year") };
    }
 
    // TODO: Consider throwing error
 
-   return "Error";
+   return { 0, "Error" };
 }
 
 std::time_t TimeAgo::generate_time_now_since_epoch()

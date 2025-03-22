@@ -41,6 +41,13 @@ properties:
     getter: true
     setter: true
 
+  - name: time_since_value
+    type: std::time_t
+    init_with: 0
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: save_slot_type
     type: uint32_t
     init_with: AllegroFlare::SavingAndLoading::SaveSlot::SAVE_SLOT_TYPE_UNDEF
@@ -84,6 +91,26 @@ methods:
         default_argument_dependency_symbols: [ 'AllegroFlare::SavingAndLoading::SaveSlot' ]
     body: |
       return;
+
+
+  - name: infer_time_since_text_color
+    type: ALLEGRO_COLOR
+    parameters:
+      - name: time_since_value
+        type: std::time_t
+        default_argument: 0
+    body: |
+      ALLEGRO_COLOR time_since_color;
+      std::time_t green_threshold = 30 * 60; // 30 minutes will be the threshold for green (feel free to tweak)
+      if (time_since_value >= green_threshold)
+      {
+         time_since_color = ALLEGRO_COLOR{0.52, 0.53, 0.56, 1.0}; // a darker gray
+      }
+      else
+      {
+         time_since_color = ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}; // a minty green
+      }
+      return time_since_color;
 
 
   - name: render
@@ -238,7 +265,7 @@ methods:
       { // time since text
          // The time_since text
          ALLEGRO_FONT *time_since_font = details_font;
-         ALLEGRO_COLOR time_since_color = ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}; // a minty green
+         ALLEGRO_COLOR time_since_color = infer_time_since_text_color(time_since_value);
 
          int time_since_font_line_height = al_get_font_line_height(time_since_font);
 
@@ -331,5 +358,9 @@ dependencies:
     headers: [ AllegroFlare/SavingAndLoading/SaveSlot.hpp ]
   - symbol: al_color_html
     headers: [ allegro5/allegro_color.h ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
+  - symbol: std::time_t
+    headers: [ ctime ]
 
 

@@ -604,13 +604,16 @@ void Screen::render_save_slots()
             save_slot->get_header_data()->save_time__seconds_since_epoch;
          std::string user_friendly_time_of_save =
             AllegroFlare::TimeStamper::user_friendly_time(save_time__seconds_since_epoch);
-         std::string time_ago_since_save_string =
+         std::time_t time_ago_value;
+         std::string time_ago_string;
+         std::tie(time_ago_value, time_ago_string) =
             AllegroFlare::TimeAgo::time_ago(save_time__seconds_since_epoch, time_now);
 
          // Fill renderer with data
          std::string time_of_save_str = save_slot->get_header_data()->date_and_time_of_save;
          renderer.set_date_and_time_of_save(user_friendly_time_of_save);
-         renderer.set_time_since_text(time_ago_since_save_string);
+         renderer.set_time_since_text(time_ago_string);
+         renderer.set_time_since_value(time_ago_value);
          renderer.set_save_slot_type(save_slot->get_save_slot_type());
          renderer.set_screenshot_of_gameplay_at_save_identifier(
             save_slot->get_header_data()->screenshot_of_gameplay_at_save_identifier
