@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/SavingAndLoading/SaveSlot.hpp>
@@ -54,6 +55,7 @@ namespace AllegroFlare
          AllegroFlare::FontBin font_bin;
          AllegroFlare::SavingAndLoading::SavingAndLoading* saving_and_loading;
          int cursor_position;
+         AllegroFlare::Elements::SelectionCursorBox cursor_selection_box;
          std::function<void(AllegroFlare::SavingAndLoading::Screen*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
          std::function<void(AllegroFlare::SavingAndLoading::Screen*, void*)> on_erase_focused_save_slot_func;
@@ -105,6 +107,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> get_save_slots();
          void move_cursor_up();
          void move_cursor_down();
+         void update_selection_cursor_box_position_to_changed_cursor_position();
          AllegroFlare::SavingAndLoading::SaveSlot* get_currently_selected_save_slot();
          void exit_screen();
          void activate_current_focused_menu_option();
@@ -115,6 +118,13 @@ namespace AllegroFlare
          void select_current_focused_menu_option();
          void render();
          void render_title();
+         float infer_first_box_initial_position_x();
+         float infer_first_box_initial_position_y();
+         float infer_save_slot_width();
+         float infer_save_slot_height();
+         float infer_save_slot_y_distance();
+         float cursor_selection_box_padding_x();
+         float cursor_selection_box_padding_y();
          void render_save_slots();
          void render_dialogs_overlay();
          void delete_save_slot_at_current_cursor();

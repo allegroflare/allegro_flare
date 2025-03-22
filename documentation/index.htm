@@ -36885,6 +36885,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">cursor_selection_box</td>
+  <td class="property">AllegroFlare::Elements::SelectionCursorBox</td>
+</tr>
+<tr>
   <td class="property">on_menu_choice_callback_func</td>
   <td class="property">std::function&lt;void(AllegroFlare::SavingAndLoading::Screen*, void*)&gt;</td>
 </tr>
@@ -36992,6 +36996,10 @@ table td
   <td class="method"><b>move_cursor_down</b>()</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>update_selection_cursor_box_position_to_changed_cursor_position</b>()</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::SavingAndLoading::SaveSlot*</td>
   <td class="method"><b>get_currently_selected_save_slot</b>()</td>
 </tr>
@@ -37030,6 +37038,34 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>render_title</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_first_box_initial_position_x</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_first_box_initial_position_y</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_save_slot_width</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_save_slot_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>infer_save_slot_y_distance</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>cursor_selection_box_padding_x</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>cursor_selection_box_padding_y</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -37177,6 +37213,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_color_name&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_color.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -53059,7 +53098,8 @@ table td
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/Elements/MultiList"
+    "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",

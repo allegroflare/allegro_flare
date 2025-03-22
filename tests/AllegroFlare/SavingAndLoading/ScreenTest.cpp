@@ -27,9 +27,9 @@ static void setup_saving_and_loading_backend(
    saving_and_loading->set_data_folder_path(temporary_directory + "/");
    saving_and_loading->set_num_profiles(1);
    saving_and_loading->set_num_manual_save_slots(3);
-   saving_and_loading.set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
-   saving_and_loading.set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
-   saving_and_loading.set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
+   saving_and_loading->set_start_style(AllegroFlare::SavingAndLoading::SavingAndLoading::StartStyle::GAME_START_STYLE_A);
+   saving_and_loading->set_save_style(AllegroFlare::SavingAndLoading::SavingAndLoading::SaveStyle::GAME_SAVE_STYLE_4);
+   saving_and_loading->set_load_style(AllegroFlare::SavingAndLoading::SavingAndLoading::LoadStyle::GAME_LOAD_STYLE_0);
    saving_and_loading->initialize();
    saving_and_loading->create_save_file_directories_if_they_do_not_exist();
 

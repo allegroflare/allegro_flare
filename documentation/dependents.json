@@ -1622,7 +1622,8 @@
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
-    "AllegroFlare/Elements/MultiList"
+    "AllegroFlare/Elements/MultiList",
+    "AllegroFlare/SavingAndLoading/Screen"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer": [
     "AllegroFlare/DialogSystem/DialogSystem",

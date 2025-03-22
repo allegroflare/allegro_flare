@@ -32,6 +32,10 @@ properties:
     type: int
     init_with: 0
 
+  - name: cursor_selection_box
+    type: AllegroFlare::Elements::SelectionCursorBox
+    init_with: ''
+
   - name: on_menu_choice_callback_func
     type: std::function<void(AllegroFlare::SavingAndLoading::Screen*, void*)>
     init_with: '{}'
@@ -158,9 +162,23 @@ methods:
       - saving_and_loading
       - (mode != MODE_UNDEF)
     body: |
+      // Setup the update strategy
       set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+
+      // Setup the bin paths
       bitmap_bin.set_full_path(AllegroFlare::BitmapBin::build_standard_path(data_folder_path));
       font_bin.set_full_path(AllegroFlare::FontBin::build_standard_path(data_folder_path));
+
+      // Setup the cursor dimensions
+      cursor_selection_box.set_size_quietly(
+         infer_save_slot_width() + cursor_selection_box_padding_x() * 2,
+         infer_save_slot_height() + cursor_selection_box_padding_y() * 2
+      );
+      cursor_selection_box.set_position_quietly(
+         infer_first_box_initial_position_x() - cursor_selection_box_padding_x(),
+         infer_first_box_initial_position_y() - cursor_selection_box_padding_y()
+      );
+       
       initialized = true;
       return;
     body_dependency_symbols:
@@ -207,6 +225,7 @@ methods:
     guards: [ initialized ]
     body: |
       cursor_position = 0;
+      update_selection_cursor_box_position_to_changed_cursor_position();
       reveal_screen();
       //emit_event_to_update_input_hints_bar();
       //emit_show_and_size_input_hints_bar_event();
@@ -258,6 +277,7 @@ methods:
 
       cursor_position--;
       if (cursor_position < 0) cursor_position += get_save_slots().size();
+      update_selection_cursor_box_position_to_changed_cursor_position();
       return;
 
 
@@ -269,6 +289,20 @@ methods:
 
       cursor_position++;
       if (cursor_position >= num_save_slots) cursor_position -= num_save_slots;
+      update_selection_cursor_box_position_to_changed_cursor_position();
+      return;
+
+
+  - name: update_selection_cursor_box_position_to_changed_cursor_position
+    body: |
+      float box_width = infer_save_slot_width();
+      float box_height = infer_save_slot_height();
+      //float position_x = infer_first_box_initial_position_x();
+      //float position_y = infer_first_box_initial_position_y() + infer_save_slot_y_distance() * cursor_position;
+      float position_x = infer_first_box_initial_position_x() - cursor_selection_box_padding_x();
+      float position_y = infer_first_box_initial_position_y() - cursor_selection_box_padding_y()
+                       +  infer_save_slot_y_distance() * cursor_position;
+      cursor_selection_box.reposition_to(position_x-box_width*0.5, position_y-box_height*0.5);
       return;
 
 
@@ -404,24 +438,70 @@ methods:
       return;
 
 
+  - name: infer_first_box_initial_position_x
+    type: float
+    body: |
+      return 1920/2;
+
+
+  - name: infer_first_box_initial_position_y
+    type: float
+    body: |
+      return 400;
+
+
+  - name: infer_save_slot_width
+    type: float
+    body: |
+      return AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_WIDTH;
+
+
+  - name: infer_save_slot_height
+    type: float
+    body: |
+      return AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_HEIGHT;
+
+
+  - name: infer_save_slot_y_distance
+    type: float
+    body: |
+      return 1080/6 + 20;
+
+
+  - name: cursor_selection_box_padding_x
+    type: float
+    body: |
+      return 20;
+
+
+  - name: cursor_selection_box_padding_y
+    type: float
+    body: |
+      return 15;
+
+
   - name: render_save_slots
     body: |
-      float save_slot_width = AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_WIDTH;
-      float save_slot_height = AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_HEIGHT;
-      float y_distance = 1080/6 + 20;
-      float y_cursor = 400;
+      float save_slot_width = infer_save_slot_width();
+      float save_slot_height = infer_save_slot_height();
+      float y_distance = infer_save_slot_y_distance();
+      //float y_cursor = 400;
+      float first_box_initial_position_x = infer_first_box_initial_position_x();
+      float first_box_initial_position_y = infer_first_box_initial_position_y();
 
       AllegroFlare::Placement2D placement;
       placement.size.x = save_slot_width;
       placement.size.y = save_slot_height;
+      //placement.position.x = 1920/2;
+      //placement.position.y = y_cursor + y_distance*i;
 
       int i=0;
       for (auto &save_slot : get_save_slots())
       {
          //float x = 1920/2;
          //float y = y_cursor + y_distance*i;
-         placement.position.x = 1920/2;
-         placement.position.y = y_cursor + y_distance*i;
+         placement.position.x = first_box_initial_position_x;
+         placement.position.y = first_box_initial_position_y + y_distance*i;
 
          placement.start_transform();
          if (save_slot->is_empty())
@@ -466,6 +546,7 @@ methods:
 
          // If this is currently focused under the cursor, draw the cursor (for now)
          // TODO: Replace this with a more active cursor
+         /*
          bool this_save_slot_is_focused = (i == cursor_position);
          if (this_save_slot_is_focused)
          {
@@ -473,8 +554,8 @@ methods:
             if (drawing_cursor)
             {
                float roundness = 6.0f;
-               float padding_x = 20;
-               float padding_y = 15;
+               float padding_x = cursor_selection_box_padding_x();
+               float padding_y = cursor_selection_box_padding_y();
                al_draw_rounded_rectangle(
                   -padding_x,
                   -padding_y,
@@ -487,10 +568,16 @@ methods:
                );
             }
          }
+         */
+
          placement.restore_transform();
 
          i++;
       }
+
+      cursor_selection_box.render();
+
+
       return;
     body_dependency_symbols:
       - AllegroFlare::SavingAndLoading::EmptySaveSlotRenderer
@@ -838,6 +925,8 @@ methods:
     body: |
       float age = infer_current_state_age(time_now);
 
+      cursor_selection_box.update();
+
       switch (state)
       {
          case STATE_REVEALING:
@@ -1015,5 +1104,7 @@ dependencies:
     headers: [ AllegroFlare/TimeStamper.hpp ]
   - symbol: al_color_name
     headers: [ allegro5/allegro_color.h ]
+  - symbol: AllegroFlare::Elements::SelectionCursorBox
+    headers: [ AllegroFlare/Elements/SelectionCursorBox.hpp ]
 
 

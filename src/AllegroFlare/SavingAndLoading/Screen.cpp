@@ -29,6 +29,7 @@ Screen::Screen(std::string data_folder_path)
    , font_bin({})
    , saving_and_loading(nullptr)
    , cursor_position(0)
+   , cursor_selection_box()
    , on_menu_choice_callback_func({})
    , on_menu_choice_callback_func_user_data(nullptr)
    , on_erase_focused_save_slot_func({})
@@ -225,9 +226,23 @@ void Screen::initialize()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::initialize]: error: guard \"(mode != MODE_UNDEF)\" not met");
    }
+   // Setup the update strategy
    set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
+
+   // Setup the bin paths
    bitmap_bin.set_full_path(AllegroFlare::BitmapBin::build_standard_path(data_folder_path));
    font_bin.set_full_path(AllegroFlare::FontBin::build_standard_path(data_folder_path));
+
+   // Setup the cursor dimensions
+   cursor_selection_box.set_size_quietly(
+      infer_save_slot_width() + cursor_selection_box_padding_x() * 2,
+      infer_save_slot_height() + cursor_selection_box_padding_y() * 2
+   );
+   cursor_selection_box.set_position_quietly(
+      infer_first_box_initial_position_x() - cursor_selection_box_padding_x(),
+      infer_first_box_initial_position_y() - cursor_selection_box_padding_y()
+   );
+    
    initialized = true;
    return;
 }
@@ -276,6 +291,7 @@ void Screen::on_activate()
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::on_activate]: error: guard \"initialized\" not met");
    }
    cursor_position = 0;
+   update_selection_cursor_box_position_to_changed_cursor_position();
    reveal_screen();
    //emit_event_to_update_input_hints_bar();
    //emit_show_and_size_input_hints_bar_event();
@@ -345,6 +361,7 @@ void Screen::move_cursor_up()
 
    cursor_position--;
    if (cursor_position < 0) cursor_position += get_save_slots().size();
+   update_selection_cursor_box_position_to_changed_cursor_position();
    return;
 }
 
@@ -356,6 +373,20 @@ void Screen::move_cursor_down()
 
    cursor_position++;
    if (cursor_position >= num_save_slots) cursor_position -= num_save_slots;
+   update_selection_cursor_box_position_to_changed_cursor_position();
+   return;
+}
+
+void Screen::update_selection_cursor_box_position_to_changed_cursor_position()
+{
+   float box_width = infer_save_slot_width();
+   float box_height = infer_save_slot_height();
+   //float position_x = infer_first_box_initial_position_x();
+   //float position_y = infer_first_box_initial_position_y() + infer_save_slot_y_distance() * cursor_position;
+   float position_x = infer_first_box_initial_position_x() - cursor_selection_box_padding_x();
+   float position_y = infer_first_box_initial_position_y() - cursor_selection_box_padding_y()
+                    +  infer_save_slot_y_distance() * cursor_position;
+   cursor_selection_box.reposition_to(position_x-box_width*0.5, position_y-box_height*0.5);
    return;
 }
 
@@ -498,24 +529,63 @@ void Screen::render_title()
    return;
 }
 
+float Screen::infer_first_box_initial_position_x()
+{
+   return 1920/2;
+}
+
+float Screen::infer_first_box_initial_position_y()
+{
+   return 400;
+}
+
+float Screen::infer_save_slot_width()
+{
+   return AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_WIDTH;
+}
+
+float Screen::infer_save_slot_height()
+{
+   return AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_HEIGHT;
+}
+
+float Screen::infer_save_slot_y_distance()
+{
+   return 1080/6 + 20;
+}
+
+float Screen::cursor_selection_box_padding_x()
+{
+   return 20;
+}
+
+float Screen::cursor_selection_box_padding_y()
+{
+   return 15;
+}
+
 void Screen::render_save_slots()
 {
-   float save_slot_width = AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_WIDTH;
-   float save_slot_height = AllegroFlare::SavingAndLoading::SaveSlotRenderer::DEFAULT_HEIGHT;
-   float y_distance = 1080/6 + 20;
-   float y_cursor = 400;
+   float save_slot_width = infer_save_slot_width();
+   float save_slot_height = infer_save_slot_height();
+   float y_distance = infer_save_slot_y_distance();
+   //float y_cursor = 400;
+   float first_box_initial_position_x = infer_first_box_initial_position_x();
+   float first_box_initial_position_y = infer_first_box_initial_position_y();
 
    AllegroFlare::Placement2D placement;
    placement.size.x = save_slot_width;
    placement.size.y = save_slot_height;
+   //placement.position.x = 1920/2;
+   //placement.position.y = y_cursor + y_distance*i;
 
    int i=0;
    for (auto &save_slot : get_save_slots())
    {
       //float x = 1920/2;
       //float y = y_cursor + y_distance*i;
-      placement.position.x = 1920/2;
-      placement.position.y = y_cursor + y_distance*i;
+      placement.position.x = first_box_initial_position_x;
+      placement.position.y = first_box_initial_position_y + y_distance*i;
 
       placement.start_transform();
       if (save_slot->is_empty())
@@ -560,6 +630,7 @@ void Screen::render_save_slots()
 
       // If this is currently focused under the cursor, draw the cursor (for now)
       // TODO: Replace this with a more active cursor
+      /*
       bool this_save_slot_is_focused = (i == cursor_position);
       if (this_save_slot_is_focused)
       {
@@ -567,8 +638,8 @@ void Screen::render_save_slots()
          if (drawing_cursor)
          {
             float roundness = 6.0f;
-            float padding_x = 20;
-            float padding_y = 15;
+            float padding_x = cursor_selection_box_padding_x();
+            float padding_y = cursor_selection_box_padding_y();
             al_draw_rounded_rectangle(
                -padding_x,
                -padding_y,
@@ -581,10 +652,16 @@ void Screen::render_save_slots()
             );
          }
       }
+      */
+
       placement.restore_transform();
 
       i++;
    }
+
+   cursor_selection_box.render();
+
+
    return;
 }
 
@@ -924,6 +1001,8 @@ void Screen::update_state(float time_now)
       throw std::runtime_error("[AllegroFlare::SavingAndLoading::Screen::update_state]: error: guard \"is_valid_state(state)\" not met");
    }
    float age = infer_current_state_age(time_now);
+
+   cursor_selection_box.update();
 
    switch (state)
    {
