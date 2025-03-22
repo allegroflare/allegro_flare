@@ -175,16 +175,19 @@ methods:
          // Draw the screenshot frame
          float screenshot_x = x+screenshot_x_padding;
          float screenshot_y = y+height/2 - (int)(screenshot_height/2);
-         //float screenshot_w = 350/2;
-         //float screenshot_h = 220/2;
-         al_draw_rectangle(
-            screenshot_x,
-            screenshot_y,
-            screenshot_x + screenshot_width,
-            screenshot_y + screenshot_height,
-            border_color,
-            2.0f
-         );
+
+         bool draw_screenshot_frame = false;
+         if (draw_screenshot_frame)
+         {
+            al_draw_rectangle(
+               screenshot_x,
+               screenshot_y,
+               screenshot_x + screenshot_width,
+               screenshot_y + screenshot_height,
+               border_color,
+               2.0f
+            );
+         }
 
          // Draw the image
          // NOTE: Any image will be stretched to fit the screenshot space
