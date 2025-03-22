@@ -79,8 +79,9 @@ methods:
 
       float text_x = x + screenshot_width + screenshot_x_padding*2;
       float text_y = y + 12;
-      ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
-      ALLEGRO_COLOR border_color = ALLEGRO_COLOR{0.35, 0.35, 0.35, 1.0};
+      ALLEGRO_COLOR fill_color = al_color_html("1e2325"); // ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
+      ALLEGRO_COLOR text_color = ALLEGRO_COLOR{0.35, 0.35, 0.35, 1.0};
+      ALLEGRO_COLOR border_color = al_color_html("292e32"); // ALLEGRO_COLOR{0.13*2, 0.13*2, 0.13*2, 1.0};
 
       { // fill and border
          // Draw the fill
@@ -112,7 +113,7 @@ methods:
          // The location of the save
          al_draw_text(
             details_font,
-            border_color,
+            text_color,
             width/2,
             height/2-details_font_line_height / 2,
             ALLEGRO_ALIGN_CENTER,
@@ -125,6 +126,7 @@ methods:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
       - al_draw_text
+      - al_color_html
 
 
   - name: obtain_location_name_font
@@ -158,5 +160,7 @@ dependencies:
     headers: [ allegro5/allegro_primitives.h ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: al_color_html
+    headers: [ allegro5/allegro_color.h ]
 
 

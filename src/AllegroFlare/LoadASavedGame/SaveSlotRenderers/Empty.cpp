@@ -120,7 +120,7 @@ void Empty::render()
    }
    //float x = 1920/2;
    //float y = 1080/3;
-   ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5};
+   ALLEGRO_COLOR line_color = ALLEGRO_COLOR{0.12, 0.12, 0.12, 0.12};
    ALLEGRO_COLOR text_color = ALLEGRO_COLOR{0.6, 0.6, 0.6, 0.6};
    ALLEGRO_FONT *font = obtain_font();
    float h_font_line_height = al_get_font_line_height(font)/2;

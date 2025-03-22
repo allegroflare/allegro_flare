@@ -3,6 +3,7 @@
 #include <AllegroFlare/SavingAndLoading/SaveSlotRenderer.hpp>
 
 #include <AllegroFlare/Vec2D.hpp>
+#include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -195,8 +196,8 @@ void SaveSlotRenderer::render()
 
    float text_x = x + screenshot_width + screenshot_x_padding*2;
    float text_y = y + 12;
-   ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
-   ALLEGRO_COLOR border_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+   ALLEGRO_COLOR fill_color = al_color_html("384045"); // ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
+   ALLEGRO_COLOR border_color = fill_color; //ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
 
    { // fill and border
       // Draw the fill

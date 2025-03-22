@@ -2320,7 +2320,9 @@
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Text",
-    "AllegroFlare/Layouts/TileMeshWithText"
+    "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/SaveSlotRenderer"
   ],
   "al_draw_filled_rounded_rectangle": [
     "AllegroFlare/Elements/DialogBoxFrame",

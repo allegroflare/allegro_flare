@@ -3,6 +3,7 @@
 #include <AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer.hpp>
 
 #include <AllegroFlare/Vec2D.hpp>
+#include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <iostream>
@@ -138,8 +139,9 @@ void EmptySaveSlotRenderer::render()
 
    float text_x = x + screenshot_width + screenshot_x_padding*2;
    float text_y = y + 12;
-   ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
-   ALLEGRO_COLOR border_color = ALLEGRO_COLOR{0.35, 0.35, 0.35, 1.0};
+   ALLEGRO_COLOR fill_color = al_color_html("1e2325"); // ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
+   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{0.35, 0.35, 0.35, 1.0};
+   ALLEGRO_COLOR border_color = al_color_html("292e32"); // ALLEGRO_COLOR{0.13*2, 0.13*2, 0.13*2, 1.0};
 
    { // fill and border
       // Draw the fill
@@ -171,7 +173,7 @@ void EmptySaveSlotRenderer::render()
       // The location of the save
       al_draw_text(
          details_font,
-         border_color,
+         text_color,
          width/2,
          height/2-details_font_line_height / 2,
          ALLEGRO_ALIGN_CENTER,

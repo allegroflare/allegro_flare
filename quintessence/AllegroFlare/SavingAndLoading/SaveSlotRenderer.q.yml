@@ -116,8 +116,8 @@ methods:
 
       float text_x = x + screenshot_width + screenshot_x_padding*2;
       float text_y = y + 12;
-      ALLEGRO_COLOR fill_color = ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
-      ALLEGRO_COLOR border_color = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
+      ALLEGRO_COLOR fill_color = al_color_html("384045"); // ALLEGRO_COLOR{0.13, 0.13, 0.13, 1.0};
+      ALLEGRO_COLOR border_color = fill_color; //ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0};
 
       { // fill and border
          // Draw the fill
@@ -259,6 +259,7 @@ methods:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
       - al_draw_text
+      - al_color_html
 
 
   - name: save_slot_type_is_manual_save
@@ -328,5 +329,7 @@ dependencies:
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::SavingAndLoading::SaveSlot
     headers: [ AllegroFlare/SavingAndLoading/SaveSlot.hpp ]
+  - symbol: al_color_html
+    headers: [ allegro5/allegro_color.h ]
 
 

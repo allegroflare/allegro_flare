@@ -381,8 +381,6 @@ void Screen::update_selection_cursor_box_position_to_changed_cursor_position()
 {
    float box_width = infer_save_slot_width();
    float box_height = infer_save_slot_height();
-   //float position_x = infer_first_box_initial_position_x();
-   //float position_y = infer_first_box_initial_position_y() + infer_save_slot_y_distance() * cursor_position;
    float position_x = infer_first_box_initial_position_x() - cursor_selection_box_padding_x();
    float position_y = infer_first_box_initial_position_y() - cursor_selection_box_padding_y()
                     +  infer_save_slot_y_distance() * cursor_position;
@@ -569,23 +567,20 @@ void Screen::render_save_slots()
    float save_slot_width = infer_save_slot_width();
    float save_slot_height = infer_save_slot_height();
    float y_distance = infer_save_slot_y_distance();
-   //float y_cursor = 400;
    float first_box_initial_position_x = infer_first_box_initial_position_x();
    float first_box_initial_position_y = infer_first_box_initial_position_y();
 
    AllegroFlare::Placement2D placement;
    placement.size.x = save_slot_width;
    placement.size.y = save_slot_height;
-   //placement.position.x = 1920/2;
-   //placement.position.y = y_cursor + y_distance*i;
 
+   // Draw the save slots
    int i=0;
    for (auto &save_slot : get_save_slots())
    {
-      //float x = 1920/2;
-      //float y = y_cursor + y_distance*i;
       placement.position.x = first_box_initial_position_x;
       placement.position.y = first_box_initial_position_y + y_distance*i;
+
 
       placement.start_transform();
       if (save_slot->is_empty())
@@ -628,39 +623,13 @@ void Screen::render_save_slots()
          renderer.render();
       }
 
-      // If this is currently focused under the cursor, draw the cursor (for now)
-      // TODO: Replace this with a more active cursor
-      /*
-      bool this_save_slot_is_focused = (i == cursor_position);
-      if (this_save_slot_is_focused)
-      {
-         bool drawing_cursor = infer_currently_drawing_user_cursor();
-         if (drawing_cursor)
-         {
-            float roundness = 6.0f;
-            float padding_x = cursor_selection_box_padding_x();
-            float padding_y = cursor_selection_box_padding_y();
-            al_draw_rounded_rectangle(
-               -padding_x,
-               -padding_y,
-               save_slot_width + padding_x,
-               save_slot_height + padding_y,
-               roundness,
-               roundness,
-               ALLEGRO_COLOR{1, 1, 1, 1},
-               6.0
-            );
-         }
-      }
-      */
-
       placement.restore_transform();
 
       i++;
    }
 
+   // Draw the selection cursor
    cursor_selection_box.render();
-
 
    return;
 }
