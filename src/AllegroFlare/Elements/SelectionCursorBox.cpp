@@ -27,6 +27,7 @@ SelectionCursorBox::SelectionCursorBox()
    , core_color(AllegroFlare::Color::Aquamarine)
    , roundness(8.0f)
    , thickness(6.0f)
+   , visible(true)
    , reposition_multiplier(DEFAULT_CURSOR_REPOSITION_MULTIPLIER)
    , last_repositioned_at(0.0f)
 {
@@ -116,6 +117,18 @@ float SelectionCursorBox::get_last_repositioned_at() const
 }
 
 
+void SelectionCursorBox::show()
+{
+   visible = true;
+   return;
+}
+
+void SelectionCursorBox::hide()
+{
+   visible = false;
+   return;
+}
+
 void SelectionCursorBox::reposition_to(float x, float y, float time_now)
 {
    position_destination = AllegroFlare::Vec2D(x, y);
@@ -187,7 +200,7 @@ void SelectionCursorBox::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::SelectionCursorBox::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   draw_cursor();
+   if (visible) draw_cursor();
    return;
 }
 

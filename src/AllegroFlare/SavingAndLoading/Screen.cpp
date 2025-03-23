@@ -234,14 +234,16 @@ void Screen::initialize()
    font_bin.set_full_path(AllegroFlare::FontBin::build_standard_path(data_folder_path));
 
    // Setup the cursor dimensions
+   cursor_selection_box.set_padding(
+      cursor_selection_box_padding_x(),
+      cursor_selection_box_padding_y()
+   );
    cursor_selection_box.set_size_quietly(
-      infer_save_slot_width() + cursor_selection_box_padding_x() * 2,
-      infer_save_slot_height() + cursor_selection_box_padding_y() * 2
+      infer_save_slot_width(), // + cursor_selection_box_padding_x() * 2,
+      infer_save_slot_height() // + cursor_selection_box_padding_y() * 2
    );
-   cursor_selection_box.set_position_quietly(
-      infer_first_box_initial_position_x() - cursor_selection_box_padding_x(),
-      infer_first_box_initial_position_y() - cursor_selection_box_padding_y()
-   );
+   AllegroFlare::Vec2D cursor_position = calculate_destination_position_for_cursor_selection_box();
+   cursor_selection_box.set_position_quietly(cursor_position.x, cursor_position.y);
     
    initialized = true;
    return;
@@ -377,14 +379,20 @@ void Screen::move_cursor_down()
    return;
 }
 
-void Screen::update_selection_cursor_box_position_to_changed_cursor_position()
+AllegroFlare::Vec2D Screen::calculate_destination_position_for_cursor_selection_box()
 {
    float box_width = infer_save_slot_width();
    float box_height = infer_save_slot_height();
-   float position_x = infer_first_box_initial_position_x() - cursor_selection_box_padding_x();
-   float position_y = infer_first_box_initial_position_y() - cursor_selection_box_padding_y()
-                    +  infer_save_slot_y_distance() * cursor_position;
-   cursor_selection_box.reposition_to(position_x-box_width*0.5, position_y-box_height*0.5);
+   float position_x = infer_first_box_initial_position_x(); // - cursor_selection_box_padding_x();
+   float position_y = infer_first_box_initial_position_y() // - cursor_selection_box_padding_y()
+                    + infer_save_slot_y_distance() * cursor_position;
+   return { position_x - box_width * 0.5f, position_y - box_height * 0.5f };
+}
+
+void Screen::update_selection_cursor_box_position_to_changed_cursor_position()
+{
+   AllegroFlare::Vec2D position = calculate_destination_position_for_cursor_selection_box();
+   cursor_selection_box.reposition_to(position.x, position.y);
    return;
 }
 
@@ -897,12 +905,49 @@ void Screen::set_state(uint32_t state, bool override_if_busy)
    if (!override_if_busy && state_is_busy) return;
    uint32_t previous_state = this->state;
 
+   switch (previous_state)
+   {
+      case STATE_UNDEF:
+         // Do nothing
+      break;
+
+      case STATE_REVEALING:
+      break;
+
+      case STATE_REVEALED_AND_HANDLING_USER_INPUT:
+         cursor_selection_box.hide();
+      break;
+
+      case STATE_MENU_OPTION_IS_CHOSEN:
+      break;
+
+      case STATE_CLOSING_DOWN:
+      break;
+
+      case STATE_CONFIRMING_DELETING_SAVE_SLOT_DATA:
+      break;
+
+      case STATE_CLOSED_DOWN_AND_AWAITING_MENU_CHOICE_ACTIVATION:
+      break;
+
+      case STATE_FINISHED:
+      break;
+
+      default:
+         AllegroFlare::Logger::throw_error(
+            "ClassName::set_state",
+            "Unable to handle case for state \"" + std::to_string(state) + "\""
+         );
+      break;
+   }
+
    switch (state)
    {
       case STATE_REVEALING:
       break;
 
       case STATE_REVEALED_AND_HANDLING_USER_INPUT:
+         cursor_selection_box.show();
       break;
 
       case STATE_MENU_OPTION_IS_CHOSEN:

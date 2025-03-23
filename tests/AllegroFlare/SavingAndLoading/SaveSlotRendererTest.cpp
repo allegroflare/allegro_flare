@@ -103,7 +103,7 @@ TEST_F(AllegroFlare_SavingAndLoading_SaveSlotRendererTestWithAllegroRenderingFix
 
 
 TEST_F(AllegroFlare_SavingAndLoading_SaveSlotRendererTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__render__with_a_time_since_value_less_than_thirty_minutes__will_render_as_expected)
+   CAPTURE__render__with_a_time_since_value_less_than_thirty_minutes__will_render_as_expected)
 {
    AllegroFlare::SavingAndLoading::SaveSlotRenderer renderer(
          &get_bitmap_bin_ref(),

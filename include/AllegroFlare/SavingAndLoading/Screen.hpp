@@ -9,6 +9,7 @@
 #include <AllegroFlare/SavingAndLoading/SavingAndLoading.hpp>
 #include <AllegroFlare/SavingAndLoading/Screen.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
+#include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/VirtualControllers/Base.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -107,6 +108,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::SavingAndLoading::SaveSlot*> get_save_slots();
          void move_cursor_up();
          void move_cursor_down();
+         AllegroFlare::Vec2D calculate_destination_position_for_cursor_selection_box();
          void update_selection_cursor_box_position_to_changed_cursor_position();
          AllegroFlare::SavingAndLoading::SaveSlot* get_currently_selected_save_slot();
          void exit_screen();

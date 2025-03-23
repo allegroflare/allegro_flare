@@ -1014,6 +1014,7 @@
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/Tiled/TMJObject",

@@ -23,6 +23,7 @@ namespace AllegroFlare
          ALLEGRO_COLOR core_color;
          float roundness;
          float thickness;
+         bool visible;
          float reposition_multiplier;
          float last_repositioned_at;
          void update_last_repositioned_at(float time_now=al_get_time());
@@ -51,6 +52,8 @@ namespace AllegroFlare
          float get_thickness() const;
          float get_reposition_multiplier() const;
          float get_last_repositioned_at() const;
+         void show();
+         void hide();
          void reposition_to(float x=0.0f, float y=0.0f, float time_now=al_get_time());
          void resize_to(float x=0.0f, float y=0.0f, float time_now=al_get_time());
          void set_position(float x=0.0f, float y=0.0f, float time_now=al_get_time());

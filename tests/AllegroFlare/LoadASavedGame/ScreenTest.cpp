@@ -44,7 +44,7 @@ TEST_F(AllegroFlare_LoadASavedGame_ScreenTest, type__has_the_expected_value_matc
 
 
 TEST_F(AllegroFlare_LoadASavedGame_ScreenTestWithInteractionFixture,
-   FOCUS__INTERACTIVE__will_work_as_expected)
+   INTERACTIVE__will_work_as_expected)
 {
    AllegroFlare::LoadASavedGame::Screen screen(get_data_folder_path());
    screen.set_on_exit_callback_func([this](AllegroFlare::LoadASavedGame::Screen*, void*){

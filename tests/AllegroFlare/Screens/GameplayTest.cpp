@@ -105,7 +105,7 @@ TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, s
 
 
 TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture,
-   FOCUS__resume_suspended_gameplay__after__suspend_gameplay__will_not_blow_up)
+   resume_suspended_gameplay__after__suspend_gameplay__will_not_blow_up)
 {
    MyGameplayScreenTestClass gameplay;
    framework_register_and_activate_screen("gameplay", &gameplay);

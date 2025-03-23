@@ -17,7 +17,7 @@ TEST(AllegroFlare_Screens_TitledMenuScreenFactoryTest, can_be_created_without_bl
 
 
 TEST_F(AllegroFlare_Screens_TitledMenuScreenFactoryTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__create_standard_pause_screen__will_create_a_valid_pause_screen_with_the_expected_properties)
+   CAPTURE__create_standard_pause_screen__will_create_a_valid_pause_screen_with_the_expected_properties)
 {
    auto screen = AllegroFlare::Screens::TitledMenuScreen::create_standard_pause_screen(
       get_data_folder_path(),
@@ -36,7 +36,7 @@ TEST_F(AllegroFlare_Screens_TitledMenuScreenFactoryTestWithAllegroRenderingFixtu
 
 
 TEST_F(AllegroFlare_Screens_TitledMenuScreenFactoryTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__create_standard_title_screen__will_create_a_valid_pause_screen_with_the_expected_properties)
+   CAPTURE__create_standard_title_screen__will_create_a_valid_pause_screen_with_the_expected_properties)
 {
    auto screen = AllegroFlare::Screens::TitledMenuScreen::create_standard_title_screen(
       get_data_folder_path(),
@@ -56,7 +56,7 @@ TEST_F(AllegroFlare_Screens_TitledMenuScreenFactoryTestWithAllegroRenderingFixtu
 
 
 TEST_F(AllegroFlare_Screens_TitledMenuScreenFactoryTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__create_standard_game_won_screen__will_create_a_valid_pause_screen_with_the_expected_properties)
+   CAPTURE__create_standard_game_won_screen__will_create_a_valid_pause_screen_with_the_expected_properties)
 {
    auto screen = AllegroFlare::Screens::TitledMenuScreen::create_standard_game_won_screen(
       get_data_folder_path()
@@ -74,7 +74,7 @@ TEST_F(AllegroFlare_Screens_TitledMenuScreenFactoryTestWithAllegroRenderingFixtu
 
 
 TEST_F(AllegroFlare_Screens_TitledMenuScreenFactoryTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__create_standard_game_over_screen__will_create_a_valid_pause_screen_with_the_expected_properties)
+   CAPTURE__create_standard_game_over_screen__will_create_a_valid_pause_screen_with_the_expected_properties)
 {
    auto screen = AllegroFlare::Screens::TitledMenuScreen::create_standard_game_over_screen(
       get_data_folder_path()

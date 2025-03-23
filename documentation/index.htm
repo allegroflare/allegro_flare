@@ -15694,6 +15694,10 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">visible</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">reposition_multiplier</td>
   <td class="property">float</td>
 </tr>
@@ -15708,6 +15712,14 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>show</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>hide</b>()</td>
+</tr>
 <tr>
   <td class="method">void</td>
   <td class="method"><b>reposition_to</b>(float x=0.0f, float y=0.0f, float time_now=al_get_time())</td>
@@ -37016,6 +37028,10 @@ table td
   <td class="method"><b>move_cursor_down</b>()</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Vec2D</td>
+  <td class="method"><b>calculate_destination_position_for_cursor_selection_box</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>update_selection_cursor_box_position_to_changed_cursor_position</b>()</td>
 </tr>
@@ -37236,6 +37252,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::SelectionCursorBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/SelectionCursorBox.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -52510,6 +52529,7 @@ table td
     "AllegroFlare/RepeatingBitmapLogic",
     "AllegroFlare/SavingAndLoading/EmptySaveSlotRenderer",
     "AllegroFlare/SavingAndLoading/SaveSlotRenderer",
+    "AllegroFlare/SavingAndLoading/Screen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/TextFormatters/Basic",
     "AllegroFlare/Tiled/TMJObject",

@@ -49,6 +49,10 @@ properties:
     getter: true
     setter: true
 
+  - name: visible
+    type: bool
+    init_with: true
+
   - name: reposition_multiplier
     type: float
     init_with: DEFAULT_CURSOR_REPOSITION_MULTIPLIER
@@ -69,6 +73,18 @@ properties:
 
 
 methods:
+
+
+  - name: show
+    body: |
+      visible = true;
+      return;
+
+
+  - name: hide
+    body: |
+      visible = false;
+      return;
 
 
   - name: reposition_to
@@ -197,7 +213,7 @@ methods:
   - name: render
     guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
     body: |
-      draw_cursor();
+      if (visible) draw_cursor();
       return;
     body_dependency_symbols:
       - AllegroFlare::Vec2D
