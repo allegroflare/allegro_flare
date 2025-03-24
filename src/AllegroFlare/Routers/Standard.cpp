@@ -590,6 +590,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          game_session.start_session();
 
          // Start the intro storyboard
+         // HERE: Inspect the intro storyboard and see if it should be skipped.
          emit_route_event(EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_CONTINUE_FROM_LAST_SAVE, [this](){
@@ -842,6 +843,9 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          }
       }},
       { EVENT_NEW_GAME_INTRO_STORYBOARD_SCREEN_FINISHED, [this](){
+         // TODO: Inspect level select screen to see if it should be skipped, or, if it may want to automatically
+         // load the first level and start the gameplay.
+         // TODO: Review if "intro storyboard finishing" is even a realistic logic flow if there is no storyboard.
          emit_route_event(EVENT_ACTIVATE_LEVEL_SELECT_SCREEN);
       }},
       { EVENT_PRIMARY_GAMEPLAY_SCREEN_FINISHED, [this](){
