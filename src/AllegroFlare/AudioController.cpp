@@ -224,6 +224,7 @@ void AudioController::destruct_all_sound_effects()
       );
       delete sound_effect.second;
    }
+   sound_effects.clear(); // TODO: Please review if destruct_all_sound_effects should include clearing
    return;
 }
 
@@ -238,6 +239,7 @@ void AudioController::destruct_all_music_tracks()
       );
       delete music_track.second;
    }
+   music_tracks.clear(); // TODO: Please review if destruct_all_music_tracks should include clearing
    return;
 }
 
