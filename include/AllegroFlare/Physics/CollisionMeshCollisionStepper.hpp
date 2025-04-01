@@ -6,6 +6,7 @@
 #include <AllegroFlare/Physics/CollisionMeshFace.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
+#include <functional>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -51,6 +52,7 @@ namespace AllegroFlare
          float air_drag;
          float gravity;
          std::vector<AllegroFlare::Physics::CollisionMeshCollisionStepInfo> collision_step_infos;
+         std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*)> on_collision_with_face;
          int num_collision_steps;
 
       protected:
@@ -79,6 +81,7 @@ namespace AllegroFlare
          float get_air_drag() const;
          float get_gravity() const;
          std::vector<AllegroFlare::Physics::CollisionMeshCollisionStepInfo> get_collision_step_infos() const;
+         std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*)> get_on_collision_with_face() const;
          int get_num_collision_steps() const;
          int num_collision_step_infos();
          void disable_applying_environmental_forces();

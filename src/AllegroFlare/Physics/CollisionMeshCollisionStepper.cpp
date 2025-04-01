@@ -28,6 +28,7 @@ CollisionMeshCollisionStepper::CollisionMeshCollisionStepper(AllegroFlare::Physi
    , air_drag(DEFAULT_AIR_DRAG)
    , gravity(DEFAULT_GRAVITY)
    , collision_step_infos({})
+   , on_collision_with_face({})
    , num_collision_steps(0)
 {
 }
@@ -149,6 +150,12 @@ float CollisionMeshCollisionStepper::get_gravity() const
 std::vector<AllegroFlare::Physics::CollisionMeshCollisionStepInfo> CollisionMeshCollisionStepper::get_collision_step_infos() const
 {
    return collision_step_infos;
+}
+
+
+std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*)> CollisionMeshCollisionStepper::get_on_collision_with_face() const
+{
+   return on_collision_with_face;
 }
 
 
@@ -485,6 +492,8 @@ float CollisionMeshCollisionStepper::calculate_collisions(float min_entity_veloc
             least_collision_time_for_this_entity_colliding_face
          )
       );
+
+      //if (on_collision_with_surface)
    }
 
    return least_collision_time;
@@ -723,6 +732,13 @@ void CollisionMeshCollisionStepper::step(float total_duration)
                   //AllegroFlare::Physics::CollisionMeshCollisionStepper::RedirectStrategy::REDIRECT_SLIDE_ALONG_SURFACE,
                );
 
+
+               if (on_collision_with_face)
+               {
+                  on_collision_with_face(&collision_step_info);
+               }
+
+               //if (on_collision_with_surface)
                //- name: stepout_strategy
                //  type: AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy
                //  default_argument: StepoutStrategy::STEPOUT_REVERSE_VELOCITY

@@ -65,6 +65,11 @@ properties:
     init_with: '{}'
     getter: true
 
+  - name: on_collision_with_face
+    type: std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*)>
+    init_with: '{}'
+    getter: true
+
   - name: num_collision_steps
     type: int
     init_with: 0
@@ -459,6 +464,8 @@ methods:
                least_collision_time_for_this_entity_colliding_face
             )
          );
+
+         //if (on_collision_with_surface)
       }
 
       return least_collision_time;
@@ -688,6 +695,13 @@ methods:
                      //AllegroFlare::Physics::CollisionMeshCollisionStepper::RedirectStrategy::REDIRECT_SLIDE_ALONG_SURFACE,
                   );
 
+
+                  if (on_collision_with_face)
+                  {
+                     on_collision_with_face(&collision_step_info);
+                  }
+
+                  //if (on_collision_with_surface)
                   //- name: stepout_strategy
                   //  type: AllegroFlare::Physics::CollisionMeshCollisionStepper::StepoutStrategy
                   //  default_argument: StepoutStrategy::STEPOUT_REVERSE_VELOCITY
