@@ -696,7 +696,9 @@ methods:
                   );
 
 
-                  if (on_collision_with_face)
+                  if (on_collision_with_face) // TODO: Consider some logic to only call this callback with a bool on
+                                              // the entity (from _entities), or optionally a specific callback on
+                                              // the entity itself. Entity::on_collide_with_collision_mesh_face();
                   {
                      on_collision_with_face(&collision_step_info);
                   }
