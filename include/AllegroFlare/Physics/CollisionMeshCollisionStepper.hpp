@@ -52,7 +52,7 @@ namespace AllegroFlare
          float air_drag;
          float gravity;
          std::vector<AllegroFlare::Physics::CollisionMeshCollisionStepInfo> collision_step_infos;
-         std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*)> on_collision_with_face;
+         std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*, AllegroFlare::Vec3D*)> on_collision_with_face;
          int num_collision_steps;
 
       protected:
@@ -70,6 +70,7 @@ namespace AllegroFlare
          void set_redirect_strategy(AllegroFlare::Physics::CollisionMeshCollisionStepper::RedirectStrategy redirect_strategy);
          void set_air_drag(float air_drag);
          void set_gravity(float gravity);
+         void set_on_collision_with_face(std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*, AllegroFlare::Vec3D*)> on_collision_with_face);
          void set_num_collision_steps(int num_collision_steps);
          AllegroFlare::Physics::CollisionMesh* get_collision_mesh() const;
          std::vector<AllegroFlare::Physics::CollisionMesh*> get_collision_meshes() const;
@@ -81,7 +82,7 @@ namespace AllegroFlare
          float get_air_drag() const;
          float get_gravity() const;
          std::vector<AllegroFlare::Physics::CollisionMeshCollisionStepInfo> get_collision_step_infos() const;
-         std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*)> get_on_collision_with_face() const;
+         std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*, AllegroFlare::Vec3D*)> get_on_collision_with_face() const;
          int get_num_collision_steps() const;
          int num_collision_step_infos();
          void disable_applying_environmental_forces();

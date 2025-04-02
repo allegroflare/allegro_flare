@@ -87,6 +87,12 @@ void CollisionMeshCollisionStepper::set_gravity(float gravity)
 }
 
 
+void CollisionMeshCollisionStepper::set_on_collision_with_face(std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*, AllegroFlare::Vec3D*)> on_collision_with_face)
+{
+   this->on_collision_with_face = on_collision_with_face;
+}
+
+
 void CollisionMeshCollisionStepper::set_num_collision_steps(int num_collision_steps)
 {
    this->num_collision_steps = num_collision_steps;
@@ -153,7 +159,7 @@ std::vector<AllegroFlare::Physics::CollisionMeshCollisionStepInfo> CollisionMesh
 }
 
 
-std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*)> CollisionMeshCollisionStepper::get_on_collision_with_face() const
+std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*, AllegroFlare::Vec3D*)> CollisionMeshCollisionStepper::get_on_collision_with_face() const
 {
    return on_collision_with_face;
 }
@@ -713,6 +719,9 @@ void CollisionMeshCollisionStepper::step(float total_duration)
 
             if (entity_will_collide_at_least_time && entity_does_collide_with_face)
             {
+               //AllegroFlare::Vec3D collision_step_info.entity_position
+               AllegroFlare::Vec3D entry_velocity = *collision_step_info.entity_velocity;
+
                move_to_time_of_collision_and_react_to_collision(
                   collision_step_info.entity_position,
                   collision_step_info.entity_velocity,
@@ -737,7 +746,7 @@ void CollisionMeshCollisionStepper::step(float total_duration)
                                            // the entity (from _entities), or optionally a specific callback on
                                            // the entity itself. Entity::on_collide_with_collision_mesh_face();
                {
-                  on_collision_with_face(&collision_step_info);
+                  on_collision_with_face(&collision_step_info, &entry_velocity);
                }
 
                //if (on_collision_with_surface)

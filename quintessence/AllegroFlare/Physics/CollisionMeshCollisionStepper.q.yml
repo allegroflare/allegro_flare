@@ -66,9 +66,10 @@ properties:
     getter: true
 
   - name: on_collision_with_face
-    type: std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*)>
+    type: std::function<void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*, AllegroFlare::Vec3D*)>
     init_with: '{}'
     getter: true
+    setter: true
 
   - name: num_collision_steps
     type: int
@@ -676,6 +677,9 @@ methods:
 
                if (entity_will_collide_at_least_time && entity_does_collide_with_face)
                {
+                  //AllegroFlare::Vec3D collision_step_info.entity_position
+                  AllegroFlare::Vec3D entry_velocity = *collision_step_info.entity_velocity;
+
                   move_to_time_of_collision_and_react_to_collision(
                      collision_step_info.entity_position,
                      collision_step_info.entity_velocity,
@@ -700,7 +704,7 @@ methods:
                                               // the entity (from _entities), or optionally a specific callback on
                                               // the entity itself. Entity::on_collide_with_collision_mesh_face();
                   {
-                     on_collision_with_face(&collision_step_info);
+                     on_collision_with_face(&collision_step_info, &entry_velocity);
                   }
 
                   //if (on_collision_with_surface)
