@@ -4613,7 +4613,16 @@
   "std/istringstream": [
     "AllegroFlare/TimeStamper"
   ],
+  "std/gmtime": [
+    "AllegroFlare/TimeStamper"
+  ],
   "std/tm": [
+    "AllegroFlare/TimeStamper"
+  ],
+  "localtime_r": [
+    "AllegroFlare/TimeStamper"
+  ],
+  "std/put_time": [
     "AllegroFlare/TimeStamper"
   ],
   "cross_product": [

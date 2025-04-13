@@ -30,7 +30,7 @@ TEST(AllegroFlare_TimeStamperTest, generate_time_now_since_epoch__will_produce_t
 
 
 TEST(AllegroFlare_TimeStamperTest,
-   user_friendly_time__will_produce_a_string_of_the_time_since_epoch_in_the_users_local_time)
+   FLAKEY__user_friendly_time__will_produce_a_string_of_the_time_since_epoch_in_the_users_local_time)
 {
    std::time_t time_now = std::time(nullptr);
    std::cout << "Time now " << time_now << std::endl;

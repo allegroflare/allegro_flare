@@ -13,6 +13,7 @@ methods:
     body_dependency_symbols:
       - std::time_t
       - std::istringstream
+      - std::gmtime
 
 
   - name: generate_time_now_utc_iso8601
@@ -26,6 +27,8 @@ methods:
     body_dependency_symbols:
       - std::time_t
       - std::istringstream
+      - std::put_time
+      - std::gmtime
 
 
   - name: generate_time_now_since_epoch
@@ -54,6 +57,8 @@ methods:
     body_dependency_symbols:
       - std::tm
       - std::istringstream
+      - localtime_r
+      - std::put_time
 
 
 dependencies:
@@ -63,7 +68,13 @@ dependencies:
     headers: [ sstream, ctime, iomanip ]
   - symbol: std::istringstream
     headers: [ sstream ]
+  - symbol: std::gmtime
+    headers: [ ctime ]
   - symbol: std::tm
     headers: [ ctime ]
+  - symbol: localtime_r
+    headers: [ time.h ]
+  - symbol: std::put_time
+    headers: [ iomanip ]
 
 

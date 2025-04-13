@@ -5,6 +5,7 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <time.h>
 
 
 namespace AllegroFlare
