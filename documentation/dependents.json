@@ -2586,7 +2586,8 @@
   ],
   "std/sort": [
     "AllegroFlare/Elements/Inventory",
-    "AllegroFlare/Notifications"
+    "AllegroFlare/Notifications",
+    "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "std/unique": [
     "AllegroFlare/Elements/Inventory"

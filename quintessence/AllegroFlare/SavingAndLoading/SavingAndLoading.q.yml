@@ -234,6 +234,8 @@ methods:
          });
       //return sorted_result;
       return;
+    body_dependency_symbols:
+      - std::sort
 
 
   - name: initialize
@@ -857,6 +859,8 @@ dependencies:
     headers: []
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: std::sort
+    headers: [ algorithm ]
 
 
 

@@ -4,6 +4,7 @@
 
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/SavingAndLoading/StandardSavesPath.hpp>
+#include <algorithm>
 #include <filesystem>
 #include <iostream>
 #include <sstream>
