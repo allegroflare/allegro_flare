@@ -46,6 +46,12 @@ std::time_t TimeStamper::generate_time_now_since_epoch()
 
 std::string TimeStamper::user_friendly_time(std::time_t time_)
 {
+   // For Windows (Mingw32), localtime_r does not exist. This hack is suggested in the following stack overflow:
+   // https://stackoverflow.com/questions/18551409/localtime-r-support-on-mingw
+   #if defined(_MSC_VER)
+   #   define localtime_r(T,Tm) (localtime_s(Tm,T) ? NULL : Tm)
+   #endif
+
    std::tm local_tm;
    localtime_r(&time_, &local_tm); // Thread-safe version of std::localtime
 
