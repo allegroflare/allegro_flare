@@ -43,6 +43,13 @@ properties:
     init_with: false
 
 
+documentation:
+
+  - todos:
+      - Consider animating the sparkle types in "https://ca.pinterest.com/pin/680606562467139402/"
+
+
+
 functions:
 
 
