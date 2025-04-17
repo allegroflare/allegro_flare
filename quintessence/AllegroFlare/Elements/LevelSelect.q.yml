@@ -46,6 +46,18 @@ properties:
     getter: true
     setter: true
 
+  - name: on_draw_level_list_item_box_func
+    type: std::function<void(AllegroFlare::Elements::LevelSelect*, void*, AllegroFlare::Elements::LevelSelectItemBoxRenderParams*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_draw_level_list_item_box_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
   - name: place
     type: AllegroFlare::Placement2D
     init_with: '{ 1920/2, 1080/2, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT }'
@@ -465,17 +477,53 @@ methods:
                std::string identifier = std::get<1>(levels_list[list_item_num]);
                locked = is_locked(identifier);
                completed = is_completed(identifier);
-            }
+            //}
 
-            draw_level_list_item_box(
-               column * (selection_box_width + selection_box_spacing_x),
-               row * (selection_box_height + selection_box_spacing_y),
-               selection_box_width,
-               selection_box_height,
-               label,
-               locked,
-               completed
-            );
+               // If the user's provided a custom item box rendering function, call it
+               if (on_draw_level_list_item_box_func)
+               {
+                  AllegroFlare::Elements::LevelSelectItemBoxRenderParams render_params;
+                  render_params.menu_item_identifier = identifier;
+                  render_params.label = label;
+                  render_params.row = row;
+                  render_params.column = column;
+                  render_params.x = column * (selection_box_width + selection_box_spacing_x);
+                  render_params.y = row * (selection_box_height + selection_box_spacing_y);
+                  render_params.width = selection_box_width; // This might be implicit, consider removing?
+                  render_params.height = selection_box_height; // This might be implict, consider removing?
+                  render_params.locked = locked;
+                  render_params.completed = completed;
+
+                  on_draw_level_list_item_box_func(
+                     this,
+                     on_draw_level_list_item_box_func_user_data,
+                     &render_params
+                     //identifier,
+                     //column,
+                     //row,
+                     //column * (selection_box_width + selection_box_spacing_x),
+                     //row * (selection_box_height + selection_box_spacing_y),
+                     //selection_box_width,
+                     //selection_box_height,
+                     //label,
+                     //locked,
+                     //completed
+                  );
+               }
+               // Otherwise, use the default draw_level_list_item_box provided in this class
+               else
+               {
+                  draw_level_list_item_box(
+                     column * (selection_box_width + selection_box_spacing_x),
+                     row * (selection_box_height + selection_box_spacing_y),
+                     selection_box_width,
+                     selection_box_height,
+                     label,
+                     locked,
+                     completed
+                  );
+               }
+            }
          }
       }
 
@@ -508,6 +556,8 @@ methods:
       level_select_boxes_place.restore_transform();
 
       return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::LevelSelectItemBoxRenderParams
 
 
   - name: move_cursor_up
@@ -874,5 +924,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/LevelSelect.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Elements::LevelSelectItemBoxRenderParams
+    headers: [ AllegroFlare/Elements/LevelSelectItemBoxRenderParams.hpp ]
 
 

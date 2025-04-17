@@ -13082,6 +13082,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_draw_level_list_item_box_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::LevelSelect*, void*, AllegroFlare::Elements::LevelSelectItemBoxRenderParams*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_draw_level_list_item_box_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">place</td>
   <td class="property">AllegroFlare::Placement2D</td>
 </tr>
@@ -13366,6 +13374,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::LevelSelectItemBoxRenderParams&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/LevelSelectItemBoxRenderParams.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -54293,6 +54304,9 @@ table td
   "AllegroFlare/Elements/LevelSelect": [
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/LevelSelectScreen"
+  ],
+  "AllegroFlare/Elements/LevelSelectItemBoxRenderParams": [
+    "AllegroFlare/Elements/LevelSelect"
   ],
   "al_color_name": [
     "AllegroFlare/Elements/ListBoxRenderer",

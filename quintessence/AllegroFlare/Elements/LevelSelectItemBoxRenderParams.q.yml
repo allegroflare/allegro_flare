@@ -1,0 +1,64 @@
+properties:
+
+
+  - name: menu_item_identifier
+    type: std::string
+    init_with: '"[unset-menu_item_identifier]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: label
+    type: std::string
+    init_with: '"[unset-label]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: row
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+  - name: column
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+  - name: x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: width
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: height
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: locked
+    type: bool
+    init_with: false
+    constructor_arg: true
+    exposed: true
+
+  - name: completed
+    type: bool
+    init_with: false
+    constructor_arg: true
+    exposed: true
+
+

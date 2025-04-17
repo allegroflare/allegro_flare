@@ -3,6 +3,7 @@
 #include <AllegroFlare/Elements/LevelSelect.hpp>
 
 #include <AllegroFlare/Color.hpp>
+#include <AllegroFlare/Elements/LevelSelectItemBoxRenderParams.hpp>
 #include <AllegroFlare/EventNames.hpp>
 #include <AllegroFlare/Interpolators.hpp>
 #include <AllegroFlare/Logger.hpp>
@@ -28,6 +29,8 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , completed_list(completed_list)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
+   , on_draw_level_list_item_box_func({})
+   , on_draw_level_list_item_box_func_user_data(nullptr)
    , place({ 1920/2, 1080/2, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT })
    , cursor_x(0)
    , cursor_y(0)
@@ -100,6 +103,18 @@ void LevelSelect::set_on_menu_choice_callback_func(std::function<void(AllegroFla
 void LevelSelect::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
 {
    this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
+}
+
+
+void LevelSelect::set_on_draw_level_list_item_box_func(std::function<void(AllegroFlare::Elements::LevelSelect*, void*, AllegroFlare::Elements::LevelSelectItemBoxRenderParams*)> on_draw_level_list_item_box_func)
+{
+   this->on_draw_level_list_item_box_func = on_draw_level_list_item_box_func;
+}
+
+
+void LevelSelect::set_on_draw_level_list_item_box_func_user_data(void* on_draw_level_list_item_box_func_user_data)
+{
+   this->on_draw_level_list_item_box_func_user_data = on_draw_level_list_item_box_func_user_data;
 }
 
 
@@ -256,6 +271,18 @@ std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> LevelSelect::ge
 void* LevelSelect::get_on_menu_choice_callback_func_user_data() const
 {
    return on_menu_choice_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Elements::LevelSelect*, void*, AllegroFlare::Elements::LevelSelectItemBoxRenderParams*)> LevelSelect::get_on_draw_level_list_item_box_func() const
+{
+   return on_draw_level_list_item_box_func;
+}
+
+
+void* LevelSelect::get_on_draw_level_list_item_box_func_user_data() const
+{
+   return on_draw_level_list_item_box_func_user_data;
 }
 
 
@@ -624,17 +651,53 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
             std::string identifier = std::get<1>(levels_list[list_item_num]);
             locked = is_locked(identifier);
             completed = is_completed(identifier);
-         }
+         //}
 
-         draw_level_list_item_box(
-            column * (selection_box_width + selection_box_spacing_x),
-            row * (selection_box_height + selection_box_spacing_y),
-            selection_box_width,
-            selection_box_height,
-            label,
-            locked,
-            completed
-         );
+            // If the user's provided a custom item box rendering function, call it
+            if (on_draw_level_list_item_box_func)
+            {
+               AllegroFlare::Elements::LevelSelectItemBoxRenderParams render_params;
+               render_params.menu_item_identifier = identifier;
+               render_params.label = label;
+               render_params.row = row;
+               render_params.column = column;
+               render_params.x = column * (selection_box_width + selection_box_spacing_x);
+               render_params.y = row * (selection_box_height + selection_box_spacing_y);
+               render_params.width = selection_box_width; // This might be implicit, consider removing?
+               render_params.height = selection_box_height; // This might be implict, consider removing?
+               render_params.locked = locked;
+               render_params.completed = completed;
+
+               on_draw_level_list_item_box_func(
+                  this,
+                  on_draw_level_list_item_box_func_user_data,
+                  &render_params
+                  //identifier,
+                  //column,
+                  //row,
+                  //column * (selection_box_width + selection_box_spacing_x),
+                  //row * (selection_box_height + selection_box_spacing_y),
+                  //selection_box_width,
+                  //selection_box_height,
+                  //label,
+                  //locked,
+                  //completed
+               );
+            }
+            // Otherwise, use the default draw_level_list_item_box provided in this class
+            else
+            {
+               draw_level_list_item_box(
+                  column * (selection_box_width + selection_box_spacing_x),
+                  row * (selection_box_height + selection_box_spacing_y),
+                  selection_box_width,
+                  selection_box_height,
+                  label,
+                  locked,
+                  completed
+               );
+            }
+         }
       }
    }
 

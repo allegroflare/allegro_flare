@@ -2599,6 +2599,9 @@
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Screens/LevelSelectScreen"
   ],
+  "AllegroFlare/Elements/LevelSelectItemBoxRenderParams": [
+    "AllegroFlare/Elements/LevelSelect"
+  ],
   "al_color_name": [
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/TextMessageBubble",

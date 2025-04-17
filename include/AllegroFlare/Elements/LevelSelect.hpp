@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/Elements/LevelSelect.hpp>
+#include <AllegroFlare/Elements/LevelSelectItemBoxRenderParams.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <AllegroFlare/Placement2D.hpp>
@@ -33,6 +34,8 @@ namespace AllegroFlare
          std::set<std::string> completed_list;
          std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func;
          void* on_menu_choice_callback_func_user_data;
+         std::function<void(AllegroFlare::Elements::LevelSelect*, void*, AllegroFlare::Elements::LevelSelectItemBoxRenderParams*)> on_draw_level_list_item_box_func;
+         void* on_draw_level_list_item_box_func_user_data;
          AllegroFlare::Placement2D place;
          int cursor_x;
          int cursor_y;
@@ -83,6 +86,8 @@ namespace AllegroFlare
          void set_completed_list(std::set<std::string> completed_list);
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
+         void set_on_draw_level_list_item_box_func(std::function<void(AllegroFlare::Elements::LevelSelect*, void*, AllegroFlare::Elements::LevelSelectItemBoxRenderParams*)> on_draw_level_list_item_box_func);
+         void set_on_draw_level_list_item_box_func_user_data(void* on_draw_level_list_item_box_func_user_data);
          void set_title_text(std::string title_text);
          void set_title_font_name(std::string title_font_name);
          void set_title_font_size(int title_font_size);
@@ -109,6 +114,8 @@ namespace AllegroFlare
          std::set<std::string> get_completed_list() const;
          std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> get_on_menu_choice_callback_func() const;
          void* get_on_menu_choice_callback_func_user_data() const;
+         std::function<void(AllegroFlare::Elements::LevelSelect*, void*, AllegroFlare::Elements::LevelSelectItemBoxRenderParams*)> get_on_draw_level_list_item_box_func() const;
+         void* get_on_draw_level_list_item_box_func_user_data() const;
          AllegroFlare::Placement2D get_place() const;
          int get_cursor_x() const;
          int get_cursor_y() const;
