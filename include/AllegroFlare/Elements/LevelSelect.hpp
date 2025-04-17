@@ -21,6 +21,10 @@ namespace AllegroFlare
    {
       class LevelSelect
       {
+      public:
+         static constexpr int DEFAULT_FRAME_WIDTH = 1300;
+         static constexpr int DEFAULT_FRAME_HEIGHT = 800;
+
       private:
          AllegroFlare::EventEmitter* event_emitter;
          AllegroFlare::FontBin* font_bin;
@@ -32,6 +36,16 @@ namespace AllegroFlare
          AllegroFlare::Placement2D place;
          int cursor_x;
          int cursor_y;
+         std::string title_text;
+         std::string title_font_name;
+         int title_font_size;
+         ALLEGRO_COLOR title_color;
+         float title_align;
+         float title_position_x;
+         float title_position_y;
+         float title_in_container_alignment_x;
+         float title_in_container_alignment_y;
+         bool title_text_position_is_relative_to_frame;
          int selection_box_width;
          int selection_box_height;
          int selection_box_spacing_x;
@@ -69,6 +83,16 @@ namespace AllegroFlare
          void set_completed_list(std::set<std::string> completed_list);
          void set_on_menu_choice_callback_func(std::function<void(AllegroFlare::Elements::LevelSelect*, void*)> on_menu_choice_callback_func);
          void set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data);
+         void set_title_text(std::string title_text);
+         void set_title_font_name(std::string title_font_name);
+         void set_title_font_size(int title_font_size);
+         void set_title_color(ALLEGRO_COLOR title_color);
+         void set_title_align(float title_align);
+         void set_title_position_x(float title_position_x);
+         void set_title_position_y(float title_position_y);
+         void set_title_in_container_alignment_x(float title_in_container_alignment_x);
+         void set_title_in_container_alignment_y(float title_in_container_alignment_y);
+         void set_title_text_position_is_relative_to_frame(bool title_text_position_is_relative_to_frame);
          void set_selection_box_width(int selection_box_width);
          void set_selection_box_height(int selection_box_height);
          void set_selection_box_spacing_x(int selection_box_spacing_x);
@@ -88,6 +112,16 @@ namespace AllegroFlare
          AllegroFlare::Placement2D get_place() const;
          int get_cursor_x() const;
          int get_cursor_y() const;
+         std::string get_title_text() const;
+         std::string get_title_font_name() const;
+         int get_title_font_size() const;
+         ALLEGRO_COLOR get_title_color() const;
+         float get_title_align() const;
+         float get_title_position_x() const;
+         float get_title_position_y() const;
+         float get_title_in_container_alignment_x() const;
+         float get_title_in_container_alignment_y() const;
+         bool get_title_text_position_is_relative_to_frame() const;
          int get_selection_box_width() const;
          int get_selection_box_height() const;
          int get_selection_box_spacing_x() const;

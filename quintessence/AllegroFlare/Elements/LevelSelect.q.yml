@@ -48,7 +48,7 @@ properties:
 
   - name: place
     type: AllegroFlare::Placement2D
-    init_with: '{ 1920/2, 1080/2, 1300, 700 }'
+    init_with: '{ 1920/2, 1080/2, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT }'
     getter: true
     getter_ref: true
 
@@ -61,6 +61,66 @@ properties:
     type: int
     init_with: 0
     getter: true
+
+  - name: title_text
+    type: std::string
+    init_with: '"Level Select"'
+    getter: true
+    setter: true
+
+  - name: title_font_name
+    type: std::string
+    init_with: '"Oswald-Medium.ttf"'
+    getter: true
+    setter: true
+
+  - name: title_font_size
+    type: int
+    init_with: -132
+    getter: true
+    setter: true
+
+  - name: title_color
+    type: ALLEGRO_COLOR
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    getter: true
+    setter: true
+
+  - name: title_align
+    type: float
+    init_with: 0.5f
+    getter: true
+    setter: true
+
+  - name: title_position_x
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: title_position_y
+    type: float
+    init_with: 80.0f
+    getter: true
+    setter: true
+
+  - name: title_in_container_alignment_x
+    type: float
+    init_with: 0.5f
+    getter: true
+    setter: true
+
+  - name: title_in_container_alignment_y
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: title_text_position_is_relative_to_frame
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
 
   - name: selection_box_width
     type: int
@@ -127,6 +187,18 @@ properties:
     init_with: true
     getter: true
     setter: true
+
+  - name: DEFAULT_FRAME_WIDTH
+    type: int
+    init_with: 1300
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_FRAME_HEIGHT
+    type: int
+    init_with: 800
+    static: true
+    constexpr: true
 
 
 documentation:
@@ -285,10 +357,12 @@ methods:
       place.start_transform();
 
       if (drawing_backfill_and_frame) draw_backfill_and_frame();
-      if (drawing_title_text) draw_level_select_title_text();
+      if (drawing_title_text && title_text_position_is_relative_to_frame) draw_level_select_title_text();
       draw_level_select_boxes_and_cursor();
 
       place.restore_transform();
+
+      if (drawing_title_text && !title_text_position_is_relative_to_frame) draw_level_select_title_text();
 
       return;
     body_dependency_symbols:
@@ -322,9 +396,38 @@ methods:
   - name: draw_level_select_title_text
     private: true
     body: |
-      ALLEGRO_FONT *font = obtain_title_font();
-      ALLEGRO_COLOR color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
-      al_draw_text(font, color, place.size.x/2, 80, ALLEGRO_ALIGN_CENTER, "Level Select");
+      ALLEGRO_FONT *title_font = obtain_title_font();
+      //ALLEGRO_COLOR color = title_opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+      float final_title_position_x = title_position_x;
+      float final_title_position_y = title_position_y;
+
+      if (title_text_position_is_relative_to_frame)
+      {
+         final_title_position_x += place.size.x * title_in_container_alignment_x;
+         final_title_position_y += place.size.y * title_in_container_alignment_y;
+      }
+      else
+      {
+         final_title_position_x += 1920 * title_in_container_alignment_x;
+         final_title_position_y += 1080 * title_in_container_alignment_y;
+      }
+
+      // TODO: Consider accounting for text alignment
+      int text_width = al_get_text_width(title_font, title_text.c_str());
+      final_title_position_x -= text_width * title_align;
+      //int text_height = al_get_font_line_height(title_font);
+      //final_title_position_x += text_width * text_align;
+
+      al_draw_text(
+         title_font,
+         title_color,
+         final_title_position_x,
+         final_title_position_y,
+         //place.size.x/2 + ,
+         //80,
+         ALLEGRO_ALIGN_LEFT, // NOTE: Alignment is managed by the title_align attribute
+         title_text.c_str() //"Level Select"
+      );
       return;
 
 
@@ -333,7 +436,7 @@ methods:
     body: |
       AllegroFlare::Placement2D level_select_boxes_place;
       level_select_boxes_place.position.x = place.size.x * 0.5;
-      level_select_boxes_place.position.y = place.size.y * 0.5 + 50;
+      level_select_boxes_place.position.y = place.size.y * 0.5 + 70;
 
       // fit the placement to the level select boxes
       int num_column_gutters = std::max(0, (num_columns - 1));
@@ -703,8 +806,11 @@ methods:
   - name: obtain_title_font
     private: true
     type: ALLEGRO_FONT*
+    guards: [ font_bin ]
     body: |
-      return font_bin->auto_get("Inter-Regular.ttf -46");
+      std::stringstream composite_font_str;
+      composite_font_str << title_font_name << " " << title_font_size;
+      return font_bin->auto_get(composite_font_str.str());
 
 
   - name: obtain_level_label_font

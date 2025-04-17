@@ -28,9 +28,19 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , completed_list(completed_list)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
-   , place({ 1920/2, 1080/2, 1300, 700 })
+   , place({ 1920/2, 1080/2, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT })
    , cursor_x(0)
    , cursor_y(0)
+   , title_text("Level Select")
+   , title_font_name("Oswald-Medium.ttf")
+   , title_font_size(-132)
+   , title_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , title_align(0.5f)
+   , title_position_x(0.0f)
+   , title_position_y(80.0f)
+   , title_in_container_alignment_x(0.5f)
+   , title_in_container_alignment_y(0.0f)
+   , title_text_position_is_relative_to_frame(true)
    , selection_box_width(120)
    , selection_box_height(120)
    , selection_box_spacing_x(30)
@@ -90,6 +100,66 @@ void LevelSelect::set_on_menu_choice_callback_func(std::function<void(AllegroFla
 void LevelSelect::set_on_menu_choice_callback_func_user_data(void* on_menu_choice_callback_func_user_data)
 {
    this->on_menu_choice_callback_func_user_data = on_menu_choice_callback_func_user_data;
+}
+
+
+void LevelSelect::set_title_text(std::string title_text)
+{
+   this->title_text = title_text;
+}
+
+
+void LevelSelect::set_title_font_name(std::string title_font_name)
+{
+   this->title_font_name = title_font_name;
+}
+
+
+void LevelSelect::set_title_font_size(int title_font_size)
+{
+   this->title_font_size = title_font_size;
+}
+
+
+void LevelSelect::set_title_color(ALLEGRO_COLOR title_color)
+{
+   this->title_color = title_color;
+}
+
+
+void LevelSelect::set_title_align(float title_align)
+{
+   this->title_align = title_align;
+}
+
+
+void LevelSelect::set_title_position_x(float title_position_x)
+{
+   this->title_position_x = title_position_x;
+}
+
+
+void LevelSelect::set_title_position_y(float title_position_y)
+{
+   this->title_position_y = title_position_y;
+}
+
+
+void LevelSelect::set_title_in_container_alignment_x(float title_in_container_alignment_x)
+{
+   this->title_in_container_alignment_x = title_in_container_alignment_x;
+}
+
+
+void LevelSelect::set_title_in_container_alignment_y(float title_in_container_alignment_y)
+{
+   this->title_in_container_alignment_y = title_in_container_alignment_y;
+}
+
+
+void LevelSelect::set_title_text_position_is_relative_to_frame(bool title_text_position_is_relative_to_frame)
+{
+   this->title_text_position_is_relative_to_frame = title_text_position_is_relative_to_frame;
 }
 
 
@@ -204,6 +274,66 @@ int LevelSelect::get_cursor_x() const
 int LevelSelect::get_cursor_y() const
 {
    return cursor_y;
+}
+
+
+std::string LevelSelect::get_title_text() const
+{
+   return title_text;
+}
+
+
+std::string LevelSelect::get_title_font_name() const
+{
+   return title_font_name;
+}
+
+
+int LevelSelect::get_title_font_size() const
+{
+   return title_font_size;
+}
+
+
+ALLEGRO_COLOR LevelSelect::get_title_color() const
+{
+   return title_color;
+}
+
+
+float LevelSelect::get_title_align() const
+{
+   return title_align;
+}
+
+
+float LevelSelect::get_title_position_x() const
+{
+   return title_position_x;
+}
+
+
+float LevelSelect::get_title_position_y() const
+{
+   return title_position_y;
+}
+
+
+float LevelSelect::get_title_in_container_alignment_x() const
+{
+   return title_in_container_alignment_x;
+}
+
+
+float LevelSelect::get_title_in_container_alignment_y() const
+{
+   return title_in_container_alignment_y;
+}
+
+
+bool LevelSelect::get_title_text_position_is_relative_to_frame() const
+{
+   return title_text_position_is_relative_to_frame;
 }
 
 
@@ -391,10 +521,12 @@ void LevelSelect::render()
    place.start_transform();
 
    if (drawing_backfill_and_frame) draw_backfill_and_frame();
-   if (drawing_title_text) draw_level_select_title_text();
+   if (drawing_title_text && title_text_position_is_relative_to_frame) draw_level_select_title_text();
    draw_level_select_boxes_and_cursor();
 
    place.restore_transform();
+
+   if (drawing_title_text && !title_text_position_is_relative_to_frame) draw_level_select_title_text();
 
    return;
 }
@@ -424,9 +556,38 @@ void LevelSelect::draw_backfill_and_frame()
 
 void LevelSelect::draw_level_select_title_text()
 {
-   ALLEGRO_FONT *font = obtain_title_font();
-   ALLEGRO_COLOR color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
-   al_draw_text(font, color, place.size.x/2, 80, ALLEGRO_ALIGN_CENTER, "Level Select");
+   ALLEGRO_FONT *title_font = obtain_title_font();
+   //ALLEGRO_COLOR color = title_opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+   float final_title_position_x = title_position_x;
+   float final_title_position_y = title_position_y;
+
+   if (title_text_position_is_relative_to_frame)
+   {
+      final_title_position_x += place.size.x * title_in_container_alignment_x;
+      final_title_position_y += place.size.y * title_in_container_alignment_y;
+   }
+   else
+   {
+      final_title_position_x += 1920 * title_in_container_alignment_x;
+      final_title_position_y += 1080 * title_in_container_alignment_y;
+   }
+
+   // TODO: Consider accounting for text alignment
+   int text_width = al_get_text_width(title_font, title_text.c_str());
+   final_title_position_x -= text_width * title_align;
+   //int text_height = al_get_font_line_height(title_font);
+   //final_title_position_x += text_width * text_align;
+
+   al_draw_text(
+      title_font,
+      title_color,
+      final_title_position_x,
+      final_title_position_y,
+      //place.size.x/2 + ,
+      //80,
+      ALLEGRO_ALIGN_LEFT, // NOTE: Alignment is managed by the title_align attribute
+      title_text.c_str() //"Level Select"
+   );
    return;
 }
 
@@ -434,7 +595,7 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
 {
    AllegroFlare::Placement2D level_select_boxes_place;
    level_select_boxes_place.position.x = place.size.x * 0.5;
-   level_select_boxes_place.position.y = place.size.y * 0.5 + 50;
+   level_select_boxes_place.position.y = place.size.y * 0.5 + 70;
 
    // fit the placement to the level select boxes
    int num_column_gutters = std::max(0, (num_columns - 1));
@@ -769,7 +930,16 @@ void LevelSelect::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color
 
 ALLEGRO_FONT* LevelSelect::obtain_title_font()
 {
-   return font_bin->auto_get("Inter-Regular.ttf -46");
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::obtain_title_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::obtain_title_font]: error: guard \"font_bin\" not met");
+   }
+   std::stringstream composite_font_str;
+   composite_font_str << title_font_name << " " << title_font_size;
+   return font_bin->auto_get(composite_font_str.str());
 }
 
 ALLEGRO_FONT* LevelSelect::obtain_level_label_font()
