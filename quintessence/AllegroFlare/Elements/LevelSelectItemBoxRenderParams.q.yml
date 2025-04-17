@@ -1,6 +1,12 @@
 properties:
 
 
+  - name: list_item_num_0_indexed
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
   - name: menu_item_identifier
     type: std::string
     init_with: '"[unset-menu_item_identifier]"'

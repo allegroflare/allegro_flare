@@ -11,8 +11,9 @@ namespace Elements
 {
 
 
-LevelSelectItemBoxRenderParams::LevelSelectItemBoxRenderParams(std::string menu_item_identifier, std::string label, int row, int column, float x, float y, float width, float height, bool locked, bool completed)
-   : menu_item_identifier(menu_item_identifier)
+LevelSelectItemBoxRenderParams::LevelSelectItemBoxRenderParams(int list_item_num_0_indexed, std::string menu_item_identifier, std::string label, int row, int column, float x, float y, float width, float height, bool locked, bool completed)
+   : list_item_num_0_indexed(list_item_num_0_indexed)
+   , menu_item_identifier(menu_item_identifier)
    , label(label)
    , row(row)
    , column(column)
