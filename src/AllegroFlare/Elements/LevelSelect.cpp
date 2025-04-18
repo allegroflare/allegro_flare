@@ -32,6 +32,7 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , on_draw_level_list_item_box_func(AllegroFlare::Elements::LevelSelect::default_on_draw_level_list_item_box_func)
    , on_draw_level_list_item_box_func_user_data(nullptr)
    , place({ 1920/2, 1080/2, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT })
+   , level_select_boxes_place_offset_y(70.0f)
    , cursor_x(0)
    , cursor_y(0)
    , title_text("Level Select")
@@ -115,6 +116,12 @@ void LevelSelect::set_on_draw_level_list_item_box_func(std::function<void(Allegr
 void LevelSelect::set_on_draw_level_list_item_box_func_user_data(void* on_draw_level_list_item_box_func_user_data)
 {
    this->on_draw_level_list_item_box_func_user_data = on_draw_level_list_item_box_func_user_data;
+}
+
+
+void LevelSelect::set_level_select_boxes_place_offset_y(float level_select_boxes_place_offset_y)
+{
+   this->level_select_boxes_place_offset_y = level_select_boxes_place_offset_y;
 }
 
 
@@ -289,6 +296,12 @@ void* LevelSelect::get_on_draw_level_list_item_box_func_user_data() const
 AllegroFlare::Placement2D LevelSelect::get_place() const
 {
    return place;
+}
+
+
+float LevelSelect::get_level_select_boxes_place_offset_y() const
+{
+   return level_select_boxes_place_offset_y;
 }
 
 
@@ -622,7 +635,8 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
 {
    AllegroFlare::Placement2D level_select_boxes_place;
    level_select_boxes_place.position.x = place.size.x * 0.5;
-   level_select_boxes_place.position.y = place.size.y * 0.5 + 70;
+   //level_select_boxes_place.position.y = place.size.y * 0.5 + 70;
+   level_select_boxes_place.position.y = place.size.y * 0.5 + level_select_boxes_place_offset_y;
 
    // fit the placement to the level select boxes
    int num_column_gutters = std::max(0, (num_columns - 1));

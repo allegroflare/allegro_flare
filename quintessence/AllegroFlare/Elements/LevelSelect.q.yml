@@ -64,6 +64,12 @@ properties:
     getter: true
     getter_ref: true
 
+  - name: level_select_boxes_place_offset_y
+    type: float
+    init_with: 70.0f
+    getter: true
+    setter: true
+
   - name: cursor_x
     type: int
     init_with: 0
@@ -447,7 +453,8 @@ methods:
     body: |
       AllegroFlare::Placement2D level_select_boxes_place;
       level_select_boxes_place.position.x = place.size.x * 0.5;
-      level_select_boxes_place.position.y = place.size.y * 0.5 + 70;
+      //level_select_boxes_place.position.y = place.size.y * 0.5 + 70;
+      level_select_boxes_place.position.y = place.size.y * 0.5 + level_select_boxes_place_offset_y;
 
       // fit the placement to the level select boxes
       int num_column_gutters = std::max(0, (num_columns - 1));
