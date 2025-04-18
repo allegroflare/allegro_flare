@@ -2333,6 +2333,7 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/TextMessageBubble"
   ],

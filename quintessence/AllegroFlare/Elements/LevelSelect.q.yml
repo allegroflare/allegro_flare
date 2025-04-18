@@ -846,6 +846,7 @@ methods:
 
   - name: obtain_level_label_font
     type: ALLEGRO_FONT*
+    guards: [ font_bin ]
     body: |
       return font_bin->auto_get("Inter-Regular.ttf -32");
 

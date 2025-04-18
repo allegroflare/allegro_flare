@@ -1011,6 +1011,13 @@ ALLEGRO_FONT* LevelSelect::obtain_title_font()
 
 ALLEGRO_FONT* LevelSelect::obtain_level_label_font()
 {
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::obtain_level_label_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::obtain_level_label_font]: error: guard \"font_bin\" not met");
+   }
    return font_bin->auto_get("Inter-Regular.ttf -32");
 }
 
