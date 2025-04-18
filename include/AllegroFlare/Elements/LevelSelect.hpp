@@ -161,6 +161,7 @@ namespace AllegroFlare
          int infer_cursor_position();
          bool cursor_selection_is_valid();
          static void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
+         ALLEGRO_FONT* obtain_arbitrary_font(std::string font_name="[unset-font_name]", int font_size=-12);
          ALLEGRO_FONT* obtain_level_label_font();
          ALLEGRO_FONT* obtain_lock_icon_font();
          ALLEGRO_FONT* obtain_small_lock_icon_font();

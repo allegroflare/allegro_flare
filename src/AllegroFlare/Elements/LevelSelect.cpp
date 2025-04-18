@@ -995,6 +995,22 @@ void LevelSelect::draw_unicode_character(ALLEGRO_FONT* font, ALLEGRO_COLOR color
    return;
 }
 
+ALLEGRO_FONT* LevelSelect::obtain_arbitrary_font(std::string font_name, int font_size)
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::obtain_arbitrary_font]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::obtain_arbitrary_font]: error: guard \"font_bin\" not met");
+   }
+   // This function is provided as a convenience for users wanting to obtain a custom font in their
+   // implementation of "on_draw_level_list_item_box_func".
+   std::stringstream composite_font_str;
+   composite_font_str << font_name << " " << font_size;
+   return font_bin->auto_get(composite_font_str.str());
+}
+
 ALLEGRO_FONT* LevelSelect::obtain_title_font()
 {
    if (!(font_bin))

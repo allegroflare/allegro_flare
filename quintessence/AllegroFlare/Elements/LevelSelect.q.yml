@@ -834,6 +834,24 @@ methods:
       return;
 
 
+  - name: obtain_arbitrary_font
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: font_name
+        type: std::string
+        default_argument: '"[unset-font_name]"'
+      - name: font_size
+        type: int
+        default_argument: -12
+    guards: [ font_bin ]
+    body: |
+      // This function is provided as a convenience for users wanting to obtain a custom font in their
+      // implementation of "on_draw_level_list_item_box_func".
+      std::stringstream composite_font_str;
+      composite_font_str << font_name << " " << font_size;
+      return font_bin->auto_get(composite_font_str.str());
+
+
   - name: obtain_title_font
     type: ALLEGRO_FONT*
     private: true
