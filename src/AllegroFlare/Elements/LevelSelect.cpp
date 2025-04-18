@@ -854,7 +854,7 @@ void LevelSelect::default_on_draw_level_list_item_box_func(AllegroFlare::Element
       ALLEGRO_COLOR icon_color = text_color; //opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, 0.6f);
       float icon_font_line_height = al_get_font_line_height(icon_font);
       uint32_t icon = 0xf023;
-      draw_unicode_character(
+      AllegroFlare::Elements::LevelSelect::draw_unicode_character(
          icon_font,
          icon_color,
          icon,
@@ -876,7 +876,7 @@ void LevelSelect::default_on_draw_level_list_item_box_func(AllegroFlare::Element
             AllegroFlare::Elements::LevelSelect::opaquify(ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}, 1.0f);
          float icon_font_line_height = al_get_font_line_height(icon_font);
          uint32_t icon = 0xf058;
-         draw_unicode_character(
+         AllegroFlare::Elements::LevelSelect::draw_unicode_character(
             icon_font,
             icon_color,
             icon,
