@@ -60,7 +60,6 @@ namespace AllegroFlare
          bool drawing_backfill_and_frame;
          bool drawing_title_text;
          bool ignore_on_invalid_selection;
-         static ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0}, float opacity=1.0f);
          ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
          void draw_backfill_and_frame();
          void draw_level_select_title_text();
@@ -148,6 +147,7 @@ namespace AllegroFlare
          bool unlock(std::string level_identifier="[unset-level_identifier]");
          void unlock_all();
          bool mark_as_completed(std::string level_identifier="[unset-level_identifier]");
+         static ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0}, float opacity=1.0f);
          void disable_drawing_backfill_and_frame();
          void disable_drawing_title_text();
          void enable_drawing_backfill_and_frame();

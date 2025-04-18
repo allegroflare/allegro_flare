@@ -306,7 +306,6 @@ methods:
   - name: opaquify
     static: true
     type: ALLEGRO_COLOR
-    private: true
     parameters:
       - name: color
         type: ALLEGRO_COLOR
