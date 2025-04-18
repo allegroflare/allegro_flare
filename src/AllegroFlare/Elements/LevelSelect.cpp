@@ -632,87 +632,51 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
    level_select_boxes_place.size.y = num_rows * selection_box_height
                                    + num_row_gutters * selection_box_spacing_y;
 
-   // start the transform
+   // Start the transform
    level_select_boxes_place.start_transform();
 
-   // draw the boxes
+   // Draw the boxes one by one
    for (int column=0; column<num_columns; column++)
    {
       for (int row=0; row<num_rows; row++)
       {
          int list_item_num = row * num_columns + column;
-         //std::string label = "";
-         //bool locked = false;
-         //bool completed = false;
 
          if (list_item_num >= levels_list.size())
          {
-            // Do not 
+            // Do not render the item if it doesn't exist in the list
+            // TODO: Investigate what happens when the list item is empty and how that is rendered?
          }
          else
          {
-            std::string label = std::get<0>(levels_list[list_item_num]);
-            std::string identifier = std::get<1>(levels_list[list_item_num]);
-            bool locked = is_locked(identifier);
-            bool completed = is_completed(identifier);
-
-            AllegroFlare::Elements::LevelSelectItemBoxRenderParams render_params;
-            render_params.list_item_num_0_indexed = list_item_num;
-            render_params.menu_item_identifier = identifier;
-            render_params.label = label;
-            render_params.row = row;
-            render_params.column = column;
-            render_params.x = column * (selection_box_width + selection_box_spacing_x);
-            render_params.y = row * (selection_box_height + selection_box_spacing_y);
-            render_params.width = selection_box_width; // This might be implicit, consider removing?
-            render_params.height = selection_box_height; // This might be implict, consider removing?
-            render_params.locked = locked;
-            render_params.completed = is_completed(identifier);
-
-            // If the user's provided a custom item box rendering function, call it
-            if (on_draw_level_list_item_box_func)
-            {
-               //AllegroFlare::Elements::LevelSelectItemBoxRenderParams render_params;
-               //render_params.menu_item_identifier = identifier;
-               //render_params.label = label;
-               //render_params.row = row;
-               //render_params.column = column;
-               //render_params.x = column * (selection_box_width + selection_box_spacing_x);
-               //render_params.y = row * (selection_box_height + selection_box_spacing_y);
-               //render_params.width = selection_box_width; // This might be implicit, consider removing?
-               //render_params.height = selection_box_height; // This might be implict, consider removing?
-               //render_params.locked = locked;
-               //render_params.completed = completed;
-
-               on_draw_level_list_item_box_func(
-                  this,
-                  on_draw_level_list_item_box_func_user_data,
-                  &render_params
-                  //identifier,
-                  //column,
-                  //row,
-                  //column * (selection_box_width + selection_box_spacing_x),
-                  //row * (selection_box_height + selection_box_spacing_y),
-                  //selection_box_width,
-                  //selection_box_height,
-                  //label,
-                  //locked,
-                  //completed
-               );
-            }
-            // Otherwise, use the default draw_level_list_item_box provided in this class
-            else
+            if (!on_draw_level_list_item_box_func)
             {
                AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
                   "There is no provided implementation for on_draw_level_list_item_box_func, which is expected to "
                      "be present."
                );
-               //default_draw_level_list_item_box_func(
-                  //this,
-                  //on_draw_level_list_item_box_func_user_data,
-                  //&render_params
-               //);
             }
+
+            std::string identifier = std::get<1>(levels_list[list_item_num]);
+
+            AllegroFlare::Elements::LevelSelectItemBoxRenderParams render_params;
+            render_params.list_item_num_0_indexed = list_item_num;
+            render_params.menu_item_identifier = identifier;
+            render_params.label = std::get<0>(levels_list[list_item_num]);
+            render_params.row = row;
+            render_params.column = column;
+            render_params.x = column * (selection_box_width + selection_box_spacing_x);
+            render_params.y = row * (selection_box_height + selection_box_spacing_y);
+            render_params.width = selection_box_width; // This might be redundant, consider removing?
+            render_params.height = selection_box_height; // This might be redundant, consider removing?
+            render_params.locked = is_locked(identifier);
+            render_params.completed = is_completed(identifier);
+
+            on_draw_level_list_item_box_func(
+               this,
+               on_draw_level_list_item_box_func_user_data,
+               &render_params
+            );
          }
       }
    }
@@ -872,8 +836,9 @@ void LevelSelect::default_on_draw_level_list_item_box_func(AllegroFlare::Element
    bool completed = render_params->completed;
 
 
-   ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
-   ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.2f : 1.0f);
+   ALLEGRO_COLOR backfill_color = AllegroFlare::Elements::LevelSelect::opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
+   ALLEGRO_COLOR text_color = 
+      AllegroFlare::Elements::LevelSelect::opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.2f : 1.0f);
    float roundness = 6.0f;
    ALLEGRO_FONT *font = level_select_element->obtain_level_label_font();
    float line_height = al_get_font_line_height(font);
@@ -907,7 +872,8 @@ void LevelSelect::default_on_draw_level_list_item_box_func(AllegroFlare::Element
          // Draw lock icon
          ALLEGRO_FONT *icon_font = level_select_element->obtain_small_lock_icon_font();
          ALLEGRO_FONT *small_label_font = level_select_element->obtain_small_label_font();
-         ALLEGRO_COLOR icon_color = opaquify(ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}, 1.0f);
+         ALLEGRO_COLOR icon_color =
+            AllegroFlare::Elements::LevelSelect::opaquify(ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}, 1.0f);
          float icon_font_line_height = al_get_font_line_height(icon_font);
          uint32_t icon = 0xf058;
          draw_unicode_character(
