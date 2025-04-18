@@ -7,9 +7,9 @@ properties:
     constructor_arg: true
     exposed: true
 
-  - name: menu_item_identifier
+  - name: identifier
     type: std::string
-    init_with: '"[unset-menu_item_identifier]"'
+    init_with: '"[unset-identifier]"'
     constructor_arg: true
     exposed: true
 

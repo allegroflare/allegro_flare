@@ -17,7 +17,7 @@ namespace AllegroFlare
 
       public:
          int list_item_num_0_indexed;
-         std::string menu_item_identifier;
+         std::string identifier;
          std::string label;
          int row;
          int column;
@@ -27,7 +27,7 @@ namespace AllegroFlare
          float height;
          bool locked;
          bool completed;
-         LevelSelectItemBoxRenderParams(int list_item_num_0_indexed=0, std::string menu_item_identifier="[unset-menu_item_identifier]", std::string label="[unset-label]", int row=0, int column=0, float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, bool locked=false, bool completed=false);
+         LevelSelectItemBoxRenderParams(int list_item_num_0_indexed=0, std::string identifier="[unset-identifier]", std::string label="[unset-label]", int row=0, int column=0, float x=0.0f, float y=0.0f, float width=0.0f, float height=0.0f, bool locked=false, bool completed=false);
          ~LevelSelectItemBoxRenderParams();
 
       };

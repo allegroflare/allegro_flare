@@ -661,7 +661,7 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
 
             AllegroFlare::Elements::LevelSelectItemBoxRenderParams render_params;
             render_params.list_item_num_0_indexed = list_item_num;
-            render_params.menu_item_identifier = identifier;
+            render_params.identifier = identifier;
             render_params.label = std::get<0>(levels_list[list_item_num]);
             render_params.row = row;
             render_params.column = column;
