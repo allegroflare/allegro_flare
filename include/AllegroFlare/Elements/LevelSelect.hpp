@@ -60,14 +60,14 @@ namespace AllegroFlare
          bool drawing_backfill_and_frame;
          bool drawing_title_text;
          bool ignore_on_invalid_selection;
-         ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0}, float opacity=1.0f);
+         static ALLEGRO_COLOR opaquify(ALLEGRO_COLOR color={0,0,0,0}, float opacity=1.0f);
          ALLEGRO_COLOR change_a(ALLEGRO_COLOR color={0,0,0,0}, float alpha=1.0f);
          void draw_backfill_and_frame();
          void draw_level_select_title_text();
          void draw_level_select_boxes_and_cursor();
          bool has_valid_size();
          void draw_selection_cursor(float x=0.0f, float y=0.0f);
-         void draw_level_list_item_box(float x=0.0f, float y=0.0f, float w=1.0f, float h=1.0f, std::string label="[unlabeled]", bool locked=false, bool completed=false);
+         static void default_on_draw_level_list_item_box_func(AllegroFlare::Elements::LevelSelect* level_select_element=nullptr, void* user_data=nullptr, AllegroFlare::Elements::LevelSelectItemBoxRenderParams* render_params=nullptr);
          ALLEGRO_FONT* obtain_title_font();
          ALLEGRO_FONT* obtain_level_label_font();
          ALLEGRO_FONT* obtain_small_label_font();
@@ -162,7 +162,7 @@ namespace AllegroFlare
          std::string infer_current_menu_option_value();
          int infer_cursor_position();
          bool cursor_selection_is_valid();
-         void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
+         static void draw_unicode_character(ALLEGRO_FONT* font=nullptr, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, int32_t icon=61444, int flags=0, float x=0.0f, float y=0.0f);
          ALLEGRO_FONT* obtain_lock_icon_font();
          ALLEGRO_FONT* obtain_small_lock_icon_font();
       };

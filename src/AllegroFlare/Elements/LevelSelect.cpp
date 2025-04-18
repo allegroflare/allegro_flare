@@ -29,7 +29,7 @@ LevelSelect::LevelSelect(AllegroFlare::EventEmitter* event_emitter, AllegroFlare
    , completed_list(completed_list)
    , on_menu_choice_callback_func()
    , on_menu_choice_callback_func_user_data(nullptr)
-   , on_draw_level_list_item_box_func({})
+   , on_draw_level_list_item_box_func(AllegroFlare::Elements::LevelSelect::default_on_draw_level_list_item_box_func)
    , on_draw_level_list_item_box_func_user_data(nullptr)
    , place({ 1920/2, 1080/2, DEFAULT_FRAME_WIDTH, DEFAULT_FRAME_HEIGHT })
    , cursor_x(0)
@@ -681,8 +681,8 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
                //render_params.y = row * (selection_box_height + selection_box_spacing_y);
                //render_params.width = selection_box_width; // This might be implicit, consider removing?
                //render_params.height = selection_box_height; // This might be implict, consider removing?
-               render_params.locked = locked;
-               render_params.completed = completed;
+               //render_params.locked = locked;
+               //render_params.completed = completed;
 
                on_draw_level_list_item_box_func(
                   this,
@@ -703,15 +703,15 @@ void LevelSelect::draw_level_select_boxes_and_cursor()
             // Otherwise, use the default draw_level_list_item_box provided in this class
             else
             {
-               draw_level_list_item_box(
-                  column * (selection_box_width + selection_box_spacing_x),
-                  row * (selection_box_height + selection_box_spacing_y),
-                  selection_box_width,
-                  selection_box_height,
-                  label,
-                  locked,
-                  completed
+               AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
+                  "There is no provided implementation for on_draw_level_list_item_box_func, which is expected to "
+                     "be present."
                );
+               //default_draw_level_list_item_box_func(
+                  //this,
+                  //on_draw_level_list_item_box_func_user_data,
+                  //&render_params
+               //);
             }
          }
       }
@@ -847,12 +847,35 @@ void LevelSelect::draw_selection_cursor(float x, float y)
    return;
 }
 
-void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, std::string label, bool locked, bool completed)
+void LevelSelect::default_on_draw_level_list_item_box_func(AllegroFlare::Elements::LevelSelect* level_select_element, void* user_data, AllegroFlare::Elements::LevelSelectItemBoxRenderParams* render_params)
 {
+   if (!(level_select_element))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::default_on_draw_level_list_item_box_func]: error: guard \"level_select_element\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::default_on_draw_level_list_item_box_func]: error: guard \"level_select_element\" not met");
+   }
+   if (!(render_params))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::LevelSelect::default_on_draw_level_list_item_box_func]: error: guard \"render_params\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::LevelSelect::default_on_draw_level_list_item_box_func]: error: guard \"render_params\" not met");
+   }
+   float x = render_params->x;
+   float y = render_params->y;
+   float w = render_params->width;
+   float h = render_params->height;
+   std::string label = render_params->label;
+   bool locked = render_params->locked;
+   bool completed = render_params->completed;
+
+
    ALLEGRO_COLOR backfill_color = opaquify(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.4});
    ALLEGRO_COLOR text_color = opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, locked ? 0.2f : 1.0f);
    float roundness = 6.0f;
-   ALLEGRO_FONT *font = obtain_level_label_font();
+   ALLEGRO_FONT *font = level_select_element->obtain_level_label_font();
    float line_height = al_get_font_line_height(font);
 
    al_draw_filled_rounded_rectangle(x+0, y+0, x+w, y+h, roundness, roundness, backfill_color);
@@ -862,7 +885,7 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
       al_draw_text(font, text_color, x+w/2, y+h/2-line_height/2, ALLEGRO_ALIGN_CENTER, "Locked");
 
       // Draw lock icon
-      ALLEGRO_FONT *icon_font = obtain_lock_icon_font();
+      ALLEGRO_FONT *icon_font = level_select_element->obtain_lock_icon_font();
       ALLEGRO_COLOR icon_color = text_color; //opaquify(ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, 0.6f);
       float icon_font_line_height = al_get_font_line_height(icon_font);
       uint32_t icon = 0xf023;
@@ -882,8 +905,8 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
       if (completed)
       {
          // Draw lock icon
-         ALLEGRO_FONT *icon_font = obtain_small_lock_icon_font();
-         ALLEGRO_FONT *small_label_font = obtain_small_label_font();
+         ALLEGRO_FONT *icon_font = level_select_element->obtain_small_lock_icon_font();
+         ALLEGRO_FONT *small_label_font = level_select_element->obtain_small_label_font();
          ALLEGRO_COLOR icon_color = opaquify(ALLEGRO_COLOR{0.5, 1.0, 0.83, 1.0}, 1.0f);
          float icon_font_line_height = al_get_font_line_height(icon_font);
          uint32_t icon = 0xf058;
@@ -896,7 +919,7 @@ void LevelSelect::draw_level_list_item_box(float x, float y, float w, float h, s
             //x+w/2, y+h/2-icon_font_line_height/2 // centered (use font-size -52 or so)
          );
 
-         if (show_completed_text_on_list_item_box)
+         if (level_select_element->show_completed_text_on_list_item_box)
          {
             al_draw_text(small_label_font, icon_color, x+w-22-18, y+h-36, ALLEGRO_ALIGN_RIGHT, "completed");
          }
@@ -925,8 +948,7 @@ void LevelSelect::activate_selected_menu_option()
 
    if (list_is_empty())
    {
-      AllegroFlare::Logger::throw_error(
-         "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME,
          "Can not select a level, the list of levels is empty."
       );
       return;
@@ -935,8 +957,7 @@ void LevelSelect::activate_selected_menu_option()
    // TODO: Test this condition
    if (!cursor_selection_is_valid() && ignore_on_invalid_selection)
    {
-      AllegroFlare::Logger::warn_from(
-         "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+      AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME,
          "Can not select the currently highlighted option, the cursor is not over a valid selection."
       );
       return;
@@ -946,16 +967,14 @@ void LevelSelect::activate_selected_menu_option()
 
    if (current_menu_option_value.empty())
    {
-      AllegroFlare::Logger::warn_from(
-         "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+      AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME,
          "Can not select the currently highlighted option, it contains an empty value."
       );
       return;
    }
    else if (is_locked(current_menu_option_value))
    {
-      AllegroFlare::Logger::warn_from(
-         "AllegroFlare::Elements::LevelSelect::activate_selected_menu_option",
+      AllegroFlare::Logger::warn_from(THIS_CLASS_AND_METHOD_NAME,
          "Can not select the currently highlighted option. It is locked."
       );
       return;
