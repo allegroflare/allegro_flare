@@ -323,7 +323,6 @@ methods:
 
   - name: change_a
     type: ALLEGRO_COLOR
-    private: true
     parameters:
       - name: color
         type: ALLEGRO_COLOR
@@ -714,7 +713,6 @@ methods:
 
 
   - name: activate_selected_menu_option
-    xprivate: true
     guards: [ event_emitter ]
     body: |
       if (ignore_on_invalid_selection)
@@ -835,8 +833,8 @@ methods:
 
 
   - name: obtain_title_font
-    private: true
     type: ALLEGRO_FONT*
+    private: true
     guards: [ font_bin ]
     body: |
       std::stringstream composite_font_str;
@@ -845,7 +843,6 @@ methods:
 
 
   - name: obtain_level_label_font
-    private: true
     type: ALLEGRO_FONT*
     body: |
       return font_bin->auto_get("Inter-Regular.ttf -32");
@@ -870,7 +867,6 @@ methods:
 
 
   - name: obtain_small_label_font
-    private: true
     type: ALLEGRO_FONT*
     body: |
       return font_bin->auto_get("Inter-Regular.ttf -28");
