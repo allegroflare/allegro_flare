@@ -5,16 +5,19 @@ properties:
     type: AllegroFlare::vec3d
     constructor_arg: true
     init_with: '{}'
+    exposed: true
 
   - name: v1
     type: AllegroFlare::vec3d
     constructor_arg: true
     init_with: '{}'
+    exposed: true
 
   - name: v2
     type: AllegroFlare::vec3d
     constructor_arg: true
     init_with: '{}'
+    exposed: true
 
 
 functions:
@@ -29,18 +32,25 @@ functions:
       - name: intersect_data
         type: AllegroFlare::Useful3D::IntersectData*
         default_argument: nullptr
+      - name: backface_culling
+        type: bool
+        default_argument: false
     guards: [ ray_, intersect_data ]
     body: |
+      const float EPSILON = 1e-6f;
       IntersectData &isectData = (*intersect_data);
       Ray &ray = (*ray_);
 
-      //http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
+      // http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-9-ray-triangle-intersection/m-ller-trumbore-algorithm/
+      // TODO: Add an epsilon for edge cases: https://chatgpt.com/c/68195505-3f88-800f-8d6f-ab6c89ebe14d
+
       AllegroFlare::vec3d edge1 = v1 - v0;
       AllegroFlare::vec3d edge2 = v2 - v0;
       AllegroFlare::vec3d pvec = cross_product(ray.dir, edge2);
 
       float det = dot_product(edge1, pvec);
       if (det == 0) return false;
+      if (backface_culling && det < EPSILON) return false; // Suggested by ChatGPT
       float invDet = 1 / det;
       AllegroFlare::vec3d tvec = ray.orig - v0;
       isectData.u = dot_product(tvec, pvec) * invDet;

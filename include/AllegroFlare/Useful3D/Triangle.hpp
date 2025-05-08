@@ -14,18 +14,18 @@ namespace AllegroFlare
       class Triangle
       {
       private:
-         AllegroFlare::vec3d v0;
-         AllegroFlare::vec3d v1;
-         AllegroFlare::vec3d v2;
 
       protected:
 
 
       public:
+         AllegroFlare::vec3d v0;
+         AllegroFlare::vec3d v1;
+         AllegroFlare::vec3d v2;
          Triangle(AllegroFlare::vec3d v0={}, AllegroFlare::vec3d v1={}, AllegroFlare::vec3d v2={});
          ~Triangle();
 
-         bool intersect(AllegroFlare::Useful3D::Ray* ray_=nullptr, AllegroFlare::Useful3D::IntersectData* intersect_data=nullptr);
+         bool intersect(AllegroFlare::Useful3D::Ray* ray_=nullptr, AllegroFlare::Useful3D::IntersectData* intersect_data=nullptr, bool backface_culling=false);
          void draw(ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1});
       };
    }
