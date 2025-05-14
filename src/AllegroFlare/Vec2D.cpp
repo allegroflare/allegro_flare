@@ -17,6 +17,12 @@ namespace AllegroFlare
 
 
 
+    Vec2D::Vec2D(const std::pair<float, float>& p)
+        : x(p.first)
+        , y(p.second)
+    {}
+
+
 
    Vec2D Vec2D::polar_coords(float angle, float magnitude)
    {
@@ -111,6 +117,62 @@ namespace AllegroFlare
       return !(*this == other);
    }
 
+
+
+
+   Vec2D& Vec2D::operator=(const std::pair<float, float> &float_pair)
+   {
+       x = float_pair.first;
+       y = float_pair.second;
+       return *this; // Return a reference to the modified object
+   }
+
+
+
+   // New compound assignment operators for std::pair
+   Vec2D& Vec2D::operator+=(const std::pair<float, float>& p)
+   {
+       x += p.first;
+       y += p.second;
+       return *this;
+   }
+
+
+
+   Vec2D& Vec2D::operator-=(const std::pair<float, float>& p)
+   {
+       x -= p.first;
+       y -= p.second;
+       return *this;
+   }
+
+
+
+   // Component-wise multiplication
+   Vec2D& Vec2D::operator*=(const std::pair<float, float>& p)
+   {
+       x *= p.first;
+       y *= p.second;
+       return *this;
+   }
+
+
+
+   // Component-wise division
+   Vec2D& Vec2D::operator/=(const std::pair<float, float>& p)
+   {
+       if (p.first == 0.0f || p.second == 0.0f)
+       {
+           // Or throw an exception, or handle as per your library's error strategy
+           // For example:
+           // throw std::domain_error("Division by zero in Vec2D::operator/=(std::pair)");
+           // For now, this will result in INF or NaN as per float division rules.
+           // Depending on requirements, you might want specific behavior.
+       }
+       x /= p.first;
+       y /= p.second;
+       return *this;
+   }
 
 
 

@@ -220,7 +220,7 @@ int main(int argc, char **argv)
       //basic2d_tile_map.infer_real_height()
    //);
    //place.position = {1920/2, 1080/2};
-   place.scale = {0.2, 0.2};
+   place.scale = AllegroFlare::Vec2D{0.2, 0.2};
 
 
    // Render our result

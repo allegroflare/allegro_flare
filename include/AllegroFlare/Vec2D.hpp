@@ -2,6 +2,7 @@
 
 
 #include <string>
+#include <utility> // for std::pair
 
 
 namespace AllegroFlare
@@ -12,6 +13,7 @@ namespace AllegroFlare
       float x, y;
 
       Vec2D(float x=0.0, float y=0.0);
+      Vec2D(const std::pair<float, float>& p);
 
       // returns the polar coordinates of an angle (in radians?) and magnitude
       static Vec2D polar_coords(float angle, float magnitude);
@@ -34,6 +36,13 @@ namespace AllegroFlare
       void operator/=(float divisor);
       bool operator==(const Vec2D &other) const;
       bool operator!=(const Vec2D &other) const;
+
+      // Compound operators for use with std::pair<float, float>
+      Vec2D& operator=(const std::pair<float, float> &float_pair);
+      Vec2D& operator+=(const std::pair<float, float>& p);
+      Vec2D& operator-=(const std::pair<float, float>& p);
+      Vec2D& operator*=(const std::pair<float, float>& p); // Component-wise multiplication
+      Vec2D& operator/=(const std::pair<float, float>& p); // Component-wise division
 
       // returns the vector formatted as a string
       std::string get_string() const;
