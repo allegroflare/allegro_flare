@@ -20,6 +20,7 @@ WithInteractionFixture::WithInteractionFixture()
    , current_event({})
    , auto_abort_halted(false)
    , aborted(false)
+   , escape_key_aborts(true)
 {
 }
 
@@ -38,6 +39,12 @@ ALLEGRO_EVENT_QUEUE* WithInteractionFixture::get_event_queue() const
 bool WithInteractionFixture::get_aborted() const
 {
    return aborted;
+}
+
+
+bool WithInteractionFixture::get_escape_key_aborts() const
+{
+   return escape_key_aborts;
 }
 
 
@@ -91,6 +98,12 @@ void WithInteractionFixture::abort()
    return;
 }
 
+void WithInteractionFixture::disable_escape_key_aborts()
+{
+   escape_key_aborts = false;
+   return;
+}
+
 bool WithInteractionFixture::interactive_test_wait_for_event()
 {
    // TODO: Consider renaming this
@@ -131,7 +144,7 @@ void WithInteractionFixture::handle_interactive_test_event(ALLEGRO_EVENT* curren
          halt_auto_abort();
          bool shift = current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
          // TODO: Make this optionally disabled:
-         if (current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE && (!shift)) abort();
+         if (escape_key_aborts && current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE && (!shift)) abort();
       } break;
 
       case ALLEGRO_EVENT_MOUSE_AXES:

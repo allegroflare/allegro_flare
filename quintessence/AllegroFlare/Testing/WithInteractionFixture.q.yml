@@ -37,6 +37,12 @@ properties:
     static: true
     constexpr: true
 
+  - name: escape_key_aborts
+    type: bool
+    init_with: true
+    getter: true
+    true: true
+
   - name: DURATION_TO_AUTO_ABORT_INTERACTIVE_TEST_SEC
     type: double
     init_with: 4.0
@@ -103,6 +109,12 @@ methods:
       return;
 
 
+  - name: disable_escape_key_aborts
+    body: |
+      escape_key_aborts = false;
+      return;
+
+
   - name: interactive_test_wait_for_event
     type: bool
     body: |
@@ -143,7 +155,7 @@ methods:
             halt_auto_abort();
             bool shift = current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
             // TODO: Make this optionally disabled:
-            if (current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE && (!shift)) abort();
+            if (escape_key_aborts && current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE && (!shift)) abort();
          } break;
 
          case ALLEGRO_EVENT_MOUSE_AXES:

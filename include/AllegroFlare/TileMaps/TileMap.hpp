@@ -453,7 +453,7 @@ void TileMap<T>::resize(int num_columns, int h)
    num_rows = h;
 
    // resize and clear the tiles
-   tiles.assign(num_columns* num_rows, 0);
+   tiles.assign(num_columns* num_rows, {}); // Resize with default constructor for whatever T is
 }
 
 

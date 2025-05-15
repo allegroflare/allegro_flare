@@ -21,6 +21,7 @@ namespace AllegroFlare
          ALLEGRO_EVENT current_event;
          bool auto_abort_halted;
          bool aborted;
+         bool escape_key_aborts;
 
       protected:
 
@@ -31,10 +32,12 @@ namespace AllegroFlare
 
          ALLEGRO_EVENT_QUEUE* get_event_queue() const;
          bool get_aborted() const;
+         bool get_escape_key_aborts() const;
          virtual void SetUp() override;
          virtual void TearDown() override;
          void halt_auto_abort();
          void abort();
+         void disable_escape_key_aborts();
          bool interactive_test_wait_for_event();
          ALLEGRO_EVENT* interactive_test_get_current_event();
          void handle_interactive_test_event(ALLEGRO_EVENT* current_event=nullptr);
