@@ -143,8 +143,10 @@ void WithInteractionFixture::handle_interactive_test_event(ALLEGRO_EVENT* curren
       case ALLEGRO_EVENT_KEY_DOWN: {
          halt_auto_abort();
          bool shift = current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+         bool command = current_event->keyboard.modifiers & ALLEGRO_KEYMOD_COMMAND;
          // TODO: Make this optionally disabled:
          if (escape_key_aborts && current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE && (!shift)) abort();
+         if (current_event->keyboard.keycode == ALLEGRO_KEY_Q && command) abort();
       } break;
 
       case ALLEGRO_EVENT_MOUSE_AXES:
