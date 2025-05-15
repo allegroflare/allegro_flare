@@ -58,7 +58,7 @@ void SmoothSnap::initialize()
       throw std::runtime_error("[AllegroFlare::CameraControlStrategies2D::SmoothSnap::initialize]: error: guard \"get_camera()\" not met");
    }
    get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
-   get_camera_ref()->position = {room_width/2, room_height/2};
+   get_camera_ref()->position = AllegroFlare::Vec2D{room_width/2, room_height/2};
 
    Base::initialize();
    return;

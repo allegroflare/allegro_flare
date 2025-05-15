@@ -1640,9 +1640,9 @@ void Full::render_screens_to_primary_render_surface()
       AllegroFlare::Placement2D render_surface_placement_on_display;
       render_surface_placement_on_display.position =
             // TODO: Consider if a pixel-friendly coord is preferred here:
-            { (float)display_natural_width / 2, (float)display_natural_height / 2 }
+            AllegroFlare::Vec2D{ (float)display_natural_width / 2, (float)display_natural_height / 2 }
          ;
-      render_surface_placement_on_display.size = { (float)surface_width, (float)surface_height };
+      render_surface_placement_on_display.size = AllegroFlare::Vec2D{ (float)surface_width, (float)surface_height };
       render_surface_placement_on_display.scale_to_fit_width_or_height(display_natural_width, display_natural_height);
       
       render_surface_placement_on_display.start_transform();

@@ -71,8 +71,8 @@ functions:
       float offset_y = spacing * 0.25;
       AllegroFlare::Placement2D place;
       place.rotation = -0.25;
-      place.size = {(float)display_width, (float)display_height};
-      place.scale = {1.3, 1.3};
+      place.size = AllegroFlare::Vec2D{(float)display_width, (float)display_height};
+      place.scale = AllegroFlare::Vec2D{1.3, 1.3};
       place.position = place.size / 2;
 
       place.start_transform();

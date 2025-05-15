@@ -110,8 +110,9 @@ void ParallaxWithZoom::render()
          );
       repeating_bitmap_logic.fit_placement_dimensions_to_bitmap_dimensions();
       //repeating_bitmap_logic.get_placement_ref().align = { 0.5, 0.5 };
-      repeating_bitmap_logic.get_placement_ref().align = { 0.0, 0.0 }; // TODO: Figure out if/how this alignment
-                                                                       // needs to be applied
+      repeating_bitmap_logic.get_placement_ref().align = AllegroFlare::Vec2D{ 0.0, 0.0 }; // TODO: Figure out if/how
+                                                                                          // this alignment needs to
+                                                                                          // be applied
 
       //this_layer_camera.start_transform();
       repeating_bitmap_logic.draw_repeating_rows_and_columns();

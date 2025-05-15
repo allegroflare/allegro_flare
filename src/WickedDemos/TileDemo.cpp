@@ -252,7 +252,7 @@ void TileDemo::initialize_maps()
 
 void TileDemo::initialize_hud()
 {
-   hud_projection.scale = {4.5, 4.5}; // note that Shovel Knight has 4.5x4.5 sized pixels (actually 4.8 x 4.5)
+   hud_projection.scale = AllegroFlare::Vec2D{4.5, 4.5}; // note that Shovel Knight has 4.5x4.5 sized pixels (actually 4.8 x 4.5)
                                       // this means:
                                       //     - a virtual resolution of 400x240
                                       //     = a native display resolution of 1920x1080 (HD)
@@ -424,7 +424,7 @@ void TileDemo::setup_camera()
       // see https://www.yachtclubgames.com/blog/breaking-the-nes
 
    camera.scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
-   camera.position = {room_width/2, room_height/2};
+   camera.position = AllegroFlare::Vec2D{room_width/2, room_height/2};
 
    return;
 }
@@ -548,7 +548,7 @@ void TileDemo::player_emit_projectile(float magnitude)
    if ((aim_pos.x < 0.00001) && (aim_pos.x > -0.00001))
    if ((aim_pos.y < 0.00001) && (aim_pos.y > -0.00001))
    {
-      aim_pos = {1, 0};
+      aim_pos = AllegroFlare::Vec2D{1, 0};
    }
 
 

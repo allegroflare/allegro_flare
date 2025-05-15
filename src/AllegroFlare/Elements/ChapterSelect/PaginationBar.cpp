@@ -240,7 +240,7 @@ void PaginationBar::render()
 
 void PaginationBar::fit_placement_width_and_height()
 {
-   get_placement_ref().size = { calculate_width(), bar_height };
+   get_placement_ref().size = AllegroFlare::Vec2D{ calculate_width(), bar_height };
    return;
 }
 

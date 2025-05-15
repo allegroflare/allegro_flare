@@ -32,7 +32,7 @@ namespace AllegroFlare
       AllegroFlare::Vec2D get_zoom() const;
       int get_width_num_units() const;
       int get_height_num_units() const;
-      void set_zoom(AllegroFlare::Vec2D zoom={1.0f, 1.0f});
+      void set_zoom(AllegroFlare::Vec2D zoom=AllegroFlare::Vec2D{1.0f, 1.0f});
       AllegroFlare::Vec2D get_inv_zoom();
       void refresh_zoom_from_scale();
       void setup_dimensional_projection(ALLEGRO_BITMAP* bitmap=nullptr);

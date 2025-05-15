@@ -11,7 +11,7 @@ properties:
 
   - name: zoom
     type: AllegroFlare::Vec2D
-    init_with: '{1.0f, 1.0f}'
+    init_with: 'AllegroFlare::Vec2D{1.0f, 1.0f}'
     getter: true
 
   - name: width_num_units
@@ -54,7 +54,7 @@ methods:
     parameters:
       - name: zoom
         type: AllegroFlare::Vec2D
-        default_argument: '{1.0f, 1.0f}'
+        default_argument: 'AllegroFlare::Vec2D{1.0f, 1.0f}'
     body: |
       scale = AllegroFlare::vec2d(1.0 / zoom.x, 1.0 / zoom.y);
       this->zoom = zoom;

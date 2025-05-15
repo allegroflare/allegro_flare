@@ -296,7 +296,7 @@ void ChoiceRenderer::render_speaking_character_name_tag()
    int height = 46;
 
    AllegroFlare::Placement2D place(30, 0, width, height);
-   place.align = { 0.0, 1.0 };
+   place.align = AllegroFlare::Vec2D{ 0.0, 1.0 };
    place.start_transform();
    AllegroFlare::Elements::DialogBoxNameTag name_tag(
       font_bin,
@@ -480,7 +480,7 @@ void ChoiceRenderer::draw_choices_with_cursor_and_current_selection()
       list_box_renderer.get_width(),
       list_box_renderer.get_height()
    };
-   choice_box_place.align = { 1.0, 1.0 };
+   choice_box_place.align = AllegroFlare::Vec2D{ 1.0, 1.0 };
 
    choice_box_place.start_transform();
    list_box_renderer.render();

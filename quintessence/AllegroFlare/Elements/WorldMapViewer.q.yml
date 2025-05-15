@@ -277,11 +277,11 @@ methods:
       if (!map) return;
 
       ALLEGRO_BITMAP *map_image = bitmap_bin->auto_get(map->get_background_image_identifier());
-      map_placement.size = { 0.0f, 0.0f };
+      map_placement.size = AllegroFlare::Vec2D{ 0.0f, 0.0f };
  
       if (map_image)
       {
-         map_placement.size = { (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
+         map_placement.size = AllegroFlare::Vec2D{ (float)al_get_bitmap_width(map_image), (float)al_get_bitmap_height(map_image) };
       }
 
       map_placement.position.x = 0; //map_view_place.size.x * 0.5;
@@ -337,8 +337,8 @@ methods:
       camera_velocity_magnitude_axis_x = 0;
       camera_velocity_magnitude_axis_y = 0;
 
-      document_camera.size = { map_view_place.size.x, map_view_place.size.y };
-      document_camera.position = { map_view_place.size.x * 0.5f, map_view_place.size.y * 0.5f };
+      document_camera.size = AllegroFlare::Vec2D{ map_view_place.size.x, map_view_place.size.y };
+      document_camera.position = AllegroFlare::Vec2D{ map_view_place.size.x * 0.5f, map_view_place.size.y * 0.5f };
       document_camera_target_zoom = document_camera_zoom_levels[document_camera_zoom_level_cursor];
       document_camera.set_zoom({document_camera_target_zoom, document_camera_target_zoom});
       return;
@@ -889,7 +889,7 @@ methods:
       float text_height = al_get_font_line_height(font);
       float h_text_width = text_width/2;
       float h_text_height = text_height/2;
-      AllegroFlare::Vec2D padding = {30, 20};
+      AllegroFlare::Vec2D padding{30, 20};
       float o = 0.8;
       ALLEGRO_COLOR text_color = currently_over_location
                                ? ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}
@@ -941,7 +941,7 @@ methods:
       float text_height = al_get_font_line_height(font);
       float h_text_width = text_width/2;
       float h_text_height = text_height/2;
-      AllegroFlare::Vec2D padding = {30, 20};
+      AllegroFlare::Vec2D padding{30, 20};
       float o = 0.8;
       //ALLEGRO_COLOR text_color = currently_over_location
                                //? ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}

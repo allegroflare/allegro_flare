@@ -44,7 +44,7 @@ functions:
       float room_height = assumed_tile_height * 15; //tile_mesh->get_real_height();
 
       get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
-      get_camera_ref()->position = {room_width/2, room_height/2};
+      get_camera_ref()->position = AllegroFlare::Vec2D{room_width/2, room_height/2};
 
       Base::initialize();
       return;
@@ -78,7 +78,7 @@ functions:
       //camera.scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
       int room_x = (tracking_target_position_x / room_width);
       int room_y = (tracking_target_position_y / room_height);
-      get_camera_ref()->position = {room_width/2, room_height/2};
+      get_camera_ref()->position = AllegroFlare::Vec2D{room_width/2, room_height/2};
       get_camera_ref()->position += AllegroFlare::vec2d(room_x * room_width, room_y * room_height);
 
       get_camera_ref()->position.x = tracking_target_position_x;

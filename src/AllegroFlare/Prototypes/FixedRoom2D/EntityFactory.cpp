@@ -55,10 +55,10 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_ent
    AllegroFlare::Placement2D &placement = result->get_placement_ref();
    result->set_on_cursor_interact_script_name(on_interact_script_name);
 
-   placement.position = {x, y};
-   placement.scale = {scale, scale};
-   placement.align = {0.5, 1.0};
-   if (bitmap) placement.size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
+   placement.position = AllegroFlare::Vec2D{x, y};
+   placement.scale = AllegroFlare::Vec2D{scale, scale};
+   placement.align = AllegroFlare::Vec2D{0.5, 1.0};
+   if (bitmap) placement.size = AllegroFlare::Vec2D{(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
 
    result->set("name", name);
 
@@ -80,10 +80,10 @@ AllegroFlare::Prototypes::FixedRoom2D::Entities::Base* EntityFactory::create_ent
    AllegroFlare::Placement2D &placement = result->get_placement_ref();
    result->set_on_cursor_interact_script_name(on_interact_script_name);
 
-   placement.position = {x, y};
-   placement.scale = {scale, scale};
-   placement.align = {0.5, 1.0};
-   if (bitmap) placement.size = {(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
+   placement.position = AllegroFlare::Vec2D{x, y};
+   placement.scale = AllegroFlare::Vec2D{scale, scale};
+   placement.align = AllegroFlare::Vec2D{0.5, 1.0};
+   if (bitmap) placement.size = AllegroFlare::Vec2D{(float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap)};
 
    result->set("name", name);
 

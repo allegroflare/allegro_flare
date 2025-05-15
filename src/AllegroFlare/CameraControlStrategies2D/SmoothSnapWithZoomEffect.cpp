@@ -76,7 +76,7 @@ void SmoothSnapWithZoomEffect::initialize()
    // TODO: only allow setting "room_width" and "room_height" to positive values
 
    get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
-   get_camera_ref()->position = {room_width/2, room_height/2};
+   get_camera_ref()->position = AllegroFlare::Vec2D{room_width/2, room_height/2};
 
    Base::initialize();
    return;
@@ -108,7 +108,7 @@ void SmoothSnapWithZoomEffect::update()
 
    int target_room_x = (tracking_target_position_x / room_width);
    int target_room_y = (tracking_target_position_y / room_height);
-   AllegroFlare::vec2d target_position = {room_width/2, room_height/2};
+   AllegroFlare::vec2d target_position = AllegroFlare::Vec2D{room_width/2, room_height/2};
    target_position += AllegroFlare::vec2d(target_room_x * room_width, target_room_y * room_height);
 
    AllegroFlare::vec2d current_camera_position = get_camera_ref()->position;

@@ -351,8 +351,20 @@ T TileMap<T>::get_tile(int tile_x, int tile_y)
       //throw std::runtime_error("AllegroFlare::TileMaps::TileMap<T>::get_tile() error: tile map must be initialized first.");
    }
 
-   if (tile_x < 0 || (tile_x >= num_columns)) return -1;
-   if (tile_y < 0 || (tile_y >= num_rows)) return -1;
+   if (tile_x < 0 || (tile_x >= num_columns))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::get_tile()",
+         "The tile_x argument passed was either less than 0 or greater than or equal to the number of columns."
+      );
+   }
+   if (tile_y < 0 || (tile_y >= num_rows))
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::get_tile()",
+         "The tile_y argument passed was either less than 0 or greater than or equal to the number of rows."
+      );
+   }
 
    return tiles[tile_x + tile_y * num_columns];
 }

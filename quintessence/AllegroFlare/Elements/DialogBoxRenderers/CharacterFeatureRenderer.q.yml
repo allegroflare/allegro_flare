@@ -145,8 +145,8 @@ methods:
       if (character_image)
       {
          AllegroFlare::Placement2D placement;
-         placement.position = { 1920 / 3 * 2, 1080 / 2 };
-         placement.size = { (float)al_get_bitmap_width(character_image), (float)al_get_bitmap_height(character_image) };
+         placement.position = AllegroFlare::Vec2D{ 1920 / 3 * 2, 1080 / 2 };
+         placement.size = AllegroFlare::Vec2D{ (float)al_get_bitmap_width(character_image), (float)al_get_bitmap_height(character_image) };
          placement.scale_to_fit_height(1080);
          placement.start_transform();
          al_draw_bitmap(character_image, 0, 0, 0);

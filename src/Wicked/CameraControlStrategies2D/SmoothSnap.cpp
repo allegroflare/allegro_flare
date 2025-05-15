@@ -56,7 +56,7 @@ void SmoothSnap::initialize()
       throw std::runtime_error("[Wicked::CameraControlStrategies2D::SmoothSnap::initialize]: error: guard \"get_camera()\" not met");
    }
    get_camera_ref()->scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
-   get_camera_ref()->position = {room_width/2, room_height/2};
+   get_camera_ref()->position = AllegroFlare::Vec2D{room_width/2, room_height/2};
 
    Base::initialize();
    return;
@@ -104,7 +104,7 @@ void SmoothSnap::update()
    //camera.scale = AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
    int room_x = (entity_to_follow->get_place_ref().position.x / room_width);
    int room_y = (entity_to_follow->get_place_ref().position.y / room_height);
-   AllegroFlare::vec2d target = {room_width/2, room_height/2};
+   AllegroFlare::vec2d target = AllegroFlare::Vec2D{room_width/2, room_height/2};
    target += AllegroFlare::vec2d(room_x * room_width, room_y * room_height);
 
    AllegroFlare::vec2d position = get_camera_ref()->position;

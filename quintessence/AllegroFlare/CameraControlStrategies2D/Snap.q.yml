@@ -38,7 +38,7 @@ functions:
 
       int room_x = (entity_to_follow->get_place_ref().position.x / room_width);
       int room_y = (entity_to_follow->get_place_ref().position.y / room_height);
-      get_camera_ref()->position = {room_width/2, room_height/2};
+      get_camera_ref()->position = AllegroFlare::Vec2D{room_width/2, room_height/2};
       get_camera_ref()->position += AllegroFlare::vec2d(room_x * room_width, room_y * room_height);
 
       return;

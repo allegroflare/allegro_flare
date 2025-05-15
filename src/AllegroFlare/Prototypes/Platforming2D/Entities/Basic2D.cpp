@@ -598,7 +598,7 @@ void Basic2D::draw()
       );
 
       // TODO: Consider if continually assigning the size is preferred or not
-      bitmap_placement.size = { (float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap) };
+      bitmap_placement.size = AllegroFlare::Vec2D{ (float)al_get_bitmap_width(bitmap), (float)al_get_bitmap_height(bitmap) };
 
       // draw the bitmap
 

@@ -3,25 +3,25 @@ properties:
 
   - name: subject_position_before
     type: AllegroFlare::Vec2D
-    init_with: '{ 0, 0 }'
+    init_with: 'AllegroFlare::Vec2D{ 0, 0 }'
     getter: true
     setter: true
 
   - name: subject_velocity_before
     type: AllegroFlare::Vec2D
-    init_with: '{ 0, 0 }'
+    init_with: 'AllegroFlare::Vec2D{ 0, 0 }'
     getter: true
     setter: true
 
   - name: subject_position_after
     type: AllegroFlare::Vec2D
-    init_with: '{ 0, 0 }'
+    init_with: 'AllegroFlare::Vec2D{ 0, 0 }'
     getter: true
     setter: true
 
   - name: subject_velocity_after
     type: AllegroFlare::Vec2D
-    init_with: '{ 0, 0 }'
+    init_with: 'AllegroFlare::Vec2D{ 0, 0 }'
     getter: true
     setter: true
 

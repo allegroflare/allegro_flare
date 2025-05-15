@@ -14,7 +14,7 @@ namespace AllegroFlare
 
 Camera2D::Camera2D()
    : AllegroFlare::Placement2D()
-   , zoom({1.0f, 1.0f})
+   , zoom(AllegroFlare::Vec2D{1.0f, 1.0f})
    , width_num_units(DEFAULT_WIDTH_NUM_UNITS)
    , height_num_units(DEFAULT_HEIGHT_NUM_UNITS)
 {

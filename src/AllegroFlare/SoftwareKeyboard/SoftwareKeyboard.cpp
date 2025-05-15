@@ -264,8 +264,8 @@ void SoftwareKeyboard::reset()
 void SoftwareKeyboard::reset_with_defaults(std::string initial_result_string, std::string initial_cursor_position_over_key_name)
 {
    // TODO: Test this method
-   cursor_destination = {0, 0};
-   cursor_size_destination = {80, 80};
+   cursor_destination = AllegroFlare::Vec2D{0, 0};
+   cursor_size_destination = AllegroFlare::Vec2D{80, 80};
    cursor_location = cursor_destination;
    cursor_size = cursor_size_destination;
    showing_input_error_frame = false;

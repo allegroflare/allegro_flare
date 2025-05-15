@@ -12,10 +12,10 @@ namespace Physics
 
 
 TileMapCollisionStepperStepResult::TileMapCollisionStepperStepResult()
-   : subject_position_before({ 0, 0 })
-   , subject_velocity_before({ 0, 0 })
-   , subject_position_after({ 0, 0 })
-   , subject_velocity_after({ 0, 0 })
+   : subject_position_before(AllegroFlare::Vec2D{ 0, 0 })
+   , subject_velocity_before(AllegroFlare::Vec2D{ 0, 0 })
+   , subject_position_after(AllegroFlare::Vec2D{ 0, 0 })
+   , subject_velocity_after(AllegroFlare::Vec2D{ 0, 0 })
    , collisions({})
    , subject_was_stopped_by_collision(false)
 {

@@ -54,7 +54,7 @@ Screen::Screen(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , gravity(0.25f)
    , gravity_reversed(false)
    , camera()
-   , camera_baseline_zoom({4.8f, 4.5f})
+   , camera_baseline_zoom(AllegroFlare::Vec2D{4.8f, 4.5f})
    , player_controlled_entity(nullptr)
    , last_activated_save_point(nullptr)
    , show_terrain_tile_mesh(true)
@@ -682,7 +682,7 @@ void Screen::initialize_camera()
 
    camera.set_zoom(camera_baseline_zoom);
    //AllegroFlare::vec2d(1.0 / 4.8, 1.0 / 4.5);
-   camera.position = {room_width/2, room_height/2};
+   camera.position = AllegroFlare::Vec2D{room_width/2, room_height/2};
 
    return;
 }
@@ -747,13 +747,13 @@ void Screen::player_emit_projectile(float magnitude)
    AllegroFlare::vec2d player_pos = player_controlled_entity->get_placement_ref().position;
    //AllegroFlare::vec2d player_center_pos = player_pos;
    //AllegroFlare::vec2d aim_dir = player_controls.get_primary_stick_position(); //.normalized();
-   AllegroFlare::vec2d aim_pos = { 1.0, 0.0 }; //player_controls.get_primary_stick_position(); //.normalized();
+   AllegroFlare::vec2d aim_pos = AllegroFlare::Vec2D{ 1.0, 0.0 }; //player_controls.get_primary_stick_position(); //.normalized();
    //AllegroFlare::vec2d aim_pos = { 1.0, 0.0 }; //player_controls.get_primary_stick_position(); //.normalized();
 
    if ((aim_pos.x < 0.00001) && (aim_pos.x > -0.00001))
    if ((aim_pos.y < 0.00001) && (aim_pos.y > -0.00001))
    {
-      aim_pos = {1, 0};
+      aim_pos = AllegroFlare::Vec2D{1, 0};
    }
 
 
@@ -2138,10 +2138,10 @@ void Screen::key_char_func(ALLEGRO_EVENT* event)
       //toggle_show_tile_mesh();
       break;
    case ALLEGRO_KEY_PAD_PLUS:
-      camera.set_zoom(camera.get_zoom() + AllegroFlare::Vec2D({0.1, 0.1}));
+      camera.set_zoom(camera.get_zoom() + AllegroFlare::Vec2D(0.1, 0.1));
       break;
    case ALLEGRO_KEY_PAD_MINUS:
-      camera.set_zoom(camera.get_zoom() - AllegroFlare::Vec2D({0.1, 0.1}));
+      camera.set_zoom(camera.get_zoom() - AllegroFlare::Vec2D(0.1, 0.1));
       break;
    default:
       break;
