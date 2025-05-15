@@ -65,6 +65,7 @@ methods:
       primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(FPS));
       al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
       al_register_event_source(event_queue, al_get_keyboard_event_source());
+      al_register_event_source(event_queue, al_get_display_event_source(al_get_current_display()));
 
       al_install_mouse();
       al_register_event_source(event_queue, al_get_mouse_event_source());
@@ -89,6 +90,7 @@ methods:
       primary_timer = nullptr;
       al_unregister_event_source(event_queue, al_get_timer_event_source(primary_timer));
       al_unregister_event_source(event_queue, al_get_keyboard_event_source());
+      // TODO: Unregister display
       al_destroy_event_queue(event_queue);
       event_queue = nullptr;
       al_uninstall_keyboard();
@@ -155,15 +157,17 @@ methods:
             halt_auto_abort();
             bool shift = current_event->keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
             bool command = current_event->keyboard.modifiers & ALLEGRO_KEYMOD_COMMAND;
-            // TODO: Make this optionally disabled:
             if (escape_key_aborts && current_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE && (!shift)) abort();
-            if (current_event->keyboard.keycode == ALLEGRO_KEY_Q && command) abort();
+            //if (current_event->keyboard.keycode == ALLEGRO_KEY_Q && command) abort();
          } break;
 
          case ALLEGRO_EVENT_MOUSE_AXES:
          case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
          case ALLEGRO_EVENT_MOUSE_BUTTON_UP: {
             halt_auto_abort();
+         } break;
+         case ALLEGRO_EVENT_DISPLAY_CLOSE: {
+            abort();
          } break;
       }
       return;
