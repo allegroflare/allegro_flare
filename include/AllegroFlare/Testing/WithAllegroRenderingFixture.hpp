@@ -20,6 +20,7 @@ namespace AllegroFlare
       {
       public:
          static constexpr ALLEGRO_COLOR CLEAR_COLOR = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+         static constexpr char* DEFAULT_FONT_NAME = (char*)"Inter-Regular.ttf";
 
       private:
          ALLEGRO_DISPLAY* display;
@@ -57,6 +58,7 @@ namespace AllegroFlare
          ALLEGRO_FONT* get_any_font(int size=-30);
          ALLEGRO_FONT* get_small_font(int size=-20);
          ALLEGRO_FONT* get_user_prompt_font();
+         ALLEGRO_FONT* get_specific_font(std::string font_name="[unset-font_name]", int size=-20);
          ALLEGRO_BITMAP* get_display_backbuffer();
          void sleep_for_frame();
          void sleep_for(float length_in_seconds=0.0f);

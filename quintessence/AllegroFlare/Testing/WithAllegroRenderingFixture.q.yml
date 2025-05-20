@@ -64,6 +64,12 @@ properties:
     constexpr: true
     static: true
 
+  - name: DEFAULT_FONT_NAME
+    type: char*
+    init_with: '(char*)"Inter-Regular.ttf"'
+    constexpr: true
+    static: true
+
 
 methods:
 
@@ -219,6 +225,22 @@ methods:
     type: ALLEGRO_FONT*
     body: |
       return font_bin.auto_get("Inter-Regular.ttf -42");
+
+
+  - name: get_specific_font
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: font_name
+        type: std::string
+        default_argument: '"[unset-font_name]"'
+      - name: size
+        type: int
+        default_argument: -20
+    guards: [ (size != 0) ]
+    body: |
+      std::stringstream ss;
+      ss << font_name << " " << size;
+      return font_bin.auto_get(ss.str());
 
 
   - name: get_display_backbuffer

@@ -274,6 +274,20 @@ ALLEGRO_FONT* WithAllegroRenderingFixture::get_user_prompt_font()
    return font_bin.auto_get("Inter-Regular.ttf -42");
 }
 
+ALLEGRO_FONT* WithAllegroRenderingFixture::get_specific_font(std::string font_name, int size)
+{
+   if (!((size != 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Testing::WithAllegroRenderingFixture::get_specific_font]: error: guard \"(size != 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroRenderingFixture::get_specific_font]: error: guard \"(size != 0)\" not met");
+   }
+   std::stringstream ss;
+   ss << font_name << " " << size;
+   return font_bin.auto_get(ss.str());
+}
+
 ALLEGRO_BITMAP* WithAllegroRenderingFixture::get_display_backbuffer()
 {
    return al_get_backbuffer(display);
