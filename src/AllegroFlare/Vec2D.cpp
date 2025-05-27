@@ -120,12 +120,14 @@ namespace AllegroFlare
 
 
 
+/*
    Vec2D& Vec2D::operator=(const std::pair<float, float> &float_pair)
    {
        x = float_pair.first;
        y = float_pair.second;
        return *this; // Return a reference to the modified object
    }
+*/
 
 
 

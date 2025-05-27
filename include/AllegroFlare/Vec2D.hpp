@@ -38,7 +38,7 @@ namespace AllegroFlare
       bool operator!=(const Vec2D &other) const;
 
       // Compound operators for use with std::pair<float, float>
-      Vec2D& operator=(const std::pair<float, float> &float_pair);
+      //Vec2D& operator=(const std::pair<float, float> &float_pair);
       Vec2D& operator+=(const std::pair<float, float>& p);
       Vec2D& operator-=(const std::pair<float, float>& p);
       Vec2D& operator*=(const std::pair<float, float>& p); // Component-wise multiplication

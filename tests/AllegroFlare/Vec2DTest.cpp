@@ -15,12 +15,30 @@ TEST(AllegroFlare_Vec2DTest, when_constructed_from_a_float_pair__will_work_as_ex
 }
 
 
+TEST(AllegroFlare_Vec2DTest, when_constructed_from_a_braced_set_of_floats__will_work_as_expected)
+{
+   AllegroFlare::Vec2D vec = { 0.125f, 8.5f };
+   EXPECT_EQ(vec.x, 0.125f);
+   EXPECT_EQ(vec.y, 8.5f);
+}
+
+
 TEST(AllegroFlare_Vec2DTest, when_the_assignment_operator_is_used_from_a_float_pair__will_work_as_expected)
 {
    std::pair<float, float> float_pair = { 0.125f, 8.5f };
    AllegroFlare::Vec2D vec;
 
    vec = float_pair; // Assignment
+
+   EXPECT_EQ(vec.x, 0.125f);
+   EXPECT_EQ(vec.y, 8.5f);
+}
+
+
+TEST(AllegroFlare_Vec2DTest, when_the_assignment_operator_is_used_from_a_braced_set_of_floats__will_work_as_expected)
+{
+   AllegroFlare::Vec2D vec;
+   vec = { 0.125f, 8.5f }; // Assignment
 
    EXPECT_EQ(vec.x, 0.125f);
    EXPECT_EQ(vec.y, 8.5f);
