@@ -48,6 +48,8 @@ namespace AllegroFlare
       void strafe_xy(float displacement=0.0f);
       AllegroFlare::Vec3D get_viewing_direction();
       AllegroFlare::Vec3D get_reverse_viewing_direction();
+
+      void blend(AllegroFlare::Camera3D* other, float mul=0.1f); 
    };
 }
 

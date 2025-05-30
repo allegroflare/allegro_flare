@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
+#include <AllegroFlare/Logger.hpp>
 
 #include <algorithm>
 #include <stdexcept>
@@ -214,6 +215,48 @@ AllegroFlare::Vec3D Camera3D::get_reverse_viewing_direction()
    AllegroFlare::Vec3D viewing_direction = (stood_viewing_direction - stood_position).normalized();
    return viewing_direction;
 }
+
+
+
+void Camera3D::blend(AllegroFlare::Camera3D* other, float mul)
+{
+   if (!(other))
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "error: guard \"other\" not met."
+      );
+   }
+   if (!(mul <= 1.0f))
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "error: guard \"mul < 1.0f\" not met."
+      );
+   }
+   if (!(mul >= 0.0f))
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "error: guard \"mul >= 0.0f\" not met."
+      );
+   }
+
+   if (mul == 0.0f) return;
+   if (mul == 1.0f) { *this = *other; return; }
+
+   AllegroFlare::Camera3D &source = *this;
+   AllegroFlare::Camera3D &target = *other;
+   source.position = (target.position - source.position) * mul + source.position;
+   source.spin = (target.spin - source.spin) * mul + source.spin;
+   source.tilt = (target.tilt - source.tilt) * mul + source.tilt;
+   source.stepout = (target.stepout - source.stepout) * mul + source.stepout;
+   source.zoom = (target.zoom - source.zoom) * mul + source.zoom;
+   source.near_plane = (target.near_plane - source.near_plane) * mul + source.near_plane;
+   source.far_plane = (target.far_plane - source.far_plane) * mul + source.far_plane;
+   return;
+}
+
 
 
 } // namespace AllegroFlare
