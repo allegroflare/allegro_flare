@@ -19,7 +19,10 @@ void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera)
       {"stepout", camera.stepout},
       {"spin", camera.spin},
       {"tilt", camera.tilt},
+      {"roll", camera.roll},
       {"zoom", camera.zoom},
+      {"near_plane", camera.near_plane},
+      {"far_plane", camera.far_plane},
    };
 }
 
@@ -32,6 +35,9 @@ void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera)
    j.at("spin").get_to(camera.spin);
    j.at("tilt").get_to(camera.tilt);
    j.at("zoom").get_to(camera.zoom);
+   j.at("roll").get_to(camera.roll);
+   j.at("near_plane").get_to(camera.near_plane);
+   j.at("far_plane").get_to(camera.far_plane);
 }
 
 
