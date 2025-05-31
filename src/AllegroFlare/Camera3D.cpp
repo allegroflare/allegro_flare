@@ -250,6 +250,7 @@ void Camera3D::blend(AllegroFlare::Camera3D* other, float interpolation)
    source.position = (target.position - source.position) * interpolation + source.position;
    source.spin = (target.spin - source.spin) * interpolation + source.spin;
    source.tilt = (target.tilt - source.tilt) * interpolation + source.tilt;
+   source.roll = (target.roll - source.roll) * interpolation + source.roll;
    source.stepout = (target.stepout - source.stepout) * interpolation + source.stepout;
    source.zoom = (target.zoom - source.zoom) * interpolation + source.zoom;
    source.near_plane = (target.near_plane - source.near_plane) * interpolation + source.near_plane;
