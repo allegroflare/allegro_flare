@@ -135,6 +135,11 @@ public:
       return data.size();
    }
 
+   bool empty() const
+   {
+      return data.empty();
+   }
+
    bool contains(key_type key) const
    {
       return key_to_index.count(key) > 0; // .count() is often preferred for const access

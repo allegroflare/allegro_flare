@@ -1,125 +1,155 @@
 #pragma once
 
 
-
+#include <string>
 #include <vector>
 #include <unordered_map>
 #include <stdexcept>
-#include <string>
-#include <algorithm> // for std::find_if
-
+#include <utility>
+#include <AllegroFlare/StableVector.hpp>
 
 
 namespace AllegroFlare
 {
 
+
 template <typename valueT>
 class StableVectorStr
 {
-public:
-   using key_type = std::string;
-   using value_type = valueT;
+   public:
+      using key_type = std::string;
+      using value_type = valueT;
+      using internal_id_type = typename AllegroFlare::StableVector<value_type>::key_type;
 
-private:
-   std::vector<value_type> data;
-   std::unordered_map<key_type, size_t> key_to_index;
+   private:
+      AllegroFlare::StableVector<value_type> store;
+      std::unordered_map<key_type, internal_id_type> key_to_internal_id_map;
 
-public:
-   key_type add(const key_type &key, const value_type &value)
-   {
-      if (key_to_index.find(key) != key_to_index.end())
+   public:
+      StableVectorStr() = default;
+
+      key_type add(const key_type& key, const value_type& value)
       {
-         throw std::invalid_argument("Key already exists");
-      }
-
-      key_to_index[key] = data.size();
-      data.push_back(value);
-      return key;
-   }
-
-   value_type& allocate(const key_type &key)
-   {
-      if (key_to_index.find(key) != key_to_index.end())
-      {
-         throw std::invalid_argument("Key already exists");
-      }
-
-      key_to_index[key] = data.size();
-      data.emplace_back(); // Default-construct the new value
-      return data.back();
-   }
-
-   void remove(const key_type &key)
-   {
-      auto it = key_to_index.find(key);
-      if (it == key_to_index.end())
-      {
-         throw std::out_of_range("Invalid key");
-      }
-
-      size_t index = it->second;
-      size_t last_index = data.size() - 1;
-
-      if (index != last_index)
-      {
-         // Move the last element to the position of the removed element
-         std::swap(data[index], data[last_index]);
-
-         // Update the key of the swapped element
-         auto swapped_key = std::find_if(key_to_index.begin(), key_to_index.end(),
-                                         [last_index](const auto &pair)
-                                         {
-                                            return pair.second == last_index;
-                                         });
-
-         if (swapped_key != key_to_index.end())
-         {
-            swapped_key->second = index; // Update the index for the swapped key
+         if (key_to_internal_id_map.count(key)) {
+            throw std::invalid_argument("StableVectorStr::add error: Key '" + key + "' already exists.");
          }
+         internal_id_type new_id = store.add(value);
+         key_to_internal_id_map[key] = new_id;
+         return key;
       }
 
-      // Remove the last element and erase the key from the map
-      data.pop_back();
-      key_to_index.erase(it);
-   }
-
-   value_type &get(const key_type &key)
-   {
-      auto it = key_to_index.find(key);
-      if (it == key_to_index.end())
+      template<typename... Args>
+      value_type& emplace(const key_type& key, Args&&... args)
       {
-         throw std::out_of_range("Invalid key");
+         if (key_to_internal_id_map.count(key)) {
+            throw std::invalid_argument("StableVectorStr::emplace error: Key '" + key + "' already exists.");
+         }
+         value_type temp_object(std::forward<Args>(args)...);
+         internal_id_type new_id = store.add(std::move(temp_object)); 
+         key_to_internal_id_map[key] = new_id;
+         return store.get(new_id);
       }
-      return data[it->second];
-   }
-
-   const value_type &get(const key_type &key) const
-   {
-      auto it = key_to_index.find(key);
-      if (it == key_to_index.end())
+      
+      value_type& allocate(const key_type& key)
       {
-         throw std::out_of_range("Invalid key");
+         if (key_to_internal_id_map.count(key)) {
+            throw std::invalid_argument("StableVectorStr::allocate error: Key '" + key + "' already exists.");
+         }
+         std::pair<internal_id_type, value_type&> allocation_result = store.allocate();
+         key_to_internal_id_map[key] = allocation_result.first;
+         return allocation_result.second;
       }
-      return data[it->second];
-   }
 
-   std::vector<value_type> &get_data()
-   {
-      return data;
-   }
+      void remove(const key_type& key)
+      {
+         auto it_key_map = key_to_internal_id_map.find(key);
+         if (it_key_map == key_to_internal_id_map.end()) {
+            throw std::out_of_range("StableVectorStr::remove error: Key '" + key + "' not found.");
+         }
+         internal_id_type id_to_remove = it_key_map->second;
+         
+         store.remove(id_to_remove);
+         key_to_internal_id_map.erase(it_key_map);
+      }
 
-   size_t size() const
-   {
-      return data.size();
-   }
+      value_type& get(const key_type& key)
+      {
+         auto it_key_map = key_to_internal_id_map.find(key);
+         if (it_key_map == key_to_internal_id_map.end()) {
+            throw std::out_of_range("StableVectorStr::get error: Key '" + key + "' not found.");
+         }
+         return store.get(it_key_map->second);
+      }
 
-   bool contains(const key_type &key) const
-   {
-      return key_to_index.find(key) != key_to_index.end();
-   }
+      const value_type& get(const key_type& key) const
+      {
+         auto it_key_map = key_to_internal_id_map.find(key);
+         if (it_key_map == key_to_internal_id_map.end()) {
+            throw std::out_of_range("StableVectorStr::get const error: Key '" + key + "' not found.");
+         }
+         return store.get(it_key_map->second);
+      }
+
+      bool contains(const key_type& key) const
+      {
+         return key_to_internal_id_map.count(key) > 0;
+      }
+
+      size_t size() const
+      {
+         return store.size();
+      }
+
+      bool empty() const
+      {
+         return store.empty();
+      }
+      
+      void clear()
+      {
+         store.clear();
+         key_to_internal_id_map.clear();
+      }
+
+      void reserve(size_t capacity)
+      {
+         store.reserve(capacity);
+         key_to_internal_id_map.reserve(capacity);
+      }
+
+      std::vector<value_type>& get_data()
+      {
+         return store.get_data();
+      }
+
+      const std::vector<value_type>& get_data() const
+      {
+         return store.get_data();
+      }
+
+      std::vector<std::pair<const key_type*, value_type*>> get_all_key_value_pairs()
+      {
+         std::vector<std::pair<const key_type*, value_type*>> entries;
+         entries.reserve(key_to_internal_id_map.size());
+         for (auto& pair_in_map : key_to_internal_id_map)
+         {
+            entries.emplace_back(&pair_in_map.first, &store.get(pair_in_map.second));
+         }
+         return entries;
+      }
+
+      std::vector<std::pair<const key_type*, const value_type*>> get_all_key_value_pairs() const
+      {
+         std::vector<std::pair<const key_type*, const value_type*>> entries;
+         entries.reserve(key_to_internal_id_map.size());
+         for (const auto& pair_in_map : key_to_internal_id_map)
+         {
+            entries.emplace_back(&pair_in_map.first, &store.get(pair_in_map.second));
+         }
+         return entries;
+      }
 };
 
 } // namespace AllegroFlare
-
 
 
