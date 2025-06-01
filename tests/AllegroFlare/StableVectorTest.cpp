@@ -45,7 +45,18 @@ TEST(AllegroFlare_StableVectorTest, contains__will_return_true_if_the_element_ex
 }
 
 
-TEST(AllegroFlare_StableVectorTest, CanAccessByKey)
+TEST(AllegroFlare_StableVectorTest, remove__will_remove_the_element_from_the_list)
+{
+   AllegroFlare::StableVector<std::string> stable_vector;
+   auto key1 = stable_vector.add("Existential");
+   EXPECT_TRUE(stable_vector.contains(key1));
+
+   stable_vector.remove(key1);
+   EXPECT_FALSE(stable_vector.contains(key1));
+}
+
+
+TEST(AllegroFlare_StableVectorTest, get__will_return_the_value_by_key)
 {
    AllegroFlare::StableVector<std::string> stable_vector;
    auto key1 = stable_vector.add("A");
@@ -60,7 +71,7 @@ TEST(AllegroFlare_StableVectorTest, CanAccessByKey)
 }
 
 
-TEST(AllegroFlare_StableVectorTest, SwapAndPopRemovesCorrectly)
+TEST(AllegroFlare_StableVectorTest, INTERNAL__swap_and_pop_will_work_correctly)
 {
    AllegroFlare::StableVector<std::string> stable_vector;
    auto key1 = stable_vector.add("Element1");
@@ -81,18 +92,7 @@ TEST(AllegroFlare_StableVectorTest, SwapAndPopRemovesCorrectly)
 }
 
 
-TEST(AllegroFlare_StableVectorTest, CanCheckContainment)
-{
-   AllegroFlare::StableVector<std::string> stable_vector;
-   auto key1 = stable_vector.add("Existential");
-   EXPECT_TRUE(stable_vector.contains(key1));
-
-   stable_vector.remove(key1);
-   EXPECT_FALSE(stable_vector.contains(key1));
-}
-
-
-TEST(AllegroFlare_StableVectorTest, HandlesEmptyContainer)
+TEST(AllegroFlare_StableVectorTest, get__on_a_value_that_does_not_exist__throws_an_error)
 {
    AllegroFlare::StableVector<std::string> stable_vector;
    EXPECT_EQ(stable_vector.size(), 0);
@@ -102,7 +102,7 @@ TEST(AllegroFlare_StableVectorTest, HandlesEmptyContainer)
 }
 
 
-TEST(AllegroFlare_StableVectorTest, RetainsContiguousNatureAfterModifications)
+TEST(AllegroFlare_StableVectorTest, will_retain_contguous_data_when_elements_are_modified)
 {
    AllegroFlare::StableVector<std::string> stable_vector;
    auto key1 = stable_vector.add("First");
@@ -128,7 +128,7 @@ TEST(AllegroFlare_StableVectorTest, RetainsContiguousNatureAfterModifications)
 }
 
 
-TEST(AllegroFlare_StableVectorTest, BuildMethodProvidesSlotAndAllowsModification)
+TEST(AllegroFlare_StableVectorTest, allocate__will_return_a_slot_that_can_be_used_for_value_modification)
 {
    AllegroFlare::StableVector<std::string> stable_vector;
 
