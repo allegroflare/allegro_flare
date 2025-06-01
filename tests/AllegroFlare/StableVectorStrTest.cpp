@@ -235,3 +235,75 @@ TEST(AllegroFlare_StableVectorStrTest, clear__on_an_empty_container__has_no_effe
 }
 
 
+TEST(AllegroFlare_StableVectorStrTest, clear__then_adding_elements__works_correctly)
+{
+   AllegroFlare::StableVectorStr<std::string> stable_vector;
+   stable_vector.add("key1", "A");
+   stable_vector.clear();
+   auto key2 = stable_vector.add("key2", "B");
+   EXPECT_EQ(stable_vector.size(), 1);
+   EXPECT_EQ(true, stable_vector.contains(key2));
+   EXPECT_EQ(stable_vector.get(key2), "B");
+}
+
+
+TEST(AllegroFlare_StableVectorStrTest, empty__on_new_container__returns_true)
+{
+   AllegroFlare::StableVectorStr<std::string> stable_vector;
+   EXPECT_EQ(true, stable_vector.empty());
+}
+
+
+TEST(AllegroFlare_StableVectorStrTest, empty__after_adding_element__returns_false)
+{
+   AllegroFlare::StableVectorStr<std::string> stable_vector;
+   stable_vector.add("key1", "A");
+   EXPECT_EQ(false, stable_vector.empty());
+}
+
+
+TEST(AllegroFlare_StableVectorStrTest, get_all_key_value_pairs__on_empty_container__returns_empty_vector)
+{
+   AllegroFlare::StableVectorStr<std::string> stable_vector;
+   EXPECT_EQ(true, stable_vector.get_all_key_value_pairs().empty());
+   
+   const auto& const_stable_vector = stable_vector;
+   EXPECT_EQ(true, const_stable_vector.get_all_key_value_pairs().empty());
+}
+
+
+TEST(AllegroFlare_StableVectorStrTest, get_all_key_value_pairs__returns_all_elements_correctly)
+{
+   AllegroFlare::StableVectorStr<std::string> stable_vector;
+   stable_vector.add("keyA", "ValA");
+   stable_vector.add("keyB", "ValB");
+   
+   auto pairs = stable_vector.get_all_key_value_pairs();
+   EXPECT_EQ(pairs.size(), 2);
+   
+   bool foundA = false, foundB = false;
+   for (const auto& p : pairs) {
+      ASSERT_NE(p.first, nullptr);
+      ASSERT_NE(p.second, nullptr);
+      if (*p.first == "keyA" && *p.second == "ValA") foundA = true;
+      if (*p.first == "keyB" && *p.second == "ValB") foundB = true;
+   }
+   EXPECT_EQ(true, foundA);
+   EXPECT_EQ(true, foundB);
+
+   // Test const version
+   const auto& const_stable_vector = stable_vector;
+   auto const_pairs = const_stable_vector.get_all_key_value_pairs();
+   EXPECT_EQ(const_pairs.size(), 2);
+
+   bool const_foundA = false, const_foundB = false;
+   for (const auto& p : const_pairs) {
+      ASSERT_NE(p.first, nullptr);
+      ASSERT_NE(p.second, nullptr);
+      if (*p.first == "keyA" && *p.second == "ValA") const_foundA = true;
+      if (*p.first == "keyB" && *p.second == "ValB") const_foundB = true;
+   }
+   EXPECT_EQ(true, const_foundA);
+   EXPECT_EQ(true, const_foundB);
+}
+
