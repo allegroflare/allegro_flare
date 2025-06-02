@@ -11,6 +11,40 @@
 #include <thread>
 
 
+#define NEUTRAL_CLEAR_COLOR ALLEGRO_COLOR{0.44, 0.5, 0.56, 1.0}
+
+
+class AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup : public ::testing::Test
+{
+private:
+   ALLEGRO_DISPLAY *display;
+
+public:
+   void SetUp() override
+   {
+      al_init();
+      al_init_primitives_addon();
+      display = al_create_display(1920, 1080);
+      clear();
+   }
+
+   void TearDown() override
+   {
+      al_flip_display();
+      al_rest(1.0);
+      al_destroy_display(display);
+      al_uninstall_system();
+   }
+
+   void clear()
+   {
+      al_clear_to_color(NEUTRAL_CLEAR_COLOR);
+      al_clear_depth_buffer(1);
+   }
+};
+
+
+
 TEST(AllegroFlare_Elements_DialogBoxFrameTest, can_be_created_without_blowing_up)
 {
    AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
@@ -59,54 +93,19 @@ TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__when_there_is_no_allegro_
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__draws_the_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup, render__draws_the_dialog_box)
 {
-   al_init();
-   al_init_primitives_addon();
-   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
    AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
-
    dialog_box_renderer.render();
-   al_flip_display();
-   std::this_thread::sleep_for(std::chrono::seconds(1));
-
-   al_destroy_display(display);
-   al_uninstall_system();
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__respects_opacity)
+TEST_F(AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup,
+   render__with_a_partial_opacity__will_render_as_expected)
 {
-   al_init();
-   al_init_primitives_addon();
-   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
    AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
-
    dialog_box_renderer.set_opacity(0.5);
-
-   al_clear_to_color(ALLEGRO_COLOR{0.05, 0.05, 0.055, 1.0});
    dialog_box_renderer.render();
-   al_flip_display();
-   std::this_thread::sleep_for(std::chrono::seconds(1));
-
-   al_destroy_display(display);
-   al_uninstall_system();
-}
-
-
-TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__when_the_dialog_box_is_finish__renders_special_empty_text)
-{
-   al_init();
-   al_init_primitives_addon();
-   ALLEGRO_DISPLAY *display = al_create_display(1920, 1080);
-   AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
-
-   dialog_box_renderer.render();
-   al_flip_display();
-   //std::this_thread::sleep_for(std::chrono::seconds(1));
-
-   al_destroy_display(display);
-   al_uninstall_system();
 }
 
 

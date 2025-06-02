@@ -153,6 +153,7 @@ void DialogBoxFrame::render()
    );
 
    // draw "inner" backfill
+   /*
    al_draw_filled_rounded_rectangle(
       0 + border_inner_padding,
       0 + border_inner_padding,
@@ -162,6 +163,7 @@ void DialogBoxFrame::render()
       roundness * 0.5,
       backfill_color_with_opacity
    );
+   */
 
    // draw border
    al_draw_rounded_rectangle(
