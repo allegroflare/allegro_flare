@@ -11,11 +11,20 @@
 #include <chrono>
 #include <thread>
 
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+//#include <allegro5/allegro_primitives.h>
+//#include <chrono>
+//#include <thread>
+
+//class AllegroFlare_Elements_DialogBoxRenderers_BasicRendererTest : public ::testing::Test {};
+//class AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest
+   //: public AllegroFlare::Testing::WithAllegroRenderingFixture {};
 
 #define NEUTRAL_CLEAR_COLOR ALLEGRO_COLOR{0.44, 0.5, 0.56, 1.0}
 
 
-class AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup : public ::testing::Test
+class AllegroFlare_Elements_DialogBoxFrameTestWithAllegroRenderingFixture
+   : public AllegroFlare::Testing::WithAllegroRenderingFixture
 {
 private:
    ALLEGRO_DISPLAY *display;
@@ -26,9 +35,10 @@ public:
 
    void SetUp() override
    {
-      al_init();
-      al_init_primitives_addon();
-      display = al_create_display(1920, 1080);
+      AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+      //al_init();
+      //al_init_primitives_addon();
+      //display = al_create_display(1920, 1080);
       al_clear_to_color(NEUTRAL_CLEAR_COLOR);
       al_clear_depth_buffer(1);
    }
@@ -37,8 +47,9 @@ public:
    {
       al_flip_display();
       al_rest(1.0);
-      al_destroy_display(display);
-      al_uninstall_system();
+      AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+      //al_destroy_display(display);
+      //al_uninstall_system();
    }
 
    void render_subject()
@@ -104,14 +115,15 @@ TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__when_there_is_no_allegro_
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup, render__draws_the_dialog_box)
+TEST_F(AllegroFlare_Elements_DialogBoxFrameTestWithAllegroRenderingFixture,
+   CAPTURE__render__draws_the_dialog_box)
 {
    render_subject();
 }
 
 
-TEST_F(AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup,
-   render__with_a_partial_opacity__will_render_as_expected)
+TEST_F(AllegroFlare_Elements_DialogBoxFrameTestWithAllegroRenderingFixture,
+   CAPTURE__render__with_a_partial_opacity__will_render_as_expected)
 {
    dialog_box_renderer.set_opacity(0.5);
    render_subject();
