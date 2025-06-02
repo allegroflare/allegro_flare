@@ -42,7 +42,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    dialog_box_renderer.set_is_finished(true);
    
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
-   clear();
+   clear_neutral();
    //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
    place.start_transform();
    dialog_box_renderer.render();
@@ -63,7 +63,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    dialog_box_renderer.set_current_page_text(page_text);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
-   clear();
+   clear_neutral();
    //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
    place.start_transform();
    dialog_box_renderer.render();
@@ -91,7 +91,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
       float age = al_get_time() - started_at;
       dialog_box_renderer.set_age(age);
 
-      clear();
+      clear_neutral();
       //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
 
       place.start_transform();
@@ -125,7 +125,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
       };
 
-      clear();
+      clear_neutral();
       //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       place.start_transform();
       dialog_box_renderer.render();
@@ -161,7 +161,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
       };
 
-      clear();
+      clear_neutral();
       //al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
       place.start_transform();
       dialog_box_renderer.render();

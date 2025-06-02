@@ -453,8 +453,35 @@ void WithAllegroRenderingFixture::clear_display()
 void WithAllegroRenderingFixture::clear()
 {
    al_clear_depth_buffer(1);
-   //ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
-   al_clear_to_color(CLEAR_COLOR);
+   al_clear_to_color(CLEAR_COLOR_EIGENGRAU);
+   return;
+}
+
+void WithAllegroRenderingFixture::clear_dark()
+{
+   al_clear_depth_buffer(1);
+   al_clear_to_color(CLEAR_COLOR_DARK); // 0e1b2d;
+   return;
+}
+
+void WithAllegroRenderingFixture::clear_neutral()
+{
+   al_clear_depth_buffer(1);
+   al_clear_to_color(CLEAR_COLOR_NEUTRAL);
+   return;
+}
+
+void WithAllegroRenderingFixture::clear_light()
+{
+   al_clear_depth_buffer(1);
+   al_clear_to_color(CLEAR_COLOR_NEUTRAL);
+   return;
+}
+
+void WithAllegroRenderingFixture::clear_transparent()
+{
+   al_clear_depth_buffer(1);
+   al_clear_to_color(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.0});
    return;
 }
 

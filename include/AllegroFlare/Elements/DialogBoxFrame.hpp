@@ -23,12 +23,13 @@ namespace AllegroFlare
          float opacity;
          float roundness;
          float border_thickness;
+         bool inset_border_by_border_thickness;
 
       protected:
 
 
       public:
-         DialogBoxFrame(float width=1920/5*3, float height=1080/4);
+         DialogBoxFrame(float width=1920/6*3, float height=1080/4);
          ~DialogBoxFrame();
 
          void set_width(float width);
@@ -39,11 +40,13 @@ namespace AllegroFlare
          void set_opacity(float opacity);
          void set_roundness(float roundness);
          void set_border_thickness(float border_thickness);
+         void set_inset_border_by_border_thickness(bool inset_border_by_border_thickness);
          float get_width() const;
          float get_height() const;
          float get_opacity() const;
          float get_roundness() const;
          float get_border_thickness() const;
+         bool get_inset_border_by_border_thickness() const;
          void render();
       };
    }

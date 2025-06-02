@@ -1152,6 +1152,7 @@
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/DialogBoxFrame",
+    "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",

@@ -19,7 +19,10 @@ namespace AllegroFlare
       class WithAllegroRenderingFixture : public ::testing::Test
       {
       public:
-         static constexpr ALLEGRO_COLOR CLEAR_COLOR = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+         static constexpr ALLEGRO_COLOR CLEAR_COLOR_EIGENGRAU = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
+         static constexpr ALLEGRO_COLOR CLEAR_COLOR_NEUTRAL = ALLEGRO_COLOR{0.44, 0.5, 0.56, 1.0};
+         static constexpr ALLEGRO_COLOR CLEAR_COLOR_LIGHT = ALLEGRO_COLOR{0.98, 0.94, 0.90, 1.0};
+         static constexpr ALLEGRO_COLOR CLEAR_COLOR_DARK = ALLEGRO_COLOR{0.054902f, 0.105882f, 0.176476f, 1.0};
          static constexpr char* DEFAULT_FONT_NAME = (char*)"Inter-Regular.ttf";
 
       private:
@@ -76,6 +79,10 @@ namespace AllegroFlare
          bool test_name_indicates_it_wants_a_screenshot();
          void clear_display();
          void clear();
+         void clear_dark();
+         void clear_neutral();
+         void clear_light();
+         void clear_transparent();
          bool test_name_has_prefix_token(std::string possible_prefix_token="[unset-possible_prefix_token]");
          void capture_screenshot(std::string base_filename="WithAllegroRenderingFixture-screenshot.png");
          void save_bitmap_to_test_snapshots_folder(std::string base_filename="WithAllegroRenderingFixture-test_bitmap.png", ALLEGRO_BITMAP* bitmap=nullptr);

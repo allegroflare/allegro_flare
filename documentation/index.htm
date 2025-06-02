@@ -8676,6 +8676,10 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">inset_border_by_border_thickness</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_BACKFILL_COLOR</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
@@ -8741,6 +8745,22 @@ table td
   <td class="property">height</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">fill_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">fill_opacity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">opacity</td>
+  <td class="property">float</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -8794,6 +8814,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -45027,7 +45050,19 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
-  <td class="property">CLEAR_COLOR</td>
+  <td class="property">CLEAR_COLOR_EIGENGRAU</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">CLEAR_COLOR_NEUTRAL</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">CLEAR_COLOR_LIGHT</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">CLEAR_COLOR_DARK</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
@@ -45152,6 +45187,22 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>clear</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>clear_dark</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>clear_neutral</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>clear_light</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>clear_transparent</b>()</td>
 </tr>
 <tr>
   <td class="method">bool</td>
@@ -52945,6 +52996,7 @@ table td
     "AllegroFlare/Elements/Button",
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/DialogBoxFrame",
+    "AllegroFlare/Elements/DialogBoxNameTag",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",

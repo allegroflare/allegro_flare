@@ -30,7 +30,18 @@ TEST_F(AllegroFlare_Elements_DialogBoxNameTagWithAllegroRenderingFixtureTest, re
    get_font_bin_ref().set_full_path(TEST_FIXTURE_FONT_FOLDER);
 
    AllegroFlare::Elements::DialogBoxNameTag dialog_box_name_tag(&get_font_bin_ref(), "Mia");
+
+   clear_neutral();
+
+   AllegroFlare::Placement2D subject_placement;
+   subject_placement.size = { dialog_box_name_tag.get_width(), dialog_box_name_tag.get_height() };
+   subject_placement.position = { 1920/2, 1080/2 };
+   subject_placement.start_transform();
+
    dialog_box_name_tag.render();
+
+   subject_placement.restore_transform();
+
    al_flip_display();
    std::this_thread::sleep_for(std::chrono::seconds(1));
 }

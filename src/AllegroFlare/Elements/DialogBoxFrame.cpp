@@ -24,8 +24,9 @@ DialogBoxFrame::DialogBoxFrame(float width, float height)
    , backfill_color(DEFAULT_BACKFILL_COLOR)
    , border_color(DEFAULT_BORDER_COLOR)
    , opacity(1.0f)
-   , roundness(8.0f)
+   , roundness(16.0f)
    , border_thickness(6.0f)
+   , inset_border_by_border_thickness(true)
 {
 }
 
@@ -83,6 +84,12 @@ void DialogBoxFrame::set_border_thickness(float border_thickness)
 }
 
 
+void DialogBoxFrame::set_inset_border_by_border_thickness(bool inset_border_by_border_thickness)
+{
+   this->inset_border_by_border_thickness = inset_border_by_border_thickness;
+}
+
+
 float DialogBoxFrame::get_width() const
 {
    return width;
@@ -110,6 +117,12 @@ float DialogBoxFrame::get_roundness() const
 float DialogBoxFrame::get_border_thickness() const
 {
    return border_thickness;
+}
+
+
+bool DialogBoxFrame::get_inset_border_by_border_thickness() const
+{
+   return inset_border_by_border_thickness;
 }
 
 
@@ -166,16 +179,33 @@ void DialogBoxFrame::render()
    */
 
    // draw border
-   al_draw_rounded_rectangle(
-      0,
-      0,
-      width,
-      height,
-      roundness,
-      roundness,
-      border_color_with_opacity,
-      border_thickness
-   );
+   if (!inset_border_by_border_thickness)
+   {
+      al_draw_rounded_rectangle(
+         0,
+         0,
+         width,
+         height,
+         roundness,
+         roundness,
+         border_color_with_opacity,
+         border_thickness
+      );
+   }
+   else
+   {
+      float hbt = border_thickness * 0.5;
+      al_draw_rounded_rectangle(
+         0 + hbt,
+         0 + hbt,
+         width - hbt,
+         height - hbt,
+         roundness * 0.75,
+         roundness * 0.75,
+         border_color_with_opacity,
+         border_thickness
+      );
+   }
 
    return;
 }

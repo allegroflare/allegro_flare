@@ -58,9 +58,27 @@ properties:
     type: bool
     init_with: false
 
-  - name: CLEAR_COLOR
+  - name: CLEAR_COLOR_EIGENGRAU
     type: ALLEGRO_COLOR
     init_with: 'ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f}'
+    constexpr: true
+    static: true
+
+  - name: CLEAR_COLOR_NEUTRAL
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{0.44, 0.5, 0.56, 1.0}'
+    constexpr: true
+    static: true
+
+  - name: CLEAR_COLOR_LIGHT
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{0.98, 0.94, 0.90, 1.0}'
+    constexpr: true
+    static: true
+
+  - name: CLEAR_COLOR_DARK
+    type: ALLEGRO_COLOR
+    init_with: 'ALLEGRO_COLOR{0.054902f, 0.105882f, 0.176476f, 1.0}'
     constexpr: true
     static: true
 
@@ -485,11 +503,40 @@ methods:
   - name: clear
     body: |
       al_clear_depth_buffer(1);
-      //ALLEGRO_COLOR eigengrau = ALLEGRO_COLOR{0.086f, 0.086f, 0.114f, 1.0f};
-      al_clear_to_color(CLEAR_COLOR);
+      al_clear_to_color(CLEAR_COLOR_EIGENGRAU);
       return;
     body_dependency_symbols:
       - ALLEGRO_COLOR
+
+
+  - name: clear_dark
+    body: |
+      al_clear_depth_buffer(1);
+      al_clear_to_color(CLEAR_COLOR_DARK); // 0e1b2d;
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_COLOR
+
+
+  - name: clear_neutral
+    body: |
+      al_clear_depth_buffer(1);
+      al_clear_to_color(CLEAR_COLOR_NEUTRAL);
+      return;
+
+
+  - name: clear_light
+    body: |
+      al_clear_depth_buffer(1);
+      al_clear_to_color(CLEAR_COLOR_NEUTRAL);
+      return;
+
+
+  - name: clear_transparent
+    body: |
+      al_clear_depth_buffer(1);
+      al_clear_to_color(ALLEGRO_COLOR{0.0, 0.0, 0.0, 0.0});
+      return;
 
 
   - name: test_name_has_prefix_token

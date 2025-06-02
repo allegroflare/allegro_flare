@@ -310,13 +310,17 @@ void BasicRenderer::render()
    }
    else
    {
+      //if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+      //{
+         //render_speaking_character_name_tag();
+      //}
+      render_frame();
+      render_text();
+      render_button();
       if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
       {
          render_speaking_character_name_tag();
       }
-      render_frame();
-      render_text();
-      render_button();
    }
    return;
 }
@@ -387,8 +391,9 @@ void BasicRenderer::draw_speaking_character_name()
    int width = 220;
    int height = 46;
 
-   AllegroFlare::Placement2D place(30, 0, width, height);
+   AllegroFlare::Placement2D place(38, 0, width, height);
    place.align = AllegroFlare::Vec2D{ 0.0, 1.0 };
+   //place.anchor = AllegroFlare::Vec2D{ 0.0, 8.0 };
    place.start_transform();
    AllegroFlare::Elements::DialogBoxNameTag name_tag(
       font_bin,

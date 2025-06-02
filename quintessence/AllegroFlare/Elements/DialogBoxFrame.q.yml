@@ -3,7 +3,7 @@ properties:
 
   - name: width
     type: float
-    init_with: '1920/5*3'
+    init_with: '1920/6*3'
     constructor_arg: true
     getter: true
     setter: true
@@ -38,13 +38,19 @@ properties:
 
   - name: roundness
     type: float
-    init_with: 8.0f
+    init_with: 16.0f
     getter: true
     setter: true
 
   - name: border_thickness
     type: float
     init_with: 6.0f
+    getter: true
+    setter: true
+
+  - name: inset_border_by_border_thickness
+    type: bool
+    init_with: true
     getter: true
     setter: true
 
@@ -102,16 +108,33 @@ methods:
       */
 
       // draw border
-      al_draw_rounded_rectangle(
-         0,
-         0,
-         width,
-         height,
-         roundness,
-         roundness,
-         border_color_with_opacity,
-         border_thickness
-      );
+      if (!inset_border_by_border_thickness)
+      {
+         al_draw_rounded_rectangle(
+            0,
+            0,
+            width,
+            height,
+            roundness,
+            roundness,
+            border_color_with_opacity,
+            border_thickness
+         );
+      }
+      else
+      {
+         float hbt = border_thickness * 0.5;
+         al_draw_rounded_rectangle(
+            0 + hbt,
+            0 + hbt,
+            width - hbt,
+            height - hbt,
+            roundness * 0.75,
+            roundness * 0.75,
+            border_color_with_opacity,
+            border_thickness
+         );
+      }
 
       return;
     body_dependency_symbols:

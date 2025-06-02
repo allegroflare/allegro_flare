@@ -39,8 +39,10 @@ public:
       //al_init();
       //al_init_primitives_addon();
       //display = al_create_display(1920, 1080);
-      al_clear_to_color(NEUTRAL_CLEAR_COLOR);
-      al_clear_depth_buffer(1);
+      //al_clear_to_color(NEUTRAL_CLEAR_COLOR);
+      //clear_n
+      //al_clear_depth_buffer(1);
+      clear_neutral();
    }
 
    void TearDown() override
