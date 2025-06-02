@@ -3,7 +3,7 @@
 
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
-#include <allegro5/allegro.h> // for ALLEGRO_TRANSFORM
+#include <allegro5/allegro.h>
 
 
 namespace AllegroFlare
@@ -11,17 +11,19 @@ namespace AllegroFlare
    class Camera3D
    {
    public:
-      // camera and viewport settings
       float near_plane;
       float far_plane;
 
-      // camera controls
       AllegroFlare::Vec3D position;
       AllegroFlare::Vec3D stepout;
       float spin;
       float tilt;
       float roll;
       float zoom;
+
+      bool spin_in_unit_values;
+      bool tilt_in_unit_values;
+      bool roll_in_unit_values;
 
       Camera3D();
       ~Camera3D();
@@ -38,6 +40,9 @@ namespace AllegroFlare
          float y,
          float z
       );
+
+      void use_unit_values();
+      void use_radian_values();
 
       float get_near_plane();
       void set_near_plane(float near_plane=1);

@@ -51,13 +51,16 @@ R"({
     "z": 1.625
   },
   "roll": 2.0,
+  "roll_in_unit_values": false,
   "spin": 123.0,
+  "spin_in_unit_values": false,
   "stepout": {
     "x": -2.125,
     "y": -5.25,
     "z": 0.0
   },
   "tilt": 4.5,
+  "tilt_in_unit_values": false,
   "zoom": 1.0
 })";
 
@@ -84,9 +87,12 @@ R"({
     "z": 0.0
   },
   "spin": 123.0,
+  "spin_in_unit_values": false,
   "tilt": 4.5,
+  "tilt_in_unit_values": false,
   "zoom": 67.8,
   "roll": 2.0,
+  "roll_in_unit_values": false,
   "near_plane": 0.1,
   "far_plane": 100.0
 })";

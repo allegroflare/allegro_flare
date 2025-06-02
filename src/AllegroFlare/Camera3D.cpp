@@ -10,6 +10,41 @@
 
 
 
+
+static float unit_to_radian(float unit_value)
+{
+   return unit_value * (ALLEGRO_PI * 2);
+}
+
+
+static float radian_to_unit(float radian_value)
+{
+   return radian_value / (ALLEGRO_PI * 2);
+}
+
+
+static float convert_to_match_system(
+    float value_to_convert,
+    bool is_value_in_units,
+    bool target_system_is_units)
+{
+    if (is_value_in_units == target_system_is_units)
+    {
+        return value_to_convert; // Already in the target system
+    }
+    else if (target_system_is_units) // Target is units, so value_to_convert must be radians
+    {
+        return radian_to_unit(value_to_convert);
+    }
+    else // Target is radians, so value_to_convert must be units
+    {
+        return unit_to_radian(value_to_convert);
+    }
+}
+
+
+
+
 namespace AllegroFlare
 {
 
@@ -24,6 +59,9 @@ Camera3D::Camera3D()
    , tilt(0.0f)
    , roll(0.0f)
    , zoom(1.0) // note this is used in the scene renderer to setup the projection
+   , spin_in_unit_values(false)
+   , tilt_in_unit_values(false)
+   , roll_in_unit_values(false)
 {}
 
 
@@ -38,11 +76,14 @@ void Camera3D::position_transform(ALLEGRO_TRANSFORM *t)
    al_identity_transform(t);
 
    al_translate_transform_3d(t, stepout.x, stepout.y, stepout.z);
-   al_rotate_transform_3d(t, -1, 0, 0, tilt);
-   al_rotate_transform_3d(t, 0, -1, 0, spin);
-   al_rotate_transform_3d(t, 0, 0, -1, roll);
+
+   al_rotate_transform_3d(t, -1, 0, 0, tilt_in_unit_values ? unit_to_radian(tilt) : tilt);
+   al_rotate_transform_3d(t, 0, -1, 0, spin_in_unit_values ? unit_to_radian(spin) : spin);
+   al_rotate_transform_3d(t, 0, 0, -1, roll_in_unit_values ? unit_to_radian(roll) : roll);
+
    al_translate_transform_3d(t, position.x, position.y, position.z);
 }
+
 
 
 void Camera3D::reverse_position_transform(ALLEGRO_TRANSFORM *t)
@@ -52,11 +93,14 @@ void Camera3D::reverse_position_transform(ALLEGRO_TRANSFORM *t)
    al_identity_transform(t);
 
    al_translate_transform_3d(t, -position.x, -position.y, -position.z);
-   al_rotate_transform_3d(t, 0, 0, 1, roll);
-   al_rotate_transform_3d(t, 0, 1, 0, spin);
-   al_rotate_transform_3d(t, 1, 0, 0, tilt);
+
+   al_rotate_transform_3d(t, 0, 0, 1, roll_in_unit_values ? unit_to_radian(roll) : roll);
+   al_rotate_transform_3d(t, 0, 1, 0, spin_in_unit_values ? unit_to_radian(spin) : spin);
+   al_rotate_transform_3d(t, 1, 0, 0, tilt_in_unit_values ? unit_to_radian(tilt) : tilt);
+
    al_translate_transform_3d(t, -stepout.x, -stepout.y, -stepout.z);
 }
+
 
 
 Vec3D Camera3D::get_real_position()
@@ -218,7 +262,8 @@ AllegroFlare::Vec3D Camera3D::get_reverse_viewing_direction()
 
 
 
-void Camera3D::blend(AllegroFlare::Camera3D* other, float interpolation)
+/*
+void Camera3D::blend_x(AllegroFlare::Camera3D* other, float interpolation)
 {
    if (!(other))
    {
@@ -256,6 +301,108 @@ void Camera3D::blend(AllegroFlare::Camera3D* other, float interpolation)
    source.near_plane = (target.near_plane - source.near_plane) * interpolation + source.near_plane;
    source.far_plane = (target.far_plane - source.far_plane) * interpolation + source.far_plane;
    return;
+}
+*/
+
+
+
+void Camera3D::blend(AllegroFlare::Camera3D* other, float interpolation)
+{
+   if (!(other))
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "error: guard \"other\" not met."
+      );
+   }
+   if (!((interpolation >= 0.0f) && (interpolation <= 1.0f)))
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "error: guard \"interpolation >= 0.0f && interpolation <= 1.0f\" not met."
+      );
+   }
+
+   if (interpolation == 0.0f)
+   {
+      // No change to 'this' camera
+      return;
+   }
+
+   if (interpolation == 1.0f)
+   {
+      // 'this' camera adopts all of 'other's values,
+      // but 'this' camera RETAINS its own unit preferences.
+      // Non-rotation properties are copied directly:
+      this->position = other->position;
+      this->stepout = other->stepout;
+      this->zoom = other->zoom;
+      this->near_plane = other->near_plane;
+      this->far_plane = other->far_plane;
+
+      // Rotational properties: assign 'other's value, converting to 'this's native unit system.
+      // 'this' camera's *_in_unit_values flags remain UNCHANGED.
+      this->spin = convert_to_match_system(
+         other->spin,
+         other->spin_in_unit_values,
+         this->spin_in_unit_values // 'this' camera's original unit preference for spin
+      );
+      this->tilt = convert_to_match_system(
+         other->tilt,
+         other->tilt_in_unit_values,
+         this->tilt_in_unit_values // 'this' camera's original unit preference for tilt
+      );
+      this->roll = convert_to_match_system(
+         other->roll,
+         other->roll_in_unit_values,
+         this->roll_in_unit_values // 'this' camera's original unit preference for roll
+      );
+      return;
+   }
+
+   // Interpolation for 0 < interpolation < 1
+   // Non-rotation properties:
+   this->position = (other->position - this->position) * interpolation + this->position;
+   this->stepout = (other->stepout - this->stepout) * interpolation + this->stepout;
+   this->zoom = (other->zoom - this->zoom) * interpolation + this->zoom;
+   this->near_plane = (other->near_plane - this->near_plane) * interpolation + this->near_plane;
+   this->far_plane = (other->far_plane - this->far_plane) * interpolation + this->far_plane;
+
+   // Rotational properties:
+   // Convert 'other's rotation to 'this' camera's native unit system, then interpolate.
+   // 'this' camera's *_in_unit_values flags remain UNCHANGED.
+   float other_spin_converted = convert_to_match_system(
+      other->spin, other->spin_in_unit_values, this->spin_in_unit_values
+   );
+   this->spin = (other_spin_converted - this->spin) * interpolation + this->spin;
+
+   float other_tilt_converted = convert_to_match_system(
+      other->tilt, other->tilt_in_unit_values, this->tilt_in_unit_values
+   );
+   this->tilt = (other_tilt_converted - this->tilt) * interpolation + this->tilt;
+
+   float other_roll_converted = convert_to_match_system(
+      other->roll, other->roll_in_unit_values, this->roll_in_unit_values
+   );
+   this->roll = (other_roll_converted - this->roll) * interpolation + this->roll;
+}
+
+
+
+void Camera3D::use_unit_values()
+{
+   spin_in_unit_values = true;
+   tilt_in_unit_values = true;
+   roll_in_unit_values = true;
+}
+
+
+
+void Camera3D::use_radian_values()
+{
+   spin_in_unit_values = false;
+   tilt_in_unit_values = false;
+   roll_in_unit_values = false;
 }
 
 
