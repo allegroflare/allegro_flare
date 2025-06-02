@@ -29,7 +29,9 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    dialog_box_renderer.set_is_finished(true);
    
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
-   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+
+   clear();
+
    place.start_transform();
    dialog_box_renderer.render();
    place.restore_transform();
@@ -48,7 +50,9 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    dialog_box_renderer.set_current_page_text_with_formatting(page_text);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
-   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+
+   clear();
+
    place.start_transform();
    dialog_box_renderer.render();
    place.restore_transform();
@@ -68,7 +72,9 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    dialog_box_renderer.set_current_page_text_with_formatting(page_text);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
-   al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+
+   clear();
+
    place.start_transform();
    dialog_box_renderer.render();
    place.restore_transform();
@@ -94,7 +100,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
       float age = al_get_time() - started_at;
       dialog_box_renderer.set_age(age);
 
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      clear();
 
       place.start_transform();
       dialog_box_renderer.render();
@@ -126,7 +132,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
       };
 
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      clear();
+
       place.start_transform();
       dialog_box_renderer.render();
       place.restore_transform();
@@ -160,7 +167,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
       };
 
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      clear();
+
       place.start_transform();
       dialog_box_renderer.render();
       place.restore_transform();
