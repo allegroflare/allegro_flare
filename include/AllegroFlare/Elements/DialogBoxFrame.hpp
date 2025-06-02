@@ -12,7 +12,7 @@ namespace AllegroFlare
       {
       public:
          static constexpr ALLEGRO_COLOR DEFAULT_BACKFILL_COLOR = ALLEGRO_COLOR{0.065f, 0.065f, 0.065f, 0.9f};
-         static constexpr ALLEGRO_COLOR DEFAULT_BORDER_COLOR = ALLEGRO_COLOR{0.565f, 0.565f, 0.565f, 0.9f};
+         static constexpr ALLEGRO_COLOR DEFAULT_BORDER_COLOR = ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0f};
 
       private:
          float width;

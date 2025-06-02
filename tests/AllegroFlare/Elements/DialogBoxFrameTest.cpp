@@ -5,6 +5,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 
+#include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <chrono>
@@ -18,14 +19,18 @@ class AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup : public ::test
 {
 private:
    ALLEGRO_DISPLAY *display;
+   AllegroFlare::Placement2D subject_placement;
 
 public:
+   AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
+
    void SetUp() override
    {
       al_init();
       al_init_primitives_addon();
       display = al_create_display(1920, 1080);
-      clear();
+      al_clear_to_color(NEUTRAL_CLEAR_COLOR);
+      al_clear_depth_buffer(1);
    }
 
    void TearDown() override
@@ -36,10 +41,16 @@ public:
       al_uninstall_system();
    }
 
-   void clear()
+   void render_subject()
    {
-      al_clear_to_color(NEUTRAL_CLEAR_COLOR);
-      al_clear_depth_buffer(1);
+      AllegroFlare::Placement2D subject_placement;
+      subject_placement.size = { dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
+      subject_placement.position = { 1920/2, 1080/2 };
+      subject_placement.start_transform();
+
+      dialog_box_renderer.render();
+
+      subject_placement.restore_transform();
    }
 };
 
@@ -95,17 +106,15 @@ TEST(AllegroFlare_Elements_DialogBoxFrameTest, render__when_there_is_no_allegro_
 
 TEST_F(AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup, render__draws_the_dialog_box)
 {
-   AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
-   dialog_box_renderer.render();
+   render_subject();
 }
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxFrameTestWithRenderingSetup,
    render__with_a_partial_opacity__will_render_as_expected)
 {
-   AllegroFlare::Elements::DialogBoxFrame dialog_box_renderer;
    dialog_box_renderer.set_opacity(0.5);
-   dialog_box_renderer.render();
+   render_subject();
 }
 
 

@@ -57,7 +57,7 @@ properties:
 
   - name: DEFAULT_BORDER_COLOR
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{0.565f, 0.565f, 0.565f, 0.9f}
+    init_with: ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0f}
     constexpr: true
     static: true
     const: true
