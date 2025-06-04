@@ -359,3 +359,188 @@ TEST(AllegroFlare_Camera3DTest,
     // The main point here is the converted spin and preserved unit flag.
 }
 
+
+// Tests on "shift"
+
+
+
+struct Camera3DProjectedTests : public ::testing::Test
+{
+protected:
+    ALLEGRO_DISPLAY* display;
+    ALLEGRO_BITMAP* surface;
+    AllegroFlare::Camera3D camera;
+    int surface_width_num_units;
+    int surface_height_num_units;
+
+    Camera3DProjectedTests()
+        : display(nullptr)
+        , surface(nullptr)
+        , camera()
+        , surface_width_num_units(1920)
+        , surface_height_num_units(1080)
+    {
+    }
+
+    void SetUp() override
+    {
+        ASSERT_TRUE(al_init());
+        //ASSERT_TRUE(al_init_primitives_addon()); // Optional: if you want to draw things for visual checks
+        //al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE); // Optional
+        display = al_create_display(800, 600); // A smaller display for tests is fine
+        ASSERT_NE(nullptr, display);
+        surface = al_get_backbuffer(display); // Use backbuffer for projection setup
+        ASSERT_NE(nullptr, surface);
+
+        // Standard camera setup for consistent projection tests
+        camera.position = AllegroFlare::Vec3D(0, 0, 0);
+        camera.stepout = AllegroFlare::Vec3D(0, 0, 10); // Camera is at (0,0,10) looking towards origin
+        camera.near_plane = 1.0f;
+        camera.zoom = 1.0f;
+        camera.shift = AllegroFlare::Vec2D(0, 0); // Default shift
+    }
+
+    void TearDown() override
+    {
+        if (display) al_destroy_display(display);
+        //al_shutdown_primitives_addon(); // Optional
+        al_uninstall_system();
+    }
+};
+
+
+
+TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_default_shift_is_unchanged)
+{
+    // Point (1,0,0) in world space.
+    // With default camera settings (near=1, zoom=1, stepout.z=10 giving cam pos (0,0,10) looking at origin),
+    // this point projects to (1056, 540) on a 1920x1080 logical surface.
+    AllegroFlare::Vec2D expected_coords(1056.0f, 540.0f);
+    AllegroFlare::Vec2D actual_coords = camera.get_projected_coordinates(
+        surface, surface_width_num_units, surface_height_num_units, 1.0f, 0.0f, 0.0f
+    );
+    EXPECT_EQ(expected_coords, actual_coords);
+}
+
+
+TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_positive_x_shift__projects_coordinates_to_the_left)
+{
+    // Original projection of (1,0,0) is (1056, 540)
+    // mul = near_plane / zoom = 1.0 / 1.0 = 1.0
+    // x_on_near_plane for world point (1,0,0) is 1.0 * (near_plane / camera_distance_to_xy_plane) = 1.0 * (1.0 / 10.0) = 0.1
+    // Original ndc_x = 0.1
+
+    camera.shift.x = 0.5f; // A positive shift.x value.
+                           // This shifts the frustum right, so the projected image moves left.
+                           // new_left = -1.0*mul + shift.x = -1.0 + 0.5 = -0.5
+                           // new_right = 1.0*mul + shift.x = 1.0 + 0.5 = 1.5
+                           // new_ndc_x = (x_on_near_plane - new_left) / (new_right - new_left) * 2.0 - 1.0
+                           //           = (0.1 - (-0.5)) / (1.5 - (-0.5)) * 2.0 - 1.0
+                           //           = (0.6 / 2.0) * 2.0 - 1.0 = 0.6 - 1.0 = -0.4
+                           // screen_x = (new_ndc_x * 0.5 + 0.5) * surface_width_num_units
+                           //          = (-0.4 * 0.5 + 0.5) * 1920
+                           //          = (-0.2 + 0.5) * 1920 = 0.3 * 1920 = 576
+
+    AllegroFlare::Vec2D expected_coords(576.0f, 540.0f); // X is smaller (shifted left), Y is unchanged
+    AllegroFlare::Vec2D actual_coords = camera.get_projected_coordinates(
+        surface, surface_width_num_units, surface_height_num_units, 1.0f, 0.0f, 0.0f
+    );
+    EXPECT_EQ(expected_coords, actual_coords);
+}
+
+
+/*
+TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_positive_y_shift__projects_coordinates_downwards)
+{
+    // Original projection of (1,0,0) is (1056, 540) for a 1920x1080 logical surface.
+    // setup_projection_on uses the surface's aspect ratio (800x600 display -> AR = 600/800 = 0.75)
+    // mul = 1.0, AR_surface = 0.75
+    // y_on_near_plane for world point (1,0,0) is 0.0
+    // Original ndc_y = 0.0
+
+    camera.shift.y = 0.2f; // A positive shift.y value.
+                           // This shifts the frustum up in camera space, so the projected image moves down on screen.
+                           // new_top = AR_surface * mul + shift.y = 0.75 * 1.0 + 0.2 = 0.95
+                           // new_bottom = -AR_surface * mul + shift.y = -0.75 * 1.0 + 0.2 = -0.55
+                           // ndc_y = (y_on_near_plane - new_bottom) / (new_top - new_bottom) * 2.0 - 1.0
+                           //       = (0.0 - (-0.55)) / (0.95 - (-0.55)) * 2.0 - 1.0
+                           //       = (0.55 / 1.5) * 2.0 - 1.0 = (1.1 / 1.5) - 1.0 = -4.0/15.0
+                           // screen_y = (ndc_y * -0.5 + 0.5) * surface_height_num_units (1080)
+                           //          = ((-(-4.0/15.0)) * 0.5 + 0.5) * 1080
+                           //          = ((4.0/30.0) + 0.5) * 1080 = (19.0/30.0) * 1080 = 19.0 * 36 = 684
+
+    AllegroFlare::Vec2D expected_coords(1056.0f, 684.0f); // X is unchanged, Y is larger (shifted down)
+    AllegroFlare::Vec2D actual_coords = camera.get_projected_coordinates(
+        surface, surface_width_num_units, surface_height_num_units, 1.0f, 0.0f, 0.0f
+    );
+    EXPECT_EQ(expected_coords, actual_coords);
+}
+
+
+TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_diagonal_shift__projects_coordinates_correctly)
+{
+    camera.shift.x = 0.5f; // Projects X to 576.0f (as in the X-shift test)
+    camera.shift.y = 0.2f; // Projects Y to 684.0f (as calculated above)
+
+    // Expected values from the individual X and Y shift test logic with correct AR for Y
+    AllegroFlare::Vec2D expected_coords(576.0f, 684.0f);
+    AllegroFlare::Vec2D actual_coords = camera.get_projected_coordinates(
+        surface, surface_width_num_units, surface_height_num_units, 1.0f, 0.0f, 0.0f
+    );
+    EXPECT_EQ(expected_coords, actual_coords);
+}
+*/
+
+
+TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_positive_y_shift__projects_coordinates_downwards)
+{
+    // Test with proportional shift: camera.shift.y is a factor of (mul * aspect_ratio_surface)
+    // Original projection of (1,0,0) has screen_x = 1056.0f, screen_y = 540.0f for a 1920x1080 logical surface.
+    // Fixture setup: mul = 1.0, aspect_ratio_surface = 0.75 (from 800x600 display surface)
+    // y_on_near_plane for world point (1,0,0) is 0.0. Original ndc_y = 0.0.
+
+    camera.shift.y = 0.2f; // Proportional shift factor for Y.
+                           // actual_world_offset_y = camera.shift.y * (mul * aspect_ratio_surface)
+                           //                       = 0.2f * (1.0f * 0.75f) = 0.15f.
+                           // This shifts the frustum up in camera space, so the projected image moves down on screen.
+
+    // Frustum Y boundaries:
+    // original_half_height = aspect_ratio_surface * mul = 0.75f
+    // fr_top    = original_half_height + actual_world_offset_y = 0.75f + 0.15f = 0.90f
+    // fr_bottom = -original_half_height + actual_world_offset_y = -0.75f + 0.15f = -0.60f
+    // ndc_y = (y_on_near_plane - fr_bottom) / (fr_top - fr_bottom) * 2.0f - 1.0f
+    //       = (0.0f - (-0.60f)) / (0.90f - (-0.60f)) * 2.0f - 1.0f
+    //       = (0.60f / 1.5f) * 2.0f - 1.0f = 0.4f * 2.0f - 1.0f = -0.2f
+    // screen_y = (ndc_y * -0.5f + 0.5f) * surface_height_num_units (1080)
+    //          = (-0.2f * -0.5f + 0.5f) * 1080.0f = (0.1f + 0.5f) * 1080.0f = 0.6f * 1080.0f = 648.0f
+
+    AllegroFlare::Vec2D expected_coords(1056.0f, 648.0f); // X is unchanged, Y is now 648.0f
+    AllegroFlare::Vec2D actual_coords = camera.get_projected_coordinates(
+        surface, surface_width_num_units, surface_height_num_units, 1.0f, 0.0f, 0.0f
+    );
+    EXPECT_EQ(expected_coords, actual_coords);
+}
+
+
+TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_diagonal_shift__projects_coordinates_correctly)
+{
+    // camera.shift.x = 0.5f (proportional to mul)
+    // actual_world_offset_x = 0.5f * mul = 0.5f * 1.0f = 0.5f.
+    // This results in screen_x = 576.0f (as per the positive_x_shift test, which should also be updated if not already).
+
+    // camera.shift.y = 0.2f (proportional to mul * aspect_ratio_surface)
+    // actual_world_offset_y = 0.2f * (mul * aspect_ratio_surface) = 0.2f * (1.0f * 0.75f) = 0.15f.
+    // This results in screen_y = 648.0f (as calculated in the positive_y_shift test above).
+
+    camera.shift.x = 0.5f;
+    camera.shift.y = 0.2f;
+
+    AllegroFlare::Vec2D expected_coords(576.0f, 648.0f);
+    AllegroFlare::Vec2D actual_coords = camera.get_projected_coordinates(
+        surface, surface_width_num_units, surface_height_num_units, 1.0f, 0.0f, 0.0f
+    );
+    EXPECT_EQ(expected_coords, actual_coords);
+}
+
+
+

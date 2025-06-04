@@ -59,6 +59,7 @@ Camera3D::Camera3D()
    , tilt(0.0f)
    , roll(0.0f)
    , zoom(1.0) // note this is used in the scene renderer to setup the projection
+   , shift(0, 0)
    , spin_in_unit_values(false)
    , tilt_in_unit_values(false)
    , roll_in_unit_values(false)
@@ -118,38 +119,55 @@ Vec3D Camera3D::get_real_position()
 
 void Camera3D::setup_projection_on(ALLEGRO_BITMAP *surface) // surface is usualy a backbuffer_sub_bitmap
 {
-   if (!surface) throw std::runtime_error("BBb");
+    if (!surface)
+    {
+      throw std::runtime_error("Camera3D::setup_projection_on: surface cannot be nullptr.");
+    }
 
-   /*
-   // set the target bitmap
-   al_set_target_bitmap(surface);
+    ALLEGRO_TRANSFORM t;
 
-   // setup the render settings
-   al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-   al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
-   */
+    reverse_position_transform(&t);
 
-   // Build up our transform
+    /*
+    float mul = near_plane / zoom;
+    float aspect_ratio = (float)al_get_bitmap_height(surface) / al_get_bitmap_width(surface);
 
-   ALLEGRO_TRANSFORM t;
+    // Calculate the frustum parameters, including the offset
+    float left   = (-1.0f * mul) + shift.x;
+    float right  = ( 1.0f * mul) + shift.x;
+    float top    = ( aspect_ratio * mul) + shift.y;
+    float bottom = (-aspect_ratio * mul) + shift.y;
 
-   reverse_position_transform(&t);
+    al_perspective_transform(&t, left, top, near_plane, right, bottom, far_plane);
+    */
 
-   float mul = near_plane / zoom;
-   float aspect_ratio = (float)al_get_bitmap_height(surface) / al_get_bitmap_width(surface);
-   al_perspective_transform(&t, -1 * mul, aspect_ratio * mul, near_plane, 1 * mul, -aspect_ratio * mul, far_plane);
+    float mul = near_plane / zoom;
+    float aspect_ratio = (float)al_get_bitmap_height(surface) / al_get_bitmap_width(surface);
+
+    // Interpret camera.shift.x and camera.shift.y as proportional factors
+    // camera.shift.x = 1.0 means shift by one full current half-width
+    // camera.shift.y = 1.0 means shift by one full current half-height
+    float actual_world_offset_x = shift.x * mul;
+    float actual_world_offset_y = shift.y * (mul * aspect_ratio);
+
+    // Apply these calculated world offsets to the frustum boundaries
+    float fr_left   = (-1.0f * mul) + actual_world_offset_x;
+    float fr_right  = ( 1.0f * mul) + actual_world_offset_x;
+    float fr_top    = ( aspect_ratio * mul) + actual_world_offset_y;    // Positive world_offset_y shifts frustum up, content appears down
+    float fr_bottom = (-aspect_ratio * mul) + actual_world_offset_y;   // Positive world_offset_y shifts frustum up, content appears down
+
+    al_perspective_transform(&t, fr_left, fr_top, near_plane, fr_right, fr_bottom, far_plane);
 
 
-   // set the target bitmap
-   al_set_target_bitmap(surface);
+    // set the target bitmap
+    al_set_target_bitmap(surface);
 
-   // setup the render settings
-   al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
-   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
-   al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this
+    // setup the render settings
+    al_set_render_state(ALLEGRO_DEPTH_TEST, 1);
+    al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_DEPTH | ALLEGRO_MASK_RGBA);
+    al_clear_depth_buffer(1); // TODO: PIPELINE: Look into removing this (as per your existing comment)
 
-   al_use_projection_transform(&t);
+    al_use_projection_transform(&t);
 }
 
 
@@ -339,6 +357,7 @@ void Camera3D::blend(AllegroFlare::Camera3D* other, float interpolation)
       this->zoom = other->zoom;
       this->near_plane = other->near_plane;
       this->far_plane = other->far_plane;
+      this->shift = other->shift;
 
       // Rotational properties: assign 'other's value, converting to 'this's native unit system.
       // 'this' camera's *_in_unit_values flags remain UNCHANGED.
@@ -367,6 +386,7 @@ void Camera3D::blend(AllegroFlare::Camera3D* other, float interpolation)
    this->zoom = (other->zoom - this->zoom) * interpolation + this->zoom;
    this->near_plane = (other->near_plane - this->near_plane) * interpolation + this->near_plane;
    this->far_plane = (other->far_plane - this->far_plane) * interpolation + this->far_plane;
+   this->shift = (other->shift - this->shift) * interpolation + this->shift;
 
    // Rotational properties:
    // Convert 'other's rotation to 'this' camera's native unit system, then interpolate.

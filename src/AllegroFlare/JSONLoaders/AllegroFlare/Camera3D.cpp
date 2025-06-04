@@ -5,6 +5,7 @@
 
 
 #include <AllegroFlare/JSONLoaders/AllegroFlare/Vec3D.hpp>
+#include <AllegroFlare/JSONLoaders/AllegroFlare/Vec2D.hpp>
 
 
 namespace AllegroFlare
@@ -20,15 +21,13 @@ void to_json(nlohmann::json& j, const AllegroFlare::Camera3D& camera)
       {"spin", camera.spin},
       {"tilt", camera.tilt},
       {"roll", camera.roll},
+      {"shift", camera.shift},
       {"zoom", camera.zoom},
       {"near_plane", camera.near_plane},
       {"far_plane", camera.far_plane},
       {"spin_in_unit_values", camera.spin_in_unit_values},
       {"tilt_in_unit_values", camera.tilt_in_unit_values},
       {"roll_in_unit_values", camera.roll_in_unit_values},
-      //bool spin_in_unit_values;
-      //bool tilt_in_unit_values;
-      //bool roll_in_unit_values;
    };
 }
 
@@ -42,6 +41,7 @@ void from_json(const nlohmann::json& j, AllegroFlare::Camera3D& camera)
    j.at("tilt").get_to(camera.tilt);
    j.at("zoom").get_to(camera.zoom);
    j.at("roll").get_to(camera.roll);
+   j.at("shift").get_to(camera.shift);
    j.at("near_plane").get_to(camera.near_plane);
    j.at("far_plane").get_to(camera.far_plane);
    j.at("spin_in_unit_values").get_to(camera.spin_in_unit_values);

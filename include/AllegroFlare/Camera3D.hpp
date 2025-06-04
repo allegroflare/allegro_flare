@@ -20,6 +20,7 @@ namespace AllegroFlare
       float tilt;
       float roll;
       float zoom;
+      AllegroFlare::Vec2D shift;
 
       bool spin_in_unit_values;
       bool tilt_in_unit_values;

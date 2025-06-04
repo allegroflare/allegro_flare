@@ -32,6 +32,7 @@ TEST(AllegroFlare_JSONLoaders_AllegroFlare_Camera3D, to_json__produces_the_expec
    AllegroFlare::Camera3D camera3d;
    camera3d.position = {3.5, 7.0, 1.625};
    camera3d.stepout = {-2.125, -5.25, 0.0};
+   camera3d.shift = {0.5, 0.125};
    camera3d.spin = 123.0;
    camera3d.tilt = 4.5;
    camera3d.zoom = 1.0;
@@ -52,6 +53,10 @@ R"({
   },
   "roll": 2.0,
   "roll_in_unit_values": false,
+  "shift": {
+    "x": 0.5,
+    "y": 0.125
+  },
   "spin": 123.0,
   "spin_in_unit_values": false,
   "stepout": {
@@ -86,6 +91,10 @@ R"({
     "y": -5.4,
     "z": 0.0
   },
+  "shift": {
+    "x": 0.5,
+    "y": 0.125
+  },
   "spin": 123.0,
   "spin_in_unit_values": false,
   "tilt": 4.5,
@@ -101,8 +110,9 @@ R"({
 
    parsed_json.get_to(camera3d);
 
-   AllegroFlare::vec3d expected_position = {2.34, 5.8, 2.0};
-   AllegroFlare::vec3d expected_stepout = {-2.125, -5.4, 0.0};
+   AllegroFlare::Vec3D expected_position = {2.34, 5.8, 2.0};
+   AllegroFlare::Vec3D expected_stepout = {-2.125, -5.4, 0.0};
+   AllegroFlare::Vec2D expected_shift = { 0.5, 0.125 };
    float expected_spin = 123.0f;
    float expected_tilt = 4.5f;
    float expected_zoom = 67.8f;
@@ -115,6 +125,7 @@ R"({
    EXPECT_EQ(expected_spin, camera3d.spin);
    EXPECT_EQ(expected_tilt, camera3d.tilt);
    EXPECT_EQ(expected_zoom, camera3d.zoom);
+   EXPECT_EQ(expected_shift, camera3d.shift);
    EXPECT_EQ(expected_roll, camera3d.roll);
    EXPECT_EQ(expected_near_plane, camera3d.near_plane);
    EXPECT_EQ(expected_far_plane, camera3d.far_plane);
