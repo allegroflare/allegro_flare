@@ -12,9 +12,9 @@ namespace AllegroFlare
       class Keyframe
       {
       public:
-         float time;
-         float val;
          float (*interpolator_func)(float);
+         float val;
+         float time;
 
          Keyframe(float time=0, float val=0, float (*interpolator_func)(float)=interpolator::linear);
          ~Keyframe();

@@ -12,9 +12,9 @@ namespace Timeline
 
 
 Timeline::Keyframe::Keyframe(float time, float val, float (*interpolator_func)(float))
-   : time(time)
+   : interpolator_func(interpolator_func)
    , val(val)
-   , interpolator_func(interpolator_func)
+   , time(time)
 {}
 
 
