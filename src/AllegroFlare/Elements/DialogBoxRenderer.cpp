@@ -49,6 +49,10 @@ DialogBoxRenderer::DialogBoxRenderer(AllegroFlare::FontBin* font_bin, AllegroFla
    , standard_dialog_box_y(DEFAULT_STANDARD_DIALOG_BOX_Y)
    , standard_dialog_box_width(DEFAULT_STANDARD_DIALOG_BOX_WIDTH)
    , standard_dialog_box_height(DEFAULT_STANDARD_DIALOG_BOX_HEIGHT)
+   , standard_dialog_box_frame_color(DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR)
+   , standard_dialog_box_text_color(DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR)
+   , standard_dialog_box_background_color(DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR)
+   , standard_dialog_box_label_color(DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR)
 {
 }
 
@@ -94,6 +98,30 @@ void DialogBoxRenderer::set_standard_dialog_box_height(float standard_dialog_box
 }
 
 
+void DialogBoxRenderer::set_standard_dialog_box_frame_color(ALLEGRO_COLOR standard_dialog_box_frame_color)
+{
+   this->standard_dialog_box_frame_color = standard_dialog_box_frame_color;
+}
+
+
+void DialogBoxRenderer::set_standard_dialog_box_text_color(ALLEGRO_COLOR standard_dialog_box_text_color)
+{
+   this->standard_dialog_box_text_color = standard_dialog_box_text_color;
+}
+
+
+void DialogBoxRenderer::set_standard_dialog_box_background_color(ALLEGRO_COLOR standard_dialog_box_background_color)
+{
+   this->standard_dialog_box_background_color = standard_dialog_box_background_color;
+}
+
+
+void DialogBoxRenderer::set_standard_dialog_box_label_color(ALLEGRO_COLOR standard_dialog_box_label_color)
+{
+   this->standard_dialog_box_label_color = standard_dialog_box_label_color;
+}
+
+
 std::string DialogBoxRenderer::get_standard_dialog_box_font_name() const
 {
    return standard_dialog_box_font_name;
@@ -127,6 +155,30 @@ float DialogBoxRenderer::get_standard_dialog_box_width() const
 float DialogBoxRenderer::get_standard_dialog_box_height() const
 {
    return standard_dialog_box_height;
+}
+
+
+ALLEGRO_COLOR DialogBoxRenderer::get_standard_dialog_box_frame_color() const
+{
+   return standard_dialog_box_frame_color;
+}
+
+
+ALLEGRO_COLOR DialogBoxRenderer::get_standard_dialog_box_text_color() const
+{
+   return standard_dialog_box_text_color;
+}
+
+
+ALLEGRO_COLOR DialogBoxRenderer::get_standard_dialog_box_background_color() const
+{
+   return standard_dialog_box_background_color;
+}
+
+
+ALLEGRO_COLOR DialogBoxRenderer::get_standard_dialog_box_label_color() const
+{
+   return standard_dialog_box_label_color;
 }
 
 
@@ -212,6 +264,10 @@ void DialogBoxRenderer::render()
       basic_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
       basic_dialog_box_renderer.set_width(standard_dialog_box_width);
       basic_dialog_box_renderer.set_height(standard_dialog_box_height);
+      basic_dialog_box_renderer.set_border_color(standard_dialog_box_frame_color);
+      basic_dialog_box_renderer.set_text_color(standard_dialog_box_text_color);
+      basic_dialog_box_renderer.set_background_color(standard_dialog_box_background_color);
+      basic_dialog_box_renderer.set_label_color(standard_dialog_box_label_color);
       basic_dialog_box_renderer.set_num_revealed_characters(basic_dialog_box->get_num_revealed_characters());
       basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
       basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
@@ -250,6 +306,10 @@ void DialogBoxRenderer::render()
       dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
       dialog_box_renderer.set_width(standard_dialog_box_width);
       dialog_box_renderer.set_height(standard_dialog_box_height);
+      dialog_box_renderer.set_border_color(standard_dialog_box_frame_color);
+      dialog_box_renderer.set_text_color(standard_dialog_box_text_color);
+      dialog_box_renderer.set_background_color(standard_dialog_box_background_color);
+      dialog_box_renderer.set_label_color(standard_dialog_box_label_color);
       dialog_box_renderer.set_num_revealed_characters(as->get_num_revealed_printable_characters());
       dialog_box_renderer.set_is_finished(as->get_finished());
       dialog_box_renderer.set_page_is_finished(as->get_page_finished());
@@ -291,6 +351,10 @@ void DialogBoxRenderer::render()
       choice_dialog_box_renderer.set_height(standard_dialog_box_height);
       choice_dialog_box_renderer.set_age(choice_dialog_box->infer_age());
       choice_dialog_box_renderer.set_selection_cursor_box(selection_cursor_box);
+      choice_dialog_box_renderer.set_border_color(standard_dialog_box_frame_color);
+      choice_dialog_box_renderer.set_text_color(standard_dialog_box_text_color);
+      choice_dialog_box_renderer.set_background_color(standard_dialog_box_background_color);
+      choice_dialog_box_renderer.set_label_color(standard_dialog_box_label_color);
 
       // TODO: Finish adding params here
 

@@ -18,6 +18,10 @@ namespace AllegroFlare
          public:
             static constexpr char* DEFAULT_FONT_NAME = (char*)"Inter-Regular.ttf";
             static constexpr int DEFAULT_FONT_SIZE = -36;
+            static constexpr ALLEGRO_COLOR DEFAULT_BORDER_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
+            static constexpr ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
+            static constexpr ALLEGRO_COLOR DEFAULT_TEXT_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
+            static constexpr ALLEGRO_COLOR DEFAULT_LABEL_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
 
          private:
             AllegroFlare::FontBin* font_bin;
@@ -26,6 +30,10 @@ namespace AllegroFlare
             float height;
             std::string font_name;
             int font_size;
+            ALLEGRO_COLOR border_color;
+            ALLEGRO_COLOR text_color;
+            ALLEGRO_COLOR background_color;
+            ALLEGRO_COLOR label_color;
             float text_padding_x;
             float text_padding_y;
             int num_revealed_characters;
@@ -59,6 +67,10 @@ namespace AllegroFlare
             void set_height(float height);
             void set_font_name(std::string font_name);
             void set_font_size(int font_size);
+            void set_border_color(ALLEGRO_COLOR border_color);
+            void set_text_color(ALLEGRO_COLOR text_color);
+            void set_background_color(ALLEGRO_COLOR background_color);
+            void set_label_color(ALLEGRO_COLOR label_color);
             void set_text_padding_x(float text_padding_x);
             void set_text_padding_y(float text_padding_y);
             void set_num_revealed_characters(int num_revealed_characters);
@@ -75,6 +87,10 @@ namespace AllegroFlare
             float get_height() const;
             std::string get_font_name() const;
             int get_font_size() const;
+            ALLEGRO_COLOR get_border_color() const;
+            ALLEGRO_COLOR get_text_color() const;
+            ALLEGRO_COLOR get_background_color() const;
+            ALLEGRO_COLOR get_label_color() const;
             float get_text_padding_x() const;
             float get_text_padding_y() const;
             int get_num_revealed_characters() const;

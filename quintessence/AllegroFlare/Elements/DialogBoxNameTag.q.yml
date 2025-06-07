@@ -23,29 +23,33 @@ properties:
     constructor_arg: true
     getter: true
 
-  - name: fill_color
+  - name: background_color
     type: ALLEGRO_COLOR
     init_with: 'ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}'
     constructor_arg: true
     getter: true
+    setter: true
 
-  - name: fill_opacity
+  - name: background_opacity
     type: float
     init_with: 1.0f
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: text_color
     type: ALLEGRO_COLOR
     init_with: 'ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0}'
     constructor_arg: true
     getter: true
+    setter: true
 
   - name: opacity
     type: float
     init_with: 1.0f
     constructor_arg: true
     getter: true
+    setter: true
 
 
 methods:
@@ -59,13 +63,13 @@ methods:
       - al_get_current_display()
     body: |
       //ALLEGRO_COLOR fill_color = al_color_html("ffffff");
-      ALLEGRO_COLOR final_fill_color = ALLEGRO_COLOR{
-         fill_color.r * opacity * fill_opacity, 
-         fill_color.g * opacity * fill_opacity, 
-         fill_color.b * opacity * fill_opacity, 
-         fill_color.a * opacity * fill_opacity
+      ALLEGRO_COLOR final_background_color = ALLEGRO_COLOR{
+         background_color.r * opacity * background_opacity, 
+         background_color.g * opacity * background_opacity, 
+         background_color.b * opacity * background_opacity, 
+         background_color.a * opacity * background_opacity
       };
-      al_draw_filled_rectangle(0, 0, width, height, final_fill_color);
+      al_draw_filled_rectangle(0, 0, width, height, final_background_color);
       //AllegroFlare::Elements::DialogBoxFrame(width, height).render();
       draw_text();
       return;

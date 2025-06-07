@@ -35,6 +35,10 @@ ChoiceRenderer::ChoiceRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::Bi
    , font_size(font_size)
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
+   , border_color(DEFAULT_BORDER_COLOR)
+   , text_color(DEFAULT_TEXT_COLOR)
+   , background_color(DEFAULT_BACKGROUND_COLOR)
+   , label_color(DEFAULT_LABEL_COLOR)
    , num_revealed_characters(num_revealed_characters)
    , is_finished(is_finished)
    , page_is_finished(page_is_finished)
@@ -109,6 +113,30 @@ void ChoiceRenderer::set_text_padding_x(float text_padding_x)
 void ChoiceRenderer::set_text_padding_y(float text_padding_y)
 {
    this->text_padding_y = text_padding_y;
+}
+
+
+void ChoiceRenderer::set_border_color(ALLEGRO_COLOR border_color)
+{
+   this->border_color = border_color;
+}
+
+
+void ChoiceRenderer::set_text_color(ALLEGRO_COLOR text_color)
+{
+   this->text_color = text_color;
+}
+
+
+void ChoiceRenderer::set_background_color(ALLEGRO_COLOR background_color)
+{
+   this->background_color = background_color;
+}
+
+
+void ChoiceRenderer::set_label_color(ALLEGRO_COLOR label_color)
+{
+   this->label_color = label_color;
 }
 
 
@@ -220,6 +248,30 @@ float ChoiceRenderer::get_text_padding_y() const
 }
 
 
+ALLEGRO_COLOR ChoiceRenderer::get_border_color() const
+{
+   return border_color;
+}
+
+
+ALLEGRO_COLOR ChoiceRenderer::get_text_color() const
+{
+   return text_color;
+}
+
+
+ALLEGRO_COLOR ChoiceRenderer::get_background_color() const
+{
+   return background_color;
+}
+
+
+ALLEGRO_COLOR ChoiceRenderer::get_label_color() const
+{
+   return label_color;
+}
+
+
 int ChoiceRenderer::get_num_revealed_characters() const
 {
    return num_revealed_characters;
@@ -278,6 +330,8 @@ void ChoiceRenderer::render_frame()
    frame_place.position.y += 10 * inv_curved_time;
    frame_place.start_transform();
    AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
+   dialog_box_frame.set_backfill_color(background_color);
+   dialog_box_frame.set_border_color(border_color);
    dialog_box_frame.set_opacity(curved_time);
    dialog_box_frame.render();
    frame_place.restore_transform();
@@ -304,6 +358,8 @@ void ChoiceRenderer::render_speaking_character_name_tag()
       width,
       height
    );
+   name_tag.set_background_color(border_color);
+   name_tag.set_text_color(label_color);
    name_tag.render();
    place.restore_transform();
    return;
@@ -405,17 +461,17 @@ AllegroFlare::Elements::ListBoxRenderer ChoiceRenderer::build_list_box_renderer(
    // Design some custom colors for the breakout box
    ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;
    ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
-         AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
+         background_color, //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
          selection_frame_color,
          0.03
       );
    ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
-         AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
+         border_color, //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
          selection_frame_color,
          0.4
       );
    ALLEGRO_COLOR text_color_not_selected = AllegroFlare::ColorKit::mix(
-         ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
+         text_color, //ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
          selection_frame_color,
          0.3
       );

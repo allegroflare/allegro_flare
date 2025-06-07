@@ -1144,6 +1144,7 @@
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/ColorKit",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/ClearToColor",
@@ -1153,6 +1154,10 @@
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",

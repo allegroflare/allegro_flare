@@ -17,8 +17,9 @@ properties:
 
   - name: backfill_opacity
     type: float
-    init_with: 0.8
+    init_with: 1.0
     setter: true
+    # Consider removing this, and allowing it to be defined by the backfill_color
 
   - name: backfill_color
     type: ALLEGRO_COLOR

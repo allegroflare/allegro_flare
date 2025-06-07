@@ -20,7 +20,7 @@ namespace Elements
 DialogBoxFrame::DialogBoxFrame(float width, float height)
    : width(width)
    , height(height)
-   , backfill_opacity(0.8)
+   , backfill_opacity(1.0)
    , backfill_color(DEFAULT_BACKFILL_COLOR)
    , border_color(DEFAULT_BORDER_COLOR)
    , opacity(1.0f)

@@ -18,8 +18,8 @@ namespace AllegroFlare
          std::string name;
          float width;
          float height;
-         ALLEGRO_COLOR fill_color;
-         float fill_opacity;
+         ALLEGRO_COLOR background_color;
+         float background_opacity;
          ALLEGRO_COLOR text_color;
          float opacity;
          void draw_text();
@@ -29,13 +29,17 @@ namespace AllegroFlare
 
 
       public:
-         DialogBoxNameTag(AllegroFlare::FontBin* font_bin=nullptr, std::string name="[name-not-set]", float width=240, float height=70, ALLEGRO_COLOR fill_color=ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, float fill_opacity=1.0f, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0}, float opacity=1.0f);
+         DialogBoxNameTag(AllegroFlare::FontBin* font_bin=nullptr, std::string name="[name-not-set]", float width=240, float height=70, ALLEGRO_COLOR background_color=ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}, float background_opacity=1.0f, ALLEGRO_COLOR text_color=ALLEGRO_COLOR{0.0, 0.0, 0.0, 1.0}, float opacity=1.0f);
          ~DialogBoxNameTag();
 
+         void set_background_color(ALLEGRO_COLOR background_color);
+         void set_background_opacity(float background_opacity);
+         void set_text_color(ALLEGRO_COLOR text_color);
+         void set_opacity(float opacity);
          float get_width() const;
          float get_height() const;
-         ALLEGRO_COLOR get_fill_color() const;
-         float get_fill_opacity() const;
+         ALLEGRO_COLOR get_background_color() const;
+         float get_background_opacity() const;
          ALLEGRO_COLOR get_text_color() const;
          float get_opacity() const;
          void render();

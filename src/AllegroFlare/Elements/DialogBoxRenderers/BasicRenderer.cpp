@@ -33,6 +33,10 @@ BasicRenderer::BasicRenderer(AllegroFlare::FontBin* font_bin, std::string curren
    , font_size(font_size)
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
+   , border_color(DEFAULT_BORDER_COLOR)
+   , text_color(DEFAULT_TEXT_COLOR)
+   , background_color(DEFAULT_BACKGROUND_COLOR)
+   , label_color(DEFAULT_LABEL_COLOR)
    , num_revealed_characters(num_revealed_characters)
    , is_finished(is_finished)
    , page_is_finished(page_is_finished)
@@ -95,6 +99,30 @@ void BasicRenderer::set_text_padding_x(float text_padding_x)
 void BasicRenderer::set_text_padding_y(float text_padding_y)
 {
    this->text_padding_y = text_padding_y;
+}
+
+
+void BasicRenderer::set_border_color(ALLEGRO_COLOR border_color)
+{
+   this->border_color = border_color;
+}
+
+
+void BasicRenderer::set_text_color(ALLEGRO_COLOR text_color)
+{
+   this->text_color = text_color;
+}
+
+
+void BasicRenderer::set_background_color(ALLEGRO_COLOR background_color)
+{
+   this->background_color = background_color;
+}
+
+
+void BasicRenderer::set_label_color(ALLEGRO_COLOR label_color)
+{
+   this->label_color = label_color;
 }
 
 
@@ -194,6 +222,30 @@ float BasicRenderer::get_text_padding_y() const
 }
 
 
+ALLEGRO_COLOR BasicRenderer::get_border_color() const
+{
+   return border_color;
+}
+
+
+ALLEGRO_COLOR BasicRenderer::get_text_color() const
+{
+   return text_color;
+}
+
+
+ALLEGRO_COLOR BasicRenderer::get_background_color() const
+{
+   return background_color;
+}
+
+
+ALLEGRO_COLOR BasicRenderer::get_label_color() const
+{
+   return label_color;
+}
+
+
 int BasicRenderer::get_num_revealed_characters() const
 {
    return num_revealed_characters;
@@ -252,6 +304,9 @@ void BasicRenderer::render_frame()
    frame_place.position.y += 10 * inv_curved_time;
    frame_place.start_transform();
    AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
+   dialog_box_frame.set_backfill_color(background_color);
+   dialog_box_frame.set_border_color(border_color);
+   //dialog_box_frame.set_border_color(frame_color);
    dialog_box_frame.set_opacity(curved_time);
    dialog_box_frame.render();
    frame_place.restore_transform();
@@ -401,6 +456,8 @@ void BasicRenderer::draw_speaking_character_name()
       width,
       height
    );
+   name_tag.set_background_color(border_color);
+   name_tag.set_text_color(label_color);
    name_tag.render();
    place.restore_transform();
    return;
@@ -414,7 +471,7 @@ void BasicRenderer::draw_styled_revealed_text(float max_width, std::string text,
    ALLEGRO_FONT* text_font = obtain_dialog_font();
    float line_height = al_get_font_line_height(text_font);
    //ALLEGRO_COLOR text_color = al_color_html("66a9bc");
-   ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
+   //ALLEGRO_COLOR text_color = ALLEGRO_COLOR{1, 1, 1, 1}; //al_color_name("skyblue");
    //int num_revealed_characters = obtain_dialog_box_num_revealed_characters();
 
    al_draw_multiline_text(

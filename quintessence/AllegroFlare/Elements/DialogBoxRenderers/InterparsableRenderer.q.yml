@@ -43,6 +43,30 @@ properties:
     getter: true
     setter: true
 
+  - name: border_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_BORDER_COLOR
+    getter: true
+    setter: true
+
+  - name: text_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_TEXT_COLOR
+    getter: true
+    setter: true
+
+  - name: background_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_BACKGROUND_COLOR
+    getter: true
+    setter: true
+
+  - name: label_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_LABEL_COLOR
+    getter: true
+    setter: true
+
   - name: text_padding_x
     type: float
     init_with: 52.0f
@@ -127,6 +151,34 @@ properties:
     const: true
     init_with: -36
 
+  - name: DEFAULT_BORDER_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+
+  - name: DEFAULT_BACKGROUND_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
+
+  - name: DEFAULT_TEXT_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+
+  - name: DEFAULT_LABEL_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
+
 
 methods:
 
@@ -142,6 +194,8 @@ methods:
       frame_place.position.y += 10 * inv_curved_time;
       frame_place.start_transform();
       AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
+      dialog_box_frame.set_backfill_color(background_color);
+      dialog_box_frame.set_border_color(border_color);
       dialog_box_frame.set_opacity(curved_time);
       dialog_box_frame.render();
       frame_place.restore_transform();
@@ -315,6 +369,8 @@ methods:
          width,
          height
       );
+      name_tag.set_background_color(border_color);
+      name_tag.set_text_color(label_color);
       name_tag.render();
       place.restore_transform();
       return;
@@ -484,5 +540,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Interparsable.hpp ]
   - symbol: AllegroFlare::TextFormatters::Basic
     headers: [ AllegroFlare/TextFormatters/Basic.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
 
 

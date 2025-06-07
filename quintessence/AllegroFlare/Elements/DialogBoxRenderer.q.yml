@@ -59,6 +59,30 @@ properties:
     getter: true
     setter: true
 
+  - name: standard_dialog_box_frame_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_text_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_background_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR
+    getter: true
+    setter: true
+
+  - name: standard_dialog_box_label_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR
+    getter: true
+    setter: true
+
   - name: DEFAULT_STANDARD_DIALOG_BOX_X
     type: float
     constexpr: true
@@ -86,6 +110,35 @@ properties:
     const: true
     static: true
     init_with: 1080/5.0f
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+
+  - name: DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
+
 
 
 methods:
@@ -140,6 +193,10 @@ methods:
          basic_dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
          basic_dialog_box_renderer.set_width(standard_dialog_box_width);
          basic_dialog_box_renderer.set_height(standard_dialog_box_height);
+         basic_dialog_box_renderer.set_border_color(standard_dialog_box_frame_color);
+         basic_dialog_box_renderer.set_text_color(standard_dialog_box_text_color);
+         basic_dialog_box_renderer.set_background_color(standard_dialog_box_background_color);
+         basic_dialog_box_renderer.set_label_color(standard_dialog_box_label_color);
          basic_dialog_box_renderer.set_num_revealed_characters(basic_dialog_box->get_num_revealed_characters());
          basic_dialog_box_renderer.set_is_finished(basic_dialog_box->get_finished());
          basic_dialog_box_renderer.set_page_is_finished(basic_dialog_box->get_page_finished());
@@ -178,6 +235,10 @@ methods:
          dialog_box_renderer.set_font_size(standard_dialog_box_font_size);
          dialog_box_renderer.set_width(standard_dialog_box_width);
          dialog_box_renderer.set_height(standard_dialog_box_height);
+         dialog_box_renderer.set_border_color(standard_dialog_box_frame_color);
+         dialog_box_renderer.set_text_color(standard_dialog_box_text_color);
+         dialog_box_renderer.set_background_color(standard_dialog_box_background_color);
+         dialog_box_renderer.set_label_color(standard_dialog_box_label_color);
          dialog_box_renderer.set_num_revealed_characters(as->get_num_revealed_printable_characters());
          dialog_box_renderer.set_is_finished(as->get_finished());
          dialog_box_renderer.set_page_is_finished(as->get_page_finished());
@@ -219,6 +280,10 @@ methods:
          choice_dialog_box_renderer.set_height(standard_dialog_box_height);
          choice_dialog_box_renderer.set_age(choice_dialog_box->infer_age());
          choice_dialog_box_renderer.set_selection_cursor_box(selection_cursor_box);
+         choice_dialog_box_renderer.set_border_color(standard_dialog_box_frame_color);
+         choice_dialog_box_renderer.set_text_color(standard_dialog_box_text_color);
+         choice_dialog_box_renderer.set_background_color(standard_dialog_box_background_color);
+         choice_dialog_box_renderer.set_label_color(standard_dialog_box_label_color);
 
          // TODO: Finish adding params here
 
@@ -450,5 +515,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxStyles
     headers: [ AllegroFlare/Elements/DialogBoxStyles.hpp ]
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
 
 

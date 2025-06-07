@@ -4108,6 +4108,22 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">standard_dialog_box_frame_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">standard_dialog_box_text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">standard_dialog_box_background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">standard_dialog_box_label_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
@@ -4134,6 +4150,22 @@ table td
 <tr>
   <td class="property">DEFAULT_STANDARD_DIALOG_BOX_HEIGHT</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -4465,6 +4497,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Interparsable&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Interparsable.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -8746,11 +8781,11 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
-  <td class="property">fill_color</td>
+  <td class="property">background_color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
-  <td class="property">fill_opacity</td>
+  <td class="property">background_opacity</td>
   <td class="property">float</td>
 </tr>
 <tr>
@@ -8870,6 +8905,22 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">standard_dialog_box_frame_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">standard_dialog_box_text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">standard_dialog_box_background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">standard_dialog_box_label_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_STANDARD_DIALOG_BOX_X</td>
   <td class="property">float</td>
 </tr>
@@ -8884,6 +8935,22 @@ table td
 <tr>
   <td class="property">DEFAULT_STANDARD_DIALOG_BOX_HEIGHT</td>
   <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -8992,6 +9059,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxStyles&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxStyles.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -9036,6 +9106,22 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">border_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">label_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">num_revealed_characters</td>
   <td class="property">int</td>
 </tr>
@@ -9074,6 +9160,22 @@ table td
 <tr>
   <td class="property">DEFAULT_FONT_SIZE</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_BORDER_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_BACKGROUND_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_TEXT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_LABEL_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -9180,6 +9282,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxNameTag&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxNameTag.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -9429,6 +9534,22 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">border_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">label_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">num_revealed_characters</td>
   <td class="property">int</td>
 </tr>
@@ -9467,6 +9588,22 @@ table td
 <tr>
   <td class="property">DEFAULT_FONT_SIZE</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_BORDER_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_BACKGROUND_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_TEXT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_LABEL_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -9594,6 +9731,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxNameTag&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxNameTag.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -9628,6 +9768,22 @@ table td
 <tr>
   <td class="property">font_size</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">border_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">background_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">label_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
   <td class="property">text_padding_x</td>
@@ -9676,6 +9832,22 @@ table td
 <tr>
   <td class="property">DEFAULT_FONT_SIZE</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_BORDER_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_BACKGROUND_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_TEXT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_LABEL_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
@@ -9796,6 +9968,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TextFormatters::Basic&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TextFormatters/Basic.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -52988,6 +53163,7 @@ table td
   ],
   "ALLEGRO_COLOR": [
     "AllegroFlare/ColorKit",
+    "AllegroFlare/DialogSystem/DialogSystem",
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/AdvancingTextRenderer",
     "AllegroFlare/Elements/Backgrounds/ClearToColor",
@@ -52997,6 +53173,10 @@ table td
     "AllegroFlare/Elements/ChapterSelect/PaginationBar",
     "AllegroFlare/Elements/DialogBoxFrame",
     "AllegroFlare/Elements/DialogBoxNameTag",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",

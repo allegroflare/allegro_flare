@@ -17,13 +17,13 @@ namespace Elements
 {
 
 
-DialogBoxNameTag::DialogBoxNameTag(AllegroFlare::FontBin* font_bin, std::string name, float width, float height, ALLEGRO_COLOR fill_color, float fill_opacity, ALLEGRO_COLOR text_color, float opacity)
+DialogBoxNameTag::DialogBoxNameTag(AllegroFlare::FontBin* font_bin, std::string name, float width, float height, ALLEGRO_COLOR background_color, float background_opacity, ALLEGRO_COLOR text_color, float opacity)
    : font_bin(font_bin)
    , name(name)
    , width(width)
    , height(height)
-   , fill_color(fill_color)
-   , fill_opacity(fill_opacity)
+   , background_color(background_color)
+   , background_opacity(background_opacity)
    , text_color(text_color)
    , opacity(opacity)
 {
@@ -32,6 +32,30 @@ DialogBoxNameTag::DialogBoxNameTag(AllegroFlare::FontBin* font_bin, std::string 
 
 DialogBoxNameTag::~DialogBoxNameTag()
 {
+}
+
+
+void DialogBoxNameTag::set_background_color(ALLEGRO_COLOR background_color)
+{
+   this->background_color = background_color;
+}
+
+
+void DialogBoxNameTag::set_background_opacity(float background_opacity)
+{
+   this->background_opacity = background_opacity;
+}
+
+
+void DialogBoxNameTag::set_text_color(ALLEGRO_COLOR text_color)
+{
+   this->text_color = text_color;
+}
+
+
+void DialogBoxNameTag::set_opacity(float opacity)
+{
+   this->opacity = opacity;
 }
 
 
@@ -47,15 +71,15 @@ float DialogBoxNameTag::get_height() const
 }
 
 
-ALLEGRO_COLOR DialogBoxNameTag::get_fill_color() const
+ALLEGRO_COLOR DialogBoxNameTag::get_background_color() const
 {
-   return fill_color;
+   return background_color;
 }
 
 
-float DialogBoxNameTag::get_fill_opacity() const
+float DialogBoxNameTag::get_background_opacity() const
 {
-   return fill_opacity;
+   return background_opacity;
 }
 
 
@@ -102,13 +126,13 @@ void DialogBoxNameTag::render()
       throw std::runtime_error("[AllegroFlare::Elements::DialogBoxNameTag::render]: error: guard \"al_get_current_display()\" not met");
    }
    //ALLEGRO_COLOR fill_color = al_color_html("ffffff");
-   ALLEGRO_COLOR final_fill_color = ALLEGRO_COLOR{
-      fill_color.r * opacity * fill_opacity, 
-      fill_color.g * opacity * fill_opacity, 
-      fill_color.b * opacity * fill_opacity, 
-      fill_color.a * opacity * fill_opacity
+   ALLEGRO_COLOR final_background_color = ALLEGRO_COLOR{
+      background_color.r * opacity * background_opacity, 
+      background_color.g * opacity * background_opacity, 
+      background_color.b * opacity * background_opacity, 
+      background_color.a * opacity * background_opacity
    };
-   al_draw_filled_rectangle(0, 0, width, height, final_fill_color);
+   al_draw_filled_rectangle(0, 0, width, height, final_background_color);
    //AllegroFlare::Elements::DialogBoxFrame(width, height).render();
    draw_text();
    return;
