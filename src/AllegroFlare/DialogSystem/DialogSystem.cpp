@@ -47,6 +47,8 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , active_dialog_box(nullptr)
    , interparsable_on_operational_chunk_func({})
    , interparsable_on_operational_chunk_func_user_data(nullptr)
+   , on_before_activating_dialog_node_by_name_callback_func({})
+   , on_before_activating_dialog_node_by_name_callback_func_user_data(nullptr)
    , driver(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
@@ -78,6 +80,18 @@ void DialogSystem::set_interparsable_on_operational_chunk_func(std::function<voi
 void DialogSystem::set_interparsable_on_operational_chunk_func_user_data(void* interparsable_on_operational_chunk_func_user_data)
 {
    this->interparsable_on_operational_chunk_func_user_data = interparsable_on_operational_chunk_func_user_data;
+}
+
+
+void DialogSystem::set_on_before_activating_dialog_node_by_name_callback_func(std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> on_before_activating_dialog_node_by_name_callback_func)
+{
+   this->on_before_activating_dialog_node_by_name_callback_func = on_before_activating_dialog_node_by_name_callback_func;
+}
+
+
+void DialogSystem::set_on_before_activating_dialog_node_by_name_callback_func_user_data(void* on_before_activating_dialog_node_by_name_callback_func_user_data)
+{
+   this->on_before_activating_dialog_node_by_name_callback_func_user_data = on_before_activating_dialog_node_by_name_callback_func_user_data;
 }
 
 
@@ -180,6 +194,18 @@ std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsab
 void* DialogSystem::get_interparsable_on_operational_chunk_func_user_data() const
 {
    return interparsable_on_operational_chunk_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> DialogSystem::get_on_before_activating_dialog_node_by_name_callback_func() const
+{
+   return on_before_activating_dialog_node_by_name_callback_func;
+}
+
+
+void* DialogSystem::get_on_before_activating_dialog_node_by_name_callback_func_user_data() const
+{
+   return on_before_activating_dialog_node_by_name_callback_func_user_data;
 }
 
 
@@ -808,18 +834,30 @@ void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* d
    return;
 }
 
-void DialogSystem::activate_dialog_node_by_name(std::string dialog_name)
+void DialogSystem::activate_dialog_node_by_name(std::string dialog_node_name)
 {
-   AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_name);
+   AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_node_name);
    if (!found_dialog_node)
    {
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::DialogSystem::DialogSystem::activate_dialog_node_by_name",
-         "Could not find node with identifier \"" + dialog_name + "\". "
+         "Could not find dialog node with identifier \"" + dialog_node_name + "\". "
             "The node bank contains " + std::to_string(dialog_node_bank.num_nodes()) + " nodes."
       );
    }
-   active_dialog_node_name = dialog_name;
+
+   if (on_before_activating_dialog_node_by_name_callback_func)
+   {
+      on_before_activating_dialog_node_by_name_callback_func( // HERE
+         this, //dialog_system,
+         dialog_node_name, //about_to_be_activated_dialog_node_name,
+         found_dialog_node,
+         on_before_activating_dialog_node_by_name_callback_func_user_data
+         //user_data
+      );
+   }
+
+   active_dialog_node_name = dialog_node_name;
    activate_dialog_node(found_dialog_node);
    return;
 }

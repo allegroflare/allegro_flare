@@ -4076,6 +4076,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">on_before_activating_dialog_node_by_name_callback_func</td>
+  <td class="property">std::function&lt;void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_before_activating_dialog_node_by_name_callback_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">driver</td>
   <td class="property">AllegroFlare::DialogSystemDrivers::Base*</td>
 </tr>
@@ -4260,7 +4268,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>activate_dialog_node_by_name</b>(std::string dialog_name=&quot;[unset-dialog_name]&quot;)</td>
+  <td class="method"><b>activate_dialog_node_by_name</b>(std::string dialog_node_name=&quot;[unset-dialog_node_name]&quot;)</td>
 </tr>
 <tr>
   <td class="method">void</td>
