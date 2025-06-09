@@ -4,8 +4,8 @@
 
 #include <ctime>
 #include <iomanip>
+#include <mutex>
 #include <sstream>
-#include <time.h>
 
 
 namespace AllegroFlare
@@ -46,17 +46,21 @@ std::time_t TimeStamper::generate_time_now_since_epoch()
 
 std::string TimeStamper::user_friendly_time(std::time_t time_)
 {
-   // For Windows (Mingw32), localtime_r does not exist. This hack is suggested in the following stack overflow:
-   // https://stackoverflow.com/questions/18551409/localtime-r-support-on-mingw
-   #if defined(_MSC_VER)
-   #   define localtime_r(T,Tm) (localtime_s(Tm,T) ? NULL : Tm)
-   #endif
-
+   static std::mutex localtime_mutex;
    std::tm local_tm;
-   localtime_r(&time_, &local_tm); // Thread-safe version of std::localtime
+
+   { // These braces ensure the mutex lock is released immediately after copying the std::tm
+      std::lock_guard<std::mutex> lock(localtime_mutex);
+      std::tm* tmp = std::localtime(&time_);
+      if (!tmp)
+      {
+         return "Error formatting time";
+      }
+      local_tm = *tmp;
+   }
 
    std::ostringstream oss;
-   oss << std::put_time(&local_tm, "%B %d %Y %I:%M:%S %p"); // Format: "June 13, 2025 4:50 PM"
+   oss << std::put_time(&local_tm, "%B %d %Y %I:%M:%S %p");
    return oss.str();
 }
 

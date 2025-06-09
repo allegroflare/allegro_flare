@@ -12,7 +12,7 @@ methods:
       return result.str();
     body_dependency_symbols:
       - std::time_t
-      - std::istringstream
+      - std::stringstream
       - std::gmtime
 
 
@@ -26,7 +26,7 @@ methods:
       return result.str();
     body_dependency_symbols:
       - std::time_t
-      - std::istringstream
+      - std::stringstream
       - std::put_time
       - std::gmtime
 
@@ -48,23 +48,29 @@ methods:
         type: std::time_t
         default_argument: 'std::time(nullptr)'
     body: |
-      // For Windows (Mingw32), localtime_r does not exist. This hack is suggested in the following stack overflow:
-      // https://stackoverflow.com/questions/18551409/localtime-r-support-on-mingw
-      #if defined(_MSC_VER)
-      #   define localtime_r(T,Tm) (localtime_s(Tm,T) ? NULL : Tm)
-      #endif
-
+      static std::mutex localtime_mutex;
       std::tm local_tm;
-      localtime_r(&time_, &local_tm); // Thread-safe version of std::localtime
+
+      { // These braces ensure the mutex lock is released immediately after copying the std::tm
+         std::lock_guard<std::mutex> lock(localtime_mutex);
+         std::tm* tmp = std::localtime(&time_);
+         if (!tmp)
+         {
+            return "Error formatting time";
+         }
+         local_tm = *tmp;
+      }
 
       std::ostringstream oss;
-      oss << std::put_time(&local_tm, "%B %d %Y %I:%M:%S %p"); // Format: "June 13, 2025 4:50 PM"
+      oss << std::put_time(&local_tm, "%B %d %Y %I:%M:%S %p");
       return oss.str();
     body_dependency_symbols:
       - std::tm
-      - std::istringstream
-      - localtime_r
+      - std::ostringstream
       - std::put_time
+      - std::localtime
+      - std::lock_guard
+      - std::mutex
 
 
 dependencies:
@@ -72,15 +78,21 @@ dependencies:
 
   - symbol: std::time_t
     headers: [ sstream, ctime, iomanip ]
-  - symbol: std::istringstream
+  - symbol: std::stringstream
+    headers: [ sstream ]
+  - symbol: std::ostringstream
     headers: [ sstream ]
   - symbol: std::gmtime
     headers: [ ctime ]
   - symbol: std::tm
     headers: [ ctime ]
-  - symbol: localtime_r
-    headers: [ time.h ]
+  - symbol: std::localtime
+    headers: [ ctime ]
   - symbol: std::put_time
     headers: [ iomanip ]
+  - symbol: std::mutex
+    headers: [ mutex ]
+  - symbol: std::lock_guard
+    headers: [ mutex ]
 
 

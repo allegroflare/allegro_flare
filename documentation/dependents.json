@@ -3218,7 +3218,8 @@
   ],
   "std/mutex": [
     "AllegroFlare/Integrations/Network",
-    "AllegroFlare/Integrations/Network"
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/TimeStamper"
   ],
   "std/atomic<bool>": [
     "AllegroFlare/Integrations/Network",
@@ -4298,7 +4299,8 @@
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "std/ostringstream": [
-    "AllegroFlare/SavingAndLoading/SaveSlot"
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/TimeStamper"
   ],
   "AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common": [
     "AllegroFlare/SavingAndLoading/SaveSlot"
@@ -4620,7 +4622,7 @@
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
   ],
-  "std/istringstream": [
+  "std/stringstream": [
     "AllegroFlare/TimeStamper"
   ],
   "std/gmtime": [
@@ -4629,10 +4631,13 @@
   "std/tm": [
     "AllegroFlare/TimeStamper"
   ],
-  "localtime_r": [
+  "std/localtime": [
     "AllegroFlare/TimeStamper"
   ],
   "std/put_time": [
+    "AllegroFlare/TimeStamper"
+  ],
+  "std/lock_guard": [
     "AllegroFlare/TimeStamper"
   ],
   "cross_product": [

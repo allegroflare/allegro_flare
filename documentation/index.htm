@@ -48057,7 +48057,10 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::time_t&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;, &quot;ctime&quot;, &quot;iomanip&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::istringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::stringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ostringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::gmtime&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
@@ -48066,10 +48069,16 @@ table td
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::tm&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
 </tr>
 <tr>
-  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;localtime_r&quot;, &quot;headers&quot;=&gt;[&quot;time.h&quot;]}</td>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::localtime&quot;, &quot;headers&quot;=&gt;[&quot;ctime&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::put_time&quot;, &quot;headers&quot;=&gt;[&quot;iomanip&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::mutex&quot;, &quot;headers&quot;=&gt;[&quot;mutex&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::lock_guard&quot;, &quot;headers&quot;=&gt;[&quot;mutex&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55245,7 +55254,8 @@ table td
   ],
   "std/mutex": [
     "AllegroFlare/Integrations/Network",
-    "AllegroFlare/Integrations/Network"
+    "AllegroFlare/Integrations/Network",
+    "AllegroFlare/TimeStamper"
   ],
   "std/atomic<bool>": [
     "AllegroFlare/Integrations/Network",
@@ -56325,7 +56335,8 @@ table td
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
   ],
   "std/ostringstream": [
-    "AllegroFlare/SavingAndLoading/SaveSlot"
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/TimeStamper"
   ],
   "AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common": [
     "AllegroFlare/SavingAndLoading/SaveSlot"
@@ -56647,7 +56658,7 @@ table td
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
   ],
-  "std/istringstream": [
+  "std/stringstream": [
     "AllegroFlare/TimeStamper"
   ],
   "std/gmtime": [
@@ -56656,10 +56667,13 @@ table td
   "std/tm": [
     "AllegroFlare/TimeStamper"
   ],
-  "localtime_r": [
+  "std/localtime": [
     "AllegroFlare/TimeStamper"
   ],
   "std/put_time": [
+    "AllegroFlare/TimeStamper"
+  ],
+  "std/lock_guard": [
     "AllegroFlare/TimeStamper"
   ],
   "cross_product": [

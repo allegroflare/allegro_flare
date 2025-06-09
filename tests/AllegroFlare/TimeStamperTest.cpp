@@ -35,7 +35,7 @@ TEST(AllegroFlare_TimeStamperTest,
    std::time_t time_now = std::time(nullptr);
    std::cout << "Time now " << time_now << std::endl;
 
-   std::string expected_time_now = "March 11 2025 01:14:40 PM";
+   std::string expected_time_now = "June 09 2025 04:20:28 PM";
    std::string actual_time_now = AllegroFlare::TimeStamper::user_friendly_time(time_now);
    EXPECT_EQ(expected_time_now, actual_time_now);
 }
