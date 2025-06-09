@@ -736,12 +736,11 @@ methods:
 
       if (on_before_activating_dialog_node_by_name_callback_func)
       {
-         on_before_activating_dialog_node_by_name_callback_func( // HERE
-            this, //dialog_system,
-            dialog_node_name, //about_to_be_activated_dialog_node_name,
+         on_before_activating_dialog_node_by_name_callback_func(
+            this,
+            dialog_node_name,
             found_dialog_node,
             on_before_activating_dialog_node_by_name_callback_func_user_data
-            //user_data
          );
       }
 
