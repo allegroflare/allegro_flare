@@ -923,8 +923,8 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
    float stem_thickness = staff_line_distance * 0.15f;
 
    // Create some render state variables
-   int start_x = x;
-   int x_cursor = 0;
+   float start_x = x;
+   float x_cursor = 0; // TODO: Recently changed from int, see if/how it affects
    int current_note_duration = 4;
    int current_note_staff_position = 0;
    bool current_note_is_rest = false;
