@@ -1018,7 +1018,11 @@ float MusicNotation::draw_raw(float x, float y, std::string content)
                text_after_equals = tokens[t].substr(pos_of_equals+1);
             }
 
-            if (text_before_equals.compare("color") == 0) color = color::name(text_after_equals.c_str());
+            if (text_before_equals.compare("color") == 0)
+            {
+               //color = color::name(text_after_equals.c_str());
+               color = infer_color_name_or_hex(text_after_equals);
+            }
             else if (text_before_equals.compare("staff_color") == 0)
             {
                staff_color = infer_color_name_or_hex(text_after_equals);

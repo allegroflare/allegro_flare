@@ -97,6 +97,20 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__setting_a_color_within_the_content_will_work_as_expected)
+{
+   AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
+   AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref());
+
+   std::string music_notation_content_string = "{color=orange} & ^    -6=,e75'q1| {color=springgreen}-1.{color=orange},-2 er 4]";
+   music_notation.draw(1920/2, 1080/2, music_notation_content_string);
+
+   al_flip_display();
+   //sleep(1);
+}
+
+
+TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
    CAPTURE__setting_the_staff_line_distance_between_renders__will_work_as_expected)
 {
    std::string music_notation_content_string = " & ^    -6=,e75'q1| -1.,-2 er 4]";
