@@ -38,6 +38,7 @@
 #include <AllegroFlare/DisplaySettingsInterfaces/Base.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/AssetStudio/Database.hpp>
+#include <AllegroFlare/VariableTimeStepper.hpp>
 //#include <AllegroFlare/Time.hpp>
 
 
@@ -82,6 +83,7 @@ namespace AllegroFlare
          //ALLEGRO_TIMER *high_frequency_timer;
          Camera2D camera_2d;
          bool showing_dialog_switched_in_debug_text; // TODO: Add methods to enable/disable this option
+         AllegroFlare::VariableTimeStepper variable_time_stepper;
 
          AllegroFlare::RenderSurfaces::DisplayBackbuffer display_backbuffer;
          AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap display_backbuffer_sub_bitmap;
@@ -122,6 +124,8 @@ namespace AllegroFlare
 
          void draw_overlay();
          void refresh_display_icon();
+         bool draw;
+         bool drain_sequential_timer_events;
         
          // User callbacks
          std::map<uint32_t, std::pair<std::function<void(ALLEGRO_EVENT*, void*)>, void*>> event_callbacks;
@@ -251,12 +255,20 @@ namespace AllegroFlare
 
          void render_screens_to_primary_render_surface();
 
+        //- symbol: AllegroFlare::VariableTimeStepper
+        //headers: [ AllegroFlare/VariableTimeStepper.hpp ]
+         void primary_time_step(double time_step_increment, double world_time_after_step);
          void primary_update(double time_now, double delta_time);
          void primary_render();
          void primary_flip();
          void nudge_primary_timer_forward();
          void nudge_primary_timer_backward();
-         void primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events=true);
+         void primary_process_event(ALLEGRO_EVENT *ev);
+
+         void handle_timer_event(ALLEGRO_EVENT *this_event);
+         void handle_display_resize_event(ALLEGRO_EVENT *this_event);
+         void handle_key_down_event(ALLEGRO_EVENT *this_event);
+
          int process_events_in_queue();
          void run_loop(float auto_shutdown_after_seconds=-1);
 

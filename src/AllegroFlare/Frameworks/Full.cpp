@@ -80,6 +80,7 @@ Full::Full()
    //, high_frequency_timer(nullptr)
    , camera_2d()
    , showing_dialog_switched_in_debug_text(false)
+   , variable_time_stepper()
    , display_backbuffer()
    , display_backbuffer_sub_bitmap()
    , primary_render_surface(nullptr)
@@ -113,6 +114,8 @@ Full::Full()
    , shader_target_for_hotloading(nullptr)
    , display_settings_interface(nullptr)
    //, gameplay_screen(nullptr)
+   , draw(false)
+   , drain_sequential_timer_events(true)
    , event_callbacks()
    , next_event_callback_id(1)
    , event_queue(nullptr)
@@ -1729,143 +1732,122 @@ void Full::nudge_primary_timer_backward()
 }
 
 
-void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_events)
+void Full::handle_timer_event(ALLEGRO_EVENT *this_event)
 {
-   bool draw = false;
+   //case ALLEGRO_EVENT_TIMER: {
+      bool is_primary_timer_event = sync_oracle.is_primary_timer_event(this_event);
 
-   //AllegroFlare::Time time;
-   //time.set_absolute_now(ev->any.timestamp);
-
-   //AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
-   //if (using_instrumentation)
-   //{
-      //metric.processing_start_time = al_get_time();
-      //metric.event_time = ev->any.timestamp;
-      //metric.event_type = ev->type;
-   //}
-   //metric
-
-
-
-      ALLEGRO_EVENT &this_event = *ev;
-      ALLEGRO_EVENT next_event;
-
-      // process callbacks first
-      for (auto &event_callback : event_callbacks)
+      if (!is_primary_timer_event)
       {
-         // call the callback function, and pass in the user_data provided when the
-         // callback was registered
-         event_callback.second.first(&this_event, event_callback.second.second);
+         //while (
+               //al_peek_next_event(event_queue, &next_event)
+               //&& sync_oracle.is_primary_timer_event(&next_event)
+               //&& next_event.type == ALLEGRO_EVENT_TIMER
+               //&& (next_event.timer.source == this_event.timer.source)
+            //)
+         //{
+            // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
+            // problems as experienced on some machines.
+            //al_drop_next_event(event_queue);
+         //}
+         //screens.timer_funcs();
       }
-
-      screens.on_events(current_event);
-
-      switch(this_event.type)
+      else
       {
-      case ALLEGRO_EVENT_TIMER: {
-         bool is_primary_timer_event = sync_oracle.is_primary_timer_event(&this_event);
+         double this_event_time = this_event->any.timestamp;
+         //variable_time_stepper.step_to_time(this_event_time);
+         //void primary_time_step(double time_step_increment, double world_time_after_step);
 
-         if (!is_primary_timer_event)
+         sync_oracle.capture_primary_timer_event_time(this_event->any.timestamp);
+         //draw = true;
+      //}
+      //if (this_event.timer.source == primary_timer)
+      //{
+         //sync_oracle.start_update_measure();
+         //primary_update();
+         //sync_oracle.end_update_measure();
+
+         if (drain_sequential_timer_events)
          {
-            //while (
-                  //al_peek_next_event(event_queue, &next_event)
-                  //&& sync_oracle.is_primary_timer_event(&next_event)
-                  //&& next_event.type == ALLEGRO_EVENT_TIMER
-                  //&& (next_event.timer.source == this_event.timer.source)
-               //)
-            //{
-               // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
-               // problems as experienced on some machines.
-               //al_drop_next_event(event_queue);
-            //}
-            //screens.timer_funcs();
-         }
-         else
-         {
-            sync_oracle.capture_primary_timer_event_time(this_event.any.timestamp);
-            draw = true;
-         //}
-         //if (this_event.timer.source == primary_timer)
-         //{
-            //sync_oracle.start_update_measure();
-            //primary_update();
-            //sync_oracle.end_update_measure();
-
-            if (drain_sequential_timer_events)
-            {
-               ALLEGRO_EVENT next_event;
-               while (
-                  al_peek_next_event(event_queue, &next_event)
-                  && sync_oracle.is_primary_timer_event(&next_event)
-                  //&& next_event.type == ALLEGRO_EVENT_TIMER
-                  //&& next_event.timer.source == this_event.timer.source)
-                  )
-               {
-                  // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
-                  // problems as experienced on some machines.
-                  al_drop_next_event(event_queue);
-                  //metric.primary_timer_events_dropped++;
-                  // HERE: Track when and how often events are dropped and see if there is a correlation 
-               }
-            }
-
-            /*
-            if (draw)
-            {
-               sync_oracle.start_update_measure();
-               primary_update();
-               sync_oracle.end_update_measure();
-
-               sync_oracle.start_draw_measure();
-               primary_render();
-               sync_oracle.end_draw_measure();
-               //flip_sync.start_flip_capture();
-               //metric.al_flip_display_start_time = al_get_time();
-               sync_oracle.start_flip_measure(); // ---
-               primary_flip();
-               sync_oracle.end_flip_measure(); // ---
-            }
-            */
-            //metric.al_flip_display_end_time = al_get_time();
-            //flip_sync.end_flip_capture();
-         }
-         //else if (this_event.timer.source == shader_source_poller.get_polling_timer())
-         //{
-            //event_emitter.emit_poll_hotload_shader_source_for_change_event();
-         //}
-         //else
-         //{
-            //screens.timer_funcs();
-         //}
-
-         //if (drain_sequential_timer_events)
-         //{
-            //ALLEGRO_EVENT next_event;
-            //while (al_peek_next_event(event_queue, &next_event)
+            ALLEGRO_EVENT next_event;
+            while (
+               al_peek_next_event(event_queue, &next_event)
+               && sync_oracle.is_primary_timer_event(&next_event)
                //&& next_event.type == ALLEGRO_EVENT_TIMER
                //&& next_event.timer.source == this_event.timer.source)
-            //{
+               )
+            {
                // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
                // problems as experienced on some machines.
-               //al_drop_next_event(event_queue);
+               al_drop_next_event(event_queue);
                //metric.primary_timer_events_dropped++;
                // HERE: Track when and how often events are dropped and see if there is a correlation 
-            //}
+            }
+         }
+
+         /*
+         if (draw)
+         {
+            sync_oracle.start_update_measure();
+            primary_update();
+            sync_oracle.end_update_measure();
+
+            sync_oracle.start_draw_measure();
+            primary_render();
+            sync_oracle.end_draw_measure();
+            //flip_sync.start_flip_capture();
+            //metric.al_flip_display_start_time = al_get_time();
+            sync_oracle.start_flip_measure(); // ---
+            primary_flip();
+            sync_oracle.end_flip_measure(); // ---
+         }
+         */
+         //metric.al_flip_display_end_time = al_get_time();
+         //flip_sync.end_flip_capture();
+      }
+      //else if (this_event.timer.source == shader_source_poller.get_polling_timer())
+      //{
+         //event_emitter.emit_poll_hotload_shader_source_for_change_event();
+      //}
+      //else
+      //{
+         //screens.timer_funcs();
+      //}
+
+      //if (drain_sequential_timer_events)
+      //{
+         //ALLEGRO_EVENT next_event;
+         //while (al_peek_next_event(event_queue, &next_event)
+            //&& next_event.type == ALLEGRO_EVENT_TIMER
+            //&& next_event.timer.source == this_event.timer.source)
+         //{
+            // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
+            // problems as experienced on some machines.
+            //al_drop_next_event(event_queue);
+            //metric.primary_timer_events_dropped++;
+            // HERE: Track when and how often events are dropped and see if there is a correlation 
          //}
-      } break;
+      //}
+   //} break;
+}
 
-      case ALLEGRO_EVENT_DISPLAY_RESIZE: {
-         std::cout << "Acknowledging resize on display " << this_event.display.source << ": ("
-                   << "x: " << this_event.display.x
-                   << ", y: " << this_event.display.y
-                   << ", w: " << this_event.display.width
-                   << ", h: " << this_event.display.height
-                   << ")";
-         al_acknowledge_resize(this_event.display.source);
-         std::cout << "... done." << std::endl;
-      } break;
 
-      case ALLEGRO_EVENT_KEY_DOWN: {
+void Full::handle_display_resize_event(ALLEGRO_EVENT *this_event)
+{
+   std::cout << "Acknowledging resize on display " << this_event->display.source << ": ("
+             << "x: " << this_event->display.x
+             << ", y: " << this_event->display.y
+             << ", w: " << this_event->display.width
+             << ", h: " << this_event->display.height
+             << ")";
+   al_acknowledge_resize(this_event->display.source);
+   std::cout << "... done." << std::endl;
+}
+
+
+void Full::handle_key_down_event(ALLEGRO_EVENT *this_event)
+{
+      //case ALLEGRO_EVENT_KEY_DOWN: {
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift++;
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
@@ -1877,7 +1859,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
 
 
-         if ((this_event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) && (Full::key_shift > 0))
+         if ((this_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) && (Full::key_shift > 0))
          {
             if (escape_key_will_shutdown) shutdown_program = true;
          }
@@ -1918,7 +1900,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
             // TODO: Handle input case with dialog when it is "switched in"
             // TODO: Add this branching for each input event case
             // TODO: Add tests for these cases, with and without dialog swtiched in
-            switch(this_event.keyboard.keycode)
+            switch(this_event->keyboard.keycode)
             {
                //case ALLEGRO_KEY_UP:
                   //dialog_system.move_selection_cursor_up();
@@ -1936,12 +1918,50 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev, bool drain_sequential_timer_
          }
          else
          {
-            screens.key_down_funcs(&this_event);
-            virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
+            screens.key_down_funcs(this_event);
+            virtual_controls_processor.handle_raw_keyboard_key_down_event(this_event);
          }
          //virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
-      } break;
+      //} break;
+}
 
+
+void Full::primary_process_event(ALLEGRO_EVENT *ev)
+{
+   //bool draw = false;
+
+   //AllegroFlare::Time time;
+   //time.set_absolute_now(ev->any.timestamp);
+
+   //AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
+   //if (using_instrumentation)
+   //{
+      //metric.processing_start_time = al_get_time();
+      //metric.event_time = ev->any.timestamp;
+      //metric.event_type = ev->type;
+   //}
+   //metric
+
+
+
+      ALLEGRO_EVENT &this_event = *ev;
+      ALLEGRO_EVENT next_event;
+
+      // process callbacks first
+      for (auto &event_callback : event_callbacks)
+      {
+         // call the callback function, and pass in the user_data provided when the
+         // callback was registered
+         event_callback.second.first(&this_event, event_callback.second.second);
+      }
+
+      screens.on_events(current_event);
+
+      switch(this_event.type)
+      {
+      case ALLEGRO_EVENT_TIMER: handle_timer_event(&this_event); break;
+      case ALLEGRO_EVENT_DISPLAY_RESIZE: handle_display_resize_event(&this_event); break;
+      case ALLEGRO_EVENT_KEY_DOWN: handle_key_down_event(&this_event); break;
       case ALLEGRO_EVENT_KEY_UP:
          if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
                || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift--;

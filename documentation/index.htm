@@ -62,6 +62,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AssetStudio/Database.q.yml">quintessence/AllegroFlare/AssetStudio/Database.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml">quintessence/AllegroFlare/AssetStudio/DatabaseCSVLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AssetStudio/Record.q.yml">quintessence/AllegroFlare/AssetStudio/Record.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/AtomicTimeStepper.q.yml">quintessence/AllegroFlare/AtomicTimeStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioController.q.yml">quintessence/AllegroFlare/AudioController.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioDataBlock.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml">quintessence/AllegroFlare/AudioProcessing/AudioMixer.q.yml</a></li>
@@ -284,6 +285,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/SceneRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.q.yml">quintessence/AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/ImageProcessing/ImageReduction.q.yml">quintessence/AllegroFlare/ImageProcessing/ImageReduction.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/InitializedAndDestroyed.q.yml">quintessence/AllegroFlare/InitializedAndDestroyed.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDevicesList.q.yml">quintessence/AllegroFlare/InputDevicesList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKey.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml">quintessence/AllegroFlare/InputDiagrams/KeyboardKeyCombo.q.yml</a></li>
@@ -576,6 +578,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/TransitionFX/Base.q.yml">quintessence/AllegroFlare/TransitionFX/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/UnicodeFontViewer.q.yml">quintessence/AllegroFlare/UnicodeFontViewer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Useful3D/Triangle.q.yml">quintessence/AllegroFlare/Useful3D/Triangle.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/VariableTimeStepper.q.yml">quintessence/AllegroFlare/VariableTimeStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Vec2I.q.yml">quintessence/AllegroFlare/Vec2I.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Video.q.yml">quintessence/AllegroFlare/Video.q.yml</a></li>
@@ -1376,6 +1379,58 @@ table td
     </table>
 </div>    <h3>Dependencies</h3>
 <p>This class contains no dependencies</p>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/AtomicTimeStepper.q.yml">quintessence/AllegroFlare/AtomicTimeStepper.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">time_step_resolution_denom</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">time_step_resolution</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">total_accumulated_time</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">total_accumulated_steps</td>
+  <td class="property">uint64_t</td>
+</tr>
+<tr>
+  <td class="property">on_step_func</td>
+  <td class="property">std::function&lt;void(double, double, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_step_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>step_one</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>step_n_times</b>(int num_times_to_step=1)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;uint64_t&quot;, &quot;headers&quot;=&gt;[&quot;cstdint&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -20457,6 +20512,62 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/InitializedAndDestroyed.q.yml">quintessence/AllegroFlare/InitializedAndDestroyed.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">calling_class_name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">initialized</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">destroyed</td>
+  <td class="property">bool</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_initialized_and_not_destroyed</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>~destruct</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_destroy</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48347,6 +48458,42 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/VariableTimeStepper.q.yml">quintessence/AllegroFlare/VariableTimeStepper.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">atomic_time_stepper</td>
+  <td class="property">AllegroFlare::AtomicTimeStepper</td>
+</tr>
+<tr>
+  <td class="property">max_allowed_steps</td>
+  <td class="property">int</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_max_allowed_steps</b>(int max_allowed_steps=10)</td>
+</tr>
+<tr>
+  <td class="method">std::tuple&lt;double, int, int&gt;</td>
+  <td class="method"><b>step_ahead_to</b>(double time_to_step_to=1.0/60.0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AtomicTimeStepper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AtomicTimeStepper.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Vec2B.q.yml">quintessence/AllegroFlare/Vec2B.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -52199,6 +52346,7 @@ table td
     "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
     "AllegroFlare/ImageProcessing/ImageReduction",
+    "AllegroFlare/InitializedAndDestroyed",
     "AllegroFlare/Layouts/CursorMap",
     "AllegroFlare/Layouts/ElementFactory",
     "AllegroFlare/Layouts/Frames",
@@ -52424,6 +52572,9 @@ table td
     "AllegroFlare/Network2/URLTokenizer",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/StringTransformer"
+  ],
+  "uint64_t": [
+    "AllegroFlare/AtomicTimeStepper"
   ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",
@@ -56687,6 +56838,9 @@ table td
   ],
   "AllegroFlare/Useful3D/build_vertex": [
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/AtomicTimeStepper": [
+    "AllegroFlare/VariableTimeStepper"
   ],
   "AllegroFlare/Bin": [
     "AllegroFlare/VideoBin"

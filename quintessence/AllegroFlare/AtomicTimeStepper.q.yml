@@ -1,0 +1,68 @@
+properties:
+
+
+  - name: time_step_resolution_denom
+    type: double
+    init_with: 256.0
+    getter: true
+
+  - name: time_step_resolution
+    type: double
+    init_with: 1.0 / time_step_resolution_denom
+    getter: true
+
+  - name: total_accumulated_time
+    type: double
+    init_with: 0.0
+    getter: true
+
+  - name: total_accumulated_steps
+    type: uint64_t
+    init_with: 0
+    getter: true
+
+  - name: on_step_func
+    type: std::function<void(double, double, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_step_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: step_one
+    body: |
+      total_accumulated_time += time_step_resolution;
+      total_accumulated_steps++;
+      if (on_step_func) on_step_func(time_step_resolution, total_accumulated_time, on_step_func_user_data);
+      return;
+
+
+  - name: step_n_times
+    parameters:
+      - name: num_times_to_step
+        type: int
+        default_argument: 1
+    guards: [ (num_times_to_step >= 0) ]
+    body: |
+      for (int i=0; i<num_times_to_step; i++)
+      {
+         step_one();
+      }
+      return;
+
+
+dependencies:
+
+
+  - symbol: uint64_t
+    headers: [ cstdint ]
+
+

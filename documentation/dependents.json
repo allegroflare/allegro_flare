@@ -163,6 +163,7 @@
     "AllegroFlare/GameProgressAndStateInfos/Base",
     "AllegroFlare/GameSession",
     "AllegroFlare/ImageProcessing/ImageReduction",
+    "AllegroFlare/InitializedAndDestroyed",
     "AllegroFlare/Layouts/CursorMap",
     "AllegroFlare/Layouts/ElementFactory",
     "AllegroFlare/Layouts/Frames",
@@ -388,6 +389,9 @@
     "AllegroFlare/Network2/URLTokenizer",
     "AllegroFlare/Prototypes/FixedRoom2D/ScriptRunner",
     "AllegroFlare/StringTransformer"
+  ],
+  "uint64_t": [
+    "AllegroFlare/AtomicTimeStepper"
   ],
   "AllegroFlare/TerminalColors": [
     "AllegroFlare/AudioController",
@@ -4651,6 +4655,9 @@
   ],
   "AllegroFlare/Useful3D/build_vertex": [
     "AllegroFlare/Useful3D/Triangle"
+  ],
+  "AllegroFlare/AtomicTimeStepper": [
+    "AllegroFlare/VariableTimeStepper"
   ],
   "AllegroFlare/Bin": [
     "AllegroFlare/VideoBin"
