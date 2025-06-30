@@ -29,6 +29,18 @@ int VariableTimeStepper::get_max_allowed_steps() const
 }
 
 
+void VariableTimeStepper::set_atomic_on_step_func(std::function<void(double, double, void*)> on_step_func)
+{
+   atomic_time_stepper.set_on_step_func(on_step_func);
+   return;
+}
+
+void VariableTimeStepper::set_atomic_on_step_func_user_data(void* on_step_func_user_data)
+{
+   atomic_time_stepper.set_on_step_func_user_data(on_step_func_user_data);
+   return;
+}
+
 void VariableTimeStepper::set_max_allowed_steps(int max_allowed_steps)
 {
    if (!(max_allowed_steps > 0))

@@ -1522,6 +1522,26 @@ void Full::primary_update(double _time_now, double delta_time)
 }
 
 
+void Full::primary_time_step(double time_step_increment, double world_time_after_step)
+{
+   // WARNING: "time_now" is a member, so _time_now is used in this scope
+   // update
+   // TODO: Consider the ordering of this, if events may be emitted or state modified
+   //double delta_time = 1.0f; // Not sure what this value should be, should it be the FPS or 1/60 
+   screens.primary_time_step_funcs(time_step_increment, world_time_after_step);
+                                     // Game will typically use *either* _timer_funcs on its own OR use the
+                                     // _update and _render funcs.
+   //motions.update(_time_now); // TODO: Update this to use delta time
+   //achievements.check_all();
+   //dialog_system.update(_time_now); // TODO: Considr how to update this to use delta_time
+
+   //double delta_time = 1.0f; // Not sure what this value should be, should it be the FPS or 1/60 
+   //screens.primary_update_funcs(delta_time); // Game will typically use *either* _timer_funcs on its own OR use the
+                                     // _update and _render funcs.
+   // TODO: Add screens.primary_update(time_now, deltatime);
+}
+
+
 void Full::render_screens_to_primary_render_surface()
 {
    //ALLEGRO_BITMAP *backbuffer_bitmap = al_get_backbuffer(primary_display->al_display);
@@ -1755,11 +1775,16 @@ void Full::handle_timer_event(ALLEGRO_EVENT *this_event)
       else
       {
          double this_event_time = this_event->any.timestamp;
-         //variable_time_stepper.step_to_time(this_event_time);
+
+         variable_time_stepper.set_atomic_on_step_func([this](double step, double total, void* ud){
+            this->primary_time_step(step, total);
+         });
+
+         variable_time_stepper.step_ahead_to(this_event_time);
          //void primary_time_step(double time_step_increment, double world_time_after_step);
 
          sync_oracle.capture_primary_timer_event_time(this_event->any.timestamp);
-         //draw = true;
+         draw = true;
       //}
       //if (this_event.timer.source == primary_timer)
       //{
@@ -1845,359 +1870,12 @@ void Full::handle_display_resize_event(ALLEGRO_EVENT *this_event)
 }
 
 
-void Full::handle_key_down_event(ALLEGRO_EVENT *this_event)
+void Full::handle_user_event(ALLEGRO_EVENT *_this_event)
 {
-      //case ALLEGRO_EVENT_KEY_DOWN: {
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift++;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt++;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl++;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command++;
-         if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
-            drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
+   ALLEGRO_EVENT &this_event = *_this_event;
 
-
-         if ((this_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) && (Full::key_shift > 0))
-         {
-            if (escape_key_will_shutdown) shutdown_program = true;
-         }
-
-         // Handle offsetting the primary timer
-         if (Full::key_shift > 0)
-         {
-            switch (Full::current_event->keyboard.keycode)
-            {
-               //case ALLEGRO_KEY_F: {
-                  //toggle_display_fullscreen();
-               //} break;
-               //case ALLEGRO_KEY_1: {
-                  //set_window_size(1920, 1080);
-               //} break;
-               //case ALLEGRO_KEY_2: {
-                  //set_window_size(1080, 1920);
-               //} break;
-               //case ALLEGRO_KEY_3: {
-                  //set_window_size(2520, 1080);
-               //} break;
-               case ALLEGRO_KEY_FULLSTOP: {
-                  nudge_primary_timer_forward();
-               } break;
-               case ALLEGRO_KEY_COMMA: {
-                  nudge_primary_timer_backward();
-               } break;
-            }
-            
-            //int MICROSECONDS_PER_FRAME = 16670;
-            //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
-            //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
-         }
-
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-            switch(this_event->keyboard.keycode)
-            {
-               //case ALLEGRO_KEY_UP:
-                  //dialog_system.move_selection_cursor_up();
-               //break;
-
-               //case ALLEGRO_KEY_DOWN:
-                  //dialog_system.move_selection_cursor_down();
-               //break;
-
-               case ALLEGRO_KEY_SPACE:
-               case ALLEGRO_KEY_ENTER:
-                  dialog_system.dialog_advance();
-               break;
-            }
-         }
-         else
-         {
-            screens.key_down_funcs(this_event);
-            virtual_controls_processor.handle_raw_keyboard_key_down_event(this_event);
-         }
-         //virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
-      //} break;
-}
-
-
-void Full::primary_process_event(ALLEGRO_EVENT *ev)
-{
-   //bool draw = false;
-
-   //AllegroFlare::Time time;
-   //time.set_absolute_now(ev->any.timestamp);
-
-   //AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
-   //if (using_instrumentation)
-   //{
-      //metric.processing_start_time = al_get_time();
-      //metric.event_time = ev->any.timestamp;
-      //metric.event_type = ev->type;
-   //}
-   //metric
-
-
-
-      ALLEGRO_EVENT &this_event = *ev;
-      ALLEGRO_EVENT next_event;
-
-      // process callbacks first
-      for (auto &event_callback : event_callbacks)
-      {
-         // call the callback function, and pass in the user_data provided when the
-         // callback was registered
-         event_callback.second.first(&this_event, event_callback.second.second);
-      }
-
-      screens.on_events(current_event);
-
-      switch(this_event.type)
-      {
-      case ALLEGRO_EVENT_TIMER: handle_timer_event(&this_event); break;
-      case ALLEGRO_EVENT_DISPLAY_RESIZE: handle_display_resize_event(&this_event); break;
-      case ALLEGRO_EVENT_KEY_DOWN: handle_key_down_event(&this_event); break;
-      case ALLEGRO_EVENT_KEY_UP:
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift--;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt--;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command--;
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.key_up_funcs(&this_event);
-            virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_KEY_CHAR:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-            switch(this_event.keyboard.keycode)
-            {
-               case ALLEGRO_KEY_UP:
-                  dialog_system.move_dialog_cursor_position_up();
-               break;
-
-               case ALLEGRO_KEY_DOWN:
-                  dialog_system.move_dialog_cursor_position_down();
-               break;
-
-               case ALLEGRO_KEY_SPACE:
-               case ALLEGRO_KEY_ENTER:
-                  //dialog_system.advance(); // Not for this case, this is handled in ALLEGRO_KEY_DOWN (until 
-                                             // upgraded to virtual controls)
-               break;
-            }
-         }
-         else
-         {
-            screens.key_char_funcs(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.mouse_up_funcs(&this_event);
-         }
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-            dialog_system.dialog_advance();
-         }
-         else
-         {
-            screens.mouse_down_funcs(&this_event);
-         }
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_WARPED:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.mouse_warp_funcs(&this_event);
-         }
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_AXES:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.mouse_axes_funcs(&this_event);
-         }
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-
-            // TODO: Consider case where may only want to advance using a certain button (and possibly cancel otherwise)
-            dialog_system.dialog_advance();
-         }
-         else
-         {
-            bool use_joystick_button_right_bumper_to_offset_timer = true;
-            if (use_joystick_button_right_bumper_to_offset_timer)
-            {
-               bool button_pressed = (this_event.joystick.button == 7); // 7 is the right bumper on XBox 360 Controller
-               if (button_pressed)
-               {
-                  nudge_primary_timer_forward();
-                  //int MICROSECONDS_PER_FRAME = 16670;
-                  //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
-                  //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
-               }
-            }
-               //case ALLEGRO_KEY_FULLSTOP: {
-                  //nudge_primary_timer_forward();
-               //} break;
-               //case ALLEGRO_KEY_COMMA: {
-                  //nudge_primary_timer_backward();
-               //} break;
-
-            screens.joy_button_down_funcs(&this_event);
-            virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.joy_button_up_funcs(&this_event);
-            virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_AXIS:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.joy_axis_funcs(&this_event);
-            virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
-         screens.joy_config_funcs(&this_event);
-         // NOTE: input_devices_list.handle_reconfiguration does not occur here, it's currently managed in the
-         // virtual_controls_processor which may not be the best place. This domain requires a bit of review,
-         // as there is an input_devices_list that is involved and needs to be accounted for. Posting notifications
-         // events may need review (should have callbacks that can be used to produce events?). See the body of
-         // virtual_controls_processor.handle_joystick_device_configuration_change_event() for a little more direction.
-
-         virtual_controls_processor.handle_joystick_device_configuration_change_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-      case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-         // currently ignored
-      break;
-
-      case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
-         screens.display_switch_in_funcs();
-      break;
-
-      case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
-         screens.display_switch_out_funcs();
-      break;
-
-      case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
-         //screens.display_switch_in_funcs();
-         if (textlog) close_log_window();
-      break;
-
-      case ALLEGRO_EVENT_MENU_CLICK:
-         screens.native_menu_click_funcs();
-      break;
-
-      case ALLEGRO_EVENT_DISPLAY_CLOSE:
-         {
-            Display *this_display = Display::find_display(this_event.display.source);
-            if (this_display) this_display->display_close_func();
-
-            if (display_close_will_shutdown) shutdown_program = true;
-         }
-      break;
-
-      case ALLEGRO_EVENT_VIDEO_FRAME_SHOW:
-         // TODO:
-         // This will require a video manager, because each video will need to be registered to the event queue
-      break;
-
-      case ALLEGRO_EVENT_VIDEO_FINISHED:
-         // TODO:
-         // This will require a video manager, because each video will need to be registered to the event queue
-      break;
-
-      default:
-         if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
-         {
+         //if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
+         //{
             if (this_event.any.source == &event_emitter.get_event_source_ref())
             {
                screens.event_emitter_event_funcs(&this_event);
@@ -2652,7 +2330,7 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev)
                         }
                         else
                         {
-                           dialog_system.handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ev, data);
+                           dialog_system.handle_raw_ALLEGRO_EVENT_that_is_dialog_event(&this_event, data);
                            //screens.game_event_funcs(data);
                            //achievements.unlock_manually(*data);
                            //audio_controller.play_music_track_by_identifier(*data);
@@ -2677,32 +2355,398 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev)
             {
                //screens.user_event_funcs(&this_event);
             }
+         //}
+         //else
+         //{
+            //std::cout << "uncaught event [" << this_event.type << "]" << std::endl;
+         //} 
+         //break;
+}
+
+
+void Full::handle_key_down_event(ALLEGRO_EVENT *this_event)
+{
+      //case ALLEGRO_EVENT_KEY_DOWN: {
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
+               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift++;
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt++;
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl++;
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command++;
+         if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
+            drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
+
+
+         if ((this_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) && (Full::key_shift > 0))
+         {
+            if (escape_key_will_shutdown) shutdown_program = true;
+         }
+
+         // Handle offsetting the primary timer
+         if (Full::key_shift > 0)
+         {
+            switch (Full::current_event->keyboard.keycode)
+            {
+               //case ALLEGRO_KEY_F: {
+                  //toggle_display_fullscreen();
+               //} break;
+               //case ALLEGRO_KEY_1: {
+                  //set_window_size(1920, 1080);
+               //} break;
+               //case ALLEGRO_KEY_2: {
+                  //set_window_size(1080, 1920);
+               //} break;
+               //case ALLEGRO_KEY_3: {
+                  //set_window_size(2520, 1080);
+               //} break;
+               case ALLEGRO_KEY_FULLSTOP: {
+                  nudge_primary_timer_forward();
+               } break;
+               case ALLEGRO_KEY_COMMA: {
+                  nudge_primary_timer_backward();
+               } break;
+            }
+            
+            //int MICROSECONDS_PER_FRAME = 16670;
+            //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+            //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+         }
+
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+            switch(this_event->keyboard.keycode)
+            {
+               //case ALLEGRO_KEY_UP:
+                  //dialog_system.move_selection_cursor_up();
+               //break;
+
+               //case ALLEGRO_KEY_DOWN:
+                  //dialog_system.move_selection_cursor_down();
+               //break;
+
+               case ALLEGRO_KEY_SPACE:
+               case ALLEGRO_KEY_ENTER:
+                  dialog_system.dialog_advance();
+               break;
+            }
+         }
+         else
+         {
+            screens.key_down_funcs(this_event);
+            virtual_controls_processor.handle_raw_keyboard_key_down_event(this_event);
+         }
+         //virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
+      //} break;
+}
+
+
+void Full::primary_process_event(ALLEGRO_EVENT *ev)
+{
+   //bool draw = false;
+   draw = false;
+
+   //AllegroFlare::Time time;
+   //time.set_absolute_now(ev->any.timestamp);
+
+   //AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
+   //if (using_instrumentation)
+   //{
+      //metric.processing_start_time = al_get_time();
+      //metric.event_time = ev->any.timestamp;
+      //metric.event_type = ev->type;
+   //}
+   //metric
+
+
+
+      ALLEGRO_EVENT &this_event = *ev;
+      ALLEGRO_EVENT next_event;
+
+      // process callbacks first
+      for (auto &event_callback : event_callbacks)
+      {
+         // call the callback function, and pass in the user_data provided when the
+         // callback was registered
+         event_callback.second.first(&this_event, event_callback.second.second);
+      }
+
+      screens.on_events(current_event);
+
+      switch(this_event.type)
+      {
+      case ALLEGRO_EVENT_TIMER: handle_timer_event(&this_event); break;
+      case ALLEGRO_EVENT_DISPLAY_RESIZE: handle_display_resize_event(&this_event); break;
+      case ALLEGRO_EVENT_KEY_DOWN: handle_key_down_event(&this_event); break;
+      case ALLEGRO_EVENT_KEY_UP:
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
+               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift--;
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt--;
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
+         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command--;
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.key_up_funcs(&this_event);
+            virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
+         }
+         //virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
+      break;
+
+      case ALLEGRO_EVENT_KEY_CHAR:
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+            switch(this_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_UP:
+                  dialog_system.move_dialog_cursor_position_up();
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                  dialog_system.move_dialog_cursor_position_down();
+               break;
+
+               case ALLEGRO_KEY_SPACE:
+               case ALLEGRO_KEY_ENTER:
+                  //dialog_system.advance(); // Not for this case, this is handled in ALLEGRO_KEY_DOWN (until 
+                                             // upgraded to virtual controls)
+               break;
+            }
+         }
+         else
+         {
+            screens.key_char_funcs(&this_event);
+         }
+         //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
+      break;
+
+      case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.mouse_up_funcs(&this_event);
+         }
+      break;
+
+      case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+            dialog_system.dialog_advance();
+         }
+         else
+         {
+            screens.mouse_down_funcs(&this_event);
+         }
+      break;
+
+      case ALLEGRO_EVENT_MOUSE_WARPED:
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.mouse_warp_funcs(&this_event);
+         }
+      break;
+
+      case ALLEGRO_EVENT_MOUSE_AXES:
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.mouse_axes_funcs(&this_event);
+         }
+      break;
+
+      case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+
+            // TODO: Consider case where may only want to advance using a certain button (and possibly cancel otherwise)
+            dialog_system.dialog_advance();
+         }
+         else
+         {
+            bool use_joystick_button_right_bumper_to_offset_timer = true;
+            if (use_joystick_button_right_bumper_to_offset_timer)
+            {
+               bool button_pressed = (this_event.joystick.button == 7); // 7 is the right bumper on XBox 360 Controller
+               if (button_pressed)
+               {
+                  nudge_primary_timer_forward();
+                  //int MICROSECONDS_PER_FRAME = 16670;
+                  //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+                  //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+               }
+            }
+               //case ALLEGRO_KEY_FULLSTOP: {
+                  //nudge_primary_timer_forward();
+               //} break;
+               //case ALLEGRO_KEY_COMMA: {
+                  //nudge_primary_timer_backward();
+               //} break;
+
+            screens.joy_button_down_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
+         }
+         //virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
+      break;
+
+      case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.joy_button_up_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
+         }
+         //virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
+      break;
+
+      case ALLEGRO_EVENT_JOYSTICK_AXIS:
+         if (dialog_system.get_switched_in())
+         {
+            // HERE:
+            // TODO: Handle input case with dialog when it is "switched in"
+            // TODO: Add this branching for each input event case
+            // TODO: Add tests for these cases, with and without dialog swtiched in
+         }
+         else
+         {
+            screens.joy_axis_funcs(&this_event);
+            virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
+         }
+         //virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
+      break;
+
+      case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
+         screens.joy_config_funcs(&this_event);
+         // NOTE: input_devices_list.handle_reconfiguration does not occur here, it's currently managed in the
+         // virtual_controls_processor which may not be the best place. This domain requires a bit of review,
+         // as there is an input_devices_list that is involved and needs to be accounted for. Posting notifications
+         // events may need review (should have callbacks that can be used to produce events?). See the body of
+         // virtual_controls_processor.handle_joystick_device_configuration_change_event() for a little more direction.
+
+         virtual_controls_processor.handle_joystick_device_configuration_change_event(&this_event);
+      break;
+
+      case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+      case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+         // currently ignored
+      break;
+
+      case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
+         screens.display_switch_in_funcs();
+      break;
+
+      case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
+         screens.display_switch_out_funcs();
+      break;
+
+      case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
+         //screens.display_switch_in_funcs();
+         if (textlog) close_log_window();
+      break;
+
+      case ALLEGRO_EVENT_MENU_CLICK:
+         screens.native_menu_click_funcs();
+      break;
+
+      case ALLEGRO_EVENT_DISPLAY_CLOSE:
+         {
+            Display *this_display = Display::find_display(this_event.display.source);
+            if (this_display) this_display->display_close_func();
+
+            if (display_close_will_shutdown) shutdown_program = true;
+         }
+      break;
+
+      case ALLEGRO_EVENT_VIDEO_FRAME_SHOW:
+         // TODO:
+         // This will require a video manager, because each video will need to be registered to the event queue
+      break;
+
+      case ALLEGRO_EVENT_VIDEO_FINISHED:
+         // TODO:
+         // This will require a video manager, because each video will need to be registered to the event queue
+      break;
+
+      default:
+         if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
+         {
+            handle_user_event(&this_event);
          }
          else
          {
             std::cout << "uncaught event [" << this_event.type << "]" << std::endl;
          }
-         break;
+      break;
       }
 
 
-            if (draw)
-            {
-               sync_oracle.start_update_measure();
-               // TODO: Figure out what this delta_time variable should be
-               double delta_time = sync_oracle.calculate_duration_of_previous_frame_for_delta_time();
-               primary_update(time_now, delta_time);
-               sync_oracle.end_update_measure();
+      if (draw)
+      {
+         sync_oracle.start_update_measure();
+         // TODO: Figure out what this delta_time variable should be
+         double delta_time = sync_oracle.calculate_duration_of_previous_frame_for_delta_time();
+         primary_update(time_now, delta_time);
+         sync_oracle.end_update_measure();
 
-               sync_oracle.start_draw_measure();
-               primary_render();
-               sync_oracle.end_draw_measure();
-               //flip_sync.start_flip_capture();
-               //metric.al_flip_display_start_time = al_get_time();
-               sync_oracle.start_flip_measure(); // ---
-               primary_flip();
-               sync_oracle.end_flip_measure(); // ---
-            }
+         sync_oracle.start_draw_measure();
+         primary_render();
+         sync_oracle.end_draw_measure();
+         //flip_sync.start_flip_capture();
+         //metric.al_flip_display_start_time = al_get_time();
+         sync_oracle.start_flip_measure(); // ---
+         primary_flip();
+         sync_oracle.end_flip_measure(); // ---
+
+         draw = false;
+      }
    //if (using_instrumentation)
    //{
       //metric.processing_end_time = al_get_time();

@@ -255,8 +255,8 @@ namespace AllegroFlare
 
          void render_screens_to_primary_render_surface();
 
-        //- symbol: AllegroFlare::VariableTimeStepper
-        //headers: [ AllegroFlare/VariableTimeStepper.hpp ]
+         //- symbol: AllegroFlare::VariableTimeStepper
+         //headers: [ AllegroFlare/VariableTimeStepper.hpp ]
          void primary_time_step(double time_step_increment, double world_time_after_step);
          void primary_update(double time_now, double delta_time);
          void primary_render();
@@ -268,6 +268,7 @@ namespace AllegroFlare
          void handle_timer_event(ALLEGRO_EVENT *this_event);
          void handle_display_resize_event(ALLEGRO_EVENT *this_event);
          void handle_key_down_event(ALLEGRO_EVENT *this_event);
+         void handle_user_event(ALLEGRO_EVENT *this_event);
 
          int process_events_in_queue();
          void run_loop(float auto_shutdown_after_seconds=-1);

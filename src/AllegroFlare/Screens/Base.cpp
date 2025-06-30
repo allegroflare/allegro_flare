@@ -83,6 +83,12 @@ AllegroFlare::Elements::Backgrounds::Base *Base::get_foreground()
 }
 
 
+void Base::managed_primary_time_step_func(double time_step_increment, double world_time_after_step)
+{
+   // TODO
+}
+
+
 void Base::managed_primary_update_func(double time_now, double delta_time)
 {
    if (!is_using_update_strategy(UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS))
@@ -160,6 +166,7 @@ void Base::on_activate() {}
 
 void Base::on_deactivate() {}
 void Base::on_event(ALLEGRO_EVENT *ev) {}
+void Base::primary_time_step_func(double time_step_increment, double world_time_after_step) {}
 void Base::primary_update_func(double time_now, double delta_time) {}
 void Base::primary_render_func() {}
 void Base::primary_timer_func() {}
