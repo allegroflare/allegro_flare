@@ -1,0 +1,113 @@
+properties:
+
+
+  - name: calling_class_name
+    type: std::string
+    init_with: '"[unset-calling_class]"'
+    constructor_arg: true
+
+  - name: initialized
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: destroyed
+    type: bool
+    init_with: false
+    getter: true
+
+
+methods:
+
+
+  - name: is_initialized_and_not_destroyed
+    type: bool
+    body: |
+      return initialized && !destroyed;
+
+
+  - name: ~destruct
+    body: |
+      // TODO: Test if this is still called as a base class from a derived class
+      if (is_initialized_and_not_destroyed())
+      {
+         AllegroFlare::Logger::warn_from(
+            THIS_CLASS_AND_METHOD_NAME,
+            "The destructor for this class was called before destroy() and after initialize(); Be sure to call "
+               "destroy first; Called from \"" + calling_class_name + "\"."
+         );
+      }
+      return;
+
+
+  - name: initialize
+    body: |
+      if (initialized)
+      {
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "guard \"(initialized)\" not met; Called from \"" + calling_class_name + "\"."
+         );
+      }
+      if (destroyed)
+      {
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "guard \"(destroyed)\" not met; Called from \"" + calling_class_name + "\"."
+         );
+      }
+      on_initialize();
+      initialized = true;
+
+
+  - name: destroy
+    body: |
+      if (!initialized)
+      {
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "guard \"(!initialized)\" not met; Called from \"" + calling_class_name + "\"."
+         );
+      }
+      if (destroyed)
+      {
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "guard \"(destroyed)\" not met; Called from \"" + calling_class_name + "\"."
+         );
+      }
+      on_destroy();
+      return;
+
+
+  - name: on_initialize
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Needs to be overridden in the derived class \"" + calling_class_name + "\""
+      );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: on_destroy
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Needs to be overridden in the derived class \"" + calling_class_name + "\""
+      );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+
+
