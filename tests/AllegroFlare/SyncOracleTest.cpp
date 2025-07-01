@@ -61,8 +61,8 @@ TEST(AllegroFlare_SyncOracleTest, draw_metric__will_draw_the_samples)
 
 
 TEST(AllegroFlare_SyncOracleTest,
-      DISABLED__INTERACTIVE__will_work_as_expected
-      //INTERACTIVE__will_work_as_expected
+      //DISABLED__INTERACTIVE__will_work_as_expected
+      INTERACTIVE__will_work_as_expected
    )
 {
    // TODO: Make this TIMED_INTERACTIVE
@@ -111,12 +111,20 @@ TEST(AllegroFlare_SyncOracleTest,
          case ALLEGRO_EVENT_KEY_DOWN: {
             switch (this_event.keyboard.keycode)
             {
-               case ALLEGRO_KEY_UP: {
+               case ALLEGRO_KEY_RIGHT: {
                   sync_oracle.nudge_primary_timer_forward();
                } break;
 
-               case ALLEGRO_KEY_DOWN: {
+               case ALLEGRO_KEY_LEFT: {
                   sync_oracle.nudge_primary_timer_backward();
+               } break;
+
+               case ALLEGRO_KEY_UP: {
+                  sync_oracle.increment_target_fps();
+               } break;
+
+               case ALLEGRO_KEY_DOWN: {
+                  sync_oracle.decrement_target_fps();
                } break;
 
                case ALLEGRO_KEY_H: {

@@ -52,6 +52,8 @@ namespace AllegroFlare
       int get_display_refresh_rate();
       void set_primary_event_queue(ALLEGRO_EVENT_QUEUE* primary_event_queue=nullptr);
       void set_target_fps(int target_fps=60);
+      void increment_target_fps(int increment_amount=5);
+      void decrement_target_fps(int decrement_amount=5);
       void set_num_hyper_primary_timer_units(int num_hyper_primary_timer_units=32);
       void set_num_nudge_notches(int num_nudge_notches=16);
       void set_num_measurer_samples(int num_measurer_samples=64*4);

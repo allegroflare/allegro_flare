@@ -152,6 +152,30 @@ methods:
        return;
 
 
+  - name: increment_target_fps
+    parameters:
+      - name: increment_amount
+        type: int
+        default_argument: 5
+    guards: [ (increment_amount >= 0) ]
+    body: |
+       set_target_fps(target_fps + increment_amount);
+       return;
+
+
+  - name: decrement_target_fps
+    parameters:
+      - name: decrement_amount
+        type: int
+        default_argument: 5
+    guards: [ (decrement_amount >= 0) ]
+    body: |
+       int result_target_fps = target_fps - decrement_amount;
+       if (result_target_fps <= 0) result_target_fps = 1;
+       set_target_fps(result_target_fps);
+       return;
+
+
   - name: set_num_hyper_primary_timer_units
     parameters:
       - name: num_hyper_primary_timer_units
@@ -518,6 +542,18 @@ methods:
       {
          al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-80, 0, "practical fps:");
          al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x+180, y-80, 0, "%d", calculate_practical_fps());
+      }
+
+      // Draw the display's refresh rate
+      {
+         al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-100, 0, "display's refresh:");
+         al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x+180, y-100, 0, "%d", display_refresh_rate);
+      }
+
+      // Draw the target refresh rate
+      {
+         al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-120, 0, "target fps:");
+         al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x+180, y-120, 0, "%d", target_fps);
       }
 
       // Draw the primary_timer_measurer

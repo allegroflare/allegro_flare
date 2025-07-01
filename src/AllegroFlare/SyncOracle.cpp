@@ -166,6 +166,34 @@ void SyncOracle::set_target_fps(int target_fps)
    return;
 }
 
+void SyncOracle::increment_target_fps(int increment_amount)
+{
+   if (!((increment_amount >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SyncOracle::increment_target_fps]: error: guard \"(increment_amount >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SyncOracle::increment_target_fps]: error: guard \"(increment_amount >= 0)\" not met");
+   }
+   set_target_fps(target_fps + increment_amount);
+   return;
+}
+
+void SyncOracle::decrement_target_fps(int decrement_amount)
+{
+   if (!((decrement_amount >= 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SyncOracle::decrement_target_fps]: error: guard \"(decrement_amount >= 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SyncOracle::decrement_target_fps]: error: guard \"(decrement_amount >= 0)\" not met");
+   }
+   int result_target_fps = target_fps - decrement_amount;
+   if (result_target_fps <= 0) result_target_fps = 1;
+   set_target_fps(result_target_fps);
+   return;
+}
+
 void SyncOracle::set_num_hyper_primary_timer_units(int num_hyper_primary_timer_units)
 {
    if (!((num_hyper_primary_timer_units > 2)))
@@ -586,6 +614,18 @@ void SyncOracle::draw_graph()
    {
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-80, 0, "practical fps:");
       al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x+180, y-80, 0, "%d", calculate_practical_fps());
+   }
+
+   // Draw the display's refresh rate
+   {
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-100, 0, "display's refresh:");
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x+180, y-100, 0, "%d", display_refresh_rate);
+   }
+
+   // Draw the target refresh rate
+   {
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x, y-120, 0, "target fps:");
+      al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, x+180, y-120, 0, "%d", target_fps);
    }
 
    // Draw the primary_timer_measurer
