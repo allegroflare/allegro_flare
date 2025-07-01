@@ -29,6 +29,11 @@ int VariableTimeStepper::get_max_allowed_steps() const
 }
 
 
+double VariableTimeStepper::get_total_accumulated_time()
+{
+   return atomic_time_stepper.get_total_accumulated_time();
+}
+
 void VariableTimeStepper::set_atomic_on_step_func(std::function<void(double, double, void*)> on_step_func)
 {
    atomic_time_stepper.set_on_step_func(on_step_func);

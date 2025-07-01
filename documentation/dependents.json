@@ -2773,6 +2773,7 @@
   ],
   "AllegroFlare/Timer": [
     "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/GameWorldTimer",
     "AllegroFlare/PlaytimeTracker",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -3070,6 +3071,9 @@
   ],
   "AllegroFlare/PlaytimeTracker": [
     "AllegroFlare/GameSession"
+  ],
+  "AllegroFlare/VariableTimeStepper": [
+    "AllegroFlare/GameWorldTimer"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"

@@ -1,0 +1,86 @@
+properties:
+
+
+  - name: variable_time_stepper
+    type: AllegroFlare::VariableTimeStepper
+    init_with: '{}'
+
+  - name: last_time_step__time_remaining_to_next_step
+    type: double
+    init_with: 0
+
+  - name: last_time_step__num_steps_taken
+    type: int
+    init_with: 0
+
+  - name: last_time_step__excess_steps_not_taken
+    type: int
+    init_with: 0
+
+  - name: last_time_step__total_accumulated_time
+    type: double
+    init_with: 0
+
+  - name: last_time_step__total_accumulated_time_target
+    type: double
+    init_with: 0
+
+  - name: timer
+    type: AllegroFlare::Timer
+    init_with: '{}'
+
+
+methods:
+
+
+  - name: start
+    body: |
+      timer.start();
+      return;
+
+
+  - name: stop
+    body: |
+      timer.stop();
+      return;
+
+
+  - name: pause
+    body: |
+      timer.pause();
+      return;
+
+
+  - name: is_running
+    type: bool
+    body: |
+      return timer.is_running();
+
+
+  - name: update
+    body: |
+      if (!timer.is_running()) return;
+
+      double elapsed_seconds = static_cast<double>(timer.get_elapsed_time_microseconds()) / 1000000.0;
+
+      std::tie(
+         last_time_step__time_remaining_to_next_step,
+         last_time_step__num_steps_taken,
+         last_time_step__excess_steps_not_taken
+      ) = variable_time_stepper.step_ahead_to(elapsed_seconds);
+
+      last_time_step__total_accumulated_time_target = elapsed_seconds;
+      last_time_step__total_accumulated_time = variable_time_stepper.get_total_accumulated_time();
+
+      return;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::VariableTimeStepper
+    headers: [ AllegroFlare/VariableTimeStepper.hpp ]
+  - symbol: AllegroFlare::Timer
+    headers: [ AllegroFlare/Timer.hpp ]
+
+

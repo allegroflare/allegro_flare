@@ -22,6 +22,7 @@ namespace AllegroFlare
       ~VariableTimeStepper();
 
       int get_max_allowed_steps() const;
+      double get_total_accumulated_time();
       void set_atomic_on_step_func(std::function<void(double, double, void*)> on_step_func={});
       void set_atomic_on_step_func_user_data(void* on_step_func_user_data=nullptr);
       void set_max_allowed_steps(int max_allowed_steps=10);

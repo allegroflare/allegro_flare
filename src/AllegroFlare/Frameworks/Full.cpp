@@ -80,7 +80,7 @@ Full::Full()
    //, high_frequency_timer(nullptr)
    , camera_2d()
    , showing_dialog_switched_in_debug_text(false)
-   , variable_time_stepper()
+   //, game_world_timer()
    , display_backbuffer()
    , display_backbuffer_sub_bitmap()
    , primary_render_surface(nullptr)
@@ -1762,11 +1762,11 @@ void Full::handle_timer_event(ALLEGRO_EVENT *this_event)
    }
    else
    {
-      double this_event_time = this_event->any.timestamp;
-      variable_time_stepper.set_atomic_on_step_func([this](double step, double total, void* ud){
-         this->primary_time_step(step, total);
-      });
-      variable_time_stepper.step_ahead_to(this_event_time);
+      //double this_event_time = this_event->any.timestamp;
+      //game_world_timer.set_atomic_on_step_func([this](double step, double total, void* ud){
+         //this->primary_time_step(step, total);
+      //});
+      //game_world_timer.step_ahead_to(this_event_time);
 
       sync_oracle.capture_primary_timer_event_time(this_event->any.timestamp);
       draw = true;

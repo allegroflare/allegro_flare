@@ -15,6 +15,12 @@ properties:
 methods:
 
 
+  - name: get_total_accumulated_time
+    type: double
+    body: |
+      return atomic_time_stepper.get_total_accumulated_time();
+
+
   - name: set_atomic_on_step_func
     parameters:
       - name: on_step_func

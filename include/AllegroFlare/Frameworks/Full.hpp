@@ -38,7 +38,8 @@
 #include <AllegroFlare/DisplaySettingsInterfaces/Base.hpp>
 #include <AllegroFlare/Screens/Gameplay.hpp>
 #include <AllegroFlare/AssetStudio/Database.hpp>
-#include <AllegroFlare/VariableTimeStepper.hpp>
+//#include <AllegroFlare/VariableTimeStepper.hpp>
+//#include <AllegroFlare/GameWorldTimer.hpp>
 //#include <AllegroFlare/Time.hpp>
 
 
@@ -83,7 +84,7 @@ namespace AllegroFlare
          //ALLEGRO_TIMER *high_frequency_timer;
          Camera2D camera_2d;
          bool showing_dialog_switched_in_debug_text; // TODO: Add methods to enable/disable this option
-         AllegroFlare::VariableTimeStepper variable_time_stepper;
+         //AllegroFlare::GameWorldTimer game_world_timer;
 
          AllegroFlare::RenderSurfaces::DisplayBackbuffer display_backbuffer;
          AllegroFlare::RenderSurfaces::DisplayBackbufferSubBitmap display_backbuffer_sub_bitmap;

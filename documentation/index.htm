@@ -268,6 +268,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml">quintessence/AllegroFlare/GameEventDatas/VirtualControllerButtonReleasedEventData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameProgressAndStateInfos/Base.q.yml">quintessence/AllegroFlare/GameProgressAndStateInfos/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameSession.q.yml">quintessence/AllegroFlare/GameSession.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/GameWorldTimer.q.yml">quintessence/AllegroFlare/GameWorldTimer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml">quintessence/AllegroFlare/GameplayMechanics/Triggers/Basic.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml">quintessence/AllegroFlare/Generators/LoremIpsumGenerator.q.yml</a></li>
@@ -19529,6 +19530,77 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::PlaytimeTracker&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/PlaytimeTracker.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/GameWorldTimer.q.yml">quintessence/AllegroFlare/GameWorldTimer.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">variable_time_stepper</td>
+  <td class="property">AllegroFlare::VariableTimeStepper</td>
+</tr>
+<tr>
+  <td class="property">last_time_step__time_remaining_to_next_step</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">last_time_step__num_steps_taken</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">last_time_step__excess_steps_not_taken</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">last_time_step__total_accumulated_time</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">last_time_step__total_accumulated_time_target</td>
+  <td class="property">double</td>
+</tr>
+<tr>
+  <td class="property">timer</td>
+  <td class="property">AllegroFlare::Timer</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>start</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>stop</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>pause</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>is_running</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>update</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::VariableTimeStepper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/VariableTimeStepper.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Timer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Timer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -48474,6 +48546,10 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">double</td>
+  <td class="method"><b>get_total_accumulated_time</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>set_atomic_on_step_func</b>(std::function&lt;void(double, double, void*)&gt; on_step_func={})</td>
 </tr>
@@ -54964,6 +55040,7 @@ table td
   ],
   "AllegroFlare/Timer": [
     "AllegroFlare/Elements/Stopwatch",
+    "AllegroFlare/GameWorldTimer",
     "AllegroFlare/PlaytimeTracker",
     "AllegroFlare/ProfilerRenderer",
     "AllegroFlare/Prototypes/MindDive/Hud/Hud",
@@ -55261,6 +55338,9 @@ table td
   ],
   "AllegroFlare/PlaytimeTracker": [
     "AllegroFlare/GameSession"
+  ],
+  "AllegroFlare/VariableTimeStepper": [
+    "AllegroFlare/GameWorldTimer"
   ],
   "AllegroFlare/GameplayMechanics/Triggers/Base": [
     "AllegroFlare/GameplayMechanics/Triggers/Basic"
