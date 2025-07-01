@@ -134,24 +134,21 @@ methods:
       - name: target_fps
         type: int
         default_argument: 60
-    guards: [ (!initialized), (target_fps > 0), (target_fps <= 240) ]
+    guards: [ (target_fps > 0), (target_fps <= 240) ]
     body: |
        // NOTE: < 240 is just a safety limit, has not been tested at high values
        // TODO: Handle re-creation of timers when this changes
        this->target_fps = target_fps;
-       return;
 
-
-  - name: set_num_nudge_notches
-    parameters:
-      - name: num_nudge_notches
-        type: int
-        default_argument: 16
-    guards: [ (!initialized), (num_nudge_notches > 2) && (num_nudge_notches < 32) ]
-    body: |
-       // NOTE: < 32 is just for sanity, it's never been used/tested at numbers higher
-       // TODO: Handle re-creation of timers when this changes
-       this->num_nudge_notches = num_nudge_notches;
+       // TODO: Test this block of code, which permits changing the target fps at runtime
+       if (initialized)
+       {
+          al_set_timer_speed(primary_timer, calculate_frame_duration_sec());
+          if (hyper_primary_timer_is_active)
+          {
+             al_set_timer_speed(hyper_primary_timer, calculate_frame_duration_sec() / num_hyper_primary_timer_units);
+          }
+       }
        return;
 
 
@@ -160,11 +157,28 @@ methods:
       - name: num_hyper_primary_timer_units
         type: int
         default_argument: 32
-    guards: [ (!hyper_primary_timer_is_active), (num_hyper_primary_timer_units > 2), (num_hyper_primary_timer_units < 128) ]
+    guards: [ (num_hyper_primary_timer_units > 2), (num_hyper_primary_timer_units < 128) ]
     body: |
-       // NOTE: < 128 is just for sanity, it's never been used/tested at numbers higher
-       // TODO: Handle re-creation of timers when this changes
        this->num_hyper_primary_timer_units = num_hyper_primary_timer_units;
+
+       // TODO: Test this block of code, which permits changing the number of hypertimer units at runtime
+       if (hyper_primary_timer_is_active)
+       {
+          al_set_timer_speed(hyper_primary_timer, calculate_frame_duration_sec() / num_hyper_primary_timer_units);
+       }
+       return;
+
+
+  - name: set_num_nudge_notches
+    parameters:
+      - name: num_nudge_notches
+        type: int
+        default_argument: 16
+    guards: [ (num_nudge_notches > 2) && (num_nudge_notches < 32) ]
+    body: |
+       // NOTE: < 32 is just for sanity, it's never been used/tested at numbers higher
+       // TODO: Handle re-creation of timers when this changes
+       this->num_nudge_notches = num_nudge_notches;
        return;
 
 

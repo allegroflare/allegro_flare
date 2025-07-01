@@ -136,13 +136,6 @@ void SyncOracle::set_primary_event_queue(ALLEGRO_EVENT_QUEUE* primary_event_queu
 
 void SyncOracle::set_target_fps(int target_fps)
 {
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::SyncOracle::set_target_fps]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SyncOracle::set_target_fps]: error: guard \"(!initialized)\" not met");
-   }
    if (!((target_fps > 0)))
    {
       std::stringstream error_message;
@@ -160,40 +153,21 @@ void SyncOracle::set_target_fps(int target_fps)
    // NOTE: < 240 is just a safety limit, has not been tested at high values
    // TODO: Handle re-creation of timers when this changes
    this->target_fps = target_fps;
-   return;
-}
 
-void SyncOracle::set_num_nudge_notches(int num_nudge_notches)
-{
-   if (!((!initialized)))
+   // TODO: Test this block of code, which permits changing the target fps at runtime
+   if (initialized)
    {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(!initialized)\" not met");
+      al_set_timer_speed(primary_timer, calculate_frame_duration_sec());
+      if (hyper_primary_timer_is_active)
+      {
+         al_set_timer_speed(hyper_primary_timer, calculate_frame_duration_sec() / num_hyper_primary_timer_units);
+      }
    }
-   if (!((num_nudge_notches > 2) && (num_nudge_notches < 32)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(num_nudge_notches > 2) && (num_nudge_notches < 32)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(num_nudge_notches > 2) && (num_nudge_notches < 32)\" not met");
-   }
-   // NOTE: < 32 is just for sanity, it's never been used/tested at numbers higher
-   // TODO: Handle re-creation of timers when this changes
-   this->num_nudge_notches = num_nudge_notches;
    return;
 }
 
 void SyncOracle::set_num_hyper_primary_timer_units(int num_hyper_primary_timer_units)
 {
-   if (!((!hyper_primary_timer_is_active)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(!hyper_primary_timer_is_active)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(!hyper_primary_timer_is_active)\" not met");
-   }
    if (!((num_hyper_primary_timer_units > 2)))
    {
       std::stringstream error_message;
@@ -208,9 +182,28 @@ void SyncOracle::set_num_hyper_primary_timer_units(int num_hyper_primary_timer_u
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_hyper_primary_timer_units]: error: guard \"(num_hyper_primary_timer_units < 128)\" not met");
    }
-   // NOTE: < 128 is just for sanity, it's never been used/tested at numbers higher
-   // TODO: Handle re-creation of timers when this changes
    this->num_hyper_primary_timer_units = num_hyper_primary_timer_units;
+
+   // TODO: Test this block of code, which permits changing the number of hypertimer units at runtime
+   if (hyper_primary_timer_is_active)
+   {
+      al_set_timer_speed(hyper_primary_timer, calculate_frame_duration_sec() / num_hyper_primary_timer_units);
+   }
+   return;
+}
+
+void SyncOracle::set_num_nudge_notches(int num_nudge_notches)
+{
+   if (!((num_nudge_notches > 2) && (num_nudge_notches < 32)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(num_nudge_notches > 2) && (num_nudge_notches < 32)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::SyncOracle::set_num_nudge_notches]: error: guard \"(num_nudge_notches > 2) && (num_nudge_notches < 32)\" not met");
+   }
+   // NOTE: < 32 is just for sanity, it's never been used/tested at numbers higher
+   // TODO: Handle re-creation of timers when this changes
+   this->num_nudge_notches = num_nudge_notches;
    return;
 }
 
