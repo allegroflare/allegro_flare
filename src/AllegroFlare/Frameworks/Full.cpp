@@ -2375,6 +2375,131 @@ void Full::handle_key_down_event(ALLEGRO_EVENT *this_event)
 }
 
 
+void Full::handle_key_up_event(ALLEGRO_EVENT *this_event)
+{
+   if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
+         || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift--;
+   if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+         || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt--;
+   if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+         || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
+   if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command--;
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+   }
+   else
+   {
+      screens.key_up_funcs(this_event);
+      virtual_controls_processor.handle_raw_keyboard_key_up_event(this_event);
+   }
+   //virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
+}
+
+
+void Full::handle_key_char_event(ALLEGRO_EVENT *this_event)
+{
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+      switch(this_event->keyboard.keycode)
+      {
+         case ALLEGRO_KEY_UP:
+            dialog_system.move_dialog_cursor_position_up();
+         break;
+
+         case ALLEGRO_KEY_DOWN:
+            dialog_system.move_dialog_cursor_position_down();
+         break;
+
+         case ALLEGRO_KEY_SPACE:
+         case ALLEGRO_KEY_ENTER:
+            //dialog_system.advance(); // Not for this case, this is handled in ALLEGRO_KEY_DOWN (until 
+                                       // upgraded to virtual controls)
+         break;
+      }
+   }
+   else
+   {
+      screens.key_char_funcs(this_event);
+   }
+   //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
+}
+
+
+void Full::handle_mouse_button_up_event(ALLEGRO_EVENT *this_event)
+{
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+   }
+   else
+   {
+      screens.mouse_up_funcs(this_event);
+   }
+}
+
+
+void Full::handle_mouse_button_down_event(ALLEGRO_EVENT *this_event)
+{
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+      dialog_system.dialog_advance();
+   }
+   else
+   {
+      screens.mouse_down_funcs(this_event);
+   }
+}
+
+
+void Full::handle_mouse_warped_event(ALLEGRO_EVENT *this_event)
+{
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+   }
+   else
+   {
+      screens.mouse_warp_funcs(this_event);
+   }
+}
+
+
+
+void Full::handle_mouse_axes_event(ALLEGRO_EVENT *this_event)
+{
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+   }
+   else
+   {
+      screens.mouse_axes_funcs(this_event);
+   }
+}
+
+
+
 void Full::primary_process_event(ALLEGRO_EVENT *ev)
 {
    draw = false;
@@ -2395,119 +2520,15 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev)
 
    switch(this_event.type)
    {
-   case ALLEGRO_EVENT_TIMER: handle_timer_event(&this_event); break;
-   case ALLEGRO_EVENT_DISPLAY_RESIZE: handle_display_resize_event(&this_event); break;
-   case ALLEGRO_EVENT_KEY_DOWN: handle_key_down_event(&this_event); break;
-   case ALLEGRO_EVENT_KEY_UP:
-      if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
-            || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift--;
-      if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
-            || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt--;
-      if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
-            || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
-      if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command--;
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-      }
-      else
-      {
-         screens.key_up_funcs(&this_event);
-         virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
-      }
-      //virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
-   break;
-
-   case ALLEGRO_EVENT_KEY_CHAR:
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-         switch(this_event.keyboard.keycode)
-         {
-            case ALLEGRO_KEY_UP:
-               dialog_system.move_dialog_cursor_position_up();
-            break;
-
-            case ALLEGRO_KEY_DOWN:
-               dialog_system.move_dialog_cursor_position_down();
-            break;
-
-            case ALLEGRO_KEY_SPACE:
-            case ALLEGRO_KEY_ENTER:
-               //dialog_system.advance(); // Not for this case, this is handled in ALLEGRO_KEY_DOWN (until 
-                                          // upgraded to virtual controls)
-            break;
-         }
-      }
-      else
-      {
-         screens.key_char_funcs(&this_event);
-      }
-      //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
-   break;
-
-   case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-      }
-      else
-      {
-         screens.mouse_up_funcs(&this_event);
-      }
-   break;
-
-   case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-         dialog_system.dialog_advance();
-      }
-      else
-      {
-         screens.mouse_down_funcs(&this_event);
-      }
-   break;
-
-   case ALLEGRO_EVENT_MOUSE_WARPED:
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-      }
-      else
-      {
-         screens.mouse_warp_funcs(&this_event);
-      }
-   break;
-
-   case ALLEGRO_EVENT_MOUSE_AXES:
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-      }
-      else
-      {
-         screens.mouse_axes_funcs(&this_event);
-      }
-   break;
+   case ALLEGRO_EVENT_TIMER:               handle_timer_event(&this_event); break;
+   case ALLEGRO_EVENT_DISPLAY_RESIZE:      handle_display_resize_event(&this_event); break;
+   case ALLEGRO_EVENT_KEY_DOWN:            handle_key_down_event(&this_event); break;
+   case ALLEGRO_EVENT_KEY_UP:              handle_key_up_event(&this_event); break;
+   case ALLEGRO_EVENT_KEY_CHAR:            handle_key_char_event(&this_event); break;
+   case ALLEGRO_EVENT_MOUSE_BUTTON_UP:     handle_mouse_button_up_event(&this_event); break;
+   case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:   handle_mouse_button_down_event(&this_event); break;
+   case ALLEGRO_EVENT_MOUSE_WARPED:        handle_mouse_warped_event(&this_event); break;
+   case ALLEGRO_EVENT_MOUSE_AXES:          handle_mouse_axes_event(&this_event); break;
 
    case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
       if (dialog_system.get_switched_in())

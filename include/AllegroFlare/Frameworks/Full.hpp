@@ -267,7 +267,13 @@ namespace AllegroFlare
 
          void handle_timer_event(ALLEGRO_EVENT *this_event);
          void handle_display_resize_event(ALLEGRO_EVENT *this_event);
+         void handle_key_up_event(ALLEGRO_EVENT *this_event);
          void handle_key_down_event(ALLEGRO_EVENT *this_event);
+         void handle_key_char_event(ALLEGRO_EVENT *this_event);
+         void handle_mouse_button_up_event(ALLEGRO_EVENT *this_event);
+         void handle_mouse_button_down_event(ALLEGRO_EVENT *this_event);
+         void handle_mouse_warped_event(ALLEGRO_EVENT *this_event);
+         void handle_mouse_axes_event(ALLEGRO_EVENT *this_event);
          void handle_user_event(ALLEGRO_EVENT *this_event);
          void handle_update();
          void handle_draw();
