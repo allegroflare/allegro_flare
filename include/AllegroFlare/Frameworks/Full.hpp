@@ -275,6 +275,14 @@ namespace AllegroFlare
          void handle_mouse_button_down_event(ALLEGRO_EVENT *this_event);
          void handle_mouse_warped_event(ALLEGRO_EVENT *this_event);
          void handle_mouse_axes_event(ALLEGRO_EVENT *this_event);
+         void handle_joystick_button_down_event(ALLEGRO_EVENT *this_event);
+         void handle_joystick_button_up_event(ALLEGRO_EVENT *this_event);
+         void handle_joystick_axis_event(ALLEGRO_EVENT *this_event);
+         void handle_joystick_reconfiguration_event(ALLEGRO_EVENT *this_event);
+         void handle_display_close_event(ALLEGRO_EVENT *this_event);
+         void handle_video_frame_show_event(ALLEGRO_EVENT *this_event);
+         void handle_video_finished_event(ALLEGRO_EVENT *this_event);
+         void handle_event_branch_default(ALLEGRO_EVENT *this_event);
          void handle_user_event(ALLEGRO_EVENT *this_event);
          void handle_update();
          void handle_draw();

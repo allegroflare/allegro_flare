@@ -2500,6 +2500,136 @@ void Full::handle_mouse_axes_event(ALLEGRO_EVENT *this_event)
 
 
 
+void Full::handle_joystick_button_down_event(ALLEGRO_EVENT *this_event)
+{
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+
+      // TODO: Consider case where may only want to advance using a certain button (and possibly cancel otherwise)
+      dialog_system.dialog_advance();
+   }
+   else
+   {
+      bool use_joystick_button_right_bumper_to_offset_timer = true;
+      if (use_joystick_button_right_bumper_to_offset_timer)
+      {
+         bool button_pressed = (this_event->joystick.button == 7); // 7 is the right bumper on XBox 360 Controller
+         if (button_pressed)
+         {
+            nudge_primary_timer_forward();
+            //int MICROSECONDS_PER_FRAME = 16670;
+            //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+            //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+         }
+      }
+         //case ALLEGRO_KEY_FULLSTOP: {
+            //nudge_primary_timer_forward();
+         //} break;
+         //case ALLEGRO_KEY_COMMA: {
+            //nudge_primary_timer_backward();
+         //} break;
+
+      screens.joy_button_down_funcs(this_event);
+      virtual_controls_processor.handle_raw_joystick_button_down_event(this_event);
+   }
+   //virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
+}
+
+
+
+void Full::handle_joystick_button_up_event(ALLEGRO_EVENT *this_event)
+{
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+   }
+   else
+   {
+      screens.joy_button_up_funcs(this_event);
+      virtual_controls_processor.handle_raw_joystick_button_up_event(this_event);
+   }
+   //virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
+}
+
+
+void Full::handle_joystick_axis_event(ALLEGRO_EVENT *this_event)
+{
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+   }
+   else
+   {
+      screens.joy_axis_funcs(this_event);
+      virtual_controls_processor.handle_raw_joystick_axis_change_event(this_event);
+   }
+   //virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
+}
+
+
+
+void Full::handle_joystick_reconfiguration_event(ALLEGRO_EVENT *this_event)
+{
+   screens.joy_config_funcs(this_event);
+   // NOTE: input_devices_list.handle_reconfiguration does not occur here, it's currently managed in the
+   // virtual_controls_processor which may not be the best place. This domain requires a bit of review,
+   // as there is an input_devices_list that is involved and needs to be accounted for. Posting notifications
+   // events may need review (should have callbacks that can be used to produce events?). See the body of
+   // virtual_controls_processor.handle_joystick_device_configuration_change_event() for a little more direction.
+
+   virtual_controls_processor.handle_joystick_device_configuration_change_event(this_event);
+}
+
+
+
+void Full::handle_display_close_event(ALLEGRO_EVENT *this_event)
+{
+   Display *this_display = Display::find_display(this_event->display.source);
+   if (this_display) this_display->display_close_func();
+
+   if (display_close_will_shutdown) shutdown_program = true;
+}
+
+
+void Full::handle_video_frame_show_event(ALLEGRO_EVENT *this_event)
+{
+   // TODO:
+   // This will require a video manager, because each video will need to be registered to the event queue
+}
+
+
+void Full::handle_video_finished_event(ALLEGRO_EVENT *this_event)
+{
+   // TODO:
+   // This will require a video manager, because each video will need to be registered to the event queue
+}
+
+
+void Full::handle_event_branch_default(ALLEGRO_EVENT *this_event)
+{
+   if (ALLEGRO_EVENT_TYPE_IS_USER(this_event->type))
+   {
+      handle_user_event(this_event);
+   }
+   else
+   {
+      std::cout << "uncaught event [" << this_event->type << "]" << std::endl;
+   }
+   //break;
+}
+
+
+
 void Full::primary_process_event(ALLEGRO_EVENT *ev)
 {
    draw = false;
@@ -2520,150 +2650,33 @@ void Full::primary_process_event(ALLEGRO_EVENT *ev)
 
    switch(this_event.type)
    {
-   case ALLEGRO_EVENT_TIMER:               handle_timer_event(&this_event); break;
-   case ALLEGRO_EVENT_DISPLAY_RESIZE:      handle_display_resize_event(&this_event); break;
-   case ALLEGRO_EVENT_KEY_DOWN:            handle_key_down_event(&this_event); break;
-   case ALLEGRO_EVENT_KEY_UP:              handle_key_up_event(&this_event); break;
-   case ALLEGRO_EVENT_KEY_CHAR:            handle_key_char_event(&this_event); break;
-   case ALLEGRO_EVENT_MOUSE_BUTTON_UP:     handle_mouse_button_up_event(&this_event); break;
-   case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:   handle_mouse_button_down_event(&this_event); break;
-   case ALLEGRO_EVENT_MOUSE_WARPED:        handle_mouse_warped_event(&this_event); break;
-   case ALLEGRO_EVENT_MOUSE_AXES:          handle_mouse_axes_event(&this_event); break;
-
-   case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-
-         // TODO: Consider case where may only want to advance using a certain button (and possibly cancel otherwise)
-         dialog_system.dialog_advance();
-      }
-      else
-      {
-         bool use_joystick_button_right_bumper_to_offset_timer = true;
-         if (use_joystick_button_right_bumper_to_offset_timer)
-         {
-            bool button_pressed = (this_event.joystick.button == 7); // 7 is the right bumper on XBox 360 Controller
-            if (button_pressed)
-            {
-               nudge_primary_timer_forward();
-               //int MICROSECONDS_PER_FRAME = 16670;
-               //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
-               //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
-            }
-         }
-            //case ALLEGRO_KEY_FULLSTOP: {
-               //nudge_primary_timer_forward();
-            //} break;
-            //case ALLEGRO_KEY_COMMA: {
-               //nudge_primary_timer_backward();
-            //} break;
-
-         screens.joy_button_down_funcs(&this_event);
-         virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
-      }
-      //virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
-   break;
-
-   case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-      }
-      else
-      {
-         screens.joy_button_up_funcs(&this_event);
-         virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
-      }
-      //virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
-   break;
-
-   case ALLEGRO_EVENT_JOYSTICK_AXIS:
-      if (dialog_system.get_switched_in())
-      {
-         // HERE:
-         // TODO: Handle input case with dialog when it is "switched in"
-         // TODO: Add this branching for each input event case
-         // TODO: Add tests for these cases, with and without dialog swtiched in
-      }
-      else
-      {
-         screens.joy_axis_funcs(&this_event);
-         virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
-      }
-      //virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
-   break;
-
-   case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
-      screens.joy_config_funcs(&this_event);
-      // NOTE: input_devices_list.handle_reconfiguration does not occur here, it's currently managed in the
-      // virtual_controls_processor which may not be the best place. This domain requires a bit of review,
-      // as there is an input_devices_list that is involved and needs to be accounted for. Posting notifications
-      // events may need review (should have callbacks that can be used to produce events?). See the body of
-      // virtual_controls_processor.handle_joystick_device_configuration_change_event() for a little more direction.
-
-      virtual_controls_processor.handle_joystick_device_configuration_change_event(&this_event);
-   break;
-
-   case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-   case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-      // currently ignored
-   break;
-
-   case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
-      screens.display_switch_in_funcs();
-   break;
-
-   case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
-      screens.display_switch_out_funcs();
-   break;
-
-   case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
-      //screens.display_switch_in_funcs();
-      if (textlog) close_log_window();
-   break;
-
-   case ALLEGRO_EVENT_MENU_CLICK:
-      screens.native_menu_click_funcs();
-   break;
-
-   case ALLEGRO_EVENT_DISPLAY_CLOSE:
-      {
-         Display *this_display = Display::find_display(this_event.display.source);
-         if (this_display) this_display->display_close_func();
-
-         if (display_close_will_shutdown) shutdown_program = true;
-      }
-   break;
-
-   case ALLEGRO_EVENT_VIDEO_FRAME_SHOW:
-      // TODO:
-      // This will require a video manager, because each video will need to be registered to the event queue
-   break;
-
-   case ALLEGRO_EVENT_VIDEO_FINISHED:
-      // TODO:
-      // This will require a video manager, because each video will need to be registered to the event queue
-   break;
-
-   default:
-      if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
-      {
-         handle_user_event(&this_event);
-      }
-      else
-      {
-         std::cout << "uncaught event [" << this_event.type << "]" << std::endl;
-      }
-   break;
+      case ALLEGRO_EVENT_TIMER:                  handle_timer_event(&this_event); break;
+      case ALLEGRO_EVENT_DISPLAY_RESIZE:         handle_display_resize_event(&this_event); break;
+      case ALLEGRO_EVENT_KEY_DOWN:               handle_key_down_event(&this_event); break;
+      case ALLEGRO_EVENT_KEY_UP:                 handle_key_up_event(&this_event); break;
+      case ALLEGRO_EVENT_KEY_CHAR:               handle_key_char_event(&this_event); break;
+      case ALLEGRO_EVENT_MOUSE_BUTTON_UP:        handle_mouse_button_up_event(&this_event); break;
+      case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:      handle_mouse_button_down_event(&this_event); break;
+      case ALLEGRO_EVENT_MOUSE_WARPED:           handle_mouse_warped_event(&this_event); break;
+      case ALLEGRO_EVENT_MOUSE_AXES:             handle_mouse_axes_event(&this_event); break;
+      case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:   handle_joystick_button_down_event(&this_event); break;
+      case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:     handle_joystick_button_up_event(&this_event); break;
+      case ALLEGRO_EVENT_JOYSTICK_AXIS:          handle_joystick_axis_event(&this_event); break;
+      case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION: handle_joystick_reconfiguration_event(&this_event); break;
+      case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:      screens.display_switch_in_funcs(); break;
+      case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:     screens.display_switch_out_funcs(); break;
+      case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:    if (textlog) close_log_window(); break;
+      case ALLEGRO_EVENT_MENU_CLICK:             screens.native_menu_click_funcs(); break;
+      case ALLEGRO_EVENT_DISPLAY_CLOSE:          handle_display_close_event(&this_event); break;
+      case ALLEGRO_EVENT_VIDEO_FRAME_SHOW:       handle_video_frame_show_event(&this_event); break;
+      case ALLEGRO_EVENT_VIDEO_FINISHED:         handle_video_finished_event(&this_event); break;
+      default:                                   handle_event_branch_default(&this_event); break;
    }
 
+   //case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+   //case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+      //// currently ignored
+   //break;
 
    if (draw)
    {
