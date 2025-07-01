@@ -290,6 +290,67 @@ void Full::refresh_display_icon()
 }
 
 
+void Full::initialize_allegro5()
+{
+   // TODO: Improve these error messages and throw on failure
+   if (!al_init()) std::cerr << "al_init() failed" << std::endl;
+   if (!al_install_mouse()) std::cerr << "al_install_mouse() failed" << std::endl;
+   if (!al_install_keyboard()) std::cerr << "al_install_keyboard() failed" << std::endl;
+   if (!al_install_joystick()) std::cerr << "al_install_joystick() failed" << std::endl;
+   if (!al_install_audio()) std::cerr << "al_install_audio() failed" << std::endl;
+   if (!al_init_native_dialog_addon()) std::cerr << "al_init_native_dialog_addon() failed" << std::endl;
+   if (!al_init_primitives_addon()) std::cerr << "al_init_primitives_addon() failed" << std::endl;
+   if (!al_init_image_addon()) std::cerr << "al_init_image_addon() failed" << std::endl;
+   if (!al_init_font_addon()) std::cerr << "al_init_font_addon() failed" << std::endl;
+   if (!al_init_ttf_addon()) std::cerr << "al_init_ttf_addon() failed" << std::endl;
+   if (!al_init_acodec_addon()) std::cerr << "al_init_acodec_addon() failed" << std::endl;
+   if (!al_init_video_addon()) std::cerr << "al_init_video_addon() failed" << std::endl;
+   if (!al_reserve_samples(32)) std::cerr << "al_reserve_samples() failed" << std::endl;
+}
+
+
+void Full::setup_allegro5_to_preferred_configuration()
+{
+   // Setup preferred objects & settings
+   if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+
+   bool force_video_bitmaps_only = true;
+   if (force_video_bitmaps_only)
+   {
+      // This flag is set so that all bitmaps ever created are video bitmaps.
+      al_set_new_bitmap_flags(al_get_new_bitmap_flags() | ALLEGRO_VIDEO_BITMAP);
+   }
+
+   // Create the event queue
+   event_queue = al_create_event_queue();
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_mouse_event_source());
+   al_register_event_source(event_queue, al_get_joystick_event_source());
+   al_register_event_source(event_queue, al_get_default_menu_event_source());
+}
+
+
+
+void Full::setup_deployment_environment()
+{
+   if (deployment_environment.is_undefined())
+   {
+      AllegroFlare::Logger::warn_from(
+         "AllegroFlare::Frameworks::Full::initialize_core_system",
+         "The current deployment environment has not been defined. Before calling "
+            "AllegroFlare::Frameworks::Full::initialize(), be sure to set a deployment environment with "
+            "AllegroFlare::Frameworks::Full::set_deployment_environment(). In the mean time, the environemnt will "
+            "automatically be set to ENVIRONMENT_DEVELOPMENT. Alternatively, ou can also disable this warning message "
+            "with AllegroFlare::Frameworks::Full::disable_unset_deployment_environment_warning_on_initialization()."
+      );
+      deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT);
+   }
+
+   deployment_environment.setup_current_working_directory();
+}
+
+
+
 bool Full::initialize_core_system()
 {
    if (initialized) return false; // TODO: Throw here if already initialized
@@ -323,40 +384,40 @@ bool Full::initialize_core_system()
    //}
 
 
-   if (!al_init())
-   {
+   //if (!al_init())
+   //{
       // TODO: Improve this log message
-      std::cerr << "al_init() failed" << std::endl;
-   }
+      //std::cerr << "al_init() failed" << std::endl;
+   //}
 
 
    // Setup our deployment environment and working directory
 
-   if (deployment_environment.is_undefined())
-   {
-      AllegroFlare::Logger::warn_from(
-         "AllegroFlare::Frameworks::Full::initialize_core_system",
-         "The current deployment environment has not been defined. Before calling "
-            "AllegroFlare::Frameworks::Full::initialize(), be sure to set a deployment environment with "
-            "AllegroFlare::Frameworks::Full::set_deployment_environment(). In the mean time, the environemnt will "
-            "automatically be set to ENVIRONMENT_DEVELOPMENT. Alternatively, ou can also disable this warning message "
-            "with AllegroFlare::Frameworks::Full::disable_unset_deployment_environment_warning_on_initialization()."
-      );
-      deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT);
-   }
+   //if (deployment_environment.is_undefined())
+   //{
+      //AllegroFlare::Logger::warn_from(
+         //"AllegroFlare::Frameworks::Full::initialize_core_system",
+         //"The current deployment environment has not been defined. Before calling "
+            //"AllegroFlare::Frameworks::Full::initialize(), be sure to set a deployment environment with "
+            //"AllegroFlare::Frameworks::Full::set_deployment_environment(). In the mean time, the environemnt will "
+            //"automatically be set to ENVIRONMENT_DEVELOPMENT. Alternatively, ou can also disable this warning message "
+            //"with AllegroFlare::Frameworks::Full::disable_unset_deployment_environment_warning_on_initialization()."
+      //);
+      //deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT);
+   //}
 
-   deployment_environment.setup_current_working_directory();
+   //deployment_environment.setup_current_working_directory();
 
 
-
-   // Initialize Allegro's various parts
-
+   // Initialize Allegro
    // TODO: Throw on these errors instead of output to std::cerr
+   initialize_allegro5();
+   setup_allegro5_to_preferred_configuration();
+/*
    if (!al_install_mouse()) std::cerr << "al_install_mouse() failed" << std::endl;
    if (!al_install_keyboard()) std::cerr << "al_install_keyboard() failed" << std::endl;
    if (!al_install_joystick()) std::cerr << "al_install_joystick() failed" << std::endl;
    if (!al_install_audio()) std::cerr << "al_install_audio() failed" << std::endl;
-
    if (!al_init_native_dialog_addon()) std::cerr << "al_init_native_dialog_addon() failed" << std::endl;
    if (!al_init_primitives_addon()) std::cerr << "al_init_primitives_addon() failed" << std::endl;
    if (!al_init_image_addon()) std::cerr << "al_init_image_addon() failed" << std::endl;
@@ -364,42 +425,70 @@ bool Full::initialize_core_system()
    if (!al_init_ttf_addon()) std::cerr << "al_init_ttf_addon() failed" << std::endl;
    if (!al_init_acodec_addon()) std::cerr << "al_init_acodec_addon() failed" << std::endl;
    if (!al_init_video_addon()) std::cerr << "al_init_video_addon() failed" << std::endl;
-
    if (!al_reserve_samples(32)) std::cerr << "al_reserve_samples() failed" << std::endl;
+*/
+
+   setup_deployment_environment();
+
+   //if (deployment_environment.is_undefined())
+   //{
+      //AllegroFlare::Logger::warn_from(
+         //"AllegroFlare::Frameworks::Full::initialize_core_system",
+         //"The current deployment environment has not been defined. Before calling "
+            //"AllegroFlare::Frameworks::Full::initialize(), be sure to set a deployment environment with "
+            //"AllegroFlare::Frameworks::Full::set_deployment_environment(). In the mean time, the environemnt will "
+            //"automatically be set to ENVIRONMENT_DEVELOPMENT. Alternatively, ou can also disable this warning message "
+            //"with AllegroFlare::Frameworks::Full::disable_unset_deployment_environment_warning_on_initialization()."
+      //);
+      //deployment_environment.set_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_DEVELOPMENT);
+   //}
+
+   //deployment_environment.setup_current_working_directory();
 
 
-   // Setup our preferred objects & settings
+   // Seed the random number generator
+   // TODO: Consider removing this, and relying on the Random class instead
+   //srand(time(NULL));
 
+   // Setup preferred objects & settings
+
+   //if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+
+   //bool force_video_bitmaps_only = true;
+   //if (force_video_bitmaps_only)
+   //{
+      // This flag is set so that all bitmaps ever created are video bitmaps.
+      //al_set_new_bitmap_flags(al_get_new_bitmap_flags() | ALLEGRO_VIDEO_BITMAP);
+   //}
+
+   //// Create the event queue
+   //event_queue = al_create_event_queue();
+   //al_register_event_source(event_queue, al_get_keyboard_event_source());
+   //al_register_event_source(event_queue, al_get_mouse_event_source());
+   //al_register_event_source(event_queue, al_get_joystick_event_source());
+   //al_register_event_source(event_queue, al_get_default_menu_event_source());
+
+   // Seed the random number generator
+   // TODO: Consider removing this, and relying on the Random class instead
    srand(time(NULL));
 
-   //primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
-   //high_frequency_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60 * 16)); // TODO: Look into if this is reasonable
-
-   if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
-
-   bool force_video_bitmaps_only = true;
-   if (force_video_bitmaps_only)
-   {
-      // This flag is set so that all bitmaps ever created are video bitmaps.
-      al_set_new_bitmap_flags(al_get_new_bitmap_flags() | ALLEGRO_VIDEO_BITMAP);
-   }
-
-
-   event_queue = al_create_event_queue();
-   al_register_event_source(event_queue, al_get_keyboard_event_source());
-   al_register_event_source(event_queue, al_get_mouse_event_source());
-   al_register_event_source(event_queue, al_get_joystick_event_source());
-   //al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
-   al_register_event_source(event_queue, al_get_default_menu_event_source());
-   //al_register_event_source(event_queue, al_get_timer_event_source(high_frequency_timer));
-
-
-   // Register our higher level objects
-
+   // Setup the event_emitter and register it to the event queue
    event_emitter.initialize();
    al_register_event_source(event_queue, &event_emitter.get_event_source_ref());
 
-   // Setup our experimental live-polling of shader source code tool
+   // Setup the asset bins paths
+   std::string data_folder_path = deployment_environment.get_data_folder_path();
+   fonts.set_path(data_folder_path + "fonts");
+   samples.set_path(data_folder_path + "samples");
+   bitmaps.set_path(data_folder_path + "bitmaps");
+   icon_bin.set_path(data_folder_path + "icons");
+   models.set_path(data_folder_path + "models");
+   video_bin.set_path(data_folder_path + "videos");
+
+   // Load the config (this is currently unused)
+   config.load_or_create_empty(output_auto_created_config_warning);
+
+   // Setup experimental live-polling of shader source code tool
    if (!deployment_environment.is_production()) // TODO: figure out what environment(s) are reasonable for
                                                 // this hotloading feature
    {
@@ -413,26 +502,6 @@ bool Full::initialize_core_system()
       //shader_source_poller.start_polling();
    }
 
-   // Setup the paths for our asset bins
-   std::string data_folder_path = deployment_environment.get_data_folder_path();
-   fonts.set_path(data_folder_path + "fonts");
-   samples.set_path(data_folder_path + "samples");
-   bitmaps.set_path(data_folder_path + "bitmaps");
-   icon_bin.set_path(data_folder_path + "icons");
-   models.set_path(data_folder_path + "models");
-   video_bin.set_path(data_folder_path + "videos");
-
-
-
-
-   // NOTE: Asset Studio was previously loaded here, and now is loaded after the display is created
-
-
-
-
-   // Add our config (which is currently unused)
-   config.load_or_create_empty(output_auto_created_config_warning);
-
    // Declare an ALLEGRO_COLOR custom attribute in Attributes
    // TODO: Look into the ramifications of this being a stat property on the class
    Attributes::create_datatype_definition(
@@ -441,21 +510,21 @@ bool Full::initialize_core_system()
       AllegroColorAttributeDatatype::to_str_func
    );
 
-   // Setup our screens, TODO: Consider an initializtion scheme
+   // Setup screens, TODO: Consider an initializtion scheme
    screens.set_event_emitter(&event_emitter);
 
-   // Initialize our AudioController
+   // Initialize AudioController
    audio_controller.initialize();
 
-   // Initialize our InputDeviceList
+   // Initialize InputDeviceList
    input_devices_list.initialize();
 
-   // Initialize our VirtualControlsProcessor
+   // Initialize VirtualControlsProcessor
    virtual_controls_processor.set_input_devices_list(&input_devices_list);
    virtual_controls_processor.set_event_emitter(&event_emitter);
    virtual_controls_processor.initialize();
 
-   // Initialize our Achievements
+   // Initialize Achievements
    achievements.set_event_emitter(&event_emitter);
 
    // Initialize the DialogSystem::DialogSystem
@@ -465,10 +534,8 @@ bool Full::initialize_core_system()
    dialog_system.initialize();
 
    // Create a dialog system driver for use by default
-   // TODO: Consider how this should be destroyed if a different driver is used in its place
-
-//static AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *create_driver(AllegroFlare::BitmapBin *bitmap_bin)
-//{
+   // TODO: Consider how this should be destroyed if a different driver is used in its place. There could be live
+   // data such as nodes or state.
    AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver *dialog_driver =
          new AllegroFlare::DialogSystemDrivers::BasicCharacterDialogDriver();
    dialog_driver->set_bitmap_bin(&bitmaps);
@@ -1356,6 +1423,7 @@ void Full::set_dialog_system_dialog_node_bank(AllegroFlare::DialogTree::NodeBank
 void Full::set_dialog_system_driver(AllegroFlare::DialogSystemDrivers::Base *dialog_system_driver)
 {
    // TODO: Consider "resetting" consequences when changing the driver mid-flight
+   // TODO: Output warning when replacing dialog_system_driver if one is present already
    dialog_system.set_driver(dialog_system_driver);
 }
 
@@ -1468,35 +1536,6 @@ bool Full::get_drawing_inputs_bar_overlay()
 bool Full::offset_primary_timer(int microseconds)
 {
    sync_oracle.nudge_primary_timer_forward();
-   //throw std::runtime
-   /*
-   if (!primary_timer)
-   {
-      throw std::runtime_error("Frameworks::Full: offset_primary_timer: primary_timer cannot be nullptr");
-   }
-   if (!al_get_timer_started(primary_timer)) return false;
-
-   // TODO, profile this delay offset and output the actual offset to cout
-   // TODO: Improve this cout
-   std::cout << "Offsetting timer by " << microseconds << " microseconds." << std::endl;
-
-   double offset_start_time = al_get_time();
-   al_stop_timer(primary_timer);
-   al_rest(microseconds * 0.000001);
-   al_start_timer(primary_timer);
-   double offset_stop_time = al_get_time();
-
-
-   float actual_offset = offset_stop_time - offset_start_time;
-   int actual_offset_int = (int)((actual_offset) * 1000000);
-   int expected_offset = microseconds;
-   int offset_difference = actual_offset_int - expected_offset;
-
-   std::cout << "  Offset processed over " << actual_offset_int << " microseconds ("
-             << offset_difference
-             << ")." << std::endl;
-   */
-
    return true;
 }
 

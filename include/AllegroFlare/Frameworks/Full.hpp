@@ -99,6 +99,9 @@ namespace AllegroFlare
          bool drawing_dialogs;
          std::vector<std::string> input_hints_tokens;
          bool initialize_core_system(); // only use initialize() publically from now on
+         void initialize_allegro5();
+         void setup_allegro5_to_preferred_configuration();
+         void setup_deployment_environment();
          void initialize_sync_oracle();
          bool initialize_display_and_render_pipeline();
          void initialize_asset_studio_database();
