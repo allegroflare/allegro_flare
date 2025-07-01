@@ -1874,884 +1874,880 @@ void Full::handle_user_event(ALLEGRO_EVENT *_this_event)
 {
    ALLEGRO_EVENT &this_event = *_this_event;
 
-         //if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
-         //{
-            if (this_event.any.source == &event_emitter.get_event_source_ref())
+   if (this_event.any.source == &event_emitter.get_event_source_ref())
+   {
+      screens.event_emitter_event_funcs(&this_event);
+
+      switch(this_event.type)
+      {
+         case ALLEGRO_FLARE_EVENT_SET_DISPLAY_SIZE: {
+            int width = this_event.user.data1;
+            int height = this_event.user.data1;
+            set_window_size(width, height);
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN: {
+            toggle_display_fullscreen();
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN: {
+            // TODO: Test this
+            set_display_to_fullscreen();
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN: {
+            // TODO: Test this
+            set_display_to_windowed();
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER: {
+            int microseconds = this_event.user.data1;
+            offset_primary_timer(microseconds);
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_ROUTER: {
+            if (!router)
             {
-               screens.event_emitter_event_funcs(&this_event);
-
-               switch(this_event.type)
-               {
-                  case ALLEGRO_FLARE_EVENT_SET_DISPLAY_SIZE: {
-                     int width = this_event.user.data1;
-                     int height = this_event.user.data1;
-                     set_window_size(width, height);
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_TOGGLE_FULLSCREEN: {
-                     toggle_display_fullscreen();
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_ENABLE_FULLSCREEN: {
-                     // TODO: Test this
-                     set_display_to_fullscreen();
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_DISABLE_FULLSCREEN: {
-                     // TODO: Test this
-                     set_display_to_windowed();
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_OFFSET_PRIMARY_TIMER: {
-                     int microseconds = this_event.user.data1;
-                     offset_primary_timer(microseconds);
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_ROUTER: {
-                     if (!router)
-                     {
-                        AllegroFlare::Logger::throw_error(
-                           "AllegroFlare::Frameworks::Full::primary_process_event",
-                           "Handling an event of type ALLEGRO_FLARE_EVENT_ROUTER, but no router is present."
-                        );
-                     }
-                     else
-                     {
-                        uint32_t route_event = this_event.user.data1;
-                        AllegroFlare::RouteEventDatas::Base *route_event_data =
-                           (AllegroFlare::RouteEventDatas::Base *)this_event.user.data2;
-                        float *time_now_ptr = (float*)this_event.user.data3;
-                        router->on_route_event(route_event, route_event_data, *time_now_ptr);
-                        if (route_event_data) delete route_event_data; // NOTE: RouteEventData is erased here. Consider a different location.
-                        delete time_now_ptr;
-                     }
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_PAUSE_GAMEPLAY: {
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_UNPAUSE_GAMEPLAY: {
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR:
-                     disable_drawing_inputs_bar_overlay();
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR:
-                     enable_drawing_inputs_bar_overlay();
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY: {
-                     float *data = (float *)this_event.user.data1;
-                     input_hints_text_opacity = *data;
-                     delete data;
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY: {
-                     float *data = (float *)this_event.user.data1;
-                     input_hints_backfill_opacity = *data;
-                     delete data;
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT: {
-                     float *data = (float *)this_event.user.data1;
-                     input_hints_bar_height = *data;
-                     delete data;
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR: {
-                     std::vector<std::string> *data = (std::vector<std::string> *)this_event.user.data1;
-                     set_input_hints_tokens(*data);
-                     delete data;
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP: {
-                     AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData *event_data =
-                        static_cast<AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData*>(
-                           (void*)this_event.user.data1
-                        );
-
-                     AllegroFlare::Player *player = event_data->get_player();
-                     AllegroFlare::VirtualControllers::Base *virtual_controller =
-                        event_data->get_virtual_controller();
-                     int virtual_controller_button_num = event_data->get_virtual_controller_button_num();
-                     bool is_repeat = false;
-
-                     // TODO: Update this method. Currently the signature is:
-                     // screens.virtual_control_button_up_funcs(player_num, button_num, is_repeat);
-                     screens.virtual_control_button_up_funcs(
-                        player,
-                        virtual_controller,
-                        virtual_controller_button_num,
-                        is_repeat
-                     );
-
-                     delete event_data;
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN: {
-                     AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData *event_data =
-                        static_cast<AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData*>(
-                           (void*)this_event.user.data1
-                        );
-
-                     AllegroFlare::Player *player = event_data->get_player();
-                     AllegroFlare::VirtualControllers::Base *virtual_controller =
-                        event_data->get_virtual_controller();
-                     int virtual_controller_button_num = event_data->get_virtual_controller_button_num();
-                     bool is_repeat = false;
-
-                     // TODO: Update this method. Currently the signature is:
-                     // screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
-                     screens.virtual_control_button_down_funcs(
-                        player,
-                        virtual_controller,
-                        virtual_controller_button_num,
-                        is_repeat
-                      );
-
-                     delete event_data;
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
-                    // TODO: extract more relevant data and inject into this function
-                    // HERE:
-                    //int player_num = this_event.user.data1;
-                    //int button_num = this_event.user.data2;
-                    //bool is_repeat = this_event.user.data3;
-                    //screens.virtual_control_button_down_funcs(&this_event);
-                    //screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
-
-                    screens.virtual_control_axis_change_funcs(&this_event);
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK:
-                    {
-                       std::string *data = (std::string *)this_event.user.data1;
-                       if (!data)
-                       {
-                          // TODO: add an error message
-                          //std::stringstream info_message;
-                          //info_message << "Playing music track identifer" << " \"" << (*data) << "\"";
-                          AllegroFlare::Logger::throw_error(
-                             "AllegroFlare::Frameworks::Full::run_loop",
-                             //info_message.str()
-                             "When handling an AlLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK event, data1 nullptr."
-                                //"be present but one or ther other is a nullptr."
-                          );
-                          //std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: ERROR: music track data is nullptr."
-                                    //<< std::endl;
-                       }
-                       else
-                       {
-                          std::stringstream info_message;
-                          info_message << "Playing music track identifer" << " \"" << (*data) << "\"";
-                          AllegroFlare::Logger::info_from(
-                             "AllegroFlare::Frameworks::Full::run_loop",
-                             info_message.str()
-                             //"When handling a ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, expecting data1 and data2 to "
-                                //"be present but one or ther other is a nullptr."
-                          );
-                          //std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: INFO: playing music track identifer"
-                                    //<< " \"" << (*data) << "\""
-                                    //<< std::endl;
-                          audio_controller.play_music_track(*data);
-                          delete data;
-                       }
-                    }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
-                    {
-                       std::string *data = (std::string *)this_event.user.data1;
-                       if (!data)
-                       {
-                          // TODO: add an error message
-                       }
-                       else
-                       {
-                          audio_controller.play_sound_effect(*data);
-                          delete data;
-                       }
-                    }
-                  break;
-
-                  // TODO: Test these cases. This is the only location where deactivation is handled
-                  //case ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED:
-                  //case ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED:
-                    //{
-                       //std::string *data = (std::string *)this_event.user.data1;
-                       //if (!data)
-                       //{
-                          //// TODO: add an error message
-                       //}
-                       //else
-                       //{
-                          ////audio_controller.play_sound_effect(*data);
-                          //delete data;
-                       //}
-                    //}
-                  //break;
-
-                  case ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS:
-                    {
-                       audio_controller.stop_all_music_tracks();
-                    }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION:
-                    {
-                       // TODO: handle other types of notifications and pass data on event
-                       std::string *data = (std::string *)this_event.user.data1;
-                       if (!data)
-                       {
-                          // TODO: add an error message
-                       }
-                       else
-                       {
-                          AllegroFlare::NotificationsFactory notifications_factory;
-                          notifications.add(
-                             notifications_factory.create_achievement_unlocked_notification(*data)
-                          );
-                          delete data;
-                       }
-                    }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION:
-                    {
-                       // TODO: handle other types of notifications and pass data on event
-                       std::string *data = (std::string *)this_event.user.data1;
-                       if (!data)
-                       {
-                          // TODO: add an error message
-                       }
-                       else
-                       {
-                          AllegroFlare::NotificationsFactory notifications_factory;
-                          notifications.add(
-                             notifications_factory.create_joystick_connected_notification(*data)
-                          );
-                          delete data;
-                       }
-                    }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_POST_JOYSTICK_DISCONNECTED_NOTIFICATION:
-                    {
-                       // TODO: handle other types of notifications and pass data on event
-                       std::string *data = (std::string *)this_event.user.data1;
-                       if (!data)
-                       {
-                          // TODO: add an error message
-                       }
-                       else
-                       {
-                          AllegroFlare::NotificationsFactory notifications_factory;
-                          notifications.add(
-                             notifications_factory.create_joystick_disconnected_notification(*data)
-                          );
-                          delete data;
-                       }
-                    }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:
-                     {
-                        AllegroFlare::Achievement *data1 = (AllegroFlare::Achievement *)this_event.user.data1;
-                        std::string *data2 = (std::string *)this_event.user.data2;
-                        if (!data1 || !data2)
-                        {
-                           AllegroFlare::Logger::throw_error(
-                              "AllegroFlare::Frameworks::Full::primary_process_event",
-                              "When handling a ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, expecting data1 and data2 to "
-                                 "be present but one or ther other is a nullptr."
-                           );
-                        }
-                        else
-                        {
-                           // TODO: Test this
-                           std::string achievement_title = data1->get_title();
-                           std::string achievement_identifier = *data2;
-                           event_emitter.emit_post_unlocked_achievement_notification_event(achievement_title);
-                           event_emitter.emit_achievement_unlocked_game_event(*data2);
-                           // NOTE: data1 and data2 do NOT get deleted here. Normally this is where it happens, but
-                           // in the case of this particular event, the pointers used point directly to data
-                           // owned by Achievements.
-                        }
-                     }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT:
-                     {
-                        std::string *data = (std::string *)this_event.user.data1;
-                        if (!data)
-                        {
-                           // TODO: add an error message
-                        }
-                        else
-                        {
-                           achievements.unlock_manually(*data);
-                           //audio_controller.play_music_track_by_identifier(*data);
-                           delete data;
-                        }
-                     }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_SWITCH_SCREEN:
-                     {
-                        std::string *data = (std::string *)this_event.user.data1;
-                        if (!data)
-                        {
-                           // TODO: add an error message
-                        }
-                        else
-                        {
-                           screens.activate(*data);
-                           //achievements.unlock_manually(*data);
-                           //audio_controller.play_music_track_by_identifier(*data);
-                           delete data;
-                        }
-                     }
-                    //screens.activate();
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_START_NEW_GAME:
-                     {
-                        AllegroFlare::GameEvent start_new_game_event("start_new_game");
-                        event_emitter.emit_game_event(start_new_game_event);
-                     }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_EXIT_GAME:
-                     shutdown_program = true;
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_GAME_EVENT:
-                     {
-                        AllegroFlare::GameEvent *data =
-                           static_cast<AllegroFlare::GameEvent *>((void *)this_event.user.data1);
-                        if (!data)
-                        {
-                           // TODO: add an error message
-                        }
-                        else
-                        {
-                           screens.game_event_funcs(data);
-                           //achievements.unlock_manually(*data);
-                           //audio_controller.play_music_track_by_identifier(*data);
-                           delete data;
-                        }
-                     }
-                  break;
-
-                  case ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING: {
-                     // TODO: add test for this event
-                     AllegroFlare::Shaders::Base* shader =
-                        static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data1);
-                     set_shader_target_for_hotloading(shader);
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE: {
-                     // NOTE: this will require initialization
-                     bool files_have_changed = shader_source_poller.poll();
-                     std::cout << "poll (" << (files_have_changed ? "files changed" : "no change") << ")" << std::endl;
-
-                     if (files_have_changed)
-                     {
-                        // TODO: emit event to hotload shader source
-                        event_emitter.emit_hotload_shader_source_event(
-                           shader_source_poller.read_vertex_source_code_from_file(),
-                           shader_source_poller.read_fragment_source_code_from_file()
-                        );
-                     }
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE: {
-                     // TODO: add test for this event
-                     std::string *vertex_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data1);
-                     std::string *fragment_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data2);
-                     AllegroFlare::Shaders::Base* shader =
-                           static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data3);
-
-                     // NOTE: The shader for hotloading is currently *hard-coded* here to be the post_processing_shader
-                     shader_target_for_hotloading = post_processing_shader; // TODO: make a better place for this
- 
-                     if (shader)
-                     {
-                        shader->hotload(*vertex_shader_source_ptr, *fragment_shader_source_ptr);
-                     }
-                     else if (shader_target_for_hotloading)
-                     {
-                        shader_target_for_hotloading->hotload(*vertex_shader_source_ptr, *fragment_shader_source_ptr);
-                     }
-                     else
-                     {
-                        AllegroFlare::Logger::throw_error(
-                           "AllegroFlare::Frameworks::Full::primary_process_event",
-                           "Could not hotload the shader because there is no shader target provided. Either a shader "
-                           "is included in the ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE event data or the "
-                           "\"shader_target_for_hotloading\" property is set in Frameworks/Full."
-                        );
-                     }
-
-                     delete vertex_shader_source_ptr;
-                     delete fragment_shader_source_ptr;
-                     // NOTE: do not delete shader, it remains active
-                  } break;
-
-
-                  // TODO: Consider if these event should be grouped together like this
-                  //case ALLEGRO_FLARE_EVENT_DIALOG_OPEN:
-                  //case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE:
-                  //case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE:
-                  case ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_IN: {
-                     // Nothing do do here. But consider adding "dialog_switched_in" to screens
-                     // NOTE: This event is fired by the dialog_system, and is a notification to the rest of the system
-                     // that the dialog_system is now intercepting the inputs
-                     screens.dialog_system_switch_in_funcs();
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT: {
-                     // Nothing do do here. But consider adding "dialog_switched_in" to screens
-                     // NOTE: This event is fired by the dialog_system, and is a notification to the rest of the system
-                     // that the dialog_system is not intercepting the inputs anymore
-                     screens.dialog_system_switch_out_funcs();
-                  } break;
-
-                  case ALLEGRO_FLARE_EVENT_DIALOG: {
-                     {
-                        AllegroFlare::GameEventDatas::Base *data =
-                           static_cast<AllegroFlare::GameEventDatas::Base *>((void *)this_event.user.data1);
-                        if (!data)
-                        {
-                           // TODO: Improve error message
-                           throw std::runtime_error("Frameworks::Full::error: ALLEGRO_FLARE_EVENT_DIALOG data is null");
-                        }
-                        else
-                        {
-                           dialog_system.handle_raw_ALLEGRO_EVENT_that_is_dialog_event(&this_event, data);
-                           //screens.game_event_funcs(data);
-                           //achievements.unlock_manually(*data);
-                           //audio_controller.play_music_track_by_identifier(*data);
-                           delete data;
-                        }
-                     }
-                     //dialog_system.handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ev);
-                     // TODO: Consider destroying event data here
-                     // Consider implementation here for dialog_system
-                     // TODO: Consider that "switch_in" and "switch_out" events might need to be passed down and
-                        // handled at the screens level, too
-                     //AllegroFlare::GameEvent *data =
-                        //static_cast<AllegroFlare::GameEvent *>((void *)this_event.user.data1);
-                     //dialog_system.process_ALLEGRO_FLARE_EVENT_DIALOG_event(data);
-                  } break;
-
-                  default:
-                  break;
-               }
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Frameworks::Full::primary_process_event",
+                  "Handling an event of type ALLEGRO_FLARE_EVENT_ROUTER, but no router is present."
+               );
             }
             else
             {
-               //screens.user_event_funcs(&this_event);
+               uint32_t route_event = this_event.user.data1;
+               AllegroFlare::RouteEventDatas::Base *route_event_data =
+                  (AllegroFlare::RouteEventDatas::Base *)this_event.user.data2;
+               float *time_now_ptr = (float*)this_event.user.data3;
+               router->on_route_event(route_event, route_event_data, *time_now_ptr);
+               if (route_event_data) delete route_event_data; // NOTE: RouteEventData is erased here. Consider a different location.
+               delete time_now_ptr;
             }
-         //}
-         //else
-         //{
-            //std::cout << "uncaught event [" << this_event.type << "]" << std::endl;
-         //} 
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_PAUSE_GAMEPLAY: {
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_UNPAUSE_GAMEPLAY: {
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_HIDE_INPUT_HINTS_BAR:
+            disable_drawing_inputs_bar_overlay();
+         break;
+
+         case ALLEGRO_FLARE_EVENT_SHOW_INPUT_HINTS_BAR:
+            enable_drawing_inputs_bar_overlay();
+         break;
+
+         case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_TEXT_OPACITY: {
+            float *data = (float *)this_event.user.data1;
+            input_hints_text_opacity = *data;
+            delete data;
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_BACKFILL_OPACITY: {
+            float *data = (float *)this_event.user.data1;
+            input_hints_backfill_opacity = *data;
+            delete data;
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR_HEIGHT: {
+            float *data = (float *)this_event.user.data1;
+            input_hints_bar_height = *data;
+            delete data;
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_SET_INPUT_HINTS_BAR: {
+            std::vector<std::string> *data = (std::vector<std::string> *)this_event.user.data1;
+            set_input_hints_tokens(*data);
+            delete data;
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_UP: {
+            AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData *event_data =
+               static_cast<AllegroFlare::GameEventDatas::VirtualControllerButtonReleasedEventData*>(
+                  (void*)this_event.user.data1
+               );
+
+            AllegroFlare::Player *player = event_data->get_player();
+            AllegroFlare::VirtualControllers::Base *virtual_controller =
+               event_data->get_virtual_controller();
+            int virtual_controller_button_num = event_data->get_virtual_controller_button_num();
+            bool is_repeat = false;
+
+            // TODO: Update this method. Currently the signature is:
+            // screens.virtual_control_button_up_funcs(player_num, button_num, is_repeat);
+            screens.virtual_control_button_up_funcs(
+               player,
+               virtual_controller,
+               virtual_controller_button_num,
+               is_repeat
+            );
+
+            delete event_data;
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_BUTTON_DOWN: {
+            AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData *event_data =
+               static_cast<AllegroFlare::GameEventDatas::VirtualControllerButtonPressedEventData*>(
+                  (void*)this_event.user.data1
+               );
+
+            AllegroFlare::Player *player = event_data->get_player();
+            AllegroFlare::VirtualControllers::Base *virtual_controller =
+               event_data->get_virtual_controller();
+            int virtual_controller_button_num = event_data->get_virtual_controller_button_num();
+            bool is_repeat = false;
+
+            // TODO: Update this method. Currently the signature is:
+            // screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
+            screens.virtual_control_button_down_funcs(
+               player,
+               virtual_controller,
+               virtual_controller_button_num,
+               is_repeat
+             );
+
+            delete event_data;
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_VIRTUAL_CONTROL_AXIS_CHANGE:
+           // TODO: extract more relevant data and inject into this function
+           // HERE:
+           //int player_num = this_event.user.data1;
+           //int button_num = this_event.user.data2;
+           //bool is_repeat = this_event.user.data3;
+           //screens.virtual_control_button_down_funcs(&this_event);
+           //screens.virtual_control_button_down_funcs(player_num, button_num, is_repeat);
+
+           screens.virtual_control_axis_change_funcs(&this_event);
+         break;
+
+         case ALLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK:
+           {
+              std::string *data = (std::string *)this_event.user.data1;
+              if (!data)
+              {
+                 // TODO: add an error message
+                 //std::stringstream info_message;
+                 //info_message << "Playing music track identifer" << " \"" << (*data) << "\"";
+                 AllegroFlare::Logger::throw_error(
+                    "AllegroFlare::Frameworks::Full::run_loop",
+                    //info_message.str()
+                    "When handling an AlLEGRO_FLARE_EVENT_PLAY_MUSIC_TRACK event, data1 nullptr."
+                       //"be present but one or ther other is a nullptr."
+                 );
+                 //std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: ERROR: music track data is nullptr."
+                           //<< std::endl;
+              }
+              else
+              {
+                 std::stringstream info_message;
+                 info_message << "Playing music track identifer" << " \"" << (*data) << "\"";
+                 AllegroFlare::Logger::info_from(
+                    "AllegroFlare::Frameworks::Full::run_loop",
+                    info_message.str()
+                    //"When handling a ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, expecting data1 and data2 to "
+                       //"be present but one or ther other is a nullptr."
+                 );
+                 //std::cout << "[AllegroFlare::Frameworks::Full::run_loop]: INFO: playing music track identifer"
+                           //<< " \"" << (*data) << "\""
+                           //<< std::endl;
+                 audio_controller.play_music_track(*data);
+                 delete data;
+              }
+           }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+           {
+              std::string *data = (std::string *)this_event.user.data1;
+              if (!data)
+              {
+                 // TODO: add an error message
+              }
+              else
+              {
+                 audio_controller.play_sound_effect(*data);
+                 delete data;
+              }
+           }
+         break;
+
+         // TODO: Test these cases. This is the only location where deactivation is handled
+         //case ALLEGRO_FLARE_EVENT_SCREEN_ACTIVATED:
+         //case ALLEGRO_FLARE_EVENT_SCREEN_DEACTIVATED:
+           //{
+              //std::string *data = (std::string *)this_event.user.data1;
+              //if (!data)
+              //{
+                 //// TODO: add an error message
+              //}
+              //else
+              //{
+                 ////audio_controller.play_sound_effect(*data);
+                 //delete data;
+              //}
+           //}
          //break;
+
+         case ALLEGRO_FLARE_EVENT_STOP_ALL_MUSIC_TRACKS:
+           {
+              audio_controller.stop_all_music_tracks();
+           }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_POST_ACHIEVEMENT_UNLOCKED_NOTIFICATION:
+           {
+              // TODO: handle other types of notifications and pass data on event
+              std::string *data = (std::string *)this_event.user.data1;
+              if (!data)
+              {
+                 // TODO: add an error message
+              }
+              else
+              {
+                 AllegroFlare::NotificationsFactory notifications_factory;
+                 notifications.add(
+                    notifications_factory.create_achievement_unlocked_notification(*data)
+                 );
+                 delete data;
+              }
+           }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_POST_JOYSTICK_CONNECTED_NOTIFICATION:
+           {
+              // TODO: handle other types of notifications and pass data on event
+              std::string *data = (std::string *)this_event.user.data1;
+              if (!data)
+              {
+                 // TODO: add an error message
+              }
+              else
+              {
+                 AllegroFlare::NotificationsFactory notifications_factory;
+                 notifications.add(
+                    notifications_factory.create_joystick_connected_notification(*data)
+                 );
+                 delete data;
+              }
+           }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_POST_JOYSTICK_DISCONNECTED_NOTIFICATION:
+           {
+              // TODO: handle other types of notifications and pass data on event
+              std::string *data = (std::string *)this_event.user.data1;
+              if (!data)
+              {
+                 // TODO: add an error message
+              }
+              else
+              {
+                 AllegroFlare::NotificationsFactory notifications_factory;
+                 notifications.add(
+                    notifications_factory.create_joystick_disconnected_notification(*data)
+                 );
+                 delete data;
+              }
+           }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED:
+            {
+               AllegroFlare::Achievement *data1 = (AllegroFlare::Achievement *)this_event.user.data1;
+               std::string *data2 = (std::string *)this_event.user.data2;
+               if (!data1 || !data2)
+               {
+                  AllegroFlare::Logger::throw_error(
+                     "AllegroFlare::Frameworks::Full::primary_process_event",
+                     "When handling a ALLEGRO_FLARE_EVENT_ACHIEVEMENT_UNLOCKED, expecting data1 and data2 to "
+                        "be present but one or ther other is a nullptr."
+                  );
+               }
+               else
+               {
+                  // TODO: Test this
+                  std::string achievement_title = data1->get_title();
+                  std::string achievement_identifier = *data2;
+                  event_emitter.emit_post_unlocked_achievement_notification_event(achievement_title);
+                  event_emitter.emit_achievement_unlocked_game_event(*data2);
+                  // NOTE: data1 and data2 do NOT get deleted here. Normally this is where it happens, but
+                  // in the case of this particular event, the pointers used point directly to data
+                  // owned by Achievements.
+               }
+            }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_UNLOCK_ACHIEVEMENT:
+            {
+               std::string *data = (std::string *)this_event.user.data1;
+               if (!data)
+               {
+                  // TODO: add an error message
+               }
+               else
+               {
+                  achievements.unlock_manually(*data);
+                  //audio_controller.play_music_track_by_identifier(*data);
+                  delete data;
+               }
+            }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_SWITCH_SCREEN:
+            {
+               std::string *data = (std::string *)this_event.user.data1;
+               if (!data)
+               {
+                  // TODO: add an error message
+               }
+               else
+               {
+                  screens.activate(*data);
+                  //achievements.unlock_manually(*data);
+                  //audio_controller.play_music_track_by_identifier(*data);
+                  delete data;
+               }
+            }
+           //screens.activate();
+         break;
+
+         case ALLEGRO_FLARE_EVENT_START_NEW_GAME:
+            {
+               AllegroFlare::GameEvent start_new_game_event("start_new_game");
+               event_emitter.emit_game_event(start_new_game_event);
+            }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_EXIT_GAME:
+            shutdown_program = true;
+         break;
+
+         case ALLEGRO_FLARE_EVENT_GAME_EVENT:
+            {
+               AllegroFlare::GameEvent *data =
+                  static_cast<AllegroFlare::GameEvent *>((void *)this_event.user.data1);
+               if (!data)
+               {
+                  // TODO: add an error message
+               }
+               else
+               {
+                  screens.game_event_funcs(data);
+                  //achievements.unlock_manually(*data);
+                  //audio_controller.play_music_track_by_identifier(*data);
+                  delete data;
+               }
+            }
+         break;
+
+         case ALLEGRO_FLARE_EVENT_SET_SHADER_TARGET_FOR_HOTLOADING: {
+            // TODO: add test for this event
+            AllegroFlare::Shaders::Base* shader =
+               static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data1);
+            set_shader_target_for_hotloading(shader);
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_POLL_HOTLOAD_SHADER_SOURCE_FOR_CHANGE: {
+            // NOTE: this will require initialization
+            bool files_have_changed = shader_source_poller.poll();
+            std::cout << "poll (" << (files_have_changed ? "files changed" : "no change") << ")" << std::endl;
+
+            if (files_have_changed)
+            {
+               // TODO: emit event to hotload shader source
+               event_emitter.emit_hotload_shader_source_event(
+                  shader_source_poller.read_vertex_source_code_from_file(),
+                  shader_source_poller.read_fragment_source_code_from_file()
+               );
+            }
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE: {
+            // TODO: add test for this event
+            std::string *vertex_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data1);
+            std::string *fragment_shader_source_ptr = static_cast<std::string*>((void *)this_event.user.data2);
+            AllegroFlare::Shaders::Base* shader =
+                  static_cast<AllegroFlare::Shaders::Base*>((void *)this_event.user.data3);
+
+            // NOTE: The shader for hotloading is currently *hard-coded* here to be the post_processing_shader
+            shader_target_for_hotloading = post_processing_shader; // TODO: make a better place for this
+
+            if (shader)
+            {
+               shader->hotload(*vertex_shader_source_ptr, *fragment_shader_source_ptr);
+            }
+            else if (shader_target_for_hotloading)
+            {
+               shader_target_for_hotloading->hotload(*vertex_shader_source_ptr, *fragment_shader_source_ptr);
+            }
+            else
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Frameworks::Full::primary_process_event",
+                  "Could not hotload the shader because there is no shader target provided. Either a shader "
+                  "is included in the ALLEGRO_FLARE_EVENT_HOTLOAD_SHADER_SOURCE event data or the "
+                  "\"shader_target_for_hotloading\" property is set in Frameworks/Full."
+               );
+            }
+
+            delete vertex_shader_source_ptr;
+            delete fragment_shader_source_ptr;
+            // NOTE: do not delete shader, it remains active
+         } break;
+
+
+         // TODO: Consider if these event should be grouped together like this
+         //case ALLEGRO_FLARE_EVENT_DIALOG_OPEN:
+         //case ALLEGRO_FLARE_EVENT_DIALOG_ADVANCE:
+         //case ALLEGRO_FLARE_EVENT_DIALOG_CLOSE:
+         case ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_IN: {
+            // Nothing do do here. But consider adding "dialog_switched_in" to screens
+            // NOTE: This event is fired by the dialog_system, and is a notification to the rest of the system
+            // that the dialog_system is now intercepting the inputs
+            screens.dialog_system_switch_in_funcs();
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_DIALOG_SWITCHED_OUT: {
+            // Nothing do do here. But consider adding "dialog_switched_in" to screens
+            // NOTE: This event is fired by the dialog_system, and is a notification to the rest of the system
+            // that the dialog_system is not intercepting the inputs anymore
+            screens.dialog_system_switch_out_funcs();
+         } break;
+
+         case ALLEGRO_FLARE_EVENT_DIALOG: {
+            {
+               AllegroFlare::GameEventDatas::Base *data =
+                  static_cast<AllegroFlare::GameEventDatas::Base *>((void *)this_event.user.data1);
+               if (!data)
+               {
+                  // TODO: Improve error message
+                  throw std::runtime_error("Frameworks::Full::error: ALLEGRO_FLARE_EVENT_DIALOG data is null");
+               }
+               else
+               {
+                  dialog_system.handle_raw_ALLEGRO_EVENT_that_is_dialog_event(&this_event, data);
+                  //screens.game_event_funcs(data);
+                  //achievements.unlock_manually(*data);
+                  //audio_controller.play_music_track_by_identifier(*data);
+                  delete data;
+               }
+            }
+            //dialog_system.handle_raw_ALLEGRO_EVENT_that_is_dialog_event(ev);
+            // TODO: Consider destroying event data here
+            // Consider implementation here for dialog_system
+            // TODO: Consider that "switch_in" and "switch_out" events might need to be passed down and
+               // handled at the screens level, too
+            //AllegroFlare::GameEvent *data =
+               //static_cast<AllegroFlare::GameEvent *>((void *)this_event.user.data1);
+            //dialog_system.process_ALLEGRO_FLARE_EVENT_DIALOG_event(data);
+         } break;
+
+         default:
+         break;
+      }
+   }
+   else
+   {
+      //screens.user_event_funcs(&this_event);
+   }
 }
 
 
 void Full::handle_key_down_event(ALLEGRO_EVENT *this_event)
 {
-      //case ALLEGRO_EVENT_KEY_DOWN: {
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift++;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt++;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl++;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command++;
-         if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
-            drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
+   if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
+         || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift++;
+   if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+         || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt++;
+   if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+         || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl++;
+   if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command++;
+   if (current_event->keyboard.keycode == ALLEGRO_KEY_F1)
+      drawing_profiler_graph = !drawing_profiler_graph; // toggle the profiler graph with F1
 
 
-         if ((this_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) && (Full::key_shift > 0))
-         {
-            if (escape_key_will_shutdown) shutdown_program = true;
-         }
+   if ((this_event->keyboard.keycode == ALLEGRO_KEY_ESCAPE) && (Full::key_shift > 0))
+   {
+      if (escape_key_will_shutdown) shutdown_program = true;
+   }
 
-         // Handle offsetting the primary timer
-         if (Full::key_shift > 0)
-         {
-            switch (Full::current_event->keyboard.keycode)
-            {
-               //case ALLEGRO_KEY_F: {
-                  //toggle_display_fullscreen();
-               //} break;
-               //case ALLEGRO_KEY_1: {
-                  //set_window_size(1920, 1080);
-               //} break;
-               //case ALLEGRO_KEY_2: {
-                  //set_window_size(1080, 1920);
-               //} break;
-               //case ALLEGRO_KEY_3: {
-                  //set_window_size(2520, 1080);
-               //} break;
-               case ALLEGRO_KEY_FULLSTOP: {
-                  nudge_primary_timer_forward();
-               } break;
-               case ALLEGRO_KEY_COMMA: {
-                  nudge_primary_timer_backward();
-               } break;
-            }
-            
-            //int MICROSECONDS_PER_FRAME = 16670;
-            //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
-            //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
-         }
+   // Handle offsetting the primary timer
+   if (Full::key_shift > 0)
+   {
+      switch (Full::current_event->keyboard.keycode)
+      {
+         //case ALLEGRO_KEY_F: {
+            //toggle_display_fullscreen();
+         //} break;
+         //case ALLEGRO_KEY_1: {
+            //set_window_size(1920, 1080);
+         //} break;
+         //case ALLEGRO_KEY_2: {
+            //set_window_size(1080, 1920);
+         //} break;
+         //case ALLEGRO_KEY_3: {
+            //set_window_size(2520, 1080);
+         //} break;
+         case ALLEGRO_KEY_FULLSTOP: {
+            nudge_primary_timer_forward();
+         } break;
+         case ALLEGRO_KEY_COMMA: {
+            nudge_primary_timer_backward();
+         } break;
+      }
+      
+      //int MICROSECONDS_PER_FRAME = 16670;
+      //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+      //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
+   }
 
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-            switch(this_event->keyboard.keycode)
-            {
-               //case ALLEGRO_KEY_UP:
-                  //dialog_system.move_selection_cursor_up();
-               //break;
+   if (dialog_system.get_switched_in())
+   {
+      // HERE:
+      // TODO: Handle input case with dialog when it is "switched in"
+      // TODO: Add this branching for each input event case
+      // TODO: Add tests for these cases, with and without dialog swtiched in
+      switch(this_event->keyboard.keycode)
+      {
+         //case ALLEGRO_KEY_UP:
+            //dialog_system.move_selection_cursor_up();
+         //break;
 
-               //case ALLEGRO_KEY_DOWN:
-                  //dialog_system.move_selection_cursor_down();
-               //break;
+         //case ALLEGRO_KEY_DOWN:
+            //dialog_system.move_selection_cursor_down();
+         //break;
 
-               case ALLEGRO_KEY_SPACE:
-               case ALLEGRO_KEY_ENTER:
-                  dialog_system.dialog_advance();
-               break;
-            }
-         }
-         else
-         {
-            screens.key_down_funcs(this_event);
-            virtual_controls_processor.handle_raw_keyboard_key_down_event(this_event);
-         }
-         //virtual_controls_processor.handle_raw_keyboard_key_down_event(&this_event);
-      //} break;
+         case ALLEGRO_KEY_SPACE:
+         case ALLEGRO_KEY_ENTER:
+            dialog_system.dialog_advance();
+         break;
+      }
+   }
+   else
+   {
+      screens.key_down_funcs(this_event);
+      virtual_controls_processor.handle_raw_keyboard_key_down_event(this_event);
+   }
 }
 
 
 void Full::primary_process_event(ALLEGRO_EVENT *ev)
 {
-   //bool draw = false;
    draw = false;
 
-   //AllegroFlare::Time time;
-   //time.set_absolute_now(ev->any.timestamp);
 
-   //AllegroFlare::Instrumentation::PrimaryProcessEventMetric metric;
-   //if (using_instrumentation)
-   //{
-      //metric.processing_start_time = al_get_time();
-      //metric.event_time = ev->any.timestamp;
-      //metric.event_type = ev->type;
-   //}
-   //metric
+   ALLEGRO_EVENT &this_event = *ev;
+   ALLEGRO_EVENT next_event;
 
+   // process callbacks first
+   for (auto &event_callback : event_callbacks)
+   {
+      // call the callback function, and pass in the user_data provided when the
+      // callback was registered
+      event_callback.second.first(&this_event, event_callback.second.second);
+   }
 
+   screens.on_events(current_event);
 
-      ALLEGRO_EVENT &this_event = *ev;
-      ALLEGRO_EVENT next_event;
-
-      // process callbacks first
-      for (auto &event_callback : event_callbacks)
+   switch(this_event.type)
+   {
+   case ALLEGRO_EVENT_TIMER: handle_timer_event(&this_event); break;
+   case ALLEGRO_EVENT_DISPLAY_RESIZE: handle_display_resize_event(&this_event); break;
+   case ALLEGRO_EVENT_KEY_DOWN: handle_key_down_event(&this_event); break;
+   case ALLEGRO_EVENT_KEY_UP:
+      if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
+            || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift--;
+      if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
+            || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt--;
+      if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
+            || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
+      if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command--;
+      if (dialog_system.get_switched_in())
       {
-         // call the callback function, and pass in the user_data provided when the
-         // callback was registered
-         event_callback.second.first(&this_event, event_callback.second.second);
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
       }
-
-      screens.on_events(current_event);
-
-      switch(this_event.type)
+      else
       {
-      case ALLEGRO_EVENT_TIMER: handle_timer_event(&this_event); break;
-      case ALLEGRO_EVENT_DISPLAY_RESIZE: handle_display_resize_event(&this_event); break;
-      case ALLEGRO_EVENT_KEY_DOWN: handle_key_down_event(&this_event); break;
-      case ALLEGRO_EVENT_KEY_UP:
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_LSHIFT
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_RSHIFT) Full::key_shift--;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALT
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_ALTGR) Full::key_alt--;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_RCTRL
-               || Full::current_event->keyboard.keycode == ALLEGRO_KEY_LCTRL) Full::key_ctrl--;
-         if (Full::current_event->keyboard.keycode == ALLEGRO_KEY_COMMAND) Full::key_command--;
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.key_up_funcs(&this_event);
-            virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
-      break;
+         screens.key_up_funcs(&this_event);
+         virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
+      }
+      //virtual_controls_processor.handle_raw_keyboard_key_up_event(&this_event);
+   break;
 
-      case ALLEGRO_EVENT_KEY_CHAR:
-         if (dialog_system.get_switched_in())
+   case ALLEGRO_EVENT_KEY_CHAR:
+      if (dialog_system.get_switched_in())
+      {
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
+         switch(this_event.keyboard.keycode)
          {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-            switch(this_event.keyboard.keycode)
+            case ALLEGRO_KEY_UP:
+               dialog_system.move_dialog_cursor_position_up();
+            break;
+
+            case ALLEGRO_KEY_DOWN:
+               dialog_system.move_dialog_cursor_position_down();
+            break;
+
+            case ALLEGRO_KEY_SPACE:
+            case ALLEGRO_KEY_ENTER:
+               //dialog_system.advance(); // Not for this case, this is handled in ALLEGRO_KEY_DOWN (until 
+                                          // upgraded to virtual controls)
+            break;
+         }
+      }
+      else
+      {
+         screens.key_char_funcs(&this_event);
+      }
+      //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
+   break;
+
+   case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
+      if (dialog_system.get_switched_in())
+      {
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
+      }
+      else
+      {
+         screens.mouse_up_funcs(&this_event);
+      }
+   break;
+
+   case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+      if (dialog_system.get_switched_in())
+      {
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
+         dialog_system.dialog_advance();
+      }
+      else
+      {
+         screens.mouse_down_funcs(&this_event);
+      }
+   break;
+
+   case ALLEGRO_EVENT_MOUSE_WARPED:
+      if (dialog_system.get_switched_in())
+      {
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
+      }
+      else
+      {
+         screens.mouse_warp_funcs(&this_event);
+      }
+   break;
+
+   case ALLEGRO_EVENT_MOUSE_AXES:
+      if (dialog_system.get_switched_in())
+      {
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
+      }
+      else
+      {
+         screens.mouse_axes_funcs(&this_event);
+      }
+   break;
+
+   case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
+      if (dialog_system.get_switched_in())
+      {
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
+
+         // TODO: Consider case where may only want to advance using a certain button (and possibly cancel otherwise)
+         dialog_system.dialog_advance();
+      }
+      else
+      {
+         bool use_joystick_button_right_bumper_to_offset_timer = true;
+         if (use_joystick_button_right_bumper_to_offset_timer)
+         {
+            bool button_pressed = (this_event.joystick.button == 7); // 7 is the right bumper on XBox 360 Controller
+            if (button_pressed)
             {
-               case ALLEGRO_KEY_UP:
-                  dialog_system.move_dialog_cursor_position_up();
-               break;
-
-               case ALLEGRO_KEY_DOWN:
-                  dialog_system.move_dialog_cursor_position_down();
-               break;
-
-               case ALLEGRO_KEY_SPACE:
-               case ALLEGRO_KEY_ENTER:
-                  //dialog_system.advance(); // Not for this case, this is handled in ALLEGRO_KEY_DOWN (until 
-                                             // upgraded to virtual controls)
-               break;
+               nudge_primary_timer_forward();
+               //int MICROSECONDS_PER_FRAME = 16670;
+               //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
+               //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
             }
          }
-         else
-         {
-            screens.key_char_funcs(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_keyboard_key_char_event(&this_event); // LOOK INTO THIS
-      break;
+            //case ALLEGRO_KEY_FULLSTOP: {
+               //nudge_primary_timer_forward();
+            //} break;
+            //case ALLEGRO_KEY_COMMA: {
+               //nudge_primary_timer_backward();
+            //} break;
 
-      case ALLEGRO_EVENT_MOUSE_BUTTON_UP:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.mouse_up_funcs(&this_event);
-         }
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-            dialog_system.dialog_advance();
-         }
-         else
-         {
-            screens.mouse_down_funcs(&this_event);
-         }
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_WARPED:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.mouse_warp_funcs(&this_event);
-         }
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_AXES:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.mouse_axes_funcs(&this_event);
-         }
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_BUTTON_DOWN:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-
-            // TODO: Consider case where may only want to advance using a certain button (and possibly cancel otherwise)
-            dialog_system.dialog_advance();
-         }
-         else
-         {
-            bool use_joystick_button_right_bumper_to_offset_timer = true;
-            if (use_joystick_button_right_bumper_to_offset_timer)
-            {
-               bool button_pressed = (this_event.joystick.button == 7); // 7 is the right bumper on XBox 360 Controller
-               if (button_pressed)
-               {
-                  nudge_primary_timer_forward();
-                  //int MICROSECONDS_PER_FRAME = 16670;
-                  //int microseconds_to_offset = MICROSECONDS_PER_FRAME / 10;
-                  //event_emitter.emit_offset_primary_timer_event(microseconds_to_offset);
-               }
-            }
-               //case ALLEGRO_KEY_FULLSTOP: {
-                  //nudge_primary_timer_forward();
-               //} break;
-               //case ALLEGRO_KEY_COMMA: {
-                  //nudge_primary_timer_backward();
-               //} break;
-
-            screens.joy_button_down_funcs(&this_event);
-            virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.joy_button_up_funcs(&this_event);
-            virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_AXIS:
-         if (dialog_system.get_switched_in())
-         {
-            // HERE:
-            // TODO: Handle input case with dialog when it is "switched in"
-            // TODO: Add this branching for each input event case
-            // TODO: Add tests for these cases, with and without dialog swtiched in
-         }
-         else
-         {
-            screens.joy_axis_funcs(&this_event);
-            virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
-         }
-         //virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
-         screens.joy_config_funcs(&this_event);
-         // NOTE: input_devices_list.handle_reconfiguration does not occur here, it's currently managed in the
-         // virtual_controls_processor which may not be the best place. This domain requires a bit of review,
-         // as there is an input_devices_list that is involved and needs to be accounted for. Posting notifications
-         // events may need review (should have callbacks that can be used to produce events?). See the body of
-         // virtual_controls_processor.handle_joystick_device_configuration_change_event() for a little more direction.
-
-         virtual_controls_processor.handle_joystick_device_configuration_change_event(&this_event);
-      break;
-
-      case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
-      case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
-         // currently ignored
-      break;
-
-      case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
-         screens.display_switch_in_funcs();
-      break;
-
-      case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
-         screens.display_switch_out_funcs();
-      break;
-
-      case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
-         //screens.display_switch_in_funcs();
-         if (textlog) close_log_window();
-      break;
-
-      case ALLEGRO_EVENT_MENU_CLICK:
-         screens.native_menu_click_funcs();
-      break;
-
-      case ALLEGRO_EVENT_DISPLAY_CLOSE:
-         {
-            Display *this_display = Display::find_display(this_event.display.source);
-            if (this_display) this_display->display_close_func();
-
-            if (display_close_will_shutdown) shutdown_program = true;
-         }
-      break;
-
-      case ALLEGRO_EVENT_VIDEO_FRAME_SHOW:
-         // TODO:
-         // This will require a video manager, because each video will need to be registered to the event queue
-      break;
-
-      case ALLEGRO_EVENT_VIDEO_FINISHED:
-         // TODO:
-         // This will require a video manager, because each video will need to be registered to the event queue
-      break;
-
-      default:
-         if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
-         {
-            handle_user_event(&this_event);
-         }
-         else
-         {
-            std::cout << "uncaught event [" << this_event.type << "]" << std::endl;
-         }
-      break;
+         screens.joy_button_down_funcs(&this_event);
+         virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
       }
+      //virtual_controls_processor.handle_raw_joystick_button_down_event(&this_event);
+   break;
 
-
-      if (draw)
+   case ALLEGRO_EVENT_JOYSTICK_BUTTON_UP:
+      if (dialog_system.get_switched_in())
       {
-         sync_oracle.start_update_measure();
-         // TODO: Figure out what this delta_time variable should be
-         double delta_time = sync_oracle.calculate_duration_of_previous_frame_for_delta_time();
-         primary_update(time_now, delta_time);
-         sync_oracle.end_update_measure();
-
-         sync_oracle.start_draw_measure();
-         primary_render();
-         sync_oracle.end_draw_measure();
-         //flip_sync.start_flip_capture();
-         //metric.al_flip_display_start_time = al_get_time();
-         sync_oracle.start_flip_measure(); // ---
-         primary_flip();
-         sync_oracle.end_flip_measure(); // ---
-
-         draw = false;
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
       }
-   //if (using_instrumentation)
-   //{
-      //metric.processing_end_time = al_get_time();
-      //logger_instance.outstream_instrumentation_metric(&metric);
-   //}
+      else
+      {
+         screens.joy_button_up_funcs(&this_event);
+         virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
+      }
+      //virtual_controls_processor.handle_raw_joystick_button_up_event(&this_event);
+   break;
+
+   case ALLEGRO_EVENT_JOYSTICK_AXIS:
+      if (dialog_system.get_switched_in())
+      {
+         // HERE:
+         // TODO: Handle input case with dialog when it is "switched in"
+         // TODO: Add this branching for each input event case
+         // TODO: Add tests for these cases, with and without dialog swtiched in
+      }
+      else
+      {
+         screens.joy_axis_funcs(&this_event);
+         virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
+      }
+      //virtual_controls_processor.handle_raw_joystick_axis_change_event(&this_event);
+   break;
+
+   case ALLEGRO_EVENT_JOYSTICK_CONFIGURATION:
+      screens.joy_config_funcs(&this_event);
+      // NOTE: input_devices_list.handle_reconfiguration does not occur here, it's currently managed in the
+      // virtual_controls_processor which may not be the best place. This domain requires a bit of review,
+      // as there is an input_devices_list that is involved and needs to be accounted for. Posting notifications
+      // events may need review (should have callbacks that can be used to produce events?). See the body of
+      // virtual_controls_processor.handle_joystick_device_configuration_change_event() for a little more direction.
+
+      virtual_controls_processor.handle_joystick_device_configuration_change_event(&this_event);
+   break;
+
+   case ALLEGRO_EVENT_MOUSE_ENTER_DISPLAY:
+   case ALLEGRO_EVENT_MOUSE_LEAVE_DISPLAY:
+      // currently ignored
+   break;
+
+   case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
+      screens.display_switch_in_funcs();
+   break;
+
+   case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
+      screens.display_switch_out_funcs();
+   break;
+
+   case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
+      //screens.display_switch_in_funcs();
+      if (textlog) close_log_window();
+   break;
+
+   case ALLEGRO_EVENT_MENU_CLICK:
+      screens.native_menu_click_funcs();
+   break;
+
+   case ALLEGRO_EVENT_DISPLAY_CLOSE:
+      {
+         Display *this_display = Display::find_display(this_event.display.source);
+         if (this_display) this_display->display_close_func();
+
+         if (display_close_will_shutdown) shutdown_program = true;
+      }
+   break;
+
+   case ALLEGRO_EVENT_VIDEO_FRAME_SHOW:
+      // TODO:
+      // This will require a video manager, because each video will need to be registered to the event queue
+   break;
+
+   case ALLEGRO_EVENT_VIDEO_FINISHED:
+      // TODO:
+      // This will require a video manager, because each video will need to be registered to the event queue
+   break;
+
+   default:
+      if (ALLEGRO_EVENT_TYPE_IS_USER(this_event.type))
+      {
+         handle_user_event(&this_event);
+      }
+      else
+      {
+         std::cout << "uncaught event [" << this_event.type << "]" << std::endl;
+      }
+   break;
+   }
+
+
+   if (draw)
+   {
+      handle_update(); // TODO: Consider moving update out of this draw block
+      handle_draw();
+
+      draw = false;
+   }
+}
+
+
+void Full::handle_update()
+{
+   sync_oracle.start_update_measure();
+   // TODO: Figure out what this delta_time variable should be
+   double delta_time = sync_oracle.calculate_duration_of_previous_frame_for_delta_time();
+   primary_update(time_now, delta_time);
+   sync_oracle.end_update_measure();
+
+   //sync_oracle.start_draw_measure();
+   //primary_render();
+   //sync_oracle.end_draw_measure();
+   ////flip_sync.start_flip_capture();
+   ////metric.al_flip_display_start_time = al_get_time();
+   //sync_oracle.start_flip_measure(); // ---
+   //primary_flip();
+   //sync_oracle.end_flip_measure(); // ---
+}
+
+
+void Full::handle_draw()
+{
+   //sync_oracle.start_update_measure();
+   //// TODO: Figure out what this delta_time variable should be
+   //double delta_time = sync_oracle.calculate_duration_of_previous_frame_for_delta_time();
+   //primary_update(time_now, delta_time);
+   //sync_oracle.end_update_measure();
+
+   sync_oracle.start_draw_measure();
+   primary_render();
+   sync_oracle.end_draw_measure();
+   //flip_sync.start_flip_capture();
+   //metric.al_flip_display_start_time = al_get_time();
+   sync_oracle.start_flip_measure(); // ---
+   primary_flip();
+   sync_oracle.end_flip_measure(); // ---
 }
 
 

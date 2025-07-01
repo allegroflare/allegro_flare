@@ -269,6 +269,8 @@ namespace AllegroFlare
          void handle_display_resize_event(ALLEGRO_EVENT *this_event);
          void handle_key_down_event(ALLEGRO_EVENT *this_event);
          void handle_user_event(ALLEGRO_EVENT *this_event);
+         void handle_update();
+         void handle_draw();
 
          int process_events_in_queue();
          void run_loop(float auto_shutdown_after_seconds=-1);
