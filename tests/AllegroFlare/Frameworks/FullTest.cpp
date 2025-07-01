@@ -180,6 +180,7 @@ TEST(AllegroFlare_Frameworks_FullTest, DEFAULT_CONFIG_FILENAME__has_the_expected
 TEST(AllegroFlare_Frameworks_FullTest, initialize__will_initialize_allegro)
 {
    AllegroFlare::Frameworks::Full framework;
+   //framework.disable_using_asset_studio();
 
    ASSERT_EQ(false, al_is_system_installed());
    framework.initialize();

@@ -118,6 +118,7 @@ namespace AllegroFlare
          float input_hints_bar_height;
          bool fullscreen;
          bool log_file_is_disabled;
+         bool using_asset_studio;
          bool mipmapping;
          AllegroFlare::DeploymentEnvironment deployment_environment;
          bool unset_deployment_environment_warning_on_initialization_is_disabled;
@@ -193,6 +194,8 @@ namespace AllegroFlare
          bool shutdown(); // TODO: make this private
          void enable_log_file();
          void disable_log_file();
+         void disable_using_asset_studio();
+         void enable_using_asset_studio();
          void disable_mipmapping();
          void disable_fullscreen(); // TODO: rename this to *_at_startup or something similar
          void disable_unset_deployment_environment_warning_on_initialization();

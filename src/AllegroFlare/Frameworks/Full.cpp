@@ -107,6 +107,7 @@ Full::Full()
    , input_hints_bar_height(60)
    , fullscreen(true)
    , log_file_is_disabled(true)
+   , using_asset_studio(false)
    , mipmapping(true)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_UNDEF)
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
@@ -946,7 +947,7 @@ bool Full::initialize()
 
    initialize_core_system();
    initialize_display_and_render_pipeline();
-   initialize_asset_studio_database();
+   if (using_asset_studio) initialize_asset_studio_database();
    initialize_sync_oracle();
 
    return true;
@@ -994,6 +995,34 @@ void Full::disable_log_file()
       );
    }
    log_file_is_disabled = true;
+}
+
+
+void Full::disable_using_asset_studio()
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::disable_using_asset_studio",
+         "Could not disable because the framework has already been initialized. "
+            "You must call this function before initializing the framework for it to take effect."
+      );
+   }
+   using_asset_studio = false;
+}
+
+
+void Full::enable_using_asset_studio()
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Frameworks::Full::enable_using_asset_studio",
+         "Could not disable because the framework has already been initialized. "
+            "You must call this function before initializing the framework for it to take effect."
+      );
+   }
+   using_asset_studio = true;
 }
 
 
