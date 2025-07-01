@@ -1754,106 +1754,47 @@ void Full::nudge_primary_timer_backward()
 
 void Full::handle_timer_event(ALLEGRO_EVENT *this_event)
 {
-   //case ALLEGRO_EVENT_TIMER: {
-      bool is_primary_timer_event = sync_oracle.is_primary_timer_event(this_event);
+   bool is_primary_timer_event = sync_oracle.is_primary_timer_event(this_event);
 
-      if (!is_primary_timer_event)
+   if (!is_primary_timer_event)
+   {
+      // TODO: screens.on_timer()?
+   }
+   else
+   {
+      double this_event_time = this_event->any.timestamp;
+      variable_time_stepper.set_atomic_on_step_func([this](double step, double total, void* ud){
+         this->primary_time_step(step, total);
+      });
+      variable_time_stepper.step_ahead_to(this_event_time);
+
+      sync_oracle.capture_primary_timer_event_time(this_event->any.timestamp);
+      draw = true;
+
+   //if (this_event.timer.source == primary_timer)
+   //{
+      //sync_oracle.start_update_measure();
+      //primary_update();
+      //sync_oracle.end_update_measure();
+
+      if (drain_sequential_timer_events)
       {
-         //while (
-               //al_peek_next_event(event_queue, &next_event)
-               //&& sync_oracle.is_primary_timer_event(&next_event)
-               //&& next_event.type == ALLEGRO_EVENT_TIMER
-               //&& (next_event.timer.source == this_event.timer.source)
-            //)
-         //{
-            // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
-            // problems as experienced on some machines.
-            //al_drop_next_event(event_queue);
-         //}
-         //screens.timer_funcs();
-      }
-      else
-      {
-         double this_event_time = this_event->any.timestamp;
-
-         variable_time_stepper.set_atomic_on_step_func([this](double step, double total, void* ud){
-            this->primary_time_step(step, total);
-         });
-
-         variable_time_stepper.step_ahead_to(this_event_time);
-         //void primary_time_step(double time_step_increment, double world_time_after_step);
-
-         sync_oracle.capture_primary_timer_event_time(this_event->any.timestamp);
-         draw = true;
-      //}
-      //if (this_event.timer.source == primary_timer)
-      //{
-         //sync_oracle.start_update_measure();
-         //primary_update();
-         //sync_oracle.end_update_measure();
-
-         if (drain_sequential_timer_events)
-         {
-            ALLEGRO_EVENT next_event;
-            while (
-               al_peek_next_event(event_queue, &next_event)
-               && sync_oracle.is_primary_timer_event(&next_event)
-               //&& next_event.type == ALLEGRO_EVENT_TIMER
-               //&& next_event.timer.source == this_event.timer.source)
-               )
-            {
-               // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
-               // problems as experienced on some machines.
-               al_drop_next_event(event_queue);
-               //metric.primary_timer_events_dropped++;
-               // HERE: Track when and how often events are dropped and see if there is a correlation 
-            }
-         }
-
-         /*
-         if (draw)
-         {
-            sync_oracle.start_update_measure();
-            primary_update();
-            sync_oracle.end_update_measure();
-
-            sync_oracle.start_draw_measure();
-            primary_render();
-            sync_oracle.end_draw_measure();
-            //flip_sync.start_flip_capture();
-            //metric.al_flip_display_start_time = al_get_time();
-            sync_oracle.start_flip_measure(); // ---
-            primary_flip();
-            sync_oracle.end_flip_measure(); // ---
-         }
-         */
-         //metric.al_flip_display_end_time = al_get_time();
-         //flip_sync.end_flip_capture();
-      }
-      //else if (this_event.timer.source == shader_source_poller.get_polling_timer())
-      //{
-         //event_emitter.emit_poll_hotload_shader_source_for_change_event();
-      //}
-      //else
-      //{
-         //screens.timer_funcs();
-      //}
-
-      //if (drain_sequential_timer_events)
-      //{
-         //ALLEGRO_EVENT next_event;
-         //while (al_peek_next_event(event_queue, &next_event)
+         ALLEGRO_EVENT next_event;
+         while (
+            al_peek_next_event(event_queue, &next_event)
+            && sync_oracle.is_primary_timer_event(&next_event)
             //&& next_event.type == ALLEGRO_EVENT_TIMER
             //&& next_event.timer.source == this_event.timer.source)
-         //{
+            )
+         {
             // TODO: Consider that this will offset the timer, possibly leading to intermittent stuttering
             // problems as experienced on some machines.
-            //al_drop_next_event(event_queue);
+            al_drop_next_event(event_queue);
             //metric.primary_timer_events_dropped++;
             // HERE: Track when and how often events are dropped and see if there is a correlation 
-         //}
-      //}
-   //} break;
+         }
+      }
+   }
 }
 
 
