@@ -8,22 +8,27 @@ properties:
   - name: last_time_step__time_remaining_to_next_step
     type: double
     init_with: 0
+    getter: true
 
   - name: last_time_step__num_steps_taken
     type: int
     init_with: 0
+    getter: true
 
   - name: last_time_step__excess_steps_not_taken
     type: int
     init_with: 0
+    getter: true
 
   - name: last_time_step__total_accumulated_time
     type: double
     init_with: 0
+    getter: true
 
   - name: last_time_step__total_accumulated_time_target
     type: double
     init_with: 0
+    getter: true
 
   - name: timer
     type: AllegroFlare::Timer
@@ -31,6 +36,26 @@ properties:
 
 
 methods:
+
+
+  - name: set_atomic_on_step_func
+    parameters:
+      - name: on_step_func
+        type: std::function<void(double, double, void*)>
+        default_argument: '{}'
+    body: |
+      variable_time_stepper.set_atomic_on_step_func(on_step_func);
+      return;
+
+
+  - name: set_atomic_on_step_func_user_data
+    parameters:
+      - name: on_step_func_user_data
+        type: void*
+        default_argument: nullptr
+    body: |
+      variable_time_stepper.set_atomic_on_step_func_user_data(on_step_func_user_data);
+      return;
 
 
   - name: start
@@ -48,6 +73,12 @@ methods:
   - name: pause
     body: |
       timer.pause();
+      return;
+
+
+  - name: unpause
+    body: |
+      timer.start();
       return;
 
 

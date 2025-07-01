@@ -13,6 +13,7 @@ namespace Screens
 
 Gameplay::Gameplay()
    : AllegroFlare::Screens::Base(AllegroFlare::Screens::Gameplay::TYPE)
+   , game_world_step_timer({})
    , on_paused_callback_func()
    , on_paused_callback_func_user_data(nullptr)
    , on_finished_callback_func()
@@ -28,6 +29,7 @@ Gameplay::Gameplay()
    , suspended_keyboard_state({})
    , suspended_joystick_state({})
    , disable_escape_key_pauses_game(false)
+   , timer_strategy(AllegroFlare::Screens::Gameplay::TimerStrategy::TIMER_STRATEGY_CLASSIC)
 {
 }
 
@@ -100,6 +102,12 @@ void Gameplay::set_on_quicksave_save_callback_func_user_data(void* on_quicksave_
 void Gameplay::set_disable_escape_key_pauses_game(bool disable_escape_key_pauses_game)
 {
    this->disable_escape_key_pauses_game = disable_escape_key_pauses_game;
+}
+
+
+void Gameplay::set_timer_strategy(AllegroFlare::Screens::Gameplay::TimerStrategy timer_strategy)
+{
+   this->timer_strategy = timer_strategy;
 }
 
 
@@ -193,6 +201,18 @@ bool Gameplay::get_disable_escape_key_pauses_game() const
 }
 
 
+AllegroFlare::Screens::Gameplay::TimerStrategy Gameplay::get_timer_strategy() const
+{
+   return timer_strategy;
+}
+
+
+AllegroFlare::GameWorldTimer &Gameplay::get_game_world_step_timer_ref()
+{
+   return game_world_step_timer;
+}
+
+
 AllegroFlare::SuspendedKeyboardState &Gameplay::get_suspended_keyboard_state_ref()
 {
    return suspended_keyboard_state;
@@ -244,6 +264,8 @@ void Gameplay::suspend_gameplay()
 {
    if (gameplay_suspended) return; // TODO: Should this throw? (it caused an issue in a Routers/Standard test)
 
+   game_world_step_timer.pause();
+
    ALLEGRO_JOYSTICK *joystick = (al_get_num_joysticks() == 0) ? nullptr : al_get_joystick(0); // HACK
    suspended_joystick_state.set_joystick(joystick); // HACK
 
@@ -261,6 +283,7 @@ void Gameplay::suspend_gameplay()
 void Gameplay::resume_suspended_gameplay()
 {
    if (!gameplay_suspended) return; // TODO: Should this throw? (it caused an issue in a Routers/Standard test)
+
    gameplay_suspended = false;
    suspended_keyboard_state.capture_subsequent_keyboard_state(); // TODO: Add guard if state cannot be captured
    suspended_keyboard_state.calculate_keyboard_state_changes(); // TODO: Add guard if state cannot be captured
@@ -269,6 +292,9 @@ void Gameplay::resume_suspended_gameplay()
       suspended_joystick_state.capture_subsequent_joystick_state();
       suspended_joystick_state.calculate_joystick_state_changes();
    }
+
+   game_world_step_timer.start();
+
    gameplay_resume_func();
    send_input_changes_since_last_suspend_to_player_input_controller(); // TODO: Test this
    suspended_keyboard_state.reset();
@@ -470,7 +496,7 @@ void Gameplay::save_to_quicksave_save()
    return;
 }
 
-void Gameplay::toggle_suspend_gameplay()
+void Gameplay::toggle_suspend_gameplay__DEPRECATED()
 {
    gameplay_suspended = !gameplay_suspended;
    if (gameplay_suspended) gameplay_suspend_func();
@@ -502,6 +528,9 @@ void Gameplay::gameplay_resume_func()
 
 void Gameplay::primary_timer_func()
 {
+   // NOTE: This "primary_timer_func" method is the old classic way of doing it. Consider migrating to use
+   // "primary_update_func" and "primary_render_func" with:
+   // set_update_strategy(AllegroFlare::Screens::Base::UpdateStrategy::SEPARATE_UPDATE_AND_RENDER_FUNCS);
    // TODO: Consider throwing here and forcing downstream migration to "primary_update_func"
    if (player_input_controller)
    {
@@ -513,18 +542,43 @@ void Gameplay::primary_timer_func()
    return;
 }
 
+void Gameplay::primary_time_step_func(double step, double total)
+{
+   // This is the method the end user should override in their derived class.
+   // This method is only used if the derived screen is using the TIMER_STRATEGY_ATOMIC_TIME_STEP timer_strategy,
+   // which can be set with set_timer_strategy_to_atomic_time_step();
+   return;
+}
+
 void Gameplay::primary_update_func(double time_now, double delta_time)
 {
-   if (player_input_controller) player_input_controller->update_time_step(time_now, delta_time);
+   // Here, the primary update func just ticks at whatever rate is determined by the framework's primary timer.
+   // The game world timer then checks periodically if it should step the simulation in atomic units (if the
+   // simulation is running and not paused).
+   // The user can override this function if they want, but ideally should set the timer strategy to use
+   // TIMER_STRATEGY_ATOMIC_TIME_STEP and 
+   if (timer_strategy_is_classic())
+   {
+      if (player_input_controller) player_input_controller->update_time_step(time_now, delta_time);
+   }
+   else if (timer_strategy_is_atomic_time_step())
+   {
+      game_world_step_timer.set_atomic_on_step_func([this](double step, double total, void* user){
+         if (player_input_controller)
+         {
+            player_input_controller->update_time_step(total, step);
+            //throw std::runtime_error("SJIFODSJFIO");
+         }
+         this->primary_time_step_func(step, total);
+      });
+      game_world_step_timer.update();
+   }
    return;
 }
 
 void Gameplay::primary_render_func()
 {
-   //if (player_input_controller)
-   //{
-      //player_input_controller->update_player_controlled_entity_velocity_from_player_input();
-   //}
+   // Override in the derived class
    return;
 }
 
@@ -650,6 +704,21 @@ void Gameplay::mouse_axes_func(ALLEGRO_EVENT* ev)
 {
    if (player_input_controller) player_input_controller->mouse_axes_func(ev);
    return;
+}
+
+bool Gameplay::timer_strategy_is_classic()
+{
+   return timer_strategy == AllegroFlare::Screens::Gameplay::TimerStrategy::TIMER_STRATEGY_CLASSIC;
+}
+
+bool Gameplay::timer_strategy_is_atomic_time_step()
+{
+   return timer_strategy == AllegroFlare::Screens::Gameplay::TimerStrategy::TIMER_STRATEGY_ATOMIC_TIME_STEP;
+}
+
+void Gameplay::set_timer_strategy_to_atomic_time_step()
+{
+   timer_strategy = AllegroFlare::Screens::Gameplay::TimerStrategy::TIMER_STRATEGY_ATOMIC_TIME_STEP;
 }
 
 

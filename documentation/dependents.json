@@ -4369,6 +4369,12 @@
   "AllegroFlare/SuspendedJoystickState": [
     "AllegroFlare/Screens/Gameplay"
   ],
+  "AllegroFlare/GameWorldTimer": [
+    "AllegroFlare/Screens/Gameplay"
+  ],
+  "AllegroFlare/Screens/Gameplay/TimerStrategy": [
+    "AllegroFlare/Screens/Gameplay"
+  ],
   "AllegroFlare/Elements/InputDeviceConfigurationList": [
     "AllegroFlare/Screens/InputDeviceConfiguration"
   ],
