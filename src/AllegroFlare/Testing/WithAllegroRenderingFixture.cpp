@@ -8,12 +8,16 @@
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_opengl.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 #include <chrono>
+#include <cstdint>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 #include <thread>
 
 
@@ -31,6 +35,7 @@ WithAllegroRenderingFixture::WithAllegroRenderingFixture()
    , display_width(1920)
    , display_height(1080)
    , display_samples(4)
+   , require_opengl3(false)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_TEST)
    , test_snapshots_folder("[unset-test_snapshots_folder]")
    , test_prefix_tokens({})
@@ -41,6 +46,12 @@ WithAllegroRenderingFixture::WithAllegroRenderingFixture()
 
 WithAllegroRenderingFixture::~WithAllegroRenderingFixture()
 {
+}
+
+
+void WithAllegroRenderingFixture::set_require_opengl3(bool require_opengl3)
+{
+   this->require_opengl3 = require_opengl3;
 }
 
 
@@ -65,6 +76,12 @@ int WithAllegroRenderingFixture::get_display_height() const
 int WithAllegroRenderingFixture::get_display_samples() const
 {
    return display_samples;
+}
+
+
+bool WithAllegroRenderingFixture::get_require_opengl3() const
+{
+   return require_opengl3;
 }
 
 
@@ -180,8 +197,51 @@ void WithAllegroRenderingFixture::SetUp()
    if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
    al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST);
    if (display_samples > 0) al_set_new_display_option(ALLEGRO_SAMPLES, display_samples, ALLEGRO_SUGGEST);
-   al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+
+   //require_opengl3 = true;
+   if (require_opengl3)
+   {
+      std::cout << "============= Requesting opengl3 ==========" << std::endl;
+      // 1. Request OpenGL 3.2, a very safe cross-platform target
+      //al_set_new_display_option(ALLEGRO_OPENGL_MAJOR_VERSION, 3, ALLEGRO_SUGGEST);
+      //al_set_new_display_option(ALLEGRO_OPENGL_MINOR_VERSION, 2, ALLEGRO_SUGGEST);
+
+      // 2. Set the essential flags, omitting the platform-specific CORE_PROFILE flag
+      al_set_new_display_flags(
+            al_get_new_display_flags()
+            //ALLEGRO_OPENGL |
+            //ALLEGRO_OPENGL_3_0 | // This flag signals our intent for modern OpenGL
+            | ALLEGRO_PROGRAMMABLE_PIPELINE
+            | ALLEGRO_OPENGL_3_0 // This flag signals our intent for modern OpenGL
+      );
+      // --- End of Setup ---
+      //al_set_new_display_option(ALLEGRO_OPENGL_MAJOR_VERSION, 3, ALLEGRO_SUGGEST);
+      //al_set_new_display_option(ALLEGRO_OPENGL_MINOR_VERSION, 3, ALLEGRO_SUGGEST);
+
+      // 2. Set the flags to request a modern, programmable, core profile context
+      //al_set_new_display_flags(
+            //ALLEGRO_OPENGL |
+            //ALLEGRO_OPENGL_3_0 |
+            //ALLEGRO_OPENGL_CORE_PROFILE |
+            //ALLEGRO_PROGRAMMABLE_PIPELINE
+      //);
+   }
+   else
+   {
+      al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE);
+   }
+
    display = al_create_display(display_width, display_height); // TODO: Add test that dimensions are correct
+
+   uint32_t opengl_version = al_get_opengl_version();
+
+   AllegroFlare::Logger::info_from(
+      THIS_CLASS_AND_METHOD_NAME,
+      //"AllegroFlare::Testing::WithAllegroRenderingFixture (via " + std::string(typeid(*this).name()) + ")",
+      "OpenGL Version: \"" + opengl_version_to_string(opengl_version) + "\"."
+   );
+
+
 
    ASSERT_NE(nullptr, display);
 
@@ -547,6 +607,26 @@ void WithAllegroRenderingFixture::save_bitmap_to_test_snapshots_folder(std::stri
          "Unable to save bitmap \"" + base_filename + "\" to test snapshots folder."
       );
    }
+}
+
+std::string WithAllegroRenderingFixture::opengl_version_to_string(uint32_t version)
+{
+   //std::string opengl_version_to_string(uint32_t version)
+   //{
+      std::stringstream ss;
+      ss //<< ''
+         << ((version >> 24) & 0xFF) << '.'
+         << ((version >> 16) & 0xFF);
+      
+      uint8_t patch = (version >> 8) & 0xFF;
+      if (patch != 0)
+      {
+         ss << '.' << static_cast<int>(patch);
+      }
+
+      //ss << '';
+      return ss.str();
+   //}
 }
 
 

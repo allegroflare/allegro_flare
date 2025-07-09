@@ -7,6 +7,7 @@
 #include <AllegroFlare/Placement2D.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <cstdint>
 #include <gtest/gtest.h>
 #include <string>
 #include <vector>
@@ -32,6 +33,7 @@ namespace AllegroFlare
          int display_width;
          int display_height;
          int display_samples;
+         bool require_opengl3;
          AllegroFlare::DeploymentEnvironment deployment_environment;
          std::string test_snapshots_folder;
          std::vector<std::string> test_prefix_tokens;
@@ -44,10 +46,12 @@ namespace AllegroFlare
          WithAllegroRenderingFixture();
          virtual ~WithAllegroRenderingFixture();
 
+         void set_require_opengl3(bool require_opengl3);
          ALLEGRO_DISPLAY* get_display() const;
          int get_display_width() const;
          int get_display_height() const;
          int get_display_samples() const;
+         bool get_require_opengl3() const;
          AllegroFlare::FontBin &get_font_bin_ref();
          AllegroFlare::BitmapBin &get_bitmap_bin_ref();
          void set_display_samples(int display_samples=4);
@@ -86,6 +90,7 @@ namespace AllegroFlare
          bool test_name_has_prefix_token(std::string possible_prefix_token="[unset-possible_prefix_token]");
          void capture_screenshot(std::string base_filename="WithAllegroRenderingFixture-screenshot.png");
          void save_bitmap_to_test_snapshots_folder(std::string base_filename="WithAllegroRenderingFixture-test_bitmap.png", ALLEGRO_BITMAP* bitmap=nullptr);
+         std::string opengl_version_to_string(uint32_t version=0);
       };
    }
 }

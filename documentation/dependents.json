@@ -4590,6 +4590,12 @@
   "std/this_thread/sleep_for": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
+  "this_method_deps": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "al_get_opengl_version": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/Testing/WithAllegroRenderingFixture": [
     "AllegroFlare/Testing/WithInteractionFixture"
   ],

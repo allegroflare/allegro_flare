@@ -45450,6 +45450,10 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
+  <td class="property">require_opengl3</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">deployment_environment</td>
   <td class="property">AllegroFlare::DeploymentEnvironment</td>
 </tr>
@@ -45632,6 +45636,10 @@ table td
   <td class="method">void</td>
   <td class="method"><b>save_bitmap_to_test_snapshots_folder</b>(std::string base_filename=&quot;WithAllegroRenderingFixture-test_bitmap.png&quot;, ALLEGRO_BITMAP* bitmap=nullptr)</td>
 </tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>opengl_version_to_string</b>(uint32_t version=0)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -45697,6 +45705,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Testing::TestNameInference&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Testing/TestNameInference.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;this_method_deps&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;, &quot;iomanip&quot;, &quot;cstdint&quot;, &quot;string&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_get_opengl_version&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_opengl.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -56905,6 +56919,12 @@ table td
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "std/this_thread/sleep_for": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "this_method_deps": [
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
+  "al_get_opengl_version": [
     "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/Testing/WithAllegroRenderingFixture": [

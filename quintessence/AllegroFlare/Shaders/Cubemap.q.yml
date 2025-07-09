@@ -73,6 +73,7 @@ functions:
     guards: [ object_placement ]
     body: |
       object_placement->build_transform(&object_placement_transform);
+      if (is_active()) set_mat4("position_transform", &object_placement_transform); // TODO: Test this
 
       // TODO: if this shader is active, send the value to the shader directly
       return;

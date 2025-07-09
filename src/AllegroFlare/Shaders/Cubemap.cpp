@@ -82,6 +82,7 @@ void Cubemap::set_object_placement(AllegroFlare::Placement3D* object_placement)
       throw std::runtime_error("[AllegroFlare::Shaders::Cubemap::set_object_placement]: error: guard \"object_placement\" not met");
    }
    object_placement->build_transform(&object_placement_transform);
+   if (is_active()) set_mat4("position_transform", &object_placement_transform); // TODO: Test this
 
    // TODO: if this shader is active, send the value to the shader directly
    return;
