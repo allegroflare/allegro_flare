@@ -27,18 +27,6 @@ Multitexture::~Multitexture()
 }
 
 
-void Multitexture::set_texture_a(ALLEGRO_BITMAP* texture_a)
-{
-   this->texture_a = texture_a;
-}
-
-
-void Multitexture::set_texture_b(ALLEGRO_BITMAP* texture_b)
-{
-   this->texture_b = texture_b;
-}
-
-
 ALLEGRO_BITMAP* Multitexture::get_texture_a() const
 {
    return texture_a;
@@ -79,6 +67,20 @@ void Multitexture::set_values_to_activated_shader()
    //set_vec3("camera_position", camera_position);
    //set_mat4("position_transform", &object_placement_transform);
    //set_bool("reflecting", reflecting);
+   return;
+}
+
+void Multitexture::set_texture_a(ALLEGRO_BITMAP* texture_a)
+{
+   this->texture_a = texture_a;
+   if (is_active()) set_sampler("texture_a", texture_a, 1);
+   return;
+}
+
+void Multitexture::set_texture_b(ALLEGRO_BITMAP* texture_b)
+{
+   this->texture_b = texture_b;
+   if (is_active()) set_sampler("texture_b", texture_b, 2);
    return;
 }
 

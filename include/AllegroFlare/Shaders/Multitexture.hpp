@@ -30,12 +30,12 @@ namespace AllegroFlare
          Multitexture();
          ~Multitexture();
 
-         void set_texture_a(ALLEGRO_BITMAP* texture_a);
-         void set_texture_b(ALLEGRO_BITMAP* texture_b);
          ALLEGRO_BITMAP* get_texture_a() const;
          ALLEGRO_BITMAP* get_texture_b() const;
          void initialize();
          void activate();
+         void set_texture_a(ALLEGRO_BITMAP* texture_a=nullptr);
+         void set_texture_b(ALLEGRO_BITMAP* texture_b=nullptr);
       };
    }
 }

@@ -19,13 +19,13 @@ properties:
     type: ALLEGRO_BITMAP*
     init_with: nullptr
     getter: true
-    setter: true
+    setter: explicit
 
   - name: texture_b
     type: ALLEGRO_BITMAP*
     init_with: nullptr
     getter: true
-    setter: true
+    setter: explicit
 
   - name: initialized
     type: bool
@@ -67,6 +67,28 @@ functions:
       //set_vec3("camera_position", camera_position);
       //set_mat4("position_transform", &object_placement_transform);
       //set_bool("reflecting", reflecting);
+      return;
+
+
+  - name: set_texture_a
+    parameters:
+      - name: texture_a
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    body: |
+      this->texture_a = texture_a;
+      if (is_active()) set_sampler("texture_a", texture_a, 1);
+      return;
+
+
+  - name: set_texture_b
+    parameters:
+      - name: texture_b
+        type: ALLEGRO_BITMAP*
+        default_argument: nullptr
+    body: |
+      this->texture_b = texture_b;
+      if (is_active()) set_sampler("texture_b", texture_b, 2);
       return;
 
 
