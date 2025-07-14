@@ -78,7 +78,8 @@ functions:
       {
          for (AllegroFlare::Physics::Int2D &t : horizontal_collided_blocks)
          {
-            int tile_value = map.get_tile(t.get_x(), t.get_y());
+            //int tile_value = map.get_tile(t.get_x(), t.get_y());
+            int tile_value = get_tile_or_fallback(t.get_x(), t.get_y(), 0);
 
             if (tile_value == 1) // tile is solid
             {
@@ -136,7 +137,7 @@ functions:
       {
          for (AllegroFlare::Physics::Int2D &t : vertical_collided_blocks)
          {
-            int tile_value = map.get_tile(t.get_x(), t.get_y());
+            int tile_value = map.get_tile_or_fallback(t.get_x(), t.get_y(), 0);
 
             if (tile_value == 1) // tile is solid
             {
@@ -228,7 +229,8 @@ functions:
       for (auto &t : tiles)
       {
          t.rotate();
-         if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+         //if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+         if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
       }
       return false;
 
@@ -260,7 +262,8 @@ functions:
       for (auto &t : tiles)
       {
          //t.rotate();
-         if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+         //if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+         if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
       }
       return false;
 
@@ -292,7 +295,8 @@ functions:
       for (auto &t : tiles)
       {
          t.rotate();
-         if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+         //if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+         if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
       }
       return false;
 
@@ -367,7 +371,8 @@ functions:
       for (auto &t : tiles)
       {
          //t.rotate();
-         if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+         //if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+         if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
       }
       return false;
 
@@ -526,7 +531,8 @@ functions:
       {
          result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
             stayed_on_tile,
-            collision_tile_map ? collision_tile_map->get_tile(stayed_on_tile.get_x(), stayed_on_tile.get_y()) : -999,
+            //collision_tile_map ? collision_tile_map->get_tile(stayed_on_tile.get_x(), stayed_on_tile.get_y()) : -999,
+            collision_tile_map ? get_tile_or_fallback(stayed_on_tile.get_x(), stayed_on_tile.get_y(), -1) : -999,
             velocity_x,
             velocity_y,
             false,
@@ -539,7 +545,9 @@ functions:
       {
          result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
             entered_tile,
-            collision_tile_map ? collision_tile_map->get_tile(entered_tile.get_x(), entered_tile.get_y()) : -999,
+            //collision_tile_map ? collision_tile_map->get_tile(entered_tile.get_x(), entered_tile.get_y()) : -999,
+            collision_tile_map ? get_tile_or_fallback(entered_tile.get_x(), entered_tile.get_y(), -1) : -999,
+            //get_tile_value_or_fallback(entered_tile.get_x(), entered_tile.get_y(), -999),
             velocity_x,
             velocity_y,
             false,
@@ -552,7 +560,9 @@ functions:
       {
          result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
             exited_tile,
-            collision_tile_map ? collision_tile_map->get_tile(exited_tile.get_x(), exited_tile.get_y()) : -999,
+            //collision_tile_map ? collision_tile_map->get_tile(exited_tile.get_x(), exited_tile.get_y()) : -999,
+            //get_tile_value_or_fallback(exited_tile.get_x(), exited_tile.get_y(), -999),
+            collision_tile_map ? get_tile_or_fallback(exited_tile.get_x(), exited_tile.get_y(), -1) : -999,
             velocity_x,
             velocity_y,
             false,
@@ -723,6 +733,30 @@ functions:
         default_argument: 16.0f
     body: |
       return (tile_y+1) * tile_height;
+
+
+  - name: get_tile_or_fallback
+    type: int
+    parameters:
+      - name: tile_x
+        type: int
+        default_argument: 0
+      - name: tile_y
+        type: int
+        default_argument: 0
+      - name: fallback
+        type: int
+        default_argument: 0
+    guards: [ collision_tile_map ]
+    body: |
+      return collision_tile_map->get_tile_or_fallback(tile_x, tile_y, fallback);
+      // Check if the tile coordinates are within the map's bounds
+      //if (tile_x >= 0 && tile_x < collision_tile_map->get_num_columns()
+       //&& tile_y >= 0 && tile_y < collision_tile_map->get_num_rows())
+      //{
+          //return collision_tile_map->get_tile(tile_x, tile_y);
+      //}
+      //return fallback;
 
 
 dependencies:

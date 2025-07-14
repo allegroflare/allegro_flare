@@ -35,6 +35,7 @@ namespace AllegroFlare::TileMaps
       const std::vector<T> get_tiles() const;
       bool in_bounds(int tile_x, int tile_y);
       T get_tile(int tile_x, int tile_y);
+      T get_tile_or_fallback(int tile_x, int tile_y, T fallback);
       bool set_tile(int tile_x, int tile_y, T value);
       bool set_contiguous_tile(int tile_i, T value);
       std::pair<int, int> get_coordinates_from_contiguous_number(int contiguous_tile_num);
@@ -364,6 +365,30 @@ T TileMap<T>::get_tile(int tile_x, int tile_y)
          "AllegroFlare::TileMaps::TileMap<T>::get_tile()",
          "The tile_y argument passed was either less than 0 or greater than or equal to the number of rows."
       );
+   }
+
+   return tiles[tile_x + tile_y * num_columns];
+}
+
+
+template <class T>
+T TileMap<T>::get_tile_or_fallback(int tile_x, int tile_y, T fallback)
+{
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::TileMaps::TileMap<T>::get_tile()",
+         "tile map must be initialized first."
+      );
+   }
+
+   if (tile_x < 0 || (tile_x >= num_columns))
+   {
+      return fallback;
+   }
+   if (tile_y < 0 || (tile_y >= num_rows))
+   {
+      return fallback;
    }
 
    return tiles[tile_x + tile_y * num_columns];

@@ -62,6 +62,7 @@ namespace AllegroFlare
          float get_tile_right_edge(float tile_x=0.0f, float tile_width=16.0f);
          float get_tile_top_edge(float tile_y=0.0f, float tile_height=16.0f);
          float get_tile_bottom_edge(float tile_y=0.0f, float tile_height=16.0f);
+         int get_tile_or_fallback(int tile_x=0, int tile_y=0, int fallback=0);
       };
    }
 }

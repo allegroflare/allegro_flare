@@ -1006,3 +1006,108 @@ TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
 }
 
 
+//
+// Tests related to collisions that are *outside* (in whole or in part) the bounds of the collision_tile_map
+// Author: Gemini
+//
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__with_an_aabb_fully_outside_the_map_and_moving_away__does_not_create_a_collision_event)
+{
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+   collision_tile_map.initialize();
+   load_test_map(collision_tile_map);
+
+   AllegroFlare::Physics::AABB2D aabb2d(-100, -100, 10, 10, -2, -2);
+   AllegroFlare::Physics::AABB2D expected_aabb2d_after_step(-102, -102, 10, 10, -2, -2);
+
+   AllegroFlare::Physics::TileMapCollisionStepper stepper(&collision_tile_map, &aabb2d);
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_infos = stepper.step();
+
+   // Expect no collision events against solid tiles
+   for (auto &collision_info : collision_infos)
+   {
+      EXPECT_FALSE(collision_info.get_event() == AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST);
+   }
+
+   // Expect the AABB to have moved by its velocity without interference
+   EXPECT_EQ(expected_aabb2d_after_step, aabb2d);
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__with_an_aabb_partially_outside_the_map__collides_with_solid_tiles_on_the_inside)
+{
+   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+   auto EVENT_COLLIDED_AGAINST = TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST;
+   auto EDGE_TOP = TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_TOP;
+
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+   collision_tile_map.initialize();
+   load_test_map(collision_tile_map); // Map bottom row (y=14) is solid. Tile top edge is at y=224.
+
+   AllegroFlare::Physics::AABB2D aabb2d(-5, 210, 10, 10, 0, 15);
+
+   AllegroFlare::Physics::TileMapCollisionStepper stepper(&collision_tile_map, &aabb2d);
+   std::vector<TileMapCollisionStepperCollisionInfo> actual_collisions = stepper.step();
+
+   TileMapCollisionStepperCollisionInfo expected_collision({0, 14}, 1, 0, 15, true, EVENT_COLLIDED_AGAINST, EDGE_TOP);
+
+   // Find and validate the collision event within the list of all returned events
+   bool found_collision_event = false;
+   for (auto &collision : actual_collisions)
+   {
+      if (collision.get_event() == EVENT_COLLIDED_AGAINST)
+      {
+         EXPECT_EQ(expected_collision, collision);
+         found_collision_event = true;
+      }
+   }
+   ASSERT_TRUE(found_collision_event) << "The expected EVENT_COLLIDED_AGAINST was not found.";
+
+   // Validate final AABB state
+   float tile_top_edge = 14 * 16.0f;
+   float expected_repositioned_y = tile_top_edge - aabb2d.get_h() - stepper.get_reposition_offset();
+   EXPECT_FLOAT_EQ(expected_repositioned_y, aabb2d.get_y());
+   EXPECT_FLOAT_EQ(0.0f, aabb2d.get_velocity_y());
+}
+
+
+TEST_F(AllegroFlare_Physics_TileMapCollisionStepperTest,
+   step__with_an_aabb_moving_in_from_outside_the_map__collides_with_the_edge_tile_and_generates_correct_event_info)
+{
+   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+   auto EVENT_COLLIDED_AGAINST = TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST;
+   auto EDGE_RIGHT = TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_RIGHT;
+
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+   collision_tile_map.initialize();
+   load_test_map(collision_tile_map); // Map right edge (x=24) is solid.
+
+   AllegroFlare::Physics::AABB2D aabb2d(405, 100, 10, 10, -10, 0);
+
+   AllegroFlare::Physics::TileMapCollisionStepper stepper(&collision_tile_map, &aabb2d);
+   std::vector<TileMapCollisionStepperCollisionInfo> actual_collisions = stepper.step();
+
+   // Expect a collision with tile (24, 6) on its right edge.
+   TileMapCollisionStepperCollisionInfo expected_collision({24, 6}, 1, -10, 0, true, EVENT_COLLIDED_AGAINST, EDGE_RIGHT);
+
+   bool found_collision_event = false;
+   for (auto &collision : actual_collisions)
+   {
+      if (collision.get_event() == EVENT_COLLIDED_AGAINST)
+      {
+         EXPECT_EQ(expected_collision, collision);
+         found_collision_event = true;
+      }
+   }
+   ASSERT_TRUE(found_collision_event) << "The expected EVENT_COLLIDED_AGAINST was not found.";
+
+   // Validate final AABB state
+   float tile_right_edge = (24 + 1) * 16.0f;
+   float expected_repositioned_x = tile_right_edge + stepper.get_reposition_offset();
+   EXPECT_FLOAT_EQ(expected_repositioned_x, aabb2d.get_x());
+   EXPECT_FLOAT_EQ(0.0f, aabb2d.get_velocity_x());
+}
+
+

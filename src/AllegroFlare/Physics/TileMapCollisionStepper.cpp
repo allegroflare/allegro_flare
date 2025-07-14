@@ -125,7 +125,8 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       for (AllegroFlare::Physics::Int2D &t : horizontal_collided_blocks)
       {
-         int tile_value = map.get_tile(t.get_x(), t.get_y());
+         //int tile_value = map.get_tile(t.get_x(), t.get_y());
+         int tile_value = get_tile_or_fallback(t.get_x(), t.get_y(), 0);
 
          if (tile_value == 1) // tile is solid
          {
@@ -183,7 +184,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       for (AllegroFlare::Physics::Int2D &t : vertical_collided_blocks)
       {
-         int tile_value = map.get_tile(t.get_x(), t.get_y());
+         int tile_value = map.get_tile_or_fallback(t.get_x(), t.get_y(), 0);
 
          if (tile_value == 1) // tile is solid
          {
@@ -277,7 +278,8 @@ bool TileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, float ti
    for (auto &t : tiles)
    {
       t.rotate();
-      if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+      //if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+      if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
    }
    return false;
 }
@@ -314,7 +316,8 @@ bool TileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float til
    for (auto &t : tiles)
    {
       //t.rotate();
-      if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+      //if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+      if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
    }
    return false;
 }
@@ -351,7 +354,8 @@ bool TileMapCollisionStepper::adjacent_to_top_edge(float tile_width, float tile_
    for (auto &t : tiles)
    {
       t.rotate();
-      if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+      //if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+      if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
    }
    return false;
 }
@@ -406,7 +410,8 @@ bool TileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile
    for (auto &t : tiles)
    {
       //t.rotate();
-      if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+      //if (collision_tile_map->get_tile(t.get_x(), t.get_y()) == 1) return true;
+      if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
    }
    return false;
 }
@@ -499,7 +504,8 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
          stayed_on_tile,
-         collision_tile_map ? collision_tile_map->get_tile(stayed_on_tile.get_x(), stayed_on_tile.get_y()) : -999,
+         //collision_tile_map ? collision_tile_map->get_tile(stayed_on_tile.get_x(), stayed_on_tile.get_y()) : -999,
+         collision_tile_map ? get_tile_or_fallback(stayed_on_tile.get_x(), stayed_on_tile.get_y(), -1) : -999,
          velocity_x,
          velocity_y,
          false,
@@ -512,7 +518,9 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
          entered_tile,
-         collision_tile_map ? collision_tile_map->get_tile(entered_tile.get_x(), entered_tile.get_y()) : -999,
+         //collision_tile_map ? collision_tile_map->get_tile(entered_tile.get_x(), entered_tile.get_y()) : -999,
+         collision_tile_map ? get_tile_or_fallback(entered_tile.get_x(), entered_tile.get_y(), -1) : -999,
+         //get_tile_value_or_fallback(entered_tile.get_x(), entered_tile.get_y(), -999),
          velocity_x,
          velocity_y,
          false,
@@ -525,7 +533,9 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> TileMap
    {
       result.push_back(AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo(
          exited_tile,
-         collision_tile_map ? collision_tile_map->get_tile(exited_tile.get_x(), exited_tile.get_y()) : -999,
+         //collision_tile_map ? collision_tile_map->get_tile(exited_tile.get_x(), exited_tile.get_y()) : -999,
+         //get_tile_value_or_fallback(exited_tile.get_x(), exited_tile.get_y(), -999),
+         collision_tile_map ? get_tile_or_fallback(exited_tile.get_x(), exited_tile.get_y(), -1) : -999,
          velocity_x,
          velocity_y,
          false,
@@ -633,6 +643,25 @@ float TileMapCollisionStepper::get_tile_top_edge(float tile_y, float tile_height
 float TileMapCollisionStepper::get_tile_bottom_edge(float tile_y, float tile_height)
 {
    return (tile_y+1) * tile_height;
+}
+
+int TileMapCollisionStepper::get_tile_or_fallback(int tile_x, int tile_y, int fallback)
+{
+   if (!(collision_tile_map))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::TileMapCollisionStepper::get_tile_or_fallback]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::TileMapCollisionStepper::get_tile_or_fallback]: error: guard \"collision_tile_map\" not met");
+   }
+   return collision_tile_map->get_tile_or_fallback(tile_x, tile_y, fallback);
+   // Check if the tile coordinates are within the map's bounds
+   //if (tile_x >= 0 && tile_x < collision_tile_map->get_num_columns()
+    //&& tile_y >= 0 && tile_y < collision_tile_map->get_num_rows())
+   //{
+       //return collision_tile_map->get_tile(tile_x, tile_y);
+   //}
+   //return fallback;
 }
 
 
