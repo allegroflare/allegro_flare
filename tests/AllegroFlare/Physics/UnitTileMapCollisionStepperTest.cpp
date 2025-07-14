@@ -337,16 +337,15 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixtur
 }
 
 
-/*
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixture,
    get_next_collided_tile_coords_1d__will_provide_expected_tile_coordinates)
 {
-   float coord_x = 4.0f;
-   float coord_y = 1.0f;
-   float coord_w = 8.0f;
-   float coord_h = 16.0f;
-   float horizontal_velocity = 6.0;
-   float tile_size = 16;
+   float coord_x = 4.0f / 16.0;
+   float coord_y = 1.0f / 16.0;
+   float coord_w = 8.0f / 16.0;
+   float coord_h = 16.0f / 16.0;
+   float horizontal_velocity = 6.0 / 16.0;
+   float tile_size = 1.0;
 
    std::vector<AllegroFlare::Physics::Int2D> expected_next_tile_coords = {
       { 1, 0 }, { 1, 1 }
@@ -367,6 +366,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixtur
 }
 
 
+/*
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixture,
    get_next_collided_tile_coords_1d__will_provide_expected_tile_coordinates_when_in_negative_values)
 {
