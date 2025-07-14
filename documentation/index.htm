@@ -376,6 +376,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepperStepResult.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/UnitTileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/UnitTileMapCollisionStepper.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Player.q.yml">quintessence/AllegroFlare/Player.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PlayerInputControllers/Base.q.yml">quintessence/AllegroFlare/PlayerInputControllers/Base.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/PlayerInputControllers/Generic.q.yml">quintessence/AllegroFlare/PlayerInputControllers/Generic.q.yml</a></li>
@@ -27168,6 +27169,156 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/UnitTileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/UnitTileMapCollisionStepper.q.yml</h3>
+    <h3>Overview</h3>
+    <p>Note that the "reposition_offset" at small values can have floating-point calculation issues when paired with larger aabb2d x or y values.  As an example, if a player collides against an x edge at 2064.0f, and the "reposition_offset" is 0.0001f, then the result repositiond x value will *still* be 2064.0f due to floating point errors. For now, the "reposition_offset" is set to 0.01f.</p>    <p>Note that the "reposition_offset" is used in the step calculation, the "adjacent_to_*" methods, and the "get_tile_coords_below_*_foot" methods</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">collision_tile_map</td>
+  <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
+</tr>
+<tr>
+  <td class="property">aabb2d</td>
+  <td class="property">AllegroFlare::Physics::AABB2D*</td>
+</tr>
+<tr>
+  <td class="property">tile_width</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">tile_height</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">reposition_offset</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_REPOSITION_OFFSET</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;</td>
+  <td class="method"><b>step</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>adjacent_to_bottom_edge</b>(float tile_width=16.0f, float tile_height=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>adjacent_to_right_edge</b>(float tile_width=16.0f, float tile_height=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>adjacent_to_top_edge</b>(float tile_width=16.0f, float tile_height=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::pair&lt;int, int&gt;</td>
+  <td class="method"><b>get_tile_coords_below_left_foot</b>(float x=0.0f, float y=0.0f, float height=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::pair&lt;int, int&gt;</td>
+  <td class="method"><b>get_tile_coords_below_right_foot</b>(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>adjacent_to_left_edge</b>(float tile_width=16.0f, float tile_height=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Physics::Int2D&gt;</td>
+  <td class="method"><b>get_next_collided_tile_coords_1d</b>(float x=0.0f, float y=0.0f, float velocity=0.0f, float depth_of_body=1.0f, float length_of_edge=1.0f, float tile_length_n=1.0f, float tile_length_m=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;</td>
+  <td class="method"><b>get_stepped_tile_collisions</b>(float x=0.0f, float y=0.0f, float velocity_x=0.0f, float velocity_y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;</td>
+  <td class="method"><b>calculate_difference_info</b>(std::vector&lt;AllegroFlare::Physics::Int2D&gt; now_tiles={}, std::vector&lt;AllegroFlare::Physics::Int2D&gt; next_tiles={}, float velocity_x=0.0f, float velocity_y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Physics::Int2D&gt;</td>
+  <td class="method"><b>tiles_within_aabb2d</b>(AllegroFlare::Physics::AABB2D aabb2d={})</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Physics::Int2D&gt;</td>
+  <td class="method"><b>tiles_within</b>(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f, float tile_width=1.0f, float tile_height=1.0f)</td>
+</tr>
+<tr>
+  <td class="private_method">bool</td>
+  <td class="private_method"><b>tiles_have_equal_coordinates</b>(AllegroFlare::Physics::Int2D a={0, 0}, AllegroFlare::Physics::Int2D b={0, 0})</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>world_coords_to_tile_coords</b>(float world_pos=0.0f, float tile_length=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>unit_space_to_tile_coord</b>(float unit_pos=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>world_x_coords_to_tile_coords_x</b>(float world_pos_x=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>world_y_coords_to_tile_coords_y</b>(float world_pos_y=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_tile_left_edge</b>(float tile_x=0.0f, float tile_width=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_tile_right_edge</b>(float tile_x=0.0f, float tile_width=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_tile_top_edge</b>(float tile_y=0.0f, float tile_height=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_tile_bottom_edge</b>(float tile_y=0.0f, float tile_height=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_tile_or_fallback</b>(int tile_x=0, int tile_y=0, int fallback=0)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::fmod&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::AABB2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/AABB2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::vector&lt;AllegroFlare::Physics::Int2D&gt;&quot;, &quot;headers&quot;=&gt;[&quot;vector&quot;, &quot;AllegroFlare/Physics/Int2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::pair&lt;int, int&gt;&quot;, &quot;headers&quot;=&gt;[&quot;utility&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMap&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMap.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::Int2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/Int2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55910,6 +56061,7 @@ table td
   "AllegroFlare/Physics/AABB2D": [
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
@@ -55973,18 +56125,22 @@ table td
   ],
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "AllegroFlare/SyncOracle",
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "std/vector<AllegroFlare/Physics/Int2D>": [
-    "AllegroFlare/Physics/TileMapCollisionStepper"
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper"
   ],
   "std/pair<int, int>": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "AllegroFlare/TileMaps/TileMap": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
@@ -56003,11 +56159,13 @@ table td
   ],
   "AllegroFlare/Physics/Int2D": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
-    "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
+    "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen"

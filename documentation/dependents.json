@@ -3567,6 +3567,7 @@
   "AllegroFlare/Physics/AABB2D": [
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
@@ -3630,18 +3631,22 @@
   ],
   "std/fmod": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "AllegroFlare/SyncOracle",
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "std/vector<AllegroFlare/Physics/Int2D>": [
-    "AllegroFlare/Physics/TileMapCollisionStepper"
+    "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper"
   ],
   "std/pair<int, int>": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "Wicked/Physics/TileMapCollisionStepper"
   ],
   "AllegroFlare/TileMaps/TileMap": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "AllegroFlare/Prototypes/MindDive/Tunnel",
     "AllegroFlare/Prototypes/MindDive/TunnelMesh",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
@@ -3660,11 +3665,13 @@
   ],
   "AllegroFlare/Physics/Int2D": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
-    "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo"
+    "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper"
   ],
   "AllegroFlare/Physics/TileMapCollisionStepperCollisionInfo": [
     "AllegroFlare/Physics/TileMapCollisionStepper",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
+    "AllegroFlare/Physics/UnitTileMapCollisionStepper",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/MovementStrategies2D/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
