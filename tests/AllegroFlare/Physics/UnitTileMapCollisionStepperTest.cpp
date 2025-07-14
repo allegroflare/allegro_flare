@@ -242,14 +242,13 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
 }
 
 
-/*
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixture,
    //INTERACTIVE__world_coords_to_tile_coords__will_provide_expected_tile_coordinates)
    DISABLED__INTERACTIVE__world_coords_to_tile_coords__will_provide_expected_tile_coordinates)
 {
    float coord_x = 0.0f;
    float coord_y = 0.0f;
-   float tile_size = 32;
+   float tile_size = 32.0;
    ALLEGRO_COLOR tile_color = al_color_name("aquamarine");
 
    ALLEGRO_TRANSFORM camera_transform;
@@ -274,11 +273,11 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixtur
             al_use_transform(&camera_transform);
 
             int tile_coord_x =
-               AllegroFlare::Physics::UnitTileMapCollisionStepper::world_coords_to_tile_coords(coord_x, tile_size);
+               AllegroFlare::Physics::UnitTileMapCollisionStepper::unit_space_to_tile_coord(coord_x);
             int tile_coord_y =
-               AllegroFlare::Physics::UnitTileMapCollisionStepper::world_coords_to_tile_coords(coord_y, tile_size);
+               AllegroFlare::Physics::UnitTileMapCollisionStepper::unit_space_to_tile_coord(coord_y);
 
-            draw_crosshair(coord_x, coord_y);
+            draw_crosshair(coord_x * tile_size, coord_y * tile_size);
             al_draw_rectangle(
                tile_coord_x * tile_size,
                tile_coord_y * tile_size,
@@ -313,22 +312,23 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixtur
          //// For example:
          case ALLEGRO_EVENT_KEY_CHAR: {
             bool shift = current_event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+            float increment = 0.125;
             switch(current_event.keyboard.keycode)
             {
                case ALLEGRO_KEY_RIGHT:
-                  coord_x += 1.0;
+                  coord_x += increment;
                break;
 
                case ALLEGRO_KEY_LEFT:
-                  coord_x -= 1.0;
+                  coord_x -= increment;
                break;
 
                case ALLEGRO_KEY_UP:
-                  coord_y -= 1.0;
+                  coord_y -= increment;
                break;
 
                case ALLEGRO_KEY_DOWN:
-                  coord_y += 1.0;
+                  coord_y += increment;
                break;
             }
          } break;
@@ -337,6 +337,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixtur
 }
 
 
+/*
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixture,
    get_next_collided_tile_coords_1d__will_provide_expected_tile_coordinates)
 {
