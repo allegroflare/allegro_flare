@@ -117,7 +117,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
 
    // test horizontal first
    std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords_1d(
-         obj.get_x(), obj.get_y(), obj.get_velocity_x(), obj.get_w(), obj.get_h(), tile_width, tile_height
+         obj.get_x(), obj.get_y(), obj.get_velocity_x(), obj.get_w(), obj.get_h() //, tile_width, tile_height
    );
 
    // react to the collision here:
@@ -176,7 +176,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
 
    // test vertical second
    std::vector<AllegroFlare::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords_1d(
-      obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w(), tile_height, tile_width
+      obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w() //, tile_height, tile_width
    );
 
    for(AllegroFlare::Physics::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
@@ -269,9 +269,9 @@ bool UnitTileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, floa
       obj.get_x(),
       reposition_offset*2, //0.0004,
       obj.get_h(),
-      obj.get_w(),
-      tile_height,
-      tile_width
+      obj.get_w() //,
+      //tile_height,
+      //tile_width
    );
    if (tiles.empty()) return false;
 
@@ -307,9 +307,9 @@ bool UnitTileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float
       obj.get_y(),
       reposition_offset * 2, //0.0004,
       obj.get_w(),
-      obj.get_h(),
-      tile_width,
-      tile_height
+      obj.get_h() //,
+      //tile_width,
+      //tile_height
    );
    if (tiles.empty()) return false;
 
@@ -345,9 +345,9 @@ bool UnitTileMapCollisionStepper::adjacent_to_top_edge(float tile_width, float t
       obj.get_x(),
       -reposition_offset * 2, //-0.0004,
       obj.get_h(),
-      obj.get_w(),
-      tile_height,
-      tile_width
+      obj.get_w() //,
+      //tile_height,
+      //tile_width
    );
    if (tiles.empty()) return false;
 
@@ -401,9 +401,9 @@ bool UnitTileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float 
       obj.get_y(),
       -reposition_offset*2, //-0.0004,
       obj.get_w(),
-      obj.get_h(),
-      tile_height,
-      tile_width
+      obj.get_h()//,
+      //tile_height,
+      //tile_width
    );
    if (tiles.empty()) return false;
 
@@ -430,8 +430,8 @@ std::vector<AllegroFlare::Physics::Int2D> UnitTileMapCollisionStepper::get_next_
       // new tiles have been entered
       int start_y = unit_space_to_tile_coord(y); //TileMap::world_to_tile(y);
       //float inset_y = std::fmod(y, tile_length_m); // fmod(y, 16.0);
-      float inset_y = std::fmod(std::fmod(y, tile_length_m) + tile_length_m, tile_length_m); // handles negative y
-      int num_tiles_along_edge = std::max(1, (int)std::ceil((length_of_edge + inset_y) / tile_length_m));
+      float inset_y = std::fmod(std::fmod(y, 1.0) + 1.0, 1.0); // handles negative y
+      int num_tiles_along_edge = std::max(1, (int)std::ceil((length_of_edge + inset_y) / 1.0));
       collided_tiles.reserve(num_tiles_along_edge);
 
       // add a list of tiles to the thing
