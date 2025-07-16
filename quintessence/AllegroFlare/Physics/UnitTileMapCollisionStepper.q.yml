@@ -97,7 +97,7 @@ functions:
                      )
                   );
 
-                  obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - reposition_offset); //0.0001);
+                  obj.set_right_edge(get_tile_left_edge(t.get_x()) - reposition_offset); //0.0001);
                   obj.set_velocity_x(0.0);
                }
                else if (obj.get_velocity_x() < 0) // Moving to the left
@@ -114,7 +114,7 @@ functions:
                      )
                   );
 
-                  obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + reposition_offset); //0.0001);
+                  obj.set_left_edge(get_tile_right_edge(t.get_x()) + reposition_offset); //0.0001);
                   obj.set_velocity_x(0.0);
                }
             }
@@ -155,7 +155,7 @@ functions:
                      )
                   );
 
-                  obj.set_bottom_edge(get_tile_top_edge(t.get_y(), tile_height) - reposition_offset); //0.0001);
+                  obj.set_bottom_edge(get_tile_top_edge(t.get_y()) - reposition_offset); //0.0001);
                   obj.set_velocity_y(0.0);
                }
                else if (obj.get_velocity_y() < 0) // Moving up
@@ -172,7 +172,7 @@ functions:
                      )
                   );
 
-                  obj.set_top_edge(get_tile_bottom_edge(t.get_y(), tile_height) + reposition_offset); //0.0001);
+                  obj.set_top_edge(get_tile_bottom_edge(t.get_y()) + reposition_offset); //0.0001);
                   obj.set_velocity_y(0.0);
                }
             }
@@ -204,13 +204,6 @@ functions:
 
   - name: adjacent_to_bottom_edge
     type: bool
-    parameters:
-      - name: tile_width
-        type: float
-        default_argument: 16.0f
-      - name: tile_height
-        type: float
-        default_argument: 16.0f
     guards: [ collision_tile_map, aabb2d ]
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -237,13 +230,6 @@ functions:
 
   - name: adjacent_to_right_edge
     type: bool
-    parameters:
-      - name: tile_width
-        type: float
-        default_argument: 16.0f
-      - name: tile_height
-        type: float
-        default_argument: 16.0f
     guards: [ collision_tile_map, aabb2d ]
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -270,13 +256,6 @@ functions:
 
   - name: adjacent_to_top_edge
     type: bool
-    parameters:
-      - name: tile_width
-        type: float
-        default_argument: 16.0f
-      - name: tile_height
-        type: float
-        default_argument: 16.0f
     guards: [ collision_tile_map, aabb2d ]
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -346,13 +325,6 @@ functions:
 
   - name: adjacent_to_left_edge
     type: bool
-    parameters:
-      - name: tile_width
-        type: float
-        default_argument: 16.0f
-      - name: tile_height
-        type: float
-        default_argument: 16.0f
     guards: [ collision_tile_map, aabb2d ]
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -452,21 +424,15 @@ functions:
       - name: height
         type: float
         default_argument: 1.0f
-      - name: tile_width
-        type: float
-        default_argument: 1.0f
-      - name: tile_height
-        type: float
-        default_argument: 1.0f
     body: |
-      std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height, tile_width, tile_height);
+      std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height); //, tile_width, tile_height);
       std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within(
          x+velocity_x,
          y+velocity_y,
          width+velocity_x,
-         height+velocity_y,
-         tile_width,
-         tile_height
+         height+velocity_y//,
+         //tile_width,
+         //tile_height
       );
       return calculate_difference_info(now_tiles, next_tiles, velocity_x, velocity_y);
 
@@ -583,7 +549,7 @@ functions:
         type: AllegroFlare::Physics::AABB2D
         default_argument: '{}'
     body: |
-      return tiles_within(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_w(), aabb2d.get_h(), tile_width, tile_height);
+      return tiles_within(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_w(), aabb2d.get_h()); //, tile_width, tile_height);
 
 
   - name: tiles_within
@@ -601,20 +567,14 @@ functions:
       - name: height
         type: float
         default_argument: 1.0f
-      - name: tile_width
-        type: float
-        default_argument: 1.0f
-      - name: tile_height
-        type: float
-        default_argument: 1.0f
-    guards: [ (width >= 0), (height >= 0), (tile_width > 0.0f), (tile_height > 0.0f) ]
+    guards: [ (width >= 0), (height >= 0) ]
     body: |
       std::vector<AllegroFlare::Physics::Int2D> result_tiles;
 
-      int left_tile_x = world_coords_to_tile_coords(x, tile_width);
-      int top_tile_y = world_coords_to_tile_coords(y, tile_height);
-      int right_tile_x = world_coords_to_tile_coords(x+width, tile_width);
-      int bottom_tile_y = world_coords_to_tile_coords(y+height, tile_height);
+      int left_tile_x = world_coords_to_tile_coords(x);
+      int top_tile_y = world_coords_to_tile_coords(y);
+      int right_tile_x = world_coords_to_tile_coords(x+width);
+      int bottom_tile_y = world_coords_to_tile_coords(y+height);
 
       for (int tile_y = top_tile_y; tile_y <= bottom_tile_y; tile_y++)
          for (int tile_x = left_tile_x; tile_x <= right_tile_x; tile_x++)
@@ -676,7 +636,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      return world_coords_to_tile_coords(world_pos_x, tile_width);
+      return world_coords_to_tile_coords(world_pos_x);
       //int coord = (int)(world_pos_x / tile_width);
       //if (world_pos_x < 0) coord -= 1;
       //return coord;
@@ -690,7 +650,7 @@ functions:
         type: float
         default_argument: 0.0f
     body: |
-      return world_coords_to_tile_coords(world_pos_y, tile_height);
+      return world_coords_to_tile_coords(world_pos_y);
       //int coord = (int)(world_pos_y / tile_height);
       //if (world_pos_y < 0) coord -= 1;
       //return coord;
@@ -702,11 +662,8 @@ functions:
       - name: tile_x
         type: float
         default_argument: 0.0f
-      - name: tile_width
-        type: float
-        default_argument: 16.0f
     body: |
-      return tile_x * tile_width;
+      return tile_x;
 
 
   - name: get_tile_right_edge
@@ -715,11 +672,8 @@ functions:
       - name: tile_x
         type: float
         default_argument: 0.0f
-      - name: tile_width
-        type: float
-        default_argument: 16.0f
     body: |
-      return (tile_x+1) * tile_width;
+      return (tile_x+1);
 
 
   - name: get_tile_top_edge
@@ -728,11 +682,8 @@ functions:
       - name: tile_y
         type: float
         default_argument: 0.0f
-      - name: tile_height
-        type: float
-        default_argument: 16.0f
     body: |
-      return tile_y * tile_height;
+      return tile_y;
 
 
   - name: get_tile_bottom_edge
@@ -741,11 +692,8 @@ functions:
       - name: tile_y
         type: float
         default_argument: 0.0f
-      - name: tile_height
-        type: float
-        default_argument: 16.0f
     body: |
-      return (tile_y+1) * tile_height;
+      return (tile_y+1);
 
 
   - name: get_tile_or_fallback

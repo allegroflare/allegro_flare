@@ -144,7 +144,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
                   )
                );
 
-               obj.set_right_edge(get_tile_left_edge(t.get_x(), tile_width) - reposition_offset); //0.0001);
+               obj.set_right_edge(get_tile_left_edge(t.get_x()) - reposition_offset); //0.0001);
                obj.set_velocity_x(0.0);
             }
             else if (obj.get_velocity_x() < 0) // Moving to the left
@@ -161,7 +161,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
                   )
                );
 
-               obj.set_left_edge(get_tile_right_edge(t.get_x(), tile_width) + reposition_offset); //0.0001);
+               obj.set_left_edge(get_tile_right_edge(t.get_x()) + reposition_offset); //0.0001);
                obj.set_velocity_x(0.0);
             }
          }
@@ -202,7 +202,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
                   )
                );
 
-               obj.set_bottom_edge(get_tile_top_edge(t.get_y(), tile_height) - reposition_offset); //0.0001);
+               obj.set_bottom_edge(get_tile_top_edge(t.get_y()) - reposition_offset); //0.0001);
                obj.set_velocity_y(0.0);
             }
             else if (obj.get_velocity_y() < 0) // Moving up
@@ -219,7 +219,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
                   )
                );
 
-               obj.set_top_edge(get_tile_bottom_edge(t.get_y(), tile_height) + reposition_offset); //0.0001);
+               obj.set_top_edge(get_tile_bottom_edge(t.get_y()) + reposition_offset); //0.0001);
                obj.set_velocity_y(0.0);
             }
          }
@@ -246,7 +246,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
    return result_infos;
 }
 
-bool UnitTileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, float tile_height)
+bool UnitTileMapCollisionStepper::adjacent_to_bottom_edge()
 {
    if (!(collision_tile_map))
    {
@@ -284,7 +284,7 @@ bool UnitTileMapCollisionStepper::adjacent_to_bottom_edge(float tile_width, floa
    return false;
 }
 
-bool UnitTileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float tile_height)
+bool UnitTileMapCollisionStepper::adjacent_to_right_edge()
 {
    if (!(collision_tile_map))
    {
@@ -322,7 +322,7 @@ bool UnitTileMapCollisionStepper::adjacent_to_right_edge(float tile_width, float
    return false;
 }
 
-bool UnitTileMapCollisionStepper::adjacent_to_top_edge(float tile_width, float tile_height)
+bool UnitTileMapCollisionStepper::adjacent_to_top_edge()
 {
    if (!(collision_tile_map))
    {
@@ -378,7 +378,7 @@ std::pair<int, int> UnitTileMapCollisionStepper::get_tile_coords_below_right_foo
    return result;
 }
 
-bool UnitTileMapCollisionStepper::adjacent_to_left_edge(float tile_width, float tile_height)
+bool UnitTileMapCollisionStepper::adjacent_to_left_edge()
 {
    if (!(collision_tile_map))
    {
@@ -444,16 +444,16 @@ std::vector<AllegroFlare::Physics::Int2D> UnitTileMapCollisionStepper::get_next_
    return collided_tiles;
 }
 
-std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTileMapCollisionStepper::get_stepped_tile_collisions(float x, float y, float velocity_x, float velocity_y, float width, float height, float tile_width, float tile_height)
+std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTileMapCollisionStepper::get_stepped_tile_collisions(float x, float y, float velocity_x, float velocity_y, float width, float height)
 {
-   std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height, tile_width, tile_height);
+   std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height); //, tile_width, tile_height);
    std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within(
       x+velocity_x,
       y+velocity_y,
       width+velocity_x,
-      height+velocity_y,
-      tile_width,
-      tile_height
+      height+velocity_y//,
+      //tile_width,
+      //tile_height
    );
    return calculate_difference_info(now_tiles, next_tiles, velocity_x, velocity_y);
 }
@@ -548,10 +548,10 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
 
 std::vector<AllegroFlare::Physics::Int2D> UnitTileMapCollisionStepper::tiles_within_aabb2d(AllegroFlare::Physics::AABB2D aabb2d)
 {
-   return tiles_within(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_w(), aabb2d.get_h(), tile_width, tile_height);
+   return tiles_within(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_w(), aabb2d.get_h()); //, tile_width, tile_height);
 }
 
-std::vector<AllegroFlare::Physics::Int2D> UnitTileMapCollisionStepper::tiles_within(float x, float y, float width, float height, float tile_width, float tile_height)
+std::vector<AllegroFlare::Physics::Int2D> UnitTileMapCollisionStepper::tiles_within(float x, float y, float width, float height)
 {
    if (!((width >= 0)))
    {
@@ -567,26 +567,12 @@ std::vector<AllegroFlare::Physics::Int2D> UnitTileMapCollisionStepper::tiles_wit
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::tiles_within]: error: guard \"(height >= 0)\" not met");
    }
-   if (!((tile_width > 0.0f)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::tiles_within]: error: guard \"(tile_width > 0.0f)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::tiles_within]: error: guard \"(tile_width > 0.0f)\" not met");
-   }
-   if (!((tile_height > 0.0f)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::tiles_within]: error: guard \"(tile_height > 0.0f)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::tiles_within]: error: guard \"(tile_height > 0.0f)\" not met");
-   }
    std::vector<AllegroFlare::Physics::Int2D> result_tiles;
 
-   int left_tile_x = world_coords_to_tile_coords(x, tile_width);
-   int top_tile_y = world_coords_to_tile_coords(y, tile_height);
-   int right_tile_x = world_coords_to_tile_coords(x+width, tile_width);
-   int bottom_tile_y = world_coords_to_tile_coords(y+height, tile_height);
+   int left_tile_x = world_coords_to_tile_coords(x);
+   int top_tile_y = world_coords_to_tile_coords(y);
+   int right_tile_x = world_coords_to_tile_coords(x+width);
+   int bottom_tile_y = world_coords_to_tile_coords(y+height);
 
    for (int tile_y = top_tile_y; tile_y <= bottom_tile_y; tile_y++)
       for (int tile_x = left_tile_x; tile_x <= right_tile_x; tile_x++)
@@ -617,7 +603,7 @@ int UnitTileMapCollisionStepper::unit_space_to_tile_coord(float unit_pos)
 
 int UnitTileMapCollisionStepper::world_x_coords_to_tile_coords_x(float world_pos_x)
 {
-   return world_coords_to_tile_coords(world_pos_x, tile_width);
+   return world_coords_to_tile_coords(world_pos_x);
    //int coord = (int)(world_pos_x / tile_width);
    //if (world_pos_x < 0) coord -= 1;
    //return coord;
@@ -625,30 +611,30 @@ int UnitTileMapCollisionStepper::world_x_coords_to_tile_coords_x(float world_pos
 
 int UnitTileMapCollisionStepper::world_y_coords_to_tile_coords_y(float world_pos_y)
 {
-   return world_coords_to_tile_coords(world_pos_y, tile_height);
+   return world_coords_to_tile_coords(world_pos_y);
    //int coord = (int)(world_pos_y / tile_height);
    //if (world_pos_y < 0) coord -= 1;
    //return coord;
 }
 
-float UnitTileMapCollisionStepper::get_tile_left_edge(float tile_x, float tile_width)
+float UnitTileMapCollisionStepper::get_tile_left_edge(float tile_x)
 {
-   return tile_x * tile_width;
+   return tile_x;
 }
 
-float UnitTileMapCollisionStepper::get_tile_right_edge(float tile_x, float tile_width)
+float UnitTileMapCollisionStepper::get_tile_right_edge(float tile_x)
 {
-   return (tile_x+1) * tile_width;
+   return (tile_x+1);
 }
 
-float UnitTileMapCollisionStepper::get_tile_top_edge(float tile_y, float tile_height)
+float UnitTileMapCollisionStepper::get_tile_top_edge(float tile_y)
 {
-   return tile_y * tile_height;
+   return tile_y;
 }
 
-float UnitTileMapCollisionStepper::get_tile_bottom_edge(float tile_y, float tile_height)
+float UnitTileMapCollisionStepper::get_tile_bottom_edge(float tile_y)
 {
-   return (tile_y+1) * tile_height;
+   return (tile_y+1);
 }
 
 int UnitTileMapCollisionStepper::get_tile_or_fallback(int tile_x, int tile_y, int fallback)

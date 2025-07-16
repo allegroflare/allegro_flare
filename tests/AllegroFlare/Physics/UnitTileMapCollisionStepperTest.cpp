@@ -679,10 +679,10 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
                //if (debug_trap_on) tile_map_collision_stepper.debug_trap_on = debug_trap_on;
                tile_map_collision_stepper.step();
 
-               aabb2d_adjacent_to_top_edge = tile_map_collision_stepper.adjacent_to_top_edge(1, 1); //16.0f, 16.0f);
-               aabb2d_adjacent_to_right_edge = tile_map_collision_stepper.adjacent_to_right_edge(1, 1); //16.0f, 16.0f);
-               aabb2d_adjacent_to_bottom_edge = tile_map_collision_stepper.adjacent_to_bottom_edge(1, 1); //16.0f, 16.0f);
-               aabb2d_adjacent_to_left_edge = tile_map_collision_stepper.adjacent_to_left_edge(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_top_edge = tile_map_collision_stepper.adjacent_to_top_edge(); //(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_right_edge = tile_map_collision_stepper.adjacent_to_right_edge(); //(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_bottom_edge = tile_map_collision_stepper.adjacent_to_bottom_edge(); //(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_left_edge = tile_map_collision_stepper.adjacent_to_left_edge(); //(1, 1); //16.0f, 16.0f);
             }
             { // draw
                al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
