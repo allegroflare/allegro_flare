@@ -72,7 +72,7 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
    return step_internal(aabb2d);
 }
 
-std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTileMapCollisionStepper::step_with_world_transform(AllegroFlare::Physics::AABB2D* aabb2d, float tile_width, float tile_height)
+std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTileMapCollisionStepper::step_with_world_transform(AllegroFlare::Physics::AABB2D* aabb2d, float map_x, float map_y, float tile_width, float tile_height)
 {
    if (!(collision_tile_map))
    {
@@ -88,42 +88,47 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"aabb2d\" not met");
    }
-   if (!((tile_width >= 0.0f)))
+   if (!((tile_width > 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_width >= 0.0f)\" not met.";
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_width > 0.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_width >= 0.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_width > 0.0f)\" not met");
    }
-   if (!((tile_height >= 0.0f)))
+   if (!((tile_height > 0.0f)))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_height >= 0.0f)\" not met.";
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_height > 0.0f)\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_height >= 0.0f)\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_height > 0.0f)\" not met");
    }
-   //this->aabb2d = aabb2d;
-
    // Transform Down: Create a temporary AABB in unit space.
    AllegroFlare::Physics::AABB2D unit_aabb(
-      aabb2d->get_x() / tile_width,
-      aabb2d->get_y() / tile_height,
-      aabb2d->get_w() / tile_width,
-      aabb2d->get_h() / tile_height,
-      aabb2d->get_velocity_x() / tile_width,
-      aabb2d->get_velocity_y() / tile_height
+     (aabb2d->get_x() - map_x) / tile_width,
+     (aabb2d->get_y() - map_y) / tile_height,
+     aabb2d->get_w() / tile_width,
+     aabb2d->get_h() / tile_height,
+     aabb2d->get_velocity_x() / tile_width,
+     aabb2d->get_velocity_y() / tile_height
    );
 
-   // Call the core unit-space step() function (after the refactor).
+   // Call the core unit-space step() function.
    std::vector<TileMapCollisionStepperCollisionInfo> result_infos = step_internal(&unit_aabb);
 
    // Transform Up: Update the original world_aabb with the results.
-   aabb2d->set_x(unit_aabb.get_x() * tile_width);
-   aabb2d->set_y(unit_aabb.get_y() * tile_height);
+   aabb2d->set_x((unit_aabb.get_x() * tile_width) + map_x);
+   aabb2d->set_y((unit_aabb.get_y() * tile_height) + map_y);
    aabb2d->set_velocity_x(unit_aabb.get_velocity_x() * tile_width);
    aabb2d->set_velocity_y(unit_aabb.get_velocity_y() * tile_height);
 
-   // 4. Return the collision info.
+   // Transform the velocities in the collision info back to world space
+   for (auto &info : result_infos)
+   {
+     info.set_collision_velocity_x(info.get_collision_velocity_x() * tile_width);
+     info.set_collision_velocity_y(info.get_collision_velocity_y() * tile_height);
+   }
+
+   // Return the collision info.
    return result_infos;
 }
 

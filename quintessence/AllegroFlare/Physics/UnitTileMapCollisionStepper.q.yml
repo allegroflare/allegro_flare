@@ -53,41 +53,48 @@ functions:
       - name: aabb2d
         type: AllegroFlare::Physics::AABB2D*
         default_argument: nullptr
+      - name: map_x
+        type: float
+        default_argument: 0.0f
+      - name: map_y
+        type: float
+        default_argument: 0.0f
       - name: tile_width
         type: float
         default_argument: 16.0f
       - name: tile_height
         type: float
         default_argument: 16.0f
-    guards: [ collision_tile_map, aabb2d, (tile_width >= 0.0f), (tile_height >= 0.0f) ]
+    guards: [ collision_tile_map, aabb2d, (tile_width > 0.0f), (tile_height > 0.0f) ]
     body: |
-      //this->aabb2d = aabb2d;
-
       // Transform Down: Create a temporary AABB in unit space.
       AllegroFlare::Physics::AABB2D unit_aabb(
-         aabb2d->get_x() / tile_width,
-         aabb2d->get_y() / tile_height,
-         aabb2d->get_w() / tile_width,
-         aabb2d->get_h() / tile_height,
-         aabb2d->get_velocity_x() / tile_width,
-         aabb2d->get_velocity_y() / tile_height
+        (aabb2d->get_x() - map_x) / tile_width,
+        (aabb2d->get_y() - map_y) / tile_height,
+        aabb2d->get_w() / tile_width,
+        aabb2d->get_h() / tile_height,
+        aabb2d->get_velocity_x() / tile_width,
+        aabb2d->get_velocity_y() / tile_height
       );
 
-      // Call the core unit-space step() function (after the refactor).
+      // Call the core unit-space step() function.
       std::vector<TileMapCollisionStepperCollisionInfo> result_infos = step_internal(&unit_aabb);
 
       // Transform Up: Update the original world_aabb with the results.
-      aabb2d->set_x(unit_aabb.get_x() * tile_width);
-      aabb2d->set_y(unit_aabb.get_y() * tile_height);
+      aabb2d->set_x((unit_aabb.get_x() * tile_width) + map_x);
+      aabb2d->set_y((unit_aabb.get_y() * tile_height) + map_y);
       aabb2d->set_velocity_x(unit_aabb.get_velocity_x() * tile_width);
       aabb2d->set_velocity_y(unit_aabb.get_velocity_y() * tile_height);
 
-      // 4. Return the collision info.
-      return result_infos;
-    body_dependency_symbols:
-      - AllegroFlare::Physics::AABB2D
-      - AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
+      // Transform the velocities in the collision info back to world space
+      for (auto &info : result_infos)
+      {
+        info.set_collision_velocity_x(info.get_collision_velocity_x() * tile_width);
+        info.set_collision_velocity_y(info.get_collision_velocity_y() * tile_height);
+      }
 
+      // Return the collision info.
+      return result_infos;
 
 
   - name: step_internal

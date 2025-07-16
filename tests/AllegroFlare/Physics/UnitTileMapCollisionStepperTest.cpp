@@ -1161,4 +1161,74 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
 }
 
 
+//
+// Tests related to collisions with the "step_with_world_transform"
+// Author: Gemini
+//
+
+TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
+   step_with_world_transform__with_a_displaced_tile_map__processes_collisions_correctly)
+{
+   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+   auto EVENT_COLLIDED_AGAINST = TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST;
+   auto EVENT_STAYED_ON = TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
+   auto EDGE_LEFT = TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_LEFT;
+   auto EDGE_UNDEFINED = TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_UNDEFINED;
+
+   // Setup a map with a single solid block at tile (2, 2)
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map(5, 5);
+   collision_tile_map.initialize();
+   collision_tile_map.set_tile(2, 2, 1);
+
+   // Define our world transform, placing the map at (100, 80)
+   float map_x = 100.0f;
+   float map_y = 80.0f;
+   float tile_width = 16.0f;
+   float tile_height = 16.0f;
+
+   AllegroFlare::Physics::UnitTileMapCollisionStepper stepper(&collision_tile_map);
+
+   // The solid block's left edge is at world x = 100 + (2 * 16) = 132.0
+   // This AABB starts in tile 1 and will move to enter tile 2.
+   AllegroFlare::Physics::AABB2D aabb2d(
+      125.0f, // x
+      116.0f, // y
+      5.0f,   // w
+      8.0f,   // h
+      10.0f,  // vx
+      0.0f    // vy
+   );
+
+   // Process the step
+   std::vector<TileMapCollisionStepperCollisionInfo> actual_collisions =
+      stepper.step_with_world_transform(&aabb2d, map_x, map_y, tile_width, tile_height);
+
+   // --- Corrected Expectations ---
+
+   // We expect two events: one for the collision, and one for staying on the initial tile.
+   std::vector<TileMapCollisionStepperCollisionInfo> expected_collisions = {
+      TileMapCollisionStepperCollisionInfo({2, 2}, 1, 10.0f, 0.0f, true, EVENT_COLLIDED_AGAINST, EDGE_LEFT),
+      TileMapCollisionStepperCollisionInfo({1, 2}, 0, 10.0f, 0.0f, false, EVENT_STAYED_ON, EDGE_UNDEFINED),
+   };
+
+   // Sort both vectors to compare them regardless of internal order
+   auto sort_rule = [](const TileMapCollisionStepperCollisionInfo& a, const TileMapCollisionStepperCollisionInfo& b) -> bool {
+      return a.get_event() < b.get_event();
+   };
+   std::sort(expected_collisions.begin(), expected_collisions.end(), sort_rule);
+   std::sort(actual_collisions.begin(), actual_collisions.end(), sort_rule);
+
+   // Assert the collision events are as expected
+   ASSERT_EQ(expected_collisions.size(), actual_collisions.size());
+   EXPECT_EQ(expected_collisions, actual_collisions);
+
+   // Validate the final AABB state in world coordinates
+   float world_tile_left_edge = map_x + (2 * tile_width); // 132.0f
+   float reposition_amount_in_world = stepper.get_reposition_offset() * tile_width; // 0.16f
+   float expected_repositioned_x = world_tile_left_edge - aabb2d.get_w() - reposition_amount_in_world;
+
+   EXPECT_FLOAT_EQ(expected_repositioned_x, aabb2d.get_x());
+   EXPECT_FLOAT_EQ(0.0f, aabb2d.get_velocity_x());
+}
+
 

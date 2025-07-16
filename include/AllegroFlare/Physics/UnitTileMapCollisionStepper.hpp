@@ -36,7 +36,7 @@ namespace AllegroFlare
          AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map() const;
          float get_reposition_offset() const;
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
-         std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step_with_world_transform(AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float tile_width=16.0f, float tile_height=16.0f);
+         std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step_with_world_transform(AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float map_x=0.0f, float map_y=0.0f, float tile_width=16.0f, float tile_height=16.0f);
          bool adjacent_to_bottom_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
          bool adjacent_to_right_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
          bool adjacent_to_top_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
