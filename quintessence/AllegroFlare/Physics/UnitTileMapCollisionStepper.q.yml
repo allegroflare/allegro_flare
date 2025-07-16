@@ -110,7 +110,7 @@ functions:
 
       // test horizontal first
       std::vector<AllegroFlare::Physics::Int2D> horizontal_collided_blocks = get_next_collided_tile_coords_1d(
-            obj.get_x(), obj.get_y(), obj.get_velocity_x(), obj.get_w(), obj.get_h() //, tile_width, tile_height
+            obj.get_x(), obj.get_y(), obj.get_velocity_x(), obj.get_w(), obj.get_h()
       );
 
       // react to the collision here:
@@ -169,7 +169,7 @@ functions:
 
       // test vertical second
       std::vector<AllegroFlare::Physics::Int2D> vertical_collided_blocks = get_next_collided_tile_coords_1d(
-         obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w() //, tile_height, tile_width
+         obj.get_y(), obj.get_x(), obj.get_velocity_y(), obj.get_h(), obj.get_w()
       );
 
       for(AllegroFlare::Physics::Int2D &tile_coord : vertical_collided_blocks) tile_coord.rotate();
@@ -255,11 +255,9 @@ functions:
       std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_y(),
          obj.get_x(),
-         reposition_offset*2, //0.0004,
+         reposition_offset*2,
          obj.get_h(),
-         obj.get_w() //,
-         //tile_height,
-         //tile_width
+         obj.get_w()
       );
       if (tiles.empty()) return false;
 
@@ -285,11 +283,9 @@ functions:
       std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_x(),
          obj.get_y(),
-         reposition_offset * 2, //0.0004,
+         reposition_offset * 2,
          obj.get_w(),
-         obj.get_h() //,
-         //tile_width,
-         //tile_height
+         obj.get_h()
       );
       if (tiles.empty()) return false;
 
@@ -315,11 +311,9 @@ functions:
       std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_y(),
          obj.get_x(),
-         -reposition_offset * 2, //-0.0004,
+         -reposition_offset * 2,
          obj.get_h(),
-         obj.get_w() //,
-         //tile_height,
-         //tile_width
+         obj.get_w()
       );
       if (tiles.empty()) return false;
 
@@ -345,11 +339,9 @@ functions:
       std::vector<AllegroFlare::Physics::Int2D> tiles = get_next_collided_tile_coords_1d(
          obj.get_x(),
          obj.get_y(),
-         -reposition_offset*2, //-0.0004,
+         -reposition_offset*2,
          obj.get_w(),
-         obj.get_h()//,
-         //tile_height,
-         //tile_width
+         obj.get_h()
       );
       if (tiles.empty()) return false;
 
@@ -425,12 +417,6 @@ functions:
       - name: length_of_edge
         type: float
         default_argument: 1.0f
-      - name: tile_length_n
-        type: float
-        default_argument: 1.0f
-      - name: tile_length_m
-        type: float
-        default_argument: 1.0f
     body: |
       std::vector<AllegroFlare::Physics::Int2D> collided_tiles;
 
@@ -443,7 +429,6 @@ functions:
       {
          // new tiles have been entered
          int start_y = unit_space_to_tile_coord(y); //TileMap::world_to_tile(y);
-         //float inset_y = std::fmod(y, tile_length_m); // fmod(y, 16.0);
          float inset_y = std::fmod(std::fmod(y, 1.0) + 1.0, 1.0); // handles negative y
          int num_tiles_along_edge = std::max(1, (int)std::ceil((length_of_edge + inset_y) / 1.0));
          collided_tiles.reserve(num_tiles_along_edge);
@@ -482,14 +467,12 @@ functions:
         type: float
         default_argument: 1.0f
     body: |
-      std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height); //, tile_width, tile_height);
+      std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within(x, y, width, height);
       std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within(
          x+velocity_x,
          y+velocity_y,
          width+velocity_x,
-         height+velocity_y//,
-         //tile_width,
-         //tile_height
+         height+velocity_y
       );
       return calculate_difference_info(now_tiles, next_tiles, velocity_x, velocity_y);
 
