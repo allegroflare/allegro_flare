@@ -755,7 +755,6 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
 }
 
 
-/*
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest, tiles_within__returns_the_expected_values)
 {
    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper;
@@ -766,8 +765,16 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest, tiles_within__retur
       {20, 10}, {21, 10}, {22, 10}, {23, 10},
       {20, 11}, {21, 11}, {22, 11}, {23, 11}
    };
+   
+   // The original arguments are now converted to unit space before being passed to the function.
+   // Original tile dimensions were (w: 4, h: 8)
+   float unit_x = 80.0f / 4.0f;
+   float unit_y = 60.0f / 8.0f;
+   float unit_w = (16.0f - 1.0f) / 4.0f;
+   float unit_h = (16.0f * 2.0f - 1.0f) / 8.0f;
+
    std::vector<AllegroFlare::Physics::Int2D> actual_result_tiles =
-      tile_map_collision_stepper.tiles_within(80, 60, 16-1, 16*2-1, 4, 8);
+      tile_map_collision_stepper.tiles_within(unit_x, unit_y, unit_w, unit_h);
 
    EXPECT_EQ(expected_result_tiles, actual_result_tiles);
 }
@@ -775,136 +782,193 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest, tiles_within__retur
 
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest, get_stepped_tile_collisions__returns_the_expected_values)
 {
-   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
-   auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
-   auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
+    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+    auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
+    auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
+    auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
 
-   AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper;
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
-   {
-      TileMapCollisionStepperCollisionInfo({3, 4}, -999, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({3, 5}, -999, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({2, 4}, -999, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({2, 5}, -999, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({2, 6}, -999, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 6}, -999, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 3}, -999, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 3}, -999, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 4}, -999, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 5}, -999, -8, 8, false, EVENT_EXITED),
-   };
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
-      tile_map_collision_stepper.get_stepped_tile_collisions(50, 60, -8, 8, 16-1, 16*2-1, 16, 16);
+    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper;
 
-   EXPECT_EQ(expected_result_collisions, actual_result_collisions);
+    // Convert expected velocities to unit space
+    float unit_vx = -8.0f / 16.0f;
+    float unit_vy = 8.0f / 16.0f;
+
+    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
+    {
+       TileMapCollisionStepperCollisionInfo({3, 4}, -999, unit_vx, unit_vy, false, EVENT_STAYED_ON),
+       TileMapCollisionStepperCollisionInfo({3, 5}, -999, unit_vx, unit_vy, false, EVENT_STAYED_ON),
+       TileMapCollisionStepperCollisionInfo({2, 4}, -999, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({2, 5}, -999, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({2, 6}, -999, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({3, 6}, -999, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({3, 3}, -999, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 3}, -999, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 4}, -999, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 5}, -999, unit_vx, unit_vy, false, EVENT_EXITED),
+    };
+
+    // Convert input AABB parameters to unit space
+    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
+       tile_map_collision_stepper.get_stepped_tile_collisions(
+          50.0f / 16.0f,
+          60.0f / 16.0f,
+          -8.0f / 16.0f,
+          8.0f / 16.0f,
+          (16.0f - 1.0f) / 16.0f,
+          (16.0f * 2.0f - 1.0f) / 16.0f
+       );
+
+    EXPECT_EQ(expected_result_collisions, actual_result_collisions);
 }
 
 
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
    get_stepped_tile_collisions__returns_the_expected_values_when_a_collision_tile_map_is_present)
 {
-   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
-   auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
-   auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
+    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+    auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
+    auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
+    auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
 
-   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
-   collision_tile_map.initialize();
-   load_increment_tile_num_map(collision_tile_map);
+    AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+    collision_tile_map.initialize();
+    load_increment_tile_num_map(collision_tile_map);
 
-   AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map);
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
-   {
-      TileMapCollisionStepperCollisionInfo({3, 4}, 23, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({3, 5}, 28, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({2, 4}, 22, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({2, 5}, 27, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({2, 6}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 6}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 3}, 18, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 3}, 19, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 4}, 24, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 5}, 29, -8, 8, false, EVENT_EXITED),
-   };
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
-      tile_map_collision_stepper.get_stepped_tile_collisions(50, 60, -8, 8, 16-1, 16*2-1, 16, 16);
+    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map);
 
-   EXPECT_EQ(expected_result_collisions, actual_result_collisions);
+    // Convert expected velocities to unit space
+    float unit_vx = -8.0f / 16.0f;
+    float unit_vy = 8.0f / 16.0f;
+
+    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
+    {
+       TileMapCollisionStepperCollisionInfo({3, 4}, 23, unit_vx, unit_vy, false, EVENT_STAYED_ON),
+       TileMapCollisionStepperCollisionInfo({3, 5}, 28, unit_vx, unit_vy, false, EVENT_STAYED_ON),
+       TileMapCollisionStepperCollisionInfo({2, 4}, 22, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({2, 5}, 27, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({2, 6}, -1, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({3, 6}, -1, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({3, 3}, 18, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 3}, 19, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 4}, 24, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 5}, 29, unit_vx, unit_vy, false, EVENT_EXITED),
+    };
+    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
+       tile_map_collision_stepper.get_stepped_tile_collisions(
+          50.0f / 16.0f,
+          60.0f / 16.0f,
+          -8.0f / 16.0f,
+          8.0f / 16.0f,
+          (16.0f - 1.0f) / 16.0f,
+          (16.0f * 2.0f - 1.0f) / 16.0f
+       );
+
+    EXPECT_EQ(expected_result_collisions, actual_result_collisions);
 }
 
 
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
    step__when_there_are_no_solid_blocks__returns_expected_results)
 {
-   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
-   auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
-   auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
+    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+    auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
+    auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
+    auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
 
-   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
-   collision_tile_map.initialize();
-   load_increment_tile_num_map(collision_tile_map);
+    AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+    collision_tile_map.initialize();
+    load_increment_tile_num_map(collision_tile_map);
 
-   AllegroFlare::Physics::AABB2D aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
+    // Construct the AABB2D with unit space values
+    AllegroFlare::Physics::AABB2D aabb2d(
+          50.0f / 16.0f,
+          60.0f / 16.0f,
+          (16.0f - 2.0f) / 16.0f,
+          (16.0f * 2.0f - 1.0f) / 16.0f,
+          -8.0f / 16.0f,
+          8.0f / 16.0f
+    );
 
-   AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
-   {
-      TileMapCollisionStepperCollisionInfo({3, 4}, 23, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({3, 5}, 28, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({2, 4}, 22, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({2, 5}, 27, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({2, 6}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 6}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 3}, 18, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 3}, 19, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 4}, 24, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 5}, 29, -8, 8, false, EVENT_EXITED),
-   };
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
-      tile_map_collision_stepper.step();
+    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
 
-   EXPECT_EQ(expected_result_collisions, actual_result_collisions);
+    // Convert expected velocities to unit space
+    float unit_vx = -8.0f / 16.0f;
+    float unit_vy = 8.0f / 16.0f;
+    
+    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
+    {
+       TileMapCollisionStepperCollisionInfo({3, 4}, 23, unit_vx, unit_vy, false, EVENT_STAYED_ON),
+       TileMapCollisionStepperCollisionInfo({3, 5}, 28, unit_vx, unit_vy, false, EVENT_STAYED_ON),
+       TileMapCollisionStepperCollisionInfo({2, 4}, 22, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({2, 5}, 27, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({2, 6}, -1, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({3, 6}, -1, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({3, 3}, 18, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 3}, 19, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 4}, 24, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 5}, 29, unit_vx, unit_vy, false, EVENT_EXITED),
+    };
+    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
+       tile_map_collision_stepper.step();
+
+    EXPECT_EQ(expected_result_collisions, actual_result_collisions);
 }
 
 
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
    step__when_solid_blocks_are_present__returns_expected_results)
 {
-   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   auto EVENT_COLLIDED_AGAINST = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST;
-   auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
-   auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
-   auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
+    using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
+    auto EVENT_COLLIDED_AGAINST = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_COLLIDED_AGAINST;
+    auto EVENT_ENTERED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_ENTERED;
+    auto EVENT_STAYED_ON = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_STAYED_ON;
+    auto EVENT_EXITED = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::EVENT_EXITED;
+    auto EDGE_RIGHT = AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo::CollidingBlockEdge::EDGE_RIGHT;
 
-   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
-   collision_tile_map.initialize();
-   load_increment_tile_num_map(collision_tile_map);
+    AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+    collision_tile_map.initialize();
+    load_increment_tile_num_map(collision_tile_map);
 
-   // add a "solid" tile to the map, blocking the path of the aabb2d within this step
-   collision_tile_map.set_tile(2, 4, 1); // "1" is a default solid tile
+    collision_tile_map.set_tile(2, 4, 1);
 
-   AllegroFlare::Physics::AABB2D aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
+    // Construct the AABB2D with unit space values
+    AllegroFlare::Physics::AABB2D aabb2d(
+          50.0f / 16.0f,
+          60.0f / 16.0f,
+          (16.0f - 2.0f) / 16.0f,
+          (16.0f * 2.0f - 1.0f) / 16.0f,
+          -8.0f / 16.0f,
+          8.0f / 16.0f
+    );
 
-   AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
-   {
-      TileMapCollisionStepperCollisionInfo({2, 4}, 1, -8, 8, true, EVENT_COLLIDED_AGAINST),
-      TileMapCollisionStepperCollisionInfo({3, 4}, 23, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({3, 5}, 28, -8, 8, false, EVENT_STAYED_ON),
-      TileMapCollisionStepperCollisionInfo({3, 6}, -1, -8, 8, false, EVENT_ENTERED),
-      TileMapCollisionStepperCollisionInfo({3, 3}, 18, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 3}, 19, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 4}, 24, -8, 8, false, EVENT_EXITED),
-      TileMapCollisionStepperCollisionInfo({4, 5}, 29, -8, 8, false, EVENT_EXITED),
-   };
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
-      tile_map_collision_stepper.step();
+    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
 
-   EXPECT_EQ(expected_result_collisions, actual_result_collisions);
+    // Convert expected velocities to unit space
+    float unit_vx = -8.0f / 16.0f;
+    float unit_vy = 8.0f / 16.0f;
+
+    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> expected_result_collisions =
+    {
+       TileMapCollisionStepperCollisionInfo({2, 4}, 1, unit_vx, unit_vy, true, EVENT_COLLIDED_AGAINST, EDGE_RIGHT),
+       TileMapCollisionStepperCollisionInfo({3, 4}, 23, unit_vx, unit_vy, false, EVENT_STAYED_ON),
+       TileMapCollisionStepperCollisionInfo({3, 5}, 28, unit_vx, unit_vy, false, EVENT_STAYED_ON),
+       TileMapCollisionStepperCollisionInfo({3, 6}, -1, unit_vx, unit_vy, false, EVENT_ENTERED),
+       TileMapCollisionStepperCollisionInfo({3, 3}, 18, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 3}, 19, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 4}, 24, unit_vx, unit_vy, false, EVENT_EXITED),
+       TileMapCollisionStepperCollisionInfo({4, 5}, 29, unit_vx, unit_vy, false, EVENT_EXITED),
+    };
+    std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
+       tile_map_collision_stepper.step();
+
+    EXPECT_EQ(expected_result_collisions, actual_result_collisions);
 }
 
+
+
+
+
+/*
 
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
    DISABLED__step__when_solid_blocks_are_present__will_reposition_the_aabb2d_ajacent_to_the_collided_block)
