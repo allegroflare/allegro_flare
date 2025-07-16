@@ -143,40 +143,59 @@ void render_aabb2d(
       bool adjacent_to_top_edge=false,
       bool adjacent_to_right_edge=false,
       bool adjacent_to_bottom_edge=false,
-      bool adjacent_to_left_edge=false
+      bool adjacent_to_left_edge=false,
+      float scale=1.0f
    )
 {
-   al_draw_filled_rectangle(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_right_edge(), aabb2d.get_bottom_edge(),
-      ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0});
+   al_draw_filled_rectangle(
+      aabb2d.get_x() * scale,
+      aabb2d.get_y() * scale,
+      aabb2d.get_right_edge() * scale,
+      aabb2d.get_bottom_edge() * scale,
+      ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}
+   );
 
    ALLEGRO_COLOR orange = ALLEGRO_COLOR{1.0, 0.5, 0.0, 1.0};
 
    if (adjacent_to_bottom_edge)
    {
       al_draw_line(
-         aabb2d.get_x(),
-         aabb2d.get_bottom_edge(),
-         aabb2d.get_right_edge(),
-         aabb2d.get_bottom_edge(),
+         aabb2d.get_x() * scale,
+         aabb2d.get_bottom_edge() * scale,
+         aabb2d.get_right_edge() * scale,
+         aabb2d.get_bottom_edge() * scale,
          orange,
          2.0
       );
    }
    if (adjacent_to_top_edge)
    {
-      al_draw_line(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_right_edge(), aabb2d.get_y(), orange, 2.0);
+      al_draw_line(
+         aabb2d.get_x() * scale,
+         aabb2d.get_y() * scale,
+         aabb2d.get_right_edge() * scale,
+         aabb2d.get_y() * scale,
+         orange,
+      2.0);
    }
    if (adjacent_to_left_edge)
    {
-      al_draw_line(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_x(), aabb2d.get_bottom_edge(), orange, 2.0);
+      al_draw_line(
+         aabb2d.get_x() * scale,
+         aabb2d.get_y() * scale,
+         aabb2d.get_x() * scale,
+         aabb2d.get_bottom_edge() * scale,
+         orange,
+         2.0
+      );
    }
    if (adjacent_to_right_edge)
    {
       al_draw_line(
-         aabb2d.get_right_edge(),
-         aabb2d.get_y(),
-         aabb2d.get_right_edge(),
-         aabb2d.get_bottom_edge(),
+         aabb2d.get_right_edge() * scale,
+         aabb2d.get_y() * scale,
+         aabb2d.get_right_edge() * scale,
+         aabb2d.get_bottom_edge() * scale,
          orange,
          2.0
       );
@@ -543,7 +562,6 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixtur
 }
 
 
-/*
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingFixture,
    DISABLED__INTERACTIVE__will_work_as_expected)
    //INTERACTIVE__will_work_as_expected)
@@ -559,7 +577,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
 
    // initialize test subject(s)
    AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
-   AllegroFlare::Physics::AABB2D aabb2d(80, 60, 8 - 1, 6*2 - 1);
+   AllegroFlare::Physics::AABB2D aabb2d(80/16.0, 60/16.0, (8 - 1)/16.0, (6*2 - 1)/16.0);
    collision_tile_map.initialize();
    load_test_map(collision_tile_map);
    AllegroFlare::Placement2D camera;
@@ -576,6 +594,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
    bool invert_gravity = false;
    bool gravity_enabled = false;
    bool vertical_movement_controls_active = true;
+   float velocity = 0.125;
    //bool debug_trap_on = false;
 
    // run the interactive test
@@ -591,23 +610,23 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
             switch(event.keyboard.keycode)
             {
                case ALLEGRO_KEY_UP:
-                 if (vertical_movement_controls_active) aabb2d.set_velocity_y(-1);
+                 if (vertical_movement_controls_active) aabb2d.set_velocity_y(-1 * velocity);
                break;
 
                case ALLEGRO_KEY_DOWN:
-                 if (vertical_movement_controls_active) aabb2d.set_velocity_y(1);
+                 if (vertical_movement_controls_active) aabb2d.set_velocity_y(1 * velocity);
                break;
 
                case ALLEGRO_KEY_LEFT:
-                 aabb2d.set_velocity_x(-1);
+                 aabb2d.set_velocity_x(-1 * velocity);
                break;
 
                case ALLEGRO_KEY_RIGHT:
-                 aabb2d.set_velocity_x(1);
+                 aabb2d.set_velocity_x(1 * velocity);
                break;
 
                case ALLEGRO_KEY_SPACE:
-                 aabb2d.set_velocity_y(invert_gravity ? 4.0f : -4.0f);
+                 aabb2d.set_velocity_y(invert_gravity ? (4.0f / 16.0) : (-4.0f / 16.0));
                break;
 
                case ALLEGRO_KEY_I:
@@ -648,22 +667,22 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
          case ALLEGRO_EVENT_TIMER:
             { // update
                // add gravity
-               if (gravity_enabled) aabb2d.set_velocity_y(aabb2d.get_velocity_y() + (invert_gravity ? -0.1 : 0.1));
+               if (gravity_enabled) aabb2d.set_velocity_y(aabb2d.get_velocity_y() + (invert_gravity ? -0.1/16 : 0.1/16));
                
                // update the aabb2d collsion on the map using the stepper
                AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(
                   &collision_tile_map,
-                  &aabb2d,
-                  16.0f,
-                  16.0f
+                  &aabb2d //,
+                  //16.0f,
+                  //16.0f
                );
                //if (debug_trap_on) tile_map_collision_stepper.debug_trap_on = debug_trap_on;
                tile_map_collision_stepper.step();
 
-               aabb2d_adjacent_to_top_edge = tile_map_collision_stepper.adjacent_to_top_edge(16.0f, 16.0f);
-               aabb2d_adjacent_to_right_edge = tile_map_collision_stepper.adjacent_to_right_edge(16.0f, 16.0f);
-               aabb2d_adjacent_to_bottom_edge = tile_map_collision_stepper.adjacent_to_bottom_edge(16.0f, 16.0f);
-               aabb2d_adjacent_to_left_edge = tile_map_collision_stepper.adjacent_to_left_edge(16.0f, 16.0f);
+               aabb2d_adjacent_to_top_edge = tile_map_collision_stepper.adjacent_to_top_edge(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_right_edge = tile_map_collision_stepper.adjacent_to_right_edge(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_bottom_edge = tile_map_collision_stepper.adjacent_to_bottom_edge(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_left_edge = tile_map_collision_stepper.adjacent_to_left_edge(1, 1); //16.0f, 16.0f);
             }
             { // draw
                al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
@@ -674,7 +693,8 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
                   aabb2d_adjacent_to_top_edge,
                   aabb2d_adjacent_to_right_edge,
                   aabb2d_adjacent_to_bottom_edge,
-                  aabb2d_adjacent_to_left_edge
+                  aabb2d_adjacent_to_left_edge,
+                  16.0
                );
                camera.restore_transform();
                al_flip_display();
@@ -735,6 +755,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
 }
 
 
+/*
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest, tiles_within__returns_the_expected_values)
 {
    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper;

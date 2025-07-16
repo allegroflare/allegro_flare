@@ -649,11 +649,12 @@ functions:
       - name: tile_length
         type: float
         default_argument: 1.0f
-    guards: [ false ]
+    xxguards: [ false ]
     body: |
-      int coord = (int)(world_pos / tile_length);
-      if (world_pos < 0) coord -= 1;
-      return coord;
+      return unit_space_to_tile_coord(world_pos);
+      //int coord = (int)(world_pos / tile_length);
+      //if (world_pos < 0) coord -= 1;
+      //return coord;
 
 
   - name: unit_space_to_tile_coord

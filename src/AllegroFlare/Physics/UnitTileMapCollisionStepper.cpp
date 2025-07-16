@@ -604,16 +604,10 @@ bool UnitTileMapCollisionStepper::tiles_have_equal_coordinates(AllegroFlare::Phy
 
 int UnitTileMapCollisionStepper::world_coords_to_tile_coords(float world_pos, float tile_length)
 {
-   if (!(false))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::world_coords_to_tile_coords]: error: guard \"false\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::world_coords_to_tile_coords]: error: guard \"false\" not met");
-   }
-   int coord = (int)(world_pos / tile_length);
-   if (world_pos < 0) coord -= 1;
-   return coord;
+   return unit_space_to_tile_coord(world_pos);
+   //int coord = (int)(world_pos / tile_length);
+   //if (world_pos < 0) coord -= 1;
+   //return coord;
 }
 
 int UnitTileMapCollisionStepper::unit_space_to_tile_coord(float unit_pos)
