@@ -111,7 +111,9 @@ void static render_tile_map(
       float scale_x=16.0f,
       float scale_y=16.0f,
       float offset_x = 0.0f,
-      float offset_y = 0.0f
+      float offset_y = 0.0f,
+      float tile_scale_x = 1.0,
+      float tile_scale_y = 1.0
    )
 {
    if (!al_is_primitives_addon_initialized()) throw std::runtime_error("render_tile_map: primitives must be init");
@@ -129,10 +131,10 @@ void static render_tile_map(
 
             case 1:
                al_draw_filled_rectangle(
-                  x * scale_x + offset_x * scale_x,
-                  y * scale_y + offset_y * scale_y,
-                  (x+1) * scale_x + offset_x * scale_x,
-                  (y+1) * scale_y + offset_y * scale_y, 
+                  x * scale_x * tile_scale_x + offset_x * scale_x,
+                  y * scale_y * tile_scale_x + offset_y * scale_y,
+                  (x+1) * scale_x * tile_scale_x + offset_x * scale_x,
+                  (y+1) * scale_y * tile_scale_x + offset_y * scale_y, 
                   ALLEGRO_COLOR{0.65, 0.62, 0.6, 1.0}
                );
             break;
@@ -151,14 +153,15 @@ void render_aabb2d(
       bool adjacent_to_right_edge=false,
       bool adjacent_to_bottom_edge=false,
       bool adjacent_to_left_edge=false,
-      float scale=1.0f
+      float scale_x=1.0f,
+      float scale_y=1.0f
    )
 {
    al_draw_filled_rectangle(
-      aabb2d.get_x() * scale,
-      aabb2d.get_y() * scale,
-      aabb2d.get_right_edge() * scale,
-      aabb2d.get_bottom_edge() * scale,
+      aabb2d.get_x() * scale_x,
+      aabb2d.get_y() * scale_y,
+      aabb2d.get_right_edge() * scale_x,
+      aabb2d.get_bottom_edge() * scale_y,
       ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}
    );
 
@@ -167,10 +170,10 @@ void render_aabb2d(
    if (adjacent_to_bottom_edge)
    {
       al_draw_line(
-         aabb2d.get_x() * scale,
-         aabb2d.get_bottom_edge() * scale,
-         aabb2d.get_right_edge() * scale,
-         aabb2d.get_bottom_edge() * scale,
+         aabb2d.get_x() * scale_x,
+         aabb2d.get_bottom_edge() * scale_y,
+         aabb2d.get_right_edge() * scale_x,
+         aabb2d.get_bottom_edge() * scale_y,
          orange,
          2.0
       );
@@ -178,20 +181,20 @@ void render_aabb2d(
    if (adjacent_to_top_edge)
    {
       al_draw_line(
-         aabb2d.get_x() * scale,
-         aabb2d.get_y() * scale,
-         aabb2d.get_right_edge() * scale,
-         aabb2d.get_y() * scale,
+         aabb2d.get_x() * scale_x,
+         aabb2d.get_y() * scale_y,
+         aabb2d.get_right_edge() * scale_x,
+         aabb2d.get_y() * scale_y,
          orange,
       2.0);
    }
    if (adjacent_to_left_edge)
    {
       al_draw_line(
-         aabb2d.get_x() * scale,
-         aabb2d.get_y() * scale,
-         aabb2d.get_x() * scale,
-         aabb2d.get_bottom_edge() * scale,
+         aabb2d.get_x() * scale_x,
+         aabb2d.get_y() * scale_y,
+         aabb2d.get_x() * scale_x,
+         aabb2d.get_bottom_edge() * scale_y,
          orange,
          2.0
       );
@@ -199,10 +202,10 @@ void render_aabb2d(
    if (adjacent_to_right_edge)
    {
       al_draw_line(
-         aabb2d.get_right_edge() * scale,
-         aabb2d.get_y() * scale,
-         aabb2d.get_right_edge() * scale,
-         aabb2d.get_bottom_edge() * scale,
+         aabb2d.get_right_edge() * scale_x,
+         aabb2d.get_y() * scale_y,
+         aabb2d.get_right_edge() * scale_x,
+         aabb2d.get_bottom_edge() * scale_y,
          orange,
          2.0
       );
@@ -1255,7 +1258,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
 
    // initialize test subject(s)
    AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
-   AllegroFlare::Physics::AABB2D aabb2d(80/16.0, 60/16.0, (8 - 1)/16.0, (6*2 - 1)/16.0);
+   AllegroFlare::Physics::AABB2D aabb2d(80/16.0 * 2, 60/16.0 * 2, (8 - 1)/16.0 * 2, (6*2 - 1)/16.0 * 2);
    collision_tile_map.initialize();
    load_test_map(collision_tile_map);
    AllegroFlare::Placement2D camera;
@@ -1275,10 +1278,12 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
    float velocity = 0.125;
    //bool debug_trap_on = false;
 
+   float rendering_scale = 8.0;
+
    float map_x = 0;
    float map_y = 0;
-   float map_tile_width = 1.0;
-   float map_tile_height = 1.0;
+   float map_tile_width = 2.0;
+   float map_tile_height = 2.0;
    //bool map_flip_x = false;
    //bool map_flip_y = false;
    float increment = 0.125;
@@ -1412,10 +1417,12 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
                camera.start_transform();
                render_tile_map(
                   collision_tile_map,
-                  16.0f,
-                  16.0f,
+                  rendering_scale,
+                  rendering_scale,
                   map_x,
-                  map_y
+                  map_y,
+                  map_tile_width,
+                  map_tile_height
                );
             //map_flip_x, map_flip_y, map_tile_width, map_tile_height);
                render_aabb2d(
@@ -1424,7 +1431,8 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
                   aabb2d_adjacent_to_right_edge,
                   aabb2d_adjacent_to_bottom_edge,
                   aabb2d_adjacent_to_left_edge,
-                  16.0
+                  rendering_scale,
+                  rendering_scale
                );
                camera.restore_transform();
                al_flip_display();
