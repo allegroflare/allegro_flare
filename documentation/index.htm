@@ -27186,7 +27186,7 @@ table td
   <td class="property">AllegroFlare::TileMaps::TileMap&lt;int&gt;*</td>
 </tr>
 <tr>
-  <td class="property">aabb2d</td>
+  <td class="property">__aabb2d</td>
   <td class="property">AllegroFlare::Physics::AABB2D*</td>
 </tr>
 <tr>
@@ -27202,19 +27202,31 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;</td>
-  <td class="method"><b>step</b>()</td>
+  <td class="method"><b>step</b>(AllegroFlare::Physics::AABB2D* aabb2d=nullptr)</td>
+</tr>
+<tr>
+  <td class="private_method">std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;</td>
+  <td class="private_method"><b>step_internal</b>(AllegroFlare::Physics::AABB2D* aabb2d=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo&gt;</td>
+  <td class="method"><b>step_with_world_transform</b>(AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float tile_width=16.0f, float tile_height=16.0f)</td>
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>adjacent_to_bottom_edge</b>()</td>
+  <td class="method"><b>adjacent_to_bottom_edge</b>(AllegroFlare::Physics::AABB2D* aabb2d=nullptr)</td>
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>adjacent_to_right_edge</b>()</td>
+  <td class="method"><b>adjacent_to_right_edge</b>(AllegroFlare::Physics::AABB2D* aabb2d=nullptr)</td>
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>adjacent_to_top_edge</b>()</td>
+  <td class="method"><b>adjacent_to_top_edge</b>(AllegroFlare::Physics::AABB2D* aabb2d=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>adjacent_to_left_edge</b>(AllegroFlare::Physics::AABB2D* aabb2d=nullptr)</td>
 </tr>
 <tr>
   <td class="method">std::pair&lt;int, int&gt;</td>
@@ -27223,10 +27235,6 @@ table td
 <tr>
   <td class="method">std::pair&lt;int, int&gt;</td>
   <td class="method"><b>get_tile_coords_below_right_foot</b>(float x=0.0f, float y=0.0f, float width=1.0f, float height=1.0f)</td>
-</tr>
-<tr>
-  <td class="method">bool</td>
-  <td class="method"><b>adjacent_to_left_edge</b>()</td>
 </tr>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::Physics::Int2D&gt;</td>
@@ -27242,7 +27250,7 @@ table td
 </tr>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::Physics::Int2D&gt;</td>
-  <td class="method"><b>tiles_within_aabb2d</b>(AllegroFlare::Physics::AABB2D aabb2d={})</td>
+  <td class="method"><b>tiles_within_aabb2d</b>(AllegroFlare::Physics::AABB2D* aabb2d=nullptr)</td>
 </tr>
 <tr>
   <td class="method">std::vector&lt;AllegroFlare::Physics::Int2D&gt;</td>
@@ -27254,19 +27262,7 @@ table td
 </tr>
 <tr>
   <td class="method">int</td>
-  <td class="method"><b>world_coords_to_tile_coords</b>(float world_pos=0.0f, float tile_length=1.0f)</td>
-</tr>
-<tr>
-  <td class="method">int</td>
   <td class="method"><b>unit_space_to_tile_coord</b>(float unit_pos=0.0f)</td>
-</tr>
-<tr>
-  <td class="method">int</td>
-  <td class="method"><b>world_x_coords_to_tile_coords_x</b>(float world_pos_x=0.0f)</td>
-</tr>
-<tr>
-  <td class="method">int</td>
-  <td class="method"><b>world_y_coords_to_tile_coords_y</b>(float world_pos_y=0.0f)</td>
 </tr>
 <tr>
   <td class="method">float</td>

@@ -262,8 +262,8 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
 
 
 TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithInteractionFixture,
-   //INTERACTIVE__world_coords_to_tile_coords__will_provide_expected_tile_coordinates)
-   DISABLED__INTERACTIVE__world_coords_to_tile_coords__will_provide_expected_tile_coordinates)
+   //INTERACTIVE__unit_space_to_til_coord__will_provide_expected_tile_coordinates)
+   DISABLED__INTERACTIVE__unit_space_to_tile_coord__will_provide_expected_tile_coordinates)
 {
    float coord_x = 0.0f;
    float coord_y = 0.0f;
@@ -671,18 +671,18 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
                
                // update the aabb2d collsion on the map using the stepper
                AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(
-                  &collision_tile_map,
-                  &aabb2d //,
+                  &collision_tile_map//,
+                  //&aabb2d //,
                   //16.0f,
                   //16.0f
                );
                //if (debug_trap_on) tile_map_collision_stepper.debug_trap_on = debug_trap_on;
-               tile_map_collision_stepper.step();
+               tile_map_collision_stepper.step(&aabb2d);
 
-               aabb2d_adjacent_to_top_edge = tile_map_collision_stepper.adjacent_to_top_edge(); //(1, 1); //16.0f, 16.0f);
-               aabb2d_adjacent_to_right_edge = tile_map_collision_stepper.adjacent_to_right_edge(); //(1, 1); //16.0f, 16.0f);
-               aabb2d_adjacent_to_bottom_edge = tile_map_collision_stepper.adjacent_to_bottom_edge(); //(1, 1); //16.0f, 16.0f);
-               aabb2d_adjacent_to_left_edge = tile_map_collision_stepper.adjacent_to_left_edge(); //(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_top_edge = tile_map_collision_stepper.adjacent_to_top_edge(&aabb2d); //(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_right_edge = tile_map_collision_stepper.adjacent_to_right_edge(&aabb2d); //(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_bottom_edge = tile_map_collision_stepper.adjacent_to_bottom_edge(&aabb2d); //(1, 1); //16.0f, 16.0f);
+               aabb2d_adjacent_to_left_edge = tile_map_collision_stepper.adjacent_to_left_edge(&aabb2d); //(1, 1); //16.0f, 16.0f);
             }
             { // draw
                al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
@@ -889,7 +889,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
           8.0f / 16.0f
     );
 
-    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
+    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map);
 
     // Convert expected velocities to unit space
     float unit_vx = -8.0f / 16.0f;
@@ -909,7 +909,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
        TileMapCollisionStepperCollisionInfo({4, 5}, 29, unit_vx, unit_vy, false, EVENT_EXITED),
     };
     std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
-       tile_map_collision_stepper.step();
+       tile_map_collision_stepper.step(&aabb2d);
 
     EXPECT_EQ(expected_result_collisions, actual_result_collisions);
 }
@@ -941,7 +941,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
           8.0f / 16.0f
     );
 
-    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
+    AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map);
 
     // Convert expected velocities to unit space
     float unit_vx = -8.0f / 16.0f;
@@ -959,35 +959,10 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
        TileMapCollisionStepperCollisionInfo({4, 5}, 29, unit_vx, unit_vy, false, EVENT_EXITED),
     };
     std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> actual_result_collisions =
-       tile_map_collision_stepper.step();
+       tile_map_collision_stepper.step(&aabb2d);
 
     EXPECT_EQ(expected_result_collisions, actual_result_collisions);
 }
-
-
-
-/*
-TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
-   DISABLED__step__when_solid_blocks_are_present__will_reposition_the_aabb2d_ajacent_to_the_collided_block)
-   // TOOD: Consider updating this test?
-{
-   using AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo;
-   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
-   collision_tile_map.initialize();
-   load_increment_tile_num_map(collision_tile_map);
-   collision_tile_map.set_tile(2, 4, 1); // "1" is a default solid tile
-   AllegroFlare::Physics::AABB2D aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
-
-   AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(&collision_tile_map, &aabb2d);
-
-   // TODO: Fix this test data
-   // TODO: Undisable this test
-   AllegroFlare::Physics::AABB2D expected_result_aabb2d(50, 60, 16-2, 16*2-1, -8, 8);
-   FAIL() << "Test data is not correct.";
-   // TODO: Use "expected_result_aabb2d" in this test
-   EXPECT_EQ(aabb2d, aabb2d);
-}
-*/
 
 
 
@@ -1047,10 +1022,11 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
 
          AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(
             &collision_tile_map,
-            &aabb2d,
+            nullptr,
+            //&aabb2d,
             reposition_offset // Explicitly pass the default offset
          );
-         tile_map_collision_stepper.step();
+         tile_map_collision_stepper.step(&aabb2d);
 
          // The expected result is now also calculated using the default offset
          float expected_result_bb_x = (float)solid_tile_x - player_w - reposition_offset;
@@ -1084,8 +1060,8 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
          -102.0f / 16.0f, -102.0f / 16.0f, 10.0f / 16.0f, 10.0f / 16.0f, -2.0f / 16.0f, -2.0f / 16.0f
    );
 
-   AllegroFlare::Physics::UnitTileMapCollisionStepper stepper(&collision_tile_map, &aabb2d);
-   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_infos = stepper.step();
+   AllegroFlare::Physics::UnitTileMapCollisionStepper stepper(&collision_tile_map);
+   std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> collision_infos = stepper.step(&aabb2d);
 
    for (auto &collision_info : collision_infos)
    {
@@ -1111,8 +1087,8 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
          -5.0f / 16.0f, 210.0f / 16.0f, 10.0f / 16.0f, 10.0f / 16.0f, 0.0f, 15.0f / 16.0f
    );
 
-   AllegroFlare::Physics::UnitTileMapCollisionStepper stepper(&collision_tile_map, &aabb2d);
-   std::vector<TileMapCollisionStepperCollisionInfo> actual_collisions = stepper.step();
+   AllegroFlare::Physics::UnitTileMapCollisionStepper stepper(&collision_tile_map); //, &aabb2d);
+   std::vector<TileMapCollisionStepperCollisionInfo> actual_collisions = stepper.step(&aabb2d);
 
    // Convert expected velocity to unit space
    TileMapCollisionStepperCollisionInfo expected_collision(
@@ -1154,8 +1130,8 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
          405.0f / 16.0f, 100.0f / 16.0f, 10.0f / 16.0f, 10.0f / 16.0f, -10.0f / 16.0f, 0.0f
    );
 
-   AllegroFlare::Physics::UnitTileMapCollisionStepper stepper(&collision_tile_map, &aabb2d);
-   std::vector<TileMapCollisionStepperCollisionInfo> actual_collisions = stepper.step();
+   AllegroFlare::Physics::UnitTileMapCollisionStepper stepper(&collision_tile_map); //, &aabb2d);
+   std::vector<TileMapCollisionStepperCollisionInfo> actual_collisions = stepper.step(&aabb2d);
 
    // Convert expected velocity to unit space. Tile coords are already in unit space.
    TileMapCollisionStepperCollisionInfo expected_collision(

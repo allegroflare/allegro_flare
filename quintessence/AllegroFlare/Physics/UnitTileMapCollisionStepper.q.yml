@@ -8,7 +8,7 @@ properties:
     getter: true
     setter: true
 
-  - name: aabb2d
+  - name: __aabb2d
     type: AllegroFlare::Physics::AABB2D*
     init_with: nullptr
     constructor_arg: true
@@ -45,8 +45,26 @@ functions:
 
   - name: step
     type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
     guards: [ collision_tile_map, aabb2d ]
     body: |
+      return step_internal(aabb2d);
+
+
+  - name: step_internal
+    private: true
+    type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
+    guards: [ collision_tile_map, aabb2d ]
+    body: |
+      //this->aabb2d = aabb2d;
+
       std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> result_infos;
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
       AllegroFlare::TileMaps::TileMap<int> &map = *collision_tile_map;
@@ -174,8 +192,8 @@ functions:
       AllegroFlare::Physics::AABB2D obj_after = obj;
 
       // collect the "now_tiles" and "next_tiles" and calculate the difference information
-      std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within_aabb2d(obj_before);
-      std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within_aabb2d(obj_after);
+      std::vector<AllegroFlare::Physics::Int2D> now_tiles = tiles_within_aabb2d(&obj_before);
+      std::vector<AllegroFlare::Physics::Int2D> next_tiles = tiles_within_aabb2d(&obj_after);
       std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> difference_infos =
          calculate_difference_info(now_tiles, next_tiles, obj_before.get_velocity_x(), obj_before.get_velocity_y());
 
@@ -188,8 +206,54 @@ functions:
       - AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
 
 
+  - name: step_with_world_transform
+    type: std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo>
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
+      - name: tile_width
+        type: float
+        default_argument: 16.0f
+      - name: tile_height
+        type: float
+        default_argument: 16.0f
+    guards: [ collision_tile_map, aabb2d, (tile_width >= 0.0f), (tile_height >= 0.0f) ]
+    body: |
+      //this->aabb2d = aabb2d;
+
+      // Transform Down: Create a temporary AABB in unit space.
+      AllegroFlare::Physics::AABB2D unit_aabb(
+         aabb2d->get_x() / tile_width,
+         aabb2d->get_y() / tile_height,
+         aabb2d->get_w() / tile_width,
+         aabb2d->get_h() / tile_height,
+         aabb2d->get_velocity_x() / tile_width,
+         aabb2d->get_velocity_y() / tile_height
+      );
+
+      // Call the core unit-space step() function (after the refactor).
+      std::vector<TileMapCollisionStepperCollisionInfo> result_infos = step_internal(&unit_aabb);
+
+      // Transform Up: Update the original world_aabb with the results.
+      aabb2d->set_x(unit_aabb.get_x() * tile_width);
+      aabb2d->set_y(unit_aabb.get_y() * tile_height);
+      aabb2d->set_velocity_x(unit_aabb.get_velocity_x() * tile_width);
+      aabb2d->set_velocity_y(unit_aabb.get_velocity_y() * tile_height);
+
+      // 4. Return the collision info.
+      return result_infos;
+    body_dependency_symbols:
+      - AllegroFlare::Physics::AABB2D
+      - AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo
+
+
   - name: adjacent_to_bottom_edge
     type: bool
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
     guards: [ collision_tile_map, aabb2d ]
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -216,6 +280,10 @@ functions:
 
   - name: adjacent_to_right_edge
     type: bool
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
     guards: [ collision_tile_map, aabb2d ]
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -242,6 +310,10 @@ functions:
 
   - name: adjacent_to_top_edge
     type: bool
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
     guards: [ collision_tile_map, aabb2d ]
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -266,51 +338,12 @@ functions:
       return false;
 
 
-  - name: get_tile_coords_below_left_foot
-    type: std::pair<int, int>
-    parameters:
-      - name: x
-        type: float
-        default_argument: 0.0f
-      - name: y
-        type: float
-        default_argument: 0.0f
-      - name: height
-        type: float
-        default_argument: 1.0f
-    body: |
-      std::pair<int, int> result{
-         world_x_coords_to_tile_coords_x(x),
-         world_y_coords_to_tile_coords_y(y + height + reposition_offset*2) // 0.0001f)
-      };
-      return result;
-
-
-  - name: get_tile_coords_below_right_foot
-    type: std::pair<int, int>
-    parameters:
-      - name: x
-        type: float
-        default_argument: 0.0f
-      - name: y
-        type: float
-        default_argument: 0.0f
-      - name: width
-        type: float
-        default_argument: 1.0f
-      - name: height
-        type: float
-        default_argument: 1.0f
-    body: |
-      std::pair<int, int> result{
-         world_x_coords_to_tile_coords_x(x + width),
-         world_y_coords_to_tile_coords_y(y + height + reposition_offset*2) // 0.0001f)
-      };
-      return result;
-
-
   - name: adjacent_to_left_edge
     type: bool
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
     guards: [ collision_tile_map, aabb2d ]
     body: |
       AllegroFlare::Physics::AABB2D &obj = *aabb2d;
@@ -333,6 +366,50 @@ functions:
          if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
       }
       return false;
+
+
+  - name: get_tile_coords_below_left_foot
+    type: std::pair<int, int>
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: height
+        type: float
+        default_argument: 1.0f
+    body: |
+      std::pair<int, int> result{
+         unit_space_to_tile_coord(x),
+         unit_space_to_tile_coord(y + height + reposition_offset*2) // 0.0001f)
+      };
+      return result;
+
+
+
+  - name: get_tile_coords_below_right_foot
+    type: std::pair<int, int>
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: width
+        type: float
+        default_argument: 1.0f
+      - name: height
+        type: float
+        default_argument: 1.0f
+    body: |
+      std::pair<int, int> result{
+         unit_space_to_tile_coord(x + width),
+         unit_space_to_tile_coord(y + height + reposition_offset*2) // 0.0001f)
+      };
+      return result;
 
 
   - name: get_next_collided_tile_coords_1d
@@ -530,16 +607,19 @@ functions:
 
   - name: tiles_within_aabb2d
     type: std::vector<AllegroFlare::Physics::Int2D> 
+    static: true
     parameters:
       - name: aabb2d
-        type: AllegroFlare::Physics::AABB2D
-        default_argument: '{}'
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
+    guards: [ aabb2d ]
     body: |
-      return tiles_within(aabb2d.get_x(), aabb2d.get_y(), aabb2d.get_w(), aabb2d.get_h()); //, tile_width, tile_height);
+      return tiles_within(aabb2d->get_x(), aabb2d->get_y(), aabb2d->get_w(), aabb2d->get_h());
 
 
   - name: tiles_within
     type: std::vector<AllegroFlare::Physics::Int2D> 
+    static: true
     parameters:
       - name: x
         type: float
@@ -557,10 +637,10 @@ functions:
     body: |
       std::vector<AllegroFlare::Physics::Int2D> result_tiles;
 
-      int left_tile_x = world_coords_to_tile_coords(x);
-      int top_tile_y = world_coords_to_tile_coords(y);
-      int right_tile_x = world_coords_to_tile_coords(x+width);
-      int bottom_tile_y = world_coords_to_tile_coords(y+height);
+      int left_tile_x = unit_space_to_tile_coord(x);
+      int top_tile_y = unit_space_to_tile_coord(y);
+      int right_tile_x = unit_space_to_tile_coord(x+width);
+      int bottom_tile_y = unit_space_to_tile_coord(y+height);
 
       for (int tile_y = top_tile_y; tile_y <= bottom_tile_y; tile_y++)
          for (int tile_x = left_tile_x; tile_x <= right_tile_x; tile_x++)
@@ -585,24 +665,6 @@ functions:
       return (a.get_x() == b.get_x() && a.get_y() == b.get_y());
 
 
-  - name: world_coords_to_tile_coords
-    static: true
-    type: int
-    parameters:
-      - name: world_pos
-        type: float
-        default_argument: 0.0f
-      - name: tile_length
-        type: float
-        default_argument: 1.0f
-    xxguards: [ false ]
-    body: |
-      return unit_space_to_tile_coord(world_pos);
-      //int coord = (int)(world_pos / tile_length);
-      //if (world_pos < 0) coord -= 1;
-      //return coord;
-
-
   - name: unit_space_to_tile_coord
     static: true
     type: int
@@ -612,34 +674,6 @@ functions:
         default_argument: 0.0f
     body: |
       return static_cast<int>(std::floor(unit_pos));
-
-
-  - name: world_x_coords_to_tile_coords_x
-    xprivate: true
-    type: int
-    parameters:
-      - name: world_pos_x
-        type: float
-        default_argument: 0.0f
-    body: |
-      return world_coords_to_tile_coords(world_pos_x);
-      //int coord = (int)(world_pos_x / tile_width);
-      //if (world_pos_x < 0) coord -= 1;
-      //return coord;
-
-
-  - name: world_y_coords_to_tile_coords_y
-    xprivate: true
-    type: int
-    parameters:
-      - name: world_pos_y
-        type: float
-        default_argument: 0.0f
-    body: |
-      return world_coords_to_tile_coords(world_pos_y);
-      //int coord = (int)(world_pos_y / tile_height);
-      //if (world_pos_y < 0) coord -= 1;
-      //return coord;
 
 
   - name: get_tile_left_edge
