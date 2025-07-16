@@ -15,20 +15,6 @@ properties:
     getter: true
     setter: true
 
-  - name: tile_width
-    type: float
-    init_with: 1.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
-  - name: tile_height
-    type: float
-    init_with: 1.0f
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: reposition_offset
     type: float
     init_with: DEFAULT_REPOSITION_OFFSET

@@ -17,11 +17,9 @@ namespace Physics
 {
 
 
-UnitTileMapCollisionStepper::UnitTileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map, AllegroFlare::Physics::AABB2D* aabb2d, float tile_width, float tile_height, float reposition_offset)
+UnitTileMapCollisionStepper::UnitTileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map, AllegroFlare::Physics::AABB2D* aabb2d, float reposition_offset)
    : collision_tile_map(collision_tile_map)
    , aabb2d(aabb2d)
-   , tile_width(tile_width)
-   , tile_height(tile_height)
    , reposition_offset(reposition_offset)
 {
 }
@@ -44,18 +42,6 @@ void UnitTileMapCollisionStepper::set_aabb2d(AllegroFlare::Physics::AABB2D* aabb
 }
 
 
-void UnitTileMapCollisionStepper::set_tile_width(float tile_width)
-{
-   this->tile_width = tile_width;
-}
-
-
-void UnitTileMapCollisionStepper::set_tile_height(float tile_height)
-{
-   this->tile_height = tile_height;
-}
-
-
 void UnitTileMapCollisionStepper::set_reposition_offset(float reposition_offset)
 {
    this->reposition_offset = reposition_offset;
@@ -71,18 +57,6 @@ AllegroFlare::TileMaps::TileMap<int>* UnitTileMapCollisionStepper::get_collision
 AllegroFlare::Physics::AABB2D* UnitTileMapCollisionStepper::get_aabb2d() const
 {
    return aabb2d;
-}
-
-
-float UnitTileMapCollisionStepper::get_tile_width() const
-{
-   return tile_width;
-}
-
-
-float UnitTileMapCollisionStepper::get_tile_height() const
-{
-   return tile_height;
 }
 
 

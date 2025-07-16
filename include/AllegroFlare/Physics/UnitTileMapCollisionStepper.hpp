@@ -21,8 +21,6 @@ namespace AllegroFlare
       private:
          AllegroFlare::TileMaps::TileMap<int>* collision_tile_map;
          AllegroFlare::Physics::AABB2D* aabb2d;
-         float tile_width;
-         float tile_height;
          float reposition_offset;
          bool tiles_have_equal_coordinates(AllegroFlare::Physics::Int2D a={0, 0}, AllegroFlare::Physics::Int2D b={0, 0});
 
@@ -30,18 +28,14 @@ namespace AllegroFlare
 
 
       public:
-         UnitTileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map=nullptr, AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float tile_width=1.0f, float tile_height=1.0f, float reposition_offset=DEFAULT_REPOSITION_OFFSET);
+         UnitTileMapCollisionStepper(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map=nullptr, AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float reposition_offset=DEFAULT_REPOSITION_OFFSET);
          ~UnitTileMapCollisionStepper();
 
          void set_collision_tile_map(AllegroFlare::TileMaps::TileMap<int>* collision_tile_map);
          void set_aabb2d(AllegroFlare::Physics::AABB2D* aabb2d);
-         void set_tile_width(float tile_width);
-         void set_tile_height(float tile_height);
          void set_reposition_offset(float reposition_offset);
          AllegroFlare::TileMaps::TileMap<int>* get_collision_tile_map() const;
          AllegroFlare::Physics::AABB2D* get_aabb2d() const;
-         float get_tile_width() const;
-         float get_tile_height() const;
          float get_reposition_offset() const;
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step();
          bool adjacent_to_bottom_edge();
