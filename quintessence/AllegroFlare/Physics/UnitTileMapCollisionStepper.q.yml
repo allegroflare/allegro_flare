@@ -8,13 +8,6 @@ properties:
     getter: true
     setter: true
 
-  - name: __aabb2d
-    type: AllegroFlare::Physics::AABB2D*
-    init_with: nullptr
-    constructor_arg: true
-    getter: true
-    setter: true
-
   - name: reposition_offset
     type: float
     init_with: DEFAULT_REPOSITION_OFFSET

@@ -1022,7 +1022,7 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
 
          AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(
             &collision_tile_map,
-            nullptr,
+            //nullptr,
             //&aabb2d,
             reposition_offset // Explicitly pass the default offset
          );
