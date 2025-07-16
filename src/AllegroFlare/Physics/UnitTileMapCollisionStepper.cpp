@@ -102,33 +102,43 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::step_with_world_transform]: error: guard \"(tile_height > 0.0f)\" not met");
    }
-   // Transform Down: Create a temporary AABB in unit space.
+   // 1. Transform Down:
+   // A) First, find the AABB's position relative to the map's origin (in pixels).
+   float aabb_local_x = aabb2d->get_x() - map_x;
+   float aabb_local_y = aabb2d->get_y() - map_y;
+
+   // B) Now, scale the local pixel coordinates and dimensions down to unit space.
    AllegroFlare::Physics::AABB2D unit_aabb(
-     (aabb2d->get_x() - map_x) / tile_width,
-     (aabb2d->get_y() - map_y) / tile_height,
+     aabb_local_x / tile_width,
+     aabb_local_y / tile_height,
      aabb2d->get_w() / tile_width,
      aabb2d->get_h() / tile_height,
      aabb2d->get_velocity_x() / tile_width,
      aabb2d->get_velocity_y() / tile_height
    );
 
-   // Call the core unit-space step() function.
+   // 2. Call the core unit-space step() function.
    std::vector<TileMapCollisionStepperCollisionInfo> result_infos = step_internal(&unit_aabb);
 
-   // Transform Up: Update the original world_aabb with the results.
-   aabb2d->set_x((unit_aabb.get_x() * tile_width) + map_x);
-   aabb2d->set_y((unit_aabb.get_y() * tile_height) + map_y);
+   // 3. Transform Up:
+   // A) Scale the final unit-space position up to local pixel coordinates.
+   float final_local_x = unit_aabb.get_x() * tile_width;
+   float final_local_y = unit_aabb.get_y() * tile_height;
+
+   // B) Translate the local pixel coordinates by the map's position to get the final world coordinates.
+   aabb2d->set_x(final_local_x + map_x);
+   aabb2d->set_y(final_local_y + map_y);
    aabb2d->set_velocity_x(unit_aabb.get_velocity_x() * tile_width);
    aabb2d->set_velocity_y(unit_aabb.get_velocity_y() * tile_height);
 
-   // Transform the velocities in the collision info back to world space
+   // 4. Transform the velocities in the collision info back to world space.
    for (auto &info : result_infos)
    {
      info.set_collision_velocity_x(info.get_collision_velocity_x() * tile_width);
      info.set_collision_velocity_y(info.get_collision_velocity_y() * tile_height);
    }
 
-   // Return the collision info.
+   // 5. Return the collision info.
    return result_infos;
 }
 

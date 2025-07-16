@@ -108,8 +108,10 @@ static void load_test_map(AllegroFlare::TileMaps::TileMap<int> &tile_map)
 #include <allegro5/allegro_primitives.h>
 void static render_tile_map(
       AllegroFlare::TileMaps::TileMap<int> &tile_map,
-      float tile_width=16.0f,
-      float tile_height=16.0f
+      float scale_x=16.0f,
+      float scale_y=16.0f,
+      float offset_x = 0.0f,
+      float offset_y = 0.0f
    )
 {
    if (!al_is_primitives_addon_initialized()) throw std::runtime_error("render_tile_map: primitives must be init");
@@ -126,8 +128,13 @@ void static render_tile_map(
             break;
 
             case 1:
-              al_draw_filled_rectangle(x * tile_width, y * tile_height, (x+1) * tile_width, (y+1) * tile_height, 
-                 ALLEGRO_COLOR{0.65, 0.62, 0.6, 1.0});
+               al_draw_filled_rectangle(
+                  x * scale_x + offset_x * scale_x,
+                  y * scale_y + offset_y * scale_y,
+                  (x+1) * scale_x + offset_x * scale_x,
+                  (y+1) * scale_y + offset_y * scale_y, 
+                  ALLEGRO_COLOR{0.65, 0.62, 0.6, 1.0}
+               );
             break;
 
             default:
@@ -1230,5 +1237,210 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTest,
    EXPECT_FLOAT_EQ(expected_repositioned_x, aabb2d.get_x());
    EXPECT_FLOAT_EQ(0.0f, aabb2d.get_velocity_x());
 }
+
+
+
+TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingFixture,
+   //DISABLED__INTERACTIVE__under_transformations__will_work_as_expected)
+   INTERACTIVE__under_transformations__will_work_as_expected)
+{
+   // setup system
+   al_install_keyboard();
+   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
+   ALLEGRO_TIMER *primary_timer = al_create_timer(ALLEGRO_BPS_TO_SECS(60));
+   al_register_event_source(event_queue, al_get_keyboard_event_source());
+   al_register_event_source(event_queue, al_get_timer_event_source(primary_timer));
+   bool abort = false;
+   ALLEGRO_EVENT event;
+
+   // initialize test subject(s)
+   AllegroFlare::TileMaps::TileMap<int> collision_tile_map;
+   AllegroFlare::Physics::AABB2D aabb2d(80/16.0, 60/16.0, (8 - 1)/16.0, (6*2 - 1)/16.0);
+   collision_tile_map.initialize();
+   load_test_map(collision_tile_map);
+   AllegroFlare::Placement2D camera;
+   camera.scale.x = 4.8 * 0.7;
+   camera.scale.y = 4.5 * 0.7;
+   camera.position.x = 100;
+   camera.position.y = 100;
+
+   bool aabb2d_adjacent_to_bottom_edge = false;
+   bool aabb2d_adjacent_to_top_edge = false;
+   bool aabb2d_adjacent_to_right_edge = false;
+   bool aabb2d_adjacent_to_left_edge = false;
+
+   bool invert_gravity = false;
+   bool gravity_enabled = false;
+   bool vertical_movement_controls_active = true;
+   float velocity = 0.125;
+   //bool debug_trap_on = false;
+
+   float map_x = 0;
+   float map_y = 0;
+   float map_tile_width = 1.0;
+   float map_tile_height = 1.0;
+   //bool map_flip_x = false;
+   //bool map_flip_y = false;
+   float increment = 0.125;
+
+   // run the interactive test
+   al_wait_for_vsync();
+   al_start_timer(primary_timer);
+   while(!abort)
+   {
+      al_wait_for_event(event_queue, &event);
+
+      switch(event.type)
+      {
+         case ALLEGRO_EVENT_KEY_DOWN:
+            switch(event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_UP:
+                 if (vertical_movement_controls_active) aabb2d.set_velocity_y(-1 * velocity);
+               break;
+
+               case ALLEGRO_KEY_DOWN:
+                 if (vertical_movement_controls_active) aabb2d.set_velocity_y(1 * velocity);
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                 aabb2d.set_velocity_x(-1 * velocity);
+               break;
+
+               case ALLEGRO_KEY_RIGHT:
+                 aabb2d.set_velocity_x(1 * velocity);
+               break;
+
+               case ALLEGRO_KEY_SPACE:
+                 aabb2d.set_velocity_y(invert_gravity ? (4.0f / 16.0) : (-4.0f / 16.0));
+               break;
+
+               case ALLEGRO_KEY_I:
+                 invert_gravity = !invert_gravity;
+               break;
+
+               case ALLEGRO_KEY_G:
+                 gravity_enabled = !gravity_enabled;
+                 vertical_movement_controls_active = !vertical_movement_controls_active;
+               break;
+
+               case ALLEGRO_KEY_PAD_6:
+                 map_x += 8;
+               break;
+
+               case ALLEGRO_KEY_PAD_4:
+                 map_x -= 8;
+               break;
+
+               case ALLEGRO_KEY_PAD_8:
+                 map_y -= 8;
+               break;
+
+               case ALLEGRO_KEY_PAD_2:
+                 map_y += 8;
+               break;
+
+               //case ALLEGRO_KEY_PAD_9:
+                 //map_flip_x = !map_flip_x;
+               //break;
+
+               //case ALLEGRO_KEY_PAD_7:
+                 //map_flip_y = !map_flip_y;
+               //break;
+
+               //case ALLEGRO_KEY_V:
+                 //vertical_movement_controls_active = !vertical_movement_controls_active;
+               //break;
+
+               //case ALLEGRO_KEY_D:
+                 //aabb2d.set_velocity_x(1);
+                 //debug_trap_on = true;
+               //break;
+            }
+         break;
+
+         case ALLEGRO_EVENT_KEY_UP:
+            switch(event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_UP:
+               case ALLEGRO_KEY_DOWN:
+                 aabb2d.set_velocity_y(0);
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+               case ALLEGRO_KEY_RIGHT:
+                 aabb2d.set_velocity_x(0);
+               break;
+            }
+         break;
+
+         case ALLEGRO_EVENT_TIMER:
+            { // update
+               // add gravity
+               if (gravity_enabled) aabb2d.set_velocity_y(aabb2d.get_velocity_y() + (invert_gravity ? -0.1/16 : 0.1/16));
+               
+               // update the aabb2d collsion on the map using the stepper
+               AllegroFlare::Physics::UnitTileMapCollisionStepper tile_map_collision_stepper(
+                  &collision_tile_map//,
+                  //&aabb2d //,
+                  //16.0f,
+                  //16.0f
+               );
+               //if (debug_trap_on) tile_map_collision_stepper.debug_trap_on = debug_trap_on;
+               tile_map_collision_stepper.step_with_world_transform(
+                  &aabb2d,
+                  map_x, map_y,
+                  map_tile_width, map_tile_height
+                  //map_flip_x, map_flip_y
+               );
+
+               aabb2d_adjacent_to_top_edge =
+                  tile_map_collision_stepper.adjacent_to_top_edge(
+                     &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
+               aabb2d_adjacent_to_right_edge =
+                  tile_map_collision_stepper.adjacent_to_right_edge(
+                     &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
+               aabb2d_adjacent_to_bottom_edge =
+                  tile_map_collision_stepper.adjacent_to_bottom_edge(
+                     &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
+               aabb2d_adjacent_to_left_edge =
+                  tile_map_collision_stepper.adjacent_to_left_edge(
+                     &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
+            }
+            { // draw
+               al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+               camera.start_transform();
+               render_tile_map(
+                  collision_tile_map,
+                  16.0f,
+                  16.0f,
+                  map_x,
+                  map_y
+               );
+            //map_flip_x, map_flip_y, map_tile_width, map_tile_height);
+               render_aabb2d(
+                  aabb2d,
+                  aabb2d_adjacent_to_top_edge,
+                  aabb2d_adjacent_to_right_edge,
+                  aabb2d_adjacent_to_bottom_edge,
+                  aabb2d_adjacent_to_left_edge,
+                  16.0
+               );
+               camera.restore_transform();
+               al_flip_display();
+            }
+         break;
+      }
+
+      if (event.type == ALLEGRO_EVENT_KEY_CHAR && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) abort = true;
+   }
+   
+   // teardown
+   // TODO: Audit if this teardown is complete. It may require other calls to destroy resources.
+   al_destroy_event_queue(event_queue);
+   al_destroy_timer(primary_timer);
+   al_uninstall_keyboard();
+}
+
 
 
