@@ -16,7 +16,7 @@ namespace AllegroFlare
       class UnitTileMapCollisionStepper
       {
       public:
-         static constexpr float DEFAULT_REPOSITION_OFFSET = 0.00097656;
+         static constexpr float DEFAULT_REPOSITION_OFFSET = (0.00097656 * 4);
 
       private:
          AllegroFlare::TileMaps::TileMap<int>* collision_tile_map;
@@ -37,9 +37,12 @@ namespace AllegroFlare
          float get_reposition_offset() const;
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
          std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> step_with_world_transform(AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float map_x=0.0f, float map_y=0.0f, float tile_width=16.0f, float tile_height=16.0f);
-         bool adjacent_to_bottom_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
-         bool adjacent_to_right_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
-         bool adjacent_to_top_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
+         bool adjacent_to_bottom_edge_internal(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
+         bool adjacent_to_bottom_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float map_x=0.0f, float map_y=0.0f, float tile_width=16.0f, float tile_height=16.0f, bool flip_h=false, bool flip_v=false);
+         bool adjacent_to_right_edge_internal(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
+         bool adjacent_to_right_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float map_x=0.0f, float map_y=0.0f, float tile_width=16.0f, float tile_height=16.0f, bool flip_h=false, bool flip_v=false);
+         bool adjacent_to_top_edge_internal(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
+         bool adjacent_to_top_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float map_x=0.0f, float map_y=0.0f, float tile_width=16.0f, float tile_height=16.0f, bool flip_h=false, bool flip_v=false);
          bool adjacent_to_left_edge_internal(AllegroFlare::Physics::AABB2D* aabb2d=nullptr);
          bool adjacent_to_left_edge(AllegroFlare::Physics::AABB2D* aabb2d=nullptr, float map_x=0.0f, float map_y=0.0f, float tile_width=16.0f, float tile_height=16.0f, bool flip_h=false, bool flip_v=false);
          std::pair<int, int> get_tile_coords_below_left_foot(float x=0.0f, float y=0.0f, float height=1.0f);

@@ -1421,13 +1421,16 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
 
                aabb2d_adjacent_to_top_edge =
                   tile_map_collision_stepper.adjacent_to_top_edge(
-                     &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
+                     &aabb2d, map_x, map_y, map_tile_width, map_tile_height
+                  );
                aabb2d_adjacent_to_right_edge =
                   tile_map_collision_stepper.adjacent_to_right_edge(
-                     &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
+                     &aabb2d, map_x, map_y, map_tile_width, map_tile_height
+                  );
                aabb2d_adjacent_to_bottom_edge =
                   tile_map_collision_stepper.adjacent_to_bottom_edge(
-                     &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
+                     &aabb2d, map_x, map_y, map_tile_width, map_tile_height
+                  );
                aabb2d_adjacent_to_left_edge =
                   tile_map_collision_stepper.adjacent_to_left_edge(
                      &aabb2d, map_x, map_y, map_tile_width, map_tile_height

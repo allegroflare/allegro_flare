@@ -298,21 +298,21 @@ std::vector<AllegroFlare::Physics::TileMapCollisionStepperCollisionInfo> UnitTil
    return result_infos;
 }
 
-bool UnitTileMapCollisionStepper::adjacent_to_bottom_edge(AllegroFlare::Physics::AABB2D* aabb2d)
+bool UnitTileMapCollisionStepper::adjacent_to_bottom_edge_internal(AllegroFlare::Physics::AABB2D* aabb2d)
 {
    if (!(collision_tile_map))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"collision_tile_map\" not met.";
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge_internal]: error: guard \"collision_tile_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"collision_tile_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge_internal]: error: guard \"collision_tile_map\" not met");
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"aabb2d\" not met.";
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge_internal]: error: guard \"aabb2d\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"aabb2d\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge_internal]: error: guard \"aabb2d\" not met");
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
@@ -334,21 +334,69 @@ bool UnitTileMapCollisionStepper::adjacent_to_bottom_edge(AllegroFlare::Physics:
    return false;
 }
 
-bool UnitTileMapCollisionStepper::adjacent_to_right_edge(AllegroFlare::Physics::AABB2D* aabb2d)
+bool UnitTileMapCollisionStepper::adjacent_to_bottom_edge(AllegroFlare::Physics::AABB2D* aabb2d, float map_x, float map_y, float tile_width, float tile_height, bool flip_h, bool flip_v)
 {
    if (!(collision_tile_map))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"collision_tile_map\" not met.";
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"collision_tile_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"collision_tile_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"collision_tile_map\" not met");
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"aabb2d\" not met.";
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"aabb2d\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"aabb2d\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"aabb2d\" not met");
+   }
+   if (!((tile_width > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"(tile_width > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"(tile_width > 0.0f)\" not met");
+   }
+   if (!((tile_height > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"(tile_height > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_bottom_edge]: error: guard \"(tile_height > 0.0f)\" not met");
+   }
+   float aabb_local_x = aabb2d->get_x() - map_x;
+   float aabb_local_y = aabb2d->get_y() - map_y;
+   AllegroFlare::Physics::AABB2D unit_aabb(
+     aabb_local_x / tile_width,
+     aabb_local_y / tile_height,
+     aabb2d->get_w() / tile_width,
+     aabb2d->get_h() / tile_height
+   );
+
+   //if (flip_v)
+   //{
+     //int map_h_in_tiles = collision_tile_map->get_num_rows();
+     //unit_aabb.set_y(map_h_in_tiles - unit_aabb.get_bottom_edge());
+     //return adjacent_to_top_edge_internal(&unit_aabb);
+   //}
+   return adjacent_to_bottom_edge_internal(&unit_aabb);
+}
+
+bool UnitTileMapCollisionStepper::adjacent_to_right_edge_internal(AllegroFlare::Physics::AABB2D* aabb2d)
+{
+   if (!(collision_tile_map))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge_internal]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge_internal]: error: guard \"collision_tile_map\" not met");
+   }
+   if (!(aabb2d))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge_internal]: error: guard \"aabb2d\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge_internal]: error: guard \"aabb2d\" not met");
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
@@ -370,21 +418,69 @@ bool UnitTileMapCollisionStepper::adjacent_to_right_edge(AllegroFlare::Physics::
    return false;
 }
 
-bool UnitTileMapCollisionStepper::adjacent_to_top_edge(AllegroFlare::Physics::AABB2D* aabb2d)
+bool UnitTileMapCollisionStepper::adjacent_to_right_edge(AllegroFlare::Physics::AABB2D* aabb2d, float map_x, float map_y, float tile_width, float tile_height, bool flip_h, bool flip_v)
 {
    if (!(collision_tile_map))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"collision_tile_map\" not met.";
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"collision_tile_map\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"collision_tile_map\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"collision_tile_map\" not met");
    }
    if (!(aabb2d))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"aabb2d\" not met.";
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"aabb2d\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"aabb2d\" not met");
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"aabb2d\" not met");
+   }
+   if (!((tile_width > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"(tile_width > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"(tile_width > 0.0f)\" not met");
+   }
+   if (!((tile_height > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"(tile_height > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_right_edge]: error: guard \"(tile_height > 0.0f)\" not met");
+   }
+   float aabb_local_x = aabb2d->get_x() - map_x;
+   float aabb_local_y = aabb2d->get_y() - map_y;
+   AllegroFlare::Physics::AABB2D unit_aabb(
+     aabb_local_x / tile_width,
+     aabb_local_y / tile_height,
+     aabb2d->get_w() / tile_width,
+     aabb2d->get_h() / tile_height
+   );
+
+   //if (flip_h)
+   //{
+     //int map_w_in_tiles = collision_tile_map->get_num_columns();
+     //unit_aabb.set_x(map_w_in_tiles - unit_aabb.get_right_edge());
+     //return adjacent_to_left_edge_internal(&unit_aabb);
+   //}
+   return adjacent_to_right_edge_internal(&unit_aabb);
+}
+
+bool UnitTileMapCollisionStepper::adjacent_to_top_edge_internal(AllegroFlare::Physics::AABB2D* aabb2d)
+{
+   if (!(collision_tile_map))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge_internal]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge_internal]: error: guard \"collision_tile_map\" not met");
+   }
+   if (!(aabb2d))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge_internal]: error: guard \"aabb2d\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge_internal]: error: guard \"aabb2d\" not met");
    }
    AllegroFlare::Physics::AABB2D &obj = *aabb2d;
 
@@ -404,6 +500,54 @@ bool UnitTileMapCollisionStepper::adjacent_to_top_edge(AllegroFlare::Physics::AA
       if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
    }
    return false;
+}
+
+bool UnitTileMapCollisionStepper::adjacent_to_top_edge(AllegroFlare::Physics::AABB2D* aabb2d, float map_x, float map_y, float tile_width, float tile_height, bool flip_h, bool flip_v)
+{
+   if (!(collision_tile_map))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"collision_tile_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"collision_tile_map\" not met");
+   }
+   if (!(aabb2d))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"aabb2d\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"aabb2d\" not met");
+   }
+   if (!((tile_width > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"(tile_width > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"(tile_width > 0.0f)\" not met");
+   }
+   if (!((tile_height > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"(tile_height > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Physics::UnitTileMapCollisionStepper::adjacent_to_top_edge]: error: guard \"(tile_height > 0.0f)\" not met");
+   }
+   float aabb_local_x = aabb2d->get_x() - map_x;
+   float aabb_local_y = aabb2d->get_y() - map_y;
+   AllegroFlare::Physics::AABB2D unit_aabb(
+     aabb_local_x / tile_width,
+     aabb_local_y / tile_height,
+     aabb2d->get_w() / tile_width,
+     aabb2d->get_h() / tile_height
+   );
+
+   //if (flip_v)
+   //{
+     //int map_h_in_tiles = collision_tile_map->get_num_rows();
+     //unit_aabb.set_y(map_h_in_tiles - unit_aabb.get_bottom_edge());
+     //return adjacent_to_bottom_edge_internal(&unit_aabb);
+   //}
+   return adjacent_to_top_edge_internal(&unit_aabb);
 }
 
 bool UnitTileMapCollisionStepper::adjacent_to_left_edge_internal(AllegroFlare::Physics::AABB2D* aabb2d)
