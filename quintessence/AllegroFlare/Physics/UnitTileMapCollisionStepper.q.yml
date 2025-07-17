@@ -344,7 +344,7 @@ methods:
       return false;
 
 
-  - name: adjacent_to_left_edge
+  - name: adjacent_to_left_edge_internal
     type: bool
     parameters:
       - name: aabb2d
@@ -370,6 +370,50 @@ methods:
          if (get_tile_or_fallback(t.get_x(), t.get_y(), 0) == 1) return true;
       }
       return false;
+
+
+  - name: adjacent_to_left_edge
+    type: bool
+    parameters:
+      - name: aabb2d
+        type: AllegroFlare::Physics::AABB2D*
+        default_argument: nullptr
+      - name: map_x
+        type: float
+        default_argument: 0.0f
+      - name: map_y
+        type: float
+        default_argument: 0.0f
+      - name: tile_width
+        type: float
+        default_argument: 16.0f
+      - name: tile_height
+        type: float
+        default_argument: 16.0f
+      - name: flip_h
+        type: bool
+        default_argument: false
+      - name: flip_v
+        type: bool
+        default_argument: false
+    guards: [ collision_tile_map, aabb2d, (tile_width > 0.0f), (tile_height > 0.0f) ]
+    body: |
+      float aabb_local_x = aabb2d->get_x() - map_x;
+      float aabb_local_y = aabb2d->get_y() - map_y;
+      AllegroFlare::Physics::AABB2D unit_aabb(
+        aabb_local_x / tile_width,
+        aabb_local_y / tile_height,
+        aabb2d->get_w() / tile_width,
+        aabb2d->get_h() / tile_height
+      );
+
+      //if (flip_h)
+      //{
+        //int map_w_in_tiles = collision_tile_map->get_num_columns();
+        //unit_aabb.set_x(map_w_in_tiles - unit_aabb.get_right_edge());
+        //return adjacent_to_right_edge_internal(&unit_aabb);
+      //}
+      return adjacent_to_left_edge_internal(&unit_aabb);
 
 
   - name: get_tile_coords_below_left_foot

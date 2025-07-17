@@ -1430,7 +1430,8 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
                      &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
                aabb2d_adjacent_to_left_edge =
                   tile_map_collision_stepper.adjacent_to_left_edge(
-                     &aabb2d); //, map_x, map_y, map_tile_width, map_tile_height, map_flip_x, map_flip_y);
+                     &aabb2d, map_x, map_y, map_tile_width, map_tile_height
+                  );
             }
             { // draw
                al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
