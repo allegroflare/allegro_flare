@@ -145,6 +145,16 @@ void static render_tile_map(
             break;
          }
       }
+
+   // Draw a border around thhe tile map
+   al_draw_rectangle(
+      offset_x * scale_x,
+      offset_y * scale_y,
+      offset_x * scale_x + tile_map.get_num_columns() * scale_x * tile_scale_x,
+      offset_y * scale_y + tile_map.get_num_rows() * scale_y * tile_scale_y,
+      al_color_name("dodgerblue"),
+      1.0f
+   );
 }
 
 void render_aabb2d(
@@ -1343,6 +1353,16 @@ TEST_F(AllegroFlare_Physics_UnitTileMapCollisionStepperTestWithAllegroRenderingF
 
                case ALLEGRO_KEY_PAD_2:
                  map_y += 8;
+               break;
+
+               case ALLEGRO_KEY_PAD_PLUS:
+                 map_tile_width += increment;
+                 map_tile_height += increment;
+               break;
+
+               case ALLEGRO_KEY_PAD_MINUS:
+                 map_tile_width -= increment;
+                 map_tile_height -= increment;
                break;
 
                //case ALLEGRO_KEY_PAD_9:
