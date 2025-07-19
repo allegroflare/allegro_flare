@@ -4682,6 +4682,9 @@
   "AllegroFlare/AtomicTimeStepper": [
     "AllegroFlare/VariableTimeStepper"
   ],
+  "std/floor": [
+    "AllegroFlare/VariableTimeStepper"
+  ],
   "AllegroFlare/Bin": [
     "AllegroFlare/VideoBin"
   ],

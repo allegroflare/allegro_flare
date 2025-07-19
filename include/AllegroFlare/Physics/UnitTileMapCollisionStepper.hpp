@@ -16,7 +16,7 @@ namespace AllegroFlare
       class UnitTileMapCollisionStepper
       {
       public:
-         static constexpr float DEFAULT_REPOSITION_OFFSET = (0.00097656 * 4);
+         static constexpr float DEFAULT_REPOSITION_OFFSET = 0.00195312;
 
       private:
          AllegroFlare::TileMaps::TileMap<int>* collision_tile_map;

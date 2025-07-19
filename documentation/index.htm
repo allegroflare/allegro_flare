@@ -27179,7 +27179,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Physics/UnitTileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/UnitTileMapCollisionStepper.q.yml</h3>
     <h3>Overview</h3>
-    <p>Note that the "reposition_offset" at small values can have floating-point calculation issues when paired with larger aabb2d x or y values.  As an example, if a player collides against an x edge at 2064.0f, and the reposition_offset is 0.0001f, then the result repositiond x value will *still* be 2064.0f due to floating point errors. For now, the "reposition_offset" is set to 0.01f. UPDATE, Note that for this UnitTileMapCollisionStepper, the reposition offset is now smaller. Prior to this 16px tiles, but now 1px tile.</p>    <p>Note that the "reposition_offset" is used in the step calculation, the "adjacent_to_*" methods, and the "get_tile_coords_below_*_foot" methods</p>    <h3>Properties</h3>
+    <p>Note that the "reposition_offset" at small values can have floating-point calculation issues when paired with larger aabb2d x or y values.  As an example, if a player collides against an x edge at 2064.0f, and the reposition_offset is 0.0001f, then the result repositiond x value will *still* be 2064.0f due to floating point errors. For now, the "reposition_offset" is set to 1/512 (0.00195312).</p>    <p>Note that the "reposition_offset" is used in the step calculation, the "adjacent_to_*" methods, and the "get_tile_coords_below_*_foot" methods</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">collision_tile_map</td>
@@ -48798,6 +48798,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AtomicTimeStepper&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AtomicTimeStepper.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::floor&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -57174,6 +57177,9 @@ table td
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/AtomicTimeStepper": [
+    "AllegroFlare/VariableTimeStepper"
+  ],
+  "std/floor": [
     "AllegroFlare/VariableTimeStepper"
   ],
   "AllegroFlare/Bin": [

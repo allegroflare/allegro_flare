@@ -638,7 +638,7 @@ std::pair<int, int> UnitTileMapCollisionStepper::get_tile_coords_below_left_foot
 {
    std::pair<int, int> result{
       unit_space_to_tile_coord(x),
-      unit_space_to_tile_coord(y + height + reposition_offset*2) // 0.0001f)
+      unit_space_to_tile_coord(y + height + reposition_offset*2)
    };
    return result;
 }
@@ -647,7 +647,7 @@ std::pair<int, int> UnitTileMapCollisionStepper::get_tile_coords_below_right_foo
 {
    std::pair<int, int> result{
       unit_space_to_tile_coord(x + width),
-      unit_space_to_tile_coord(y + height + reposition_offset*2) // 0.0001f)
+      unit_space_to_tile_coord(y + height + reposition_offset*2)
    };
    return result;
 }

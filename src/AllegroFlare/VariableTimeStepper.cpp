@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/VariableTimeStepper.hpp>
 
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

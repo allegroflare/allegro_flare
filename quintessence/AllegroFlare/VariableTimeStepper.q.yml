@@ -90,6 +90,8 @@ methods:
       const double remaining_time = time_to_step_to - new_current_time;
 
       return { remaining_time, num_steps_to_take, excess_steps_not_taken };
+    body_dependency_symbols:
+      - std::floor
 
 
 dependencies:
@@ -97,5 +99,7 @@ dependencies:
 
   - symbol: AllegroFlare::AtomicTimeStepper
     headers: [ AllegroFlare/AtomicTimeStepper.hpp ]
+  - symbol: std::floor
+    headers: [ cmath ]
 
 
