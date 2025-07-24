@@ -38,7 +38,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
    std::string choice_box_prompt = "Are you making progress?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
      { "Absolutely!", "GOTO A" },
-     { "I would seem that I am", "GOTO B" },
+     { "It would seem that I am", "GOTO B" },
      { "I think so?", "GOTO C" },
    };
    AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
@@ -129,7 +129,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
    std::string choice_box_prompt = "Are you making progress?";
    std::vector<std::pair<std::string, std::string>> choice_options = {
      { "Absolutely!", "GOTO A" },
-     { "I would seem that I am", "GOTO B" },
+     { "It would seem that I am", "GOTO B" },
      { "I think so?", "GOTO C" },
    };
    AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
