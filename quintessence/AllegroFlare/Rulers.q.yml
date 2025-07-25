@@ -105,6 +105,84 @@ methods:
       - al_is_system_installed
 
 
+  - name: draw_hd_layout_grid
+    static: true
+    parameters:
+      - name: x
+        type: float
+        default_argument: (1920/2.0f)
+      - name: y
+        type: float
+        default_argument: (1080/2.0f)
+      - name: num_sections_x
+        type: int
+        default_argument: 10
+      - name: num_sections_y
+        type: int
+        default_argument: 6
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5}'
+      - name: line_thickness
+        type: float
+        default_argument: 1.0f
+      - name: dot_spacing
+        type: float
+        default_argument: 10.0f
+      - name: dot_length
+        type: float
+        default_argument: 10.0f
+    guards: [ al_is_system_installed(), al_is_primitives_addon_initialized() ]
+    body: |
+      float width = 1920.0f;
+      float height = 1080.0f;
+      float half_width = width * 0.5f;
+      float half_height = height * 0.5f;
+
+      float left = x - half_width;
+      float right = x + half_width;
+      float top = y - half_height;
+      float bottom = y + half_height;
+
+      float cell_width = width / num_sections_x;
+      float cell_height = height / num_sections_y;
+
+      float dash_period = dot_spacing + dot_length;
+      if (dash_period <= 0.0001f) return; // Avoid division by zero or infinite loops
+
+      // Draw vertical lines
+      for (int i = 0; i <= num_sections_x; i++)
+      {
+         float line_x = left + i * cell_width;
+         for (float j = 0; j < height; j += dash_period)
+         {
+            float y1 = top + j;
+            float y2 = top + j + dot_length;
+            if (y2 > bottom) y2 = bottom;
+            al_draw_line(line_x, y1, line_x, y2, color, line_thickness);
+         }
+      }
+
+      // Draw horizontal lines
+      for (int i = 0; i <= num_sections_y; i++)
+      {
+         float line_y = top + i * cell_height;
+         for (float j = 0; j < width; j += dash_period)
+         {
+            float x1 = left + j;
+            float x2 = left + j + dot_length;
+            if (x2 > right) x2 = right;
+            al_draw_line(x1, line_y, x2, line_y, color, line_thickness);
+         }
+      }
+
+      return;
+    body_dependency_symbols:
+      - al_draw_line
+      - al_is_primitives_addon_initialized
+      - al_is_system_installed
+
+
   - name: draw_vertical_ruler
     static: true
     parameters:

@@ -35,7 +35,7 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__draw_vertica
 }
 
 
-TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__draw_horizontal_ruler__will_not_blow_up)
+TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__draw_horizontal_ruler__will_render_as_expected)
 {
    AllegroFlare::Placement2D subject_placement = build_centered_placement();
    AllegroFlare::Rulers rulers(&get_font_bin_ref());
@@ -50,4 +50,38 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture, CAPTURE__draw_horizon
    sleep_for(1);
 }
 
+
+TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
+   CAPTURE__draw_2d_grid_2__will_render_as_expected)
+{
+   AllegroFlare::Rulers rulers(&get_font_bin_ref());
+
+   clear();
+   rulers.draw_hd_layout_grid();
+
+   al_flip_display();
+   sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__draw_hd_layout_grid__will_render_a_grid_of_dotted_lines)
+{
+   AllegroFlare::Rulers rulers(&get_font_bin_ref());
+
+   clear();
+   rulers.draw_hd_layout_grid(
+      1920/2,
+      1080/2,
+      12,                                  // num_sections_x
+      8,                                   // num_sections_y
+      al_color_html("667788"),            // color
+      2.0f,                                // line_thickness
+      15.0f,                               // dot_spacing
+      5.0f                                 // dot_length
+   );
+
+   al_flip_display();
+   sleep_for(1);
+}
 

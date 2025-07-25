@@ -120,6 +120,67 @@ void Rulers::draw_2d_grid(float x, float y, float size, float spacing)
    return;
 }
 
+void Rulers::draw_hd_layout_grid(float x, float y, int num_sections_x, int num_sections_y, ALLEGRO_COLOR color, float line_thickness, float dot_spacing, float dot_length)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Rulers::draw_hd_layout_grid]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_hd_layout_grid]: error: guard \"al_is_system_installed()\" not met");
+   }
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Rulers::draw_hd_layout_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Rulers::draw_hd_layout_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   float width = 1920.0f;
+   float height = 1080.0f;
+   float half_width = width * 0.5f;
+   float half_height = height * 0.5f;
+
+   float left = x - half_width;
+   float right = x + half_width;
+   float top = y - half_height;
+   float bottom = y + half_height;
+
+   float cell_width = width / num_sections_x;
+   float cell_height = height / num_sections_y;
+
+   float dash_period = dot_spacing + dot_length;
+   if (dash_period <= 0.0001f) return; // Avoid division by zero or infinite loops
+
+   // Draw vertical lines
+   for (int i = 0; i <= num_sections_x; i++)
+   {
+      float line_x = left + i * cell_width;
+      for (float j = 0; j < height; j += dash_period)
+      {
+         float y1 = top + j;
+         float y2 = top + j + dot_length;
+         if (y2 > bottom) y2 = bottom;
+         al_draw_line(line_x, y1, line_x, y2, color, line_thickness);
+      }
+   }
+
+   // Draw horizontal lines
+   for (int i = 0; i <= num_sections_y; i++)
+   {
+      float line_y = top + i * cell_height;
+      for (float j = 0; j < width; j += dash_period)
+      {
+         float x1 = left + j;
+         float x2 = left + j + dot_length;
+         if (x2 > right) x2 = right;
+         al_draw_line(x1, line_y, x2, line_y, color, line_thickness);
+      }
+   }
+
+   return;
+}
+
 void Rulers::draw_vertical_ruler(float x, float y, float tick_width, float tick_height, float y_distance, int num_ticks, float tick_align_x, float tick_align_y, ALLEGRO_COLOR color)
 {
    std::vector<ALLEGRO_VERTEX> vertices = build_vertical_ruler(
