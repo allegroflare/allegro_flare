@@ -107,6 +107,7 @@ methods:
 
   - name: build_hd_layout_grid
     static: true
+    author: "Gemini 2.5 Pro - https://gemini.google.com/app/b992490360a89d1d"
     type: std::vector<ALLEGRO_VERTEX>
     parameters:
       - name: x
@@ -209,6 +210,7 @@ methods:
 
 
   - name: draw_hd_layout_grid
+    author: "Gemini 2.5 Pro - https://gemini.google.com/app/b992490360a89d1d"
     static: true
     parameters:
       - name: x
