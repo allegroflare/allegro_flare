@@ -3585,7 +3585,8 @@
   ],
   "al_draw_prim": [
     "AllegroFlare/Physics/CollisionMesh",
-    "AllegroFlare/Physics/CollisionMeshFace"
+    "AllegroFlare/Physics/CollisionMeshFace",
+    "AllegroFlare/Rulers"
   ],
   "project": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"

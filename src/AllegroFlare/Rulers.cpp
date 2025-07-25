@@ -120,7 +120,79 @@ void Rulers::draw_2d_grid(float x, float y, float size, float spacing)
    return;
 }
 
-void Rulers::draw_hd_layout_grid(float x, float y, int num_sections_x, int num_sections_y, ALLEGRO_COLOR color, float line_thickness, float dot_spacing, float dot_length)
+std::vector<ALLEGRO_VERTEX> Rulers::build_hd_layout_grid(float x, float y, float width, float height, int num_sections_x, int num_sections_y, ALLEGRO_COLOR color, float line_thickness, float dot_spacing, float dot_length)
+{
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Rulers::build_hd_layout_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Rulers::build_hd_layout_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   std::vector<ALLEGRO_VERTEX> vertices;
+   float half_width = width * 0.5f;
+   float half_height = height * 0.5f;
+   float h_thickness = line_thickness * 0.5f;
+
+   float left = x - half_width;
+   float right = x + half_width;
+   float top = y - half_height;
+   float bottom = y + half_height;
+
+   float cell_width = width / num_sections_x;
+   float cell_height = height / num_sections_y;
+
+   float dash_period = dot_spacing + dot_length;
+   if (dash_period <= 0.0001f) return vertices; // Avoid division by zero or infinite loops
+
+   // Build vertical lines
+   for (int i = 0; i <= num_sections_x; i++)
+   {
+      float line_x = left + i * cell_width;
+      for (float j = 0; j < height; j += dash_period)
+      {
+         float y1 = top + j;
+         float y2 = top + j + dot_length;
+         if (y2 > bottom) y2 = bottom;
+
+         // Create a quad for the thick dash
+         ALLEGRO_VERTEX v[4];
+         v[0] = AllegroFlare::build_vertex(line_x - h_thickness, y1, 0, color, 0, 0);
+         v[1] = AllegroFlare::build_vertex(line_x + h_thickness, y1, 0, color, 0, 0);
+         v[2] = AllegroFlare::build_vertex(line_x + h_thickness, y2, 0, color, 0, 0);
+         v[3] = AllegroFlare::build_vertex(line_x - h_thickness, y2, 0, color, 0, 0);
+
+         vertices.push_back(v[0]); vertices.push_back(v[1]); vertices.push_back(v[3]);
+         vertices.push_back(v[1]); vertices.push_back(v[2]); vertices.push_back(v[3]);
+      }
+   }
+
+   // Build horizontal lines
+   for (int i = 0; i <= num_sections_y; i++)
+   {
+      float line_y = top + i * cell_height;
+      for (float j = 0; j < width; j += dash_period)
+      {
+         float x1 = left + j;
+         float x2 = left + j + dot_length;
+         if (x2 > right) x2 = right;
+
+         // Create a quad for the thick dash
+         ALLEGRO_VERTEX v[4];
+         v[0] = AllegroFlare::build_vertex(x1, line_y - h_thickness, 0, color, 0, 0);
+         v[1] = AllegroFlare::build_vertex(x2, line_y - h_thickness, 0, color, 0, 0);
+         v[2] = AllegroFlare::build_vertex(x2, line_y + h_thickness, 0, color, 0, 0);
+         v[3] = AllegroFlare::build_vertex(x1, line_y + h_thickness, 0, color, 0, 0);
+
+         vertices.push_back(v[0]); vertices.push_back(v[1]); vertices.push_back(v[3]);
+         vertices.push_back(v[1]); vertices.push_back(v[2]); vertices.push_back(v[3]);
+      }
+   }
+
+   return vertices;
+}
+
+void Rulers::draw_hd_layout_grid(float x, float y, float width, float height, int num_sections_x, int num_sections_y, ALLEGRO_COLOR color, float line_thickness, float dot_spacing, float dot_length)
 {
    if (!(al_is_system_installed()))
    {
@@ -136,48 +208,11 @@ void Rulers::draw_hd_layout_grid(float x, float y, int num_sections_x, int num_s
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Rulers::draw_hd_layout_grid]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
-   float width = 1920.0f;
-   float height = 1080.0f;
-   float half_width = width * 0.5f;
-   float half_height = height * 0.5f;
-
-   float left = x - half_width;
-   float right = x + half_width;
-   float top = y - half_height;
-   float bottom = y + half_height;
-
-   float cell_width = width / num_sections_x;
-   float cell_height = height / num_sections_y;
-
-   float dash_period = dot_spacing + dot_length;
-   if (dash_period <= 0.0001f) return; // Avoid division by zero or infinite loops
-
-   // Draw vertical lines
-   for (int i = 0; i <= num_sections_x; i++)
-   {
-      float line_x = left + i * cell_width;
-      for (float j = 0; j < height; j += dash_period)
-      {
-         float y1 = top + j;
-         float y2 = top + j + dot_length;
-         if (y2 > bottom) y2 = bottom;
-         al_draw_line(line_x, y1, line_x, y2, color, line_thickness);
-      }
-   }
-
-   // Draw horizontal lines
-   for (int i = 0; i <= num_sections_y; i++)
-   {
-      float line_y = top + i * cell_height;
-      for (float j = 0; j < width; j += dash_period)
-      {
-         float x1 = left + j;
-         float x2 = left + j + dot_length;
-         if (x2 > right) x2 = right;
-         al_draw_line(x1, line_y, x2, line_y, color, line_thickness);
-      }
-   }
-
+   std::vector<ALLEGRO_VERTEX> vertices = build_hd_layout_grid(
+         x, y, width, height, num_sections_x, num_sections_y, color, line_thickness, dot_spacing, dot_length
+   );
+   if (vertices.empty()) return;
+   al_draw_prim(&vertices[0], NULL, NULL, 0, vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
    return;
 }
 

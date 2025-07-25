@@ -65,7 +65,7 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__draw_hd_layout_grid__will_render_a_grid_of_dotted_lines)
+   CAPTURE__draw_hd_layout_grid__will_render_a_grid_of_dotted_lines)
 {
    AllegroFlare::Rulers rulers(&get_font_bin_ref());
 
@@ -73,9 +73,11 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
    rulers.draw_hd_layout_grid(
       1920/2,
       1080/2,
+      1920 - 60,                           // width
+      1080 - 60,                           // height
       12,                                  // num_sections_x
       8,                                   // num_sections_y
-      al_color_html("667788"),            // color
+      al_color_html("667788"),             // color
       2.0f,                                // line_thickness
       15.0f,                               // dot_spacing
       5.0f                                 // dot_length
@@ -84,4 +86,5 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
    al_flip_display();
    sleep_for(1);
 }
+
 
