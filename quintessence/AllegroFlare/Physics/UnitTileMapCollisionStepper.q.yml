@@ -31,6 +31,8 @@ documentation:
     point errors. For now, the "reposition_offset" is set to 1/512 (0.00195312).
   - Note that the "reposition_offset" is used in the step calculation, the "adjacent_to_*" methods, and the 
     "get_tile_coords_below_*_foot" methods
+  - AI Authorship "https://gemini.google.com/app/5abfd729ddeaf702"
+  - Risk assessment, floating point errors by ChatGPT "https://chatgpt.com/c/68793291-d144-800f-a16b-dd2897327d29"
 
 
 methods:

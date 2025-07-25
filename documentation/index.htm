@@ -27179,7 +27179,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Physics/UnitTileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/UnitTileMapCollisionStepper.q.yml</h3>
     <h3>Overview</h3>
-    <p>Note that the "reposition_offset" at small values can have floating-point calculation issues when paired with larger aabb2d x or y values.  As an example, if a player collides against an x edge at 2064.0f, and the reposition_offset is 0.0001f, then the result repositiond x value will *still* be 2064.0f due to floating point errors. For now, the "reposition_offset" is set to 1/512 (0.00195312).</p>    <p>Note that the "reposition_offset" is used in the step calculation, the "adjacent_to_*" methods, and the "get_tile_coords_below_*_foot" methods</p>    <h3>Properties</h3>
+    <p>Note that the "reposition_offset" at small values can have floating-point calculation issues when paired with larger aabb2d x or y values.  As an example, if a player collides against an x edge at 2064.0f, and the reposition_offset is 0.0001f, then the result repositiond x value will *still* be 2064.0f due to floating point errors. For now, the "reposition_offset" is set to 1/512 (0.00195312).</p>    <p>Note that the "reposition_offset" is used in the step calculation, the "adjacent_to_*" methods, and the "get_tile_coords_below_*_foot" methods</p>    <p>AI Authorship "https://gemini.google.com/app/5abfd729ddeaf702"</p>    <p>Risk assessment, floating point errors by ChatGPT "https://chatgpt.com/c/68793291-d144-800f-a16b-dd2897327d29"</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">collision_tile_map</td>
