@@ -341,10 +341,13 @@ void InterparsableRenderer::render_speaking_character_name_tag()
    return;
 }
 
-void InterparsableRenderer::render_button()
+void InterparsableRenderer::render_next_or_finished_button(float opacity)
 {
    // draw the "next" or "finished" cursor (depending on context)
-   if (page_is_finished)
+   //if (!page_is_finished) return; // Do not show any cursor if the dialog page is still revealing
+
+   bool using_labeled_button = false;
+   if (using_labeled_button)
    {
       AllegroFlare::Elements::DialogButton dialog_button(font_bin);
       dialog_button.set_started_at(page_finished_at);
@@ -355,6 +358,32 @@ void InterparsableRenderer::render_button()
 
       dialog_button.render();
    }
+   else // Drawing a triangle cursor
+   {
+      float cursor_age = al_get_time() - page_finished_at;
+      float c_width = 24;
+      float c_height = 24;
+      float speed = 5;
+      float magnitude = 10;
+      float y_offset = (std::sin(cursor_age * speed) * 0.5 + 0.5) * magnitude;
+         //AllegroFlare::interpolator::double_fast_in(
+            //(std::sin(cursor_age * speed) * 0.5 + 1.0)
+         //) * magnitude;
+         ;
+      draw_rudimentary_triangle(width-80, height-44-y_offset, c_width, c_height, ALLEGRO_COLOR{1, 1, 1, 1}, opacity);
+   }
+   return;
+}
+
+void InterparsableRenderer::draw_rudimentary_triangle(float x, float y, float w, float h, ALLEGRO_COLOR color, float opacity)
+{
+   float hh = h/2;
+   float hw = w/2;
+   color.r *= opacity;
+   color.g *= opacity;
+   color.b *= opacity;
+   color.a *= opacity;
+   al_draw_filled_triangle(x-hw, y-hh, x+hw, y-hh, x, y+hh, color);
    return;
 }
 
@@ -394,7 +423,7 @@ void InterparsableRenderer::render()
       }
       render_frame(curved_time);
       render_text();
-      render_button();
+      render_next_or_finished_button();
    }
 
    frame_place.restore_transform();

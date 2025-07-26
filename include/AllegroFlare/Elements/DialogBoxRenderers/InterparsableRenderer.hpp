@@ -47,7 +47,7 @@ namespace AllegroFlare
             void render_frame(float opacity=1.0f);
             void render_text();
             void render_speaking_character_name_tag();
-            void render_button();
+            void render_next_or_finished_button(float opacity=1.0f);
             void draw_special_state_empty_text(float width=1, float height=1);
             std::string concat_text(std::string source_text="", int length=0);
             std::vector<std::string> obtain_choice_dialog_box_option_labels();
@@ -101,6 +101,7 @@ namespace AllegroFlare
             float get_age() const;
             bool get_showing_speaking_character_name() const;
             std::string get_speaking_character_name() const;
+            void draw_rudimentary_triangle(float x=0.0f, float y=0.0f, float w=16.0f, float h=16.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float opacity=1.0f);
             void render();
             void draw_choices_with_cursor_and_current_selection();
             void draw_speaking_character_name();

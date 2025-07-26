@@ -83,7 +83,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegroRenderingFixtureTest,
-   render__will_show_a_reveal_animation_respecting_age)
+   FOCUS__CAPTURE__render__will_show_a_reveal_animation_respecting_age)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
 
@@ -95,7 +95,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
 
    float started_at = al_get_time();
-   for (int passes=0; passes<60; passes++)
+   for (int passes=0; passes<120*2; passes++)
    {
       float age = al_get_time() - started_at;
       dialog_box_renderer.set_age(age);
