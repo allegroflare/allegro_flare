@@ -294,7 +294,7 @@ std::string BasicRenderer::get_speaking_character_name() const
 }
 
 
-void BasicRenderer::render_frame()
+void BasicRenderer::render_frame_and_character_name()
 {
    float normalized_age = std::max(std::min(1.0f, age), 0.0f);
    float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
@@ -303,12 +303,21 @@ void BasicRenderer::render_frame()
    AllegroFlare::Placement2D frame_place = { width/2, height/2, width, height, };
    frame_place.position.y += 10 * inv_curved_time;
    frame_place.start_transform();
+
+   // Draw the frame
    AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
    dialog_box_frame.set_backfill_color(background_color);
    dialog_box_frame.set_border_color(border_color);
    //dialog_box_frame.set_border_color(frame_color);
    dialog_box_frame.set_opacity(curved_time);
    dialog_box_frame.render();
+
+   // Draw the name tag
+   if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+   {
+      render_speaking_character_name_tag();
+   }
+
    frame_place.restore_transform();
    return;
 }
@@ -360,7 +369,7 @@ void BasicRenderer::render()
    }
    if (is_finished)
    {
-      render_frame();
+      render_frame_and_character_name();
       draw_special_state_empty_text(width, height);
    }
    else
@@ -369,13 +378,9 @@ void BasicRenderer::render()
       //{
          //render_speaking_character_name_tag();
       //}
-      render_frame();
+      render_frame_and_character_name();
       render_text();
       render_button();
-      if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
-      {
-         render_speaking_character_name_tag();
-      }
    }
    return;
 }

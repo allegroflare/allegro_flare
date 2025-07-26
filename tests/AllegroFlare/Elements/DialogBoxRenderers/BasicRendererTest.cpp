@@ -17,6 +17,7 @@
 #include <AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer.hpp>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Testing/WithInteractionFixture.hpp>
 #include <allegro5/allegro_primitives.h>
 #include <chrono>
 #include <thread>
@@ -24,6 +25,10 @@
 class AllegroFlare_Elements_DialogBoxRenderers_BasicRendererTest : public ::testing::Test {};
 class AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderingFixtureTest
    : public AllegroFlare::Testing::WithAllegroRenderingFixture {};
+class AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithInteractionFixtureTest
+   : public AllegroFlare::Testing::WithInteractionFixture
+{};
+
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererTest, can_be_created_without_blowing_up)
@@ -147,14 +152,17 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
    std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
 
    int num_revealed_characters = 0;
+   float started_at = al_get_time();
    for (unsigned i=0; i<page_text.size(); i++)
    {
       num_revealed_characters++;
+      float age = al_get_time() - started_at;
 
       AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(&font_bin);
       dialog_box_renderer.set_speaking_character_name("Princess");
       dialog_box_renderer.set_showing_speaking_character_name(true);
       dialog_box_renderer.set_current_page_text(page_text);
+      dialog_box_renderer.set_age(age);
       dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
 
       AllegroFlare::Placement2D place{
@@ -167,10 +175,87 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithAllegroRenderin
       dialog_box_renderer.render();
       place.restore_transform();
 
-      //al_flip_display();
-      //std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
+      al_flip_display();
+      std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
    }
    al_flip_display();
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRenderers_BasicRendererWithInteractionFixtureTest,
+   will_spawn_with_a_reveal_animation)
+{
+   std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
+   int num_revealed_characters = 0;
+
+   float time_now = 0;
+   float time_nudge = 1.0 / 15.0;
+
+   while(interactive_test_wait_for_event())
+   {
+      ALLEGRO_EVENT &current_event = *interactive_test_get_current_event();
+
+      switch(current_event.type)
+      {
+         case ALLEGRO_EVENT_TIMER:
+         {
+            clear();
+
+
+            // Draw the subject
+            num_revealed_characters++;
+            float age = time_now;
+
+            AllegroFlare::Elements::DialogBoxRenderers::BasicRenderer dialog_box_renderer(&get_font_bin_ref());
+            dialog_box_renderer.set_speaking_character_name("Princess");
+            dialog_box_renderer.set_showing_speaking_character_name(true);
+            dialog_box_renderer.set_current_page_text(page_text);
+            dialog_box_renderer.set_age(age);
+            dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
+
+            AllegroFlare::Placement2D place{
+               1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
+            };
+
+            place.start_transform();
+            dialog_box_renderer.render();
+            place.restore_transform();
+
+
+
+            interactive_test_render_status();
+            al_flip_display();
+         }
+         break;
+
+         //// For example:
+         //case ALLEGRO_FLARE_EVENT_PLAY_SOUND_EFFECT:
+         //{
+            //std::cout << "[AllegroFlare_Elements_MultiListTestWithAllegroRenderingFixture]: INFO: "
+                      //<< "Play sound effect event was emitted. "
+                      //<< std::endl;
+         //}
+         //break;
+
+         //// For example:
+         case ALLEGRO_EVENT_KEY_DOWN:
+         {
+            //time_now += time_nudge
+            //bool shift = current_event.keyboard.modifiers & ALLEGRO_KEYMOD_SHIFT;
+            switch(current_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_RIGHT:
+                  time_now += time_nudge;
+               break;
+
+               case ALLEGRO_KEY_LEFT:
+                  time_now -= time_nudge;
+               break;
+            }
+         }
+         break;
+      }
+   }
 }
 
 
