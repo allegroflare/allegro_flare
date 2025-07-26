@@ -17,6 +17,12 @@ namespace TextFormatters
 {
 
 
+ALLEGRO_COLOR Basic::on_operational_chunk_func__default_text_color = ALLEGRO_COLOR{1, 1, 1, 1};
+
+
+ALLEGRO_COLOR Basic::on_operational_chunk_func__default_text_emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+
+
 std::set<int> Basic::_line_break_indices = {};
 
 
@@ -180,6 +186,13 @@ ALLEGRO_COLOR Basic::get_render_state__text_color() const
 }
 
 
+void Basic::set_on_operational_chunk_func__default_text_color(ALLEGRO_COLOR on_operational_chunk_func__default_text_color)
+{
+   AllegroFlare::TextFormatters::Basic::on_operational_chunk_func__default_text_color =
+      on_operational_chunk_func__default_text_color;
+   return;
+}
+
 bool Basic::line_callback(int line_num, const char* line, int size, void* extra)
 {
    //CallbackData *data = static_cast<CallbackData *>(extra);
@@ -299,13 +312,16 @@ void Basic::default_on_operational_chunk_func(AllegroFlare::TextFormatters::Basi
    }
    auto &formatter = *text_formatter;
 
-   ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
-   ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
-   // Where is render state stored?
    //ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+
    //ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+   // Where is render state stored?
+   ALLEGRO_COLOR default_color = on_operational_chunk_func__default_text_color;
+   ALLEGRO_COLOR emphasis_color = on_operational_chunk_func__default_text_emphasis_color;
 
    //auto &formatter = *text_formatter;
+   //if (text == "em") formatter.render_state__text_color = default_text_emphasis_color;
+   //else if (text == "/em") formatter.render_state__text_color = default_text_color;
    if (text == "em") formatter.render_state__text_color = emphasis_color;
    else if (text == "/em") formatter.render_state__text_color = default_color;
    return;
@@ -383,9 +399,9 @@ void Basic::render()
    int num_characters_rendered = 0;
    float glyph_x = 0;
    float glyph_y = 0;
-   ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
+   //ALLEGRO_COLOR default_color = ALLEGRO_COLOR{1, 1, 1, 1};
    //ALLEGRO_COLOR emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
-   render_state__text_color = default_color;
+   render_state__text_color = on_operational_chunk_func__default_text_color; // NOTE: Review this
    int word_index = 0;
 
    for (int i=0; i<text_with_formatting.size(); i++)

@@ -223,6 +223,7 @@ methods:
       basic_text_formatter.set_max_text_box_width(text_box_max_width);
       basic_text_formatter.set_font_name(font_name);
       basic_text_formatter.set_font_size(font_size);
+      basic_text_formatter.set_on_operational_chunk_func__default_text_color(text_color); // NOTE: A little sloppy
       basic_text_formatter.set_x(text_padding_x);
       basic_text_formatter.set_y(text_padding_y);
       basic_text_formatter.render();
@@ -247,7 +248,7 @@ methods:
         default_argument: 1.0f
     body: |
       // draw the "next" or "finished" cursor (depending on context)
-      //if (!page_is_finished) return; // Do not show any cursor if the dialog page is still revealing
+      if (!page_is_finished) return; // Do not show any cursor if the dialog page is still revealing
 
       bool using_labeled_button = false;
       if (using_labeled_button)
@@ -268,12 +269,13 @@ methods:
          float c_height = 24;
          float speed = 5;
          float magnitude = 10;
+         ALLEGRO_COLOR cursor_color = text_color;
          float y_offset = (std::sin(cursor_age * speed) * 0.5 + 0.5) * magnitude;
             //AllegroFlare::interpolator::double_fast_in(
                //(std::sin(cursor_age * speed) * 0.5 + 1.0)
             //) * magnitude;
             ;
-         draw_rudimentary_triangle(width-80, height-44-y_offset, c_width, c_height, ALLEGRO_COLOR{1, 1, 1, 1}, opacity);
+         draw_rudimentary_triangle(width-80, height-52-y_offset, c_width, c_height, cursor_color, opacity);
       }
       return;
 
@@ -484,7 +486,7 @@ methods:
       return;
 
 
-  - name: draw_styled_revealed_text_with_formatting
+  - name: draw_styled_revealed_text_with_formatting__deprecated
     parameters:
       - name: max_width
         type: float

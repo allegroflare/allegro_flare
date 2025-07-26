@@ -9963,7 +9963,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>draw_styled_revealed_text_with_formatting</b>(float max_width=1, std::string text_with_formatting=&quot;[unset-text_with_formatting]&quot;, int num_revealed_characters=999)</td>
+  <td class="method"><b>draw_styled_revealed_text_with_formatting__deprecated</b>(float max_width=1, std::string text_with_formatting=&quot;[unset-text_with_formatting]&quot;, int num_revealed_characters=999)</td>
 </tr>
 <tr>
   <td class="private_method">std::string</td>
@@ -46047,12 +46047,24 @@ table td
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
+  <td class="property">on_operational_chunk_func__default_text_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">on_operational_chunk_func__default_text_emphasis_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">_line_break_indices</td>
   <td class="property">std::set&lt;int&gt;</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_on_operational_chunk_func__default_text_color</b>(ALLEGRO_COLOR on_operational_chunk_func__default_text_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+</tr>
 <tr>
   <td class="method">bool</td>
   <td class="method"><b>line_callback</b>(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr)</td>

@@ -328,6 +328,7 @@ void InterparsableRenderer::render_text()
    basic_text_formatter.set_max_text_box_width(text_box_max_width);
    basic_text_formatter.set_font_name(font_name);
    basic_text_formatter.set_font_size(font_size);
+   basic_text_formatter.set_on_operational_chunk_func__default_text_color(text_color); // NOTE: A little sloppy
    basic_text_formatter.set_x(text_padding_x);
    basic_text_formatter.set_y(text_padding_y);
    basic_text_formatter.render();
@@ -344,7 +345,7 @@ void InterparsableRenderer::render_speaking_character_name_tag()
 void InterparsableRenderer::render_next_or_finished_button(float opacity)
 {
    // draw the "next" or "finished" cursor (depending on context)
-   //if (!page_is_finished) return; // Do not show any cursor if the dialog page is still revealing
+   if (!page_is_finished) return; // Do not show any cursor if the dialog page is still revealing
 
    bool using_labeled_button = false;
    if (using_labeled_button)
@@ -365,12 +366,13 @@ void InterparsableRenderer::render_next_or_finished_button(float opacity)
       float c_height = 24;
       float speed = 5;
       float magnitude = 10;
+      ALLEGRO_COLOR cursor_color = text_color;
       float y_offset = (std::sin(cursor_age * speed) * 0.5 + 0.5) * magnitude;
          //AllegroFlare::interpolator::double_fast_in(
             //(std::sin(cursor_age * speed) * 0.5 + 1.0)
          //) * magnitude;
          ;
-      draw_rudimentary_triangle(width-80, height-44-y_offset, c_width, c_height, ALLEGRO_COLOR{1, 1, 1, 1}, opacity);
+      draw_rudimentary_triangle(width-80, height-52-y_offset, c_width, c_height, cursor_color, opacity);
    }
    return;
 }
@@ -535,7 +537,7 @@ void InterparsableRenderer::cb(int line_num, const char* line, int size, void* e
    return;
 }
 
-void InterparsableRenderer::draw_styled_revealed_text_with_formatting(float max_width, std::string text_with_formatting, int num_revealed_characters)
+void InterparsableRenderer::draw_styled_revealed_text_with_formatting__deprecated(float max_width, std::string text_with_formatting, int num_revealed_characters)
 {
    // NOTE: For now, this renderer has very limited formatting features. It will remove chunks that are non-text
    // chunks for now. Feel free to add more features if you feel it will be nice and useful.

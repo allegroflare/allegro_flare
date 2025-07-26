@@ -83,7 +83,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__render__will_show_a_reveal_animation_respecting_age)
+   CAPTURE__render__will_show_a_reveal_animation_respecting_age)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
 
@@ -127,6 +127,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
       AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
       dialog_box_renderer.set_current_page_text_with_formatting(page_text);
       dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
+      if (num_revealed_characters >= page_text.size()) dialog_box_renderer.set_page_is_finished(true);
 
       AllegroFlare::Placement2D place{
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
@@ -157,6 +158,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    for (unsigned i=0; i<page_text.size(); i++)
    {
       num_revealed_characters++;
+
       float age = al_get_time() - time_start;
       
       AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
@@ -165,6 +167,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
       dialog_box_renderer.set_current_page_text_with_formatting(page_text);
       dialog_box_renderer.set_age(age);
       dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
+      if (num_revealed_characters >= page_text.size()) dialog_box_renderer.set_page_is_finished(true);
 
       AllegroFlare::Placement2D place{
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
