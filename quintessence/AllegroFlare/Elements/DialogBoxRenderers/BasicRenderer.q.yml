@@ -183,7 +183,7 @@ properties:
 methods:
 
 
-  - name: render_frame_and_character_name
+  - name: render_frame
     parameters:
       - name: opacity
         type: float
@@ -206,13 +206,6 @@ methods:
       //dialog_box_frame.set_opacity(curved_time);
       dialog_box_frame.set_opacity(opacity);
       dialog_box_frame.render();
-
-      // Draw the name tag
-      if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
-      {
-         render_speaking_character_name_tag();
-      }
-
       //frame_place.restore_transform();
       return;
     body_dependency_symbols:
@@ -264,9 +257,17 @@ methods:
       frame_place.position.y += 10 * inv_curved_time;
       frame_place.start_transform();
 
+      render_frame();
+
+      // Draw the name tag
+      if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+      {
+         render_speaking_character_name_tag();
+      }
+
       if (is_finished)
       {
-         render_frame_and_character_name();
+         render_frame();
          draw_special_state_empty_text(width, height);
       }
       else
@@ -275,7 +276,7 @@ methods:
          //{
             //render_speaking_character_name_tag();
          //}
-         render_frame_and_character_name();
+         render_frame();
          render_text();
          render_button();
       }

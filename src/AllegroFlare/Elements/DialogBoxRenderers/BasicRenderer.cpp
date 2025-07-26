@@ -294,7 +294,7 @@ std::string BasicRenderer::get_speaking_character_name() const
 }
 
 
-void BasicRenderer::render_frame_and_character_name(float opacity)
+void BasicRenderer::render_frame(float opacity)
 {
    //float normalized_age = std::max(std::min(1.0f, age), 0.0f);
    //float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
@@ -312,13 +312,6 @@ void BasicRenderer::render_frame_and_character_name(float opacity)
    //dialog_box_frame.set_opacity(curved_time);
    dialog_box_frame.set_opacity(opacity);
    dialog_box_frame.render();
-
-   // Draw the name tag
-   if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
-   {
-      render_speaking_character_name_tag();
-   }
-
    //frame_place.restore_transform();
    return;
 }
@@ -376,9 +369,17 @@ void BasicRenderer::render()
    frame_place.position.y += 10 * inv_curved_time;
    frame_place.start_transform();
 
+   render_frame();
+
+   // Draw the name tag
+   if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
+   {
+      render_speaking_character_name_tag();
+   }
+
    if (is_finished)
    {
-      render_frame_and_character_name();
+      render_frame();
       draw_special_state_empty_text(width, height);
    }
    else
@@ -387,7 +388,7 @@ void BasicRenderer::render()
       //{
          //render_speaking_character_name_tag();
       //}
-      render_frame_and_character_name();
+      render_frame();
       render_text();
       render_button();
    }
