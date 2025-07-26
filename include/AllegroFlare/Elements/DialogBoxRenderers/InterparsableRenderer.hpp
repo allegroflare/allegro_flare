@@ -44,7 +44,7 @@ namespace AllegroFlare
             float age;
             bool showing_speaking_character_name;
             std::string speaking_character_name;
-            void render_frame();
+            void render_frame(float opacity=1.0f);
             void render_text();
             void render_speaking_character_name_tag();
             void render_button();

@@ -296,21 +296,21 @@ std::string InterparsableRenderer::get_speaking_character_name() const
 }
 
 
-void InterparsableRenderer::render_frame()
+void InterparsableRenderer::render_frame(float opacity)
 {
-   float normalized_age = std::max(std::min(1.0f, age), 0.0f);
-   float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
-   float inv_curved_time = 1.0 - curved_time;
+   //float normalized_age = std::max(std::min(1.0f, age), 0.0f);
+   //float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
+   //float inv_curved_time = 1.0 - curved_time;
 
-   AllegroFlare::Placement2D frame_place = { width/2, height/2, width, height, };
-   frame_place.position.y += 10 * inv_curved_time;
-   frame_place.start_transform();
+   //AllegroFlare::Placement2D frame_place = { width/2, height/2, width, height, };
+   //frame_place.position.y += 10 * inv_curved_time;
+   //frame_place.start_transform();
    AllegroFlare::Elements::DialogBoxFrame dialog_box_frame(width, height);
    dialog_box_frame.set_backfill_color(background_color);
    dialog_box_frame.set_border_color(border_color);
-   dialog_box_frame.set_opacity(curved_time);
+   dialog_box_frame.set_opacity(opacity);
    dialog_box_frame.render();
-   frame_place.restore_transform();
+   //frame_place.restore_transform();
    return;
 }
 
@@ -374,9 +374,16 @@ void InterparsableRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
+   float normalized_age = std::max(std::min(1.0f, age), 0.0f);
+   float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
+   float inv_curved_time = 1.0 - curved_time;
+   AllegroFlare::Placement2D frame_place = { width/2, height/2, width, height, };
+   frame_place.position.y += 10 * inv_curved_time;
+   frame_place.start_transform();
+
    if (is_finished)
    {
-      render_frame();
+      render_frame(curved_time);
       draw_special_state_empty_text(width, height);
    }
    else
@@ -385,10 +392,12 @@ void InterparsableRenderer::render()
       {
          render_speaking_character_name_tag();
       }
-      render_frame();
+      render_frame(curved_time);
       render_text();
       render_button();
    }
+
+   frame_place.restore_transform();
    return;
 }
 

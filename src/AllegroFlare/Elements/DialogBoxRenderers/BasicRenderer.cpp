@@ -369,7 +369,7 @@ void BasicRenderer::render()
    frame_place.position.y += 10 * inv_curved_time;
    frame_place.start_transform();
 
-   render_frame();
+   render_frame(curved_time);
 
    // Draw the name tag
    if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
@@ -379,7 +379,7 @@ void BasicRenderer::render()
 
    if (is_finished)
    {
-      render_frame();
+      render_frame(curved_time);
       draw_special_state_empty_text(width, height);
    }
    else
@@ -388,7 +388,7 @@ void BasicRenderer::render()
       //{
          //render_speaking_character_name_tag();
       //}
-      render_frame();
+      render_frame(curved_time);
       render_text();
       render_button();
    }

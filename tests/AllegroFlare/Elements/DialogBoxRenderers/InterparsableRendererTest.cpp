@@ -153,14 +153,17 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableRendererWithAllegro
    std::string page_text = "Some test (em)dialog text(/em) that will reveal characters sequentially when rendering.";
 
    int num_revealed_characters = 0;
+   float time_start = al_get_time();
    for (unsigned i=0; i<page_text.size(); i++)
    {
       num_revealed_characters++;
-
+      float age = al_get_time() - time_start;
+      
       AllegroFlare::Elements::DialogBoxRenderers::InterparsableRenderer dialog_box_renderer(&font_bin);
       dialog_box_renderer.set_speaking_character_name("Princess");
       dialog_box_renderer.set_showing_speaking_character_name(true);
       dialog_box_renderer.set_current_page_text_with_formatting(page_text);
+      dialog_box_renderer.set_age(age);
       dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
 
       AllegroFlare::Placement2D place{
