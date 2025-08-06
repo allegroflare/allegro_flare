@@ -136,7 +136,7 @@ TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture, w
 
 
 TEST_F(AllegroFlare_Screens_GameplayTestWithAllegroFlareFrameworksFullFixture,
-   FOCUS__when_derived__will_work_as_expected)
+   when_derived__will_work_as_expected)
    // TODO: Make this test more specific
    // TODO: Make this an interactive test
 {

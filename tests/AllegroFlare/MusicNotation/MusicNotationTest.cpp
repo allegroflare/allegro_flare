@@ -97,7 +97,7 @@ TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_MusicNotation_MusicNotationTextWithAllegroRenderingFixture,
-   FOCUS__CAPTURE__setting_a_color_within_the_content_will_work_as_expected)
+   CAPTURE__setting_a_color_within_the_content_will_work_as_expected)
 {
    AllegroFlare::DrawingInterfaces::Allegro5 drawing_interface;
    AllegroFlare::MusicNotation::MusicNotation music_notation(&drawing_interface, &get_font_bin_ref());
