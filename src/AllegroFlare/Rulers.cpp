@@ -80,6 +80,52 @@ void Rulers::draw_dimensional_grid(float x, float y, float z, float spacing)
    return;
 }
 
+std::vector<ALLEGRO_VERTEX> Rulers::build_3d_plane_grid_vertices(float min_x, float max_x, float min_z, float max_z, ALLEGRO_COLOR color, float spacing)
+{
+   std::vector<ALLEGRO_VERTEX> result;
+
+   // Vertical lines along Z axis
+   for (float x = min_x; x <= max_x; x += spacing)
+   {
+      result.push_back(ALLEGRO_VERTEX{ x, 0.0f, min_z, 0, 0, color });
+      result.push_back(ALLEGRO_VERTEX{ x, 0.0f, max_z, 0, 0, color });
+   }
+
+   // Horizontal lines along X axis
+   for (float z = min_z; z <= max_z; z += spacing)
+   {
+      result.push_back(ALLEGRO_VERTEX{ min_x, 0.0f, z, 0, 0, color });
+      result.push_back(ALLEGRO_VERTEX{ max_x, 0.0f, z, 0, 0, color });
+   }
+
+   return result;
+}
+
+void Rulers::draw_3d_ground_plane_grid()
+{
+   ALLEGRO_COLOR color{0.15, 0.16, 0.2, 0.2};
+
+   auto ground_plane_vertices = build_3d_plane_grid_vertices(-5, 5, -5, 5, color, 1.0f);
+   al_draw_prim(
+      ground_plane_vertices.data(),
+      nullptr,
+      nullptr,
+      0,
+      ground_plane_vertices.size(),
+      ALLEGRO_PRIM_LINE_LIST
+   );
+
+   auto broad_ground_plane_vertices = build_3d_plane_grid_vertices(-50, 50, -50, 50, color, 10.0f);
+   al_draw_prim(
+      broad_ground_plane_vertices.data(),
+      nullptr,
+      nullptr,
+      0,
+      broad_ground_plane_vertices.size(),
+      ALLEGRO_PRIM_LINE_LIST
+   );
+}
+
 void Rulers::draw_2d_grid(float x, float y, float size, float spacing)
 {
    if (!(al_is_system_installed()))

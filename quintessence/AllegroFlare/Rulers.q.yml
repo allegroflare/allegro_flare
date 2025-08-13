@@ -59,6 +59,74 @@ methods:
       - al_is_system_installed
 
 
+  - name: build_3d_plane_grid_vertices
+    type: std::vector<ALLEGRO_VERTEX>
+    static: true
+    parameters:
+      - name: min_x
+        type: float
+        default_argument: 0.0f
+      - name: max_x
+        type: float
+        default_argument: 0.0f
+      - name: min_z
+        type: float
+        default_argument: 0.0f
+      - name: max_z
+        type: float
+        default_argument: 0.0f
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+      - name: spacing
+        type: float
+        default_argument: 1.0f
+    body: |
+      std::vector<ALLEGRO_VERTEX> result;
+
+      // Vertical lines along Z axis
+      for (float x = min_x; x <= max_x; x += spacing)
+      {
+         result.push_back(ALLEGRO_VERTEX{ x, 0.0f, min_z, 0, 0, color });
+         result.push_back(ALLEGRO_VERTEX{ x, 0.0f, max_z, 0, 0, color });
+      }
+
+      // Horizontal lines along X axis
+      for (float z = min_z; z <= max_z; z += spacing)
+      {
+         result.push_back(ALLEGRO_VERTEX{ min_x, 0.0f, z, 0, 0, color });
+         result.push_back(ALLEGRO_VERTEX{ max_x, 0.0f, z, 0, 0, color });
+      }
+
+      return result;
+
+
+  - name: draw_3d_ground_plane_grid
+    static: true
+    body: |
+      ALLEGRO_COLOR color{0.15, 0.16, 0.2, 0.2};
+
+      auto ground_plane_vertices = build_3d_plane_grid_vertices(-5, 5, -5, 5, color, 1.0f);
+      al_draw_prim(
+         ground_plane_vertices.data(),
+         nullptr,
+         nullptr,
+         0,
+         ground_plane_vertices.size(),
+         ALLEGRO_PRIM_LINE_LIST
+      );
+
+      auto broad_ground_plane_vertices = build_3d_plane_grid_vertices(-50, 50, -50, 50, color, 10.0f);
+      al_draw_prim(
+         broad_ground_plane_vertices.data(),
+         nullptr,
+         nullptr,
+         0,
+         broad_ground_plane_vertices.size(),
+         ALLEGRO_PRIM_LINE_LIST
+      );
+
+
   - name: draw_2d_grid
     static: true
     parameters:

@@ -3,6 +3,7 @@
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Rulers.hpp>
+#include <AllegroFlare/Camera3D.hpp>
 #include <allegro5/allegro_primitives.h> // for al_is_primitives_addon_initialized();
 #include <allegro5/allegro_color.h> // for al_color_html();
 
@@ -82,6 +83,25 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
       15.0f,                               // dot_spacing
       5.0f                                 // dot_length
    );
+
+   al_flip_display();
+   sleep_for(1);
+}
+
+
+TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
+   CAPTURE__draw_3d_ground_plane_grid__will_render_a_grid_along_the_ground_centered_at_the_origin)
+{
+   AllegroFlare::Camera3D camera;
+   camera.stepout = { 0, 0, 7 };
+   camera.tilt = 0.25;
+   camera.spin = -0.125;
+
+   AllegroFlare::Rulers rulers(&get_font_bin_ref());
+
+   clear();
+   camera.setup_projection_on(al_get_target_bitmap());
+   AllegroFlare::Rulers::draw_3d_ground_plane_grid();
 
    al_flip_display();
    sleep_for(1);
