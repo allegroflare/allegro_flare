@@ -4,6 +4,9 @@
 #include <AllegroFlare/FrameAnimation/Animation.hpp>
 #include <AllegroFlare/Testing/ErrorAssertions.hpp>
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Camera3D.hpp>
+#include <AllegroFlare/Camera2D.hpp>
+#include <AllegroFlare/Rulers.hpp>
 
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_ttf.h>
@@ -559,6 +562,54 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
    EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(1.0f));
    EXPECT_EQ(1, animation->get_sprite_sheet_cell_index_num_at(1.199f));
    EXPECT_EQ(2, animation->get_sprite_sheet_cell_index_num_at(1.2f));
+}
+
+
+TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
+   CAPTURE__FOCUS__draw_in_context_3d_xzy__will_render_as_expected)
+{
+   al_init_primitives_addon();
+
+   setup_animation(
+      std::vector<Frame>{
+         { 1, 0.2f, 0.5f, 0.0f },
+         { 2, 0.1f, 0.5f, 0.0f },
+         { 3, 0.2f, 0.5f, 0.0f }
+      },
+      Animation::PLAYMODE_FORWARD_PING_PONG
+   );
+
+   AllegroFlare::Camera3D camera;
+   camera.stepout = { 0, 1, 10 };
+   camera.spin = 0.125;
+   camera.tilt = 0.25;
+   AllegroFlare::Camera2D hud_camera;
+
+   int frames = 240;
+   animation->start();
+   for (int i=0; i<frames; i++)
+   {
+      // Update
+      animation->update();
+      camera.spin -= 0.125/64.0f;
+      camera.tilt -= 0.125/256.0f;
+
+      // Render
+      camera.setup_projection_on(al_get_backbuffer(al_get_current_display()));
+      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 1});
+      al_clear_depth_buffer(1);
+      AllegroFlare::Rulers::draw_3d_ground_plane_grid();
+
+      // update and draw
+      animation->draw_in_context_3d_xzy(false, false, 16, 16, true);
+
+      // draw info text
+      //hud_camera.setup_dimensional_projection(al_get_backbuffer(al_get_current_display()));
+      //int sprite_sheet_cell_index_num = animation->get_sprite_sheet_cell_index_num_at(0.21);
+      //al_draw_textf(font, ALLEGRO_COLOR{1, 1, 1, 1}, 10, 10, 0, "frame %d", sprite_sheet_cell_index_num);
+
+      al_flip_display(); // assumes a rest of 1/60.0f
+   }
 }
 
 

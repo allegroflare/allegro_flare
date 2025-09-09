@@ -303,6 +303,91 @@ void Animation::draw()
    return;
 }
 
+void Animation::draw_in_context_3d_xzy(bool flip_x, bool flip_y, float pixels_per_meter_x, float pixels_per_meter_y, bool draw_debug)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::FrameAnimation::Animation::draw_in_context_3d_xzy]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw_in_context_3d_xzy]: error: guard \"initialized\" not met");
+   }
+   if (!(((!draw_debug) || (draw_debug && al_is_primitives_addon_initialized()))))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::FrameAnimation::Animation::draw_in_context_3d_xzy]: error: guard \"((!draw_debug) || (draw_debug && al_is_primitives_addon_initialized()))\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::draw_in_context_3d_xzy]: error: guard \"((!draw_debug) || (draw_debug && al_is_primitives_addon_initialized()))\" not met");
+   }
+   ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
+   if (!bitmap) return;
+
+   ALLEGRO_STATE previous_state;
+   al_store_state(&previous_state, ALLEGRO_STATE_TRANSFORM);
+
+   // std::pair<bool, std::tuple<float, float, float, float, float, float>>
+   //auto [present, [align_x, align_y, container_align_x, container_align_y, anchor_x, anchor_y]] =
+   auto vals = get_frame_alignment_and_anchors_now();
+   auto &align_x = std::get<0>(vals.second);
+   auto &align_y = std::get<1>(vals.second);
+   auto &anchor_x = std::get<4>(vals.second);
+   auto &anchor_y = std::get<5>(vals.second);
+   // TODO: Account for anchors (container_align) is the responsibillity of the containing box
+
+   // TODO: Introduce accounting for sprite sheet scale when rendering
+   int bitmap_width = al_get_bitmap_width(bitmap);
+   int bitmap_height = al_get_bitmap_height(bitmap);
+   int sprite_sheet_scale = sprite_sheet->get_scale();
+   float inv_sprite_sheet_scale = 1.0f / sprite_sheet_scale;
+
+   al_identity_transform(&t);
+   // Should these transforms be in 3d? Should y and z be flipped?
+
+   // TODO: Work in anchors
+   // NOTE: Here is order of transforms for Placement2D
+   //al_translate_transform(transform, -align.x*size.x, -align.y*size.y);
+   //al_scale_transform(transform, scale.x * (flip.get_x() ? -1 : 1), scale.y * (flip.get_y() ? -1 : 1));
+   //al_translate_transform(transform, anchor.x, anchor.y);
+   //al_rotate_transform(transform, rotation);
+   //al_translate_transform(transform, position.x, position.y);
+
+
+   al_translate_transform(&t, -bitmap_width * align_x, -bitmap_height * align_y);
+   //if (flip_x || flip_y) al_scale_transform(&t, (flip_x ? -1 : 1), (flip_y ? -1 : 1)); // TODO: Test this appears
+                                                                                       // as expected
+   al_scale_transform(&t, inv_sprite_sheet_scale / pixels_per_meter_x, inv_sprite_sheet_scale / pixels_per_meter_y);
+
+   al_compose_transform(&t, al_get_current_transform());
+
+   al_use_transform(&t);
+   int bitmap_flags = 0;
+   flip_y = !flip_y; // For 3D, the y axis is flipped
+   if (flip_x) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_HORIZONTAL;
+   if (flip_y) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_VERTICAL;
+   al_draw_bitmap(bitmap, 0, 0, bitmap_flags);
+
+   if (draw_debug)
+   {
+      al_draw_rectangle(
+         0,
+         0,
+         bitmap_width,
+         bitmap_height,
+         ALLEGRO_COLOR{1, 0.5, 0, 1},
+         sprite_sheet_scale
+      );
+   }
+
+   al_identity_transform(&t);
+   al_use_transform(&t);
+
+
+   // TODO: Test that state is restored
+   al_restore_state(&previous_state);
+
+   return;
+}
+
 int Animation::get_num_frames()
 {
    return frames.size();

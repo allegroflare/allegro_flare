@@ -65,6 +65,7 @@ namespace AllegroFlare
          void update(float time_step=DEFAULT_FRAME_TIMESTEP);
          void draw_in_context(bool flip_x=false, bool flip_y=false, bool draw_debug=false);
          void draw();
+         void draw_in_context_3d_xzy(bool flip_x=false, bool flip_y=false, float pixels_per_meter_x=16.0f, float pixels_per_meter_y=16.0f, bool draw_debug=false);
          int get_num_frames();
          ALLEGRO_BITMAP* get_frame_bitmap_at_time(float time=0.0f);
          ALLEGRO_BITMAP* get_frame_bitmap_now();
