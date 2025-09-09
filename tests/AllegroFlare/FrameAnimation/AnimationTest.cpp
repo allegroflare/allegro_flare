@@ -6,6 +6,7 @@
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 #include <AllegroFlare/Camera3D.hpp>
 #include <AllegroFlare/Camera2D.hpp>
+#include <AllegroFlare/Placement3D.hpp>
 #include <AllegroFlare/Rulers.hpp>
 
 #include <allegro5/allegro_image.h>
@@ -566,7 +567,9 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
 
 
 TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
-   CAPTURE__FOCUS__draw_in_context_3d_xzy__will_render_as_expected)
+   CAPTURE__draw_in_context_3d_xzy__will_render_as_expected)
+   // TODO: Convert this test fixture to derive from WithAllegroRenderingFixture because CAPTURE is not respected
+   // otherwise
 {
    al_init_primitives_addon();
 
@@ -585,6 +588,11 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
    camera.tilt = 0.25;
    AllegroFlare::Camera2D hud_camera;
 
+   AllegroFlare::Placement3D placement;
+   placement.position.x = 2;
+   placement.position.z = 1;
+   placement.rotation.y = 0.125;
+
    int frames = 240;
    animation->start();
    for (int i=0; i<frames; i++)
@@ -601,7 +609,9 @@ TEST_F(AllegroFlare_FrameAnimation_AnimationTestWithSetup,
       AllegroFlare::Rulers::draw_3d_ground_plane_grid();
 
       // update and draw
+      placement.start_transform();
       animation->draw_in_context_3d_xzy(false, false, 16, 16, true);
+      placement.restore_transform();
 
       // draw info text
       //hud_camera.setup_dimensional_projection(al_get_backbuffer(al_get_current_display()));
