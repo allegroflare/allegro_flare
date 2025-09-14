@@ -56,6 +56,13 @@ namespace AllegroFlare
 
 
 
+   Vec3D Vec3D::xzy() const
+   {
+      return Vec3D( x, z, y );
+   }
+
+
+
 
    void Vec3D::operator+=(const Vec3D &other)
    {

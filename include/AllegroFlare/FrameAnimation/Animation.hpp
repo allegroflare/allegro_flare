@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <AllegroFlare/FrameAnimation/Frame.hpp>
 #include <AllegroFlare/FrameAnimation/SpriteSheet.hpp>
 #include <allegro5/allegro.h>
@@ -65,6 +66,8 @@ namespace AllegroFlare
          void update(float time_step=DEFAULT_FRAME_TIMESTEP);
          void draw_in_context(bool flip_x=false, bool flip_y=false, bool draw_debug=false);
          void draw();
+         void build_transform_in_context_3d_xzy(ALLEGRO_TRANSFORM* transform=nullptr, float pixels_per_meter_x=16.0f, float pixels_per_meter_y=16.0f);
+         void draw_with_flip_context(bool flip_x=false, bool flip_y=false, bool draw_debug=false);
          void draw_in_context_3d_xzy(bool flip_x=false, bool flip_y=false, float pixels_per_meter_x=16.0f, float pixels_per_meter_y=16.0f, bool draw_debug=false);
          int get_num_frames();
          ALLEGRO_BITMAP* get_frame_bitmap_at_time(float time=0.0f);
@@ -78,6 +81,7 @@ namespace AllegroFlare
          AllegroFlare::FrameAnimation::Frame* get_frame_at(float time=0.0f);
          int get_frame_num_at(float time=0.0f);
          int get_sprite_sheet_cell_index_num_at(float time=0.0f);
+         std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> build_face(float width=1.0f, float height=1.0f, float u1=0.0f, float v1=0.0f, float u2=0.0f, float v2=0.0f, bool flip_x=false, bool flip_y=false);
          float calculate_duration();
       };
    }

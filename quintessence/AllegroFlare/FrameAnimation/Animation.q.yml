@@ -277,6 +277,128 @@ functions:
       return;
 
 
+  - name: build_transform_in_context_3d_xzy
+    parameters:
+      - name: transform
+        type: ALLEGRO_TRANSFORM*
+        default_argument: nullptr
+      - name: pixels_per_meter_x
+        type: float
+        default_argument: 16.0f
+      - name: pixels_per_meter_y
+        type: float
+        default_argument: 16.0f
+    guards: [ transform, (pixels_per_meter_x > 0.0f), (pixels_per_meter_y > 0.0f) ]
+    body: |
+      ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
+      if (!bitmap) return;
+      // std::pair<bool, std::tuple<float, float, float, float, float, float>>
+      //auto [present, [align_x, align_y, container_align_x, container_align_y, anchor_x, anchor_y]] =
+      auto vals = get_frame_alignment_and_anchors_now();
+      auto &align_x = std::get<0>(vals.second);
+      auto &align_y = std::get<1>(vals.second);
+      auto &anchor_x = std::get<4>(vals.second);
+      auto &anchor_y = std::get<5>(vals.second);
+      // TODO: Account for anchors (container_align) is the responsibillity of the containing box
+
+      // TODO: Introduce accounting for sprite sheet scale when rendering
+      int bitmap_width = al_get_bitmap_width(bitmap);
+      int bitmap_height = al_get_bitmap_height(bitmap);
+      int sprite_sheet_scale = sprite_sheet->get_scale();
+      float inv_sprite_sheet_scale = 1.0f / sprite_sheet_scale;
+
+      al_identity_transform(transform);
+      // Should these transforms be in 3d? Should y and z be flipped?
+
+      // TODO: Work in anchors
+      // NOTE: Here is order of transforms for Placement2D
+      //al_translate_transform(transform, -align.x*size.x, -align.y*size.y);
+      //al_scale_transform(transform, scale.x * (flip.get_x() ? -1 : 1), scale.y * (flip.get_y() ? -1 : 1));
+      //al_translate_transform(transform, anchor.x, anchor.y);
+      //al_rotate_transform(transform, rotation);
+      //al_translate_transform(transform, position.x, position.y);
+
+      al_translate_transform(transform, -bitmap_width * align_x, -bitmap_height * align_y);
+      //if (flip_x || flip_y) al_scale_transform(&t, (flip_x ? -1 : 1), (flip_y ? -1 : 1)); // TODO: Test this appears
+                                                                                          // as expected
+      al_scale_transform(
+            transform,
+            inv_sprite_sheet_scale / pixels_per_meter_x,
+            inv_sprite_sheet_scale / pixels_per_meter_y
+         );
+
+      return;
+
+
+  - name: draw_with_flip_context
+    parameters:
+      - name: flip_x
+        type: bool
+        default_argument: false
+      - name: flip_y
+        type: bool
+        default_argument: false
+      - name: draw_debug
+        type: bool
+        default_argument: false
+    body: |
+      ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
+      if (!bitmap) return;
+
+      int bitmap_width = al_get_bitmap_width(bitmap);
+      int bitmap_height = al_get_bitmap_height(bitmap);
+
+      int bitmap_flags = 0;
+      flip_y = !flip_y; // For 3D, the y axis is flipped when using al_draw_bitmap();
+      if (flip_x) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_HORIZONTAL;
+      if (flip_y) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_VERTICAL;
+
+      //al_draw_bitmap(bitmap, 0, 0, bitmap_flags);
+
+
+
+
+      // TODO: CRITICAL: Find a way to not create the vertex declaration on every frame
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> face =
+         build_face(bitmap_width, bitmap_height, 0, 0, 1, 1, flip_x, flip_y);
+
+      ALLEGRO_VERTEX_DECL *vertex_declaration;
+
+      ALLEGRO_VERTEX_ELEMENT elems[] = {
+         {ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, x)},
+         {ALLEGRO_PRIM_TEX_COORD, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, u)},
+         {ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, color)},
+         {ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, nx)},
+         {0, 0, 0}
+      };
+
+      vertex_declaration = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX_WITH_NORMAL));
+
+      al_draw_prim(&face[0], vertex_declaration, bitmap, 0, face.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+      al_destroy_vertex_decl(vertex_declaration);
+      //al_draw_prim(
+      
+
+      if (draw_debug)
+      {
+         //int bitmap_width = al_get_bitmap_width(bitmap);
+         //int bitmap_height = al_get_bitmap_height(bitmap);
+         int sprite_sheet_scale = sprite_sheet->get_scale();
+         float inv_sprite_sheet_scale = 1.0f / sprite_sheet_scale;
+
+         al_draw_rectangle(
+            0,
+            0,
+            bitmap_width,
+            bitmap_height,
+            ALLEGRO_COLOR{1, 0.5, 0, 1},
+            sprite_sheet_scale
+         );
+      }
+      return;
+
+
   - name: draw_in_context_3d_xzy
     parameters:
       - name: flip_x
@@ -301,6 +423,8 @@ functions:
 
       ALLEGRO_STATE previous_state;
       al_store_state(&previous_state, ALLEGRO_STATE_TRANSFORM);
+
+      /*
       
       // std::pair<bool, std::tuple<float, float, float, float, float, float>>
       //auto [present, [align_x, align_y, container_align_x, container_align_y, anchor_x, anchor_y]] =
@@ -333,10 +457,18 @@ functions:
       //if (flip_x || flip_y) al_scale_transform(&t, (flip_x ? -1 : 1), (flip_y ? -1 : 1)); // TODO: Test this appears
                                                                                           // as expected
       al_scale_transform(&t, inv_sprite_sheet_scale / pixels_per_meter_x, inv_sprite_sheet_scale / pixels_per_meter_y);
+      */
+
+      build_transform_in_context_3d_xzy(&t);
 
       al_compose_transform(&t, al_get_current_transform());
 
       al_use_transform(&t);
+
+
+      draw_with_flip_context(flip_x, flip_y, draw_debug);
+
+      /*
       int bitmap_flags = 0;
       flip_y = !flip_y; // For 3D, the y axis is flipped
       if (flip_x) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_HORIZONTAL;
@@ -354,9 +486,10 @@ functions:
             sprite_sheet_scale
          );
       }
+      */
 
-      al_identity_transform(&t);
-      al_use_transform(&t);
+      //al_identity_transform(&t);
+      //al_use_transform(&t);
 
 
       // TODO: Test that state is restored
@@ -614,6 +747,58 @@ functions:
       - fmod
 
 
+  - name: build_face
+    type: std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL>
+    parameters:
+      - name: width
+        type: float
+        default_argument: 1.0f
+      - name: height
+        type: float
+        default_argument: 1.0f
+      - name: u1
+        type: float
+        default_argument: 0.0f
+      - name: v1
+        type: float
+        default_argument: 0.0f
+      - name: u2
+        type: float
+        default_argument: 0.0f
+      - name: v2
+        type: float
+        default_argument: 0.0f
+      - name: flip_x
+        type: bool
+        default_argument: false
+      - name: flip_y
+        type: bool
+        default_argument: false
+    body: |
+      ALLEGRO_COLOR c{1, 1, 1, 1};
+
+      // Adjust UVs for flipping
+      float fu1 = flip_x ? u2 : u1;
+      float fu2 = flip_x ? u1 : u2;
+      float fv1 = flip_y ? v2 : v1;
+      float fv2 = flip_y ? v1 : v2;
+
+      std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> face =
+      {
+         // First triangle
+         { 0.0f,    0.0f,     0.0f, fu1, fv1, c, 0.0f, 0.0f, 1.0f },
+         { width,   0.0f,     0.0f, fu2, fv1, c, 0.0f, 0.0f, 1.0f },
+         { 0.0f,    height,   0.0f, fu1, fv2, c, 0.0f, 0.0f, 1.0f },
+
+         // Second triangle
+         { width,   0.0f,     0.0f, fu2, fv1, c, 0.0f, 0.0f, 1.0f },
+         { width,   height,   0.0f, fu2, fv2, c, 0.0f, 0.0f, 1.0f },
+         { 0.0f,    height,   0.0f, fu1, fv2, c, 0.0f, 0.0f, 1.0f },
+      };
+
+      return face;
+    body_dependency_symbols:
+      - AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
 
 
   - name: calculate_duration
@@ -645,5 +830,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: al_is_primitives_addon_initialized
     headers: [ allegro5/allegro_primitives.h ]
+  - symbol: AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL
+    headers: [ AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp ]
 
 

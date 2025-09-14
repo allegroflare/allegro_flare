@@ -85,6 +85,9 @@ TEST_F(AllegroFlare_Physics_AABB3DTest, collides_with_point__will_return_false_i
 
 TEST_F(AllegroFlare_Physics_AABB3DTestWithAllegroRenderingFixture, CAPTURE__VISUAL__draw__will_render_as_expected)
 {
+   AllegroFlare::Vec3D offset = AllegroFlare::Vec3D(4, 0, -1);
+   ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0}; // A lil pink color
+
    AllegroFlare::Camera3D camera;
    camera.stepout = { 0, 0, 8 };
    camera.tilt = 0.125;
@@ -103,9 +106,14 @@ TEST_F(AllegroFlare_Physics_AABB3DTestWithAllegroRenderingFixture, CAPTURE__VISU
    aabb3d.draw();
 
    // Box colored with a lil offset
-   AllegroFlare::Vec3D offset = AllegroFlare::Vec3D(4, 0, -1);
-   ALLEGRO_COLOR color = ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0}; // A lil pink color
+   offset = AllegroFlare::Vec3D(4, 0, -1);
+   color = ALLEGRO_COLOR{1.0, 0.65, 1.0, 1.0}; // A lil pink color
    aabb3d.draw(offset, color);
+
+   // Box colored with a lil offset
+   offset = AllegroFlare::Vec3D(-4, 0, -1);
+   color = ALLEGRO_COLOR{0.94, 0.9, 0.55, 1.0}; // A lil tan color
+   aabb3d.draw_dotted(offset, color);
 
 
    al_flip_display();

@@ -37,10 +37,12 @@ namespace AllegroFlare
          bool collides(AllegroFlare::Physics::AABB3D* other=nullptr, AllegroFlare::Vec3D self_offset=AllegroFlare::Vec3D(), AllegroFlare::Vec3D other_offset=AllegroFlare::Vec3D());
          bool collides_with_point(AllegroFlare::Vec3D point=AllegroFlare::Vec3D(), AllegroFlare::Vec3D self_offset=AllegroFlare::Vec3D(), AllegroFlare::Vec3D other_offset=AllegroFlare::Vec3D());
          void draw(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0), ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.65f, 1.0f, 1.0f});
+         void draw_dotted(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0), ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.65f, 1.0f, 1.0f});
          void calculate_box_corners(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0));
          ALLEGRO_COLOR build_color(float opacity=1.0f);
          std::vector<ALLEGRO_VERTEX> build_line_list_vertices(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0));
          std::vector<ALLEGRO_VERTEX> build_triangle_list_vertices_for_faces();
+         std::vector<ALLEGRO_VERTEX> build_dotted_line_list_vertices(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0), float corner_dash_length=0.03125f*2, float dash_length=0.03125f*2, float gap_length=0.03125f*2);
       };
    }
 }

@@ -25,6 +25,9 @@ namespace AllegroFlare
       // returns the normalized value of the vector where the length = 1
       Vec3D normalized() const;
 
+      // returns swizzled coordinate values
+      Vec3D xzy() const;
+
       void operator+=(const Vec3D &other);
       void operator-=(const Vec3D &other);
       void operator*=(float factor);

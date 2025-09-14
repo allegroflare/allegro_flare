@@ -2930,6 +2930,10 @@
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Shaders/Cubemap"
   ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
   "nlohmann/json": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/MotionComposer/MessageFactory",
@@ -3615,9 +3619,6 @@
   ],
   "AllegroFlare/Physics/CollisionMeshCollisionStepInfo": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
-  ],
-  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
-    "AllegroFlare/Physics/CollisionMeshFace"
   ],
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Physics/CollisionMeshFace",

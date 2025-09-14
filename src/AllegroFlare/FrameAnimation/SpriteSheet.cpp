@@ -203,6 +203,22 @@ ALLEGRO_BITMAP *SpriteSheet::get_cell(int index)
 
 
 
+AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord* SpriteSheet::get_atlas_record(int index)
+{
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+            "AllegroFlare::FrameAnimation::SpriteSheet::get_cell",
+            "guard \"initialized\" not met."
+         );
+   }
+
+   if (index < 0 || index >= new_tile_index.size()) return nullptr;
+   return &new_tile_index[index];
+}
+
+
+
 ALLEGRO_BITMAP *SpriteSheet::get_atlas()
 {
    //if (!initialized)

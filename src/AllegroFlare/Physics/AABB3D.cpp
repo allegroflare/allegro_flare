@@ -143,6 +143,20 @@ void AABB3D::draw(AllegroFlare::Vec3D offset, ALLEGRO_COLOR color)
    return;
 }
 
+void AABB3D::draw_dotted(AllegroFlare::Vec3D offset, ALLEGRO_COLOR color)
+{
+   box_color = color;
+   // TODO: this function
+   // SEE: This chat: https://chat.openai.com/chat/98d67e07-868f-4703-9675-49b9d0b48afd
+
+   // TODO: Consider that this could be optimized
+   std::vector<ALLEGRO_VERTEX> box_line_vertices = build_dotted_line_list_vertices(offset);
+   std::vector<ALLEGRO_VERTEX> box_triangle_vertices = build_triangle_list_vertices_for_faces();
+   al_draw_prim(&box_line_vertices[0], nullptr, nullptr, 0, box_line_vertices.size(), ALLEGRO_PRIM_LINE_LIST);
+   al_draw_prim(&box_triangle_vertices[0], nullptr, nullptr, 0, box_triangle_vertices.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+   return;
+}
+
 void AABB3D::calculate_box_corners(AllegroFlare::Vec3D offset)
 {
    using AllegroFlare::Vec3D;
@@ -393,6 +407,72 @@ std::vector<ALLEGRO_VERTEX> AABB3D::build_triangle_list_vertices_for_faces()
    vertices[34] = ALLEGRO_VERTEX{box_corners[7].x, box_corners[7].y, box_corners[7].z, 0, 0, color};
    vertices[35] = ALLEGRO_VERTEX{box_corners[3].x, box_corners[3].y, box_corners[3].z, 0, 0, color};
 
+   return vertices;
+}
+
+std::vector<ALLEGRO_VERTEX> AABB3D::build_dotted_line_list_vertices(AllegroFlare::Vec3D offset, float corner_dash_length, float dash_length, float gap_length)
+{
+   using AllegroFlare::Vec3D;
+
+   ALLEGRO_COLOR color = build_color(1.0);
+   calculate_box_corners(offset);
+   if (box_corners.size() != 8) return {};
+
+   std::vector<ALLEGRO_VERTEX> vertices;
+   const float min_length_threshold = 0.0001f;
+   const std::vector<std::pair<int, int>> edges = {
+      {0, 1}, {1, 2}, {2, 3}, {3, 0}, // Front face
+      {4, 5}, {5, 6}, {6, 7}, {7, 4}, // Back face
+      {0, 4}, {1, 5}, {2, 6}, {3, 7}  // Connecting edges
+   };
+
+   auto append_line = [&](const Vec3D& start, const Vec3D& end) {
+      vertices.push_back(ALLEGRO_VERTEX{start.x, start.y, start.z, 0, 0, color});
+      vertices.push_back(ALLEGRO_VERTEX{end.x, end.y, end.z, 0, 0, color});
+   };
+
+   for (const auto& edge : edges)
+   {
+      Vec3D p1 = box_corners[edge.first];
+      Vec3D p2 = box_corners[edge.second];
+
+      Vec3D edge_vector = p2 - p1;
+      float edge_length = edge_vector.get_magnitude();
+
+      if (edge_length < min_length_threshold) continue;
+
+      // If the edge is too short for two corners, draw a single solid line
+      if (edge_length <= (2 * corner_dash_length))
+      {
+         append_line(p1, p2);
+         continue;
+      }
+
+      Vec3D direction = edge_vector.normalized();
+
+      // 1. Draw solid corners
+      Vec3D corner1_end = p1 + direction * corner_dash_length;
+      append_line(p1, corner1_end);
+
+      Vec3D corner2_start = p2 - direction * corner_dash_length;
+      append_line(corner2_start, p2);
+
+      // 2. Fill the middle with dashes
+      float cycle_length = dash_length + gap_length;
+      if (cycle_length < min_length_threshold) continue;
+
+      Vec3D cursor = corner1_end;
+      float remaining_length = edge_length - 2 * corner_dash_length;
+
+      while (remaining_length > min_length_threshold)
+      {
+         float current_dash_len = fmin(dash_length, remaining_length);
+         append_line(cursor, cursor + direction * current_dash_len);
+
+         cursor += direction * cycle_length;
+         remaining_length -= cycle_length;
+      }
+   }
    return vertices;
 }
 

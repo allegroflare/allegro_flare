@@ -34,6 +34,7 @@ namespace AllegroFlare
 
          ALLEGRO_BITMAP *get_sprite(int index);
          ALLEGRO_BITMAP *get_cell(int index);
+         AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord* get_atlas_record(int index); // TODO: Make const
          ALLEGRO_BITMAP *get_atlas();
          int get_scale();
          int get_num_sprites();

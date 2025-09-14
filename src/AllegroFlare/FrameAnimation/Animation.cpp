@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/FrameAnimation/Animation.hpp>
 
+#include <AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <cmath>
@@ -303,6 +304,128 @@ void Animation::draw()
    return;
 }
 
+void Animation::build_transform_in_context_3d_xzy(ALLEGRO_TRANSFORM* transform, float pixels_per_meter_x, float pixels_per_meter_y)
+{
+   if (!(transform))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::FrameAnimation::Animation::build_transform_in_context_3d_xzy]: error: guard \"transform\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::build_transform_in_context_3d_xzy]: error: guard \"transform\" not met");
+   }
+   if (!((pixels_per_meter_x > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::FrameAnimation::Animation::build_transform_in_context_3d_xzy]: error: guard \"(pixels_per_meter_x > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::build_transform_in_context_3d_xzy]: error: guard \"(pixels_per_meter_x > 0.0f)\" not met");
+   }
+   if (!((pixels_per_meter_y > 0.0f)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::FrameAnimation::Animation::build_transform_in_context_3d_xzy]: error: guard \"(pixels_per_meter_y > 0.0f)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::FrameAnimation::Animation::build_transform_in_context_3d_xzy]: error: guard \"(pixels_per_meter_y > 0.0f)\" not met");
+   }
+   ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
+   if (!bitmap) return;
+   // std::pair<bool, std::tuple<float, float, float, float, float, float>>
+   //auto [present, [align_x, align_y, container_align_x, container_align_y, anchor_x, anchor_y]] =
+   auto vals = get_frame_alignment_and_anchors_now();
+   auto &align_x = std::get<0>(vals.second);
+   auto &align_y = std::get<1>(vals.second);
+   auto &anchor_x = std::get<4>(vals.second);
+   auto &anchor_y = std::get<5>(vals.second);
+   // TODO: Account for anchors (container_align) is the responsibillity of the containing box
+
+   // TODO: Introduce accounting for sprite sheet scale when rendering
+   int bitmap_width = al_get_bitmap_width(bitmap);
+   int bitmap_height = al_get_bitmap_height(bitmap);
+   int sprite_sheet_scale = sprite_sheet->get_scale();
+   float inv_sprite_sheet_scale = 1.0f / sprite_sheet_scale;
+
+   al_identity_transform(transform);
+   // Should these transforms be in 3d? Should y and z be flipped?
+
+   // TODO: Work in anchors
+   // NOTE: Here is order of transforms for Placement2D
+   //al_translate_transform(transform, -align.x*size.x, -align.y*size.y);
+   //al_scale_transform(transform, scale.x * (flip.get_x() ? -1 : 1), scale.y * (flip.get_y() ? -1 : 1));
+   //al_translate_transform(transform, anchor.x, anchor.y);
+   //al_rotate_transform(transform, rotation);
+   //al_translate_transform(transform, position.x, position.y);
+
+   al_translate_transform(transform, -bitmap_width * align_x, -bitmap_height * align_y);
+   //if (flip_x || flip_y) al_scale_transform(&t, (flip_x ? -1 : 1), (flip_y ? -1 : 1)); // TODO: Test this appears
+                                                                                       // as expected
+   al_scale_transform(
+         transform,
+         inv_sprite_sheet_scale / pixels_per_meter_x,
+         inv_sprite_sheet_scale / pixels_per_meter_y
+      );
+
+   return;
+}
+
+void Animation::draw_with_flip_context(bool flip_x, bool flip_y, bool draw_debug)
+{
+   ALLEGRO_BITMAP *bitmap = get_frame_bitmap_at_time(playhead);
+   if (!bitmap) return;
+
+   int bitmap_width = al_get_bitmap_width(bitmap);
+   int bitmap_height = al_get_bitmap_height(bitmap);
+
+   int bitmap_flags = 0;
+   flip_y = !flip_y; // For 3D, the y axis is flipped when using al_draw_bitmap();
+   if (flip_x) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_HORIZONTAL;
+   if (flip_y) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_VERTICAL;
+
+   //al_draw_bitmap(bitmap, 0, 0, bitmap_flags);
+
+
+
+
+   // TODO: CRITICAL: Find a way to not create the vertex declaration on every frame
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> face =
+      build_face(bitmap_width, bitmap_height, 0, 0, 1, 1, flip_x, flip_y);
+
+   ALLEGRO_VERTEX_DECL *vertex_declaration;
+
+   ALLEGRO_VERTEX_ELEMENT elems[] = {
+      {ALLEGRO_PRIM_POSITION, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, x)},
+      {ALLEGRO_PRIM_TEX_COORD, ALLEGRO_PRIM_FLOAT_2, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, u)},
+      {ALLEGRO_PRIM_COLOR_ATTR, 0, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, color)},
+      {ALLEGRO_PRIM_USER_ATTR, ALLEGRO_PRIM_FLOAT_3, offsetof(ALLEGRO_VERTEX_WITH_NORMAL, nx)},
+      {0, 0, 0}
+   };
+
+   vertex_declaration = al_create_vertex_decl(elems, sizeof(ALLEGRO_VERTEX_WITH_NORMAL));
+
+   al_draw_prim(&face[0], vertex_declaration, bitmap, 0, face.size(), ALLEGRO_PRIM_TRIANGLE_LIST);
+
+   al_destroy_vertex_decl(vertex_declaration);
+   //al_draw_prim(
+
+
+   if (draw_debug)
+   {
+      //int bitmap_width = al_get_bitmap_width(bitmap);
+      //int bitmap_height = al_get_bitmap_height(bitmap);
+      int sprite_sheet_scale = sprite_sheet->get_scale();
+      float inv_sprite_sheet_scale = 1.0f / sprite_sheet_scale;
+
+      al_draw_rectangle(
+         0,
+         0,
+         bitmap_width,
+         bitmap_height,
+         ALLEGRO_COLOR{1, 0.5, 0, 1},
+         sprite_sheet_scale
+      );
+   }
+   return;
+}
+
 void Animation::draw_in_context_3d_xzy(bool flip_x, bool flip_y, float pixels_per_meter_x, float pixels_per_meter_y, bool draw_debug)
 {
    if (!(initialized))
@@ -324,6 +447,8 @@ void Animation::draw_in_context_3d_xzy(bool flip_x, bool flip_y, float pixels_pe
 
    ALLEGRO_STATE previous_state;
    al_store_state(&previous_state, ALLEGRO_STATE_TRANSFORM);
+
+   /*
 
    // std::pair<bool, std::tuple<float, float, float, float, float, float>>
    //auto [present, [align_x, align_y, container_align_x, container_align_y, anchor_x, anchor_y]] =
@@ -356,10 +481,18 @@ void Animation::draw_in_context_3d_xzy(bool flip_x, bool flip_y, float pixels_pe
    //if (flip_x || flip_y) al_scale_transform(&t, (flip_x ? -1 : 1), (flip_y ? -1 : 1)); // TODO: Test this appears
                                                                                        // as expected
    al_scale_transform(&t, inv_sprite_sheet_scale / pixels_per_meter_x, inv_sprite_sheet_scale / pixels_per_meter_y);
+   */
+
+   build_transform_in_context_3d_xzy(&t);
 
    al_compose_transform(&t, al_get_current_transform());
 
    al_use_transform(&t);
+
+
+   draw_with_flip_context(flip_x, flip_y, draw_debug);
+
+   /*
    int bitmap_flags = 0;
    flip_y = !flip_y; // For 3D, the y axis is flipped
    if (flip_x) bitmap_flags = bitmap_flags | ALLEGRO_FLIP_HORIZONTAL;
@@ -377,9 +510,10 @@ void Animation::draw_in_context_3d_xzy(bool flip_x, bool flip_y, float pixels_pe
          sprite_sheet_scale
       );
    }
+   */
 
-   al_identity_transform(&t);
-   al_use_transform(&t);
+   //al_identity_transform(&t);
+   //al_use_transform(&t);
 
 
    // TODO: Test that state is restored
@@ -679,6 +813,32 @@ std::tuple<AllegroFlare::FrameAnimation::Frame*, int, int> Animation::get_frame_
    }
 
    return { nullptr, current_frame_count, -1 };
+}
+
+std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> Animation::build_face(float width, float height, float u1, float v1, float u2, float v2, bool flip_x, bool flip_y)
+{
+   ALLEGRO_COLOR c{1, 1, 1, 1};
+
+   // Adjust UVs for flipping
+   float fu1 = flip_x ? u2 : u1;
+   float fu2 = flip_x ? u1 : u2;
+   float fv1 = flip_y ? v2 : v1;
+   float fv2 = flip_y ? v1 : v2;
+
+   std::vector<AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL> face =
+   {
+      // First triangle
+      { 0.0f,    0.0f,     0.0f, fu1, fv1, c, 0.0f, 0.0f, 1.0f },
+      { width,   0.0f,     0.0f, fu2, fv1, c, 0.0f, 0.0f, 1.0f },
+      { 0.0f,    height,   0.0f, fu1, fv2, c, 0.0f, 0.0f, 1.0f },
+
+      // Second triangle
+      { width,   0.0f,     0.0f, fu2, fv1, c, 0.0f, 0.0f, 1.0f },
+      { width,   height,   0.0f, fu2, fv2, c, 0.0f, 0.0f, 1.0f },
+      { 0.0f,    height,   0.0f, fu1, fv2, c, 0.0f, 0.0f, 1.0f },
+   };
+
+   return face;
 }
 
 float Animation::calculate_duration()

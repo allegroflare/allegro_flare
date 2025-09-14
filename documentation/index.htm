@@ -18332,6 +18332,14 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>build_transform_in_context_3d_xzy</b>(ALLEGRO_TRANSFORM* transform=nullptr, float pixels_per_meter_x=16.0f, float pixels_per_meter_y=16.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_with_flip_context</b>(bool flip_x=false, bool flip_y=false, bool draw_debug=false)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>draw_in_context_3d_xzy</b>(bool flip_x=false, bool flip_y=false, float pixels_per_meter_x=16.0f, float pixels_per_meter_y=16.0f, bool draw_debug=false)</td>
 </tr>
 <tr>
@@ -18387,6 +18395,10 @@ table td
   <td class="private_method"><b>get_frame_info_at</b>(float time=0.0f)</td>
 </tr>
 <tr>
+  <td class="method">std::vector&lt;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&gt;</td>
+  <td class="method"><b>build_face</b>(float width=1.0f, float height=1.0f, float u1=0.0f, float v1=0.0f, float u2=0.0f, float v2=0.0f, bool flip_x=false, bool flip_y=false)</td>
+</tr>
+<tr>
   <td class="method">float</td>
   <td class="method"><b>calculate_duration</b>()</td>
 </tr>
@@ -18413,6 +18425,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ALLEGRO_VERTEX_WITH_NORMAL&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -26398,6 +26413,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>draw_dotted</b>(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0), ALLEGRO_COLOR color=ALLEGRO_COLOR{0.0f, 0.65f, 1.0f, 1.0f})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>calculate_box_corners</b>(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0))</td>
 </tr>
 <tr>
@@ -26411,6 +26430,10 @@ table td
 <tr>
   <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
   <td class="method"><b>build_triangle_list_vertices_for_faces</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;ALLEGRO_VERTEX&gt;</td>
+  <td class="method"><b>build_dotted_line_list_vertices</b>(AllegroFlare::Vec3D offset=AllegroFlare::Vec3D(0, 0, 0), float corner_dash_length=0.03125f*2, float dash_length=0.03125f*2, float gap_length=0.03125f*2)</td>
 </tr>
     </table>
 </div>    <h3>Dependencies</h3>
@@ -55466,6 +55489,10 @@ table td
     "AllegroFlare/Shaders/Base",
     "AllegroFlare/Shaders/Cubemap"
   ],
+  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
+    "AllegroFlare/FrameAnimation/Animation",
+    "AllegroFlare/Physics/CollisionMeshFace"
+  ],
   "nlohmann/json": [
     "AllegroFlare/FrameAnimation/AsepriteSpriteSheetJSONLoader",
     "AllegroFlare/MotionComposer/MessageFactory",
@@ -56151,9 +56178,6 @@ table td
   ],
   "AllegroFlare/Physics/CollisionMeshCollisionStepInfo": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
-  ],
-  "AllegroFlare/ALLEGRO_VERTEX_WITH_NORMAL": [
-    "AllegroFlare/Physics/CollisionMeshFace"
   ],
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Physics/CollisionMeshFace",
