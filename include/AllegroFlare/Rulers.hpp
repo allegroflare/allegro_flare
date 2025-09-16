@@ -28,7 +28,7 @@ namespace AllegroFlare
       AllegroFlare::FontBin* get_font_bin() const;
       static void draw_dimensional_grid(float x=0.0f, float y=0.0f, float z=0.0f, float spacing=(16*4.8));
       static std::vector<ALLEGRO_VERTEX> build_3d_plane_grid_vertices(float min_x=0.0f, float max_x=0.0f, float min_z=0.0f, float max_z=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float spacing=1.0f);
-      static void draw_3d_ground_plane_grid();
+      static void draw_3d_ground_plane_grid(float stride=10.0f);
       static void draw_2d_grid(float x=0.0f, float y=0.0f, float size=1.0f, float spacing=(16*4.8));
       static std::vector<ALLEGRO_VERTEX> build_hd_layout_grid(float x=(1920/2.0f), float y=(1080/2.0f), float width=1920.0f, float height=1080.0f, int num_sections_x=10, int num_sections_y=6, ALLEGRO_COLOR color=ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5}, float line_thickness=1.0f, float dot_spacing=10.0f, float dot_length=10.0f);
       static void draw_hd_layout_grid(float x=(1920/2.0f), float y=(1080/2.0f), float width=1920.0f, float height=1080.0f, int num_sections_x=10, int num_sections_y=6, ALLEGRO_COLOR color=ALLEGRO_COLOR{0.5, 0.5, 0.5, 0.5}, float line_thickness=1.0f, float dot_spacing=10.0f, float dot_length=10.0f);

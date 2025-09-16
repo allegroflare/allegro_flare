@@ -108,3 +108,22 @@ TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
 }
 
 
+TEST_F(AllegroFlare_RulersTestWithAllegroRenderingFixture,
+   CAPTURE__draw_3d_ground_plane_grid__with_a_non_default_stride__will_render_a_grid_along_the_ground_centered_at_the_origin)
+{
+   AllegroFlare::Camera3D camera;
+   camera.stepout = { 0, 0, 7 };
+   camera.tilt = 0.25;
+   camera.spin = -0.125;
+
+   AllegroFlare::Rulers rulers(&get_font_bin_ref());
+
+   clear();
+   camera.setup_projection_on(al_get_target_bitmap());
+   AllegroFlare::Rulers::draw_3d_ground_plane_grid(8.0);
+
+   al_flip_display();
+   sleep_for(1);
+}
+
+

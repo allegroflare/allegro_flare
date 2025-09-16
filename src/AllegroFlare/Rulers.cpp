@@ -101,11 +101,13 @@ std::vector<ALLEGRO_VERTEX> Rulers::build_3d_plane_grid_vertices(float min_x, fl
    return result;
 }
 
-void Rulers::draw_3d_ground_plane_grid()
+void Rulers::draw_3d_ground_plane_grid(float stride)
 {
    ALLEGRO_COLOR color{0.15, 0.16, 0.2, 0.2};
 
-   auto ground_plane_vertices = build_3d_plane_grid_vertices(-5, 5, -5, 5, color, 1.0f);
+   float h_stride = stride / 2;
+
+   auto ground_plane_vertices = build_3d_plane_grid_vertices(-h_stride, h_stride, -h_stride, h_stride, color, 1.0f);
    al_draw_prim(
       ground_plane_vertices.data(),
       nullptr,
@@ -115,7 +117,12 @@ void Rulers::draw_3d_ground_plane_grid()
       ALLEGRO_PRIM_LINE_LIST
    );
 
-   auto broad_ground_plane_vertices = build_3d_plane_grid_vertices(-50, 50, -50, 50, color, 10.0f);
+   float h_stridem = stride * stride;
+
+   auto broad_ground_plane_vertices =
+      build_3d_plane_grid_vertices(-h_stridem, h_stridem, -h_stridem, h_stridem, color, stride);
+
+   //auto broad_ground_plane_vertices = build_3d_plane_grid_vertices(-50, 50, -50, 50, color, 10.0f);
    al_draw_prim(
       broad_ground_plane_vertices.data(),
       nullptr,
