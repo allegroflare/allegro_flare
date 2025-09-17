@@ -47,6 +47,7 @@ namespace AllegroFlare
       bool load(T2 identifier, std::string filename, std::string called_through="load");
       bool include(T2 identifier, T data);
       bool rename(T2 identifier, T2 new_identifer);
+      bool exists(T2 identifier);
       bool destroy(T2 identifier);
       void clear(); //< doesn't work as a base class function in the destructor
       int size();
@@ -118,7 +119,6 @@ namespace AllegroFlare
       if (!directory) return ""; // TODO: consider throwing error
       return al_path_cstr(directory, use_native_path_sep ? ALLEGRO_NATIVE_PATH_SEP : '/');
    }
-
 
 
    template<class T2, class T>
@@ -290,6 +290,13 @@ namespace AllegroFlare
 
       if (!r->data) return false;
       return true;
+   }
+
+
+   template<class T2, class T>
+   bool Bin<T2, T>::exists(T2 identifier)
+   {
+      return get_record(identifier) != nullptr;
    }
 
 
