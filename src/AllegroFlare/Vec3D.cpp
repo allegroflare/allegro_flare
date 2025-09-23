@@ -56,6 +56,20 @@ namespace AllegroFlare
 
 
 
+   Vec3D Vec3D::negated() const
+   {
+      return Vec3D(-x, -y, -z);
+   }
+
+
+
+   Vec3D Vec3D::complemented() const
+   {
+      return Vec3D(1.0f-x, 1.0f-y, 1.0f-z);
+   }
+
+
+
    Vec3D Vec3D::xzy() const
    {
       return Vec3D( x, z, y );

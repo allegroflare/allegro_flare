@@ -25,6 +25,12 @@ namespace AllegroFlare
       // returns the normalized value of the vector where the length = 1
       Vec3D normalized() const;
 
+      // returns the negative value of the vector
+      Vec3D negated() const;
+
+      // returns a vector with (1.0-n) for each elemenet, a "1's complement"
+      Vec3D complemented() const;
+
       // returns swizzled coordinate values
       Vec3D xzy() const;
 
