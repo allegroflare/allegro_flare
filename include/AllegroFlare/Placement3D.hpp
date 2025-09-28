@@ -23,10 +23,12 @@ namespace AllegroFlare
       Placement3D(AllegroFlare::Vec3D position);
 
       void start_transform();
+      void start_transform_with_zyx_ordered_rotation();
       void start_reverse_transform(); // Warning! staring a transform, then starting a reverse transform may have
                                       // unexpected side-effects. Note that the internal previous_transform is modified.
       void restore_transform();
       void build_transform(ALLEGRO_TRANSFORM *transform);
+      void build_transform_with_zyx_ordered_rotation(ALLEGRO_TRANSFORM *transform);
       void build_reverse_transform(ALLEGRO_TRANSFORM *transform);
       void build_view_projection_transform(
          ALLEGRO_TRANSFORM *transform,

@@ -49,10 +49,12 @@ properties:
   - name: player_control_move_velocity
     type: AllegroFlare::Vec2D
     init_with: '{}'
+    getter: true
 
   - name: player_control_look_velocity
     type: AllegroFlare::Vec2D
     init_with: '{}'
+    getter: true
 
   - name: player_right_pressed
     type: bool

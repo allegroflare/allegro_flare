@@ -67,6 +67,22 @@ void Placement3D::start_transform()
 
 
 
+void Placement3D::start_transform_with_zyx_ordered_rotation()
+{
+   ALLEGRO_TRANSFORM transform;
+
+   if (!al_get_current_transform()) return;
+   al_copy_transform(&previous_transform, al_get_current_transform());
+
+   this->build_transform_with_zyx_ordered_rotation(&transform);
+
+   al_compose_transform(&transform, &previous_transform);
+   al_use_transform(&transform);
+}
+
+
+
+
 void Placement3D::start_reverse_transform()
 {
    ALLEGRO_TRANSFORM transform;
@@ -129,6 +145,28 @@ void Placement3D::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
    al_translate_transform_3d(transform, -anchor.x, -anchor.y, -anchor.z);
    al_scale_transform_3d(transform, 1.0/scale.x, 1.0/scale.y, 1.0/scale.z);
    al_translate_transform_3d(transform, align.x*size.x, align.y*size.y, align.z*size.z);
+}
+
+
+
+void Placement3D::build_transform_with_zyx_ordered_rotation(ALLEGRO_TRANSFORM *transform)
+{
+   al_identity_transform(transform);
+
+   // offset for alignment and anchors
+   al_translate_transform_3d(transform, -align.x*size.x, -align.y*size.y, -align.z*size.z);
+   al_scale_transform_3d(transform, scale.x, scale.y, scale.z);
+   al_translate_transform_3d(transform, anchor.x, anchor.y, anchor.z);
+
+   // rotate
+   al_rotate_transform_3d(transform, 0, 0, 1, rotation.z * AllegroFlare::TAU);
+   al_rotate_transform_3d(transform, 0, 1, 0, rotation.y * AllegroFlare::TAU);
+   al_rotate_transform_3d(transform, 1, 0, 0, rotation.x * AllegroFlare::TAU);
+   //al_rotate_transform_3d(transform, 0, 1, 0, rotation.y * AllegroFlare::TAU);
+   //al_rotate_transform_3d(transform, 0, 0, 1, rotation.z * AllegroFlare::TAU);
+
+   // translate
+   al_translate_transform_3d(transform, position.x, position.y, position.z);
 }
 
 

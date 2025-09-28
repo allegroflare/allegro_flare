@@ -59,6 +59,8 @@ namespace AllegroFlare
          std::function<void(int)> get_on_joy_button_pressed() const;
          std::function<void(int)> get_on_joy_button_released() const;
          std::function<void(std::pair<int, int>, std::pair<float, float>)> get_on_joy_axis_change() const;
+         AllegroFlare::Vec2D get_player_control_move_velocity() const;
+         AllegroFlare::Vec2D get_player_control_look_velocity() const;
          bool get_player_right_pressed() const;
          bool get_player_left_pressed() const;
          bool get_player_up_pressed() const;

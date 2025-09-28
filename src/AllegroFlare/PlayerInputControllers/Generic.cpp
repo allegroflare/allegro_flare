@@ -110,6 +110,18 @@ std::function<void(std::pair<int, int>, std::pair<float, float>)> Generic::get_o
 }
 
 
+AllegroFlare::Vec2D Generic::get_player_control_move_velocity() const
+{
+   return player_control_move_velocity;
+}
+
+
+AllegroFlare::Vec2D Generic::get_player_control_look_velocity() const
+{
+   return player_control_look_velocity;
+}
+
+
 bool Generic::get_player_right_pressed() const
 {
    return player_right_pressed;
