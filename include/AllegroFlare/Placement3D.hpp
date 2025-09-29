@@ -12,11 +12,24 @@ namespace AllegroFlare
 {
    class Placement3D
    {
+   public:
+      enum class RotationOrder
+      {
+         UNDEF,
+         XYZ,
+         XZY,
+         YXZ,
+         YZX,
+         ZXY,
+         ZYX
+      };
+
    private:
       ALLEGRO_TRANSFORM previous_transform;
 
    public:
       AllegroFlare::Vec3D position, size, align, scale, anchor, rotation;
+      RotationOrder rotation_order;
 
       Placement3D();
       Placement3D(float x, float y, float z);

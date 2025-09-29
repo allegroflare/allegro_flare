@@ -5,6 +5,7 @@
 #include <AllegroFlare/Placement3D.hpp>
 
 #include <AllegroFlare/Useful.hpp> // just for #define TAU
+#include <AllegroFlare/Logger.hpp>
 #include <math.h> // just cos, sin
 
 
@@ -22,6 +23,7 @@ Placement3D::Placement3D()
    , scale(1.0, 1.0, 1.0)
    , anchor(0, 0, 0)
    , rotation(0, 0, 0)
+   , rotation_order(RotationOrder::YXZ)
 {}
 
 
@@ -118,14 +120,53 @@ void Placement3D::build_transform(ALLEGRO_TRANSFORM *transform)
    al_translate_transform_3d(transform, anchor.x, anchor.y, anchor.z);
 
    // rotate
-   al_rotate_transform_3d(transform, 0, 1, 0, rotation.y * AllegroFlare::TAU);
-   al_rotate_transform_3d(transform, 1, 0, 0, rotation.x * AllegroFlare::TAU);
-   al_rotate_transform_3d(transform, 0, 0, 1, rotation.z * AllegroFlare::TAU);
+   const float &rx = rotation.x * AllegroFlare::TAU;
+   const float &ry = rotation.y * AllegroFlare::TAU;
+   const float &rz = rotation.z * AllegroFlare::TAU;
+
+   switch (rotation_order)
+   {
+      case RotationOrder::XYZ:
+         al_rotate_transform_3d(transform, 1, 0, 0, rx);
+         al_rotate_transform_3d(transform, 0, 1, 0, ry);
+         al_rotate_transform_3d(transform, 0, 0, 1, rz);
+         break;
+      case RotationOrder::XZY:
+         al_rotate_transform_3d(transform, 1, 0, 0, rx);
+         al_rotate_transform_3d(transform, 0, 0, 1, rz);
+         al_rotate_transform_3d(transform, 0, 1, 0, ry);
+         break;
+      case RotationOrder::YXZ:
+         al_rotate_transform_3d(transform, 0, 1, 0, ry);
+         al_rotate_transform_3d(transform, 1, 0, 0, rx);
+         al_rotate_transform_3d(transform, 0, 0, 1, rz);
+         break;
+      case RotationOrder::YZX:
+         al_rotate_transform_3d(transform, 0, 1, 0, ry);
+         al_rotate_transform_3d(transform, 0, 0, 1, rz);
+         al_rotate_transform_3d(transform, 1, 0, 0, rx);
+         break;
+      case RotationOrder::ZXY:
+         al_rotate_transform_3d(transform, 0, 0, 1, rz);
+         al_rotate_transform_3d(transform, 1, 0, 0, rx);
+         al_rotate_transform_3d(transform, 0, 1, 0, ry);
+         break;
+      case RotationOrder::ZYX:
+         al_rotate_transform_3d(transform, 0, 0, 1, rz);
+         al_rotate_transform_3d(transform, 0, 1, 0, ry);
+         al_rotate_transform_3d(transform, 1, 0, 0, rx);
+         break;
+      default: // Includes UNDEF
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "Unhandled rotation_order."
+         );
+         break;
+   }
 
    // translate
    al_translate_transform_3d(transform, position.x, position.y, position.z);
 }
-
 
 
 
@@ -137,9 +178,49 @@ void Placement3D::build_reverse_transform(ALLEGRO_TRANSFORM *transform)
    al_translate_transform_3d(transform, -position.x, -position.y, -position.z);
 
    // rotate
-   al_rotate_transform_3d(transform, 0, 0, -1, rotation.z * AllegroFlare::TAU);
-   al_rotate_transform_3d(transform, -1, 0, 0, rotation.x * AllegroFlare::TAU);
-   al_rotate_transform_3d(transform, 0, -1, 0, rotation.y * AllegroFlare::TAU);
+   const float &rx = rotation.x * AllegroFlare::TAU;
+   const float &ry = rotation.y * AllegroFlare::TAU;
+   const float &rz = rotation.z * AllegroFlare::TAU;
+
+   switch (rotation_order)
+   {
+      case RotationOrder::XYZ:
+         al_rotate_transform_3d(transform, 0, 0, -1, rz);
+         al_rotate_transform_3d(transform, 0, -1, 0, ry);
+         al_rotate_transform_3d(transform, -1, 0, 0, rx);
+         break;
+      case RotationOrder::XZY:
+         al_rotate_transform_3d(transform, 0, -1, 0, ry);
+         al_rotate_transform_3d(transform, 0, 0, -1, rz);
+         al_rotate_transform_3d(transform, -1, 0, 0, rx);
+         break;
+      case RotationOrder::YXZ:
+         al_rotate_transform_3d(transform, 0, 0, -1, rz);
+         al_rotate_transform_3d(transform, -1, 0, 0, rx);
+         al_rotate_transform_3d(transform, 0, -1, 0, ry);
+         break;
+      case RotationOrder::YZX:
+         al_rotate_transform_3d(transform, -1, 0, 0, rx);
+         al_rotate_transform_3d(transform, 0, 0, -1, rz);
+         al_rotate_transform_3d(transform, 0, -1, 0, ry);
+         break;
+      case RotationOrder::ZXY:
+         al_rotate_transform_3d(transform, 0, -1, 0, ry);
+         al_rotate_transform_3d(transform, -1, 0, 0, rx);
+         al_rotate_transform_3d(transform, 0, 0, -1, rz);
+         break;
+      case RotationOrder::ZYX:
+         al_rotate_transform_3d(transform, -1, 0, 0, rx);
+         al_rotate_transform_3d(transform, 0, -1, 0, ry);
+         al_rotate_transform_3d(transform, 0, 0, -1, rz);
+         break;
+      default: // Includes UNDEF
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "Unhandled rotation_order."
+         );
+         break;
+   }
 
    // offset for alignment and anchors
    al_translate_transform_3d(transform, -anchor.x, -anchor.y, -anchor.z);
