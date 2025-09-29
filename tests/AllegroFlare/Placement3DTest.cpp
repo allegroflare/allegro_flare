@@ -39,3 +39,39 @@ TEST(AllegroFlare_Placement3DTest, build_strafe_vector_xz__will_return_a_strafe_
 }
 
 
+TEST(AllegroFlare_Placement3DTest,
+   build_transform__with_different_rotation_orders__will_produce_the_correct_transformations)
+{
+   AllegroFlare::Placement3D placement;
+   placement.rotation = {0.25f, 0.25f, 0.25f}; // 90 degrees on each axis
+   AllegroFlare::Vec3D point_to_transform = {1.0f, 0.0f, 0.0f};
+
+   std::vector<std::tuple<AllegroFlare::Placement3D::RotationOrder, AllegroFlare::Vec3D>> test_data = {
+      { AllegroFlare::Placement3D::RotationOrder::XYZ, AllegroFlare::Vec3D(0, 0, -1) },
+      { AllegroFlare::Placement3D::RotationOrder::XZY, AllegroFlare::Vec3D(0, 1, 0) },
+      { AllegroFlare::Placement3D::RotationOrder::YXZ, AllegroFlare::Vec3D(-1, 0, 0) },
+      { AllegroFlare::Placement3D::RotationOrder::YZX, AllegroFlare::Vec3D(0, 1, 0) },
+      { AllegroFlare::Placement3D::RotationOrder::ZXY, AllegroFlare::Vec3D(1, 0, 0) },
+      { AllegroFlare::Placement3D::RotationOrder::ZYX, AllegroFlare::Vec3D(0, 0, 1) },
+   };
+
+   float float_eq_threshold = 0.00001f;
+   for (auto &test_case : test_data)
+   {
+      placement.rotation_order = std::get<0>(test_case);
+      AllegroFlare::Vec3D expected_point = std::get<1>(test_case);
+      
+      ALLEGRO_TRANSFORM transform;
+      placement.build_transform(&transform);
+
+      AllegroFlare::Vec3D actual_point = point_to_transform;
+      al_transform_coordinates_3d(&transform, &actual_point.x, &actual_point.y, &actual_point.z);
+
+      EXPECT_NEAR(expected_point.x, actual_point.x, float_eq_threshold);
+      EXPECT_NEAR(expected_point.y, actual_point.y, float_eq_threshold);
+      EXPECT_NEAR(expected_point.z, actual_point.z, float_eq_threshold);
+   }
+}
+
+
+
