@@ -60,6 +60,10 @@ namespace AllegroFlare
 
       bool collide(float x, float y, float z); // not implemented
       bool fcollide(float x, float y, float z, float d); // not implemented
+
+      std::string rotation_order_to_string(RotationOrder order);
+      void next_rotation_order(bool loop=true);
+      void previous_rotation_order(bool loop=true);
    };
 }
 

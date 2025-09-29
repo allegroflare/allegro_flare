@@ -75,3 +75,75 @@ TEST(AllegroFlare_Placement3DTest,
 
 
 
+TEST(AllegroFlare_Placement3DTest,
+   next_rotation_order__will_cycle_to_the_next_rotation_order)
+{
+   AllegroFlare::Placement3D placement;
+   using RotationOrder = AllegroFlare::Placement3D::RotationOrder;
+
+   std::vector<std::pair<RotationOrder, RotationOrder>> test_data = {
+      { RotationOrder::XYZ, RotationOrder::XZY },
+      { RotationOrder::XZY, RotationOrder::YXZ },
+      { RotationOrder::YXZ, RotationOrder::YZX },
+      { RotationOrder::YZX, RotationOrder::ZXY },
+      { RotationOrder::ZXY, RotationOrder::ZYX },
+      { RotationOrder::ZYX, RotationOrder::XYZ },
+   };
+
+   for (auto &datum : test_data)
+   {
+      placement.rotation_order = datum.first;
+      placement.next_rotation_order();
+      EXPECT_EQ(datum.second, placement.rotation_order);
+   }
+}
+
+
+
+TEST(AllegroFlare_Placement3DTest,
+   previous_rotation_order__will_cycle_to_the_previous_rotation_order)
+{
+   AllegroFlare::Placement3D placement;
+   using RotationOrder = AllegroFlare::Placement3D::RotationOrder;
+
+   std::vector<std::pair<RotationOrder, RotationOrder>> test_data = {
+      { RotationOrder::XYZ, RotationOrder::ZYX },
+      { RotationOrder::XZY, RotationOrder::XYZ },
+      { RotationOrder::YXZ, RotationOrder::XZY },
+      { RotationOrder::YZX, RotationOrder::YXZ },
+      { RotationOrder::ZXY, RotationOrder::YZX },
+      { RotationOrder::ZYX, RotationOrder::ZXY },
+   };
+
+   for (auto &datum : test_data)
+   {
+      placement.rotation_order = datum.first;
+      placement.previous_rotation_order();
+      EXPECT_EQ(datum.second, placement.rotation_order);
+   }
+}
+
+
+
+TEST(AllegroFlare_Placement3DTest,
+   next_rotation_order__with_loop_false__when_at_the_last_element__will_not_advance)
+{
+   AllegroFlare::Placement3D placement;
+   placement.rotation_order = AllegroFlare::Placement3D::RotationOrder::ZYX;
+   placement.next_rotation_order(false);
+   EXPECT_EQ(AllegroFlare::Placement3D::RotationOrder::ZYX, placement.rotation_order);
+}
+
+
+
+TEST(AllegroFlare_Placement3DTest,
+   previous_rotation_order__with_loop_false__when_at_the_first_element__will_not_regress)
+{
+   AllegroFlare::Placement3D placement;
+   placement.rotation_order = AllegroFlare::Placement3D::RotationOrder::XYZ;
+   placement.previous_rotation_order(false);
+   EXPECT_EQ(AllegroFlare::Placement3D::RotationOrder::XYZ, placement.rotation_order);
+}
+
+
+

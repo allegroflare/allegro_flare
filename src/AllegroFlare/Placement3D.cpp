@@ -338,6 +338,72 @@ bool Placement3D::operator==(const Placement3D& other) const
 
 
 
+std::string Placement3D::rotation_order_to_string(RotationOrder order)
+{
+   switch (order)
+   {
+      case RotationOrder::XYZ: return "XYZ";
+      case RotationOrder::XZY: return "XZY";
+      case RotationOrder::YXZ: return "YXZ";
+      case RotationOrder::YZX: return "YZX";
+      case RotationOrder::ZXY: return "ZXY";
+      case RotationOrder::ZYX: return "ZYX";
+      default: return "Unknown";
+   }
+}
+
+
+
+void Placement3D::next_rotation_order(bool loop)
+{
+   if (rotation_order == RotationOrder::UNDEF)
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Unhandled rotation_order."
+      );
+   }
+
+   int first = static_cast<int>(RotationOrder::XYZ);
+   int last  = static_cast<int>(RotationOrder::ZYX);
+   int value = static_cast<int>(rotation_order);
+
+   if (value == last)
+   {
+      rotation_order = loop ? RotationOrder::XYZ : RotationOrder::ZYX;
+      return;
+   }
+
+   rotation_order = static_cast<RotationOrder>(value + 1);
+}
+
+
+
+void Placement3D::previous_rotation_order(bool loop)
+{
+   if (rotation_order == RotationOrder::UNDEF)
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Unhandled rotation_order."
+      );
+   }
+
+   int first = static_cast<int>(RotationOrder::XYZ);
+   int last  = static_cast<int>(RotationOrder::ZYX);
+   int value = static_cast<int>(rotation_order);
+
+   if (value == first)
+   {
+      rotation_order = loop ? RotationOrder::ZYX : RotationOrder::XYZ;
+      return;
+   }
+
+   rotation_order = static_cast<RotationOrder>(value - 1);
+}
+
+
+
 } // namespace AllegroFlare
 
 
