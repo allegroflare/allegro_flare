@@ -1,0 +1,55 @@
+properties:
+
+
+  - name: camera
+    type: AllegroFlare::Camera3D*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+
+methods:
+
+
+  - name: set_billboard_placement
+    parameters:
+      - name: placement
+        type: AllegroFlare::Placement3D*
+        default_argument: nullptr
+    guards: [ placement, camera ]
+    body: |
+      // The camera's view matrix is built with rotations in the order Z, Y, X.
+      // To make the object face the camera, its own rotation must match this sequence.
+      placement->rotation_order = Placement3D::RotationOrder::ZYX;
+
+      // Assign the camera's rotation values to the placement.
+      // Placement3D expects rotation values in a [0, 1] unit range, so we must
+      // convert the camera's values if they are in radians.
+      placement->rotation.x = camera->tilt_in_unit_values
+                            ? camera->tilt
+                            : camera->tilt / AllegroFlare::TAU;
+
+      placement->rotation.y = camera->spin_in_unit_values
+                            ? camera->spin
+                            : camera->spin / AllegroFlare::TAU;
+
+      placement->rotation.z = camera->roll_in_unit_values
+                            ? camera->roll
+                            : camera->roll / AllegroFlare::TAU;
+
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::TAU
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Camera3D
+    headers: [ AllegroFlare/Camera3D.hpp ]
+  - symbol: AllegroFlare::Placement3D
+    headers: [ AllegroFlare/Placement3D.hpp ]
+  - symbol: AllegroFlare::TAU
+    headers: [ AllegroFlare/Useful.hpp ]
+
+
