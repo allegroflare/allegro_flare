@@ -3,6 +3,7 @@ properties:
 
   - name: camera
     type: AllegroFlare::Camera3D*
+    constructor_arg: true
     init_with: nullptr
     getter: true
     setter: true

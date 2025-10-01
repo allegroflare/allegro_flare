@@ -12,8 +12,8 @@ namespace AllegroFlare
 {
 
 
-Billboarder3D::Billboarder3D()
-   : camera(nullptr)
+Billboarder3D::Billboarder3D(AllegroFlare::Camera3D* camera)
+   : camera(camera)
 {
 }
 

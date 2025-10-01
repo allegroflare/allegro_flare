@@ -16,7 +16,7 @@ namespace AllegroFlare
 
 
    public:
-      Billboarder3D();
+      Billboarder3D(AllegroFlare::Camera3D* camera=nullptr);
       ~Billboarder3D();
 
       void set_camera(AllegroFlare::Camera3D* camera);
