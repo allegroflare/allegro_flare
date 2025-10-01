@@ -8,9 +8,29 @@
 #include <AllegroFlare/Logger.hpp>
 
 //#include <allegro_flare/allegro_flare.h>
+#include <allegro5/allegro_opengl.h>
 
 #include <iostream>
 #include <sstream>
+
+
+
+static std::string get_opengl_version_string(uint32_t version)
+{
+   int major = (version >> 24) & 0xFF;
+   int minor = (version >> 16) & 0xFF;
+   int revision = (version >> 8) & 0xFF;
+
+   std::ostringstream oss;
+   oss << major << "." << minor;
+   if (revision > 0)
+   {
+      oss << "." << revision;
+   }
+
+   return oss.str();
+}
+
 
 
 static std::string as_yes_no(int val)
@@ -158,7 +178,7 @@ namespace AllegroFlare
 
       result_fullscreen = al_get_display_flags(al_display) & ALLEGRO_FULLSCREEN_WINDOW;
       result_resizable = al_get_display_flags(al_display) & ALLEGRO_RESIZABLE;
-
+      bool result_is_opengl = al_get_display_flags(al_display) & ALLEGRO_OPENGL;
 
 
       std::stringstream display_message;
@@ -174,7 +194,12 @@ namespace AllegroFlare
       display_message << "                  vsync: "
                       << as_yes_no(al_get_display_option(al_display, ALLEGRO_VSYNC)) << std::endl;
       display_message << "                 OpenGL: "
-                      << as_yes_no(al_get_display_flags(al_display) & ALLEGRO_OPENGL) << std::endl;
+                      << as_yes_no(result_is_opengl) << std::endl;
+      if (result_is_opengl)
+      {
+         display_message << "         OpenGL version: "
+                         << get_opengl_version_string(al_get_opengl_version()) << std::endl;
+      }
       display_message << "   as fullscreen window: "
                       << as_yes_no(result_fullscreen) << std::endl;
       display_message << "    as resizable window: "
