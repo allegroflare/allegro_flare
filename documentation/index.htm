@@ -71,6 +71,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/AudioRepositoryElement.q.yml">quintessence/AllegroFlare/AudioRepositoryElement.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/BackgroundFactory.q.yml">quintessence/AllegroFlare/BackgroundFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/BacktracingException.q.yml">quintessence/AllegroFlare/BacktracingException.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Billboarder3D.q.yml">quintessence/AllegroFlare/Billboarder3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/BitmapInfo.q.yml">quintessence/AllegroFlare/BitmapInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3D.q.yml">quintessence/AllegroFlare/Bone3D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml">quintessence/AllegroFlare/Bone3DGraphRenderer.q.yml</a></li>
@@ -2096,6 +2097,40 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::StackTracer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/StackTracer.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Billboarder3D.q.yml">quintessence/AllegroFlare/Billboarder3D.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">camera</td>
+  <td class="property">AllegroFlare::Camera3D*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_billboard_placement</b>(AllegroFlare::Placement3D* placement=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Camera3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Camera3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Placement3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Placement3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TAU&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -53087,22 +53122,19 @@ table td
   "AllegroFlare/StackTracer": [
     "AllegroFlare/BacktracingException"
   ],
-  "ALLEGRO_PIXEL_FORMAT": [
-    "AllegroFlare/BitmapInfo"
-  ],
-  "std/setw": [
-    "AllegroFlare/BitmapInfo",
-    "AllegroFlare/SavingAndLoading/SaveSlot"
-  ],
-  "std/setfill": [
-    "AllegroFlare/BitmapInfo",
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/SavingAndLoading/SaveSlot",
-    "AllegroFlare/UnicodeFontViewer",
-    "Wicked/Hud"
+  "AllegroFlare/Camera3D": [
+    "AllegroFlare/Billboarder3D",
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Placement3D": [
+    "AllegroFlare/Billboarder3D",
     "AllegroFlare/Bone3D",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
@@ -53120,6 +53152,24 @@ table td
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Shaders/Cubemap",
     "Wicked/Entities/Basic3D"
+  ],
+  "AllegroFlare/TAU": [
+    "AllegroFlare/Billboarder3D"
+  ],
+  "ALLEGRO_PIXEL_FORMAT": [
+    "AllegroFlare/BitmapInfo"
+  ],
+  "std/setw": [
+    "AllegroFlare/BitmapInfo",
+    "AllegroFlare/SavingAndLoading/SaveSlot"
+  ],
+  "std/setfill": [
+    "AllegroFlare/BitmapInfo",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/UnicodeFontViewer",
+    "Wicked/Hud"
   ],
   "std/vector<AllegroFlare/Bone3D>": [
     "AllegroFlare/Bone3D"
@@ -53690,16 +53740,6 @@ table td
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView"
-  ],
-  "AllegroFlare/Camera3D": [
-    "AllegroFlare/ClubCatt/Logo",
-    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MeshFPS/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/ClubCatt/Logo": [
     "AllegroFlare/ClubCatt/Logo",

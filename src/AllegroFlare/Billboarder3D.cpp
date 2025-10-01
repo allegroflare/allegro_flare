@@ -53,7 +53,8 @@ void Billboarder3D::set_billboard_placement(AllegroFlare::Placement3D* placement
    }
    // The camera's view matrix is built with rotations in the order Z, Y, X.
    // To make the object face the camera, its own rotation must match this sequence.
-   placement->rotation_order = Placement3D::RotationOrder::ZYX;
+   //placement->rotation_order = Placement3D::RotationOrder::ZYX;
+   placement->rotation_order = AllegroFlare::Placement3D::RotationOrder::XZY;
 
    // Assign the camera's rotation values to the placement.
    // Placement3D expects rotation values in a [0, 1] unit range, so we must
@@ -69,6 +70,10 @@ void Billboarder3D::set_billboard_placement(AllegroFlare::Placement3D* placement
    placement->rotation.z = camera->roll_in_unit_values
                          ? camera->roll
                          : camera->roll / AllegroFlare::TAU;
+
+   placement->rotation.x *= -1;
+   placement->rotation.y *= -1;
+   placement->rotation.z *= -1;
 
    return;
 }

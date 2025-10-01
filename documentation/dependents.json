@@ -528,22 +528,19 @@
   "AllegroFlare/StackTracer": [
     "AllegroFlare/BacktracingException"
   ],
-  "ALLEGRO_PIXEL_FORMAT": [
-    "AllegroFlare/BitmapInfo"
-  ],
-  "std/setw": [
-    "AllegroFlare/BitmapInfo",
-    "AllegroFlare/SavingAndLoading/SaveSlot"
-  ],
-  "std/setfill": [
-    "AllegroFlare/BitmapInfo",
-    "AllegroFlare/Elements/Score",
-    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
-    "AllegroFlare/SavingAndLoading/SaveSlot",
-    "AllegroFlare/UnicodeFontViewer",
-    "Wicked/Hud"
+  "AllegroFlare/Camera3D": [
+    "AllegroFlare/Billboarder3D",
+    "AllegroFlare/ClubCatt/Logo",
+    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
+    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/Prototypes/CubeShooter/Screen",
+    "AllegroFlare/Prototypes/MeshFPS/Screen",
+    "AllegroFlare/Prototypes/MindDive/MindDive",
+    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/Placement3D": [
+    "AllegroFlare/Billboarder3D",
     "AllegroFlare/Bone3D",
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/DialogSystem/CharacterStagingLayouts/Dynamic",
@@ -561,6 +558,24 @@
     "AllegroFlare/Screens/CharacterNameInput",
     "AllegroFlare/Shaders/Cubemap",
     "Wicked/Entities/Basic3D"
+  ],
+  "AllegroFlare/TAU": [
+    "AllegroFlare/Billboarder3D"
+  ],
+  "ALLEGRO_PIXEL_FORMAT": [
+    "AllegroFlare/BitmapInfo"
+  ],
+  "std/setw": [
+    "AllegroFlare/BitmapInfo",
+    "AllegroFlare/SavingAndLoading/SaveSlot"
+  ],
+  "std/setfill": [
+    "AllegroFlare/BitmapInfo",
+    "AllegroFlare/Elements/Score",
+    "AllegroFlare/MusicMesh/FontCharacterAtlasBuilder",
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/UnicodeFontViewer",
+    "Wicked/Hud"
   ],
   "std/vector<AllegroFlare/Bone3D>": [
     "AllegroFlare/Bone3D"
@@ -1131,16 +1146,6 @@
     "AllegroFlare/ClubCatt/Logo",
     "AllegroFlare/MotionComposer/TrackView",
     "AllegroFlare/MotionComposer/TrackView"
-  ],
-  "AllegroFlare/Camera3D": [
-    "AllegroFlare/ClubCatt/Logo",
-    "AllegroFlare/GraphicsPipelines/Basic3D/Scene",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/Entities/Camera3D",
-    "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
-    "AllegroFlare/Prototypes/CubeShooter/Screen",
-    "AllegroFlare/Prototypes/MeshFPS/Screen",
-    "AllegroFlare/Prototypes/MindDive/MindDive",
-    "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
   "AllegroFlare/ClubCatt/Logo": [
     "AllegroFlare/ClubCatt/Logo",
