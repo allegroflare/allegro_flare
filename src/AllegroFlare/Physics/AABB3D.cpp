@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Physics/AABB3D.hpp>
 
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -466,7 +467,7 @@ std::vector<ALLEGRO_VERTEX> AABB3D::build_dotted_line_list_vertices(AllegroFlare
 
       while (remaining_length > min_length_threshold)
       {
-         float current_dash_len = fmin(dash_length, remaining_length);
+         float current_dash_len = std::fmin(dash_length, remaining_length);
          append_line(cursor, cursor + direction * current_dash_len);
 
          cursor += direction * cycle_length;

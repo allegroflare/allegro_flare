@@ -3585,6 +3585,9 @@
     "AllegroFlare/Prototypes/MeshFPS/Entities/Base",
     "AllegroFlare/Prototypes/Platforming2D/Screen"
   ],
+  "std/fmin": [
+    "AllegroFlare/Physics/AABB3D"
+  ],
   "AllegroFlare/Physics/AABB3D": [
     "AllegroFlare/Physics/AABB3D"
   ],

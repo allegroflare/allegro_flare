@@ -513,7 +513,7 @@ methods:
 
          while (remaining_length > min_length_threshold)
          {
-            float current_dash_len = fmin(dash_length, remaining_length);
+            float current_dash_len = std::fmin(dash_length, remaining_length);
             append_line(cursor, cursor + direction * current_dash_len);
 
             cursor += direction * cycle_length;
@@ -521,6 +521,8 @@ methods:
          }
       }
       return vertices;
+    body_dependency_symbols:
+      - std::fmin
 
 
 dependencies:
@@ -528,6 +530,8 @@ dependencies:
 
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
+  - symbol: std::fmin
+    headers: [ cmath ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
   - symbol: AllegroFlare::Physics::AABB3D
