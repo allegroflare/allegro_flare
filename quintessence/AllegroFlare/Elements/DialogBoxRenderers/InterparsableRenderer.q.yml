@@ -278,6 +278,8 @@ methods:
          draw_rudimentary_triangle(width-80, height-52-y_offset, c_width, c_height, cursor_color, opacity);
       }
       return;
+    body_dependency_symbols:
+      - std::sin
 
 
   - name: draw_rudimentary_triangle
@@ -609,5 +611,7 @@ dependencies:
     headers: [ AllegroFlare/TextFormatters/Basic.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
+  - symbol: std::sin
+    headers: [ cmath ]
 
 

@@ -13,6 +13,7 @@
 #include <AllegroFlare/TextFormatters/Basic.hpp>
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
+#include <cmath>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>

@@ -2423,6 +2423,11 @@
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
     "AllegroFlare/TextFormatters/Basic"
   ],
+  "std/sin": [
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/PlayerInputControllers/Generic",
+    "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxes/Intertitle",
@@ -3698,10 +3703,6 @@
     "AllegroFlare/Screens/Gameplay"
   ],
   "std/cos": [
-    "AllegroFlare/PlayerInputControllers/Generic",
-    "AllegroFlare/Prototypes/MeshFPS/Screen"
-  ],
-  "std/sin": [
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
