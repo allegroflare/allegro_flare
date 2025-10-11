@@ -60,32 +60,32 @@ void DeploymentEnvironment::set_environment(std::string environment)
    return;
 }
 
-bool DeploymentEnvironment::is_undefined()
+bool DeploymentEnvironment::is_undefined() const
 {
    return environment == ENVIRONMENT_UNDEF;
 }
 
-bool DeploymentEnvironment::is_production()
+bool DeploymentEnvironment::is_production() const
 {
    return environment == ENVIRONMENT_PRODUCTION;
 }
 
-bool DeploymentEnvironment::is_test()
+bool DeploymentEnvironment::is_test() const
 {
    return environment == ENVIRONMENT_TEST;
 }
 
-bool DeploymentEnvironment::is_demo()
+bool DeploymentEnvironment::is_demo() const
 {
    return environment == ENVIRONMENT_DEMO;
 }
 
-bool DeploymentEnvironment::is_development()
+bool DeploymentEnvironment::is_development() const
 {
    return environment == ENVIRONMENT_DEVELOPMENT;
 }
 
-bool DeploymentEnvironment::environment_should_set_path_to_resources_path()
+bool DeploymentEnvironment::environment_should_set_path_to_resources_path() const
 {
    return environment == ENVIRONMENT_PRODUCTION;
 }

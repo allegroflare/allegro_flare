@@ -66,36 +66,42 @@ methods:
 
   - name: is_undefined
     type: bool
+    const: true
     body: |
       return environment == ENVIRONMENT_UNDEF;
 
 
   - name: is_production
     type: bool
+    const: true
     body: |
       return environment == ENVIRONMENT_PRODUCTION;
 
 
   - name: is_test
     type: bool
+    const: true
     body: |
       return environment == ENVIRONMENT_TEST;
 
 
   - name: is_demo
     type: bool
+    const: true
     body: |
       return environment == ENVIRONMENT_DEMO;
 
 
   - name: is_development
     type: bool
+    const: true
     body: |
       return environment == ENVIRONMENT_DEVELOPMENT;
 
 
   - name: environment_should_set_path_to_resources_path
     type: bool
+    const: true
     body: |
       return environment == ENVIRONMENT_PRODUCTION;
 

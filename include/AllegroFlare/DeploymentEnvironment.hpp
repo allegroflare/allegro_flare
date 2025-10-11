@@ -31,12 +31,12 @@ namespace AllegroFlare
       std::string get_current_working_directory_before_setup() const;
       bool get_working_directory_has_been_setup() const;
       void set_environment(std::string environment=ENVIRONMENT_UNDEF);
-      bool is_undefined();
-      bool is_production();
-      bool is_test();
-      bool is_demo();
-      bool is_development();
-      bool environment_should_set_path_to_resources_path();
+      bool is_undefined() const;
+      bool is_production() const;
+      bool is_test() const;
+      bool is_demo() const;
+      bool is_development() const;
+      bool environment_should_set_path_to_resources_path() const;
       void setup_current_working_directory();
       void restore_initial_working_directory();
       bool _is_valid(std::string environment="[unset-environment]");
