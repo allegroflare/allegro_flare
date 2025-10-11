@@ -253,6 +253,12 @@ Achievements &Full::get_achievements_ref()
 }
 
 
+DeploymentEnvironment &Full::get_deployment_environment_ref()
+{
+   return deployment_environment;
+}
+
+
 AllegroFlare::Routers::Base *Full::get_router()
 {
    return router;

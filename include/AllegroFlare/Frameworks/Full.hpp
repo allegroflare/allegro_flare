@@ -174,6 +174,7 @@ namespace AllegroFlare
          EventEmitter &get_event_emitter_ref();
          Notifications &get_notifications_ref();
          Achievements &get_achievements_ref();
+         AllegroFlare::DeploymentEnvironment &get_deployment_environment_ref();
          AllegroFlare::Routers::Base *get_router();
          void set_router(AllegroFlare::Routers::Base* router);
          Display *get_primary_display();

@@ -19,6 +19,11 @@ properties:
     init_with: nullptr
     getter: true
 
+  - name: framework_deployment_environment
+    type: AllegroFlare::DeploymentEnvironment*
+    init_with: nullptr
+    getter: true
+
   - name: framework_bitmap_bin
     type: AllegroFlare::BitmapBin*
     init_with: nullptr
@@ -108,6 +113,7 @@ functions:
       this->framework_sample_bin = &framework.get_sample_bin_ref();
       this->framework_data_folder_path = framework.get_data_folder_path();
       this->framework_profiler = &framework.get_profiler_ref();
+      this->framework_deployment_environment = &framework.get_deployment_environment_ref();
       this->framework_primary_render_surface = framework.get_primary_render_surface();
 
       test_snapshots_folder = "./tmp/test_snapshots/";

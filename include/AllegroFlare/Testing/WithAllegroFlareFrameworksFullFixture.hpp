@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -27,6 +28,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::Frameworks::Full framework;
          AllegroFlare::EventEmitter* framework_event_emitter;
+         AllegroFlare::DeploymentEnvironment* framework_deployment_environment;
          AllegroFlare::BitmapBin* framework_bitmap_bin;
          AllegroFlare::FontBin* framework_font_bin;
          AllegroFlare::SampleBin* framework_sample_bin;
@@ -49,6 +51,7 @@ namespace AllegroFlare
          virtual ~WithAllegroFlareFrameworksFullFixture();
 
          AllegroFlare::EventEmitter* get_framework_event_emitter() const;
+         AllegroFlare::DeploymentEnvironment* get_framework_deployment_environment() const;
          AllegroFlare::BitmapBin* get_framework_bitmap_bin() const;
          AllegroFlare::FontBin* get_framework_font_bin() const;
          AllegroFlare::SampleBin* get_framework_sample_bin() const;

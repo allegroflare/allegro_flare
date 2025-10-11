@@ -18,6 +18,7 @@ WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    : ::testing::Test()
    , framework({})
    , framework_event_emitter(nullptr)
+   , framework_deployment_environment(nullptr)
    , framework_bitmap_bin(nullptr)
    , framework_font_bin(nullptr)
    , framework_sample_bin(nullptr)
@@ -43,6 +44,12 @@ WithAllegroFlareFrameworksFullFixture::~WithAllegroFlareFrameworksFullFixture()
 AllegroFlare::EventEmitter* WithAllegroFlareFrameworksFullFixture::get_framework_event_emitter() const
 {
    return framework_event_emitter;
+}
+
+
+AllegroFlare::DeploymentEnvironment* WithAllegroFlareFrameworksFullFixture::get_framework_deployment_environment() const
+{
+   return framework_deployment_environment;
 }
 
 
@@ -138,6 +145,7 @@ void WithAllegroFlareFrameworksFullFixture::SetUp()
    this->framework_sample_bin = &framework.get_sample_bin_ref();
    this->framework_data_folder_path = framework.get_data_folder_path();
    this->framework_profiler = &framework.get_profiler_ref();
+   this->framework_deployment_environment = &framework.get_deployment_environment_ref();
    this->framework_primary_render_surface = framework.get_primary_render_surface();
 
    test_snapshots_folder = "./tmp/test_snapshots/";
