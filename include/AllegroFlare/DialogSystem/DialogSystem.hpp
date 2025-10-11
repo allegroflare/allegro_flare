@@ -43,7 +43,7 @@ namespace AllegroFlare
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
-         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
+         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
 
       private:
          AllegroFlare::BitmapBin* bitmap_bin;

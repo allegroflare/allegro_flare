@@ -28,6 +28,8 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -839,10 +841,35 @@ void DialogSystem::activate_dialog_node_by_name(std::string dialog_node_name)
    AllegroFlare::DialogTree::Nodes::Base *found_dialog_node = dialog_node_bank.find_node_by_name(dialog_node_name);
    if (!found_dialog_node)
    {
+      // TODO: Test this error message
+      std::set<std::string> all_node_names = dialog_node_bank.get_all_node_names();
+      std::stringstream error_message;
+      error_message << "Could not find dialog node with identifier \"" << dialog_node_name << "\". "
+                    << "The node bank contains " << dialog_node_bank.num_nodes() << " nodes. ";
+      if (!all_node_names.empty())
+      {
+         error_message << "The available nodes are: ";
+         int count = 0;
+         int max_names_to_show = 20;
+         for (const auto& node_name : all_node_names)
+         {
+            if (count > 0) error_message << ", ";
+            error_message << "\"" << node_name << "\"";
+            count++;
+            if (count >= max_names_to_show)
+            {
+               int remaining = all_node_names.size() - count;
+               if (remaining > 0)
+               {
+                  error_message << ", and " << remaining << " more not listed here.";
+               }
+               break;
+            }
+         }
+      }
       AllegroFlare::Logger::throw_error(
          "AllegroFlare::DialogSystem::DialogSystem::activate_dialog_node_by_name",
-         "Could not find dialog node with identifier \"" + dialog_node_name + "\". "
-            "The node bank contains " + std::to_string(dialog_node_bank.num_nodes()) + " nodes."
+         error_message.str()
       );
    }
 
@@ -1344,6 +1371,7 @@ void DialogSystem::spawn_choice_dialog(std::string speaking_character, std::stri
             cursor_position_on_spawn
          );
    active_dialog_box = choice_dialog_box;
+
 
 
    // Calculate the dimensions of the box, to set the cursor selection box on it
