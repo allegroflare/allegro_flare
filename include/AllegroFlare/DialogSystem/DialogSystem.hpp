@@ -53,6 +53,7 @@ namespace AllegroFlare
             UNDEF = 0,
             SWITCH_OUT,
             RESPAWN_IF_PRESENT,
+            THROW_ERROR,
          };
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;

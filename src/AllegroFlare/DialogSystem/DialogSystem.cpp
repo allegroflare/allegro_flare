@@ -408,6 +408,16 @@ void DialogSystem::set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialo
             }
          } break;
 
+         case SetDialogNodeBankWhileActiveBehavior::THROW_ERROR: {
+            AllegroFlare::Logger::throw_error(
+               THIS_CLASS_AND_METHOD_NAME,
+               "The dialog system is configured to throw an error in this case: You are not allowed to "
+                  "call \"set_dialog_node_bank()\" when a dialog is currently active. This behavior can be "
+                  "configured. See DialogSystem's \"set_dialog_node_bank_while_active_behavior\" for more "
+                  "information on what other configurations are available."
+            );
+         } break;
+
          default: {
             AllegroFlare::Logger::throw_error(
                "AllegroFlare::DialogSystem::DialogSystem::set_dialog_node_bank",
