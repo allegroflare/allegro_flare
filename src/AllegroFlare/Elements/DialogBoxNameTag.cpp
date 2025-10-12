@@ -22,6 +22,8 @@ DialogBoxNameTag::DialogBoxNameTag(AllegroFlare::FontBin* font_bin, std::string 
    , name(name)
    , width(width)
    , height(height)
+   , text_x_nudge(0.0f)
+   , text_y_nudge(0.0f)
    , background_color(background_color)
    , background_opacity(background_opacity)
    , text_color(text_color)
@@ -32,6 +34,18 @@ DialogBoxNameTag::DialogBoxNameTag(AllegroFlare::FontBin* font_bin, std::string 
 
 DialogBoxNameTag::~DialogBoxNameTag()
 {
+}
+
+
+void DialogBoxNameTag::set_text_x_nudge(float text_x_nudge)
+{
+   this->text_x_nudge = text_x_nudge;
+}
+
+
+void DialogBoxNameTag::set_text_y_nudge(float text_y_nudge)
+{
+   this->text_y_nudge = text_y_nudge;
 }
 
 
@@ -68,6 +82,18 @@ float DialogBoxNameTag::get_width() const
 float DialogBoxNameTag::get_height() const
 {
    return height;
+}
+
+
+float DialogBoxNameTag::get_text_x_nudge() const
+{
+   return text_x_nudge;
+}
+
+
+float DialogBoxNameTag::get_text_y_nudge() const
+{
+   return text_y_nudge;
 }
 
 
@@ -151,8 +177,8 @@ void DialogBoxNameTag::draw_text()
    al_draw_text(
       font,
       text_color,
-      width/2,
-      height/2 - al_get_font_line_height(font)/2,
+      width/2 + text_x_nudge,
+      height/2 - al_get_font_line_height(font)/2 + text_y_nudge,
       ALLEGRO_ALIGN_CENTER,
       name.c_str()
    );

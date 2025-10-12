@@ -23,6 +23,18 @@ properties:
     constructor_arg: true
     getter: true
 
+  - name: text_x_nudge
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: text_y_nudge
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
   - name: background_color
     type: ALLEGRO_COLOR
     init_with: 'ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0}'
@@ -95,8 +107,8 @@ methods:
       al_draw_text(
          font,
          text_color,
-         width/2,
-         height/2 - al_get_font_line_height(font)/2,
+         width/2 + text_x_nudge,
+         height/2 - al_get_font_line_height(font)/2 + text_y_nudge,
          ALLEGRO_ALIGN_CENTER,
          name.c_str()
       );

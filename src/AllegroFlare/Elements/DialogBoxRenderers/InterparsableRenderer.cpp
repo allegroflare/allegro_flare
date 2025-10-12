@@ -496,7 +496,7 @@ void InterparsableRenderer::draw_special_state_empty_text(float width, float hei
 
 void InterparsableRenderer::draw_speaking_character_name()
 {
-   int width = 220;
+   int width = 220; // TODO: Make the width vary based on the length of the speaking character
    int height = 46;
 
    AllegroFlare::Placement2D place(30, 0, width, height);
@@ -510,6 +510,7 @@ void InterparsableRenderer::draw_speaking_character_name()
    );
    name_tag.set_background_color(border_color);
    name_tag.set_text_color(label_color);
+   name_tag.set_text_y_nudge(2.0f);
    name_tag.render();
    place.restore_transform();
    return;
