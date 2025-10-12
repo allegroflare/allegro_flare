@@ -38,6 +38,9 @@ Basic::Basic(AllegroFlare::FontBin* font_bin, std::string text)
    , draw_unrendered_pretext(false)
    , on_operational_chunk_func(AllegroFlare::TextFormatters::Basic::default_on_operational_chunk_func)
    , on_operational_chunk_func_user_data(nullptr)
+   , line_height_strategy(AllegroFlare::TextFormatters::Basic::LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT)
+   , line_height_offset(0.0f)
+   , line_height_fixed_value(20.0f)
    , render_state__text_color(ALLEGRO_COLOR{1, 1, 1, 1})
 {
 }
@@ -114,6 +117,24 @@ void Basic::set_on_operational_chunk_func_user_data(void* on_operational_chunk_f
 }
 
 
+void Basic::set_line_height_strategy(AllegroFlare::TextFormatters::Basic::LineHeightStrategy line_height_strategy)
+{
+   this->line_height_strategy = line_height_strategy;
+}
+
+
+void Basic::set_line_height_offset(float line_height_offset)
+{
+   this->line_height_offset = line_height_offset;
+}
+
+
+void Basic::set_line_height_fixed_value(float line_height_fixed_value)
+{
+   this->line_height_fixed_value = line_height_fixed_value;
+}
+
+
 void Basic::set_render_state__text_color(ALLEGRO_COLOR render_state__text_color)
 {
    this->render_state__text_color = render_state__text_color;
@@ -180,6 +201,24 @@ void* Basic::get_on_operational_chunk_func_user_data() const
 }
 
 
+AllegroFlare::TextFormatters::Basic::LineHeightStrategy Basic::get_line_height_strategy() const
+{
+   return line_height_strategy;
+}
+
+
+float Basic::get_line_height_offset() const
+{
+   return line_height_offset;
+}
+
+
+float Basic::get_line_height_fixed_value() const
+{
+   return line_height_fixed_value;
+}
+
+
 ALLEGRO_COLOR Basic::get_render_state__text_color() const
 {
    return render_state__text_color;
@@ -190,6 +229,26 @@ void Basic::set_on_operational_chunk_func__default_text_color(ALLEGRO_COLOR on_o
 {
    AllegroFlare::TextFormatters::Basic::on_operational_chunk_func__default_text_color =
       on_operational_chunk_func__default_text_color;
+   return;
+}
+
+void Basic::set_line_height_strategy_to_natural_line_height()
+{
+   line_height_strategy = LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT;
+   return;
+}
+
+void Basic::set_line_height_strategy_to_natural_line_height_with_offset(float line_height_offset)
+{
+   line_height_strategy = LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT_WITH_OFFSET;
+   this->line_height_offset = line_height_offset;
+   return;
+}
+
+void Basic::set_line_height_strategy_to_fixed_height(float line_height_fixed_value)
+{
+   line_height_strategy = LineHeightStrategy::FIXED_LINE_HEIGHT;
+   this->line_height_fixed_value = line_height_fixed_value;
    return;
 }
 
@@ -339,6 +398,39 @@ std::string Basic::collate_printable_text_only(std::string raw_text_source)
    return result.str();
 }
 
+float Basic::infer_line_height(ALLEGRO_FONT* font)
+{
+   if (!(font))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TextFormatters::Basic::infer_line_height]: error: guard \"font\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TextFormatters::Basic::infer_line_height]: error: guard \"font\" not met");
+   }
+   switch (line_height_strategy)
+   {
+      case LineHeightStrategy::FIXED_LINE_HEIGHT: {
+         return line_height_fixed_value;
+      } break;
+
+      case LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT: {
+         return al_get_font_line_height(font);
+      } break;
+
+      case LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT_WITH_OFFSET: {
+         return al_get_font_line_height(font) + line_height_offset;
+      } break;
+
+      default: {
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "Unhandled case for \"line_height_strategy\" of value \"" + std::to_string((int)line_height_strategy) + "\""
+         );
+      } break;
+   }
+   return 0.0f;
+}
+
 void Basic::render()
 {
    if (!(al_is_system_installed()))
@@ -370,7 +462,7 @@ void Basic::render()
       throw std::runtime_error("[AllegroFlare::TextFormatters::Basic::render]: error: guard \"font_bin\" not met");
    }
    ALLEGRO_FONT *font = obtain_font();
-   float line_height = al_get_font_line_height(font);
+   float line_height = infer_line_height(font);
    std::string text_with_formatting = text;
    std::string printable_text_only = collate_printable_text_only(text_with_formatting);
 

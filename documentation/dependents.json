@@ -4620,6 +4620,9 @@
   "AllegroFlare/Testing/WithAllegroRenderingFixture": [
     "AllegroFlare/Testing/WithInteractionFixture"
   ],
+  "AllegroFlare/TextFormatters/Basic/LineHeightStrategy": [
+    "AllegroFlare/TextFormatters/Basic"
+  ],
   "AllegroFlare/TileMaps/AutoTile/FilterMatrix": [
     "AllegroFlare/TileMaps/AutoTile/FilterMatrix",
     "AllegroFlare/TileMaps/AutoTile/Filters/Base",

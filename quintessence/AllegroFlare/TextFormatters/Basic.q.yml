@@ -68,6 +68,24 @@ properties:
     getter: true
     setter: true
 
+  - name: line_height_strategy
+    type: AllegroFlare::TextFormatters::Basic::LineHeightStrategy
+    init_with: AllegroFlare::TextFormatters::Basic::LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT
+    getter: true
+    setter: true
+
+  - name: line_height_offset
+    type: float
+    init_with: 0.0f
+    getter: true
+    setter: true
+
+  - name: line_height_fixed_value
+    type: float
+    init_with: 20.0f
+    getter: true
+    setter: true
+
   - name: render_state__text_color
     type: ALLEGRO_COLOR
     init_with: ALLEGRO_COLOR{1, 1, 1, 1}
@@ -90,6 +108,17 @@ properties:
     init_with: '{}'
 
 
+enums:
+
+
+  - class: LineHeightStrategy
+    enumerators:
+      - UNDEF
+      - FIXED_LINE_HEIGHT
+      - FONT_NATURAL_LINE_HEIGHT
+      - FONT_NATURAL_LINE_HEIGHT_WITH_OFFSET
+
+
 documentation:
 
 
@@ -108,6 +137,34 @@ methods:
     body: |
       AllegroFlare::TextFormatters::Basic::on_operational_chunk_func__default_text_color =
          on_operational_chunk_func__default_text_color;
+      return;
+
+
+  - name: set_line_height_strategy_to_natural_line_height
+    body: |
+      line_height_strategy = LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT;
+      return;
+
+
+  - name: set_line_height_strategy_to_natural_line_height_with_offset
+    parameters:
+      - name: line_height_offset
+        type: float
+        default_argument: 0.0f
+    body: |
+      line_height_strategy = LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT_WITH_OFFSET;
+      this->line_height_offset = line_height_offset;
+      return;
+
+
+  - name: set_line_height_strategy_to_fixed_height
+    parameters:
+      - name: line_height_fixed_value
+        type: float
+        default_argument: 20.0f
+    body: |
+      line_height_strategy = LineHeightStrategy::FIXED_LINE_HEIGHT;
+      this->line_height_fixed_value = line_height_fixed_value;
       return;
 
 
@@ -298,6 +355,38 @@ methods:
       - std::stringstream
 
 
+  - name: infer_line_height
+    type: float
+    parameters:
+      - name: font
+        type: ALLEGRO_FONT*
+        default_argument: nullptr
+    guards: [ font ]
+    body: |
+      switch (line_height_strategy)
+      {
+         case LineHeightStrategy::FIXED_LINE_HEIGHT: {
+            return line_height_fixed_value;
+         } break;
+
+         case LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT: {
+            return al_get_font_line_height(font);
+         } break;
+
+         case LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT_WITH_OFFSET: {
+            return al_get_font_line_height(font) + line_height_offset;
+         } break;
+
+         default: {
+            AllegroFlare::Logger::throw_error(
+               THIS_CLASS_AND_METHOD_NAME,
+               "Unhandled case for \"line_height_strategy\" of value \"" + std::to_string((int)line_height_strategy) + "\""
+            );
+         } break;
+      }
+      return 0.0f;
+
+
   - name: render
     type: void
     guards:
@@ -307,7 +396,7 @@ methods:
       - font_bin
     body: |
       ALLEGRO_FONT *font = obtain_font();
-      float line_height = al_get_font_line_height(font);
+      float line_height = infer_line_height(font);
       std::string text_with_formatting = text;
       std::string printable_text_only = collate_printable_text_only(text_with_formatting);
 
@@ -448,5 +537,7 @@ dependencies:
     headers: [ AllegroFlare/TextFormatters/Basic.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::TextFormatters::Basic::LineHeightStrategy
+    headers: [ AllegroFlare/TextFormatters/Basic.hpp ]
 
 

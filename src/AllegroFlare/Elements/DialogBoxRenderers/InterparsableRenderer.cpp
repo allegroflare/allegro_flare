@@ -331,7 +331,9 @@ void InterparsableRenderer::render_text()
    basic_text_formatter.set_font_size(font_size);
    basic_text_formatter.set_on_operational_chunk_func__default_text_color(text_color); // NOTE: A little sloppy
    basic_text_formatter.set_x(text_padding_x);
-   basic_text_formatter.set_y(text_padding_y);
+   basic_text_formatter.set_y(text_padding_y); // TODO: Include a "y_offset_nudge"
+   basic_text_formatter.set_line_height_strategy_to_natural_line_height_with_offset(5.0f); // TODO: Consider this as
+                                                                                           // variable
    basic_text_formatter.render();
 
    return;
@@ -363,9 +365,9 @@ void InterparsableRenderer::render_next_or_finished_button(float opacity)
    else // Drawing a triangle cursor
    {
       float cursor_age = al_get_time() - page_finished_at;
-      float c_width = 24;
-      float c_height = 24;
-      float speed = 5;
+      float c_width = 24+6;
+      float c_height = 24-6;
+      float speed = 6;
       float magnitude = 10;
       ALLEGRO_COLOR cursor_color = text_color;
       float y_offset = (std::sin(cursor_age * speed) * 0.5 + 0.5) * magnitude;
@@ -373,7 +375,7 @@ void InterparsableRenderer::render_next_or_finished_button(float opacity)
             //(std::sin(cursor_age * speed) * 0.5 + 1.0)
          //) * magnitude;
          ;
-      draw_rudimentary_triangle(width-80, height-52-y_offset, c_width, c_height, cursor_color, opacity);
+      draw_rudimentary_triangle(width-80, height-50-y_offset, c_width, c_height, cursor_color, opacity);
    }
    return;
 }
