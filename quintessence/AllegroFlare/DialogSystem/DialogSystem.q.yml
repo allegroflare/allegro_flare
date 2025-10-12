@@ -194,14 +194,14 @@ properties:
     constexpr: true
     const: true
     static: true
-    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
 
   - name: DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR
     type: ALLEGRO_COLOR
     constexpr: true
     const: true
     static: true
-    init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
+    init_with: 'ALLEGRO_COLOR{0, 0, 0, 0.7}'
 
   - name: DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR
     type: ALLEGRO_COLOR
@@ -215,7 +215,7 @@ properties:
     constexpr: true
     const: true
     static: true
-    init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
+    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
 
 
 documentation:

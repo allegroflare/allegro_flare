@@ -40,10 +40,10 @@ namespace AllegroFlare
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_Y = 1080/8.0f*6;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_WIDTH = 1920/2.0f;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_HEIGHT = 1080/5.0f;
-         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
-         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
+         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
+         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR = ALLEGRO_COLOR{0, 0, 0, 0.7};
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
-         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
+         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
 
       private:
          AllegroFlare::BitmapBin* bitmap_bin;
