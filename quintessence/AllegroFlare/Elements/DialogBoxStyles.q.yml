@@ -6,13 +6,13 @@ properties:
     constexpr: true
     static: true
     const: true
-    init_with: '(char*)"Inter-Regular.ttf"'
+    init_with: '(char*)"InstrumentSans-Regular.ttf"'
 
   - name: DEFAULT_FONT_SIZE
     type: int
     constexpr: true
     static: true
     const: true
-    init_with: -36
+    init_with: -38
 
 

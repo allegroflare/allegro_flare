@@ -10,8 +10,8 @@ namespace AllegroFlare
       class DialogBoxStyles
       {
       public:
-         static constexpr char* DEFAULT_FONT_NAME = (char*)"Inter-Regular.ttf";
-         static constexpr int DEFAULT_FONT_SIZE = -36;
+         static constexpr char* DEFAULT_FONT_NAME = (char*)"InstrumentSans-Regular.ttf";
+         static constexpr int DEFAULT_FONT_SIZE = -38;
 
       private:
 

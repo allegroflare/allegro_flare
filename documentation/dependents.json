@@ -1728,6 +1728,11 @@
   "AllegroFlare/DialogSystem/DialogSystem/SetDialogNodeBankWhileActiveBehavior": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
+  "AllegroFlare/Elements/DialogBoxStyles": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+  ],
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
@@ -2387,9 +2392,6 @@
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer": [
-    "AllegroFlare/Elements/DialogBoxRenderer"
-  ],
-  "AllegroFlare/Elements/DialogBoxStyles": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogButton": [

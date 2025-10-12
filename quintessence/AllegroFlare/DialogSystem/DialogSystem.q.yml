@@ -158,14 +158,14 @@ properties:
     constexpr: true
     const: true
     static: true
-    init_with: '(char*)"Inter-Regular.ttf"'
+    init_with: AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_NAME
 
   - name: DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE
     type: int
     constexpr: true
     const: true
     static: true
-    init_with: -36
+    init_with: AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_SIZE
 
   - name: DEFAULT_STANDARD_DIALOG_BOX_X
     type: float
@@ -258,6 +258,16 @@ documentation:
 
 
 methods:
+
+
+  - name: __dep_trigger
+    parameters:
+      - name: x
+        type: void*
+        default_argument: nullptr
+        default_argument_dependency_symbols: [ 'AllegroFlare::Elements::DialogBoxStyles' ]
+    body: |
+      return;
 
 
   - name: set_bitmap_bin
@@ -1660,5 +1670,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior
     headers: [ AllegroFlare/DialogSystem/DialogSystem.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxStyles
+    headers: [ AllegroFlare/Elements/DialogBoxStyles.hpp ]
 
 

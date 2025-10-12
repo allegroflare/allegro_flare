@@ -4276,6 +4276,10 @@ table td
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>__dep_trigger</b>(void* x=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>set_bitmap_bin</b>(AllegroFlare::BitmapBin* bitmap_bin=nullptr)</td>
 </tr>
 <tr>
@@ -4607,6 +4611,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogSystem/DialogSystem.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxStyles&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxStyles.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -10093,6 +10100,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxStyles&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxStyles.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -54378,6 +54388,11 @@ table td
   "AllegroFlare/DialogSystem/DialogSystem/SetDialogNodeBankWhileActiveBehavior": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
+  "AllegroFlare/Elements/DialogBoxStyles": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+  ],
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"
@@ -55037,9 +55052,6 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer": [
-    "AllegroFlare/Elements/DialogBoxRenderer"
-  ],
-  "AllegroFlare/Elements/DialogBoxStyles": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogButton": [

@@ -616,5 +616,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: std::sin
     headers: [ cmath ]
+  - symbol: AllegroFlare::Elements::DialogBoxStyles
+    headers: [ AllegroFlare/Elements/DialogBoxStyles.hpp ]
 
 

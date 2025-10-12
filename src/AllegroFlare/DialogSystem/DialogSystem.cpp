@@ -314,6 +314,11 @@ AllegroFlare::DialogSystemDrivers::Base* &DialogSystem::get_driver_ref()
 }
 
 
+void DialogSystem::__dep_trigger(void* x)
+{
+   return;
+}
+
 void DialogSystem::set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin)
 {
    if (!((!initialized)))

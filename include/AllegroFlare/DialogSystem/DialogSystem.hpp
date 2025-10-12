@@ -15,6 +15,7 @@
 #include <AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
 #include <AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.hpp>
+#include <AllegroFlare/Elements/DialogBoxStyles.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
@@ -35,8 +36,8 @@ namespace AllegroFlare
       class DialogSystem
       {
       public:
-         static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = (char*)"Inter-Regular.ttf";
-         static constexpr int DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE = -36;
+         static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_NAME;
+         static constexpr int DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE = AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_SIZE;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_X = 1920/2.0f;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_Y = 1080/8.0f*6+16;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_WIDTH = 1920/2.0f;
@@ -128,6 +129,7 @@ namespace AllegroFlare
          bool get_initialized() const;
          AllegroFlare::DialogTree::NodeBank &get_dialog_node_bank_ref();
          AllegroFlare::DialogSystemDrivers::Base* &get_driver_ref();
+         void __dep_trigger(void* x=nullptr);
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin=nullptr);
          void set_font_bin(AllegroFlare::FontBin* font_bin=nullptr);
          void set_event_emitter(AllegroFlare::EventEmitter* event_emitter=nullptr);
