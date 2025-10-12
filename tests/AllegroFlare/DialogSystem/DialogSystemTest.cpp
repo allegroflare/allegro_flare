@@ -124,6 +124,11 @@ public:
       return result_roster; // TODO: Delete after use
    }
 
+   void clear()
+   {
+      al_clear_to_color(ALLEGRO_COLOR{0.41, 0.41, 0.41, 1.0}); // "dim gray"
+   }
+
    static bool my_load_node_bank_func(
          std::string filename,
          AllegroFlare::DialogTree::NodeBank* node_bank,
@@ -581,7 +586,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    int passes = 120;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -590,7 +595,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    passes = 120;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -599,7 +604,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    passes = 120;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -629,7 +634,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    int passes = 120;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -638,7 +643,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    passes = 120;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -647,7 +652,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    passes = 120;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -679,7 +684,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    int passes = NUM_PASSES;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -691,7 +696,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    passes = NUM_PASSES;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -710,7 +715,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
    passes = NUM_PASSES;
    for (int i=0; i<passes; i++)
    {
-      al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+      clear();
       dialog_system.update();
       dialog_system.render();
       al_flip_display();
@@ -850,7 +855,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
          break;
 
          case ALLEGRO_EVENT_TIMER:
-            al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+            clear();
             dialog_system.update();
             dialog_system.render();
             if (!dialog_system.a_dialog_is_active())
@@ -1022,7 +1027,7 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
          break;
 
          case ALLEGRO_EVENT_TIMER:
-            al_clear_to_color(ALLEGRO_COLOR{0, 0, 0, 0});
+            clear();
             dialog_system.update();
             dialog_system.render();
             if (!dialog_system.a_dialog_is_active())

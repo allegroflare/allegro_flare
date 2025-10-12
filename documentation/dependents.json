@@ -1725,6 +1725,9 @@
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
     "AllegroFlare/Elements/DialogBoxes/Interparsable"
   ],
+  "AllegroFlare/DialogSystem/DialogSystem/SetDialogNodeBankWhileActiveBehavior": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
     "AllegroFlare/DialogSystem/Scenes/Basic"

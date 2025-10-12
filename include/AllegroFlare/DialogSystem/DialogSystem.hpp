@@ -2,6 +2,7 @@
 
 
 #include <AllegroFlare/BitmapBin.hpp>
+#include <AllegroFlare/DialogSystem/DialogSystem.hpp>
 #include <AllegroFlare/DialogSystemDrivers/Base.hpp>
 #include <AllegroFlare/DialogTree/NodeBank.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Base.hpp>
@@ -37,7 +38,7 @@ namespace AllegroFlare
          static constexpr char* DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME = (char*)"Inter-Regular.ttf";
          static constexpr int DEFAULT_STANDARD_DIALOG_BOX_FONT_SIZE = -36;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_X = 1920/2.0f;
-         static constexpr float DEFAULT_STANDARD_DIALOG_BOX_Y = 1080/8.0f*6;
+         static constexpr float DEFAULT_STANDARD_DIALOG_BOX_Y = 1080/8.0f*6+16;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_WIDTH = 1920/2.0f;
          static constexpr float DEFAULT_STANDARD_DIALOG_BOX_HEIGHT = 1080/5.0f;
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
@@ -46,6 +47,12 @@ namespace AllegroFlare
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
 
       private:
+         enum class SetDialogNodeBankWhileActiveBehavior
+         {
+            UNDEF = 0,
+            SWITCH_OUT,
+            RESPAWN_IF_PRESENT,
+         };
          AllegroFlare::BitmapBin* bitmap_bin;
          AllegroFlare::FontBin* font_bin;
          AllegroFlare::EventEmitter* event_emitter;
@@ -58,6 +65,7 @@ namespace AllegroFlare
          void* interparsable_on_operational_chunk_func_user_data;
          std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> on_before_activating_dialog_node_by_name_callback_func;
          void* on_before_activating_dialog_node_by_name_callback_func_user_data;
+         AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior set_dialog_node_bank_while_active_behavior;
          AllegroFlare::DialogSystemDrivers::Base* driver;
          bool switched_in;
          std::string standard_dialog_box_font_name;
@@ -84,6 +92,7 @@ namespace AllegroFlare
          void set_interparsable_on_operational_chunk_func_user_data(void* interparsable_on_operational_chunk_func_user_data);
          void set_on_before_activating_dialog_node_by_name_callback_func(std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> on_before_activating_dialog_node_by_name_callback_func);
          void set_on_before_activating_dialog_node_by_name_callback_func_user_data(void* on_before_activating_dialog_node_by_name_callback_func_user_data);
+         void set_set_dialog_node_bank_while_active_behavior(AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior set_dialog_node_bank_while_active_behavior);
          void set_standard_dialog_box_font_name(std::string standard_dialog_box_font_name);
          void set_standard_dialog_box_font_size(int standard_dialog_box_font_size);
          void set_standard_dialog_box_x(float standard_dialog_box_x);
@@ -103,6 +112,7 @@ namespace AllegroFlare
          void* get_interparsable_on_operational_chunk_func_user_data() const;
          std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> get_on_before_activating_dialog_node_by_name_callback_func() const;
          void* get_on_before_activating_dialog_node_by_name_callback_func_user_data() const;
+         AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior get_set_dialog_node_bank_while_active_behavior() const;
          AllegroFlare::DialogSystemDrivers::Base* get_driver() const;
          bool get_switched_in() const;
          std::string get_standard_dialog_box_font_name() const;

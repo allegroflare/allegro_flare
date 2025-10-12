@@ -70,6 +70,12 @@ properties:
     getter: true
     setter: true
 
+  - name: set_dialog_node_bank_while_active_behavior
+    type: AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior
+    init_with: SetDialogNodeBankWhileActiveBehavior::RESPAWN_IF_PRESENT
+    getter: true
+    setter: true
+
   - name: driver
     type: AllegroFlare::DialogSystemDrivers::Base*
     init_with: nullptr
@@ -173,7 +179,7 @@ properties:
     constexpr: true
     const: true
     static: true
-    init_with: 1080/8.0f*6
+    init_with: 1080/8.0f*6+16
 
   - name: DEFAULT_STANDARD_DIALOG_BOX_WIDTH
     type: float
@@ -216,6 +222,16 @@ properties:
     const: true
     static: true
     init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+
+
+enums:
+
+
+  - class: SetDialogNodeBankWhileActiveBehavior
+    enumerators:
+      - UNDEF
+      - SWITCH_OUT
+      - RESPAWN_IF_PRESENT
 
 
 documentation:
@@ -312,10 +328,44 @@ methods:
         type: AllegroFlare::DialogTree::NodeBank
         default_argument: '{}'
     body: |
-      // TODO: Test the expected conditions when calling "set_dialog_node_bank" after init and/or when the node bank
-      // is currently loaded (is it cleared? Does the active_dialog_box become nullptr, active_dialog_name empty, etc..)
-      clear_and_reset(); // This step includes deleting all the nodes* in the node_bank
-      this->dialog_node_bank = dialog_node_bank;
+      if (a_dialog_is_active())
+      {
+         switch (set_dialog_node_bank_while_active_behavior)
+         {
+            // TODO: Test this behavior
+            case SetDialogNodeBankWhileActiveBehavior::SWITCH_OUT: {
+               this->dialog_node_bank.delete_all_nodes_and_clear();
+               this->dialog_node_bank = dialog_node_bank;
+               shutdown(); // This calls switch_out()
+            } break;
+
+            // TODO: Test this behavior
+            case SetDialogNodeBankWhileActiveBehavior::RESPAWN_IF_PRESENT: {
+               std::string last_active_dialog_node_name = active_dialog_node_name;
+               clear_and_reset();
+               this->dialog_node_bank = dialog_node_bank;
+
+               if (this->dialog_node_bank.node_exists_by_name(last_active_dialog_node_name))
+               {
+                  activate_dialog_node_by_name(last_active_dialog_node_name);
+               }
+            } break;
+
+            default: {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::DialogSystem::DialogSystem::set_dialog_node_bank",
+                  "Unhandled case for on_set_dialog_node_bank_while_active_behavior"
+               );
+            } break;
+         }
+      }
+      else
+      {
+         this->dialog_node_bank.delete_all_nodes_and_clear();
+         this->dialog_node_bank = dialog_node_bank;
+      }
+    body_dependency_symbols:
+      - AllegroFlare::Logger
 
 
   - name: load_dialog_node_bank_from_file
@@ -1608,5 +1658,7 @@ dependencies:
     headers: [ AllegroFlare/Elements/DialogBoxes/Interparsable.hpp ]
   - symbol: ALLEGRO_COLOR
     headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior
+    headers: [ AllegroFlare/DialogSystem/DialogSystem.hpp ]
 
 

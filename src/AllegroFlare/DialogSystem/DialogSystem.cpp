@@ -51,6 +51,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , interparsable_on_operational_chunk_func_user_data(nullptr)
    , on_before_activating_dialog_node_by_name_callback_func({})
    , on_before_activating_dialog_node_by_name_callback_func_user_data(nullptr)
+   , set_dialog_node_bank_while_active_behavior(SetDialogNodeBankWhileActiveBehavior::RESPAWN_IF_PRESENT)
    , driver(nullptr)
    , switched_in(false)
    , standard_dialog_box_font_name(DEFAULT_STANDARD_DIALOG_BOX_FONT_NAME)
@@ -94,6 +95,12 @@ void DialogSystem::set_on_before_activating_dialog_node_by_name_callback_func(st
 void DialogSystem::set_on_before_activating_dialog_node_by_name_callback_func_user_data(void* on_before_activating_dialog_node_by_name_callback_func_user_data)
 {
    this->on_before_activating_dialog_node_by_name_callback_func_user_data = on_before_activating_dialog_node_by_name_callback_func_user_data;
+}
+
+
+void DialogSystem::set_set_dialog_node_bank_while_active_behavior(AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior set_dialog_node_bank_while_active_behavior)
+{
+   this->set_dialog_node_bank_while_active_behavior = set_dialog_node_bank_while_active_behavior;
 }
 
 
@@ -208,6 +215,12 @@ std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, Alleg
 void* DialogSystem::get_on_before_activating_dialog_node_by_name_callback_func_user_data() const
 {
    return on_before_activating_dialog_node_by_name_callback_func_user_data;
+}
+
+
+AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior DialogSystem::get_set_dialog_node_bank_while_active_behavior() const
+{
+   return set_dialog_node_bank_while_active_behavior;
 }
 
 
@@ -367,10 +380,42 @@ void DialogSystem::clear_and_reset()
 
 void DialogSystem::set_dialog_node_bank(AllegroFlare::DialogTree::NodeBank dialog_node_bank)
 {
-   // TODO: Test the expected conditions when calling "set_dialog_node_bank" after init and/or when the node bank
-   // is currently loaded (is it cleared? Does the active_dialog_box become nullptr, active_dialog_name empty, etc..)
-   clear_and_reset(); // This step includes deleting all the nodes* in the node_bank
-   this->dialog_node_bank = dialog_node_bank;
+   if (a_dialog_is_active())
+   {
+      switch (set_dialog_node_bank_while_active_behavior)
+      {
+         // TODO: Test this behavior
+         case SetDialogNodeBankWhileActiveBehavior::SWITCH_OUT: {
+            this->dialog_node_bank.delete_all_nodes_and_clear();
+            this->dialog_node_bank = dialog_node_bank;
+            shutdown(); // This calls switch_out()
+         } break;
+
+         // TODO: Test this behavior
+         case SetDialogNodeBankWhileActiveBehavior::RESPAWN_IF_PRESENT: {
+            std::string last_active_dialog_node_name = active_dialog_node_name;
+            clear_and_reset();
+            this->dialog_node_bank = dialog_node_bank;
+
+            if (this->dialog_node_bank.node_exists_by_name(last_active_dialog_node_name))
+            {
+               activate_dialog_node_by_name(last_active_dialog_node_name);
+            }
+         } break;
+
+         default: {
+            AllegroFlare::Logger::throw_error(
+               "AllegroFlare::DialogSystem::DialogSystem::set_dialog_node_bank",
+               "Unhandled case for on_set_dialog_node_bank_while_active_behavior"
+            );
+         } break;
+      }
+   }
+   else
+   {
+      this->dialog_node_bank.delete_all_nodes_and_clear();
+      this->dialog_node_bank = dialog_node_bank;
+   }
 }
 
 void DialogSystem::load_dialog_node_bank_from_file(std::string filename)
