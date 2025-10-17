@@ -3714,6 +3714,9 @@
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
+  "ALLEGRO_EVENT_MOUSE_AXES": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
   "std/chrono/milliseconds": [
     "AllegroFlare/PlaytimeTracker",
     "AllegroFlare/Testing/WithAllegroRenderingFixture"

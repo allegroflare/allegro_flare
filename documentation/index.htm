@@ -27581,6 +27581,10 @@ table td
   <td class="property">std::function&lt;void(std::pair&lt;int, int&gt;, std::pair&lt;float, float&gt;)&gt;</td>
 </tr>
 <tr>
+  <td class="property">on_mouse_axes_change</td>
+  <td class="property">std::function&lt;void(ALLEGRO_EVENT*)&gt;</td>
+</tr>
+<tr>
   <td class="property">player_control_move_velocity</td>
   <td class="property">AllegroFlare::Vec2D</td>
 </tr>
@@ -27721,6 +27725,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_MOUSE_AXES&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -56373,6 +56380,9 @@ table td
   "std/cos": [
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "ALLEGRO_EVENT_MOUSE_AXES": [
+    "AllegroFlare/PlayerInputControllers/Generic"
   ],
   "std/chrono/milliseconds": [
     "AllegroFlare/PlaytimeTracker",

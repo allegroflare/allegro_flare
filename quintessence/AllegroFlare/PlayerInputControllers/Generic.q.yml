@@ -46,6 +46,12 @@ properties:
     getter: true
     setter: true
 
+  - name: on_mouse_axes_change
+    type: std::function<void(AllegroFlare::MouseAxesChangeData*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: player_control_move_velocity
     type: AllegroFlare::Vec2D
     init_with: '{}'
@@ -562,6 +568,7 @@ methods:
         default_argument: nullptr
     guards: [ ev ]
     body: |
+      //if (on_mouse_down) on_mouse_down(ev->joystick.mouse);
       switch(ev->mouse.button)
       {
          //case 1: {
@@ -578,7 +585,17 @@ methods:
       - name: ev
         type: ALLEGRO_EVENT*
         default_argument: nullptr
+    guards: [ ev, (ev->type == ALLEGRO_EVENT_MOUSE_AXES) ]
     body: |
+      if (on_mouse_axes_change)
+      {
+         AllegroFlare::MouseAxesChangeData mouse_axes_change_data;
+         mouse_axes_change_data.populate_data_from_ALLEGRO_EVENT(ev);
+         on_mouse_axes_change(&mouse_axes_change_data); // TODO: Consider just passing a mouse change object rather
+                                                        // than the raw ALLEGRO_EVENT
+      }
+
+      //if (on_mouse_down) on_mouse_down(ev->joystick.mouse);
       // TODO: Validate spin change
       ///*
       float spin_delta = ev->mouse.dx;
@@ -716,5 +733,9 @@ dependencies:
     headers: [ cmath ]
   - symbol: AllegroFlare::Vec3D
     headers: [ AllegroFlare/Vec3D.hpp ]
+  - symbol: ALLEGRO_EVENT_MOUSE_AXES
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::MouseAxesChangeData
+    headers: [ AllegroFlare/MouseAxesChangeData.hpp ]
 
 

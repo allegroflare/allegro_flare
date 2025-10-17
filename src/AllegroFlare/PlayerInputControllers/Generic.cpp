@@ -23,6 +23,7 @@ Generic::Generic()
    , on_joy_button_pressed({})
    , on_joy_button_released({})
    , on_joy_axis_change({})
+   , on_mouse_axes_change({})
    , player_control_move_velocity({})
    , player_control_look_velocity({})
    , player_right_pressed(false)
@@ -74,6 +75,12 @@ void Generic::set_on_joy_axis_change(std::function<void(std::pair<int, int>, std
 }
 
 
+void Generic::set_on_mouse_axes_change(std::function<void(AllegroFlare::MouseAxesChangeData*)> on_mouse_axes_change)
+{
+   this->on_mouse_axes_change = on_mouse_axes_change;
+}
+
+
 std::function<void(AllegroFlare::Vec2D, double, double)> Generic::get_on_time_step_update() const
 {
    return on_time_step_update;
@@ -107,6 +114,12 @@ std::function<void(int)> Generic::get_on_joy_button_released() const
 std::function<void(std::pair<int, int>, std::pair<float, float>)> Generic::get_on_joy_axis_change() const
 {
    return on_joy_axis_change;
+}
+
+
+std::function<void(AllegroFlare::MouseAxesChangeData*)> Generic::get_on_mouse_axes_change() const
+{
+   return on_mouse_axes_change;
 }
 
 
@@ -518,6 +531,7 @@ void Generic::mouse_down_func(ALLEGRO_EVENT* ev)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::mouse_down_func]: error: guard \"ev\" not met");
    }
+   //if (on_mouse_down) on_mouse_down(ev->joystick.mouse);
    switch(ev->mouse.button)
    {
       //case 1: {
@@ -529,6 +543,29 @@ void Generic::mouse_down_func(ALLEGRO_EVENT* ev)
 
 void Generic::mouse_axes_func(ALLEGRO_EVENT* ev)
 {
+   if (!(ev))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::PlayerInputControllers::Generic::mouse_axes_func]: error: guard \"ev\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::mouse_axes_func]: error: guard \"ev\" not met");
+   }
+   if (!((ev->type == ALLEGRO_EVENT_MOUSE_AXES)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::PlayerInputControllers::Generic::mouse_axes_func]: error: guard \"(ev->type == ALLEGRO_EVENT_MOUSE_AXES)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::PlayerInputControllers::Generic::mouse_axes_func]: error: guard \"(ev->type == ALLEGRO_EVENT_MOUSE_AXES)\" not met");
+   }
+   if (on_mouse_axes_change)
+   {
+      AllegroFlare::MouseAxesChangeData mouse_axes_change_data;
+      mouse_axes_change_data.populate_data_from_ALLEGRO_EVENT(ev);
+      on_mouse_axes_change(&mouse_axes_change_data); // TODO: Consider just passing a mouse change object rather
+                                                     // than the raw ALLEGRO_EVENT
+   }
+
+   //if (on_mouse_down) on_mouse_down(ev->joystick.mouse);
    // TODO: Validate spin change
    ///*
    float spin_delta = ev->mouse.dx;

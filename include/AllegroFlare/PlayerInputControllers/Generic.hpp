@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/MouseAxesChangeData.hpp>
 #include <AllegroFlare/Player.hpp>
 #include <AllegroFlare/PlayerInputControllers/Base.hpp>
 #include <AllegroFlare/Vec2D.hpp>
@@ -27,6 +28,7 @@ namespace AllegroFlare
          std::function<void(int)> on_joy_button_pressed;
          std::function<void(int)> on_joy_button_released;
          std::function<void(std::pair<int, int>, std::pair<float, float>)> on_joy_axis_change;
+         std::function<void(AllegroFlare::MouseAxesChangeData*)> on_mouse_axes_change;
          AllegroFlare::Vec2D player_control_move_velocity;
          AllegroFlare::Vec2D player_control_look_velocity;
          bool player_right_pressed;
@@ -53,12 +55,14 @@ namespace AllegroFlare
          void set_on_joy_button_pressed(std::function<void(int)> on_joy_button_pressed);
          void set_on_joy_button_released(std::function<void(int)> on_joy_button_released);
          void set_on_joy_axis_change(std::function<void(std::pair<int, int>, std::pair<float, float>)> on_joy_axis_change);
+         void set_on_mouse_axes_change(std::function<void(AllegroFlare::MouseAxesChangeData*)> on_mouse_axes_change);
          std::function<void(AllegroFlare::Vec2D, double, double)> get_on_time_step_update() const;
          std::function<void(int)> get_on_key_pressed() const;
          std::function<void(int)> get_on_key_released() const;
          std::function<void(int)> get_on_joy_button_pressed() const;
          std::function<void(int)> get_on_joy_button_released() const;
          std::function<void(std::pair<int, int>, std::pair<float, float>)> get_on_joy_axis_change() const;
+         std::function<void(AllegroFlare::MouseAxesChangeData*)> get_on_mouse_axes_change() const;
          AllegroFlare::Vec2D get_player_control_move_velocity() const;
          AllegroFlare::Vec2D get_player_control_look_velocity() const;
          bool get_player_right_pressed() const;

@@ -1,0 +1,83 @@
+properties:
+
+
+  - name: x
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: y
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: z
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: w
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: dx
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: dy
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: dz
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: dw
+    type: int
+    init_with: 0
+    exposed: true
+
+  - name: display
+    type: ALLEGRO_DISPLAY*
+    init_with: nullptr
+    exposed: true
+
+
+methods:
+
+
+  - name: populate_data_from_ALLEGRO_EVENT
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ ev, (ev->type == ALLEGRO_EVENT_MOUSE_AXES) ]
+    body: |
+      x = ev->mouse.x;
+      y = ev->mouse.y;
+      z = ev->mouse.z;
+      w = ev->mouse.w;
+
+      dx = ev->mouse.dx;
+      dy = ev->mouse.dy;
+      dz = ev->mouse.dz;
+      dw = ev->mouse.dw;
+
+      display = ev->mouse.display;
+
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_DISPLAY
+    headers: [ allegro5/allegro.h ]
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+
+
