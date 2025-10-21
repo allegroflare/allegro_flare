@@ -343,6 +343,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml">quintessence/AllegroFlare/MotionFX/Sparkles2.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MotionKit.q.yml">quintessence/AllegroFlare/MotionKit.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/MouseAxesChangeData.q.yml">quintessence/AllegroFlare/MouseAxesChangeData.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MultitextureModel3DObjLoader.q.yml">quintessence/AllegroFlare/MultitextureModel3DObjLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml">quintessence/AllegroFlare/MusicMesh/FontCharacterAtlasBuilder.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml">quintessence/AllegroFlare/MusicMesh/MusicMesh.q.yml</a></li>
@@ -24909,6 +24910,69 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/MouseAxesChangeData.q.yml">quintessence/AllegroFlare/MouseAxesChangeData.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">x</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">y</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">z</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">w</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">dx</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">dy</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">dz</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">dw</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">display</td>
+  <td class="property">ALLEGRO_DISPLAY*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>populate_data_from_ALLEGRO_EVENT</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_DISPLAY&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/MultitextureModel3DObjLoader.q.yml">quintessence/AllegroFlare/MultitextureModel3DObjLoader.q.yml</h3>
     <p>(This component does not include supplementary documentation)</p>
     <h3>Properties</h3>
@@ -27582,7 +27646,7 @@ table td
 </tr>
 <tr>
   <td class="property">on_mouse_axes_change</td>
-  <td class="property">std::function&lt;void(ALLEGRO_EVENT*)&gt;</td>
+  <td class="property">std::function&lt;void(AllegroFlare::MouseAxesChangeData*)&gt;</td>
 </tr>
 <tr>
   <td class="property">player_control_move_velocity</td>
@@ -27728,6 +27792,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT_MOUSE_AXES&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::MouseAxesChangeData&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/MouseAxesChangeData.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -54036,6 +54103,7 @@ table td
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/LoadASavedGame/Screen",
+    "AllegroFlare/MouseAxesChangeData",
     "AllegroFlare/PlayerInputControllers/Base",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -54442,6 +54510,7 @@ table td
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/DisplaySettingsInterfaces/Live",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/MouseAxesChangeData",
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/Shaders/Base",
@@ -56382,6 +56451,9 @@ table td
     "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
   "ALLEGRO_EVENT_MOUSE_AXES": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
+  "AllegroFlare/MouseAxesChangeData": [
     "AllegroFlare/PlayerInputControllers/Generic"
   ],
   "std/chrono/milliseconds": [

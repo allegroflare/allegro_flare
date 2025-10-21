@@ -1369,6 +1369,7 @@
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/LoadASavedGame/Screen",
+    "AllegroFlare/MouseAxesChangeData",
     "AllegroFlare/PlayerInputControllers/Base",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Screen",
@@ -1775,6 +1776,7 @@
   "ALLEGRO_DISPLAY": [
     "AllegroFlare/DisplaySettingsInterfaces/Live",
     "AllegroFlare/GraphicsPipelines/DynamicEntityPipeline/ShadowDepthMapRenderer",
+    "AllegroFlare/MouseAxesChangeData",
     "AllegroFlare/RenderSurfaces/DisplayBackbuffer",
     "AllegroFlare/RenderSurfaces/DisplayBackbufferSubBitmap",
     "AllegroFlare/Shaders/Base",
@@ -3715,6 +3717,9 @@
     "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
   "ALLEGRO_EVENT_MOUSE_AXES": [
+    "AllegroFlare/PlayerInputControllers/Generic"
+  ],
+  "AllegroFlare/MouseAxesChangeData": [
     "AllegroFlare/PlayerInputControllers/Generic"
   ],
   "std/chrono/milliseconds": [

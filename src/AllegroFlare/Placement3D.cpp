@@ -36,6 +36,7 @@ Placement3D::Placement3D(float x, float y, float z)
    , scale(1.0, 1.0, 1.0)
    , anchor(0, 0, 0)
    , rotation(0, 0, 0)
+   , rotation_order(RotationOrder::YXZ)
 {}
 
 
@@ -48,6 +49,7 @@ Placement3D::Placement3D(AllegroFlare::Vec3D position)
    , scale(1.0, 1.0, 1.0)
    , anchor(0, 0, 0)
    , rotation(0, 0, 0)
+   , rotation_order(RotationOrder::YXZ)
 {}
 
 
