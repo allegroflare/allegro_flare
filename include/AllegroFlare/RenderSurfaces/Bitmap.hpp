@@ -26,6 +26,7 @@ namespace AllegroFlare
          int depth;
          bool min_linear;
          bool mag_linear;
+         bool mipmapping;
          bool no_preserve_texture;
          bool initialized;
          bool config_has_changed;
@@ -41,6 +42,7 @@ namespace AllegroFlare
          void set_depth(int depth);
          void set_min_linear(bool min_linear);
          void set_mag_linear(bool mag_linear);
+         void set_mipmapping(bool mipmapping);
          void set_no_preserve_texture(bool no_preserve_texture);
          void setup_surface_with_settings_that_match_display(
             ALLEGRO_DISPLAY* display,

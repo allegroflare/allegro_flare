@@ -144,6 +144,20 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
 
 
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
+   set_mipmapping__will_set_the_surface_for_linear_filtering_with_scaled_up_versions)
+{
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+
+   render_surface.set_mipmapping(true);
+   render_surface.initialize(); //400, 240, 8, 4);
+
+   ALLEGRO_BITMAP *surface = render_surface.obtain_surface();
+   bool flag_is_present = al_get_bitmap_flags(surface) & ALLEGRO_MIPMAP;
+   EXPECT_EQ(true, flag_is_present);
+}
+
+
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
    set_mag_linear__if_set_to_false__when_in_the_global_al_new_bitmap_flags_is_set_to_true__will_retain_false)
 {
    al_set_new_bitmap_flags(al_get_new_bitmap_flags() | ALLEGRO_MAG_LINEAR);
@@ -203,6 +217,26 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
    AllegroFlare::RenderSurfaces::Bitmap render_surface;
 
    render_surface.set_mag_linear(true);
+   render_surface.initialize();
+   
+   int after_operation_new_bitmap_flags = al_get_new_bitmap_flags();
+   int changed_flags = after_operation_new_bitmap_flags ^ before_operation_new_bitmap_flags;
+
+   EXPECT_EQ(
+      before_operation_new_bitmap_flags,
+      after_operation_new_bitmap_flags
+   ) << "The following flags were changed: " << changed_flags;
+}
+
+
+TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay,
+   set_mipmapping__will_not_leak_new_bitmap_flags_into_the_global_state)
+{
+   int before_operation_new_bitmap_flags = al_get_new_bitmap_flags();
+
+   AllegroFlare::RenderSurfaces::Bitmap render_surface;
+
+   render_surface.set_mipmapping(false);
    render_surface.initialize();
    
    int after_operation_new_bitmap_flags = al_get_new_bitmap_flags();

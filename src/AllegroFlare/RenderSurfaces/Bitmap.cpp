@@ -24,6 +24,7 @@ Bitmap::Bitmap() //int surface_width, int surface_height, int multisamples, int 
    , depth(0)
    , min_linear(false)
    , mag_linear(false)
+   , mipmapping(true) // TODO: Consider making this false by default
    , no_preserve_texture(false)
    //, config_has_changed(false)
    , initialized(false)
@@ -100,6 +101,14 @@ void Bitmap::set_mag_linear(bool mag_linear)
 }
 
 
+void Bitmap::set_mipmapping(bool mipmapping)
+{
+   //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_mag_linear: error: already setup");
+   this->mipmapping = mipmapping;
+   config_has_changed = true;
+}
+
+
 void Bitmap::set_no_preserve_texture(bool no_preserve_texture)
 {
    //if (initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_no_preserve_texture: error: already setup");
@@ -158,6 +167,8 @@ void Bitmap::setup_surface()
    int flags = al_get_new_bitmap_flags();
    add_or_remove_flag(min_linear, ALLEGRO_MIN_LINEAR, &flags);
    add_or_remove_flag(mag_linear, ALLEGRO_MAG_LINEAR, &flags);
+   add_or_remove_flag(mag_linear, ALLEGRO_MAG_LINEAR, &flags);
+   add_or_remove_flag(mipmapping, ALLEGRO_MIPMAP, &flags);
    add_or_remove_flag(no_preserve_texture, ALLEGRO_NO_PRESERVE_TEXTURE, &flags);
    al_set_new_bitmap_flags(flags);
 
