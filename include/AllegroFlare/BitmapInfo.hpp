@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/AllegroUnstable.hpp>
 #include <allegro5/allegro.h>
 #include <string>
 #include <tuple>
@@ -15,6 +16,7 @@ namespace AllegroFlare
       ALLEGRO_BITMAP* bitmap;
       int width;
       int height;
+      int depth;
       int pixel_format;
       int flags;
       int samples;

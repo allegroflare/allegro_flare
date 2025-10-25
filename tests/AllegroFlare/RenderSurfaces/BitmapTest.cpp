@@ -283,7 +283,7 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTestWithDisplay, set_as_target__will_se
 
 
 TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
-   setup_surface_with_settings_that_match_display__will_create_a_surface_with_the_same_settings_as_a_display)
+   FOCUS__setup_surface_with_settings_that_match_display__will_create_a_surface_with_the_same_settings_as_a_display)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
    al_init();
@@ -302,8 +302,8 @@ TEST_F(AllegroFlare_RenderSurfaces_BitmapTest,
 
    int actual_display_depth = al_get_display_option(display, ALLEGRO_DEPTH_SIZE);
    ASSERT_EQ(num_samples, al_get_display_option(display, ALLEGRO_SAMPLES));
-   //ASSERT_EQ(num_depth, actual_display_depth); // NOTE: This fails on my MacMini
-                                                 // bug filed here: https://github.com/liballeg/allegro5/issues/1407
+   ASSERT_EQ(num_depth, actual_display_depth); // NOTE: This fails on my MacMini
+                                               // bug filed here: https://github.com/liballeg/allegro5/issues/1407
    std::vector<int> possible_permissible_depth_sizes = { 16, 24, 32 };
    ASSERT_THAT(possible_permissible_depth_sizes, ::testing::Contains(actual_display_depth)); // TODO: consider revising
                                                  // this test once https://github.com/liballeg/allegro5/issues/1407 is

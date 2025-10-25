@@ -16,6 +16,7 @@ BitmapInfo::BitmapInfo(ALLEGRO_BITMAP* bitmap)
    : bitmap(bitmap)
    , width(0)
    , height(0)
+   , depth(0)
    , pixel_format(0)
    , flags(0)
    , samples(0)
@@ -64,14 +65,14 @@ void BitmapInfo::initialize()
    }
    flags = al_get_bitmap_flags(bitmap);
    pixel_format = al_get_bitmap_format(bitmap);
-   //depth = al_get_bitmap_depth(bitmap); // NOTE: Depth cannot be included unless ALLEGRO_UNSTABLE is defined
-                                          // before #include <allegro5/allegro.h>. Simply adding AllegroUnstable
-                                          // as a dependency here will not get the order correct when the header
-                                          // is generated
+   depth = al_get_bitmap_depth(bitmap); // NOTE: Depth cannot be included unless ALLEGRO_UNSTABLE is defined
+                                        // before #include <allegro5/allegro.h>. Simply adding AllegroUnstable
+                                        // as a dependency here will not get the order correct when the header
+                                        // is generated
    width = al_get_bitmap_width(bitmap);
    height = al_get_bitmap_height(bitmap);
    flags = al_get_bitmap_flags(bitmap);
-   //samples = al_get_bitmap_samples(bitmap); // Might also require ALLEGRO_UNSTABLE
+   samples = al_get_bitmap_samples(bitmap); // Might also require ALLEGRO_UNSTABLE
    is_sub_bitmap = al_is_sub_bitmap(bitmap);
    sub_bitmap_x = al_get_bitmap_x(bitmap);
    sub_bitmap_y = al_get_bitmap_y(bitmap);
@@ -99,6 +100,7 @@ std::string BitmapInfo::build_report()
       { "bitmap", bitmap_ss.str() },
       { "width", std::to_string(width) },
       { "height", std::to_string(height) },
+      { "depth", std::to_string(depth) },
       { "flags", decode_bitmap_flags(flags) },
       { "pixel_format", get_pixel_format_name(ALLEGRO_PIXEL_FORMAT(pixel_format)) },
       { "samples", std::to_string(samples) },
