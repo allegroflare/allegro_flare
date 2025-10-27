@@ -86,6 +86,8 @@ void InitializedAndDestroyed::destroy()
       );
    }
    on_destroy();
+   initialized = false;
+   destroyed = true;
    return;
 }
 

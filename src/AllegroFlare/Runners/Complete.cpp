@@ -529,14 +529,22 @@ void Complete::destroy()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Runners::Complete::destroy]: error: guard \"initialized\" not met");
    }
-   game_configuration->destroy_primary_gameplay_screen();
-   game_configuration->destroy_pause_screen();
+   //game_configuration->destroy_primary_gameplay_screen();
+   //game_configuration->destroy_pause_screen();
 
    title_screen.destroy();
    load_a_saved_game_screen.destroy();
    saving_and_loading_screen.destroy(); // TODO: See if this is necessary
    // TODO: Add additional destroy virtual methods for each object created
    // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
+
+   game_configuration->destroy_primary_gameplay_screen();
+   game_configuration->destroy_pause_screen();
+
+   //game_configuration->destroy();
+   //game_configuration->destroy_primary_gameplay_screen();
+   //game_configuration->destroy_pause_screen();
+
    destroyed = true;
    return;
 }

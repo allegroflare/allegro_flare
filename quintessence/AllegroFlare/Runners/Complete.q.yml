@@ -481,14 +481,22 @@ methods:
     override: true
     guards: [ (!destroyed), initialized ]
     body: |
-      game_configuration->destroy_primary_gameplay_screen();
-      game_configuration->destroy_pause_screen();
+      //game_configuration->destroy_primary_gameplay_screen();
+      //game_configuration->destroy_pause_screen();
 
       title_screen.destroy();
       load_a_saved_game_screen.destroy();
       saving_and_loading_screen.destroy(); // TODO: See if this is necessary
       // TODO: Add additional destroy virtual methods for each object created
       // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
+
+      game_configuration->destroy_primary_gameplay_screen();
+      game_configuration->destroy_pause_screen();
+
+      //game_configuration->destroy();
+      //game_configuration->destroy_primary_gameplay_screen();
+      //game_configuration->destroy_pause_screen();
+
       destroyed = true;
       return;
 
