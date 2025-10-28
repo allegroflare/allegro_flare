@@ -79,6 +79,7 @@ namespace AllegroFlare
          virtual void handle_primary_gameplay_screen_unpaused();
          virtual void handle_primary_gameplay_screen_finished();
          virtual AllegroFlare::Screens::Subscreen::Screen* create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner=nullptr);
+         virtual void destroy_primary_gameplay_subscreen();
          virtual AllegroFlare::Screens::Base* create_pause_screen(AllegroFlare::Runners::Complete* runner=nullptr);
          virtual void destroy_pause_screen();
          virtual void handle_arbitrary_storyboard_screen_finished();

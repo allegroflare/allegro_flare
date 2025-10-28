@@ -446,10 +446,20 @@ methods:
         default_argument: nullptr
     body: |
       AllegroFlare::Logger::throw_error(
-         "AllegroFlare::GameConfigurations::Base::create_primary_gameplay_subscreen",
+         THIS_CLASS_AND_METHOD_NAME,
          "Not implemented in the base class. This method must be implemented in the derived class"
       );
       return nullptr;
+
+
+  - name: destroy_primary_gameplay_subscreen
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Not implemented in the base class. This method must be implemented in the derived class"
+      );
+      return;
 
 
   - name: create_pause_screen
@@ -471,7 +481,7 @@ methods:
   - name: destroy_pause_screen
     virtual: true
     body: |
-      AllegroFlare::Logger::warn_from(
+      AllegroFlare::Logger::throw_error(
          THIS_CLASS_AND_METHOD_NAME,
          "Not implemented in the base class. This method must be implemented in the derived class"
       );

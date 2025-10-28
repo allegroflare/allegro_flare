@@ -361,10 +361,19 @@ void Complete::handle_primary_gameplay_screen_finished()
 AllegroFlare::Screens::Subscreen::Screen* Complete::create_primary_gameplay_subscreen(AllegroFlare::Runners::Complete* runner)
 {
    AllegroFlare::Logger::throw_error(
-      "AllegroFlare::GameConfigurations::Base::create_primary_gameplay_subscreen",
+      THIS_CLASS_AND_METHOD_NAME,
       "Not implemented in the base class. This method must be implemented in the derived class"
    );
    return nullptr;
+}
+
+void Complete::destroy_primary_gameplay_subscreen()
+{
+   AllegroFlare::Logger::throw_error(
+      THIS_CLASS_AND_METHOD_NAME,
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+   return;
 }
 
 AllegroFlare::Screens::Base* Complete::create_pause_screen(AllegroFlare::Runners::Complete* runner)
@@ -378,7 +387,7 @@ AllegroFlare::Screens::Base* Complete::create_pause_screen(AllegroFlare::Runners
 
 void Complete::destroy_pause_screen()
 {
-   AllegroFlare::Logger::warn_from(
+   AllegroFlare::Logger::throw_error(
       THIS_CLASS_AND_METHOD_NAME,
       "Not implemented in the base class. This method must be implemented in the derived class"
    );

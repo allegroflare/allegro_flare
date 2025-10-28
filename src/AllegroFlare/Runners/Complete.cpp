@@ -538,8 +538,14 @@ void Complete::destroy()
    // TODO: Add additional destroy virtual methods for each object created
    // TODO: Consider if this method should be virtual as well, or if game_configuration should have "destroy()"
 
-   game_configuration->destroy_primary_gameplay_screen();
    game_configuration->destroy_pause_screen();
+   pause_screen = nullptr;
+
+   game_configuration->destroy_primary_gameplay_subscreen();
+   primary_gameplay_subscreen = nullptr;
+
+   game_configuration->destroy_primary_gameplay_screen();
+   primary_gameplay_screen = nullptr;
 
    //game_configuration->destroy();
    //game_configuration->destroy_primary_gameplay_screen();
