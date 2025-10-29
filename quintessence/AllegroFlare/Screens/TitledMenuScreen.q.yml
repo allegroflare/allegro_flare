@@ -1330,6 +1330,8 @@ methods:
     body: |
       if (upcase_menu_items) menu_item_text = AllegroFlare::StringTransformer(menu_item_text).upcase().get_text();
       return menu_item_text;
+    body_dependency_symbols:
+      - AllegroFlare::StringTransformer
 
 
   - name: draw_confirmation_dialog
