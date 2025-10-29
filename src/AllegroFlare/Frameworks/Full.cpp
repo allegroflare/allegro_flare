@@ -109,6 +109,9 @@ Full::Full()
    , log_file_is_disabled(true)
    , using_asset_studio(false)
    , mipmapping(true)
+   , use_preferred_pixel_format(true)
+   //, preferred_pixel_format(ALLEGRO_PIXEL_FORMAT_AGBR_8888)
+   , preferred_pixel_format(ALLEGRO_PIXEL_FORMAT_ARGB_8888)
    , deployment_environment(AllegroFlare::DeploymentEnvironment::ENVIRONMENT_UNDEF)
    , unset_deployment_environment_warning_on_initialization_is_disabled(false)
    , shader_source_poller()
@@ -320,6 +323,10 @@ void Full::setup_allegro5_to_preferred_configuration()
 {
    // Setup preferred objects & settings
    if (mipmapping) al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
+
+   // Setup preferred pixel format
+   if (use_preferred_pixel_format) al_set_new_bitmap_format(preferred_pixel_format);
+
 
    bool force_video_bitmaps_only = true;
    if (force_video_bitmaps_only)

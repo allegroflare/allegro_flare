@@ -120,6 +120,8 @@ namespace AllegroFlare
          bool log_file_is_disabled;
          bool using_asset_studio;
          bool mipmapping;
+         bool use_preferred_pixel_format;
+         ALLEGRO_PIXEL_FORMAT preferred_pixel_format;
          AllegroFlare::DeploymentEnvironment deployment_environment;
          bool unset_deployment_environment_warning_on_initialization_is_disabled;
          AllegroFlare::ShaderSourcePoller shader_source_poller;
