@@ -132,14 +132,15 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest,
    {
       // update
       camera.spin -= 0.01;
-      camera.tilt = std::sin(i * 0.02) * 0.1;
+      camera.tilt = std::sin(i * 0.02) * 0.2;
       //camera.tilt += 0.01;
       //object_placement.rotation.y += 0.001;
       //object_placement.rotation.x += 0.00073;
 
       // TODO: Include camera movement here
-      camera.position.x += 0.025;
-      //camera.position.z += 0.025;
+      camera.position.x += 0.025 * 5;
+      //camera.position.x += 0.025;
+      camera.position.z -= 0.025 * 2;
       //object_placement.position = camera.position;
 
       // draw
@@ -147,6 +148,10 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest,
       al_clear_depth_buffer(1);
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
+      if (!shader.get_reflecting())
+      {
+         object_placement.position = camera.position;
+      }
       shader.set_object_placement(&object_placement); // NOTE: For now, this has to be set before activating the shader
                                                       // TODO: Update this behavior so the value can be set
                                                       // after initialization

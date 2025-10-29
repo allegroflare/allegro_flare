@@ -118,6 +118,14 @@ std::string Cubemap::obtain_vertex_source()
       void main()
       {
          gl_Position = al_projview_matrix * position_transform * al_pos;
+
+         //mat4 view_no_translation = al_projview_matrix;
+         //view_no_translation[3][0] = 0.0;
+         //view_no_translation[3][1] = 0.0;
+         //view_no_translation[3][2] = 0.0;
+         //gl_Position = view_no_translation * position_transform * al_pos;
+
+
          normal = (position_transform * vec4(al_user_attr_0, 0.0)).xyz;
          // this NORMAL val will probably ned to be multiplied by the position transform
           //	normal = (al_user_attr_0).xyz;

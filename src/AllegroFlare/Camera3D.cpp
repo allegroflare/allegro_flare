@@ -106,8 +106,8 @@ void Camera3D::reverse_position_transform(ALLEGRO_TRANSFORM *t)
 
 Vec3D Camera3D::get_real_position()
 {
-   //vec3D real_position(0, 0, 0);
-   Vec3D real_position = position;
+   Vec3D real_position(0, 0, 0);
+   //Vec3D real_position = position; // NOTE:
    ALLEGRO_TRANSFORM t;
 
    position_transform(&t);
