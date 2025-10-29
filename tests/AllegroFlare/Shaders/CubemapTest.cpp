@@ -117,8 +117,8 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest,
    camera.tilt = 0.35;           // 0.35 = look down slightly
 
    model_bin.set_path(get_fixtures_path() + "models");
-   model = model_bin["rounded_unit_cube-01.obj"];
-   //model = model_bin["centered_unit_cube-02.obj"];
+   //model = model_bin["rounded_unit_cube-01.obj"];
+   model = model_bin["centered_unit_cube-02.obj"];
 
    // TODO: setup object
 
@@ -148,9 +148,6 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest,
       al_clear_depth_buffer(1);
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
-      AllegroFlare::Vec3D previous_stepout = camera.stepout;
-      //AllegroFlare::Vec3D previous_anchor = camera.get_anchor();
-
       if (!shader.get_reflecting())
       {
          AllegroFlare::Vec3D camera_real_position = camera.get_real_position();
@@ -168,7 +165,6 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest,
       //shader.set_camera_position(camera.get_real_position());
       //shader.set_camera_viewing_direction(camera.get_viewing_direction());
       model->draw();
-      camera.stepout = previous_stepout;
 
       shader.deactivate();
 

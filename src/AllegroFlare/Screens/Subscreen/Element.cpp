@@ -513,7 +513,20 @@ void Element::render_tabs()
    int tab_window_padding = 400;
    int text_anchor_x = 1920 / 2 - tab_window_padding;
    int text_anchor_y = 1080 / 32;
-   int tab_spacing = (1920 - tab_window_padding * 2) / num_tabs;
+
+
+   //int tab_spacing = (1920 - tab_window_padding * 2) / num_tabs;
+   int tab_spacing = 0;
+   if (num_tabs == 1)
+   {
+      text_anchor_x = 1920 / 2;
+   }
+   else if (num_tabs > 1)
+   {
+      tab_spacing = (tab_window_padding * 2) / (num_tabs - 1);
+   }
+
+
    bool pane_is_focused = false;
    static ALLEGRO_COLOR unfocused_tab_text_color = ALLEGRO_COLOR{0.6, 0.6, 0.6, 0.6};
    static ALLEGRO_COLOR focused_tab_text_color = ALLEGRO_COLOR{1, 1, 1, 1};
@@ -525,14 +538,20 @@ void Element::render_tabs()
       std::string pane_label = pane->get_name();
       pane_is_focused = (this_pane_index == current_pane_cursor_pos);
       tab_text_color = pane_is_focused ? focused_tab_text_color : unfocused_tab_text_color;
+
+      float x = text_anchor_x + tab_spacing * tab_num;
+
       al_draw_text(
          tabs_font,
          tab_text_color,
-         text_anchor_x + tab_spacing * tab_num,
+         x,
          text_anchor_y,
          ALLEGRO_ALIGN_CENTER,
          pane_label.c_str()
       );
+
+      //al_draw_line(x, 0, x, 100, ALLEGRO_COLOR{1, 0, 0, 1}, 1.0);
+
       tab_num++;
    }
    return;
