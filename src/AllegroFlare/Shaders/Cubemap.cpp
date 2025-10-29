@@ -157,7 +157,7 @@ std::string Cubemap::obtain_fragment_source()
 
          incoming_angle.y = -incoming_angle.y;
          incoming_angle.x = -incoming_angle.x;
-         //incoming_angle.z = -incoming_angle.z;
+         //incoming_angle.z = -incoming_angle.z; // NOTE: Should this be uncommented?
 
          vec4 color = textureCube(cube_map_A, incoming_angle);
          //color = textureCube(cube_map_B, incoming_angle);
