@@ -22,6 +22,12 @@ properties:
     getter: true
     setter: true
 
+  - name: camera_viewing_direction
+    type: AllegroFlare::Vec3D
+    init_with: AllegroFlare::Vec3D(0, 0, 0)
+    getter: true
+    setter: true
+
   - name: object_placement_transform
     type: ALLEGRO_TRANSFORM
     init_with: '{}'
@@ -84,6 +90,7 @@ functions:
     body: |
       set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
       set_vec3("camera_position", camera_position);
+      set_vec3("camera_viewing_direction", camera_viewing_direction);
       set_mat4("position_transform", &object_placement_transform);
       set_bool("reflecting", reflecting);
       // TODO: set_float("tint_intensity", tint_intensity);
@@ -112,16 +119,27 @@ functions:
          varying vec3 eye_dir;
          uniform samplerCube cube_map_A;
          uniform samplerCube cube_map_B;
+         uniform bool reflecting;
+         uniform vec3 camera_viewing_direction;
 
          void main()
          {
-            gl_Position = al_projview_matrix * position_transform * al_pos;
+            //if (!reflecting)
+            //{
+               //gl_Position = al_projview_matrix * al_pos;
+            //}
+            //else
+            //{
+               gl_Position = al_projview_matrix * position_transform * al_pos;
+            //}
 
             normal = (position_transform * vec4(al_user_attr_0, 0.0)).xyz;
             // this NORMAL val will probably ned to be multiplied by the position transform
              //	normal = (al_user_attr_0).xyz;
             vec3 world_position = (position_transform * al_pos).xyz;
             eye_dir = vec3(camera_position - world_position);
+
+            //if (!reflecting) eye_dir = camera_viewing_direction;
          }
       )DELIM";
       return source;

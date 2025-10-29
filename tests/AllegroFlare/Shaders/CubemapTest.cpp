@@ -113,7 +113,7 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest,
    // NOTE: The near plane is 1, so scaling the boxes object placement
    object_placement.scale = { 10, 10, 10 };
 
-   camera.stepout = {0, 0, 0};  // TODO: Test with different camera orientations, positions
+   camera.stepout = {0, 0, 10};  // TODO: Test with different camera orientations, positions
    camera.tilt = 0.35;           // 0.35 = look down slightly
 
    model_bin.set_path(get_fixtures_path() + "models");
@@ -148,17 +148,28 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest,
       al_clear_depth_buffer(1);
       al_clear_to_color(ALLEGRO_COLOR{0.1, 0.105, 0.12, 1.0});
 
+      AllegroFlare::Vec3D previous_stepout = camera.stepout;
+      //AllegroFlare::Vec3D previous_anchor = camera.get_anchor();
+
       if (!shader.get_reflecting())
       {
-         object_placement.position = camera.position;
+         AllegroFlare::Vec3D camera_real_position = camera.get_real_position();
+         object_placement.position = camera_real_position;
       }
+      shader.set_camera_position(camera.get_real_position());
+      shader.set_camera_viewing_direction(camera.get_viewing_direction());
       shader.set_object_placement(&object_placement); // NOTE: For now, this has to be set before activating the shader
                                                       // TODO: Update this behavior so the value can be set
                                                       // after initialization
+      //shader.set_camera_position(camera.get_real_position());
+      //shader.set_camera_viewing_direction(camera.get_viewing_direction());
       shader.activate();
       //shader.set_camera_position(object_placement.position); // TODO: This one seems to work nicely
-      shader.set_camera_position(camera.get_real_position());
+      //shader.set_camera_position(camera.get_real_position());
+      //shader.set_camera_viewing_direction(camera.get_viewing_direction());
       model->draw();
+      camera.stepout = previous_stepout;
+
       shader.deactivate();
 
       al_flip_display();

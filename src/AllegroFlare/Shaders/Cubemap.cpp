@@ -18,6 +18,7 @@ Cubemap::Cubemap(AllegroFlare::Cubemap* cube_map, bool reflecting)
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::Cubemap::TYPE, obtain_vertex_source(), obtain_fragment_source())
    , cube_map(cube_map)
    , camera_position(AllegroFlare::Vec3D(0, 0, 0))
+   , camera_viewing_direction(AllegroFlare::Vec3D(0, 0, 0))
    , object_placement_transform({})
    , reflecting(reflecting)
 {
@@ -41,6 +42,12 @@ void Cubemap::set_camera_position(AllegroFlare::Vec3D camera_position)
 }
 
 
+void Cubemap::set_camera_viewing_direction(AllegroFlare::Vec3D camera_viewing_direction)
+{
+   this->camera_viewing_direction = camera_viewing_direction;
+}
+
+
 void Cubemap::set_reflecting(bool reflecting)
 {
    this->reflecting = reflecting;
@@ -56,6 +63,12 @@ AllegroFlare::Cubemap* Cubemap::get_cube_map() const
 AllegroFlare::Vec3D Cubemap::get_camera_position() const
 {
    return camera_position;
+}
+
+
+AllegroFlare::Vec3D Cubemap::get_camera_viewing_direction() const
+{
+   return camera_viewing_direction;
 }
 
 
@@ -92,6 +105,7 @@ void Cubemap::set_values_to_activated_shader()
 {
    set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
    set_vec3("camera_position", camera_position);
+   set_vec3("camera_viewing_direction", camera_viewing_direction);
    set_mat4("position_transform", &object_placement_transform);
    set_bool("reflecting", reflecting);
    // TODO: set_float("tint_intensity", tint_intensity);
@@ -114,23 +128,27 @@ std::string Cubemap::obtain_vertex_source()
       varying vec3 eye_dir;
       uniform samplerCube cube_map_A;
       uniform samplerCube cube_map_B;
+      uniform bool reflecting;
+      uniform vec3 camera_viewing_direction;
 
       void main()
       {
-         gl_Position = al_projview_matrix * position_transform * al_pos;
-
-         //mat4 view_no_translation = al_projview_matrix;
-         //view_no_translation[3][0] = 0.0;
-         //view_no_translation[3][1] = 0.0;
-         //view_no_translation[3][2] = 0.0;
-         //gl_Position = view_no_translation * position_transform * al_pos;
-
+         //if (!reflecting)
+         //{
+            //gl_Position = al_projview_matrix * al_pos;
+         //}
+         //else
+         //{
+            gl_Position = al_projview_matrix * position_transform * al_pos;
+         //}
 
          normal = (position_transform * vec4(al_user_attr_0, 0.0)).xyz;
          // this NORMAL val will probably ned to be multiplied by the position transform
           //	normal = (al_user_attr_0).xyz;
          vec3 world_position = (position_transform * al_pos).xyz;
          eye_dir = vec3(camera_position - world_position);
+
+         //if (!reflecting) eye_dir = camera_viewing_direction;
       }
    )DELIM";
    return source;

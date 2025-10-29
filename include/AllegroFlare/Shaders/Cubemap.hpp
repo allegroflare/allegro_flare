@@ -21,6 +21,7 @@ namespace AllegroFlare
       private:
          AllegroFlare::Cubemap* cube_map;
          AllegroFlare::Vec3D camera_position;
+         AllegroFlare::Vec3D camera_viewing_direction;
          ALLEGRO_TRANSFORM object_placement_transform;
          bool reflecting;
          void set_values_to_activated_shader();
@@ -36,9 +37,11 @@ namespace AllegroFlare
 
          void set_cube_map(AllegroFlare::Cubemap* cube_map);
          void set_camera_position(AllegroFlare::Vec3D camera_position);
+         void set_camera_viewing_direction(AllegroFlare::Vec3D camera_viewing_direction);
          void set_reflecting(bool reflecting);
          AllegroFlare::Cubemap* get_cube_map() const;
          AllegroFlare::Vec3D get_camera_position() const;
+         AllegroFlare::Vec3D get_camera_viewing_direction() const;
          bool get_reflecting() const;
          virtual void activate() override;
          void set_object_placement(AllegroFlare::Placement3D* object_placement=nullptr);
