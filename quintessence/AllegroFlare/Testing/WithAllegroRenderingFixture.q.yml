@@ -16,12 +16,12 @@ properties:
 
   - name: font_bin
     type: AllegroFlare::FontBin
-    init_with: '{}'
+    init_with: ''
     getter_ref: true
 
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin
-    init_with: '{}'
+    init_with: ''
     getter_ref: true
 
   - name: display_width

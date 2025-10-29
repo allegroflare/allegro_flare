@@ -12,7 +12,7 @@ properties:
   - name: framework
     type: AllegroFlare::Frameworks::Full
     getter_ref: true
-    init_with: '{}'
+    init_with: ''
 
   - name: framework_event_emitter
     type: AllegroFlare::EventEmitter*

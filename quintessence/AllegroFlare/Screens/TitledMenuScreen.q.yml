@@ -17,11 +17,11 @@ properties:
 
   - name: font_bin
     type: AllegroFlare::FontBin
-    init_with: '{}'
+    init_with: ''
 
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin
-    init_with: '{}'
+    init_with: ''
 
   - name: surface_width
     type: std::size_t

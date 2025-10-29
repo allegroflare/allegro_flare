@@ -17,11 +17,11 @@ properties:
 
   - name: bitmap_bin
     type: AllegroFlare::BitmapBin
-    init_with: '{}'
+    init_with: ''
 
   - name: font_bin
     type: AllegroFlare::FontBin
-    init_with: '{}'
+    init_with: ''
 
   - name: save_slots
     type: std::vector<AllegroFlare::LoadASavedGame::SaveSlots::Base*>

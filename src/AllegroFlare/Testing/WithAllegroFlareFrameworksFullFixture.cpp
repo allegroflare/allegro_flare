@@ -16,7 +16,7 @@ namespace Testing
 
 WithAllegroFlareFrameworksFullFixture::WithAllegroFlareFrameworksFullFixture()
    : ::testing::Test()
-   , framework({})
+   , framework()
    , framework_event_emitter(nullptr)
    , framework_deployment_environment(nullptr)
    , framework_bitmap_bin(nullptr)

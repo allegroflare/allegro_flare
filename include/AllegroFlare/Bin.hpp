@@ -30,6 +30,17 @@ namespace AllegroFlare
          ~Record();
       };
 
+      // Delete copy constructor and copy assignment operator
+      // Copying and assigning can cause wild unexpected results. In the past, the following scenario...
+      //     auto bitmap_bin = something.get_bitmap_bin_ref();
+      // ... resulted in the bitmap_bin actually being copied! and then clearing when going out of scope (because 
+      // the destructors of the derived bins will call clear()). It should have been...
+      //     auto &bitmap_bin = something.get_bitmap_bin_ref();
+      // ... but that was not included and the mistake was completely unrevealed. For that reason, we delete the copy
+      // and assignment constructors. It's never expected to copy a bin.
+      Bin(const Bin&) = delete;
+      Bin& operator=(const Bin&) = delete;
+
       // TODO: Rename this to "output_on_destruction_events" or something similar
       void set_cout_record_names_on_clear(bool cout_record_names_on_clear=false);
 
