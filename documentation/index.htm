@@ -43101,7 +43101,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Shaders/Cubemap.q.yml">quintessence/AllegroFlare/Shaders/Cubemap.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"definitions"=>[{"name"=>"reflecting", "body"=>"When set to true, the material being rendered will act as a solid, reflecting the world around it.  When set\nto false, the material will be rendered as if it were a skybox.\n"}]}</p>    <p>{"todos"=>["Have \"reflecting\" be false by default"]}</p>    <h3>Properties</h3>
+    <p>{"definitions"=>[{"name"=>"reflecting", "body"=>"When set to true, the material being rendered will act as a solid, reflecting the world around it.  When set\nto false, the material will be rendered as if it were a skybox.\n"}]}</p>    <p>{"todos"=>["Have \"reflecting\" be false by default", "Rename \"cube_map\" to \"cubemap\""]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">cube_map</td>
@@ -43124,6 +43124,34 @@ table td
   <td class="property">bool</td>
 </tr>
 <tr>
+  <td class="property">CUBEMAP_SHADER_UNIFORM_TEXTURE_INDEX</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_REFLECTING</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">CUBE_MAP_A_UNIFORM_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">CAMERA_POSITION_UNIFORM_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">CAMERA_VIEWING_DIRECTION_UNIFORM_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">POSITION_TRANSFORM_UNIFORM_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
+  <td class="property">REFLECTING_UNIFORM_IDENTIFIER</td>
+  <td class="property">char*</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
@@ -43133,6 +43161,22 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>activate</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_cube_map</b>(AllegroFlare::Cubemap* cube_map=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_camera_position</b>(AllegroFlare::Vec3D camera_position={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_camera_viewing_direction</b>(AllegroFlare::Vec3D camera_viewing_direction={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_reflecting</b>(bool reflecting=false)</td>
 </tr>
 <tr>
   <td class="method">void</td>

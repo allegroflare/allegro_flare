@@ -6,6 +6,7 @@
 #include <allegro5/allegro.h>
 //#include <allegro_flare/console_color.h>
 #include <AllegroFlare/TerminalColors.hpp>
+#include <AllegroFlare/Logger.hpp>
 #include <allegro5/allegro_opengl.h>
 
 
@@ -41,6 +42,11 @@ namespace AllegroFlare
    bool CubemapBuilder::glsl_destroy_cubemap_texture(AllegroFlare::Cubemap *cubemap)
    {
       // cubemap
+      AllegroFlare::Logger::warn_from(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Not implemented. This cubemap texture will remain dangling for the duration of the running application. "
+            "Please review this code and ensure the cubemap is properly destroyed."
+      );
       return false;
    }
 

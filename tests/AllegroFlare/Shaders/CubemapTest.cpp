@@ -66,6 +66,7 @@ TEST_F(AllegroFlare_Shaders_CubemapWithAllegroRenderingFixtureTest,
 
    shader.initialize();
    shader.set_cube_map(cube_map);
+   shader.set_reflecting(true);
 
    // TODO: Include camera movement
 

@@ -30,30 +30,6 @@ Cubemap::~Cubemap()
 }
 
 
-void Cubemap::set_cube_map(AllegroFlare::Cubemap* cube_map)
-{
-   this->cube_map = cube_map;
-}
-
-
-void Cubemap::set_camera_position(AllegroFlare::Vec3D camera_position)
-{
-   this->camera_position = camera_position;
-}
-
-
-void Cubemap::set_camera_viewing_direction(AllegroFlare::Vec3D camera_viewing_direction)
-{
-   this->camera_viewing_direction = camera_viewing_direction;
-}
-
-
-void Cubemap::set_reflecting(bool reflecting)
-{
-   this->reflecting = reflecting;
-}
-
-
 AllegroFlare::Cubemap* Cubemap::get_cube_map() const
 {
    return cube_map;
@@ -85,6 +61,45 @@ void Cubemap::activate()
    return;
 }
 
+void Cubemap::set_cube_map(AllegroFlare::Cubemap* cube_map)
+{
+   if (!(cube_map))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Shaders::Cubemap::set_cube_map]: error: guard \"cube_map\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Shaders::Cubemap::set_cube_map]: error: guard \"cube_map\" not met");
+   }
+   // TODO: Test this
+   this->cube_map = cube_map;
+   if (is_active()) set_sampler_cube(CUBE_MAP_A_UNIFORM_IDENTIFIER, cube_map, CUBEMAP_SHADER_UNIFORM_TEXTURE_INDEX);
+   return;
+}
+
+void Cubemap::set_camera_position(AllegroFlare::Vec3D camera_position)
+{
+   // TODO: Test this
+   this->camera_position = camera_position;
+   if (is_active()) set_vec3(CAMERA_POSITION_UNIFORM_IDENTIFIER, camera_position);
+   return;
+}
+
+void Cubemap::set_camera_viewing_direction(AllegroFlare::Vec3D camera_viewing_direction)
+{
+   // TODO: Test this
+   this->camera_viewing_direction = camera_viewing_direction;
+   if (is_active()) set_vec3(CAMERA_VIEWING_DIRECTION_UNIFORM_IDENTIFIER, camera_viewing_direction);
+   return;
+}
+
+void Cubemap::set_reflecting(bool reflecting)
+{
+   // TODO: Test this
+   this->reflecting = reflecting;
+   if (is_active()) set_bool("reflecting", reflecting);
+   return;
+}
+
 void Cubemap::set_object_placement(AllegroFlare::Placement3D* object_placement)
 {
    if (!(object_placement))
@@ -95,7 +110,7 @@ void Cubemap::set_object_placement(AllegroFlare::Placement3D* object_placement)
       throw std::runtime_error("[AllegroFlare::Shaders::Cubemap::set_object_placement]: error: guard \"object_placement\" not met");
    }
    object_placement->build_transform(&object_placement_transform);
-   if (is_active()) set_mat4("position_transform", &object_placement_transform); // TODO: Test this
+   if (is_active()) set_mat4(POSITION_TRANSFORM_UNIFORM_IDENTIFIER, &object_placement_transform); // TODO: Test this
 
    // TODO: if this shader is active, send the value to the shader directly
    return;
@@ -103,11 +118,11 @@ void Cubemap::set_object_placement(AllegroFlare::Placement3D* object_placement)
 
 void Cubemap::set_values_to_activated_shader()
 {
-   set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
-   set_vec3("camera_position", camera_position);
-   set_vec3("camera_viewing_direction", camera_viewing_direction);
-   set_mat4("position_transform", &object_placement_transform);
-   set_bool("reflecting", reflecting);
+   set_sampler_cube(CUBE_MAP_A_UNIFORM_IDENTIFIER, cube_map, CUBEMAP_SHADER_UNIFORM_TEXTURE_INDEX);
+   set_vec3(CAMERA_POSITION_UNIFORM_IDENTIFIER, camera_position);
+   set_vec3(CAMERA_VIEWING_DIRECTION_UNIFORM_IDENTIFIER, camera_viewing_direction);
+   set_mat4(POSITION_TRANSFORM_UNIFORM_IDENTIFIER, &object_placement_transform);
+   set_bool(REFLECTING_UNIFORM_IDENTIFIER, reflecting);
    // TODO: set_float("tint_intensity", tint_intensity);
    return;
 }

@@ -14,19 +14,19 @@ properties:
     init_with: nullptr
     constructor_arg: true
     getter: true
-    setter: true
+    setter: explicit
 
   - name: camera_position
     type: AllegroFlare::Vec3D
     init_with: AllegroFlare::Vec3D(0, 0, 0)
     getter: true
-    setter: true
+    setter: explicit
 
   - name: camera_viewing_direction
     type: AllegroFlare::Vec3D
     init_with: AllegroFlare::Vec3D(0, 0, 0)
     getter: true
-    setter: true
+    setter: explicit
 
   - name: object_placement_transform
     type: ALLEGRO_TRANSFORM
@@ -34,10 +34,53 @@ properties:
 
   - name: reflecting
     type: bool
-    init_with: true
+    init_with: DEFAULT_REFLECTING
     constructor_arg: true
     getter: true
-    setter: true
+    setter: explicit
+
+  - name: CUBEMAP_SHADER_UNIFORM_TEXTURE_INDEX
+    type: int
+# // ?? why 5? dunno
+    init_with: 5
+    static: true
+    constexpr: true
+
+  - name: DEFAULT_REFLECTING
+    type: bool
+    init_with: false
+    static: true
+    constexpr: true
+
+  - name: CUBE_MAP_A_UNIFORM_IDENTIFIER
+    type: char*
+    init_with: '(char*)"cube_map_A"'
+    static: true
+    constexpr: true
+
+  - name: CAMERA_POSITION_UNIFORM_IDENTIFIER
+    type: char*
+    init_with: '(char*)"camera_position"'
+    static: true
+    constexpr: true
+
+  - name: CAMERA_VIEWING_DIRECTION_UNIFORM_IDENTIFIER
+    type: char*
+    init_with: '(char*)"camera_viewing_direction"'
+    static: true
+    constexpr: true
+
+  - name: POSITION_TRANSFORM_UNIFORM_IDENTIFIER
+    type: char*
+    init_with: '(char*)"position_transform"'
+    static: true
+    constexpr: true
+
+  - name: REFLECTING_UNIFORM_IDENTIFIER
+    type: char*
+    init_with: '(char*)"reflecting"'
+    static: true
+    constexpr: true
 
   - name: TYPE
     type: char*
@@ -56,6 +99,7 @@ documentation:
           to false, the material will be rendered as if it were a skybox.
   - todos:
       - Have "reflecting" be false by default
+      - Rename "cube_map" to "cubemap"
 
 
 functions:
@@ -71,6 +115,55 @@ functions:
       return;
 
 
+  - name: set_cube_map
+    parameters:
+      - name: cube_map
+        type: AllegroFlare::Cubemap*
+        default_argument: nullptr
+    guards: [ cube_map ]
+    body: |
+      // TODO: Test this
+      this->cube_map = cube_map;
+      if (is_active()) set_sampler_cube(CUBE_MAP_A_UNIFORM_IDENTIFIER, cube_map, CUBEMAP_SHADER_UNIFORM_TEXTURE_INDEX);
+      return;
+
+
+  - name: set_camera_position
+    parameters:
+      - name: camera_position
+        type: AllegroFlare::Vec3D
+        default_argument: '{}'
+    body: |
+      // TODO: Test this
+      this->camera_position = camera_position;
+      if (is_active()) set_vec3(CAMERA_POSITION_UNIFORM_IDENTIFIER, camera_position);
+      return;
+
+
+  - name: set_camera_viewing_direction
+    parameters:
+      - name: camera_viewing_direction
+        type: AllegroFlare::Vec3D
+        default_argument: '{}'
+    body: |
+      // TODO: Test this
+      this->camera_viewing_direction = camera_viewing_direction;
+      if (is_active()) set_vec3(CAMERA_VIEWING_DIRECTION_UNIFORM_IDENTIFIER, camera_viewing_direction);
+      return;
+
+
+  - name: set_reflecting
+    parameters:
+      - name: reflecting
+        type: bool
+        default_argument: false
+    body: |
+      // TODO: Test this
+      this->reflecting = reflecting;
+      if (is_active()) set_bool("reflecting", reflecting);
+      return;
+
+
   - name: set_object_placement
     parameters:
       - name: object_placement
@@ -79,7 +172,7 @@ functions:
     guards: [ object_placement ]
     body: |
       object_placement->build_transform(&object_placement_transform);
-      if (is_active()) set_mat4("position_transform", &object_placement_transform); // TODO: Test this
+      if (is_active()) set_mat4(POSITION_TRANSFORM_UNIFORM_IDENTIFIER, &object_placement_transform); // TODO: Test this
 
       // TODO: if this shader is active, send the value to the shader directly
       return;
@@ -88,11 +181,11 @@ functions:
   - name: set_values_to_activated_shader
     private: true
     body: |
-      set_sampler_cube("cube_map_A", cube_map, 5); // ?? why 5? dunno
-      set_vec3("camera_position", camera_position);
-      set_vec3("camera_viewing_direction", camera_viewing_direction);
-      set_mat4("position_transform", &object_placement_transform);
-      set_bool("reflecting", reflecting);
+      set_sampler_cube(CUBE_MAP_A_UNIFORM_IDENTIFIER, cube_map, CUBEMAP_SHADER_UNIFORM_TEXTURE_INDEX);
+      set_vec3(CAMERA_POSITION_UNIFORM_IDENTIFIER, camera_position);
+      set_vec3(CAMERA_VIEWING_DIRECTION_UNIFORM_IDENTIFIER, camera_viewing_direction);
+      set_mat4(POSITION_TRANSFORM_UNIFORM_IDENTIFIER, &object_placement_transform);
+      set_bool(REFLECTING_UNIFORM_IDENTIFIER, reflecting);
       // TODO: set_float("tint_intensity", tint_intensity);
       return;
     body_dependency_symbols:
