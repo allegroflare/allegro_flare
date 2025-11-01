@@ -89,6 +89,7 @@ namespace AllegroFlare
          AllegroFlare::SuspendedKeyboardState &get_suspended_keyboard_state_ref();
          AllegroFlare::SuspendedJoystickState &get_suspended_joystick_state_ref();
          void set_player_input_controller(AllegroFlare::PlayerInputControllers::Base* player_input_controller=nullptr);
+         void deactivate_current_and_clear_player_input_controller();
          virtual void dialog_system_switch_in_func() override;
          virtual void dialog_system_switch_out_func() override;
          void suspend_gameplay();

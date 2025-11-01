@@ -34,7 +34,7 @@ namespace AllegroFlare
       public:
          Base(std::string type="Base");
          virtual ~Base();
-         virtual void destroy();
+         virtual void destroy(); // NOTE: For some reason, I feel like this as a virtual is a design flaw. Please review.
 
          //void set_type(std::string type);
          std::string get_type();

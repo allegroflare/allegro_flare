@@ -154,24 +154,40 @@ methods:
       - name: player_input_controller
         type: AllegroFlare::PlayerInputControllers::Base*
         default_argument: nullptr
+    guards: [ player_input_controller ]
     body: |
       if (player_input_controller)
       {
          AllegroFlare::Logger::info_from(
-            "AllegroFlare::Screens::Gameplay::set_player_input_controller",
-            "deactivating current player_input_controller"
+            THIS_CLASS_AND_METHOD_NAME,
+            "Deactivating current player_input_controller"
          );
          player_input_controller->on_deactivate();
       }
       this->player_input_controller = player_input_controller;
       AllegroFlare::Logger::info_from(
-         "AllegroFlare::Screens::Gameplay::set_player_input_controller",
-         "activating new player_input_controller"
+         THIS_CLASS_AND_METHOD_NAME,
+         "Activating new player_input_controller"
       );
       this->player_input_controller->on_activate();
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
+
+
+  - name: deactivate_current_and_clear_player_input_controller
+    guards: [ player_input_controller ]
+    body: |
+      if (player_input_controller)
+      {
+         AllegroFlare::Logger::info_from(
+            THIS_CLASS_AND_METHOD_NAME,
+            "Deactivating current player_input_controller."
+         );
+         player_input_controller->on_deactivate();
+      }
+      this->player_input_controller = nullptr;
+      return;
 
 
   - name: dialog_system_switch_in_func

@@ -3,6 +3,9 @@
 #include <AllegroFlare/Screens/Gameplay.hpp>
 
 #include <AllegroFlare/Logger.hpp>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -227,20 +230,48 @@ AllegroFlare::SuspendedJoystickState &Gameplay::get_suspended_joystick_state_ref
 
 void Gameplay::set_player_input_controller(AllegroFlare::PlayerInputControllers::Base* player_input_controller)
 {
+   if (!(player_input_controller))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Screens::Gameplay::set_player_input_controller]: error: guard \"player_input_controller\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Screens::Gameplay::set_player_input_controller]: error: guard \"player_input_controller\" not met");
+   }
    if (player_input_controller)
    {
       AllegroFlare::Logger::info_from(
-         "AllegroFlare::Screens::Gameplay::set_player_input_controller",
-         "deactivating current player_input_controller"
+         THIS_CLASS_AND_METHOD_NAME,
+         "Deactivating current player_input_controller"
       );
       player_input_controller->on_deactivate();
    }
    this->player_input_controller = player_input_controller;
    AllegroFlare::Logger::info_from(
-      "AllegroFlare::Screens::Gameplay::set_player_input_controller",
-      "activating new player_input_controller"
+      THIS_CLASS_AND_METHOD_NAME,
+      "Activating new player_input_controller"
    );
    this->player_input_controller->on_activate();
+   return;
+}
+
+void Gameplay::deactivate_current_and_clear_player_input_controller()
+{
+   if (!(player_input_controller))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Screens::Gameplay::deactivate_current_and_clear_player_input_controller]: error: guard \"player_input_controller\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Screens::Gameplay::deactivate_current_and_clear_player_input_controller]: error: guard \"player_input_controller\" not met");
+   }
+   if (player_input_controller)
+   {
+      AllegroFlare::Logger::info_from(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Deactivating current player_input_controller."
+      );
+      player_input_controller->on_deactivate();
+   }
+   this->player_input_controller = nullptr;
    return;
 }
 
