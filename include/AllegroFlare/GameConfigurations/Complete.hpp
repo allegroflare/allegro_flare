@@ -65,6 +65,7 @@ namespace AllegroFlare
          virtual void before_activate_screen_callback(std::string screen_identifier_that_will_activate="[unset-screen_identifier_that_will_activate]", std::string currently_active_screen_identifier="[unset-currently_active_screen_identifier]");
          virtual void handle_game_event(AllegroFlare::GameEvent* game_event=nullptr);
          virtual AllegroFlare::Levels::Base* load_level_by_identifier(std::string level_identifier="[unset-level_identifier]");
+         virtual void unload_current_level();
          virtual std::vector<std::pair<std::string, std::string>> build_level_list_for_level_select_screen_by_identifier(std::string identifier="[unset-identifier]");
          virtual std::set<std::string> build_locked_list_for_level_select_screen();
          virtual AllegroFlare::DialogTree::NodeBank build_dialog_bank_by_identifier(std::string identifier="[unset-identifier]");

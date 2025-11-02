@@ -183,6 +183,15 @@ AllegroFlare::Levels::Base* Complete::load_level_by_identifier(std::string level
    return nullptr;
 }
 
+void Complete::unload_current_level()
+{
+   // TODO: Add tests for this method or consider making it a pure virtual
+   AllegroFlare::Logger::throw_error(
+      THIS_CLASS_AND_METHOD_NAME,
+      "Not implemented in the base class. This method must be implemented in the derived class"
+   );
+}
+
 std::vector<std::pair<std::string, std::string>> Complete::build_level_list_for_level_select_screen_by_identifier(std::string identifier)
 {
    // TODO: Add tests for this method or consider making it a pure virtual
