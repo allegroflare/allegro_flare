@@ -130,6 +130,25 @@ TEST(AllegroFlare_TileMaps_TileMapTest, fill_with_data__will_fill_the_tiles_with
 }
 
 
+TEST(AllegroFlare_TileMaps_TileMapTest, get_tile_ref__will_return_a_reference_to_the_current_tile)
+{
+   AllegroFlare::TileMaps::TileMap<int> tile_map;
+   tile_map.initialize();
+   tile_map.resize_with_fill(5, 3, 0);
+   tile_map.fill_with_data(std::vector<std::vector<int>>{
+      { 1,   2,  3,  4,  5 },
+      { 6,   7,  8,  9, 10 },
+      { 11, 12, 13, 14, 15 },
+   });
+
+   int &val = tile_map.get_tile_ref(3, 1);
+
+   val = 123;
+
+   EXPECT_EQ(123,  tile_map.get_tile(3, 1));
+}
+
+
 TEST(AllegroFlare_TileMaps_TileMapTest,
    fill_with_data__when_the_number_of_rows_does_not_match_the_current_size_of_the_tile_map__will_throw_an_error)
 {
