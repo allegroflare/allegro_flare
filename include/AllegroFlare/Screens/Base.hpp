@@ -47,6 +47,8 @@ namespace AllegroFlare
          AllegroFlare::Elements::Backgrounds::Base *get_background();
          AllegroFlare::Elements::Backgrounds::Base *get_foreground();
 
+         // I'm unsure why this block of managed_* functions needs to be virtual. Please review to see if the virtual
+         // qualififer can be removed.
          virtual void managed_primary_time_step_func(double time_step_increment, double world_time_after_step) final;
          virtual void managed_primary_update_func(double time_now, double delta_time) final;
          virtual void managed_primary_render_func() final;
