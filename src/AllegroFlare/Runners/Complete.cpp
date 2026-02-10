@@ -806,7 +806,7 @@ void Complete::setup_router()
 
       std::string level_identifier_to_load = as_start_level->get_level_identifier();
 
-      // NOTE: Here, legacy systems will load_level_by_identifer as a call to the primary_gameplay_screen. Newer
+      // NOTE: Here, legacy systems will load_level_by_identifier as a call to the primary_gameplay_screen. Newer
       // systems will manage loading from the game_configuration. The latter system is preferible so that the list
       // of levels can be managed at the game_configuration level, and level-specific classes, (something like
       // YourGame::Levels:MyUndergroundLevel) do not become dependencies with the logic in the primary gameplay
