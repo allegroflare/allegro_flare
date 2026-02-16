@@ -39,6 +39,7 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , tile_mesh(tile_mesh)
    , text_slots(text_slots)
    , text_data({})
+   , default_font_identifier("Orbitron-Medium.ttf")
    , polygons({})
    , cursor_destinations({})
    , frames({})
@@ -102,6 +103,12 @@ void Layout::set_text_slots(std::map<std::string, AllegroFlare::Layouts::Element
 }
 
 
+void Layout::set_default_font_identifier(std::string default_font_identifier)
+{
+   this->default_font_identifier = default_font_identifier;
+}
+
+
 void Layout::set_scale(int scale)
 {
    if (get_initialized()) throw std::runtime_error("[Layout::set_scale]: error: guard \"get_initialized()\" not met.");
@@ -118,6 +125,12 @@ bool Layout::get_tile_mesh_is_present() const
 std::map<std::string, std::string> Layout::get_text_data() const
 {
    return text_data;
+}
+
+
+std::string Layout::get_default_font_identifier() const
+{
+   return default_font_identifier;
 }
 
 
@@ -967,7 +980,8 @@ std::string Layout::lookup_font_identifier_by_family(std::string font_family)
    if (font_family_to_font_identifier_map.find(font_family) == font_family_to_font_identifier_map.end())
    {
       // Font not found, return default
-      return "Orbitron-Medium.ttf";
+      //return "Orbitron-Medium.ttf";
+      return default_font_identifier;
    }
    return font_family_to_font_identifier_map[font_family];
 }

@@ -64,6 +64,12 @@ properties:
     getter: true
     setter: explicit
 
+  - name: default_font_identifier
+    type: std::string
+    init_with: '"Orbitron-Medium.ttf"'
+    getter: true
+    setter: true
+
   - name: polygons
     type: std::map<int, AllegroFlare::Layouts::Elements::Polygon>
     init_with: '{}'
@@ -977,7 +983,8 @@ methods:
       if (font_family_to_font_identifier_map.find(font_family) == font_family_to_font_identifier_map.end())
       {
          // Font not found, return default
-         return "Orbitron-Medium.ttf";
+         //return "Orbitron-Medium.ttf";
+         return default_font_identifier;
       }
       return font_family_to_font_identifier_map[font_family];
 

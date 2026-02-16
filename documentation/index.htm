@@ -22550,7 +22550,7 @@ table td
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Layouts/Layout.q.yml">quintessence/AllegroFlare/Layouts/Layout.q.yml</h3>
     <h3>Overview</h3>
-    <p>{"notes"=>["This class loads a Tiled .tmj file into layout. The TMJ file expects specific object classes, and layer names to be present in the file. This layout handles text, polygons, a tile_mesh, frames (arbitrary container boxes), and text. To include a tile_mesh, you should include a \"visual\" tile layer and optionally an \"opacity\" tilelayer.", "There are other alternatives to this Layouts/Layout under the Layouts/ folder. Layouts/TileMeshWithText, for example, does require a \"visual\" tillayer.", "At the time this class was created, it's not planned to have this class load or create arbitrary layouts without having a Tiled .tmj file as the source."]}</p>    <h3>Properties</h3>
+    <p>{"notes"=>["This class loads a Tiled .tmj file into layout. The TMJ file expects specific object classes, and layer names to be present in the file. This layout handles text, polygons, a tile_mesh, and frames (arbitrary container boxes). To include a tile_mesh, you should include a \"visual\" tile layer and optionally an \"opacity\" tilelayer.", "There are other alternatives to this Layouts/Layout under the Layouts/ folder. Layouts/TileMeshWithText, for example, does require a \"visual\" tillayer.", "At the time this class was created, it's not planned to have this class load or create arbitrary layouts without having a Tiled .tmj file as the source."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">bitmap_bin</td>
@@ -22595,6 +22595,10 @@ table td
 <tr>
   <td class="property">text_data</td>
   <td class="property">std::map&lt;std::string, std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">default_font_identifier</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">polygons</td>
