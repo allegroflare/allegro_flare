@@ -603,8 +603,8 @@ methods:
       if (text_data.find(name) == text_data.end())
       {
          AllegroFlare::Logger::throw_error(
-            "AllegroFlare::Layouts::Layout::set_text_data_require_present",
-            "Some text slots provided in the argument are not present on the layout."
+            "AllegroFlare::Layouts::Layout::set_text_data_field",
+            "The text slot \"" + name + "\" is not present on the layout."
          );
       }
 
