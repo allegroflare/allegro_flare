@@ -104,8 +104,8 @@ documentation:
 
   - notes:
      - This class loads a Tiled .tmj file into layout. The TMJ file expects specific object classes, and layer names to
-       be present in the file. This layout handles text, polygons, a tile_mesh, frames (arbitrary container boxes), and
-       text. To include a tile_mesh, you should include a "visual" tile layer and optionally an "opacity" tilelayer.
+       be present in the file. This layout handles text, polygons, a tile_mesh, and frames (arbitrary container boxes).
+       To include a tile_mesh, you should include a "visual" tile layer and optionally an "opacity" tilelayer.
      - There are other alternatives to this Layouts/Layout under the Layouts/ folder. Layouts/TileMeshWithText, for
        example, does require a "visual" tillayer.
      - At the time this class was created, it's not planned to have this class load or create arbitrary layouts without
