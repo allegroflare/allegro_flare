@@ -703,12 +703,22 @@ void Layout::render()
    // NOTE: Currently there is no draw order option.  Objects are rendered in groups by object types. Feel free
    // to change this so that drawing order can be used.
 
+   // NOTE: Using a transform here may not be preferred. It may be that importing the geometry at a scale is the
+   // more correct approach. Please review.
+   ALLEGRO_TRANSFORM previous_transform, transform;
+   al_copy_transform(&previous_transform, al_get_current_transform());
+   al_copy_transform(&transform, al_get_current_transform());
+   al_scale_transform(&transform, scale, scale);
+   al_use_transform(&transform);
+
    // Render polygons
    for (auto &polygon_ : polygons)
    {
       AllegroFlare::Layouts::Elements::Polygon &polygon = polygon_.second;
       polygon.path.draw_shape(polygon.fill_color);
    }
+
+   al_use_transform(&previous_transform);
 
    // Render tile mesh
    if (tile_mesh_is_present) tile_mesh.render();
