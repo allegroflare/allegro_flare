@@ -79,7 +79,7 @@ namespace AllegroFlare
          float get_effective_width();
          float get_effective_height();
          AllegroFlare::Layouts::Elements::Polygon* find_polygon_by_tmj_object_id(int tmj_object_id=0);
-         AllegroFlare::Layouts::Elements::Polygon* find_polygon_by_name(std::string name="[unset-name]");
+         AllegroFlare::Layouts::Elements::Polygon* find_polygon_by_name(std::string name="[unset-name]", bool throw_if_missing=true);
          AllegroFlare::Layouts::Elements::CursorDestination* get_initial_cursor_destination();
          AllegroFlare::Layouts::Elements::CursorDestination* find_cursor_destination_by_tmj_object_id(int tmj_object_id=0);
          AllegroFlare::Layouts::Elements::CursorDestination* find_cursor_destination_by_name(std::string name="[unset-name]");
@@ -105,6 +105,7 @@ namespace AllegroFlare
          void draw_container_frame(float x=0.0f, float y=0.0f, float x2=0.0f, float y2=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float line_thickness=0.0f);
          static bool multiline_text_draw_callback(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          int count_num_lines_will_render(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string* text=nullptr);
+         std::string collect_polygon_names();
       };
    }
 }

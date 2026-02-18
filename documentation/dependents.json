@@ -3381,6 +3381,11 @@
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
+  "std/ostringstream": [
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/TimeStamper"
+  ],
   "AllegroFlare/Layouts/Text": [
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
@@ -4336,10 +4341,6 @@
   "AllegroFlare/SavingAndLoading/StandardSavesPath": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
-  ],
-  "std/ostringstream": [
-    "AllegroFlare/SavingAndLoading/SaveSlot",
-    "AllegroFlare/TimeStamper"
   ],
   "AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common": [
     "AllegroFlare/SavingAndLoading/SaveSlot"

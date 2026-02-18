@@ -22657,7 +22657,7 @@ table td
 </tr>
 <tr>
   <td class="method">AllegroFlare::Layouts::Elements::Polygon*</td>
-  <td class="method"><b>find_polygon_by_name</b>(std::string name=&quot;[unset-name]&quot;)</td>
+  <td class="method"><b>find_polygon_by_name</b>(std::string name=&quot;[unset-name]&quot;, bool throw_if_missing=true)</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::Layouts::Elements::CursorDestination*</td>
@@ -22760,6 +22760,10 @@ table td
   <td class="method"><b>count_num_lines_will_render</b>(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string* text=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>collect_polygon_names</b>()</td>
+</tr>
+<tr>
   <td class="private_method">ALLEGRO_FONT*</td>
   <td class="private_method"><b>obtain_font</b>(int font_size=-18)</td>
 </tr>
@@ -22841,6 +22845,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::ElementFactory&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/ElementFactory.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ostringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -56183,6 +56190,11 @@ table td
     "AllegroFlare/Prototypes/Platforming2D/Screen",
     "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
+  "std/ostringstream": [
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/SavingAndLoading/SaveSlot",
+    "AllegroFlare/TimeStamper"
+  ],
   "AllegroFlare/Layouts/Text": [
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
@@ -57138,10 +57150,6 @@ table td
   "AllegroFlare/SavingAndLoading/StandardSavesPath": [
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/SavingAndLoading/SavingAndLoading"
-  ],
-  "std/ostringstream": [
-    "AllegroFlare/SavingAndLoading/SaveSlot",
-    "AllegroFlare/TimeStamper"
   ],
   "AllegroFlare/JSONLoaders/AllegroFlare/LoadASavedGame/SaveSlots/Common": [
     "AllegroFlare/SavingAndLoading/SaveSlot"

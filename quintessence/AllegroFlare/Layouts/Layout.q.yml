@@ -414,11 +414,22 @@ methods:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
+      - name: throw_if_missing
+        type: bool
+        default_argument: true
     body: |
       // TODO: Test this
       for (auto &polygon : polygons)
       {
          if (polygon.second.name == name) return &polygon.second;
+      }
+      if (throw_if_missing)
+      {
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "The polygon named \"" + name + "\" could not be found. There are " + std::to_string(polygons.size()) + " "
+               "polygons present with the following names: [" + collect_polygon_names() + "]."
+         );
       }
       return nullptr;
 
@@ -1096,6 +1107,31 @@ methods:
       return _multiline_text_line_number + 1;
 
 
+  - name: collect_polygon_names
+    type: std::string
+    body: |
+      std::ostringstream result;
+      bool first = true;
+
+      for (const auto &pair : polygons)
+      {
+         const AllegroFlare::Layouts::Elements::Polygon &polygon = pair.second;
+
+         if (!first)
+         {
+            result << ", ";
+         }
+
+         result << "\"" << polygon.name << "\"";
+         first = false;
+      }
+
+      return result.str();
+    body_dependency_symbols:
+      - std::ostringstream
+      - AllegroFlare::Layouts::Elements::Polygon
+
+
   - name: obtain_font
     private: true
     type: ALLEGRO_FONT*
@@ -1183,5 +1219,7 @@ dependencies:
     headers: [ AllegroFlare/Layouts/Elements/Text.hpp ]
   - symbol: AllegroFlare::Layouts::ElementFactory
     headers: [ AllegroFlare/Layouts/ElementFactory.hpp ]
+  - symbol: std::ostringstream
+    headers: [ sstream ]
 
 

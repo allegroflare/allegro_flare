@@ -5,6 +5,7 @@
 #include <AllegroFlare/Color.hpp>
 #include <AllegroFlare/ColorKit.hpp>
 #include <AllegroFlare/Layouts/ElementFactory.hpp>
+#include <AllegroFlare/Layouts/Elements/Polygon.hpp>
 #include <AllegroFlare/Logger.hpp>
 #include <AllegroFlare/Random.hpp>
 #include <AllegroFlare/TileMaps/TileAtlasBuilder.hpp>
@@ -447,12 +448,20 @@ AllegroFlare::Layouts::Elements::Polygon* Layout::find_polygon_by_tmj_object_id(
    return &it->second;
 }
 
-AllegroFlare::Layouts::Elements::Polygon* Layout::find_polygon_by_name(std::string name)
+AllegroFlare::Layouts::Elements::Polygon* Layout::find_polygon_by_name(std::string name, bool throw_if_missing)
 {
    // TODO: Test this
    for (auto &polygon : polygons)
    {
       if (polygon.second.name == name) return &polygon.second;
+   }
+   if (throw_if_missing)
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "The polygon named \"" + name + "\" could not be found. There are " + std::to_string(polygons.size()) + " "
+            "polygons present with the following names: [" + collect_polygon_names() + "]."
+      );
    }
    return nullptr;
 }
@@ -1052,6 +1061,27 @@ int Layout::count_num_lines_will_render(ALLEGRO_FONT* font, float max_width, std
 
    // multiline_text_line_number is now modified, and should now be set to the number of lines drawn
    return _multiline_text_line_number + 1;
+}
+
+std::string Layout::collect_polygon_names()
+{
+   std::ostringstream result;
+   bool first = true;
+
+   for (const auto &pair : polygons)
+   {
+      const AllegroFlare::Layouts::Elements::Polygon &polygon = pair.second;
+
+      if (!first)
+      {
+         result << ", ";
+      }
+
+      result << "\"" << polygon.name << "\"";
+      first = false;
+   }
+
+   return result.str();
 }
 
 ALLEGRO_FONT* Layout::obtain_font(int font_size)

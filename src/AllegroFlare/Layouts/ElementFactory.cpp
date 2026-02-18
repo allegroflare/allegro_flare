@@ -51,7 +51,7 @@ AllegroFlare::Layouts::Elements::Polygon ElementFactory::build_polygon_from_tmj_
    result_polygon.path.refresh_segment_info();
    result_polygon.width = result_polygon.path.width();
    result_polygon.height = result_polygon.path.height();
-   result_polygon.height = result_polygon.path.height();
+   result_polygon.name = object->name;
 
 
 
