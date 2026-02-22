@@ -79,13 +79,31 @@ namespace ImageProcessing
       //if (!bmp) logger("[create_scaled_render] invalid bitmap given");
 
       ALLEGRO_STATE state;
+
+      // Store the target bitmap state
       ALLEGRO_BITMAP *surface = al_create_bitmap(dest_w, dest_h);
       al_store_state(&state, ALLEGRO_STATE_TARGET_BITMAP);
+
+      // TODO: Add additional flags and states
+      // TODO: Add tests for maligned render states when calling this method
+      int previous_ALLEGRO_WRITE_MASK = al_get_render_state(ALLEGRO_WRITE_MASK);
+      int previous_ALLEGRO_DEPTH_TEST = al_get_render_state(ALLEGRO_DEPTH_TEST);
+      al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_RGBA);
+      al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+
+
       al_set_target_bitmap(surface);
       al_clear_to_color(AllegroFlare::color::transparent);
       al_draw_scaled_bitmap(bmp, 0, 0, al_get_bitmap_width(bmp), al_get_bitmap_height(bmp), 0, 0, dest_w, dest_h, ALLEGRO_FLAGS_EMPTY);
 
+
+      // Restore the render state
+      al_set_render_state(ALLEGRO_WRITE_MASK, previous_ALLEGRO_WRITE_MASK);
+      al_set_render_state(ALLEGRO_DEPTH_TEST, previous_ALLEGRO_DEPTH_TEST);
+
+      // Restore the target bitmap state
       al_restore_state(&state);
+
       return surface;
    }
 

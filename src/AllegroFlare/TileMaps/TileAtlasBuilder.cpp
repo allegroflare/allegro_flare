@@ -133,6 +133,14 @@ ALLEGRO_BITMAP* TileAtlasBuilder::create_extruded(std::vector<AllegroFlare::Tile
    // TODO: Consider: al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR | ALLEGRO_MIPMAP);
    ALLEGRO_STATE prev;
    al_store_state(&prev, ALLEGRO_STATE_TARGET_BITMAP);
+
+   // TODO: Add additional flags and states
+   // TODO: Add tests for maligned render states when calling this method
+   int previous_ALLEGRO_WRITE_MASK = al_get_render_state(ALLEGRO_WRITE_MASK);
+   int previous_ALLEGRO_DEPTH_TEST = al_get_render_state(ALLEGRO_DEPTH_TEST);
+   al_set_render_state(ALLEGRO_WRITE_MASK, ALLEGRO_MASK_RGBA);
+   al_set_render_state(ALLEGRO_DEPTH_TEST, 0);
+
    ALLEGRO_BITMAP *target = al_create_bitmap(atlas_width, atlas_height);
    al_set_target_bitmap(target);
    al_clear_to_color(al_map_rgba_f(0, 0, 0, 0));
@@ -217,6 +225,10 @@ ALLEGRO_BITMAP* TileAtlasBuilder::create_extruded(std::vector<AllegroFlare::Tile
 
    // Restore the target
    al_restore_state(&prev);
+
+   // Restore the render state
+   al_set_render_state(ALLEGRO_WRITE_MASK, previous_ALLEGRO_WRITE_MASK);
+   al_set_render_state(ALLEGRO_DEPTH_TEST, previous_ALLEGRO_DEPTH_TEST);
 
    //
    // Solve an odd bug, the bitmap will be cloned so that OPENGL will correctly create the mipmaps
