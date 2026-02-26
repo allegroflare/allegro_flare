@@ -231,7 +231,7 @@ AllegroFlare::Vec2D Camera3D::get_projected_coordinates(
 }
 
 
-AllegroFlare::Vec2D Camera3D::get_projected_coordinates(
+std::pair<bool, AllegroFlare::Vec2D> Camera3D::get_projected_coordinates(
       float surface_width_num_units,
       float surface_height_num_units,
       AllegroFlare::Vec3D coords
@@ -242,6 +242,16 @@ AllegroFlare::Vec2D Camera3D::get_projected_coordinates(
    // Setup the view transform
    ALLEGRO_TRANSFORM view_transform;
    reverse_position_transform(&view_transform);
+
+   // Breakout early if z is behind camera
+   AllegroFlare::Vec3D camera_space = coords;
+   al_transform_coordinates_3d(&view_transform, &camera_space.x, &camera_space.y, &camera_space.z);
+
+   if (camera_space.z >= near_plane) // me
+   //if (camera_space.z <= near_plane)
+   {
+      return { false, AllegroFlare::Vec2D(NAN, NAN) };
+   }
 
    // Setup the projection transform
    ALLEGRO_TRANSFORM projection_transform;
@@ -277,7 +287,7 @@ AllegroFlare::Vec2D Camera3D::get_projected_coordinates(
    al_transform_coordinates_3d_projective(&final_transform, &coords.x, &coords.y, &coords.z);
    al_transform_coordinates(&viewport_transform, &coords.x, &coords.y);
 
-   return AllegroFlare::Vec2D(coords.x, coords.y);
+   return { true, AllegroFlare::Vec2D(coords.x, coords.y) };
 }
 
 

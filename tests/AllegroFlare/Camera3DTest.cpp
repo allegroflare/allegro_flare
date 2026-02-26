@@ -641,14 +641,20 @@ TEST_F(Camera3DRenderableTests,
    int font_ascent = al_get_font_ascent(font);
 
    // Our test points
-   std::vector<std::tuple<std::string, AllegroFlare::Vec3D, AllegroFlare::Vec2D>> points = {
-      { "point 1",        { 1.0f, 0.0f, 0.0f }, {} },
-      { "point 2",        { -2.0f, 1.0f, 0.0f }, {} },
-      { "point 3 (unit)", { 1.0f, 1.0f, 1.0f }, {} },
+   std::vector<std::tuple<std::string, AllegroFlare::Vec3D, bool, AllegroFlare::Vec2D, float>> points = {
+      { "point 1",        { 1.0f, 0.0f, 0.0f }, false, {}, 0.0f },
+      { "point 2",        { -2.0f, 1.0f, 0.0f }, false, {}, 0.0f },
+      { "point 3 (unit)", { 1.0f, 1.0f, 1.0f }, false, {}, 0.0f },
+      { "point 4",        { 10.0f, 1.0f, 1.0f }, false, {}, 0.0f },
    };
+   constexpr int LABEL = 0;
    constexpr int COORD = 1;
+   constexpr int IN_FRONT_OF_CAM = 2;
+   constexpr int PROJECTED_COORD = 3;
+   constexpr int DISTANCE = 4;
 
    ALLEGRO_COLOR color_a = ALLEGRO_COLOR{0, 1, 1, 1};
+   ALLEGRO_COLOR color_a2 = ALLEGRO_COLOR{0.25, 0.3, 0.3, 0.3};
    ALLEGRO_COLOR color_b = ALLEGRO_COLOR{0, 1, 0, 1};
    ALLEGRO_COLOR color_c = ALLEGRO_COLOR{1, 0.65, 0, 1};
    bool camera_is_auto_spinning = true;
@@ -670,18 +676,26 @@ TEST_F(Camera3DRenderableTests,
             if (camera_is_auto_spinning)
             {
                target_camera.spin += camera_auto_spin_rate;
-               target_camera.roll += camera_auto_spin_rate;
+               //target_camera.roll += camera_auto_spin_rate;
             }
 
             // Update the live camera to the target camera
             camera.blend(&target_camera, 0.1);
 
+            // Update the camera position
+            AllegroFlare::Vec3D camera_real_position = camera.get_real_position();
+
             // Update the projected points for the camera
             for (auto &point : points)
             {
-               auto &coordinate = std::get<1>(point);
-               auto &projected_coords = std::get<2>(point);
-               projected_coords = camera.get_projected_coordinates(1920, 1080, coordinate);
+               auto &coordinate = std::get<COORD>(point);
+               auto &projected_coords = std::get<PROJECTED_COORD>(point);
+               auto &in_front = std::get<IN_FRONT_OF_CAM>(point);
+               auto &distance = std::get<DISTANCE>(point);
+
+               std::tie(in_front, projected_coords) = camera.get_projected_coordinates(1920, 1080, coordinate);
+
+               distance = (coordinate - camera_real_position).get_magnitude(); 
             }
 
 
@@ -699,7 +713,7 @@ TEST_F(Camera3DRenderableTests,
             // Draw 3D crosshairs
             for (auto &point : points)
             {
-               auto &coordinate = std::get<1>(point);
+               auto &coordinate = std::get<COORD>(point);
                draw_crosshair_vec3d(coordinate, color_c, 0.5);
             }
 
@@ -715,20 +729,20 @@ TEST_F(Camera3DRenderableTests,
             // Draw captured points
             for (auto &point : points)
             {
-               auto &label = std::get<0>(point);
-               auto &coordinate = std::get<1>(point);
-               auto &projected_coords = std::get<2>(point);
+               auto &label = std::get<LABEL>(point);
+               auto &coordinate = std::get<COORD>(point);
+               auto &projected_coords = std::get<PROJECTED_COORD>(point);
+               auto &in_front = std::get<IN_FRONT_OF_CAM>(point);
+               auto &distance = std::get<DISTANCE>(point);
+
+               //if (!in_front) continue;
 
                al_draw_circle(projected_coords.x, projected_coords.y, 6.5, color_a, 2.0);
                al_draw_circle(projected_coords.x, projected_coords.y, 8.5, color_b, 2.0);
-               al_draw_text(
-                  font,
-                  color_a,
-                  projected_coords.x + 20,
-                  projected_coords.y - font_line_height + font_ascent * 0.5,
-                  ALLEGRO_ALIGN_LEFT,
-                  label.c_str()
-               );
+               float text_x = projected_coords.x + 20;
+               float text_y = projected_coords.y - font_line_height + font_ascent * 0.5;
+               al_draw_text(font, color_a, text_x, text_y, ALLEGRO_ALIGN_LEFT, label.c_str());
+               al_draw_textf(font, color_a2, text_x, text_y + font_line_height, ALLEGRO_ALIGN_LEFT, "dist: %.2f", distance);
             }
 
 

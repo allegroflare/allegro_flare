@@ -42,7 +42,7 @@ namespace AllegroFlare
          float y,
          float z
       );
-      AllegroFlare::Vec2D get_projected_coordinates(
+      std::pair<bool, AllegroFlare::Vec2D> get_projected_coordinates(
          float surface_width_num_units,
          float surface_height_num_units,
          AllegroFlare::Vec3D coords
