@@ -604,7 +604,7 @@ TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_diagonal_shift__p
 struct Camera3DRenderableTests : public AllegroFlare::Testing::WithInteractionFixture
 {
 protected:
-    AllegroFlare::Camera3D camera;
+    AllegroFlare::Camera3D camera, target_camera;
 
     void SetUp() override
     {
@@ -618,8 +618,9 @@ protected:
        camera.tilt = 0.25 * 0.25;
        camera.zoom = 1.0f;
        camera.shift = AllegroFlare::Vec2D(0, 0); // Default shift
-
        camera.use_unit_values();
+
+       target_camera = camera;
     }
 
     void TearDown() override
@@ -650,6 +651,9 @@ TEST_F(Camera3DRenderableTests,
    ALLEGRO_COLOR color_a = ALLEGRO_COLOR{0, 1, 1, 1};
    ALLEGRO_COLOR color_b = ALLEGRO_COLOR{0, 1, 0, 1};
    ALLEGRO_COLOR color_c = ALLEGRO_COLOR{1, 0.65, 0, 1};
+   bool camera_is_auto_spinning = true;
+   float camera_auto_spin_rate = 0.125 * 0.125 * 0.125 * 0.25;
+   float camera_spin_nudge_rate = 0.25 * 0.125;
 
    while(interactive_test_wait_for_event())
    {
@@ -657,14 +661,20 @@ TEST_F(Camera3DRenderableTests,
 
       switch(current_event.type)
       {
-         case ALLEGRO_EVENT_TIMER:
-         {
+         case ALLEGRO_EVENT_TIMER: {
             //
             // Update
             //
 
             // Move the camera for easier reading of 3D
-            camera.spin += 0.125 * 0.125 * 0.125 * 0.25;
+            if (camera_is_auto_spinning)
+            {
+               target_camera.spin += camera_auto_spin_rate;
+               target_camera.roll += camera_auto_spin_rate;
+            }
+
+            // Update the live camera to the target camera
+            camera.blend(&target_camera, 0.1);
 
             // Update the projected points for the camera
             for (auto &point : points)
@@ -728,8 +738,40 @@ TEST_F(Camera3DRenderableTests,
 
             interactive_test_render_status();
             al_flip_display();
-         }
-         break;
+         } break;
+
+         case ALLEGRO_EVENT_KEY_CHAR: {
+            switch(current_event.keyboard.keycode)
+            {
+               case ALLEGRO_KEY_RIGHT: {
+                  target_camera.spin -= camera_spin_nudge_rate;
+                  camera_is_auto_spinning = false;
+               } break;
+
+               case ALLEGRO_KEY_LEFT: {
+                  target_camera.spin += camera_spin_nudge_rate;
+                  camera_is_auto_spinning = false;
+               } break;
+
+               case ALLEGRO_KEY_UP: {
+                  target_camera.tilt += camera_spin_nudge_rate;
+                  camera_is_auto_spinning = false;
+               } break;
+
+               case ALLEGRO_KEY_DOWN: {
+                  target_camera.tilt -= camera_spin_nudge_rate;
+                  camera_is_auto_spinning = false;
+               } break;
+
+               case ALLEGRO_KEY_S: {
+                  camera_is_auto_spinning = !camera_is_auto_spinning;
+               } break;
+
+               case ALLEGRO_KEY_R: {
+                  target_camera.roll = 0.0f;
+               } break;
+            }
+         } break;
       }
    }
 }
