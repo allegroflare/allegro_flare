@@ -4,6 +4,7 @@
 #include <AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Vec3D.hpp>
 #include <allegro5/allegro.h>
+#include <vector>
 
 
 namespace AllegroFlare
@@ -40,6 +41,11 @@ namespace AllegroFlare
          float x,
          float y,
          float z
+      );
+      AllegroFlare::Vec2D get_projected_coordinates(
+         float surface_width_num_units,
+         float surface_height_num_units,
+         AllegroFlare::Vec3D coords
       );
 
       void use_unit_values();

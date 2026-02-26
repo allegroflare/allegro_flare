@@ -180,34 +180,104 @@ AllegroFlare::Vec2D Camera3D::get_projected_coordinates(
       float z
    )
 {
-   // TODO: "surface" is only needed so that it can be "use a projection transform" on, and then obtain
-         // a "al_get_current_transform()" and "al_get_current_projection_transform" on
-   // TODO: Confirm this does work as expected with more tests
-   // TODO: Do not require setting up a projection on a surface
-   // TODO: See if a "surface_width" and "surface_height" could be passed as arguments instead of a full "surface" 
+   // TODO: "surface" is only needed for its dimensions, consider passing width/height directly.
+   if (!surface)
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Camera3D::get_projected_coordinates",
+         "surface cannot be a nullptr."
+      );
+   }
 
-   setup_projection_on(surface); // Also sets the target bitmap (as side effect, probably not wanted)
+   // Setup the view transform
+   ALLEGRO_TRANSFORM view_transform;
+   reverse_position_transform(&view_transform);
 
-   ALLEGRO_TRANSFORM t2;
-   al_copy_transform(&t2, al_get_current_transform());
-   al_compose_transform(&t2, al_get_current_projection_transform());
+   // Setup the projection transform
+   ALLEGRO_TRANSFORM projection_transform;
+   al_identity_transform(&projection_transform);
+   float surface_width = al_get_bitmap_width(surface);
+   float surface_height = al_get_bitmap_height(surface);
+   float aspect_ratio = (surface_width == 0) ? 0 : surface_height / surface_width;
 
-   ALLEGRO_TRANSFORM t3;
-   al_identity_transform(&t3);
-   al_scale_transform(&t3, 0.5, -0.5);
-   al_translate_transform(&t3, 0.5, 0.5);
-   al_scale_transform(&t3, surface_width_num_units, surface_height_num_units);
-   //al_scale_transform(&t3, al_get_bitmap_width(surface), al_get_bitmap_height(surface));
-   //al_scale_transform(&t3, al_get_bitmap_width(al_get_target_bitmap()),
-                      //al_get_bitmap_height(al_get_target_bitmap()));
+   float mul = near_plane / zoom;
+   float actual_world_offset_x = shift.x * mul;
+   float actual_world_offset_y = shift.y * (mul * aspect_ratio);
 
+   float fr_left   = (-1.0f * mul) + actual_world_offset_x;
+   float fr_right  = ( 1.0f * mul) + actual_world_offset_x;
+   float fr_top    = ( aspect_ratio * mul) + actual_world_offset_y;
+   float fr_bottom = (-aspect_ratio * mul) + actual_world_offset_y;
 
-   al_transform_coordinates_3d_projective(&t2, &x, &y, &z);
-   // x, y now contain normalized coordinates
-   al_transform_coordinates(&t3, &x, &y);
-   // x, y now contain pixel coordinates
+   al_perspective_transform(&projection_transform, fr_left, fr_top, near_plane, fr_right, fr_bottom, far_plane);
+
+   // Compose the final transform
+   ALLEGRO_TRANSFORM final_transform;
+   al_copy_transform(&final_transform, &view_transform);
+   al_compose_transform(&final_transform, &projection_transform);
+
+   // Setup the transform to normalized screen coordinates
+   ALLEGRO_TRANSFORM viewport_transform;
+   al_identity_transform(&viewport_transform);
+   al_scale_transform(&viewport_transform, 0.5, -0.5);
+   al_translate_transform(&viewport_transform, 0.5, 0.5);
+   al_scale_transform(&viewport_transform, surface_width_num_units, surface_height_num_units);
+
+   // Project the coordinate
+   al_transform_coordinates_3d_projective(&final_transform, &x, &y, &z);
+   al_transform_coordinates(&viewport_transform, &x, &y);
 
    return AllegroFlare::Vec2D(x, y);
+}
+
+
+AllegroFlare::Vec2D Camera3D::get_projected_coordinates(
+      float surface_width_num_units,
+      float surface_height_num_units,
+      AllegroFlare::Vec3D coords
+   )
+{
+   // TODO: Test this
+
+   // Setup the view transform
+   ALLEGRO_TRANSFORM view_transform;
+   reverse_position_transform(&view_transform);
+
+   // Setup the projection transform
+   ALLEGRO_TRANSFORM projection_transform;
+   al_identity_transform(&projection_transform);
+   float surface_width = surface_width_num_units; //al_get_bitmap_width(surface);
+   float surface_height = surface_height_num_units; //al_get_bitmap_height(surface);
+   float aspect_ratio = (surface_width == 0) ? 0 : surface_height / surface_width;
+
+   float mul = near_plane / zoom;
+   float actual_world_offset_x = shift.x * mul;
+   float actual_world_offset_y = shift.y * (mul * aspect_ratio);
+
+   float fr_left   = (-1.0f * mul) + actual_world_offset_x;
+   float fr_right  = ( 1.0f * mul) + actual_world_offset_x;
+   float fr_top    = ( aspect_ratio * mul) + actual_world_offset_y;
+   float fr_bottom = (-aspect_ratio * mul) + actual_world_offset_y;
+
+   al_perspective_transform(&projection_transform, fr_left, fr_top, near_plane, fr_right, fr_bottom, far_plane);
+
+   // Compose the final transform
+   ALLEGRO_TRANSFORM final_transform;
+   al_copy_transform(&final_transform, &view_transform);
+   al_compose_transform(&final_transform, &projection_transform);
+
+   // Setup the transform to normalized screen coordinates
+   ALLEGRO_TRANSFORM viewport_transform;
+   al_identity_transform(&viewport_transform);
+   al_scale_transform(&viewport_transform, 0.5, -0.5);
+   al_translate_transform(&viewport_transform, 0.5, 0.5);
+   al_scale_transform(&viewport_transform, surface_width_num_units, surface_height_num_units);
+
+   // Project the coordinate
+   al_transform_coordinates_3d_projective(&final_transform, &coords.x, &coords.y, &coords.z);
+   al_transform_coordinates(&viewport_transform, &coords.x, &coords.y);
+
+   return AllegroFlare::Vec2D(coords.x, coords.y);
 }
 
 

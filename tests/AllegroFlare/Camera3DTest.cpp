@@ -5,6 +5,48 @@
 
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec2D.hpp>
 #include <AllegroFlare/Testing/Comparison/AllegroFlare/Vec3D.hpp>
+#include <allegro5/allegro_primitives.h>
+
+
+namespace {
+   ALLEGRO_VERTEX build_vertex(float x, float y, float z, ALLEGRO_COLOR col, float u, float v)
+   {
+      ALLEGRO_VERTEX vertex;
+      vertex.x = x, vertex.y = y, vertex.z = z, vertex.color = col, vertex.u = u, vertex.v = v;
+      return vertex;
+   }
+
+
+   void draw_crosshair(float x, float y, float z, ALLEGRO_COLOR col, float size = 0.25)
+   {
+      ALLEGRO_VERTEX v[6];
+      float hsize = size/2;
+
+      for (unsigned i=0; i<6; i++)
+         v[i] = build_vertex(x, y, z, col, 0, 0);
+
+      v[0].x -= hsize;
+      v[1].x += hsize;
+
+      v[2].y -= hsize;
+      v[3].y += hsize;
+
+      v[4].z -= hsize;
+      v[5].z += hsize;
+
+      al_draw_prim(&v, NULL, NULL, 0, 6, ALLEGRO_PRIM_LINE_LIST);
+   }
+
+
+
+
+   void draw_crosshair_vec3d(AllegroFlare::Vec3D point, ALLEGRO_COLOR col, float size=0.25)
+   {
+      draw_crosshair(point.x, point.y, point.z, col, size);
+   }
+}
+
+
 
 
 TEST(AllegroFlare_Camera3DTest, can_be_created_without_blowing_up)
@@ -364,6 +406,7 @@ TEST(AllegroFlare_Camera3DTest,
 
 
 
+
 struct Camera3DProjectedTests : public ::testing::Test
 {
 protected:
@@ -385,8 +428,13 @@ protected:
     void SetUp() override
     {
         ASSERT_TRUE(al_init());
+        //al_init_primitives_addon();
         //ASSERT_TRUE(al_init_primitives_addon()); // Optional: if you want to draw things for visual checks
         //al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE); // Optional
+        //al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST); // TODO: review these numbers
+        //al_set_new_display_option(
+        //al_set_new_bitmap_depth
+
         display = al_create_display(800, 600); // A smaller display for tests is fine
         ASSERT_NE(nullptr, display);
         surface = al_get_backbuffer(display); // Use backbuffer for projection setup
@@ -404,6 +452,7 @@ protected:
     {
         if (display) al_destroy_display(display);
         //al_shutdown_primitives_addon(); // Optional
+        //al_shutdown_primitives_addon();
         al_uninstall_system();
     }
 };
@@ -449,8 +498,10 @@ TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_positive_x_shift_
 }
 
 
+
 /*
-TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_positive_y_shift__projects_coordinates_downwards)
+
+TEST_F(Camera3DProjectedTests, xx_get_projected_coordinates__with_positive_y_shift__projects_coordinates_downwards)
 {
     // Original projection of (1,0,0) is (1056, 540) for a 1920x1080 logical surface.
     // setup_projection_on uses the surface's aspect ratio (800x600 display -> AR = 600/800 = 0.75)
@@ -540,6 +591,164 @@ TEST_F(Camera3DProjectedTests, get_projected_coordinates__with_diagonal_shift__p
         surface, surface_width_num_units, surface_height_num_units, 1.0f, 0.0f, 0.0f
     );
     EXPECT_EQ(expected_coords, actual_coords);
+}
+
+
+
+
+#include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
+#include <AllegroFlare/Rulers.hpp>
+#include <AllegroFlare/Camera2D.hpp>
+
+
+struct Camera3DRenderableTests : public AllegroFlare::Testing::WithAllegroRenderingFixture
+{
+protected:
+    //ALLEGRO_DISPLAY* display;
+    //ALLEGRO_BITMAP* surface;
+    AllegroFlare::Camera3D camera;
+    //int surface_width_num_units;
+    //int surface_height_num_units;
+
+    //Camera3DRenderableTests()
+        //: display(nullptr)
+        //, surface(nullptr)
+        //, camera()
+        //, surface_width_num_units(1920)
+        //, surface_height_num_units(1080)
+    //{
+    //}
+
+    void SetUp() override
+    {
+       AllegroFlare::Testing::WithAllegroRenderingFixture::SetUp();
+        //ASSERT_TRUE(al_init());
+        //al_init_primitives_addon();
+        //ASSERT_TRUE(al_init_primitives_addon()); // Optional: if you want to draw things for visual checks
+        //al_set_new_display_flags(ALLEGRO_OPENGL | ALLEGRO_PROGRAMMABLE_PIPELINE); // Optional
+        //al_set_new_display_option(ALLEGRO_DEPTH_SIZE, 32, ALLEGRO_SUGGEST); // TODO: review these numbers
+        //al_set_new_display_option(
+        //al_set_new_bitmap_depth
+
+        //display = al_create_display(1920, 1080); // A smaller display for tests is fine
+        //ASSERT_NE(nullptr, display);
+        //surface = al_get_backbuffer(display); // Use backbuffer for projection setup
+        //ASSERT_NE(nullptr, surface);
+
+        // Standard camera setup for consistent projection tests
+        camera.position = AllegroFlare::Vec3D(0, 0, 0);
+        camera.stepout = AllegroFlare::Vec3D(0, 0, 7); // Camera is at (0,0,10) looking towards origin
+        camera.near_plane = 0.01f;
+        camera.far_plane = 1000.0f;
+        camera.tilt = 0.25 * 0.25;
+        camera.zoom = 1.0f;
+        camera.shift = AllegroFlare::Vec2D(0, 0); // Default shift
+
+        camera.use_unit_values();
+    }
+
+    void TearDown() override
+    {
+       AllegroFlare::Testing::WithAllegroRenderingFixture::TearDown();
+    }
+};
+
+
+
+#include <AllegroFlare/Rulers.hpp>
+
+TEST_F(Camera3DRenderableTests,
+   FOCUS__CAPTURE__get_projected_coordinates__without_surface_bitmap_argument__works_as_expected)
+{
+   ALLEGRO_FONT *font = get_any_font();
+   int font_line_height = al_get_font_line_height(font);
+   int font_ascent = al_get_font_ascent(font);
+
+   // Our test points
+   std::vector<std::tuple<std::string, AllegroFlare::Vec3D, AllegroFlare::Vec2D>> points = {
+      { "point 1",        { 1.0f, 0.0f, 0.0f }, {} },
+      { "point 2",        { -2.0f, 1.0f, 0.0f }, {} },
+      { "point 3 (unit)", { 1.0f, 1.0f, 1.0f }, {} },
+   };
+   constexpr int COORD = 1;
+
+   ALLEGRO_COLOR color_a = ALLEGRO_COLOR{0, 1, 1, 1};
+   ALLEGRO_COLOR color_b = ALLEGRO_COLOR{0, 1, 0, 1};
+   ALLEGRO_COLOR color_c = ALLEGRO_COLOR{1, 0.65, 0, 1};
+
+   int frames = 128;
+   for (int i=0; i<frames; i++)
+   {
+      //
+      // Update
+      //
+
+      // Move the camera for easier reading of 3D
+      camera.spin += 0.125 * 0.125 * 0.125 * 0.25;
+
+      // Update the projected points for the camera
+      for (auto &point : points)
+      {
+         auto &coordinate = std::get<1>(point);
+         auto &projected_coords = std::get<2>(point);
+         projected_coords = camera.get_projected_coordinates(1920, 1080, coordinate);
+      }
+
+
+      //
+      // Draw
+      //
+
+      // Setup the 3D projection
+      clear();
+      camera.setup_projection_on(al_get_target_bitmap());
+
+      // Draw the ground plane
+      AllegroFlare::Rulers::draw_3d_ground_plane_grid(8);
+
+      // Draw 3D crosshairs
+      for (auto &point : points)
+      {
+         //ALLEGRO_COLOR color_a = ALLEGRO_COLOR{0, 1, 1, 1};
+         //ALLEGRO_COLOR color_b = ALLEGRO_COLOR{0, 1, 0, 1};
+         //auto &label = std::get<0>(point);
+         auto &coordinate = std::get<1>(point);
+         //auto &projected_coords = std::get<2>(point);
+
+         draw_crosshair_vec3d(coordinate, color_c, 0.5);
+      }
+
+      // Setup the 2D overlay
+      AllegroFlare::Camera2D hud_camera;
+      hud_camera.setup_dimensional_projection(al_get_target_bitmap());
+
+      // Draw captured points
+      for (auto &point : points)
+      {
+         //ALLEGRO_COLOR color_a = ALLEGRO_COLOR{0, 1, 1, 1};
+         //ALLEGRO_COLOR color_b = ALLEGRO_COLOR{0, 1, 0, 1};
+         auto &label = std::get<0>(point);
+         auto &coordinate = std::get<1>(point);
+         auto &projected_coords = std::get<2>(point);
+
+         al_draw_circle(projected_coords.x, projected_coords.y, 6.5, color_a, 2.0);
+         al_draw_circle(projected_coords.x, projected_coords.y, 8.5, color_b, 2.0);
+         al_draw_text(
+            font,
+            color_a,
+            projected_coords.x + 20,
+            projected_coords.y - font_line_height + font_ascent * 0.5,
+            ALLEGRO_ALIGN_LEFT,
+            label.c_str()
+         );
+      }
+
+      // Flip
+      al_flip_display();
+      al_rest(1.0/60.0);
+   }
+
+   al_rest(0.5);
 }
 
 
