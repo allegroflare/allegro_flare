@@ -1,0 +1,49 @@
+properties:
+
+
+  - name: tile_mesh
+    type: AllegroFlare::TileMaps::TileMesh
+    init_with: '{}'
+    exposed: true
+
+  - name: text_slots
+    type: std::map<std::string, AllegroFlare::Layouts::Elements::Text>
+    init_with: '{}'
+    exposed: true
+
+  - name: text_data
+    type: std::map<std::string, std::string>
+    init_with: '{}'
+    exposed: true
+
+  - name: polygons
+    type: std::map<int, AllegroFlare::Layouts::Elements::Polygon>
+    init_with: '{}'
+    exposed: true
+
+  - name: cursor_destinations
+    type: std::map<int, AllegroFlare::Layouts::Elements::CursorDestination>
+    init_with: '{}'
+    exposed: true
+
+  - name: frames
+    type: std::map<int, AllegroFlare::Layouts::Elements::Frame>
+    init_with: '{}'
+    exposed: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Layouts::Elements::CursorDestination
+    headers: [ AllegroFlare/Layouts/Elements/CursorDestination.hpp ]
+  - symbol: AllegroFlare::Layouts::Elements::Frame
+    headers: [ AllegroFlare/Layouts/Elements/Frame.hpp ]
+  - symbol: AllegroFlare::Layouts::Elements::Polygon
+    headers: [ AllegroFlare/Layouts/Elements/Polygon.hpp ]
+  - symbol: AllegroFlare::Layouts::Elements::Text
+    headers: [ AllegroFlare/Layouts/Elements/Text.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMesh
+    headers: [ AllegroFlare/TileMaps/TileMesh.hpp ]
+
+

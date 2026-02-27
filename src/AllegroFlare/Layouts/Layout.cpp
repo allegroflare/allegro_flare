@@ -43,8 +43,15 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , polygons({})
    , cursor_destinations({})
    , frames({})
+   , layers({})
    , scale(3)
    , default_font_identifier("Orbitron-Medium.ttf")
+   , loading_into__tile_mesh(nullptr)
+   , loading_into__text_slots(nullptr)
+   , loading_into__text_data(nullptr)
+   , loading_into__polygons(nullptr)
+   , loading_into__cursor_destinations(nullptr)
+   , loading_into__frames(nullptr)
    , initialized(false)
 {
 }
@@ -171,6 +178,18 @@ float Layout::get_layout_height()
    return layout_height;
 }
 
+std::vector<AllegroFlare::Layouts::Layer> Layout::get_layers()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::get_layers]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_layers]: error: guard \"initialized\" not met");
+   }
+   return layers;
+}
+
 void Layout::initialize()
 {
    if (!((!initialized)))
@@ -214,6 +233,14 @@ void Layout::initialize()
 
    // TODO: Confirm that there is only one tileset in use (multiple tilesets will cause unexpected results)
 
+   // Setup the targets to load into
+   loading_into__tile_mesh = &tile_mesh;
+   loading_into__text_slots = &text_slots;
+   loading_into__text_data = &text_data;
+   loading_into__polygons = &polygons;
+   loading_into__cursor_destinations = &cursor_destinations;
+   loading_into__frames = &frames;
+
    // Load the text objects
    tmj_data_loader.for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
 
@@ -224,11 +251,12 @@ void Layout::initialize()
       if (object->text__is_present)
       {
          // Set the text slots
-         text_slots[object->name] = AllegroFlare::Layouts::ElementFactory::build_text_from_tmj_object(object);
+         loading_into__text_slots->operator[](object->name) =
+            AllegroFlare::Layouts::ElementFactory::build_text_from_tmj_object(object);
 
          // Set the text data
          std::string text = object->text__text;
-         text_data[object->name] = text;
+         loading_into__text_data->operator[](object->name) = text;
       }
 
       //
@@ -246,7 +274,8 @@ void Layout::initialize()
       }
       else if (object->type == "shape")
       {
-         polygons[object->id] = AllegroFlare::Layouts::ElementFactory::build_polygon_from_tmj_object(object);
+         loading_into__polygons->operator[](object->id) =
+            AllegroFlare::Layouts::ElementFactory::build_polygon_from_tmj_object(object);
       }
 
       //
@@ -255,7 +284,7 @@ void Layout::initialize()
 
       if (object->type == "cursor_destination")
       {
-         cursor_destinations[object->id] =
+         loading_into__cursor_destinations->operator[](object->id) =
             AllegroFlare::Layouts::ElementFactory::build_cursor_destination_from_tmj_object(object);
       }
 
@@ -265,7 +294,8 @@ void Layout::initialize()
 
       if (object->type == "frame")
       {
-         frames[object->id] = AllegroFlare::Layouts::ElementFactory::build_frame_from_tmj_object(object);
+         loading_into__frames->operator[](object->id) =
+            AllegroFlare::Layouts::ElementFactory::build_frame_from_tmj_object(object);
       }
    });
 
@@ -340,9 +370,9 @@ void Layout::initialize()
       // - Build the tile_mesh
       //int width = room_width_in_tiles; //7;
       //int depth = room_depth_in_tiles; //5;
-      tile_mesh.set_atlas(&prim_mesh_atlas);
-      tile_mesh.set_num_rows(num_rows);
-      tile_mesh.set_num_columns(num_columns);
+      loading_into__tile_mesh->set_atlas(&prim_mesh_atlas);
+      loading_into__tile_mesh->set_num_rows(num_rows);
+      loading_into__tile_mesh->set_num_columns(num_columns);
       //if (!tmj_data_loader.tilelayer_exists("visual"))
       //{
          //AllegroFlare::Logger::throw_error(
@@ -352,7 +382,7 @@ void Layout::initialize()
       //}
       std::vector<int> visual_tilelayer_data = tmj_data_loader.get_tilelayer_data_by_name("visual");
       std::vector<int> opacity_tilelayer_data; // = tmj_data_loader.get_tilelayer_data_by_name("opacity");
-      tile_mesh.initialize();
+      loading_into__tile_mesh->initialize();
       std::vector<ALLEGRO_COLOR> possible_random_colors = { c_back, c_mid, c_upper_mid, c_front }; // DEVELOPMENT
       AllegroFlare::Random random; // DEVELOPMENT
 
@@ -381,11 +411,11 @@ void Layout::initialize()
             //int tile_id = visual_tilelayer_data[x + y * num_columns];
             if (tile_id == 0)
             {
-               tile_mesh.remove_tile_xy_from_index(x, y);
+               loading_into__tile_mesh->remove_tile_xy_from_index(x, y);
             }
             else
             {
-               tile_mesh.set_tile_id(x, y, raw_tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
+               loading_into__tile_mesh->set_tile_id(x, y, raw_tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
             }
 
             // TODO: tile_mesh.set_tile_color(...)
@@ -412,16 +442,22 @@ void Layout::initialize()
                ALLEGRO_COLOR final_color = ALLEGRO_COLOR{opacity, opacity, opacity, opacity};
 
                // Set the color
-               tile_mesh.set_tile_color(x, y, final_color);
+               loading_into__tile_mesh->set_tile_color(x, y, final_color);
             }
          }
       }
 
-      tile_mesh.rescale_tile_dimensions_to(12 * scale, 16 * scale);
-      tile_mesh.refresh_vertex_buffer();
-      tile_mesh.refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
+      loading_into__tile_mesh->rescale_tile_dimensions_to(12 * scale, 16 * scale);
+      loading_into__tile_mesh->refresh_vertex_buffer();
+      loading_into__tile_mesh->refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
 
-      tile_mesh_is_present = true;
+
+      // WARNING: This condition was added to guard against setting the value here, I'm not sure what the side
+      // effects would be
+      if (loading_into__tile_mesh == &tile_mesh) // This is the top-level global tile_mesh
+      {
+         tile_mesh_is_present = true;
+      }
    }
 
    initialized = true;
@@ -730,7 +766,19 @@ void Layout::render()
    al_use_transform(&previous_transform);
 
    // Render tile mesh
-   if (tile_mesh_is_present) tile_mesh.render();
+   if (tile_mesh_is_present)
+   {
+      tile_mesh.render();
+   }
+   //else
+   //{
+      //AllegroFlare::Logger::throw_error(
+         //THIS_CLASS_AND_METHOD_NAME,
+         //"Cannot render tile_mesh because none has been loaded. This is the case for the top-level global "
+            //"tile_mesh. If there are layers, and the layers contain data for tile_mesh, then this method needs to "
+            //"be re-evaluated to support rendering in that circumstance."
+      //);
+   //}
 
    // Render text slots
    render_text_slots();

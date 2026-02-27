@@ -168,6 +168,7 @@
     "AllegroFlare/Layouts/ElementFactory",
     "AllegroFlare/Layouts/Frames",
     "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
@@ -3386,6 +3387,9 @@
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/TimeStamper"
+  ],
+  "AllegroFlare/Layouts/Layer": [
+    "AllegroFlare/Layouts/Layout"
   ],
   "AllegroFlare/Layouts/Text": [
     "AllegroFlare/Layouts/TileMeshWithText"

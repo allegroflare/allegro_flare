@@ -7,6 +7,7 @@
 #include <AllegroFlare/Layouts/Elements/Frame.hpp>
 #include <AllegroFlare/Layouts/Elements/Polygon.hpp>
 #include <AllegroFlare/Layouts/Elements/Text.hpp>
+#include <AllegroFlare/Layouts/Layer.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMesh.hpp>
 #include <AllegroFlare/Tiled/TMJObject.hpp>
@@ -45,9 +46,16 @@ namespace AllegroFlare
          std::map<int, AllegroFlare::Layouts::Elements::Polygon> polygons;
          std::map<int, AllegroFlare::Layouts::Elements::CursorDestination> cursor_destinations;
          std::map<int, AllegroFlare::Layouts::Elements::Frame> frames;
+         std::vector<AllegroFlare::Layouts::Layer> layers;
          int scale;
          std::string default_font_identifier;
          static int _multiline_text_line_number;
+         AllegroFlare::TileMaps::TileMesh* loading_into__tile_mesh;
+         std::map<std::string, AllegroFlare::Layouts::Elements::Text>* loading_into__text_slots;
+         std::map<std::string, std::string>* loading_into__text_data;
+         std::map<int, AllegroFlare::Layouts::Elements::Polygon>* loading_into__polygons;
+         std::map<int, AllegroFlare::Layouts::Elements::CursorDestination>* loading_into__cursor_destinations;
+         std::map<int, AllegroFlare::Layouts::Elements::Frame>* loading_into__frames;
          bool initialized;
          ALLEGRO_FONT* obtain_font(int font_size=-18);
          ALLEGRO_FONT* obtain_custom_font(std::string font_family="[unset-font_family]", int font_size=-18);
@@ -75,6 +83,7 @@ namespace AllegroFlare
          bool get_initialized() const;
          float get_layout_width();
          float get_layout_height();
+         std::vector<AllegroFlare::Layouts::Layer> get_layers();
          void initialize();
          float get_effective_width();
          float get_effective_height();

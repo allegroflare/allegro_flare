@@ -22610,6 +22610,10 @@ table td
   <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Frame&gt;</td>
 </tr>
 <tr>
+  <td class="property">layers</td>
+  <td class="property">std::vector&lt;AllegroFlare::Layouts::Layer&gt;</td>
+</tr>
+<tr>
   <td class="property">scale</td>
   <td class="property">int</td>
 </tr>
@@ -22620,6 +22624,30 @@ table td
 <tr>
   <td class="property">_multiline_text_line_number</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">loading_into__tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::TileMesh*</td>
+</tr>
+<tr>
+  <td class="property">loading_into__text_slots</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Layouts::Elements::Text&gt;*</td>
+</tr>
+<tr>
+  <td class="property">loading_into__text_data</td>
+  <td class="property">std::map&lt;std::string, std::string&gt;*</td>
+</tr>
+<tr>
+  <td class="property">loading_into__polygons</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Polygon&gt;*</td>
+</tr>
+<tr>
+  <td class="property">loading_into__cursor_destinations</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::CursorDestination&gt;*</td>
+</tr>
+<tr>
+  <td class="property">loading_into__frames</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Frame&gt;*</td>
 </tr>
 <tr>
   <td class="property">initialized</td>
@@ -22639,6 +22667,10 @@ table td
 <tr>
   <td class="method">float</td>
   <td class="method"><b>get_layout_height</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Layouts::Layer&gt;</td>
+  <td class="method"><b>get_layers</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -22776,6 +22808,9 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::FontBin&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/FontBin.hpp&quot;]}</td>
 </tr>
 <tr>
@@ -22849,6 +22884,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::ostringstream&quot;, &quot;headers&quot;=&gt;[&quot;sstream&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Layer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Layer.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -53053,6 +53091,7 @@ table td
     "AllegroFlare/Layouts/ElementFactory",
     "AllegroFlare/Layouts/Frames",
     "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
@@ -56271,6 +56310,9 @@ table td
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/SavingAndLoading/SaveSlot",
     "AllegroFlare/TimeStamper"
+  ],
+  "AllegroFlare/Layouts/Layer": [
+    "AllegroFlare/Layouts/Layout"
   ],
   "AllegroFlare/Layouts/Text": [
     "AllegroFlare/Layouts/TileMeshWithText"
