@@ -3396,6 +3396,10 @@
   "AllegroFlare/Layouts/Layer": [
     "AllegroFlare/Layouts/Layout"
   ],
+  "AllegroFlare/Tiled/TMJGroup": [
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Tiled/TMJDataLoader"
+  ],
   "AllegroFlare/Layouts/Text": [
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
@@ -4686,9 +4690,6 @@
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
-  ],
-  "AllegroFlare/Tiled/TMJGroup": [
-    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "std/stringstream": [
     "AllegroFlare/TimeStamper"

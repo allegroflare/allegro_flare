@@ -10,6 +10,8 @@
 #include <AllegroFlare/Layouts/Layer.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlas.hpp>
 #include <AllegroFlare/TileMaps/TileMesh.hpp>
+#include <AllegroFlare/Tiled/TMJDataLoader.hpp>
+#include <AllegroFlare/Tiled/TMJGroup.hpp>
 #include <AllegroFlare/Tiled/TMJObject.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
@@ -50,7 +52,7 @@ namespace AllegroFlare
          int scale;
          std::string default_font_identifier;
          static int _multiline_text_line_number;
-         AllegroFlare::Layouts::Layer* current_layer;
+         AllegroFlare::Tiled::TMJGroup* current_group;
          bool* loading_into__tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh* loading_into__tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text>* loading_into__text_slots;
@@ -88,6 +90,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::Layouts::Layer> get_layers();
          void initialize();
          void load_into_object(AllegroFlare::Tiled::TMJObject* object=nullptr);
+         void load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_loader_ptr=nullptr);
          float get_effective_width();
          float get_effective_height();
          AllegroFlare::Layouts::Elements::Polygon* find_polygon_by_tmj_object_id(int tmj_object_id=0);

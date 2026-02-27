@@ -22687,8 +22687,8 @@ table td
   <td class="property">int</td>
 </tr>
 <tr>
-  <td class="property">current_layer</td>
-  <td class="property">AllegroFlare::Layouts::Layer*</td>
+  <td class="property">current_group</td>
+  <td class="property">AllegroFlare::Tiled::TMJGroup*</td>
 </tr>
 <tr>
   <td class="property">loading_into__tile_mesh_is_present</td>
@@ -22748,6 +22748,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>load_into_object</b>(AllegroFlare::Tiled::TMJObject* object=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load_into_tilelayer</b>(AllegroFlare::Tiled::TMJDataLoader* tmj_data_loader_ptr=nullptr)</td>
 </tr>
 <tr>
   <td class="method">float</td>
@@ -22960,6 +22964,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Layer&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Layer.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJGroup&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJGroup.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -56392,6 +56399,10 @@ table td
   "AllegroFlare/Layouts/Layer": [
     "AllegroFlare/Layouts/Layout"
   ],
+  "AllegroFlare/Tiled/TMJGroup": [
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Tiled/TMJDataLoader"
+  ],
   "AllegroFlare/Layouts/Text": [
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
@@ -57682,9 +57693,6 @@ table td
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
-  ],
-  "AllegroFlare/Tiled/TMJGroup": [
-    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "std/stringstream": [
     "AllegroFlare/TimeStamper"
