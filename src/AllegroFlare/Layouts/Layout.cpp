@@ -34,9 +34,9 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , tmj_filename(tmj_filename)
    , layout_width(0.0f)
    , layout_height(0.0f)
-   , tile_mesh_is_present(false)
    , prim_mesh_atlas_filename(prim_mesh_atlas_filename)
    , prim_mesh_atlas(prim_mesh_atlas)
+   , tile_mesh_is_present(false)
    , tile_mesh(tile_mesh)
    , text_slots(text_slots)
    , text_data({})
@@ -46,6 +46,8 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , layers({})
    , scale(3)
    , default_font_identifier("Orbitron-Medium.ttf")
+   , current_layer(nullptr)
+   , loading_into__tile_mesh_is_present(nullptr)
    , loading_into__tile_mesh(nullptr)
    , loading_into__text_slots(nullptr)
    , loading_into__text_data(nullptr)
@@ -234,6 +236,7 @@ void Layout::initialize()
    // TODO: Confirm that there is only one tileset in use (multiple tilesets will cause unexpected results)
 
    // Setup the targets to load into
+   loading_into__tile_mesh_is_present = &tile_mesh_is_present;
    loading_into__tile_mesh = &tile_mesh;
    loading_into__text_slots = &text_slots;
    loading_into__text_data = &text_data;
@@ -241,9 +244,12 @@ void Layout::initialize()
    loading_into__cursor_destinations = &cursor_destinations;
    loading_into__frames = &frames;
 
-   // Load the text objects
+   // Load the objects
    tmj_data_loader.for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
+      load_into_object(object);
+      return;
 
+      /*
       //
       // Load text objects
       //
@@ -297,170 +303,247 @@ void Layout::initialize()
          loading_into__frames->operator[](object->id) =
             AllegroFlare::Layouts::ElementFactory::build_frame_from_tmj_object(object);
       }
+      */
    });
 
 
 
-   // TODO: Do not require "visual" tilelayer
-   // TODO: Make tile_atlas_tile_width, tile_atlas_tile_height injectable or inferrable from loaded TMJ file
-
-   // Load the tile data
-   //int num_rows = tmj_data_loader.get_num_rows();
-   //int num_columns = tmj_data_loader.get_num_columns();
-   bool visual_tilelayer_is_present = false;
-   bool opacity_tilelayer_is_present = false;
-   if (tmj_data_loader.tilelayer_exists("visual")) visual_tilelayer_is_present = true;
-   if (tmj_data_loader.tilelayer_exists("opacity")) opacity_tilelayer_is_present = true;
-
-
-   if (!visual_tilelayer_is_present)
+   if (tmj_data_loader.num_groups() != 0)
    {
-      //AllegroFlare::Logger::throw_error(
-         //"AllegroFlare::Layouts::Layout::initialize",
-         //"Missing \"visual\" tilelayer."
-      //);
-      AllegroFlare::Logger::info_from(
-         "AllegroFlare::Layouts::Layout::initialize",
-         "The \"visual\" tilelayer is not present when loading the layout \"" + tmj_filename + "\". This layer is "
-            "optional so this message is provided for debugging. Also, loading the \"opacity\" tilelayer will be "
-            "skipped if present."
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Loading groups is not yet supported. This is a temporary intermediate-state of development of this "
+            "AllegroFlare::Layouts::Layout class."
       );
    }
-
-
-   if (!opacity_tilelayer_is_present)
+   else
    {
-      AllegroFlare::Logger::info_from(
-         "AllegroFlare::Layouts::Layout::initialize",
-         "The \"opacity\" tilelayer is not present when loading the layout \"" + tmj_filename + "\". This layer is "
-            "optional so this message is provided for debugging."
-      );
-   }
+      // TODO: Do not require "visual" tilelayer
+      // TODO: Make tile_atlas_tile_width, tile_atlas_tile_height injectable or inferrable from loaded TMJ file
+
+      // Load the tile data
+      //int num_rows = tmj_data_loader.get_num_rows();
+      //int num_columns = tmj_data_loader.get_num_columns();
+      bool visual_tilelayer_is_present = false;
+      bool opacity_tilelayer_is_present = false;
+      if (tmj_data_loader.tilelayer_exists("visual")) visual_tilelayer_is_present = true;
+      if (tmj_data_loader.tilelayer_exists("opacity")) opacity_tilelayer_is_present = true;
 
 
-   if (visual_tilelayer_is_present)
-   {
-      // Build the atlas
-      // TODO: Audit this to be sure the bitmaps are created and destroyed as expected
-      std::string tileset_filename = prim_mesh_atlas_filename;
-      ALLEGRO_BITMAP *atlas_bitmap = bitmap_bin->auto_get(tileset_filename);
-      prim_mesh_atlas.set_bitmap_filename(tileset_filename);
-      // - Scale and extrude the atlas
-      int tile_atlas_tile_width = 12;
-      int tile_atlas_tile_height = 16;
-      int tile_scale = 3;
-      ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-         AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(
-         atlas_bitmap,
-         tile_scale,
-         tile_atlas_tile_width,
-         tile_atlas_tile_height
-         );
-      prim_mesh_atlas.duplicate_bitmap_and_load(
-         scaled_extruded_tile_map_bitmap,
-         tile_atlas_tile_width*tile_scale,
-         tile_atlas_tile_height*tile_scale,
-         1
-      );
-      //al_init_image_addon();
-      //al_save_bitmap("foobar.png", scaled_extruded_tile_map_bitmap);
-      al_destroy_bitmap(scaled_extruded_tile_map_bitmap); // TODO: Confirm destruction is correct here
-      bitmap_bin->destroy(tileset_filename);
-
-      // - Build the tile_mesh
-      //int width = room_width_in_tiles; //7;
-      //int depth = room_depth_in_tiles; //5;
-      loading_into__tile_mesh->set_atlas(&prim_mesh_atlas);
-      loading_into__tile_mesh->set_num_rows(num_rows);
-      loading_into__tile_mesh->set_num_columns(num_columns);
-      //if (!tmj_data_loader.tilelayer_exists("visual"))
-      //{
-         //AllegroFlare::Logger::throw_error(
-            //"Character3D::Room::initialize",
-            //"Expecting tilelayer named \"visual\" to be present when loading tmj file \"" + tmj_filename + "\""
-         //);
-      //}
-      std::vector<int> visual_tilelayer_data = tmj_data_loader.get_tilelayer_data_by_name("visual");
-      std::vector<int> opacity_tilelayer_data; // = tmj_data_loader.get_tilelayer_data_by_name("opacity");
-      loading_into__tile_mesh->initialize();
-      std::vector<ALLEGRO_COLOR> possible_random_colors = { c_back, c_mid, c_upper_mid, c_front }; // DEVELOPMENT
-      AllegroFlare::Random random; // DEVELOPMENT
-
-      if (opacity_tilelayer_is_present)
+      if (!visual_tilelayer_is_present)
       {
-         opacity_tilelayer_data = tmj_data_loader.get_tilelayer_data_by_name("opacity");
+         //AllegroFlare::Logger::throw_error(
+            //"AllegroFlare::Layouts::Layout::initialize",
+            //"Missing \"visual\" tilelayer."
+         //);
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Layouts::Layout::initialize",
+            "The \"visual\" tilelayer is not present when loading the layout \"" + tmj_filename + "\". This layer is "
+               "optional so this message is provided for debugging. Also, loading the \"opacity\" tilelayer will be "
+               "skipped if present."
+         );
       }
 
-      for (int y=0; y<num_rows; y++)
+
+      if (!opacity_tilelayer_is_present)
       {
-         for (int x=0; x<num_columns; x++)
+         AllegroFlare::Logger::info_from(
+            "AllegroFlare::Layouts::Layout::initialize",
+            "The \"opacity\" tilelayer is not present when loading the layout \"" + tmj_filename + "\". This layer is "
+               "optional so this message is provided for debugging."
+         );
+      }
+
+
+      if (visual_tilelayer_is_present)
+      {
+         // Build the atlas
+         // TODO: Audit this to be sure the bitmaps are created and destroyed as expected
+         std::string tileset_filename = prim_mesh_atlas_filename;
+         ALLEGRO_BITMAP *atlas_bitmap = bitmap_bin->auto_get(tileset_filename);
+         prim_mesh_atlas.set_bitmap_filename(tileset_filename);
+         // - Scale and extrude the atlas
+         int tile_atlas_tile_width = 12;
+         int tile_atlas_tile_height = 16;
+         int tile_scale = 3;
+         ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
+            AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(
+            atlas_bitmap,
+            tile_scale,
+            tile_atlas_tile_width,
+            tile_atlas_tile_height
+            );
+         prim_mesh_atlas.duplicate_bitmap_and_load(
+            scaled_extruded_tile_map_bitmap,
+            tile_atlas_tile_width*tile_scale,
+            tile_atlas_tile_height*tile_scale,
+            1
+         );
+         //al_init_image_addon();
+         //al_save_bitmap("foobar.png", scaled_extruded_tile_map_bitmap);
+         al_destroy_bitmap(scaled_extruded_tile_map_bitmap); // TODO: Confirm destruction is correct here
+         bitmap_bin->destroy(tileset_filename);
+
+         // - Build the tile_mesh
+         //int width = room_width_in_tiles; //7;
+         //int depth = room_depth_in_tiles; //5;
+         loading_into__tile_mesh->set_atlas(&prim_mesh_atlas);
+         loading_into__tile_mesh->set_num_rows(num_rows);
+         loading_into__tile_mesh->set_num_columns(num_columns);
+         //if (!tmj_data_loader.tilelayer_exists("visual"))
+         //{
+            //AllegroFlare::Logger::throw_error(
+               //"Character3D::Room::initialize",
+               //"Expecting tilelayer named \"visual\" to be present when loading tmj file \"" + tmj_filename + "\""
+            //);
+         //}
+         std::vector<int> visual_tilelayer_data = tmj_data_loader.get_tilelayer_data_by_name("visual");
+         std::vector<int> opacity_tilelayer_data; // = tmj_data_loader.get_tilelayer_data_by_name("opacity");
+         loading_into__tile_mesh->initialize();
+         std::vector<ALLEGRO_COLOR> possible_random_colors = { c_back, c_mid, c_upper_mid, c_front }; // DEVELOPMENT
+         AllegroFlare::Random random; // DEVELOPMENT
+
+         if (opacity_tilelayer_is_present)
          {
-            int tile_id = visual_tilelayer_data[x + y * num_columns];
-            auto tile_flip_data = extract_tmj_tile_flip_properties(tile_id);
+            opacity_tilelayer_data = tmj_data_loader.get_tilelayer_data_by_name("opacity");
+         }
 
-            bool horizontal_flip_flag_present = std::get<0>(tile_flip_data);
-            bool vertical_flip_flag_present = std::get<1>(tile_flip_data);
-            bool antidiagonal_flip_flag_present = std::get<2>(tile_flip_data);
-            bool hex_120_rotation_flag_present = std::get<3>(tile_flip_data);
-
-            int raw_tile_id = std::get<4>(tile_flip_data);
-            bool has_horizontal_flip = horizontal_flip_flag_present;
-            bool has_vertical_flip = vertical_flip_flag_present;
-            bool has_diagonal_flip = antidiagonal_flip_flag_present;
-
-            //int tile_id = visual_tilelayer_data[x + y * num_columns];
-            if (tile_id == 0)
+         for (int y=0; y<num_rows; y++)
+         {
+            for (int x=0; x<num_columns; x++)
             {
-               loading_into__tile_mesh->remove_tile_xy_from_index(x, y);
-            }
-            else
-            {
-               loading_into__tile_mesh->set_tile_id(x, y, raw_tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
-            }
-
-            // TODO: tile_mesh.set_tile_color(...)
-            if (opacity_tilelayer_is_present)
-            {
-               int tile_id = opacity_tilelayer_data[x + y * num_columns];
+               int tile_id = visual_tilelayer_data[x + y * num_columns];
                auto tile_flip_data = extract_tmj_tile_flip_properties(tile_id);
-               int raw_tile_id = std::get<4>(tile_flip_data);
 
-               float opacity = 1.0;
-               //ALLEGRO_COLOR final_color = ALLEGRO_COLOR{1, 1, 1, 1};
-               if (raw_tile_id == 0) opacity = 1.0;
+               bool horizontal_flip_flag_present = std::get<0>(tile_flip_data);
+               bool vertical_flip_flag_present = std::get<1>(tile_flip_data);
+               bool antidiagonal_flip_flag_present = std::get<2>(tile_flip_data);
+               bool hex_120_rotation_flag_present = std::get<3>(tile_flip_data);
+
+               int raw_tile_id = std::get<4>(tile_flip_data);
+               bool has_horizontal_flip = horizontal_flip_flag_present;
+               bool has_vertical_flip = vertical_flip_flag_present;
+               bool has_diagonal_flip = antidiagonal_flip_flag_present;
+
+               //int tile_id = visual_tilelayer_data[x + y * num_columns];
+               if (tile_id == 0)
+               {
+                  loading_into__tile_mesh->remove_tile_xy_from_index(x, y);
+               }
                else
                {
-                  raw_tile_id -= 1;
-                  if (raw_tile_id == 0) opacity = 1.0;
-                  else if (raw_tile_id == 1) opacity = 0.75;
-                  else if (raw_tile_id == 2) opacity = 0.35;
-                  else if (raw_tile_id == 3) opacity = 0.20;
-                  else if (raw_tile_id == 4) opacity = 0.0;
+                  loading_into__tile_mesh->set_tile_id(x, y, raw_tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
                }
-               //tile_mesh.set_tile_id(x, y, raw_tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
 
-               ALLEGRO_COLOR final_color = ALLEGRO_COLOR{opacity, opacity, opacity, opacity};
+               // TODO: tile_mesh.set_tile_color(...)
+               if (opacity_tilelayer_is_present)
+               {
+                  int tile_id = opacity_tilelayer_data[x + y * num_columns];
+                  auto tile_flip_data = extract_tmj_tile_flip_properties(tile_id);
+                  int raw_tile_id = std::get<4>(tile_flip_data);
 
-               // Set the color
-               loading_into__tile_mesh->set_tile_color(x, y, final_color);
+                  float opacity = 1.0;
+                  //ALLEGRO_COLOR final_color = ALLEGRO_COLOR{1, 1, 1, 1};
+                  if (raw_tile_id == 0) opacity = 1.0;
+                  else
+                  {
+                     raw_tile_id -= 1;
+                     if (raw_tile_id == 0) opacity = 1.0;
+                     else if (raw_tile_id == 1) opacity = 0.75;
+                     else if (raw_tile_id == 2) opacity = 0.35;
+                     else if (raw_tile_id == 3) opacity = 0.20;
+                     else if (raw_tile_id == 4) opacity = 0.0;
+                  }
+                  //tile_mesh.set_tile_id(x, y, raw_tile_id-1, has_horizontal_flip, has_vertical_flip, has_diagonal_flip);
+
+                  ALLEGRO_COLOR final_color = ALLEGRO_COLOR{opacity, opacity, opacity, opacity};
+
+                  // Set the color
+                  loading_into__tile_mesh->set_tile_color(x, y, final_color);
+               }
             }
          }
-      }
 
-      loading_into__tile_mesh->rescale_tile_dimensions_to(12 * scale, 16 * scale);
-      loading_into__tile_mesh->refresh_vertex_buffer();
-      loading_into__tile_mesh->refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
+         loading_into__tile_mesh->rescale_tile_dimensions_to(12 * scale, 16 * scale);
+         loading_into__tile_mesh->refresh_vertex_buffer();
+         loading_into__tile_mesh->refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
 
 
-      // WARNING: This condition was added to guard against setting the value here, I'm not sure what the side
-      // effects would be
-      if (loading_into__tile_mesh == &tile_mesh) // This is the top-level global tile_mesh
-      {
-         tile_mesh_is_present = true;
+         // WARNING: This condition was added to guard against setting the value here, I'm not sure what the side
+         // effects would be
+         //if (loading_into__tile_mesh == &tile_mesh) // This is the top-level global tile_mesh
+         //{
+            *loading_into__tile_mesh_is_present = true;
+         //}
       }
    }
 
    initialized = true;
+   return;
+}
+
+void Layout::load_into_object(AllegroFlare::Tiled::TMJObject* object)
+{
+   if (!(object))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::load_into_object]: error: guard \"object\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::load_into_object]: error: guard \"object\" not met");
+   }
+   //
+   // Load text objects
+   //
+
+   if (object->text__is_present)
+   {
+      // Set the text slots
+      loading_into__text_slots->operator[](object->name) =
+         AllegroFlare::Layouts::ElementFactory::build_text_from_tmj_object(object);
+
+      // Set the text data
+      std::string text = object->text__text;
+      loading_into__text_data->operator[](object->name) = text;
+   }
+
+   //
+   // Load "polygons" a.k.a. "shape"s
+   //
+
+   if (!object->polygon.empty() && object->type != "shape") // TODO: Consider renaming this TMJ type to "polygon"
+   {
+      AllegroFlare::Logger::throw_error(
+         "AllegroFlare::Layouts::Layout::initialize",
+         "When loading object (tmj_object_id \"" + std::to_string(object->id) + "\"), the object contains "
+            "polygon points, but it is not of the type \"shape\". For this implementation, a shape type (that "
+            "has the expected custom properties for \"shape\") is expected to be present for polygons."
+      );
+   }
+   else if (object->type == "shape")
+   {
+      loading_into__polygons->operator[](object->id) =
+         AllegroFlare::Layouts::ElementFactory::build_polygon_from_tmj_object(object);
+   }
+
+   //
+   // Load "cursor_destinations"
+   //
+
+   if (object->type == "cursor_destination")
+   {
+      loading_into__cursor_destinations->operator[](object->id) =
+         AllegroFlare::Layouts::ElementFactory::build_cursor_destination_from_tmj_object(object);
+   }
+
+   //
+   // Load "frames"
+   //
+
+   if (object->type == "frame")
+   {
+      loading_into__frames->operator[](object->id) =
+         AllegroFlare::Layouts::ElementFactory::build_frame_from_tmj_object(object);
+   }
    return;
 }
 

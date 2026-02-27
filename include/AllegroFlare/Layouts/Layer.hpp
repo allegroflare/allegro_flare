@@ -17,6 +17,7 @@ namespace AllegroFlare
       class Layer
       {
       private:
+         bool tile_mesh_is_present;
 
       protected:
 
@@ -31,6 +32,7 @@ namespace AllegroFlare
          Layer();
          ~Layer();
 
+         bool get_tile_mesh_is_present() const;
       };
    }
 }

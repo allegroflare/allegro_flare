@@ -3319,6 +3319,7 @@
   "AllegroFlare/Layouts/Elements/CursorDestination": [
     "AllegroFlare/Layouts/CursorMap",
     "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layer",
     "AllegroFlare/Layouts/Layout"
   ],
   "AllegroFlare/Layouts/ElementFactory": [
@@ -3331,18 +3332,21 @@
   ],
   "AllegroFlare/Layouts/Elements/Text": [
     "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layer",
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
   "AllegroFlare/Layouts/Elements/Polygon": [
     "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layer",
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Polygons"
   ],
   "AllegroFlare/Layouts/Elements/Frame": [
     "AllegroFlare/Layouts/ElementFactory",
     "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layer",
     "AllegroFlare/Layouts/Layout"
   ],
   "AllegroFlare/Path2D": [
@@ -3351,6 +3355,16 @@
   ":Layouts/CursorMaps/CursorDestination": [
     "AllegroFlare/Layouts/Frames",
     "AllegroFlare/Layouts/Polygons"
+  ],
+  "AllegroFlare/TileMaps/TileMesh": [
+    "AllegroFlare/Layouts/Layer",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/Layouts/Layout",
@@ -3373,15 +3387,6 @@
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
-  ],
-  "AllegroFlare/TileMaps/TileMesh": [
-    "AllegroFlare/Layouts/Layout",
-    "AllegroFlare/Layouts/Text",
-    "AllegroFlare/Layouts/TileMeshWithText",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "std/ostringstream": [
     "AllegroFlare/Layouts/Layout",

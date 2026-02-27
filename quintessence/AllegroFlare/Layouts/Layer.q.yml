@@ -1,6 +1,11 @@
 properties:
 
 
+  - name: tile_mesh_is_present
+    type: bool
+    init_with: false
+    getter: true
+
   - name: tile_mesh
     type: AllegroFlare::TileMaps::TileMesh
     init_with: '{}'

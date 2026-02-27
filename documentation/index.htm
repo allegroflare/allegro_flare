@@ -315,6 +315,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Layouts/Elements/Polygon.q.yml">quintessence/AllegroFlare/Layouts/Elements/Polygon.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Layouts/Elements/Text.q.yml">quintessence/AllegroFlare/Layouts/Elements/Text.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Layouts/Frames.q.yml">quintessence/AllegroFlare/Layouts/Frames.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Layouts/Layer.q.yml">quintessence/AllegroFlare/Layouts/Layer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Layouts/Layout.q.yml">quintessence/AllegroFlare/Layouts/Layout.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Layouts/Polygons.q.yml">quintessence/AllegroFlare/Layouts/Polygons.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Layouts/Text.q.yml">quintessence/AllegroFlare/Layouts/Text.q.yml</a></li>
@@ -22549,6 +22550,66 @@ table td
 <br><br><br>
 <ul>
   <div class="component">
+    <h3 id="quintessence/AllegroFlare/Layouts/Layer.q.yml">quintessence/AllegroFlare/Layouts/Layer.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">tile_mesh_is_present</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">tile_mesh</td>
+  <td class="property">AllegroFlare::TileMaps::TileMesh</td>
+</tr>
+<tr>
+  <td class="property">text_slots</td>
+  <td class="property">std::map&lt;std::string, AllegroFlare::Layouts::Elements::Text&gt;</td>
+</tr>
+<tr>
+  <td class="property">text_data</td>
+  <td class="property">std::map&lt;std::string, std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">polygons</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Polygon&gt;</td>
+</tr>
+<tr>
+  <td class="property">cursor_destinations</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::CursorDestination&gt;</td>
+</tr>
+<tr>
+  <td class="property">frames</td>
+  <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Frame&gt;</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::CursorDestination&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/CursorDestination.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Frame&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Frame.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Polygon&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Polygon.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Layouts::Elements::Text&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Layouts/Elements/Text.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::TileMaps::TileMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/TileMaps/TileMesh.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
     <h3 id="quintessence/AllegroFlare/Layouts/Layout.q.yml">quintessence/AllegroFlare/Layouts/Layout.q.yml</h3>
     <h3>Overview</h3>
     <p>{"notes"=>["This class loads a Tiled .tmj file into layout. The TMJ file expects specific object classes, and layer names to be present in the file. This layout handles text, polygons, a tile_mesh, and frames (arbitrary container boxes). To include a tile_mesh, you should include a \"visual\" tile layer and optionally an \"opacity\" tilelayer.", "There are other alternatives to this Layouts/Layout under the Layouts/ folder. Layouts/TileMeshWithText, for example, does require a \"visual\" tillayer.", "At the time this class was created, it's not planned to have this class load or create arbitrary layouts without having a Tiled .tmj file as the source."]}</p>    <h3>Properties</h3>
@@ -22574,16 +22635,16 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
-  <td class="property">tile_mesh_is_present</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
   <td class="property">prim_mesh_atlas_filename</td>
   <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">prim_mesh_atlas</td>
   <td class="property">AllegroFlare::TileMaps::PrimMeshAtlas</td>
+</tr>
+<tr>
+  <td class="property">tile_mesh_is_present</td>
+  <td class="property">bool</td>
 </tr>
 <tr>
   <td class="property">tile_mesh</td>
@@ -22624,6 +22685,14 @@ table td
 <tr>
   <td class="property">_multiline_text_line_number</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">current_layer</td>
+  <td class="property">AllegroFlare::Layouts::Layer*</td>
+</tr>
+<tr>
+  <td class="property">loading_into__tile_mesh_is_present</td>
+  <td class="property">bool*</td>
 </tr>
 <tr>
   <td class="property">loading_into__tile_mesh</td>
@@ -22675,6 +22744,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>load_into_object</b>(AllegroFlare::Tiled::TMJObject* object=nullptr)</td>
 </tr>
 <tr>
   <td class="method">float</td>
@@ -56242,6 +56315,7 @@ table td
   "AllegroFlare/Layouts/Elements/CursorDestination": [
     "AllegroFlare/Layouts/CursorMap",
     "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layer",
     "AllegroFlare/Layouts/Layout"
   ],
   "AllegroFlare/Layouts/ElementFactory": [
@@ -56254,18 +56328,21 @@ table td
   ],
   "AllegroFlare/Layouts/Elements/Text": [
     "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layer",
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText"
   ],
   "AllegroFlare/Layouts/Elements/Polygon": [
     "AllegroFlare/Layouts/ElementFactory",
+    "AllegroFlare/Layouts/Layer",
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Polygons"
   ],
   "AllegroFlare/Layouts/Elements/Frame": [
     "AllegroFlare/Layouts/ElementFactory",
     "AllegroFlare/Layouts/Frames",
+    "AllegroFlare/Layouts/Layer",
     "AllegroFlare/Layouts/Layout"
   ],
   "AllegroFlare/Path2D": [
@@ -56274,6 +56351,16 @@ table td
   ":Layouts/CursorMaps/CursorDestination": [
     "AllegroFlare/Layouts/Frames",
     "AllegroFlare/Layouts/Polygons"
+  ],
+  "AllegroFlare/TileMaps/TileMesh": [
+    "AllegroFlare/Layouts/Layer",
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/Layouts/Text",
+    "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
+    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
+    "AllegroFlare/Prototypes/Platforming2D/Screen",
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/Layouts/Layout",
@@ -56296,15 +56383,6 @@ table td
     "Wicked/Entities/Basic2DFactory",
     "WickedDemos/TileDemo",
     "WickedDemos/TileMaps/Basic2D"
-  ],
-  "AllegroFlare/TileMaps/TileMesh": [
-    "AllegroFlare/Layouts/Layout",
-    "AllegroFlare/Layouts/Text",
-    "AllegroFlare/Layouts/TileMeshWithText",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
-    "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
-    "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
   ],
   "std/ostringstream": [
     "AllegroFlare/Layouts/Layout",

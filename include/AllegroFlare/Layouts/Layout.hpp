@@ -37,9 +37,9 @@ namespace AllegroFlare
          std::string tmj_filename;
          float layout_width;
          float layout_height;
-         bool tile_mesh_is_present;
          std::string prim_mesh_atlas_filename;
          AllegroFlare::TileMaps::PrimMeshAtlas prim_mesh_atlas;
+         bool tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots;
          std::map<std::string, std::string> text_data;
@@ -50,6 +50,8 @@ namespace AllegroFlare
          int scale;
          std::string default_font_identifier;
          static int _multiline_text_line_number;
+         AllegroFlare::Layouts::Layer* current_layer;
+         bool* loading_into__tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh* loading_into__tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text>* loading_into__text_slots;
          std::map<std::string, std::string>* loading_into__text_data;
@@ -85,6 +87,7 @@ namespace AllegroFlare
          float get_layout_height();
          std::vector<AllegroFlare::Layouts::Layer> get_layers();
          void initialize();
+         void load_into_object(AllegroFlare::Tiled::TMJObject* object=nullptr);
          float get_effective_width();
          float get_effective_height();
          AllegroFlare::Layouts::Elements::Polygon* find_polygon_by_tmj_object_id(int tmj_object_id=0);
