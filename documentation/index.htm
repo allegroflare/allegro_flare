@@ -22598,10 +22598,6 @@ table td
   <td class="property">std::map&lt;std::string, std::string&gt;</td>
 </tr>
 <tr>
-  <td class="property">default_font_identifier</td>
-  <td class="property">std::string</td>
-</tr>
-<tr>
   <td class="property">polygons</td>
   <td class="property">std::map&lt;int, AllegroFlare::Layouts::Elements::Polygon&gt;</td>
 </tr>
@@ -22616,6 +22612,10 @@ table td
 <tr>
   <td class="property">scale</td>
   <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">default_font_identifier</td>
+  <td class="property">std::string</td>
 </tr>
 <tr>
   <td class="property">_multiline_text_line_number</td>
@@ -48265,6 +48265,14 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">num_rows</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">num_columns</td>
+  <td class="property">int</td>
+</tr>
+<tr>
   <td class="property">tilelayers_tile_data</td>
   <td class="property">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
 </tr>
@@ -48275,6 +48283,22 @@ table td
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>for_each_object</b>(std::function&lt;void(AllegroFlare::Tiled::TMJObject*, void*)&gt; function={}, void* user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;int&gt;</td>
+  <td class="method"><b>get_tilelayer_data_by_name</b>(std::string tilelayer_name=&quot;[unset-tilelayer_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;std::vector&lt;int&gt;&gt;</td>
+  <td class="method"><b>get_tilelayer_data_by_name_as_2d_vector</b>(std::string tilelayer_name=&quot;[unset-tilelayer_name]&quot;)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>tilelayer_exists</b>(std::string tilelayer_name=&quot;[unset-tilelayer_name]&quot;)</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>

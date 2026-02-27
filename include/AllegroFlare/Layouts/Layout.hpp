@@ -42,11 +42,11 @@ namespace AllegroFlare
          AllegroFlare::TileMaps::TileMesh tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots;
          std::map<std::string, std::string> text_data;
-         std::string default_font_identifier;
          std::map<int, AllegroFlare::Layouts::Elements::Polygon> polygons;
          std::map<int, AllegroFlare::Layouts::Elements::CursorDestination> cursor_destinations;
          std::map<int, AllegroFlare::Layouts::Elements::Frame> frames;
          int scale;
+         std::string default_font_identifier;
          static int _multiline_text_line_number;
          bool initialized;
          ALLEGRO_FONT* obtain_font(int font_size=-18);
@@ -66,12 +66,12 @@ namespace AllegroFlare
          void set_prim_mesh_atlas(AllegroFlare::TileMaps::PrimMeshAtlas prim_mesh_atlas);
          void set_tile_mesh(AllegroFlare::TileMaps::TileMesh tile_mesh);
          void set_text_slots(std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots);
-         void set_default_font_identifier(std::string default_font_identifier);
          void set_scale(int scale);
+         void set_default_font_identifier(std::string default_font_identifier);
          bool get_tile_mesh_is_present() const;
          std::map<std::string, std::string> get_text_data() const;
-         std::string get_default_font_identifier() const;
          int get_scale() const;
+         std::string get_default_font_identifier() const;
          bool get_initialized() const;
          float get_layout_width();
          float get_layout_height();

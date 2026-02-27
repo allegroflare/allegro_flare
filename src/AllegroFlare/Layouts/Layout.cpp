@@ -40,11 +40,11 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , tile_mesh(tile_mesh)
    , text_slots(text_slots)
    , text_data({})
-   , default_font_identifier("Orbitron-Medium.ttf")
    , polygons({})
    , cursor_destinations({})
    , frames({})
    , scale(3)
+   , default_font_identifier("Orbitron-Medium.ttf")
    , initialized(false)
 {
 }
@@ -104,16 +104,16 @@ void Layout::set_text_slots(std::map<std::string, AllegroFlare::Layouts::Element
 }
 
 
-void Layout::set_default_font_identifier(std::string default_font_identifier)
-{
-   this->default_font_identifier = default_font_identifier;
-}
-
-
 void Layout::set_scale(int scale)
 {
    if (get_initialized()) throw std::runtime_error("[Layout::set_scale]: error: guard \"get_initialized()\" not met.");
    this->scale = scale;
+}
+
+
+void Layout::set_default_font_identifier(std::string default_font_identifier)
+{
+   this->default_font_identifier = default_font_identifier;
 }
 
 
@@ -129,15 +129,15 @@ std::map<std::string, std::string> Layout::get_text_data() const
 }
 
 
-std::string Layout::get_default_font_identifier() const
-{
-   return default_font_identifier;
-}
-
-
 int Layout::get_scale() const
 {
    return scale;
+}
+
+
+std::string Layout::get_default_font_identifier() const
+{
+   return default_font_identifier;
 }
 
 

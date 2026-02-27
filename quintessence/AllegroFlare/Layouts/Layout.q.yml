@@ -64,12 +64,6 @@ properties:
     getter: true
     setter: explicit
 
-  - name: default_font_identifier
-    type: std::string
-    init_with: '"Orbitron-Medium.ttf"'
-    getter: true
-    setter: true
-
   - name: polygons
     type: std::map<int, AllegroFlare::Layouts::Elements::Polygon>
     init_with: '{}'
@@ -87,6 +81,12 @@ properties:
     init_with: 3
     getter: true
     setter: before_initialized
+
+  - name: default_font_identifier
+    type: std::string
+    init_with: '"Orbitron-Medium.ttf"'
+    getter: true
+    setter: true
 
   - name: _multiline_text_line_number
     type: int

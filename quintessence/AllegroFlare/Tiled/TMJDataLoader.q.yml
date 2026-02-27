@@ -552,6 +552,8 @@ methods:
             result_group.id = id_property;
             result_group.offset_x = x_property;
             result_group.offset_y = y_property;
+            result_group.num_rows = num_rows;
+            result_group.num_columns = num_columns;
 
             AllegroFlare::Tiled::TMJGroup *previous_group = current_loading_group;
             groups.push_back(result_group);
