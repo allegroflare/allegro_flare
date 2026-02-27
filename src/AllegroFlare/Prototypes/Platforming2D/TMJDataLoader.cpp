@@ -388,7 +388,7 @@ bool TMJDataLoader::load()
    //
 
    bool terrain_tilelayer_type_found = false;
-   nlohmann::json terrain_tilelayer; // TODO: Rename this "terrain_tilelayer"
+   nlohmann::json terrain_tilelayer;
 
    // First, look for a tilelayer type named "terrain"
    // TODO: Test this behavior
@@ -460,7 +460,13 @@ bool TMJDataLoader::load()
    // Throw if an appropriate tilelayer was never found
    if (!terrain_tilelayer_type_found)
    {
-      throw std::runtime_error("TMJMeshLoader: error: tilelayer for visual tiles was not found.");
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         //"AllegroFlare::Prototypes::Platforming2D::TMJDataLoader::load",
+         "TMJMeshLoader: error: tilelayer for visual tiles was not found."
+         //"Found layer \"" + layer_name + "\" to use as visual tile layer."
+      );
+      //throw std::runtime_error("TMJMeshLoader: error: tilelayer for visual tiles was not found.");
    }
 
 
