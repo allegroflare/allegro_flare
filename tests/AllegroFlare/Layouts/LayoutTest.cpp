@@ -884,7 +884,7 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 
 
    //view_subject();
-   sleep_for(1);
+   //sleep_for(1);
 }
 
 
@@ -1054,7 +1054,7 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 
 
    //view_subject();
-   sleep_for(1);
+   //sleep_for(1);
 }
 
 

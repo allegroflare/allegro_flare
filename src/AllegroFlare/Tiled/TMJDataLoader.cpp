@@ -499,56 +499,50 @@ bool TMJDataLoader::load()
 
 
 
+   // TODO: Add this layer collection
+   std::vector<std::string> current_group_names = {};
+
+
+
 
 
    // Load *all* tile layers
    {
-      //bool collision_tilelayer_type_found = false;
       int layer_num_columns = 0;
-          //type: int
-          //init_with: 0
-          //getter: explicit
-
       int layer_num_rows = 0;
-          //type: int
-          //init_with: 0
-          //getter: explicit
-
       std::vector<int> layer_tile_data;
-        //- name:
-         //collision_layer_tile_data
-          //type: std::vector<int>
-          //init_with: '{}'
-          //getter: explicit
+
       nlohmann::json tilelayer;
       std::string tilelayer_name;
       std::string layer_name;
 
       for (auto &layer : j["layers"].items())
       {
-         if (layer.value()["type"] != "tilelayer") continue; // && layer.value()["name"] == "collision")
-         //{
-            tilelayer = layer.value();
-            tilelayer_name = layer.value()["name"];
-            //tilelayer_type_found = true;
-            //break;
-         //}
-      //}
-
-         layer_num_columns = tilelayer["width"];
-         layer_num_rows = tilelayer["height"];
-         layer_tile_data = tilelayer["data"].get<std::vector<int>>();
-
-         if (normalize_tile_data_from_tilesets)
+         if (layer.value()["type"] == "tilelayer") // continue; // && layer.value()["name"] == "collision")
          {
-            // TODO: Test this normalization is correct with multiple tilesets
-            layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
-                  layer_tile_data,
-                  tilesets_gids
-               );
-         }
+            //{
+               tilelayer = layer.value();
+               tilelayer_name = layer.value()["name"];
+               //tilelayer_type_found = true;
+               //break;
+            //}
+         //}
 
-         tilelayers_tile_data[tilelayer_name] = layer_tile_data;
+            layer_num_columns = tilelayer["width"];
+            layer_num_rows = tilelayer["height"];
+            layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+
+            if (normalize_tile_data_from_tilesets)
+            {
+               // TODO: Test this normalization is correct with multiple tilesets
+               layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+                     layer_tile_data,
+                     tilesets_gids
+                  );
+            }
+
+            tilelayers_tile_data[tilelayer_name] = layer_tile_data;
+         }
       }
 
       // HERE

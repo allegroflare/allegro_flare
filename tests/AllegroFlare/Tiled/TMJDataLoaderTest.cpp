@@ -564,3 +564,25 @@ TEST(AllegroFlare_Prototypes_Platforming2D_TMJDataLoaderTest,
 */
 
 
+TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
+   load__on_file_with_groups__will_load_as_expected)
+{
+   AllegroFlare::DeploymentEnvironment deployment_environment("test");
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/cadenza_hud-02.tmj";
+   //std::string filename = TMJ_FIXTURE_PATH "maps/cadenza_hud-02.tmj";
+   AllegroFlare::Tiled::TMJDataLoader loader(filename);
+   //AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
+
+   loader.load();
+
+   ASSERT_EQ(80, loader.get_num_columns());
+   ASSERT_EQ(33, loader.get_num_rows());
+   //ASSERT_EQ(4, loader.get_num_layers());
+   //ASSERT_EQ(15, loader.get_num_rows());
+   //ASSERT_EQ(25, loader.get_layer_num_columns());
+   //ASSERT_EQ(15, loader.get_layer_num_rows());
+   //ASSERT_EQ(16, loader.get_tile_width());
+   //ASSERT_EQ(16, loader.get_tile_height());
+}
+
+
