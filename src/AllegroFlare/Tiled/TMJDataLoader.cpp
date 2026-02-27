@@ -77,6 +77,22 @@ void TMJDataLoader::for_each_object(std::function<void(AllegroFlare::Tiled::TMJO
    return;
 }
 
+void TMJDataLoader::for_each_group(std::function<void(AllegroFlare::Tiled::TMJGroup*, void*)> function, void* user_data)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJDataLoader::for_each_group]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::for_each_group]: error: guard \"loaded\" not met");
+   }
+   for (auto &group : groups)
+   {
+      function(&group, user_data);
+   }
+   return;
+}
+
 void TMJDataLoader::set_filename(std::string filename)
 {
    if (!((!loaded)))

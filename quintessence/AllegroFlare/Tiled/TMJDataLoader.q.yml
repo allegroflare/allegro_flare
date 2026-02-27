@@ -112,6 +112,23 @@ methods:
       return;
 
 
+  - name: for_each_group
+    parameters:
+      - name: function
+        type: std::function<void(AllegroFlare::Tiled::TMJGroup*, void*)>
+        default_argument: '{}'
+      - name: user_data
+        type: void*
+        default_argument: nullptr
+    guards: [ loaded ]
+    body: |
+      for (auto &group : groups)
+      {
+         function(&group, user_data);
+      }
+      return;
+
+
   - name: set_filename
     parameters:
       - name: filename

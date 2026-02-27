@@ -52,6 +52,7 @@ namespace AllegroFlare
          std::vector<AllegroFlare::Tiled::TMJObject> get_objects() const;
          std::vector<AllegroFlare::Tiled::TMJObject> &get_objects_ref();
          void for_each_object(std::function<void(AllegroFlare::Tiled::TMJObject*, void*)> function={}, void* user_data=nullptr);
+         void for_each_group(std::function<void(AllegroFlare::Tiled::TMJGroup*, void*)> function={}, void* user_data=nullptr);
          void set_filename(std::string filename="[unset-filename]");
          int get_num_columns();
          int get_num_rows();

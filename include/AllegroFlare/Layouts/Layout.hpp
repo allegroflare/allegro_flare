@@ -15,6 +15,7 @@
 #include <AllegroFlare/Tiled/TMJObject.hpp>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -88,6 +89,7 @@ namespace AllegroFlare
          float get_layout_width();
          float get_layout_height();
          std::vector<AllegroFlare::Layouts::Layer> get_layers();
+         std::size_t num_layers();
          void initialize();
          void load_into_object(AllegroFlare::Tiled::TMJObject* object=nullptr);
          void load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_loader_ptr=nullptr);

@@ -17,12 +17,12 @@ namespace AllegroFlare
       class Layer
       {
       private:
-         bool tile_mesh_is_present;
 
       protected:
 
 
       public:
+         bool tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots;
          std::map<std::string, std::string> text_data;
@@ -32,7 +32,6 @@ namespace AllegroFlare
          Layer();
          ~Layer();
 
-         bool get_tile_mesh_is_present() const;
       };
    }
 }

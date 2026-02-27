@@ -1058,3 +1058,21 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 }
 
 
+TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
+   CAPTURE__when_loading_a_map_with_groups__will_populate_the_gropus_with_the_expected_data)
+{
+   setup_subject(
+      //"layout_with_opacity-01.tmj",
+      "map_with_groups-01.tmj",
+      "ascii_glyphs_12x16-11-1000x.png-result.png",
+      {},
+      2
+   );
+
+   EXPECT_EQ(4, layout.num_layers());
+
+   view_subject();
+   sleep_for(1);
+}
+
+

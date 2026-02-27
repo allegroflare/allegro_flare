@@ -192,6 +192,18 @@ std::vector<AllegroFlare::Layouts::Layer> Layout::get_layers()
    return layers;
 }
 
+std::size_t Layout::num_layers()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::num_layers]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::num_layers]: error: guard \"initialized\" not met");
+   }
+   return layers.size();
+}
+
 void Layout::initialize()
 {
    if (!((!initialized)))
@@ -264,7 +276,46 @@ void Layout::initialize()
    }
 
 
-   load_into_tilelayer(&tmj_data_loader);
+
+   if (tmj_data_loader.num_groups() == 0)
+   {
+      // Load the top-level (non-groups)
+      tmj_data_loader.for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
+         load_into_object(object);
+         return;
+      });
+
+      // Load into the tilelayer
+      load_into_tilelayer(&tmj_data_loader);
+   }
+
+
+   // Load the groups
+   tmj_data_loader.for_each_group([this, &tmj_data_loader](AllegroFlare::Tiled::TMJGroup* group, void *user_data){
+      // NOTE: Suppors nested groups in theory (TODO: Test)
+      //auto &previous_group = current_group;
+
+      layers.push_back(AllegroFlare::Layouts::Layer()); // Add an empty layer
+      auto &layer = layers.back();
+
+      current_group = group;
+      loading_into__tile_mesh_is_present = &layer.tile_mesh_is_present;
+      loading_into__tile_mesh = &layer.tile_mesh;
+      loading_into__text_slots = &layer.text_slots;
+      loading_into__text_data = &layer.text_data;
+      loading_into__polygons = &layer.polygons;
+      loading_into__cursor_destinations = &layer.cursor_destinations;
+      loading_into__frames = &layer.frames;
+
+      // Load into the objects
+      current_group->for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
+         load_into_object(object);
+         return;
+      });
+
+      // Load into the tilelayer
+      load_into_tilelayer(&tmj_data_loader);
+   });
 
 
    initialized = true;
@@ -415,32 +466,36 @@ void Layout::load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_lo
 
    if (visual_tilelayer_is_present)
    {
-      // Build the atlas
-      // TODO: Audit this to be sure the bitmaps are created and destroyed as expected
-      std::string tileset_filename = prim_mesh_atlas_filename;
-      ALLEGRO_BITMAP *atlas_bitmap = bitmap_bin->auto_get(tileset_filename);
-      prim_mesh_atlas.set_bitmap_filename(tileset_filename);
-      // - Scale and extrude the atlas
-      int tile_atlas_tile_width = 12;
-      int tile_atlas_tile_height = 16;
-      int tile_scale = 3;
-      ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
-         AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(
-         atlas_bitmap,
-         tile_scale,
-         tile_atlas_tile_width,
-         tile_atlas_tile_height
+      if (!prim_mesh_atlas.get_initialized()) // Load it up (Load only on the first time passing through this logic)
+      {
+         // Build the atlas
+         // TODO: Audit this to be sure the bitmaps are created and destroyed as expected
+         std::string tileset_filename = prim_mesh_atlas_filename;
+         ALLEGRO_BITMAP *atlas_bitmap = bitmap_bin->auto_get(tileset_filename);
+         prim_mesh_atlas.set_bitmap_filename(tileset_filename);
+         // - Scale and extrude the atlas
+         int tile_atlas_tile_width = 12;
+         int tile_atlas_tile_height = 16;
+         int tile_scale = 3;
+         ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
+            AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(
+            atlas_bitmap,
+            tile_scale,
+            tile_atlas_tile_width,
+            tile_atlas_tile_height
+            );
+         prim_mesh_atlas.duplicate_bitmap_and_load(
+            scaled_extruded_tile_map_bitmap,
+            tile_atlas_tile_width*tile_scale,
+            tile_atlas_tile_height*tile_scale,
+            1
          );
-      prim_mesh_atlas.duplicate_bitmap_and_load(
-         scaled_extruded_tile_map_bitmap,
-         tile_atlas_tile_width*tile_scale,
-         tile_atlas_tile_height*tile_scale,
-         1
-      );
-      //al_init_image_addon();
-      //al_save_bitmap("foobar.png", scaled_extruded_tile_map_bitmap);
-      al_destroy_bitmap(scaled_extruded_tile_map_bitmap); // TODO: Confirm destruction is correct here
-      bitmap_bin->destroy(tileset_filename);
+
+         //al_init_image_addon();
+         //al_save_bitmap("foobar.png", scaled_extruded_tile_map_bitmap);
+         al_destroy_bitmap(scaled_extruded_tile_map_bitmap); // TODO: Confirm destruction is correct here
+         bitmap_bin->destroy(tileset_filename);
+      }
 
       // - Build the tile_mesh
       //int width = room_width_in_tiles; //7;
@@ -545,13 +600,16 @@ void Layout::load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_lo
 float Layout::get_effective_width()
 {
    // TODO: Rename this
-   return tile_mesh.get_real_width();
+   if (layers.empty()) return tile_mesh.get_real_width();
+   else return layers[0].tile_mesh.get_real_width();
 }
 
 float Layout::get_effective_height()
 {
    // TODO: Rename this
-   return tile_mesh.get_real_height();
+   if (layers.empty()) return tile_mesh.get_real_height();
+   else return layers[0].tile_mesh.get_real_height();
+   //return tile_mesh.get_real_height();
 }
 
 AllegroFlare::Layouts::Elements::Polygon* Layout::find_polygon_by_tmj_object_id(int tmj_object_id)
@@ -848,6 +906,21 @@ void Layout::render()
    {
       tile_mesh.render();
    }
+
+   // Render the layers
+   for (auto &layer : layers)
+   {
+      //ALLEGRO_TRANSFORM previous_transform, transform;
+      //al_copy_transform(&previous_transform, al_get_current_transform());
+      //al_copy_transform(&transform, al_get_current_transform());
+      //al_translate_transform(&transform, layer.x_offset, layer.y_offset);
+      //al_use_transform(&transform);
+
+      layer.tile_mesh.render();
+
+      //al_use_transform(&previous_transform);
+   }
+
    //else
    //{
       //AllegroFlare::Logger::throw_error(

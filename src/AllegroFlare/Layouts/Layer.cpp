@@ -28,12 +28,6 @@ Layer::~Layer()
 }
 
 
-bool Layer::get_tile_mesh_is_present() const
-{
-   return tile_mesh_is_present;
-}
-
-
 
 
 } // namespace Layouts
