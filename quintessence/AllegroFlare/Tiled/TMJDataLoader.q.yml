@@ -446,7 +446,7 @@ methods:
 
 
       // TODO: Add this layer collection
-      std::vector<std::string> current_group_names = {};
+      //std::vector<std::string> current_group_names = {};
 
 
 
@@ -454,6 +454,269 @@ methods:
       //
       // Load all the layers
       //
+
+      extract_layer(&j, &tilesets_gids);
+
+      /*
+      for (auto &layer : j["layers"].items())
+      {
+         //
+         // Load groups, e.g. "layers" type layer
+         //
+
+         if (layer.value()["type"] == "group")
+         {
+            //"id"
+            //"name":"nav_meter",
+            //"opacity":0,
+            //"type":"group",
+            //"visible":true,
+            //"x":0,
+            //"y":0
+            //"layers"
+
+            //nlohmann::json layer = layer.value();
+            std::string name_property = layer.value()["name"].get<std::string>();
+            int id_property = layer.value()["id"].get<int>();
+            float x_property = layer.value()["x"].get<float>();
+            float y_property = layer.value()["y"].get<float>();
+
+            // Capture the current group name
+            //current_group_names.push_back(name_property);
+
+            AllegroFlare::Tiled::TMJGroup result_group;
+            result_group.name = name_property;
+            result_group.id = id_property;
+            result_group.offset_x = x_property;
+            result_group.offset_y = y_property;
+
+            groups.push_back(result_group);
+
+            // Recursively parse the layer
+            //TODO: extract_layer(&layer);
+         }
+
+
+         //
+         // Load a "tilelayer" type layer
+         //
+
+         if (layer.value()["type"] == "tilelayer")
+         {
+            nlohmann::json tilelayer = layer.value();
+            std::string tilelayer_name = layer.value()["name"];
+            std::vector<int> layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+
+            if (normalize_tile_data_from_tilesets)
+            {
+               // TODO: Test this normalization is correct with multiple tilesets
+               layer_tile_data = normalize_tile_data_to_tilesets_firstgids(
+                     layer_tile_data,
+                     tilesets_gids
+                  );
+            }
+
+            tilelayers_tile_data[tilelayer_name] = layer_tile_data;
+         }
+
+
+         //
+         // Load an "objectgroup" type layer
+         //
+
+         if (layer.value()["type"] == "objectgroup")
+         {
+            auto &object_layer_json = layer.value();
+
+            if (!object_layer_json.contains("name"))
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Tiled::TMJDataLoader::load",
+                  "When parsing an \"objectgroup\" type layer, expecting a property of type \"name\" but it does not "
+                     "exist."
+               );
+            }
+
+            std::string object_layer_name = object_layer_json["name"].get<std::string>();
+
+            if (!object_layer_json.contains("objects"))
+            {
+               std::stringstream error_message;
+               error_message << "Expecting [\"objects\"] to exist in the \"objectgoup\"-type layer, but it does not.";
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Tiled::TMJDataLoader::load",
+                  error_message.str()
+               );
+            }
+            for (auto &object_json : object_layer_json["objects"].items())
+            {
+               // Note that for compatibility reasons with Tiled, both "class" and "type" are used as possible keys.
+               // Depending on the version of Tiled that exported the format, one or the other could have been used.
+               // Here in AllegroFlare, it us currently referred to it as "type", which is the correct Tiled name for
+               // the property.  Note that for a temporary period it was changed to "class" in Tiled.
+               // See this issue for more info: https://github.com/mapeditor/tiled/issues/3492
+
+               // TODO: Throw error if "class" is present, advise to rename/update to "type"
+               if (!object_json.value().contains("class") && !object_json.value().contains("type"))
+               {
+                  AllegroFlare::Logger::throw_error(
+                     "AllegroFlare::Tiled::TMJDataLoader::load",
+                     "When parsing properties on an object, expecting to find \"class\" or \"type\" but neither was "
+                        "present. This error occurred while loading \"" + filename + "\"."
+                  );
+               }
+
+               // Extract the "type". Note that different versions of Tiled have swapped "class" and "type" as the
+               // keys for this value.
+               std::string type_property;
+               if (object_json.value().contains("class")) type_property =
+                  object_json.value()["class"].get<std::string>();
+               else if (object_json.value().contains("type")) type_property =
+                  object_json.value()["type"].get<std::string>();
+
+               std::string name_property = object_json.value()["name"].get<std::string>();
+               int id_property = object_json.value()["id"].get<int>();
+               float x_property = object_json.value()["x"].get<float>();
+               float y_property = object_json.value()["y"].get<float>();
+               float width_property = object_json.value()["width"].get<float>();
+               float height_property = object_json.value()["height"].get<float>();
+               std::vector<AllegroFlare::Vec2D> polygon = {};
+               AllegroFlare::Tiled::TMJObjectCustomProperties custom_properties;
+
+               // Load the "polygon" vertices
+               if (object_json.value().contains("polygon"))
+               {
+                  if (!object_json.value()["polygon"].is_array())
+                  {
+                     throw std::runtime_error("AllegroFlare::Tiled::TMJDataLoader: polygon is not array");
+                  }
+
+                  for (auto &polygon_point : object_json.value()["polygon"].items())
+                  {
+                     if (!polygon_point.value().contains("x") || !polygon_point.value().contains("y"))
+                     {
+                        throw std::runtime_error("AllegroFlare::Tiled::TMJDataLoader: polygon point does not contain "
+                           "\"x\", \"y\")");
+                     }
+                     float x = polygon_point.value()["x"].get<float>();
+                     float y = polygon_point.value()["y"].get<float>();
+                     polygon.push_back({x, y});
+                  }
+               }
+
+               // Load the "text" data
+               bool text__is_present = false;
+               std::string text__text = "";
+               std::string text__align_horizontal = "";
+               std::string text__align_vertical = "";
+               std::string text__font_name = "";
+               ALLEGRO_COLOR text__color = ALLEGRO_COLOR{1, 1, 1, 1};
+               float text__opacity = 1.0f;
+               int text__font_size = 16;
+               if (object_json.value().contains("text"))
+               {
+                  if (!object_json.value()["text"].is_object())
+                  {
+                     throw std::runtime_error("AllegroFlare::Tiled::TMJDataLoader: object-level \"text\" is not an "
+                        "object");
+                  }
+
+                  // Get "text"
+                  auto &text_item = object_json.value()["text"];
+                  if (!text_item.contains("text"))
+                  {
+                     throw std::runtime_error("AllegroFlare::Tiled::TMJDataLoader: object-level \"text\" does not "
+                        "contain \"text\" field inside it.");
+                  }
+                  text__text = text_item["text"].get<std::string>();
+                  text__is_present = true;
+
+                  // Get text alignment (if present)
+                  if (text_item.contains("valign")) text__align_vertical = text_item["valign"].get<std::string>();
+                  else text__align_vertical = "top";
+
+                  if (text_item.contains("halign")) text__align_horizontal = text_item["halign"].get<std::string>();
+                  else text__align_horizontal = "left";
+
+                  // Get font data
+                  if (text_item.contains("fontfamily")) text__font_name = text_item["fontfamily"].get<std::string>();
+                  else text__font_name = "default";
+
+                  if (text_item.contains("pixelsize")) text__font_size = text_item["pixelsize"].get<int>();
+                  else text__font_size = 16;
+
+                  if (text_item.contains("color"))
+                  {
+                     std::string text__color_as_hex_string = text_item["color"].get<std::string>();
+                     std::tuple<float, float, float, float> extracted_rgba_f =
+                        convert_hex_to_rgba_f(text__color_as_hex_string);
+                     text__color.r = std::get<0>(extracted_rgba_f);
+                     text__color.g = std::get<1>(extracted_rgba_f);
+                     text__color.b = std::get<2>(extracted_rgba_f);
+                     text__color.a = 1.0f;
+
+                     text__opacity = std::get<3>(extracted_rgba_f);
+
+                     // TODO: Consider if color and alpha should be blended together here or not
+                  }
+               }
+
+               // TODO: Test this
+               custom_properties = attempt_to_extract_custom_properties(&object_json.value());
+
+               objects.push_back({});
+               auto &object = objects.back();
+
+               object.id = id_property;
+               object.type = type_property;
+               object.x = x_property;
+               object.y = y_property;
+               object.width = width_property;
+               object.height = height_property;
+               object.name = name_property;
+               object.object_layer_name = object_layer_name;
+               object.polygon = polygon;
+               object.text__is_present = text__is_present;
+               object.text__text = text__text;
+               object.text__color = text__color;
+               object.text__opacity = text__opacity;
+               object.text__align_horizontal = text__align_horizontal;
+               object.text__align_vertical = text__align_vertical;
+               object.text__font_name = text__font_name;
+               object.text__font_size = text__font_size;
+               object.custom_properties = custom_properties;
+            }
+         }
+      }
+      */
+
+      loaded = true;
+
+      i.close();
+
+      return true;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+      - std::stringstream
+      - nlohmann::json
+      - std::ifstream
+      - AllegroFlare::Logger
+      - AllegroFlare::StringFormatValidator
+
+
+  - name: extract_layer
+    parameters:
+      - name: j_ptr
+        type: nlohmann::json*
+        default_argument: nullptr
+      - name: tilesets_gids_ptr
+        type: std::set<int>*
+        default_argument: nullptr
+    guards: [ j_ptr, tilesets_gids_ptr ]
+    body: |
+      auto &j = *j_ptr;
+      auto &tilesets_gids = *tilesets_gids_ptr;
+      // TODO: Move code into this method
 
       for (auto &layer : j["layers"].items())
       {
@@ -479,7 +742,7 @@ methods:
             float y_property = layer.value()["y"].get<float>();
 
             // Capture the current group name
-            current_group_names.push_back(name_property);
+            //current_group_names.push_back(name_property);
 
             AllegroFlare::Tiled::TMJGroup result_group;
             result_group.name = name_property;
@@ -686,11 +949,7 @@ methods:
          }
       }
 
-      loaded = true;
-
-      i.close();
-
-      return true;
+      return;
     body_dependency_symbols:
       - AllegroFlare::Logger
       - std::stringstream
