@@ -861,7 +861,7 @@ std::tuple<bool, bool, bool, bool, int> Layout::extract_tmj_tile_flip_properties
    bool hex_120_rotation_flag_present = (tmj_tile_value & 0x10000000) != 0;
 
    // Clear all the flags
-   int filtered_tile_value = tmj_tile_value& ~(0x80000000 | 0x40000000 | 0x20000000 | 0x1000000);
+   int filtered_tile_value = tmj_tile_value& ~(0x80000000 | 0x40000000 | 0x20000000 | 0x10000000);
 
    return std::tuple<bool, bool, bool, bool, int>{
       horizontal_flip_flag_present,
