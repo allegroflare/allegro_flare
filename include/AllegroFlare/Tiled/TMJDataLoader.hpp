@@ -28,8 +28,6 @@ namespace AllegroFlare
          int num_rows;
          int tile_width;
          int tile_height;
-         int layer_num_columns;
-         int layer_num_rows;
          ALLEGRO_COLOR background_color;
          std::map<std::string, std::vector<int>> tilelayers_tile_data;
          std::string map_class;
@@ -56,8 +54,6 @@ namespace AllegroFlare
          int get_num_rows();
          int get_tile_width();
          int get_tile_height();
-         int get_layer_num_columns();
-         int get_layer_num_rows();
          ALLEGRO_COLOR get_background_color();
          std::map<std::string, std::vector<int>> get_tilelayers_tile_data();
          std::string get_map_class();

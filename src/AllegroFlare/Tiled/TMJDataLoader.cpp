@@ -24,8 +24,6 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , num_rows(0)
    , tile_width(0)
    , tile_height(0)
-   , layer_num_columns(0)
-   , layer_num_rows(0)
    , background_color(DEFAULT_BACKGROUND_COLOR)
    , tilelayers_tile_data({})
    , map_class("[unset-map_class]")
@@ -135,30 +133,6 @@ int TMJDataLoader::get_tile_height()
       throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_tile_height]: error: guard \"loaded\" not met");
    }
    return tile_height;
-}
-
-int TMJDataLoader::get_layer_num_columns()
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Tiled::TMJDataLoader::get_layer_num_columns]: error: guard \"loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_layer_num_columns]: error: guard \"loaded\" not met");
-   }
-   return layer_num_columns;
-}
-
-int TMJDataLoader::get_layer_num_rows()
-{
-   if (!(loaded))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Tiled::TMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_layer_num_rows]: error: guard \"loaded\" not met");
-   }
-   return layer_num_rows;
 }
 
 ALLEGRO_COLOR TMJDataLoader::get_background_color()
@@ -507,30 +481,30 @@ bool TMJDataLoader::load()
 
 
    // Load *all* tile layers
-   {
-      int layer_num_columns = 0;
-      int layer_num_rows = 0;
-      std::vector<int> layer_tile_data;
+   //{
+      //int layer_num_columns = 0;
+      //int layer_num_rows = 0;
+      //std::vector<int> layer_tile_data;
 
-      nlohmann::json tilelayer;
-      std::string tilelayer_name;
-      std::string layer_name;
+      //nlohmann::json tilelayer;
+      //std::string tilelayer_name;
+      //std::string layer_name;
 
       for (auto &layer : j["layers"].items())
       {
          if (layer.value()["type"] == "tilelayer") // continue; // && layer.value()["name"] == "collision")
          {
             //{
-               tilelayer = layer.value();
-               tilelayer_name = layer.value()["name"];
+               nlohmann::json tilelayer = layer.value();
+               std::string tilelayer_name = layer.value()["name"];
                //tilelayer_type_found = true;
                //break;
             //}
          //}
 
-            layer_num_columns = tilelayer["width"];
-            layer_num_rows = tilelayer["height"];
-            layer_tile_data = tilelayer["data"].get<std::vector<int>>();
+            //int layer_num_columns = tilelayer["width"];
+            //int layer_num_rows = tilelayer["height"];
+            std::vector<int> layer_tile_data = tilelayer["data"].get<std::vector<int>>();
 
             if (normalize_tile_data_from_tilesets)
             {
@@ -551,7 +525,7 @@ bool TMJDataLoader::load()
         //init_with: '{}'
         //getter: explicit
       //tilelayers_tile_data[tilelayer_name] = layer_tile_data;
-   }
+   //}
 
 
 
