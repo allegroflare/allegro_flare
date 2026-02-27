@@ -26,6 +26,7 @@ TMJDataLoader::TMJDataLoader(std::string filename)
    , tile_height(0)
    , background_color(DEFAULT_BACKGROUND_COLOR)
    , tilelayers_tile_data({})
+   , groups({})
    , map_class("[unset-map_class]")
    , map_custom_properties({})
    , tilesets({})
@@ -157,6 +158,30 @@ std::map<std::string, std::vector<int>> TMJDataLoader::get_tilelayers_tile_data(
       throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_tilelayers_tile_data]: error: guard \"loaded\" not met");
    }
    return tilelayers_tile_data;
+}
+
+std::vector<AllegroFlare::Tiled::TMJGroup> TMJDataLoader::get_groups()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJDataLoader::get_groups]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::get_groups]: error: guard \"loaded\" not met");
+   }
+   return groups;
+}
+
+int TMJDataLoader::num_groups()
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Tiled::TMJDataLoader::num_groups]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Tiled::TMJDataLoader::num_groups]: error: guard \"loaded\" not met");
+   }
+   return groups.size();
 }
 
 std::string TMJDataLoader::get_map_class()
@@ -485,6 +510,43 @@ bool TMJDataLoader::load()
 
    for (auto &layer : j["layers"].items())
    {
+      //
+      // Load groups, e.g. "layers" type layer
+      //
+
+      if (layer.value()["type"] == "group")
+      {
+         //"id"
+         //"name":"nav_meter",
+         //"opacity":0,
+         //"type":"group",
+         //"visible":true,
+         //"x":0,
+         //"y":0
+         //"layers"
+
+         //nlohmann::json layer = layer.value();
+         std::string name_property = layer.value()["name"].get<std::string>();
+         int id_property = layer.value()["id"].get<int>();
+         float x_property = layer.value()["x"].get<float>();
+         float y_property = layer.value()["y"].get<float>();
+
+         // Capture the current group name
+         current_group_names.push_back(name_property);
+
+         AllegroFlare::Tiled::TMJGroup result_group;
+         result_group.name = name_property;
+         result_group.id = id_property;
+         result_group.offset_x = x_property;
+         result_group.offset_y = y_property;
+
+         groups.push_back(result_group);
+
+         // Recursively parse the layer
+         //TODO: extract_layer(&layer);
+      }
+
+
       //
       // Load a "tilelayer" type layer
       //

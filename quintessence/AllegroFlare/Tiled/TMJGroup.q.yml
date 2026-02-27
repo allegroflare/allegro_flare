@@ -1,0 +1,28 @@
+properties:
+
+
+  - name: id
+    type: int
+    init_with: 0
+    constructor_arg: true
+    exposed: true
+
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    constructor_arg: true
+    exposed: true
+
+  - name: offset_x
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+  - name: offset_y
+    type: float
+    init_with: 0.0f
+    constructor_arg: true
+    exposed: true
+
+

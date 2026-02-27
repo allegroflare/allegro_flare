@@ -4677,6 +4677,9 @@
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
   ],
+  "AllegroFlare/Tiled/TMJGroup": [
+    "AllegroFlare/Tiled/TMJDataLoader"
+  ],
   "std/stringstream": [
     "AllegroFlare/TimeStamper"
   ],

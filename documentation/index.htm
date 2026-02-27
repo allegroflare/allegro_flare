@@ -571,6 +571,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml">quintessence/AllegroFlare/TileMaps/TileAtlasRepositoryRecord.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/TileMaps/TileMesh.q.yml">quintessence/AllegroFlare/TileMaps/TileMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml">quintessence/AllegroFlare/Tiled/TMJDataLoader.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Tiled/TMJGroup.q.yml">quintessence/AllegroFlare/Tiled/TMJGroup.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJImageLayer.q.yml">quintessence/AllegroFlare/Tiled/TMJImageLayer.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJImageLayerLoader.q.yml">quintessence/AllegroFlare/Tiled/TMJImageLayerLoader.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Tiled/TMJObject.q.yml">quintessence/AllegroFlare/Tiled/TMJObject.q.yml</a></li>
@@ -48070,6 +48071,10 @@ table td
   <td class="property">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
 </tr>
 <tr>
+  <td class="property">groups</td>
+  <td class="property">std::vector&lt;AllegroFlare::Tiled::TMJGroup&gt;</td>
+</tr>
+<tr>
   <td class="property">map_class</td>
   <td class="property">std::string</td>
 </tr>
@@ -48131,6 +48136,14 @@ table td
 <tr>
   <td class="method">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
   <td class="method"><b>get_tilelayers_tile_data</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;AllegroFlare::Tiled::TMJGroup&gt;</td>
+  <td class="method"><b>get_groups</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>num_groups</b>()</td>
 </tr>
 <tr>
   <td class="method">std::string</td>
@@ -48213,8 +48226,42 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJGroup&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJGroup.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Tiled/TMJGroup.q.yml">quintessence/AllegroFlare/Tiled/TMJGroup.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">id</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">name</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">offset_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_y</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+    </table>
+</div>    <h3>Dependencies</h3>
+<p>This class contains no dependencies</p>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -57469,6 +57516,9 @@ table td
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
     "AllegroFlare/Tiled/TMJObject"
+  ],
+  "AllegroFlare/Tiled/TMJGroup": [
+    "AllegroFlare/Tiled/TMJDataLoader"
   ],
   "std/stringstream": [
     "AllegroFlare/TimeStamper"

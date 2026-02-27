@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/Tiled/TMJGroup.hpp>
 #include <AllegroFlare/Tiled/TMJObject.hpp>
 #include <AllegroFlare/Tiled/TMJObjectCustomProperties.hpp>
 #include <allegro5/allegro.h>
@@ -30,6 +31,7 @@ namespace AllegroFlare
          int tile_height;
          ALLEGRO_COLOR background_color;
          std::map<std::string, std::vector<int>> tilelayers_tile_data;
+         std::vector<AllegroFlare::Tiled::TMJGroup> groups;
          std::string map_class;
          AllegroFlare::Tiled::TMJObjectCustomProperties map_custom_properties;
          std::vector<std::tuple<int, std::string, std::string>> tilesets;
@@ -56,6 +58,8 @@ namespace AllegroFlare
          int get_tile_height();
          ALLEGRO_COLOR get_background_color();
          std::map<std::string, std::vector<int>> get_tilelayers_tile_data();
+         std::vector<AllegroFlare::Tiled::TMJGroup> get_groups();
+         int num_groups();
          std::string get_map_class();
          AllegroFlare::Tiled::TMJObjectCustomProperties get_map_custom_properties();
          std::vector<std::tuple<int, std::string, std::string>> get_tilesets();

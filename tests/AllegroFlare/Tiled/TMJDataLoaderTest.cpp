@@ -577,6 +577,7 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
 
    ASSERT_EQ(80, loader.get_num_columns());
    ASSERT_EQ(33, loader.get_num_rows());
+   ASSERT_EQ(4, loader.num_groups());
    //ASSERT_EQ(4, loader.get_num_layers());
    //ASSERT_EQ(15, loader.get_num_rows());
    //ASSERT_EQ(25, loader.get_layer_num_columns());
