@@ -538,6 +538,27 @@ void TMJDataLoader::extract_layers(nlohmann::json* j_ptr, std::set<int>* tileset
    auto &j = *j_ptr;
    auto &tilesets_gids = *tilesets_gids_ptr;
 
+   std::map<std::string, std::vector<int>> *current_loading_tilelayers_tile_data = nullptr;
+   std::vector<AllegroFlare::Tiled::TMJObject> *current_loading_objects = nullptr; // HERE
+
+   //type: std::map<std::string, std::vector<int>>
+   //init_with: '{}'
+   //getter: explicit
+
+
+   if (!current_loading_group)
+   {
+      // When no group's properties are being loaded, use the global properties
+      current_loading_tilelayers_tile_data = &tilelayers_tile_data;
+      current_loading_objects = &objects;
+   }
+   else
+   {
+      // When loading within a group, use the group's properties
+      current_loading_tilelayers_tile_data = &current_loading_group->tilelayers_tile_data;
+      current_loading_objects = &current_loading_group->objects;
+   }
+
    for (auto &layer : j["layers"].items())
    {
       //
@@ -546,6 +567,16 @@ void TMJDataLoader::extract_layers(nlohmann::json* j_ptr, std::set<int>* tileset
 
       if (layer.value()["type"] == "group")
       {
+         if (current_loading_group != nullptr)
+         {
+            // TODO: Test this throw
+            AllegroFlare::Logger::throw_error(
+               THIS_CLASS_AND_METHOD_NAME,
+               "This map contains nested groups. Unfortunatly, this loader does not yet have support for "
+                  "nested groups."
+            );
+         }
+
          //"id"
          //"name":"nav_meter",
          //"opacity":0,
@@ -600,7 +631,7 @@ void TMJDataLoader::extract_layers(nlohmann::json* j_ptr, std::set<int>* tileset
                );
          }
 
-         tilelayers_tile_data[tilelayer_name] = layer_tile_data;
+         current_loading_tilelayers_tile_data->operator[](tilelayer_name) = layer_tile_data;
       }
 
 
@@ -748,8 +779,10 @@ void TMJDataLoader::extract_layers(nlohmann::json* j_ptr, std::set<int>* tileset
             // TODO: Test this
             custom_properties = attempt_to_extract_custom_properties(&object_json.value());
 
-            objects.push_back({});
-            auto &object = objects.back();
+            //objects.push_back({});
+            //auto &object = objects.back();
+            current_loading_objects->push_back({});
+            auto &object = current_loading_objects->back();
 
             object.id = id_property;
             object.type = type_property;

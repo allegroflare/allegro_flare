@@ -590,8 +590,22 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
    EXPECT_EQ("reticle", group_2.name);
    EXPECT_EQ("inner_frame", group_3.name);
 
-   EXPECT_EQ(2, loader.get_tilelayers_tile_data().size()); // WARNING: Note that the global list will have
-                                                           // clobbered layers if they have the same name
+   EXPECT_EQ(0, loader.get_tilelayers_tile_data().size()); // NOTE: This map has goups with tilelayers and object
+                                                           // layers, but there are no top-level tilelayers or
+                                                           // object layers
+
+   // NOTE: In this map, each group has two tilelayer named "opacity" and"visual", and an object layer named "objects".
+   // Currently, "objects" is a flat array where each object contains the name of the layer its in.
+   for (auto &group : groups)
+   {
+      EXPECT_EQ(2, group.tilelayers_tile_data.size());
+   }
+
+   EXPECT_EQ(2, group_0.objects.size());
+   EXPECT_EQ(1, group_1.objects.size());
+   EXPECT_EQ(0, group_2.objects.size());
+   EXPECT_EQ(1, group_3.objects.size());
+
 
    //ASSERT_EQ(4, loader.get_num_layers());
    //ASSERT_EQ(15, loader.get_num_rows());
