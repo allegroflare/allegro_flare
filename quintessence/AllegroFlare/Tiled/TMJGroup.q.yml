@@ -25,4 +25,21 @@ properties:
     constructor_arg: true
     exposed: true
 
+  - name: tilelayers_tile_data
+    type: std::map<std::string, std::vector<int>>
+    init_with: '{}'
+    exposed: true
+
+  - name: objects
+    type: std::vector<AllegroFlare::Tiled::TMJObject>
+    init_with: '{}'
+    exposed: true
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Tiled::TMJObject
+    headers: [ AllegroFlare/Tiled/TMJObject.hpp ]
+
 

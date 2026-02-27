@@ -568,16 +568,31 @@ TEST(AllegroFlare_Tiled_TMJDataLoaderTest,
    load__on_file_with_groups__will_load_as_expected)
 {
    AllegroFlare::DeploymentEnvironment deployment_environment("test");
-   std::string filename = deployment_environment.get_data_folder_path() + "maps/cadenza_hud-02.tmj";
+   std::string filename = deployment_environment.get_data_folder_path() + "maps/map_with_groups-01.tmj";
    //std::string filename = TMJ_FIXTURE_PATH "maps/cadenza_hud-02.tmj";
    AllegroFlare::Tiled::TMJDataLoader loader(filename);
    //AllegroFlare::Prototypes::Platforming2D::TMJDataLoader loader(filename);
 
    loader.load();
 
-   ASSERT_EQ(80, loader.get_num_columns());
-   ASSERT_EQ(33, loader.get_num_rows());
+   EXPECT_EQ(80, loader.get_num_columns());
+   EXPECT_EQ(33, loader.get_num_rows());
+
    ASSERT_EQ(4, loader.num_groups());
+   auto groups = loader.get_groups();
+   auto &group_0 = groups[0];
+   auto &group_1 = groups[1];
+   auto &group_2 = groups[2];
+   auto &group_3 = groups[3];
+
+   EXPECT_EQ("nav_meter", group_0.name);
+   EXPECT_EQ("outer_frame", group_1.name);
+   EXPECT_EQ("reticle", group_2.name);
+   EXPECT_EQ("inner_frame", group_3.name);
+
+   EXPECT_EQ(2, loader.get_tilelayers_tile_data().size()); // WARNING: Note that the global list will have
+                                                           // clobbered layers if they have the same name
+
    //ASSERT_EQ(4, loader.get_num_layers());
    //ASSERT_EQ(15, loader.get_num_rows());
    //ASSERT_EQ(25, loader.get_layer_num_columns());

@@ -16,6 +16,8 @@ TMJGroup::TMJGroup(int id, std::string name, float offset_x, float offset_y)
    , name(name)
    , offset_x(offset_x)
    , offset_y(offset_y)
+   , tilelayers_tile_data({})
+   , objects({})
 {
 }
 

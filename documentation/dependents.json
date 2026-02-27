@@ -3312,7 +3312,8 @@
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/Layouts/Text",
-    "AllegroFlare/Tiled/TMJDataLoader"
+    "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJGroup"
   ],
   "AllegroFlare/Layouts/Elements/CursorDestination": [
     "AllegroFlare/Layouts/CursorMap",

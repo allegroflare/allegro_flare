@@ -38,6 +38,7 @@ namespace AllegroFlare
          bool normalize_tile_data_from_tilesets;
          bool loaded;
          std::vector<AllegroFlare::Tiled::TMJObject> objects;
+         AllegroFlare::Tiled::TMJGroup* current_loading_group;
          static bool file_exists(std::string filename="[unset-filename]");
 
       protected:
@@ -67,7 +68,7 @@ namespace AllegroFlare
          std::vector<std::vector<int>> get_tilelayer_data_by_name_as_2d_vector(std::string tilelayer_name="[unset-tilelayer_name]");
          bool tilelayer_exists(std::string tilelayer_name="[unset-tilelayer_name]");
          bool load();
-         void extract_layer(nlohmann::json* j_ptr=nullptr, std::set<int>* tilesets_gids_ptr=nullptr);
+         void extract_layers(nlohmann::json* j_ptr=nullptr, std::set<int>* tilesets_gids_ptr=nullptr);
          static std::tuple<float, float, float, float> convert_hex_to_rgba_f(std::string hex_color="#00000000");
          static std::string extract_last_fragment(std::string path_string="[unset-string]");
          AllegroFlare::Tiled::TMJObjectCustomProperties attempt_to_extract_custom_properties(nlohmann::json* object_json=nullptr);

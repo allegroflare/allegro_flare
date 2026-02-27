@@ -48099,6 +48099,10 @@ table td
   <td class="property">std::vector&lt;AllegroFlare::Tiled::TMJObject&gt;</td>
 </tr>
 <tr>
+  <td class="property">current_loading_group</td>
+  <td class="property">AllegroFlare::Tiled::TMJGroup*</td>
+</tr>
+<tr>
   <td class="property">DEFAULT_BACKGROUND_COLOR</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
@@ -48175,7 +48179,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>extract_layer</b>(nlohmann::json* j_ptr=nullptr, std::set&lt;int&gt;* tilesets_gids_ptr=nullptr)</td>
+  <td class="method"><b>extract_layers</b>(nlohmann::json* j_ptr=nullptr, std::set&lt;int&gt;* tilesets_gids_ptr=nullptr)</td>
 </tr>
 <tr>
   <td class="method">std::tuple&lt;float, float, float, float&gt;</td>
@@ -48260,12 +48264,25 @@ table td
   <td class="property">offset_y</td>
   <td class="property">float</td>
 </tr>
+<tr>
+  <td class="property">tilelayers_tile_data</td>
+  <td class="property">std::map&lt;std::string, std::vector&lt;int&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">objects</td>
+  <td class="property">std::vector&lt;AllegroFlare::Tiled::TMJObject&gt;</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
     </table>
 </div>    <h3>Dependencies</h3>
-<p>This class contains no dependencies</p>  </div>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
 </ul>
 <br><br><br>
 <br><br><br>
@@ -56156,7 +56173,8 @@ table td
     "AllegroFlare/Layouts/Layout",
     "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/Layouts/Text",
-    "AllegroFlare/Tiled/TMJDataLoader"
+    "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJGroup"
   ],
   "AllegroFlare/Layouts/Elements/CursorDestination": [
     "AllegroFlare/Layouts/CursorMap",
