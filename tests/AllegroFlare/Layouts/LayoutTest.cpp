@@ -1064,7 +1064,7 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
    setup_subject(
       //"layout_with_opacity-01.tmj",
       "map_with_groups-01.tmj",
-      "ascii_glyphs_12x16-11-1000x.png-result.png",
+      "ascii_glyphs_12x16-10-1000x.png-result.png",
       {},
       2
    );
