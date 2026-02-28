@@ -94,6 +94,18 @@ properties:
     getter: true
     setter: true
 
+  - name: before_layer_render
+    type: std::function<void(AllegroFlare::Layouts::Layer*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: after_layer_render
+    type: std::function<void(AllegroFlare::Layouts::Layer*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: _multiline_text_line_number
     type: int
     init_with: 0
@@ -927,7 +939,9 @@ methods:
          //al_translate_transform(&transform, layer.x_offset, layer.y_offset);
          //al_use_transform(&transform);
 
+         if (before_layer_render) before_layer_render(&layer);
          layer.tile_mesh.render();
+         if (after_layer_render) after_layer_render(&layer);
 
          //al_use_transform(&previous_transform);
       }

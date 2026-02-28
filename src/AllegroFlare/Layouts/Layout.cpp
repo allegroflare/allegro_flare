@@ -46,6 +46,8 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , layers({})
    , scale(3)
    , default_font_identifier("Orbitron-Medium.ttf")
+   , before_layer_render({})
+   , after_layer_render({})
    , current_group(nullptr)
    , loading_into__tile_mesh_is_present(nullptr)
    , loading_into__tile_mesh(nullptr)
@@ -126,6 +128,18 @@ void Layout::set_default_font_identifier(std::string default_font_identifier)
 }
 
 
+void Layout::set_before_layer_render(std::function<void(AllegroFlare::Layouts::Layer*)> before_layer_render)
+{
+   this->before_layer_render = before_layer_render;
+}
+
+
+void Layout::set_after_layer_render(std::function<void(AllegroFlare::Layouts::Layer*)> after_layer_render)
+{
+   this->after_layer_render = after_layer_render;
+}
+
+
 bool Layout::get_tile_mesh_is_present() const
 {
    return tile_mesh_is_present;
@@ -147,6 +161,18 @@ int Layout::get_scale() const
 std::string Layout::get_default_font_identifier() const
 {
    return default_font_identifier;
+}
+
+
+std::function<void(AllegroFlare::Layouts::Layer*)> Layout::get_before_layer_render() const
+{
+   return before_layer_render;
+}
+
+
+std::function<void(AllegroFlare::Layouts::Layer*)> Layout::get_after_layer_render() const
+{
+   return after_layer_render;
 }
 
 
@@ -916,7 +942,9 @@ void Layout::render()
       //al_translate_transform(&transform, layer.x_offset, layer.y_offset);
       //al_use_transform(&transform);
 
+      if (before_layer_render) before_layer_render(&layer);
       layer.tile_mesh.render();
+      if (after_layer_render) after_layer_render(&layer);
 
       //al_use_transform(&previous_transform);
    }
