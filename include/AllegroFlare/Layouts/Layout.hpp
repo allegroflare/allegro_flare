@@ -112,6 +112,7 @@ namespace AllegroFlare
          AllegroFlare::Layouts::Elements::Frame* find_frame_by_name(std::string name="[unset-name]");
          void set_text_data(std::map<std::string, std::string> text_data={});
          void set_text_data_require_all(std::map<std::string, std::string> text_data={});
+         void set_text_data_through_layers_require_all(std::map<std::string, std::string> text_data={});
          void set_text_data_require_present(std::map<std::string, std::string> text_data={});
          void set_text_data_field(std::string name="[unset-name]", std::string value="[unset-value]");
          bool text_data_field_exists(std::string name="[unset-name]");
@@ -119,7 +120,7 @@ namespace AllegroFlare
          int extract_int_or_default(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key="[unset-key]", int default_fallback=0);
          static std::tuple<bool, bool, bool, bool, int> extract_tmj_tile_flip_properties(uint32_t tmj_tile_value=0);
          void render();
-         void render_text_slots();
+         void render_text_slots(AllegroFlare::Layouts::Layer* layer=nullptr);
          void render_text_debug();
          void render_debug();
          void render_cursor_destinations_debug(float line_thickness=2.0);

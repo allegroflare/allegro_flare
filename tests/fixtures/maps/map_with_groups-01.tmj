@@ -247,7 +247,7 @@
                         {
                          "height":18.84375,
                          "id":15,
-                         "name":"",
+                         "name":"bottom_left_tag",
                          "rotation":0,
                          "text":
                             {
@@ -482,7 +482,7 @@
                         {
                          "height":32,
                          "id":16,
-                         "name":"",
+                         "name":"health_amount",
                          "rotation":0,
                          "text":
                             {

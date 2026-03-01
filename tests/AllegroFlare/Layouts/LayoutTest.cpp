@@ -78,6 +78,32 @@ public:
       layout.set_text_data_require_all(text_data);
    }
 
+   void setup_layered_subject(
+         std::string tmj_layout_filename,
+         std::string atlas_filename, 
+         std::map<std::string, std::string> text_data,
+         int scale = 2
+      )
+   { 
+      std::string maps_data_path = get_data_path() + "maps/";
+      //std::map<std::string, std::string> text_data;
+      //{
+         //layout.set_tmj_filename(maps_data_path + "reticle_with_flipped_tiles_1-01.tmj");
+         //layout.set_prim_mesh_atlas_filename("ascii_glyphs_12x16-08.png");
+      //}
+      {
+         layout.set_tmj_filename(maps_data_path + tmj_layout_filename);
+         //layout.set_prim_mesh_atlas_filename("ascii_glyphs_12x16-08.png");
+         layout.set_prim_mesh_atlas_filename(atlas_filename);
+      }
+
+      //AllegroFlare::Generators::LoremIpsumGenerator ipsum;
+      layout.set_scale(scale); // TODO: Add test that rendering appears as expected under different scales
+      layout.initialize();
+
+      layout.set_text_data_through_layers_require_all(text_data);
+   }
+
    void view_subject()
    {
       clear();
@@ -1059,13 +1085,16 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 
 
 TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
-   CAPTURE__when_loading_a_map_with_groups__will_populate_the_gropus_with_the_expected_data)
+   FOCUS__CAPTURE__when_loading_a_map_with_groups__will_populate_the_gropus_with_the_expected_data)
 {
-   setup_subject(
+   setup_layered_subject(
       //"layout_with_opacity-01.tmj",
       "map_with_groups-01.tmj",
       "ascii_glyphs_12x16-10-1000x.png-result.png",
-      {},
+      {
+         { "bottom_left_tag", "13.26" },
+         { "health_amount", "867" },
+      },
       2
    );
 

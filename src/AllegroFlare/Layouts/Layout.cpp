@@ -792,6 +792,70 @@ void Layout::set_text_data_require_all(std::map<std::string, std::string> text_d
    return;
 }
 
+void Layout::set_text_data_through_layers_require_all(std::map<std::string, std::string> text_data)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_through_layers_require_all]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_through_layers_require_all]: error: guard \"initialized\" not met");
+   }
+   //std::set<std::string> found;
+
+   // TODO: Consider allowing setting text data before initialize, and having the template also valdate at
+   // initialize time as well.
+   //this->text_data = text_data;
+
+   for (auto &text_datum : text_data)
+   {
+
+      const std::string &slot_identifier = text_datum.first;
+      const std::string &text_value = text_datum.second;
+
+      AllegroFlare::Layouts::Elements::Text *found_slot = nullptr;
+
+      //for (auto &layer : layers)
+      //{
+      //for (auto &text_datum : text_data)
+      //{
+         // HERE
+         //if (layer.text_data.
+      //}
+      //if (layer.text_data.exists()
+      //- name: text_data
+        //type: std::map<std::string, std::string>
+        //default_argument: '{}'
+      //}
+      for (auto &layer : layers)
+      {
+         auto it = layer.text_slots.find(slot_identifier);
+         if (it == layer.text_slots.end()) continue;
+
+         if (found_slot != nullptr)
+         {
+            throw std::runtime_error(
+               "assign_text_data_to_layers: duplicate text slot identifier found: \"" + slot_identifier + "\""
+            );
+         }
+
+         found_slot = &it->second;
+      }
+
+      if (found_slot == nullptr)
+      {
+         throw std::runtime_error(
+            "assign_text_data_to_layers: no text slot found for identifier: \"" + slot_identifier + "\""
+         );
+      }
+
+      //found_slot->set_text(text_value);
+      set_text_data_field(slot_identifier, text_value);
+   }
+
+   return;
+}
+
 void Layout::set_text_data_require_present(std::map<std::string, std::string> text_data)
 {
    if (!(initialized))
@@ -836,6 +900,55 @@ void Layout::set_text_data_field(std::string name, std::string value)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_field]: error: guard \"initialized\" not met");
    }
+   if (layers.size() >= 1)
+   {
+      const std::string &slot_identifier = name; //text_datum.first;
+      const std::string &text_value = value; //text_datum.second;
+
+      AllegroFlare::Layouts::Elements::Text *found_slot = nullptr;
+
+      //for (auto &layer : layers)
+      //{
+      //for (auto &text_datum : text_data)
+      //{
+         // HERE
+         //if (layer.text_data.
+      //}
+      //if (layer.text_data.exists()
+      //- name: text_data
+        //type: std::map<std::string, std::string>
+        //default_argument: '{}'
+      //}
+
+      for (auto &layer : layers)
+      {
+         auto it = layer.text_slots.find(slot_identifier);
+         if (it == layer.text_slots.end()) continue;
+
+         if (found_slot != nullptr)
+         {
+            throw std::runtime_error(
+               "assign_text_data_to_layers: duplicate text slot identifier found: \"" + slot_identifier + "\""
+            );
+         }
+
+         found_slot = &it->second;
+         layer.text_data[slot_identifier] = value; // TODO: Is it OK to assume this slot is and should exist?
+         //throw std::runtime_error("asdfadsfa");
+         //text_data
+         //it->second
+      }
+
+      if (found_slot == nullptr)
+      {
+         throw std::runtime_error(
+            "assign_text_data_to_layers: no text slot found for identifier: \"" + slot_identifier + "\""
+         );
+      }
+
+      return;
+   }
+
    if (text_data.find(name) == text_data.end())
    {
       AllegroFlare::Logger::throw_error(
@@ -943,6 +1056,9 @@ void Layout::render()
       tile_mesh.render();
    }
 
+   // Render text slots
+   render_text_slots(nullptr);
+
    // Render the layers
    for (auto &layer : layers)
    {
@@ -954,6 +1070,7 @@ void Layout::render()
 
       if (before_layer_render) before_layer_render(&layer);
       layer.tile_mesh.render();
+      render_text_slots(&layer);
       if (after_layer_render) after_layer_render(&layer);
 
       //al_use_transform(&previous_transform);
@@ -970,12 +1087,12 @@ void Layout::render()
    //}
 
    // Render text slots
-   render_text_slots();
+   //render_text_slots();
 
    return;
 }
 
-void Layout::render_text_slots()
+void Layout::render_text_slots(AllegroFlare::Layouts::Layer* layer)
 {
    if (!(initialized))
    {
@@ -984,9 +1101,15 @@ void Layout::render_text_slots()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_text_slots]: error: guard \"initialized\" not met");
    }
-   for (auto &text_slot_ : text_slots)
+   auto &text_slots_to_use = layer ? layer->text_slots : text_slots;
+   auto &text_data_to_use = layer ? layer->text_data : text_data;
+
+   for (auto &text_slot_ : text_slots_to_use)
    {
       AllegroFlare::Layouts::Elements::Text &text_slot = text_slot_.second;
+      //std::string &text = text_data[text_slot_.first];
+      std::string &text = text_data_to_use[text_slot_.first];
+      if (text.empty()) continue;
 
       float x = text_slot.x;
       float y = text_slot.y;
@@ -998,10 +1121,9 @@ void Layout::render_text_slots()
       int font_size = text_slot.font_size;
       ALLEGRO_COLOR &color = text_slot.color;
 
-
       // TODO: Confirm exists
       //std::string &text = text_data[text_slot.first];
-      std::string &text = text_data[text_slot_.first];
+      //std::string &text = text_data[text_slot_.first];
 
       //float x = 1920/2;
       //float y = 1080/3;

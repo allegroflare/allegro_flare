@@ -794,6 +794,8 @@ void TMJDataLoader::extract_layers(nlohmann::json* j_ptr, std::set<int>* tileset
                }
             }
 
+            // HERE
+
             // TODO: Test this
             custom_properties = attempt_to_extract_custom_properties(&object_json.value());
 
