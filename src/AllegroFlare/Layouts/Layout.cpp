@@ -841,18 +841,6 @@ void Layout::set_text_data_through_layers_require_all(std::map<std::string, std:
 
       AllegroFlare::Layouts::Elements::Text *found_slot = nullptr;
 
-      //for (auto &layer : layers)
-      //{
-      //for (auto &text_datum : text_data)
-      //{
-         // HERE
-         //if (layer.text_data.
-      //}
-      //if (layer.text_data.exists()
-      //- name: text_data
-        //type: std::map<std::string, std::string>
-        //default_argument: '{}'
-      //}
       for (auto &layer : layers)
       {
          auto it = layer.text_slots.find(slot_identifier);
@@ -875,7 +863,6 @@ void Layout::set_text_data_through_layers_require_all(std::map<std::string, std:
          );
       }
 
-      //found_slot->set_text(text_value);
       set_text_data_field(slot_identifier, text_value);
    }
 
@@ -909,7 +896,6 @@ void Layout::set_text_data_require_present(std::map<std::string, std::string> te
    }
 
    // TODO: Test this
-   for (int i=0; i<text_data.size(); i++)
    for (auto &text_datum : text_data)
    {
       this->text_data[text_datum.first] = text_datum.second;

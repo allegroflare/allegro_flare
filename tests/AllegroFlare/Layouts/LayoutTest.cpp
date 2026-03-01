@@ -1085,7 +1085,7 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 
 
 TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
-   FOCUS__CAPTURE__when_loading_a_map_with_groups__will_populate_the_gropus_with_the_expected_data)
+   CAPTURE__when_loading_a_map_with_groups__will_populate_the_gropus_with_the_expected_data)
 {
    setup_layered_subject(
       //"layout_with_opacity-01.tmj",
@@ -1103,17 +1103,6 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
    view_subject();
    sleep_for(1);
 }
-
-
-
-/*
-         AllegroFlare::Layouts::Elements::Text &text_slot = text_slot_.second;
-
-         //std::string &text = text_data[text_slot_.first];
-         std::string &text = text_data_to_use[text_slot_.first];
-         if (text.empty()) continue;
-&text_slot_.first, &text_slot, &text_data
-*/
 
 
 
