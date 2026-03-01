@@ -48,6 +48,8 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , default_font_identifier("Orbitron-Medium.ttf")
    , before_layer_render({})
    , after_layer_render({})
+   , before_text_slot_render({})
+   , after_text_slot_render({})
    , current_group(nullptr)
    , loading_into__name(nullptr)
    , loading_into__tile_mesh_is_present(nullptr)
@@ -141,6 +143,18 @@ void Layout::set_after_layer_render(std::function<void(AllegroFlare::Layouts::La
 }
 
 
+void Layout::set_before_text_slot_render(std::function<void(AllegroFlare::Layouts::Layer*, const std::string*, AllegroFlare::Layouts::Elements::Text*, const std::string*)> before_text_slot_render)
+{
+   this->before_text_slot_render = before_text_slot_render;
+}
+
+
+void Layout::set_after_text_slot_render(std::function<void()> after_text_slot_render)
+{
+   this->after_text_slot_render = after_text_slot_render;
+}
+
+
 bool Layout::get_tile_mesh_is_present() const
 {
    return tile_mesh_is_present;
@@ -174,6 +188,18 @@ std::function<void(AllegroFlare::Layouts::Layer*)> Layout::get_before_layer_rend
 std::function<void(AllegroFlare::Layouts::Layer*)> Layout::get_after_layer_render() const
 {
    return after_layer_render;
+}
+
+
+std::function<void(AllegroFlare::Layouts::Layer*, const std::string*, AllegroFlare::Layouts::Elements::Text*, const std::string*)> Layout::get_before_text_slot_render() const
+{
+   return before_text_slot_render;
+}
+
+
+std::function<void()> Layout::get_after_text_slot_render() const
+{
+   return after_text_slot_render;
 }
 
 
@@ -1144,6 +1170,11 @@ void Layout::render_text_slots(AllegroFlare::Layouts::Layer* layer)
 
       float final_y = y - (rendered_text_height*align_y) + (h*align_y);
 
+      if (before_text_slot_render)
+      {
+         before_text_slot_render(layer, &text_slot_.first, &text_slot, &text);
+      }
+
       al_draw_multiline_text(
          font,
          color, //ALLEGRO_COLOR{1, 1, 1, 1},
@@ -1155,6 +1186,8 @@ void Layout::render_text_slots(AllegroFlare::Layouts::Layer* layer)
          allegro_text_align,
          text.c_str()
       );
+
+      if (after_text_slot_render) after_text_slot_render(); //layer, &text_slot_.first, &text_slot, &text_data);
 
       //ALLEGRO_COLOR debug_color = ALLEGRO_COLOR{0.95, 0.26, 0.1, 1.0};
       //al_draw_rectangle(x*scale, y*scale, (x+w)*scale, (y+h)*scale, debug_color, 2.0);

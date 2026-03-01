@@ -54,6 +54,8 @@ namespace AllegroFlare
          std::string default_font_identifier;
          std::function<void(AllegroFlare::Layouts::Layer*)> before_layer_render;
          std::function<void(AllegroFlare::Layouts::Layer*)> after_layer_render;
+         std::function<void(AllegroFlare::Layouts::Layer*, const std::string*, AllegroFlare::Layouts::Elements::Text*, const std::string*)> before_text_slot_render;
+         std::function<void()> after_text_slot_render;
          static int _multiline_text_line_number;
          AllegroFlare::Tiled::TMJGroup* current_group;
          std::string* loading_into__name;
@@ -86,12 +88,16 @@ namespace AllegroFlare
          void set_default_font_identifier(std::string default_font_identifier);
          void set_before_layer_render(std::function<void(AllegroFlare::Layouts::Layer*)> before_layer_render);
          void set_after_layer_render(std::function<void(AllegroFlare::Layouts::Layer*)> after_layer_render);
+         void set_before_text_slot_render(std::function<void(AllegroFlare::Layouts::Layer*, const std::string*, AllegroFlare::Layouts::Elements::Text*, const std::string*)> before_text_slot_render);
+         void set_after_text_slot_render(std::function<void()> after_text_slot_render);
          bool get_tile_mesh_is_present() const;
          std::map<std::string, std::string> get_text_data() const;
          int get_scale() const;
          std::string get_default_font_identifier() const;
          std::function<void(AllegroFlare::Layouts::Layer*)> get_before_layer_render() const;
          std::function<void(AllegroFlare::Layouts::Layer*)> get_after_layer_render() const;
+         std::function<void(AllegroFlare::Layouts::Layer*, const std::string*, AllegroFlare::Layouts::Elements::Text*, const std::string*)> get_before_text_slot_render() const;
+         std::function<void()> get_after_text_slot_render() const;
          bool get_initialized() const;
          float get_layout_width();
          float get_layout_height();

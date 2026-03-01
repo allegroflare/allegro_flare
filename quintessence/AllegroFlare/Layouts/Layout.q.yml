@@ -106,6 +106,19 @@ properties:
     getter: true
     setter: true
 
+  - name: before_text_slot_render
+    # layer, text_slot_identifier, text_slot, text_data_value
+    type: std::function<void(AllegroFlare::Layouts::Layer*, const std::string*, AllegroFlare::Layouts::Elements::Text*, const std::string*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: after_text_slot_render
+    type: std::function<void()>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: _multiline_text_line_number
     type: int
     init_with: 0
@@ -1147,6 +1160,11 @@ methods:
 
          float final_y = y - (rendered_text_height*align_y) + (h*align_y);
 
+         if (before_text_slot_render)
+         {
+            before_text_slot_render(layer, &text_slot_.first, &text_slot, &text);
+         }
+
          al_draw_multiline_text(
             font,
             color, //ALLEGRO_COLOR{1, 1, 1, 1},
@@ -1158,6 +1176,8 @@ methods:
             allegro_text_align,
             text.c_str()
          );
+
+         if (after_text_slot_render) after_text_slot_render(); //layer, &text_slot_.first, &text_slot, &text_data);
 
          //ALLEGRO_COLOR debug_color = ALLEGRO_COLOR{0.95, 0.26, 0.1, 1.0};
          //al_draw_rectangle(x*scale, y*scale, (x+w)*scale, (y+h)*scale, debug_color, 2.0);

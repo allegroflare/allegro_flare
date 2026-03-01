@@ -1105,3 +1105,15 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 }
 
 
+
+/*
+         AllegroFlare::Layouts::Elements::Text &text_slot = text_slot_.second;
+
+         //std::string &text = text_data[text_slot_.first];
+         std::string &text = text_data_to_use[text_slot_.first];
+         if (text.empty()) continue;
+&text_slot_.first, &text_slot, &text_data
+*/
+
+
+
