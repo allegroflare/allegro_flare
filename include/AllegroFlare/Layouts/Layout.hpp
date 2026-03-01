@@ -56,6 +56,7 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::Layouts::Layer*)> after_layer_render;
          static int _multiline_text_line_number;
          AllegroFlare::Tiled::TMJGroup* current_group;
+         std::string* loading_into__name;
          bool* loading_into__tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh* loading_into__tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text>* loading_into__text_slots;

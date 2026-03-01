@@ -1,6 +1,11 @@
 properties:
 
 
+  - name: name
+    type: std::string
+    init_with: '"[unset-name]"'
+    exposed: true
+
   - name: tile_mesh_is_present
     type: bool
     init_with: false

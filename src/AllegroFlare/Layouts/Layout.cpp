@@ -49,6 +49,7 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , before_layer_render({})
    , after_layer_render({})
    , current_group(nullptr)
+   , loading_into__name(nullptr)
    , loading_into__tile_mesh_is_present(nullptr)
    , loading_into__tile_mesh(nullptr)
    , loading_into__text_slots(nullptr)
@@ -275,6 +276,7 @@ void Layout::initialize()
 
    // Setup the targets to load into
    current_group = nullptr;
+   loading_into__name = nullptr;
    loading_into__tile_mesh_is_present = &tile_mesh_is_present;
    loading_into__tile_mesh = &tile_mesh;
    loading_into__text_slots = &text_slots;
@@ -325,6 +327,7 @@ void Layout::initialize()
       auto &layer = layers.back();
 
       current_group = group;
+      loading_into__name = &layer.name;
       loading_into__tile_mesh_is_present = &layer.tile_mesh_is_present;
       loading_into__tile_mesh = &layer.tile_mesh;
       loading_into__text_slots = &layer.text_slots;
@@ -462,6 +465,13 @@ void Layout::load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_lo
       // NOTE: This should be symmetrical to the current_group level loading
       if (tmj_data_loader.tilelayer_exists("visual")) visual_tilelayer_is_present = true;
       if (tmj_data_loader.tilelayer_exists("opacity")) opacity_tilelayer_is_present = true;
+   }
+
+
+   if (current_group)
+   {
+      // TODO: Test that name is loaded
+      *loading_into__name = current_group->name;
    }
 
 

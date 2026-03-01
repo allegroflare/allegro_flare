@@ -22,6 +22,7 @@ namespace AllegroFlare
 
 
       public:
+         std::string name;
          bool tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots;

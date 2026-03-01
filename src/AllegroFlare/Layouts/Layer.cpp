@@ -12,7 +12,8 @@ namespace Layouts
 
 
 Layer::Layer()
-   : tile_mesh_is_present(false)
+   : name("[unset-name]")
+   , tile_mesh_is_present(false)
    , tile_mesh({})
    , text_slots({})
    , text_data({})
