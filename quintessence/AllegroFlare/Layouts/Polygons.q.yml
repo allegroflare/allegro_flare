@@ -27,6 +27,13 @@ properties:
     getter: true
 
 
+documentation:
+
+
+  - notes:
+      - I'm pretty sure this class is dead and no longer used anywhere. Check to see if it can be removed.
+
+
 methods:
 
 

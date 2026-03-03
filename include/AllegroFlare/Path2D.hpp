@@ -91,7 +91,6 @@ namespace AllegroFlare
       float _length;
 
       void update_vertexs();
-      //void draw_shape(ALLEGRO_BITMAP *image=NULL);
       // should be extracted to a Path2DRenderer
       void draw_shape(ALLEGRO_COLOR color);
       void draw_shape(float x, float y, ALLEGRO_COLOR color);

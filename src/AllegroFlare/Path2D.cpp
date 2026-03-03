@@ -794,18 +794,6 @@ namespace AllegroFlare
 
 
 
-   /*
-   void Path2D::draw_shape(ALLEGRO_BITMAP *image)
-   {
-      static bool warned = false;
-      if (vertex.empty()) { if (!warned) { warned = true; std::cout << std::endl << "[Path2D::draw_shape] attempting to draw empty() vertexes, did you remember to update_vertexs()?" << std::endl; } return; }
-      al_draw_prim(&vertex[0], NULL, image, 0, vertex.size(), ALLEGRO_PRIM_TRIANGLE_FAN);
-   }
-   */
-
-
-
-
    void Path2D::draw_shape(ALLEGRO_COLOR color)
    {
       al_draw_filled_polygon(&point[0].x, point.size(), color);
