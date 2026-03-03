@@ -623,7 +623,7 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 
 
    al_flip_display();
-   al_rest(0.125);
+   al_rest(0.125); // A brief little flash to let us know we're switching to the duplicate
    al_flip_display();
 
 
