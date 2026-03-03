@@ -13,6 +13,8 @@ namespace Layouts
 
 Layer::Layer()
    : name("[unset-name]")
+   , offset_x(0.0f)
+   , offset_y(0.0f)
    , tile_mesh_is_present(false)
    , tile_mesh({})
    , text_slots({})

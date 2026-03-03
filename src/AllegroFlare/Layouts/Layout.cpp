@@ -1033,6 +1033,126 @@ std::tuple<bool, bool, bool, bool, int> Layout::extract_tmj_tile_flip_properties
    };
 }
 
+AllegroFlare::Layouts::Layer* Layout::find_layer_by_name(std::string name)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::find_layer_by_name]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::find_layer_by_name]: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   for (auto &layer : layers)
+   {
+      if (layer.name == name) return &layer;
+   }
+   return nullptr;
+}
+
+void Layout::render_layer_by_name(std::string name, bool suppress_callbacks)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::render_layer_by_name]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_layer_by_name]: error: guard \"initialized\" not met");
+   }
+   AllegroFlare::Layouts::Layer* layer = find_layer_by_name(name);
+   if (!layer)
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME, 
+         "Could not find layer named \"" + name + "\""
+      );
+   }
+   render_layer(layer, suppress_callbacks);
+   return;
+}
+
+void Layout::render_layer(AllegroFlare::Layouts::Layer* layer, bool suppress_callbacks)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::render_layer]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_layer]: error: guard \"initialized\" not met");
+   }
+   if (!(layer))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::render_layer]: error: guard \"layer\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_layer]: error: guard \"layer\" not met");
+   }
+   // TODO: Test suppress callbacks feature
+   // TODO: include "offset"
+   // TODO: Include render_polygons
+   render_polygons(layer);
+   if (!suppress_callbacks && before_layer_render) before_layer_render(layer);
+   if (layer->tile_mesh_is_present) layer->tile_mesh.render();
+   render_text_slots(layer);
+   if (!suppress_callbacks && after_layer_render) after_layer_render(layer);
+   return;
+}
+
+void Layout::render()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met");
+   }
+   // Render the global objects and tilelayers
+   {
+      // Render tile polygons
+      render_polygons(nullptr);
+
+      // Render tile mesh
+      if (tile_mesh_is_present) tile_mesh.render();
+
+      // Render text slots
+      render_text_slots(nullptr);
+   }
+
+   // Render the layers
+   for (auto &layer : layers)
+   {
+      render_layer(&layer, false);
+      //ALLEGRO_TRANSFORM previous_transform, transform;
+      //al_copy_transform(&previous_transform, al_get_current_transform());
+      //al_copy_transform(&transform, al_get_current_transform());
+      //al_translate_transform(&transform, layer.x_offset, layer.y_offset);
+      //al_use_transform(&transform);
+
+      //if (before_layer_render) before_layer_render(&layer);
+      //if (layer.tile_mesh_is_present) layer.tile_mesh.render();
+      //render_text_slots(&layer);
+      //if (after_layer_render) after_layer_render(&layer);
+
+      //al_use_transform(&previous_transform);
+   }
+
+   //else
+   //{
+      //AllegroFlare::Logger::throw_error(
+         //THIS_CLASS_AND_METHOD_NAME,
+         //"Cannot render tile_mesh because none has been loaded. This is the case for the top-level global "
+            //"tile_mesh. If there are layers, and the layers contain data for tile_mesh, then this method needs to "
+            //"be re-evaluated to support rendering in that circumstance."
+      //);
+   //}
+
+   // Render text slots
+   //render_text_slots();
+
+   return;
+}
+
 void Layout::render_polygons(AllegroFlare::Layouts::Layer* layer)
 {
    if (!(initialized))
@@ -1053,67 +1173,16 @@ void Layout::render_polygons(AllegroFlare::Layouts::Layer* layer)
    al_scale_transform(&transform, scale, scale);
    al_use_transform(&transform);
 
+   auto &polygons__to_render = layer ? layer->polygons : this->polygons;
+
    // Render polygons
-   for (auto &polygon_ : polygons)
+   for (auto &polygon_ : polygons__to_render)
    {
       AllegroFlare::Layouts::Elements::Polygon &polygon = polygon_.second;
       polygon.path.draw_shape(polygon.fill_color);
    }
 
    al_use_transform(&previous_transform);
-   return;
-}
-
-void Layout::render()
-{
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met");
-   }
-   render_polygons(nullptr);
-
-   // Render tile mesh
-   if (tile_mesh_is_present)
-   {
-      tile_mesh.render();
-   }
-
-   // Render text slots
-   render_text_slots(nullptr);
-
-   // Render the layers
-   for (auto &layer : layers)
-   {
-      //ALLEGRO_TRANSFORM previous_transform, transform;
-      //al_copy_transform(&previous_transform, al_get_current_transform());
-      //al_copy_transform(&transform, al_get_current_transform());
-      //al_translate_transform(&transform, layer.x_offset, layer.y_offset);
-      //al_use_transform(&transform);
-
-      if (before_layer_render) before_layer_render(&layer);
-      if (layer.tile_mesh_is_present) layer.tile_mesh.render();
-      render_text_slots(&layer);
-      if (after_layer_render) after_layer_render(&layer);
-
-      //al_use_transform(&previous_transform);
-   }
-
-   //else
-   //{
-      //AllegroFlare::Logger::throw_error(
-         //THIS_CLASS_AND_METHOD_NAME,
-         //"Cannot render tile_mesh because none has been loaded. This is the case for the top-level global "
-            //"tile_mesh. If there are layers, and the layers contain data for tile_mesh, then this method needs to "
-            //"be re-evaluated to support rendering in that circumstance."
-      //);
-   //}
-
-   // Render text slots
-   //render_text_slots();
-
    return;
 }
 

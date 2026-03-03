@@ -6,6 +6,16 @@ properties:
     init_with: '"[unset-name]"'
     exposed: true
 
+  - name: offset_x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: offset_y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
   - name: tile_mesh_is_present
     type: bool
     init_with: false

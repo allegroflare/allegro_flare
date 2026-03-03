@@ -1025,32 +1025,62 @@ methods:
       };
 
 
-  - name: render_polygons
+  - name: find_layer_by_name
+    type: AllegroFlare::Layouts::Layer*
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this
+      for (auto &layer : layers)
+      {
+         if (layer.name == name) return &layer;
+      }
+      return nullptr;
+
+
+  - name: render_layer_by_name
+    parameters:
+      - name: name
+        type: std::string
+        default_argument: '"[unset-name]"'
+      - name: suppress_callbacks
+        type: bool
+        default_argument: true
+    guards: [ initialized ]
+    body: |
+      AllegroFlare::Layouts::Layer* layer = find_layer_by_name(name);
+      if (!layer)
+      {
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME, 
+            "Could not find layer named \"" + name + "\""
+         );
+      }
+      render_layer(layer, suppress_callbacks);
+      return;
+
+
+  - name: render_layer
     parameters:
       - name: layer
         type: AllegroFlare::Layouts::Layer*
         default_argument: nullptr
-    guards: [ initialized ]
+      - name: suppress_callbacks
+        type: bool
+        default_argument: true
+    guards: [ initialized, layer ]
     body: |
-      // NOTE: Currently there is no draw order option.  Objects are rendered in groups by object types. Feel free
-      // to change this so a drawing order can be added.
-
-      // NOTE: Using a transform here may not be preferred. It may be that importing the geometry at a scale is the
-      // more correct approach. Please review.
-      ALLEGRO_TRANSFORM previous_transform, transform;
-      al_copy_transform(&previous_transform, al_get_current_transform());
-      al_copy_transform(&transform, al_get_current_transform());
-      al_scale_transform(&transform, scale, scale);
-      al_use_transform(&transform);
-
-      // Render polygons
-      for (auto &polygon_ : polygons)
-      {
-         AllegroFlare::Layouts::Elements::Polygon &polygon = polygon_.second;
-         polygon.path.draw_shape(polygon.fill_color);
-      }
-
-      al_use_transform(&previous_transform);
+      // TODO: Test suppress callbacks feature
+      // TODO: include "offset"
+      // TODO: Include render_polygons
+      render_polygons(layer);
+      if (!suppress_callbacks && before_layer_render) before_layer_render(layer);
+      if (layer->tile_mesh_is_present) layer->tile_mesh.render();
+      render_text_slots(layer);
+      if (!suppress_callbacks && after_layer_render) after_layer_render(layer);
       return;
 
 
@@ -1058,30 +1088,32 @@ methods:
     type: void
     guards: [ initialized ]
     body: |
-      render_polygons(nullptr);
-
-      // Render tile mesh
-      if (tile_mesh_is_present)
+      // Render the global objects and tilelayers
       {
-         tile_mesh.render();
-      }
+         // Render tile polygons
+         render_polygons(nullptr);
 
-      // Render text slots
-      render_text_slots(nullptr);
+         // Render tile mesh
+         if (tile_mesh_is_present) tile_mesh.render();
+
+         // Render text slots
+         render_text_slots(nullptr);
+      }
 
       // Render the layers
       for (auto &layer : layers)
       {
+         render_layer(&layer, false);
          //ALLEGRO_TRANSFORM previous_transform, transform;
          //al_copy_transform(&previous_transform, al_get_current_transform());
          //al_copy_transform(&transform, al_get_current_transform());
          //al_translate_transform(&transform, layer.x_offset, layer.y_offset);
          //al_use_transform(&transform);
 
-         if (before_layer_render) before_layer_render(&layer);
-         if (layer.tile_mesh_is_present) layer.tile_mesh.render();
-         render_text_slots(&layer);
-         if (after_layer_render) after_layer_render(&layer);
+         //if (before_layer_render) before_layer_render(&layer);
+         //if (layer.tile_mesh_is_present) layer.tile_mesh.render();
+         //render_text_slots(&layer);
+         //if (after_layer_render) after_layer_render(&layer);
 
          //al_use_transform(&previous_transform);
       }
@@ -1104,6 +1136,37 @@ methods:
       - AllegroFlare::Vec2D
       - al_draw_rounded_rectangle
       - al_draw_text
+
+
+  - name: render_polygons
+    parameters:
+      - name: layer
+        type: AllegroFlare::Layouts::Layer*
+        default_argument: nullptr
+    guards: [ initialized ]
+    body: |
+      // NOTE: Currently there is no draw order option.  Objects are rendered in groups by object types. Feel free
+      // to change this so a drawing order can be added.
+
+      // NOTE: Using a transform here may not be preferred. It may be that importing the geometry at a scale is the
+      // more correct approach. Please review.
+      ALLEGRO_TRANSFORM previous_transform, transform;
+      al_copy_transform(&previous_transform, al_get_current_transform());
+      al_copy_transform(&transform, al_get_current_transform());
+      al_scale_transform(&transform, scale, scale);
+      al_use_transform(&transform);
+
+      auto &polygons__to_render = layer ? layer->polygons : this->polygons;
+
+      // Render polygons
+      for (auto &polygon_ : polygons__to_render)
+      {
+         AllegroFlare::Layouts::Elements::Polygon &polygon = polygon_.second;
+         polygon.path.draw_shape(polygon.fill_color);
+      }
+
+      al_use_transform(&previous_transform);
+      return;
 
 
   - name: render_text_slots

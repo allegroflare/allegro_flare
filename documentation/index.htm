@@ -22559,6 +22559,14 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">offset_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">offset_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">tile_mesh_is_present</td>
   <td class="property">bool</td>
 </tr>
@@ -22858,12 +22866,24 @@ table td
   <td class="method"><b>extract_tmj_tile_flip_properties</b>(uint32_t tmj_tile_value=0)</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Layouts::Layer*</td>
+  <td class="method"><b>find_layer_by_name</b>(std::string name=&quot;[unset-name]&quot;)</td>
+</tr>
+<tr>
   <td class="method">void</td>
-  <td class="method"><b>render_polygons</b>(AllegroFlare::Layouts::Layer* layer=nullptr)</td>
+  <td class="method"><b>render_layer_by_name</b>(std::string name=&quot;[unset-name]&quot;, bool suppress_callbacks=true)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_layer</b>(AllegroFlare::Layouts::Layer* layer=nullptr, bool suppress_callbacks=true)</td>
 </tr>
 <tr>
   <td class="method">void</td>
   <td class="method"><b>render</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>render_polygons</b>(AllegroFlare::Layouts::Layer* layer=nullptr)</td>
 </tr>
 <tr>
   <td class="method">void</td>

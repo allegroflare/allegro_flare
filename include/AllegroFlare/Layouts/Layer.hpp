@@ -23,6 +23,8 @@ namespace AllegroFlare
 
       public:
          std::string name;
+         float offset_x;
+         float offset_y;
          bool tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots;

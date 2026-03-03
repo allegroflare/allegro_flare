@@ -104,6 +104,31 @@ public:
       layout.set_text_data_through_layers_require_all(text_data);
    }
 
+   void load_and_initialize_layout(
+         std::string tmj_layout_filename,
+         std::string atlas_filename, 
+         int scale = 2
+      )
+   { 
+      std::string maps_data_path = get_data_path() + "maps/";
+      //std::map<std::string, std::string> text_data;
+      //{
+         //layout.set_tmj_filename(maps_data_path + "reticle_with_flipped_tiles_1-01.tmj");
+         //layout.set_prim_mesh_atlas_filename("ascii_glyphs_12x16-08.png");
+      //}
+      {
+         layout.set_tmj_filename(maps_data_path + tmj_layout_filename);
+         //layout.set_prim_mesh_atlas_filename("ascii_glyphs_12x16-08.png");
+         layout.set_prim_mesh_atlas_filename(atlas_filename);
+      }
+
+      //AllegroFlare::Generators::LoremIpsumGenerator ipsum;
+      layout.set_scale(scale); // TODO: Add test that rendering appears as expected under different scales
+      layout.initialize();
+
+      //layout.set_text_data_through_layers_require_all(text_data);
+   }
+
    void view_subject()
    {
       clear();
@@ -1085,7 +1110,7 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 
 
 TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
-   CAPTURE__when_loading_a_map_with_groups__will_populate_the_gropus_with_the_expected_data)
+   CAPTURE__when_loading_a_map_with_groups__will_create_layers_with_the_expected_data)
 {
    setup_layered_subject(
       //"layout_with_opacity-01.tmj",
@@ -1106,13 +1131,52 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 
 
 
+TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
+   FOCUS__CAPTURE__draw_layer__when_layers_are_present__will_render_the_layer)
+{
+   load_and_initialize_layout(
+      //"layout_with_opacity-01.tmj",
+      "callout_styles-02.tmj",
+      "ascii_glyphs_12x16-10-1000x.png-result.png",
+      //{
+         //{ "bottom_left_tag", "13.26" },
+         //{ "health_amount", "867" },
+      //},
+      2
+   );
+
+   EXPECT_EQ(3, layout.num_layers());
+
+   { // view subject
+      clear();
+      al_clear_to_color(background_color);
+
+      ALLEGRO_TRANSFORM t;
+      al_identity_transform(&t);
+      al_translate_transform( // TODO: Fix this
+         &t,
+         1920/2 - layout.get_effective_width()/2,
+         1080/2 - layout.get_effective_height()/2
+      );
+      al_use_transform(&t);
+
+      //layout.render();
+      layout.render_layer_by_name("gravitium_tag");
+
+      al_flip_display();
+   }
+   //sleep_for(1);
+}
+
+
+
 /*
 TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
-   CAPTURE__when_loading_a_map_with_groups__will_populate_the_gropus_with_the_expected_data)
+   DISABLED__CAPTURE__when_loading_a_map_with_fragments__will_populate_the_fragments_with_the_expected_data)
 {
-   setup_layered_subject(
+   load_and_initialize_layout(
       //"layout_with_opacity-01.tmj",
-      "callout_styles-01.tmj",
+      "callout_styles-02.tmj",
       "ascii_glyphs_12x16-10-1000x.png-result.png",
       {
          //{ "bottom_left_tag", "13.26" },
@@ -1121,9 +1185,28 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
       2
    );
 
-   //EXPECT_EQ(4, layout.num_layers());
 
-   view_subject();
+   //ASSERT_EQ(4, layout.num_layers());
+
+
+   { // view subject
+      clear();
+      al_clear_to_color(background_color);
+
+      ALLEGRO_TRANSFORM t;
+      al_identity_transform(&t);
+      al_translate_transform( // TODO: Fix this
+         &t,
+         1920/2 - layout.get_effective_width()/2,
+         1080/2 - layout.get_effective_height()/2
+      );
+      al_use_transform(&t);
+
+      layout.render_layer();
+
+      al_flip_display();
+   }
+
    sleep_for(1);
 }
 */
