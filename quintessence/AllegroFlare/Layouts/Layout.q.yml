@@ -1025,12 +1025,15 @@ methods:
       };
 
 
-  - name: render
-    type: void
+  - name: render_polygons
+    parameters:
+      - name: layer
+        type: AllegroFlare::Layouts::Layer*
+        default_argument: nullptr
     guards: [ initialized ]
     body: |
       // NOTE: Currently there is no draw order option.  Objects are rendered in groups by object types. Feel free
-      // to change this so that drawing order can be used.
+      // to change this so a drawing order can be added.
 
       // NOTE: Using a transform here may not be preferred. It may be that importing the geometry at a scale is the
       // more correct approach. Please review.
@@ -1048,6 +1051,14 @@ methods:
       }
 
       al_use_transform(&previous_transform);
+      return;
+
+
+  - name: render
+    type: void
+    guards: [ initialized ]
+    body: |
+      render_polygons(nullptr);
 
       // Render tile mesh
       if (tile_mesh_is_present)
@@ -1068,7 +1079,7 @@ methods:
          //al_use_transform(&transform);
 
          if (before_layer_render) before_layer_render(&layer);
-         layer.tile_mesh.render();
+         if (layer.tile_mesh_is_present) layer.tile_mesh.render();
          render_text_slots(&layer);
          if (after_layer_render) after_layer_render(&layer);
 
@@ -1096,7 +1107,6 @@ methods:
 
 
   - name: render_text_slots
-    type: void
     parameters:
       - name: layer
         type: AllegroFlare::Layouts::Layer*

@@ -1033,17 +1033,17 @@ std::tuple<bool, bool, bool, bool, int> Layout::extract_tmj_tile_flip_properties
    };
 }
 
-void Layout::render()
+void Layout::render_polygons(AllegroFlare::Layouts::Layer* layer)
 {
    if (!(initialized))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::render_polygons]: error: guard \"initialized\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_polygons]: error: guard \"initialized\" not met");
    }
    // NOTE: Currently there is no draw order option.  Objects are rendered in groups by object types. Feel free
-   // to change this so that drawing order can be used.
+   // to change this so a drawing order can be added.
 
    // NOTE: Using a transform here may not be preferred. It may be that importing the geometry at a scale is the
    // more correct approach. Please review.
@@ -1061,6 +1061,19 @@ void Layout::render()
    }
 
    al_use_transform(&previous_transform);
+   return;
+}
+
+void Layout::render()
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met");
+   }
+   render_polygons(nullptr);
 
    // Render tile mesh
    if (tile_mesh_is_present)
@@ -1081,7 +1094,7 @@ void Layout::render()
       //al_use_transform(&transform);
 
       if (before_layer_render) before_layer_render(&layer);
-      layer.tile_mesh.render();
+      if (layer.tile_mesh_is_present) layer.tile_mesh.render();
       render_text_slots(&layer);
       if (after_layer_render) after_layer_render(&layer);
 

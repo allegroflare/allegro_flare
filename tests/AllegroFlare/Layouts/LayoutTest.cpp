@@ -1101,8 +1101,32 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
    EXPECT_EQ(4, layout.num_layers());
 
    view_subject();
+   //sleep_for(1);
+}
+
+
+
+/*
+TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
+   CAPTURE__when_loading_a_map_with_groups__will_populate_the_gropus_with_the_expected_data)
+{
+   setup_layered_subject(
+      //"layout_with_opacity-01.tmj",
+      "callout_styles-01.tmj",
+      "ascii_glyphs_12x16-10-1000x.png-result.png",
+      {
+         //{ "bottom_left_tag", "13.26" },
+         //{ "health_amount", "867" },
+      },
+      2
+   );
+
+   //EXPECT_EQ(4, layout.num_layers());
+
+   view_subject();
    sleep_for(1);
 }
+*/
 
 
 

@@ -125,6 +125,7 @@ namespace AllegroFlare
          std::string get_text_data_field_value(std::string name="[unset-name]");
          int extract_int_or_default(AllegroFlare::Tiled::TMJObject* object=nullptr, std::string key="[unset-key]", int default_fallback=0);
          static std::tuple<bool, bool, bool, bool, int> extract_tmj_tile_flip_properties(uint32_t tmj_tile_value=0);
+         void render_polygons(AllegroFlare::Layouts::Layer* layer=nullptr);
          void render();
          void render_text_slots(AllegroFlare::Layouts::Layer* layer=nullptr);
          void render_text_debug();
