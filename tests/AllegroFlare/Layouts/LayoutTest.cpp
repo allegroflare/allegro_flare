@@ -1145,7 +1145,12 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
       2
    );
 
-   EXPECT_EQ(3, layout.num_layers());
+   ASSERT_EQ(3, layout.num_layers());
+   AllegroFlare::Layouts::Layer *gravitium_tag_layer = layout.find_layer_by_name("gravitium_tag");
+   ASSERT_NE(nullptr, gravitium_tag_layer);
+   EXPECT_EQ(120.0f, gravitium_tag_layer->offset_x);
+   EXPECT_EQ(280.0f, gravitium_tag_layer->offset_y);
+
 
    { // view subject
       clear();

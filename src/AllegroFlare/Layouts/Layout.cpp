@@ -59,6 +59,8 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , loading_into__polygons(nullptr)
    , loading_into__cursor_destinations(nullptr)
    , loading_into__frames(nullptr)
+   , loading_into__offset_x(nullptr)
+   , loading_into__offset_y(nullptr)
    , initialized(false)
 {
 }
@@ -310,6 +312,8 @@ void Layout::initialize()
    loading_into__polygons = &polygons;
    loading_into__cursor_destinations = &cursor_destinations;
    loading_into__frames = &frames;
+   loading_into__offset_x = nullptr;
+   loading_into__offset_y = nullptr;
 
 
    // Load the objects (if they are at the top level)
@@ -361,6 +365,8 @@ void Layout::initialize()
       loading_into__polygons = &layer.polygons;
       loading_into__cursor_destinations = &layer.cursor_destinations;
       loading_into__frames = &layer.frames;
+      loading_into__offset_x = &layer.offset_x;
+      loading_into__offset_y = &layer.offset_y;
 
       // Load into the objects
       current_group->for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
@@ -498,6 +504,8 @@ void Layout::load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_lo
    {
       // TODO: Test that name is loaded
       *loading_into__name = current_group->name;
+      *loading_into__offset_x = current_group->offset_x;
+      *loading_into__offset_y = current_group->offset_y;
    }
 
 
@@ -1090,11 +1098,21 @@ void Layout::render_layer(AllegroFlare::Layouts::Layer* layer, bool suppress_cal
    // TODO: Test suppress callbacks feature
    // TODO: include "offset"
    // TODO: Include render_polygons
+   ALLEGRO_TRANSFORM previous_transform, transform;
+   al_copy_transform(&previous_transform, al_get_current_transform());
+   al_copy_transform(&transform, al_get_current_transform());
+   al_translate_transform(&transform, layer->offset_x * scale, layer->offset_y * scale);
+   al_use_transform(&transform);
+
+   // TODO: Consider adding render state rules
+
    render_polygons(layer);
    if (!suppress_callbacks && before_layer_render) before_layer_render(layer);
    if (layer->tile_mesh_is_present) layer->tile_mesh.render();
    render_text_slots(layer);
    if (!suppress_callbacks && after_layer_render) after_layer_render(layer);
+
+   al_use_transform(&previous_transform);
    return;
 }
 

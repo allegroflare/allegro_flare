@@ -182,17 +182,6 @@
                          "y":32
                         }, 
                         {
-                         "height":64,
-                         "id":49,
-                         "name":"",
-                         "rotation":0,
-                         "type":"",
-                         "visible":true,
-                         "width":528,
-                         "x":288,
-                         "y":176
-                        }, 
-                        {
                          "height":0,
                          "id":68,
                          "name":"flower",
@@ -457,6 +446,8 @@
                  "y":0
                 }],
          "name":"gravitium_tag",
+         "offsetx":120,
+         "offsety":280,
          "opacity":1,
          "type":"group",
          "visible":true,

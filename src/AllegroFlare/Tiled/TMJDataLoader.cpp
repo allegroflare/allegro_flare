@@ -605,8 +605,14 @@ void TMJDataLoader::extract_layers(nlohmann::json* j_ptr, std::set<int>* tileset
          //nlohmann::json layer = layer.value();
          std::string name_property = layer.value()["name"].get<std::string>();
          int id_property = layer.value()["id"].get<int>();
-         float x_property = layer.value()["x"].get<float>();
-         float y_property = layer.value()["y"].get<float>();
+         float offset_x_property = layer.value().contains("offsetx")
+                                 ? layer.value()["offsetx"].get<float>()
+                                 : 0;
+         float offset_y_property = layer.value().contains("offsety")
+                                 ? layer.value()["offsety"].get<float>()
+                                 : 0;
+                                 
+         //float offset_y_property = layer.value()["offsety"].get<float>();
 
          // Capture the current group name
          //current_group_names.push_back(name_property);
@@ -614,10 +620,17 @@ void TMJDataLoader::extract_layers(nlohmann::json* j_ptr, std::set<int>* tileset
          AllegroFlare::Tiled::TMJGroup result_group;
          result_group.name = name_property;
          result_group.id = id_property;
-         result_group.offset_x = x_property;
-         result_group.offset_y = y_property;
+         result_group.offset_x = offset_x_property;
+         result_group.offset_y = offset_y_property;
          result_group.num_rows = num_rows;
          result_group.num_columns = num_columns;
+
+
+         if (false) { // DEVELOPMENT
+            std::cout << "Loading into group:" << std::endl;
+            std::cout << "  x: " << offset_x_property << std::endl;
+            std::cout << "  y: " << offset_y_property << std::endl;
+         }
 
          AllegroFlare::Tiled::TMJGroup *previous_group = current_loading_group;
          groups.push_back(result_group);
