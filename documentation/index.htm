@@ -22567,6 +22567,14 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">origin_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">origin_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
   <td class="property">tile_mesh_is_present</td>
   <td class="property">bool</td>
 </tr>
@@ -22756,6 +22764,14 @@ table td
 </tr>
 <tr>
   <td class="property">loading_into__offset_y</td>
+  <td class="property">float*</td>
+</tr>
+<tr>
+  <td class="property">loading_into__origin_x</td>
+  <td class="property">float*</td>
+</tr>
+<tr>
+  <td class="property">loading_into__origin_y</td>
   <td class="property">float*</td>
 </tr>
 <tr>
@@ -48502,6 +48518,9 @@ table td
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObject&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObject.hpp&quot;]}</td>
 </tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJObjectCustomProperties&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJObjectCustomProperties.hpp&quot;]}</td>
+</tr>
     </table>
 </div>  </div>
 </ul>
@@ -57772,6 +57791,7 @@ table td
   ],
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJGroup",
     "AllegroFlare/Tiled/TMJObject"
   ],
   "std/stringstream": [

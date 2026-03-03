@@ -611,7 +611,7 @@ void TMJDataLoader::extract_layers(nlohmann::json* j_ptr, std::set<int>* tileset
          float offset_y_property = layer.value().contains("offsety")
                                  ? layer.value()["offsety"].get<float>()
                                  : 0;
-                                 
+
          //float offset_y_property = layer.value()["offsety"].get<float>();
 
          // Capture the current group name

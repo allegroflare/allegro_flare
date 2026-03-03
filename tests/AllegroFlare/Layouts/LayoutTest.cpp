@@ -1150,6 +1150,8 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
    ASSERT_NE(nullptr, gravitium_tag_layer);
    EXPECT_EQ(120.0f, gravitium_tag_layer->offset_x);
    EXPECT_EQ(280.0f, gravitium_tag_layer->offset_y);
+   EXPECT_EQ(552.0f, gravitium_tag_layer->origin_x);
+   EXPECT_EQ(208.0f, gravitium_tag_layer->origin_y);
 
 
    { // view subject

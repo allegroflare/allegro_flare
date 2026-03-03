@@ -115,5 +115,7 @@ dependencies:
 
   - symbol: AllegroFlare::Tiled::TMJObject
     headers: [ AllegroFlare/Tiled/TMJObject.hpp ]
+  - symbol: AllegroFlare::Tiled::TMJObjectCustomProperties
+    headers: [ AllegroFlare/Tiled/TMJObjectCustomProperties.hpp ]
 
 

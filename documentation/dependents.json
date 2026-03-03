@@ -4690,6 +4690,7 @@
   ],
   "AllegroFlare/Tiled/TMJObjectCustomProperties": [
     "AllegroFlare/Tiled/TMJDataLoader",
+    "AllegroFlare/Tiled/TMJGroup",
     "AllegroFlare/Tiled/TMJObject"
   ],
   "std/stringstream": [

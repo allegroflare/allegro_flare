@@ -61,6 +61,8 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , loading_into__frames(nullptr)
    , loading_into__offset_x(nullptr)
    , loading_into__offset_y(nullptr)
+   , loading_into__origin_x(nullptr)
+   , loading_into__origin_y(nullptr)
    , initialized(false)
 {
 }
@@ -314,24 +316,26 @@ void Layout::initialize()
    loading_into__frames = &frames;
    loading_into__offset_x = nullptr;
    loading_into__offset_y = nullptr;
+   loading_into__origin_x = nullptr;
+   loading_into__origin_y = nullptr;
 
 
    // Load the objects (if they are at the top level)
    // TODO: Load objects if currently loading into a group
-   if (current_group)
-   {
-      current_group->for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
-         load_into_object(object);
-         return;
-      });
-   }
-   else
-   {
+   //if (current_group)
+   //{
+      //current_group->for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
+         //load_into_object(object);
+         //return;
+      //});
+   //}
+   //else
+   //{
       tmj_data_loader.for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
          load_into_object(object);
          return;
       });
-   }
+   //}
 
 
 
@@ -367,6 +371,8 @@ void Layout::initialize()
       loading_into__frames = &layer.frames;
       loading_into__offset_x = &layer.offset_x;
       loading_into__offset_y = &layer.offset_y;
+      loading_into__origin_x = &layer.origin_x;
+      loading_into__origin_y = &layer.origin_y;
 
       // Load into the objects
       current_group->for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
@@ -424,6 +430,19 @@ void Layout::load_into_object(AllegroFlare::Tiled::TMJObject* object)
    {
       loading_into__polygons->operator[](object->id) =
          AllegroFlare::Layouts::ElementFactory::build_polygon_from_tmj_object(object);
+   }
+
+   //
+   // Load "origin"
+   //
+
+   if (current_group && object->type == "origin")
+   {
+      // TODO: Test that these values are loaded
+      // TODO: Validate that the origin is indeed a point (and not a rectangle, etc)
+      // TODO: Validate that there is only a single origin
+      *loading_into__origin_x = object->x;
+      *loading_into__origin_y = object->y;
    }
 
    //

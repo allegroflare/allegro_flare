@@ -16,6 +16,16 @@ properties:
     init_with: 0.0f
     exposed: true
 
+  - name: origin_x
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: origin_y
+    type: float
+    init_with: 0.0f
+    exposed: true
+
   - name: tile_mesh_is_present
     type: bool
     init_with: false

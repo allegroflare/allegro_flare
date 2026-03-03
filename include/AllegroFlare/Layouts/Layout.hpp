@@ -68,6 +68,8 @@ namespace AllegroFlare
          std::map<int, AllegroFlare::Layouts::Elements::Frame>* loading_into__frames;
          float* loading_into__offset_x;
          float* loading_into__offset_y;
+         float* loading_into__origin_x;
+         float* loading_into__origin_y;
          bool initialized;
          ALLEGRO_FONT* obtain_font(int font_size=-18);
          ALLEGRO_FONT* obtain_custom_font(std::string font_family="[unset-font_family]", int font_size=-18);
