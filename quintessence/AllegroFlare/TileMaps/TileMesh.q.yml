@@ -436,8 +436,9 @@ methods:
       }
 
       // Create the vertex buffer, duplicate the vertices into it
-      vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
-      //refresh_vertex_buffer();
+      //vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+      create_vertex_buffer();
+      refresh_vertex_buffer();
 
       // Build the index buffer
       // HERE: See if "refresh_index_buffer" can be used here instead
@@ -802,8 +803,25 @@ methods:
       return;
 
 
+  - name: create_vertex_buffer
+    body: |
+      if (!vertex_buffer)
+      {
+         vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+         //int num_index_vertices = index_vertices.size();
+         //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+      }
+      return;
+
+
   - name: refresh_vertex_buffer
     body: |
+      //if (!vertex_buffer)
+      //{
+         //vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+         //int num_index_vertices = index_vertices.size();
+         //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+      //}
       int num_vertices = infer_num_vertices();
       ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
          vertex_buffer,
@@ -970,6 +988,21 @@ methods:
       return;
 
 
+  - name: create_duplicate
+    type: AllegroFlare::TileMaps::TileMesh*
+    body: |
+      AllegroFlare::TileMaps::TileMesh *result = new AllegroFlare::TileMaps::TileMesh();
+      *result = *this;
+
+      result->vertex_buffer = nullptr;
+      result->create_vertex_buffer();
+      result->refresh_vertex_buffer();
+      result->index_buffer = nullptr;
+      result->refresh_index_buffer();
+
+      return result;
+
+
 dependencies:
 
 
@@ -993,5 +1026,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Profiler
     headers: [ AllegroFlare/Profiler.hpp ]
+  - symbol: AllegroFlare::TileMaps::TileMesh
+    headers: [ AllegroFlare/TileMaps/TileMesh.hpp ]
 
 

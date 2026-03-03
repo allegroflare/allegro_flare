@@ -500,8 +500,9 @@ void TileMesh::resize(int num_columns, int num_rows)
    }
 
    // Create the vertex buffer, duplicate the vertices into it
-   vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
-   //refresh_vertex_buffer();
+   //vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+   create_vertex_buffer();
+   refresh_vertex_buffer();
 
    // Build the index buffer
    // HERE: See if "refresh_index_buffer" can be used here instead
@@ -854,8 +855,25 @@ void TileMesh::set_tile_color(int tile_x, int tile_y, ALLEGRO_COLOR color)
    return;
 }
 
+void TileMesh::create_vertex_buffer()
+{
+   if (!vertex_buffer)
+   {
+      vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+      //int num_index_vertices = index_vertices.size();
+      //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+   }
+   return;
+}
+
 void TileMesh::refresh_vertex_buffer()
 {
+   //if (!vertex_buffer)
+   //{
+      //vertex_buffer = al_create_vertex_buffer(NULL, &vertices[0], vertices.size(), ALLEGRO_PRIM_BUFFER_DYNAMIC);
+      //int num_index_vertices = index_vertices.size();
+      //for (int i=0; i<num_index_vertices; i++) index_vertices[i] = i;
+   //}
    int num_vertices = infer_num_vertices();
    ALLEGRO_VERTEX* vertex_buffer_start = (ALLEGRO_VERTEX*)al_lock_vertex_buffer(
       vertex_buffer,
@@ -1007,6 +1025,20 @@ void TileMesh::swap_yz()
 
    yz_swapped = !yz_swapped;
    return;
+}
+
+AllegroFlare::TileMaps::TileMesh* TileMesh::create_duplicate()
+{
+   AllegroFlare::TileMaps::TileMesh *result = new AllegroFlare::TileMaps::TileMesh();
+   *result = *this;
+
+   result->vertex_buffer = nullptr;
+   result->create_vertex_buffer();
+   result->refresh_vertex_buffer();
+   result->index_buffer = nullptr;
+   result->refresh_index_buffer();
+
+   return result;
 }
 
 

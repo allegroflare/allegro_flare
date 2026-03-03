@@ -587,3 +587,72 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 }
 
 
+TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
+   FOCUS__CAPTURE__VISUAL__render__will_render_the_mesh_as_expected__solid_tiles_example__2)
+{
+   // Fill the subject with random tiles
+   // TODO: Use a different tilemap that has shapes and white tile for better testing
+   std::vector<int> possible_random_tiles = { 0 };
+   fill_with_random_tiles(possible_random_tiles);
+
+   std::vector<ALLEGRO_COLOR> possible_random_colors = {
+      ALLEGRO_COLOR{1.0, 1.0, 1.0, 1.0},
+      ALLEGRO_COLOR{0.7, 0.0, 0.0, 1.0},
+      ALLEGRO_COLOR{0.0, 0.7, 0.0, 1.0},
+      ALLEGRO_COLOR{0.0, 0.0, 0.7, 1.0},
+      ALLEGRO_COLOR{0.0, 0.7, 0.7, 1.0},
+      ALLEGRO_COLOR{0.7, 0.0, 0.7, 1.0},
+      ALLEGRO_COLOR{0.7, 0.7, 0.0, 1.0},
+   };
+
+   AllegroFlare::Random random;
+   ALLEGRO_COLOR random_color;
+   for (int y=0; y<mesh.get_num_rows(); y++)
+   {
+      for (int x=0; x<mesh.get_num_columns(); x++)
+      {
+         int random_i = random.get_random_int(0, possible_random_colors.size()-1);
+         random_color = possible_random_colors[random_i];
+         mesh.set_tile_color(x, y, random_color);
+      }
+   }
+   mesh.refresh_vertex_buffer();
+
+   // Render the subject
+   render_subject(1.0f);
+
+
+   al_flip_display();
+   al_rest(0.125);
+   al_flip_display();
+
+
+   // Create and render a duplicate
+   AllegroFlare::TileMaps::TileMesh *duplicate = mesh.create_duplicate();
+   //void render_subject(float duration_sec=1.0f, AllegroFlare::Vec2D position = { 1920/2, 1080/2 })
+   {
+      float duration_sec = 1.0f;
+      AllegroFlare::Vec2D position = { 1920/2, 1080/2 };
+
+      AllegroFlare::Placement2D subject_placement;
+      subject_placement.position = position; //{ 1920/2, 1080/2 };
+      subject_placement.scale = { 4.0f, 4.0f };
+      subject_placement.size = { (float)duplicate->get_real_width(), (float)duplicate->get_real_height() };
+      subject_placement.align = { 0.5f, 0.5f };
+
+      clear();
+
+      subject_placement.start_transform();
+      duplicate->render();
+      subject_placement.restore_transform();
+
+      al_flip_display();
+      al_rest(duration_sec);
+   }
+
+   // Destroy the duplicate
+   duplicate->destroy();
+   duplicate = nullptr;
+}
+
+

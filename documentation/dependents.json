@@ -3364,7 +3364,8 @@
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2DFactory",
     "AllegroFlare/Prototypes/Platforming2D/Entities/TileMaps/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
-    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader"
+    "AllegroFlare/Prototypes/Platforming2D/TMJTileMeshLoader",
+    "AllegroFlare/TileMaps/TileMesh"
   ],
   "AllegroFlare/TileMaps/PrimMeshAtlas": [
     "AllegroFlare/Layouts/Layout",
