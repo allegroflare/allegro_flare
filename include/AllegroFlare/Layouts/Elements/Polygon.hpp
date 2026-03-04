@@ -30,6 +30,7 @@ namespace AllegroFlare
             float width;
             float height;
             std::vector<AllegroFlare::Vec2D> polygon;
+            std::vector<ALLEGRO_VERTEX> triangulated_polygon;
             AllegroFlare::Path2D path;
             ALLEGRO_COLOR fill_color;
             float tmj_object_id;

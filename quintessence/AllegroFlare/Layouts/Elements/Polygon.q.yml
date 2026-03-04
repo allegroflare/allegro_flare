@@ -31,6 +31,11 @@ properties:
     init_with: '{}'
     exposed: true
 
+  - name: triangulated_polygon
+    type: std::vector<ALLEGRO_VERTEX>
+    init_with: '{}'
+    exposed: true
+
   - name: path
     type: AllegroFlare::Path2D
     init_with: ''
@@ -75,6 +80,15 @@ methods:
 
   - name: build_triangulated_polygon
     type: std::vector<ALLEGRO_VERTEX>
+#    static: true
+#    parameters:
+#      - name: polygon_points
+#        type: std::vector<AllegroFlare::Vec2D>*
+#        default_argument: nullptr
+#      - name: hole_points
+#        type: std::vector<std::vector<AllegroFlare::Vec2D>>*
+#        default_argument: nullptr
+#    guards: [ polygon_points ]
     body: |
       int polygon_vertex_counts[2] = {
          (int)polygon.size(),
@@ -113,7 +127,7 @@ methods:
          &user_data
       );
 
-      std::cout << "Emissions: " << user_data.emissions << std::endl;
+      //std::cout << "Emissions: " << user_data.emissions << std::endl;
 
       return user_data.result;
     body_dependency_symbols:

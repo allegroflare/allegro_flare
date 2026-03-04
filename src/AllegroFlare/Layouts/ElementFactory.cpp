@@ -95,6 +95,12 @@ AllegroFlare::Layouts::Elements::Polygon ElementFactory::build_polygon_from_tmj_
    result_polygon.fill_color = polygon_fill_color;
 
 
+   // Build the triangulated vertices
+   // TODO: Test this
+   result_polygon.triangulated_polygon = result_polygon.build_triangulated_polygon();
+
+
+
    //color_hex
 
    //result_position.move_up_to_target_tmj_object_id =

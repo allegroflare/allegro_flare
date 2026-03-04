@@ -20,6 +20,7 @@ Polygon::Polygon()
    , width(0.0f)
    , height(0.0f)
    , polygon({})
+   , triangulated_polygon({})
    , path()
    , fill_color(ALLEGRO_COLOR{1, 1, 1, 1})
    , tmj_object_id(0.0f)
@@ -74,7 +75,7 @@ std::vector<ALLEGRO_VERTEX> Polygon::build_triangulated_polygon()
       &user_data
    );
 
-   std::cout << "Emissions: " << user_data.emissions << std::endl;
+   //std::cout << "Emissions: " << user_data.emissions << std::endl;
 
    return user_data.result;
 }
