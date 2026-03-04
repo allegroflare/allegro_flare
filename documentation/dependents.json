@@ -2510,6 +2510,7 @@
   "ALLEGRO_VERTEX": [
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/NinePatch",
+    "AllegroFlare/Layouts/Elements/Polygon",
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Prototypes/MeshFPS/Entities/Base",

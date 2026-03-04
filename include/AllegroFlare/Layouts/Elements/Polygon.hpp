@@ -4,6 +4,7 @@
 #include <AllegroFlare/Path2D.hpp>
 #include <AllegroFlare/Vec2D.hpp>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include <functional>
 #include <string>
 #include <vector>
@@ -38,6 +39,7 @@ namespace AllegroFlare
             Polygon();
             ~Polygon();
 
+            std::vector<ALLEGRO_VERTEX> build_triangulated_polygon();
          };
       }
    }
