@@ -14,6 +14,7 @@
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Screens/Base.hpp>
 #include <AllegroFlare/VideoBin.hpp>
+#include <allegro5/allegro_font.h>
 #include <gtest/gtest.h>
 #include <string>
 #include <vector>
@@ -68,6 +69,10 @@ namespace AllegroFlare
          void framework_register_and_activate_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);
          void framework_register_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);
          void framework_activate_screen(std::string name="[unset-name]", AllegroFlare::Screens::Base* screen=nullptr);
+         ALLEGRO_FONT* get_any_font(int size=-30);
+         ALLEGRO_FONT* get_small_font(int size=-20);
+         ALLEGRO_FONT* get_user_prompt_font();
+         ALLEGRO_FONT* get_specific_font(std::string font_name="[unset-font_name]", int size=-20);
          void framework_run_loop(float num_seconds_to_auto_abort=3);
          std::string get_test_name();
          std::string get_test_suite_name();

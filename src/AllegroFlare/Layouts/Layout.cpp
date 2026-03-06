@@ -875,7 +875,8 @@ void Layout::set_text_data_through_layers_require_all(std::map<std::string, std:
 
          if (found_slot != nullptr)
          {
-            throw std::runtime_error(
+            AllegroFlare::Logger::throw_error(
+               THIS_CLASS_AND_METHOD_NAME,
                "assign_text_data_to_layers: duplicate text slot identifier found: \"" + slot_identifier + "\""
             );
          }
@@ -885,7 +886,8 @@ void Layout::set_text_data_through_layers_require_all(std::map<std::string, std:
 
       if (found_slot == nullptr)
       {
-         throw std::runtime_error(
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
             "assign_text_data_to_layers: no text slot found for identifier: \"" + slot_identifier + "\""
          );
       }
@@ -966,7 +968,11 @@ void Layout::set_text_data_field(std::string name, std::string value)
 
          if (found_slot != nullptr)
          {
-            throw std::runtime_error(
+            //throw std::runtime_error(
+               //"assign_text_data_to_layers: duplicate text slot identifier found: \"" + slot_identifier + "\""
+            //);
+            AllegroFlare::Logger::throw_error(
+               THIS_CLASS_AND_METHOD_NAME,
                "assign_text_data_to_layers: duplicate text slot identifier found: \"" + slot_identifier + "\""
             );
          }
@@ -980,9 +986,13 @@ void Layout::set_text_data_field(std::string name, std::string value)
 
       if (found_slot == nullptr)
       {
-         throw std::runtime_error(
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
             "assign_text_data_to_layers: no text slot found for identifier: \"" + slot_identifier + "\""
          );
+         //throw std::runtime_error(
+            //"assign_text_data_to_layers: no text slot found for identifier: \"" + slot_identifier + "\""
+         //);
       }
 
       return;

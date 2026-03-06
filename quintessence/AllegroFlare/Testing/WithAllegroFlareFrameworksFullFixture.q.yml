@@ -204,6 +204,61 @@ functions:
       return;
 
 
+  - name: get_any_font
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: size
+        type: int
+        default_argument: -30
+    guards: [ initialized, (size != 0) ]
+    body: |
+      std::stringstream ss;
+      ss << "Inter-Regular.ttf " << size;
+      return framework_font_bin->auto_get(ss.str());
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: get_small_font
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: size
+        type: int
+        default_argument: -20
+    guards: [ initialized, (size != 0) ]
+    body: |
+      std::stringstream ss;
+      ss << "Inter-Regular.ttf " << size;
+      return framework_font_bin->auto_get(ss.str());
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: get_user_prompt_font
+    type: ALLEGRO_FONT*
+    body: |
+      return framework_font_bin->auto_get("Inter-Regular.ttf -42");
+
+
+  - name: get_specific_font
+    type: ALLEGRO_FONT*
+    parameters:
+      - name: font_name
+        type: std::string
+        default_argument: '"[unset-font_name]"'
+      - name: size
+        type: int
+        default_argument: -20
+    guards: [ initialized, (size != 0) ]
+    body: |
+      std::stringstream ss;
+      ss << font_name << " " << size;
+      return framework_font_bin->auto_get(ss.str());
+    body_dependency_symbols:
+      - std::stringstream
+
+
+
   - name: framework_run_loop
     type: void
     parameters:
@@ -335,5 +390,7 @@ dependencies:
     headers: [ AllegroFlare/DialogSystem/DialogSystem.hpp ]
   - symbol: AllegroFlare::AudioController
     headers: [ AllegroFlare/AudioController.hpp ]
+  - symbol: ALLEGRO_FONT
+    headers: [ allegro5/allegro_font.h ]
 
 

@@ -850,6 +850,7 @@
     "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TextFormatters/Basic",

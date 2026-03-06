@@ -233,6 +233,74 @@ void WithAllegroFlareFrameworksFullFixture::framework_activate_screen(std::strin
    return;
 }
 
+ALLEGRO_FONT* WithAllegroFlareFrameworksFullFixture::get_any_font(int size)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_any_font]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_any_font]: error: guard \"initialized\" not met");
+   }
+   if (!((size != 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_any_font]: error: guard \"(size != 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_any_font]: error: guard \"(size != 0)\" not met");
+   }
+   std::stringstream ss;
+   ss << "Inter-Regular.ttf " << size;
+   return framework_font_bin->auto_get(ss.str());
+}
+
+ALLEGRO_FONT* WithAllegroFlareFrameworksFullFixture::get_small_font(int size)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_small_font]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_small_font]: error: guard \"initialized\" not met");
+   }
+   if (!((size != 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_small_font]: error: guard \"(size != 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_small_font]: error: guard \"(size != 0)\" not met");
+   }
+   std::stringstream ss;
+   ss << "Inter-Regular.ttf " << size;
+   return framework_font_bin->auto_get(ss.str());
+}
+
+ALLEGRO_FONT* WithAllegroFlareFrameworksFullFixture::get_user_prompt_font()
+{
+   return framework_font_bin->auto_get("Inter-Regular.ttf -42");
+}
+
+ALLEGRO_FONT* WithAllegroFlareFrameworksFullFixture::get_specific_font(std::string font_name, int size)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_specific_font]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_specific_font]: error: guard \"initialized\" not met");
+   }
+   if (!((size != 0)))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_specific_font]: error: guard \"(size != 0)\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Testing::WithAllegroFlareFrameworksFullFixture::get_specific_font]: error: guard \"(size != 0)\" not met");
+   }
+   std::stringstream ss;
+   ss << font_name << " " << size;
+   return framework_font_bin->auto_get(ss.str());
+}
+
 void WithAllegroFlareFrameworksFullFixture::framework_run_loop(float num_seconds_to_auto_abort)
 {
    if (!(initialized))

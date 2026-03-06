@@ -45974,6 +45974,10 @@ table td
   <td class="method"><b>framework_activate_screen</b>(std::string name=&quot;[unset-name]&quot;, AllegroFlare::Screens::Base* screen=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">ALLEGRO_FONT*</td>
+  <td class="method"><b>get_any_font</b>(int size=-30)</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>framework_run_loop</b>(float num_seconds_to_auto_abort=3)</td>
 </tr>
@@ -46055,6 +46059,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_FONT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_font.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -53962,6 +53969,7 @@ table td
     "AllegroFlare/Screens/TitledMenuScreen",
     "AllegroFlare/SoftwareKeyboard/SoftwareKeyboard",
     "AllegroFlare/SyncOracle",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/Testing/WithAllegroRenderingFixture",
     "AllegroFlare/TextFormatters/Basic",
