@@ -20,6 +20,7 @@ namespace AllegroFlare
       private:
          std::vector<AllegroFlare::Physics::CollisionMeshFace> faces;
          AllegroFlare::StableVectorStr<AllegroFlare::Physics::CollisionMeshFace> dynamic_faces;
+         bool active;
          bool loaded;
 
       protected:

@@ -13,6 +13,12 @@ properties:
     getter: false
     xgetter_ref: explicit
 
+  - name: active
+    type: bool
+    init_with: true
+    getter: false
+    setter: false
+
   - name: loaded
     type: bool
     init_with: false

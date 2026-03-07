@@ -17,6 +17,7 @@ namespace Physics
 CollisionMesh::CollisionMesh()
    : faces({})
    , dynamic_faces({})
+   , active(true)
    , loaded(false)
 {
 }
