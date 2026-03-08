@@ -17,7 +17,7 @@ namespace Physics
 CollisionMesh::CollisionMesh()
    : faces({})
    , dynamic_faces({})
-   , active(true)
+   , disabled(false)
    , loaded(false)
 {
 }
@@ -29,6 +29,18 @@ CollisionMesh::~CollisionMesh()
    // may have names to dynamic faces that will no longer be valid - it's expected that these objects will all be
    // desroyed along with the colision mesh at the same time, however.
    return;
+}
+
+
+void CollisionMesh::set_disabled(bool disabled)
+{
+   this->disabled = disabled;
+}
+
+
+bool CollisionMesh::get_disabled() const
+{
+   return disabled;
 }
 
 

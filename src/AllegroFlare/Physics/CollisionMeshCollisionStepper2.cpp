@@ -363,7 +363,7 @@ float CollisionMeshCollisionStepper2::calculate_collisions(float min_entity_velo
    // be ignored. Make sure it's the lesser collision time/step of the two.
 
    //AllegroFlare::Physics::CollisionMesh &mesh = *collision_mesh;
-   std::vector<AllegroFlare::Physics::CollisionMesh*> &meshes = collision_meshes;
+   //std::vector<AllegroFlare::Physics::CollisionMesh*> &meshes = collision_meshes;
    std::vector<std::tuple<AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*>> &entities = *_entities;
    float least_collision_time = 1.0;
    float least_collision_time_for_this_entity = 1.0;
@@ -431,12 +431,14 @@ float CollisionMeshCollisionStepper2::calculate_collisions(float min_entity_velo
       //process_faces(mesh.get_dynamic_faces_ref());
 
       // TODO: Test this with multiple meshes
-      for (auto &mesh : meshes)
+      for (auto &collision_mesh : collision_meshes)
       {
          //meshes
-         process_faces(mesh->get_faces_ref());
+         if (collision_mesh->get_disabled()) continue;
+
+         process_faces(collision_mesh->get_faces_ref());
          // TODO: process indexed faces (that may be disabled)
-         process_faces(mesh->get_dynamic_faces_ref());
+         process_faces(collision_mesh->get_dynamic_faces_ref());
       }
 
 

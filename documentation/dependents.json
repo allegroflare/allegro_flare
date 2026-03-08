@@ -178,6 +178,7 @@
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -1022,6 +1023,7 @@
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/ProfilerRenderer",
@@ -1226,6 +1228,7 @@
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -2491,6 +2494,7 @@
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
@@ -3627,6 +3631,7 @@
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/CollisionMeshFace"
   ],
   "al_draw_prim": [
@@ -3635,10 +3640,12 @@
     "AllegroFlare/Rulers"
   ],
   "project": [
-    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
   ],
   "reflect": [
-    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
   ],
   "AllegroFlare/Physics/CollisionMeshCollisionStepper/StepoutStrategy": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
@@ -3647,20 +3654,30 @@
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
   ],
   "std/isnan": [
-    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
   ],
   "AllegroFlare/Physics/CollisionMesh": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
   "AllegroFlare/Useful3D/Ray": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Physics/CollisionMeshCollisionStepInfo": [
-    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper2/StepoutStrategy": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper2/RedirectStrategy": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
   ],
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Physics/CollisionMeshFace",

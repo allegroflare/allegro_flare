@@ -13,11 +13,11 @@ properties:
     getter: false
     xgetter_ref: explicit
 
-  - name: active
+  - name: disabled
     type: bool
-    init_with: true
-    getter: false
-    setter: false
+    init_with: false
+    getter: true
+    setter: true
 
   - name: loaded
     type: bool

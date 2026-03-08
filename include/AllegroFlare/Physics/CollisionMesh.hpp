@@ -20,7 +20,7 @@ namespace AllegroFlare
       private:
          std::vector<AllegroFlare::Physics::CollisionMeshFace> faces;
          AllegroFlare::StableVectorStr<AllegroFlare::Physics::CollisionMeshFace> dynamic_faces;
-         bool active;
+         bool disabled;
          bool loaded;
 
       protected:
@@ -30,6 +30,8 @@ namespace AllegroFlare
          CollisionMesh();
          ~CollisionMesh();
 
+         void set_disabled(bool disabled);
+         bool get_disabled() const;
          bool get_loaded() const;
          int get_num_faces();
          std::vector<AllegroFlare::Physics::CollisionMeshFace>& get_faces_ref();

@@ -374,6 +374,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Physics/CollisionMesh.q.yml">quintessence/AllegroFlare/Physics/CollisionMesh.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepInfo.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepInfo.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper2.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper2.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/CollisionMeshFace.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshFace.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/Int2D.q.yml">quintessence/AllegroFlare/Physics/Int2D.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml">quintessence/AllegroFlare/Physics/TileMapCollisionStepper.q.yml</a></li>
@@ -26833,7 +26834,7 @@ table td
   <td class="property">AllegroFlare::StableVectorStr&lt;AllegroFlare::Physics::CollisionMeshFace&gt;</td>
 </tr>
 <tr>
-  <td class="property">active</td>
+  <td class="property">disabled</td>
   <td class="property">bool</td>
 </tr>
 <tr>
@@ -27105,6 +27106,154 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshCollisionStepper::RedirectStrategy&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::isnan&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMesh&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMesh.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshFace&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMeshFace.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Useful3D::Ray&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful3D/Ray.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshCollisionStepInfo&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Physics/CollisionMeshCollisionStepInfo.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper2.q.yml">quintessence/AllegroFlare/Physics/CollisionMeshCollisionStepper2.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["There still remains an undiagnosed issue where an entity can get \"stuck\" in some geometry.  This is illustrated in one of the tests where there are multiple entities (a count of 160). Entities 79, 91, 100, 143, and 76 get stuck at a certain point. It could be related to an entity having near-zero velocity but being processed as if with zero velocity.", "At high entity counts (above 160 or so), lag can sometimes show up. There are options for optimization, btrees or threading (the collision calculations and stepping calculations can be computed in parallel) for example. More profiling would be good here. Also, profiling has not examined number of faces as a factor of performance.", "Performance could be improved by creating a fixed, contiguous entity table holding position and velocity, and having the collision_step_infos be on the same table, rather than being allocated each time.", "The STEPOUT_REVERSE_VELOCITY (the standard stepout strategy) will perform a stepout by reversing the velocity. The velocity could be low but the stepout could be greater, resulting in a breakout scenario if the entity is between two nearby faces. For this reason it is recommended to only create collision geometry that has right or obtuse angles, and avoid acute angles entirely.", "You may at one point want surfaces to be more reactive. For example if an entity collides with a face, a callback would occur to trigger some in-game action. The callback could include the position of the collision to facilitate effects like footprints in the snow. Also, some surfaces may have different degrees of friction, be more reflective, bouncy, or be more slippery."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">collision_meshes</td>
+  <td class="property">std::vector&lt;AllegroFlare::Physics::CollisionMesh*&gt;</td>
+</tr>
+<tr>
+  <td class="property">_entities</td>
+  <td class="property">std::vector&lt;std::tuple&lt;AllegroFlare::Vec3D*, AllegroFlare::Vec3D*, void*&gt;&gt;*</td>
+</tr>
+<tr>
+  <td class="property">face_collision_stepout</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">stepout_strategy</td>
+  <td class="property">AllegroFlare::Physics::CollisionMeshCollisionStepper2::StepoutStrategy</td>
+</tr>
+<tr>
+  <td class="property">redirect_strategy</td>
+  <td class="property">AllegroFlare::Physics::CollisionMeshCollisionStepper2::RedirectStrategy</td>
+</tr>
+<tr>
+  <td class="property">apply_environmental_forces</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">air_drag</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">gravity</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">collision_step_infos</td>
+  <td class="property">std::vector&lt;AllegroFlare::Physics::CollisionMeshCollisionStepInfo&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_collision_with_face</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Physics::CollisionMeshCollisionStepInfo*, AllegroFlare::Vec3D*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">num_collision_steps</td>
+  <td class="property">int</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_AIR_DRAG</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_GRAVITY</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>num_collision_step_infos</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>disable_applying_environmental_forces</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>enable_applying_environmental_forces</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>move_to_time_of_collision_and_react_to_collision</b>(AllegroFlare::Vec3D* position_=nullptr, AllegroFlare::Vec3D* velocity_=nullptr, float time_to_collision=0.0f, AllegroFlare::Vec3D* face_normal_=nullptr, float face_collision_stepout=0.001f, AllegroFlare::Physics::CollisionMeshCollisionStepper2::StepoutStrategy stepout_strategy=StepoutStrategy::STEPOUT_REVERSE_VELOCITY, AllegroFlare::Physics::CollisionMeshCollisionStepper2::RedirectStrategy redirect_strategy=RedirectStrategy::REDIRECT_SLIDE_ALONG_SURFACE)</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>calculate_collisions</b>(float min_entity_velocity_magnitude=0.001f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>apply_gravity_and_air_drag</b>(float total_duration=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>step</b>(float total_duration=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>to_string</b>(AllegroFlare::Physics::CollisionMeshCollisionStepper2::StepoutStrategy stepout_strategy=StepoutStrategy::STEPOUT_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>to_string</b>(AllegroFlare::Physics::CollisionMeshCollisionStepper2::RedirectStrategy redirect_strategy=RedirectStrategy::REDIRECT_UNDEF)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw_3d_line</b>(AllegroFlare::Vec3D start={}, AllegroFlare::Vec3D end={}, ALLEGRO_COLOR col=ALLEGRO_COLOR{1, 0, 0, 1})</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;project&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;reflect&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Useful.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec3D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec3D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshCollisionStepper2::StepoutStrategy&quot;, &quot;headers&quot;=&gt;[]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Physics::CollisionMeshCollisionStepper2::RedirectStrategy&quot;, &quot;headers&quot;=&gt;[]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::isnan&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
@@ -53313,6 +53462,7 @@ table td
     "AllegroFlare/MusicNotation/RomanNumeralAnalysisSymbol",
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Basic2D",
     "AllegroFlare/Prototypes/Platforming2D/Entities/Boss",
     "AllegroFlare/Prototypes/Platforming2D/Screen",
@@ -54157,6 +54307,7 @@ table td
     "AllegroFlare/MusicNotation/TieRenderer",
     "AllegroFlare/Physics/AABB2D",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/TileMapCollisionStepperStepResult",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/ProfilerRenderer",
@@ -54361,6 +54512,7 @@ table td
     "AllegroFlare/Physics/AABB3D",
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/DepthDarken",
     "AllegroFlare/Prototypes/CubeShooter/Shaders/Fog",
@@ -55626,6 +55778,7 @@ table td
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/CubeShooter/Entity",
@@ -56762,6 +56915,7 @@ table td
     "AllegroFlare/Physics/CollisionMesh",
     "AllegroFlare/Physics/CollisionMeshCollisionStepInfo",
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/CollisionMeshFace"
   ],
   "al_draw_prim": [
@@ -56770,10 +56924,12 @@ table td
     "AllegroFlare/Rulers"
   ],
   "project": [
-    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
   ],
   "reflect": [
-    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
   ],
   "AllegroFlare/Physics/CollisionMeshCollisionStepper/StepoutStrategy": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
@@ -56782,20 +56938,30 @@ table td
     "AllegroFlare/Physics/CollisionMeshCollisionStepper"
   ],
   "std/isnan": [
-    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
   ],
   "AllegroFlare/Physics/CollisionMesh": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
   ],
   "AllegroFlare/Useful3D/Ray": [
     "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2",
     "AllegroFlare/Physics/CollisionMeshFace",
     "AllegroFlare/Useful3D/Triangle",
     "AllegroFlare/Useful3D/Triangle"
   ],
   "AllegroFlare/Physics/CollisionMeshCollisionStepInfo": [
-    "AllegroFlare/Physics/CollisionMeshCollisionStepper"
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper",
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper2/StepoutStrategy": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
+  ],
+  "AllegroFlare/Physics/CollisionMeshCollisionStepper2/RedirectStrategy": [
+    "AllegroFlare/Physics/CollisionMeshCollisionStepper2"
   ],
   "AllegroFlare/Useful3D/IntersectData": [
     "AllegroFlare/Physics/CollisionMeshFace",
