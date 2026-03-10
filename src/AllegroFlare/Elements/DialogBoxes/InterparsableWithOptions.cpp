@@ -366,6 +366,11 @@ void InterparsableWithOptions::update_page_playback()
       page_finished_at = al_get_time();
    }
 
+   // TODO: Check if this is in the right spot
+   if (all_characters_are_revealed() && at_last_page())
+   {
+      reveal_breakout_list_box();
+   }
    return;
 }
 
@@ -382,6 +387,7 @@ bool InterparsableWithOptions::current_page_contains_only_operational_text()
 void InterparsableWithOptions::update()
 {
    if (get_finished()) return;
+
    if (!page_finished)
    {
       update_page_playback(); // TODO: Ensure this will play all operational chunks in sequence
@@ -390,19 +396,41 @@ void InterparsableWithOptions::update()
          advance();
       }
    }
+
    if (!page_finished && all_characters_are_revealed())
    {
       page_finished = true;
       page_finished_at = al_get_time();
+      if (at_last_page())
+      {
+         reveal_breakout_list_box();
+      }
    }
+
    return;
 }
 
 void InterparsableWithOptions::advance()
 {
    if (get_finished()) return;
-   if (!page_finished) reveal_all_characters();
-   else next_page();
+
+   if (breakout_list_box_active)
+   {
+      set_finished(true); // TODO: Look into if this is needed here or where it should be placed
+      // TODO: Consider playing a tone
+   }
+   else if (!page_finished)
+   {
+      reveal_all_characters();
+      if (at_last_page())
+      {
+         reveal_breakout_list_box();
+      }
+   }
+   else
+   {
+      next_page();
+   }
    return;
 }
 

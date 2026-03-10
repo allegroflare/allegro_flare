@@ -10209,6 +10209,14 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">choice_dialog_box</td>
+  <td class="property">AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*</td>
+</tr>
+<tr>
+  <td class="property">selection_cursor_box</td>
+  <td class="property">AllegroFlare::Elements::SelectionCursorBox*</td>
+</tr>
+<tr>
   <td class="property">width</td>
   <td class="property">float</td>
 </tr>
@@ -10333,7 +10341,23 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>helper__set_selection_cursor_box_dimensions_to</b>(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::tuple&lt;float, float, float, float&gt; dimensions={})</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>get_left_indent</b>()</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Elements::ListBoxRenderer</td>
+  <td class="method"><b>build_list_box_renderer</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>draw_choices_with_cursor_and_current_selection</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>xx__draw_choices_with_cursor_and_current_selection</b>()</td>
 </tr>
 <tr>
   <td class="private_method">void</td>
@@ -10433,6 +10457,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::sin&quot;, &quot;headers&quot;=&gt;[&quot;cmath&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::ColorKit&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/ColorKit.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -56287,6 +56314,7 @@ table td
   ],
   "AllegroFlare/ColorKit": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Layouts/Layout",

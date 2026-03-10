@@ -2,6 +2,7 @@
 
 #include <AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer.hpp>
 
+#include <AllegroFlare/ColorKit.hpp>
 #include <AllegroFlare/Elements/DialogBoxFrame.hpp>
 #include <AllegroFlare/Elements/DialogBoxNameTag.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp>
@@ -27,9 +28,11 @@ namespace DialogBoxRenderers
 {
 
 
-InterparsableWithOptionsRenderer::InterparsableWithOptionsRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text_with_formatting, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age, bool showing_speaking_character_name, std::string speaking_character_name)
+InterparsableWithOptionsRenderer::InterparsableWithOptionsRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text_with_formatting, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age, bool showing_speaking_character_name, std::string speaking_character_name)
    : font_bin(font_bin)
    , current_page_text_with_formatting(current_page_text_with_formatting)
+   , choice_dialog_box(choice_dialog_box)
+   , selection_cursor_box(selection_cursor_box)
    , width(width)
    , height(height)
    , font_name(font_name)
@@ -66,6 +69,18 @@ void InterparsableWithOptionsRenderer::set_font_bin(AllegroFlare::FontBin* font_
 void InterparsableWithOptionsRenderer::set_current_page_text_with_formatting(std::string current_page_text_with_formatting)
 {
    this->current_page_text_with_formatting = current_page_text_with_formatting;
+}
+
+
+void InterparsableWithOptionsRenderer::set_choice_dialog_box(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box)
+{
+   this->choice_dialog_box = choice_dialog_box;
+}
+
+
+void InterparsableWithOptionsRenderer::set_selection_cursor_box(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box)
+{
+   this->selection_cursor_box = selection_cursor_box;
 }
 
 
@@ -186,6 +201,18 @@ AllegroFlare::FontBin* InterparsableWithOptionsRenderer::get_font_bin() const
 std::string InterparsableWithOptionsRenderer::get_current_page_text_with_formatting() const
 {
    return current_page_text_with_formatting;
+}
+
+
+AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* InterparsableWithOptionsRenderer::get_choice_dialog_box() const
+{
+   return choice_dialog_box;
+}
+
+
+AllegroFlare::Elements::SelectionCursorBox* InterparsableWithOptionsRenderer::get_selection_cursor_box() const
+{
+   return selection_cursor_box;
 }
 
 
@@ -347,6 +374,13 @@ void InterparsableWithOptionsRenderer::render_speaking_character_name_tag()
 
 void InterparsableWithOptionsRenderer::render_next_or_finished_button(float opacity)
 {
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::render_next_or_finished_button]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::render_next_or_finished_button]: error: guard \"font_bin\" not met");
+   }
    // draw the "next" or "finished" cursor (depending on context)
    if (!page_is_finished) return; // Do not show any cursor if the dialog page is still revealing
 
@@ -408,6 +442,13 @@ void InterparsableWithOptionsRenderer::render()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::render]: error: guard \"al_is_primitives_addon_initialized()\" not met");
    }
+   if (!(choice_dialog_box))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::render]: error: guard \"choice_dialog_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::render]: error: guard \"choice_dialog_box\" not met");
+   }
    float normalized_age = std::max(std::min(1.0f, age), 0.0f);
    float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
    float inv_curved_time = 1.0 - curved_time;
@@ -429,14 +470,148 @@ void InterparsableWithOptionsRenderer::render()
       render_frame(curved_time);
       render_text();
       render_next_or_finished_button();
+      draw_choices_with_cursor_and_current_selection(); // ??
    }
 
    frame_place.restore_transform();
    return;
 }
 
+void InterparsableWithOptionsRenderer::helper__set_selection_cursor_box_dimensions_to(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, std::tuple<float, float, float, float> dimensions)
+{
+   if (!(selection_cursor_box))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::helper__set_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::helper__set_selection_cursor_box_dimensions_to]: error: guard \"selection_cursor_box\" not met");
+   }
+   float &x = std::get<0>(dimensions);
+   float &y = std::get<1>(dimensions);
+   float &width = std::get<2>(dimensions);
+   float &height = std::get<3>(dimensions);
+   selection_cursor_box->set_position(x, y);
+   selection_cursor_box->set_size(width, height);
+   return;
+}
+
+float InterparsableWithOptionsRenderer::get_left_indent()
+{
+   return 80;
+}
+
+AllegroFlare::Elements::ListBoxRenderer InterparsableWithOptionsRenderer::build_list_box_renderer()
+{
+   if (!(choice_dialog_box))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::build_list_box_renderer]: error: guard \"choice_dialog_box\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::build_list_box_renderer]: error: guard \"choice_dialog_box\" not met");
+   }
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::build_list_box_renderer]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::build_list_box_renderer]: error: guard \"font_bin\" not met");
+   }
+   // Design some custom colors for the breakout box
+   ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;
+   ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
+         background_color, //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
+         selection_frame_color,
+         0.03
+      );
+   ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
+         border_color, //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
+         selection_frame_color,
+         0.4
+      );
+   ALLEGRO_COLOR text_color_not_selected = AllegroFlare::ColorKit::mix(
+         text_color, //ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
+         selection_frame_color,
+         0.3
+      );
+
+   float breakout_list_box_age = choice_dialog_box->infer_breakout_list_box_age();
+
+   float left_indent = get_left_indent();
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+      font_bin,
+      nullptr, // bitmap_bin,
+      obtain_choice_dialog_box_option_labels()
+   );
+   // TODO: Interesting visual bug, when "set_width_to_fit..." is called after "set_height_to_fit..." then
+   // there could be a miss-alignment of the content and its presentation. Investigate this case and see if you can
+   // restore it
+   list_box_renderer.set_width_to_fit_content_or_max_and_min(width - left_indent*2);
+   list_box_renderer.set_height_to_fit_content();
+   list_box_renderer.set_text_color_not_selected(text_color_not_selected);
+   list_box_renderer.set_frame_backfill_color(frame_backfill_color);
+   list_box_renderer.set_frame_border_color(frame_border_color);
+   list_box_renderer.set_age(breakout_list_box_age);
+
+   // Set the cursor position
+   list_box_renderer.set_cursor_position(
+      obtain_choice_dialog_box_cursor_position()
+   );
+
+   return list_box_renderer;
+}
+
 void InterparsableWithOptionsRenderer::draw_choices_with_cursor_and_current_selection()
 {
+   if (!choice_dialog_box->get_breakout_list_box_active()) return;
+
+   // Build up our list_box_renderer
+   AllegroFlare::Elements::ListBoxRenderer list_box_renderer = build_list_box_renderer();
+   float left_indent = get_left_indent();
+
+   // Build up our selection cursor
+   bool showing_cursor = choice_dialog_box->get_cursor_active();
+   AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
+   AllegroFlare::Elements::SelectionCursorBox *selection_cursor_box_to_use = selection_cursor_box
+                                                                           ? selection_cursor_box
+                                                                           : &local_selection_cursor_box
+                                                                           ;
+   if (selection_cursor_box_to_use == &local_selection_cursor_box)
+   {
+      // In this case, we're using our local selection_cursor_box. We need to position it manually
+      // Init the cursor position to the current selection
+      std::tuple<float, float, float, float> current_selection_dimensions =
+         list_box_renderer.calculate_dimensions_for_list_item_at_position(
+            obtain_choice_dialog_box_cursor_position()
+         );
+      helper__set_selection_cursor_box_dimensions_to(selection_cursor_box_to_use, current_selection_dimensions);
+   }
+
+   // Build a placement for the breakout box
+   // TODO: Consider adding options for this position
+   AllegroFlare::Placement2D choice_box_place{
+      width - left_indent,
+      20,
+      list_box_renderer.get_width(),
+      list_box_renderer.get_height()
+   };
+   choice_box_place.align = AllegroFlare::Vec2D{ 1.0, 1.0 };
+
+   choice_box_place.start_transform();
+   list_box_renderer.render();
+   if (showing_cursor) selection_cursor_box_to_use->render();
+   choice_box_place.restore_transform();
+   return;
+}
+
+void InterparsableWithOptionsRenderer::xx__draw_choices_with_cursor_and_current_selection()
+{
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::xx__draw_choices_with_cursor_and_current_selection]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::xx__draw_choices_with_cursor_and_current_selection]: error: guard \"font_bin\" not met");
+   }
    float left_indent = 80;
    AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
       font_bin,
@@ -498,6 +673,13 @@ void InterparsableWithOptionsRenderer::draw_special_state_empty_text(float width
 
 void InterparsableWithOptionsRenderer::draw_speaking_character_name()
 {
+   if (!(font_bin))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::draw_speaking_character_name]: error: guard \"font_bin\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::draw_speaking_character_name]: error: guard \"font_bin\" not met");
+   }
    int width = 220; // TODO: Make the width vary based on the length of the speaking character
    int height = 46;
 

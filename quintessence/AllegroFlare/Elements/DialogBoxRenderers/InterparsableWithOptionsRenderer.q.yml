@@ -15,6 +15,22 @@ properties:
     getter: true
     setter: true
 
+# TODO: Rename this to "interparsable_with_options_dialog_box"
+  - name: choice_dialog_box
+    xx_type: AllegroFlare::Elements::DialogBoxes::Choice*
+    type: AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
+  - name: selection_cursor_box
+    type: AllegroFlare::Elements::SelectionCursorBox*
+    init_with: nullptr
+    constructor_arg: true
+    getter: true
+    setter: true
+
   - name: width
     type: float
     init_with: (1920/2.0f)
@@ -248,6 +264,7 @@ methods:
       - name: opacity
         type: float
         default_argument: 1.0f
+    guards: [ font_bin ]
     body: |
       // draw the "next" or "finished" cursor (depending on context)
       if (!page_is_finished) return; // Do not show any cursor if the dialog page is still revealing
@@ -319,6 +336,7 @@ methods:
     guards:
       - al_is_system_installed()
       - al_is_primitives_addon_initialized()
+      - choice_dialog_box
     body: |
       float normalized_age = std::max(std::min(1.0f, age), 0.0f);
       float curved_time = AllegroFlare::interpolator::double_fast_in(normalized_age);
@@ -341,6 +359,7 @@ methods:
          render_frame(curved_time);
          render_text();
          render_next_or_finished_button();
+         draw_choices_with_cursor_and_current_selection(); // ??
       }
 
       frame_place.restore_transform();
@@ -353,7 +372,131 @@ methods:
       - AllegroFlare::Interpolators::*
 
 
+  - name: helper__set_selection_cursor_box_dimensions_to
+    static: true
+    parameters:
+      - name: selection_cursor_box
+        type: AllegroFlare::Elements::SelectionCursorBox*
+        default_argument: nullptr
+      - name: dimensions
+        type: std::tuple<float, float, float, float>
+        default_argument: '{}'
+    guards: [ selection_cursor_box ]
+    body: |
+      float &x = std::get<0>(dimensions);
+      float &y = std::get<1>(dimensions);
+      float &width = std::get<2>(dimensions);
+      float &height = std::get<3>(dimensions);
+      selection_cursor_box->set_position(x, y);
+      selection_cursor_box->set_size(width, height);
+      return;
+
+
+  - name: get_left_indent
+    type: float
+    body: return 80;
+
+
+  - name: build_list_box_renderer
+    type: AllegroFlare::Elements::ListBoxRenderer
+    guards: [ choice_dialog_box, font_bin ]
+    body: |
+      // Design some custom colors for the breakout box
+      ALLEGRO_COLOR selection_frame_color = AllegroFlare::Elements::ListBoxRenderer::DEFAULT_SELECTION_COLOR;
+      ALLEGRO_COLOR frame_backfill_color = AllegroFlare::ColorKit::mix(
+            background_color, //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BACKFILL_COLOR,
+            selection_frame_color,
+            0.03
+         );
+      ALLEGRO_COLOR frame_border_color = AllegroFlare::ColorKit::mix(
+            border_color, //AllegroFlare::Elements::DialogBoxFrame::DEFAULT_BORDER_COLOR,
+            selection_frame_color,
+            0.4
+         );
+      ALLEGRO_COLOR text_color_not_selected = AllegroFlare::ColorKit::mix(
+            text_color, //ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f},
+            selection_frame_color,
+            0.3
+         );
+
+      float breakout_list_box_age = choice_dialog_box->infer_breakout_list_box_age();
+
+      float left_indent = get_left_indent();
+      AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
+         font_bin,
+         nullptr, // bitmap_bin,
+         obtain_choice_dialog_box_option_labels()
+      );
+      // TODO: Interesting visual bug, when "set_width_to_fit..." is called after "set_height_to_fit..." then
+      // there could be a miss-alignment of the content and its presentation. Investigate this case and see if you can
+      // restore it
+      list_box_renderer.set_width_to_fit_content_or_max_and_min(width - left_indent*2);
+      list_box_renderer.set_height_to_fit_content();
+      list_box_renderer.set_text_color_not_selected(text_color_not_selected);
+      list_box_renderer.set_frame_backfill_color(frame_backfill_color);
+      list_box_renderer.set_frame_border_color(frame_border_color);
+      list_box_renderer.set_age(breakout_list_box_age);
+
+      // Set the cursor position
+      list_box_renderer.set_cursor_position(
+         obtain_choice_dialog_box_cursor_position()
+      );
+
+      return list_box_renderer;
+
+
   - name: draw_choices_with_cursor_and_current_selection
+    body: |
+      if (!choice_dialog_box->get_breakout_list_box_active()) return;
+
+      // Build up our list_box_renderer
+      AllegroFlare::Elements::ListBoxRenderer list_box_renderer = build_list_box_renderer();
+      float left_indent = get_left_indent();
+
+      // Build up our selection cursor
+      bool showing_cursor = choice_dialog_box->get_cursor_active();
+      AllegroFlare::Elements::SelectionCursorBox local_selection_cursor_box;
+      AllegroFlare::Elements::SelectionCursorBox *selection_cursor_box_to_use = selection_cursor_box
+                                                                              ? selection_cursor_box
+                                                                              : &local_selection_cursor_box
+                                                                              ;
+      if (selection_cursor_box_to_use == &local_selection_cursor_box)
+      {
+         // In this case, we're using our local selection_cursor_box. We need to position it manually
+         // Init the cursor position to the current selection
+         std::tuple<float, float, float, float> current_selection_dimensions =
+            list_box_renderer.calculate_dimensions_for_list_item_at_position(
+               obtain_choice_dialog_box_cursor_position()
+            );
+         helper__set_selection_cursor_box_dimensions_to(selection_cursor_box_to_use, current_selection_dimensions);
+      }
+
+      // Build a placement for the breakout box
+      // TODO: Consider adding options for this position
+      AllegroFlare::Placement2D choice_box_place{
+         width - left_indent,
+         20,
+         list_box_renderer.get_width(),
+         list_box_renderer.get_height()
+      };
+      choice_box_place.align = AllegroFlare::Vec2D{ 1.0, 1.0 };
+
+      choice_box_place.start_transform();
+      list_box_renderer.render();
+      if (showing_cursor) selection_cursor_box_to_use->render();
+      choice_box_place.restore_transform();
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Elements::SelectionCursorBox
+      - AllegroFlare::Elements::ListBoxRenderer
+      - AllegroFlare::Placement2D
+      - AllegroFlare::ColorKit
+
+
+
+
+  - name: xx__draw_choices_with_cursor_and_current_selection
+    guards: [ font_bin ]
     body: |
       float left_indent = 80;
       AllegroFlare::Elements::ListBoxRenderer list_box_renderer(
@@ -427,6 +570,7 @@ methods:
 
 
   - name: draw_speaking_character_name
+    guards: [ font_bin ]
     body: |
       int width = 220; // TODO: Make the width vary based on the length of the speaking character
       int height = 46;
@@ -616,5 +760,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: std::sin
     headers: [ cmath ]
+  - symbol: AllegroFlare::ColorKit
+    headers: [ AllegroFlare/ColorKit.hpp ]
 
 

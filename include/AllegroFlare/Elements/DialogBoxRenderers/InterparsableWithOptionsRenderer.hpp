@@ -1,9 +1,13 @@
 #pragma once
 
 
+#include <AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp>
+#include <AllegroFlare/Elements/ListBoxRenderer.hpp>
+#include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
 #include <allegro5/allegro.h>
 #include <string>
+#include <tuple>
 #include <vector>
 
 
@@ -26,6 +30,8 @@ namespace AllegroFlare
          private:
             AllegroFlare::FontBin* font_bin;
             std::string current_page_text_with_formatting;
+            AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box;
+            AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box;
             float width;
             float height;
             std::string font_name;
@@ -58,11 +64,13 @@ namespace AllegroFlare
 
 
          public:
-            InterparsableWithOptionsRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text_with_formatting="[unset-current_page_text_with_formatting]", float width=(1920/2.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f, bool showing_speaking_character_name=false, std::string speaking_character_name="");
+            InterparsableWithOptionsRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text_with_formatting="[unset-current_page_text_with_formatting]", AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box=nullptr, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, float width=(1920/2.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f, bool showing_speaking_character_name=false, std::string speaking_character_name="");
             ~InterparsableWithOptionsRenderer();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
             void set_current_page_text_with_formatting(std::string current_page_text_with_formatting);
+            void set_choice_dialog_box(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box);
+            void set_selection_cursor_box(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box);
             void set_width(float width);
             void set_height(float height);
             void set_font_name(std::string font_name);
@@ -83,6 +91,8 @@ namespace AllegroFlare
             void set_speaking_character_name(std::string speaking_character_name);
             AllegroFlare::FontBin* get_font_bin() const;
             std::string get_current_page_text_with_formatting() const;
+            AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* get_choice_dialog_box() const;
+            AllegroFlare::Elements::SelectionCursorBox* get_selection_cursor_box() const;
             float get_width() const;
             float get_height() const;
             std::string get_font_name() const;
@@ -103,7 +113,11 @@ namespace AllegroFlare
             std::string get_speaking_character_name() const;
             void draw_rudimentary_triangle(float x=0.0f, float y=0.0f, float w=16.0f, float h=16.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float opacity=1.0f);
             void render();
+            static void helper__set_selection_cursor_box_dimensions_to(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::tuple<float, float, float, float> dimensions={});
+            float get_left_indent();
+            AllegroFlare::Elements::ListBoxRenderer build_list_box_renderer();
             void draw_choices_with_cursor_and_current_selection();
+            void xx__draw_choices_with_cursor_and_current_selection();
             void draw_speaking_character_name();
             std::vector<std::string> split_to_words(std::string text="[unset-text]");
             void cb(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr);
