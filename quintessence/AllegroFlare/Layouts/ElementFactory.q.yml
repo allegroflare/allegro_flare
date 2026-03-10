@@ -106,6 +106,7 @@ methods:
         default_argument: nullptr
     guards: [ object ]
     body: |
+      std::string name = object->name;
       float x = object->x;
       float y = object->y;
       float w = object->width;
@@ -119,6 +120,7 @@ methods:
 
       AllegroFlare::Layouts::Elements::Text result_text;
 
+      result_text.name = name;
       result_text.x = x;
       result_text.y = y;
       result_text.width = w;

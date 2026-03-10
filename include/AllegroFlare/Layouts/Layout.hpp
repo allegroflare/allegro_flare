@@ -124,6 +124,8 @@ namespace AllegroFlare
          void set_text_data_require_all(std::map<std::string, std::string> text_data={});
          void set_text_data_through_layers_require_all(std::map<std::string, std::string> text_data={});
          void set_text_data_require_present(std::map<std::string, std::string> text_data={});
+         AllegroFlare::Layouts::Elements::Text* find_first_text_slot_or_throw(std::string name="[unset-name]");
+         void set_first_found_text_slot_color(std::string name="[unset-name]", ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1});
          void set_text_data_field(std::string name="[unset-name]", std::string value="[unset-value]");
          bool text_data_field_exists(std::string name="[unset-name]");
          std::string get_text_data_field_value(std::string name="[unset-name]");

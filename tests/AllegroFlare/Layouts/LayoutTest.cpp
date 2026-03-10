@@ -649,6 +649,44 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer, CAPTURE__with_tiles_that_are_f
 }
 
 
+
+// TODO
+//TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
+   //FOCUS__find_first_text_slot_or_throw__when_no_text_slot_is_found__will_throw_an_error)
+//{
+//}
+
+
+
+TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
+   find_first_text_slot_or_throw__will_return_a_text_slot)
+{
+   setup_subject(
+      "as_ui-01.tmj",
+      "ascii_glyphs_12x16-09.png-result.png",
+      {
+         { "label1", "asdf" },
+         { "body1", "asdf" },
+         { "stat1", "543 lumens" },
+
+         { "label2", "asdf" },
+         { "body2", "asdf" },
+      }
+   );
+
+   auto text_slot = layout.find_first_text_slot_or_throw("stat1");
+   ASSERT_NE(nullptr, text_slot);
+
+   EXPECT_EQ("stat1", text_slot->name);
+   //EXPECT_EQ("523 lumens", text_slot->name);
+
+   //view_subject();
+   //sleep_for(1);
+}
+
+
+
+
 TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer, CAPTURE__with_tiles_that_are_flipped__will_render_as_expected__4)
 {
    setup_subject(
@@ -1132,7 +1170,7 @@ TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
 
 
 TEST_F(AllegroFlare_Layouts_LayoutTestWithViewer,
-   FOCUS__CAPTURE__draw_layer__when_layers_are_present__will_render_the_layer)
+   CAPTURE__draw_layer__when_layers_are_present__will_render_the_layer)
 {
    load_and_initialize_layout(
       //"layout_with_opacity-01.tmj",
