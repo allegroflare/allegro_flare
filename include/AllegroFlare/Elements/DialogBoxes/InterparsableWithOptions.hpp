@@ -39,6 +39,7 @@ namespace AllegroFlare
             float page_finished_at;
             bool breakout_list_box_active;
             bool cursor_active;
+            void reveal_breakout_list_box();
             bool current_page_is_valid();
             bool has_valid_cursor_position();
 
@@ -71,6 +72,7 @@ namespace AllegroFlare
             static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");
             static std::string collate_printable_text_only(std::string raw_text_source="[unset-raw_text_source]");
             virtual void start() override;
+            float infer_breakout_list_box_age();
             bool has_speaking_character();
             void update_page_playback();
             bool current_page_contains_only_operational_text();

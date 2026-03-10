@@ -280,6 +280,26 @@ void InterparsableWithOptions::start()
    return;
 }
 
+void InterparsableWithOptions::reveal_breakout_list_box()
+{
+   if (!breakout_list_box_active)
+   {
+      float time_now = al_get_time();
+      breakout_list_box.set_created_at(time_now);
+      breakout_list_box_active = true;
+      cursor_active = true; // For now, using this "cursor_active" mechanism.  Might consider using a different
+                            // mechanism that sends info to an injected cursor
+   }
+   return;
+}
+
+float InterparsableWithOptions::infer_breakout_list_box_age()
+{
+   if (!breakout_list_box_active) return 0;
+   float time_now = al_get_time(); // TODO: Consider injecting a "time_now"
+   return breakout_list_box.infer_age(time_now);
+}
+
 bool InterparsableWithOptions::has_speaking_character()
 {
    return (!speaking_character.empty());

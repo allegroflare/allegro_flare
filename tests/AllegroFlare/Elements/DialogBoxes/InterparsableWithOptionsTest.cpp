@@ -249,7 +249,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, update__wil
 {
    al_init();
    std::vector<std::string> pages = {
-      "This is text who's characters will reveal over time.",
+      "This is text whos characters will reveal over time.",
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
    dialog_box.set_pages(pages);
@@ -404,11 +404,12 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, reset__will_set_the_num_revealed_printable_characters_to_0)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   reset__will_set_the_num_revealed_printable_characters_to_0)
 {
    al_init();
    std::vector<std::string> pages = {
-      "This is text who's characters will reveal over time.",
+      "This is text whos characters will reveal over time.",
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
    dialog_box.set_pages(pages);
@@ -427,7 +428,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, reset__will
 {
    al_init();
    std::vector<std::string> pages = { "This is text whos characters will reveal over time.", };
-   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box();
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
    dialog_box.set_pages(pages);
    dialog_box.initialize();
 
@@ -445,7 +446,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
 {
    al_init();
    std::vector<std::string> pages = {
-      "This is text who's characters will reveal over time.",
+      "This is text whos characters will reveal over time.",
       "This line will have 0 revealed characters when first seen.",
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
@@ -461,7 +462,8 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, parse_into_chunks__will_generate_the_expected_chunks)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   parse_into_chunks__will_generate_the_expected_chunks)
 {
    std::string raw_text_source = "This is some (color=green)dialog text(color=normal) that will fill this box.";
 
@@ -479,8 +481,8 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, parse_into_
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, parse_into_chunks__when_only_an_operational_chunk_is_\
-present__will_parse_only_a_single_operational_chunk)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   parse_into_chunks__when_only_an_operational_chunk_is_present__will_parse_only_a_single_operational_chunk)
 {
    std::string raw_text_source = "(character_sprite=happy)";
 
@@ -494,8 +496,8 @@ present__will_parse_only_a_single_operational_chunk)
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, collate_raw_text_source__will_return_text_that_has_\
-operational_chunks_removed)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   collate_raw_text_source__will_return_text_that_has_operational_chunks_removed)
 {
    std::string raw_text_source = "This is (color=green)dialog text(color=normal) that that has operational chunks.";
 
@@ -507,8 +509,8 @@ operational_chunks_removed)
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, parse_into_chunks__with_an_uneven_number_of_parens__will_\
-throw_an_error)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   parse_into_chunks__with_an_uneven_number_of_parens__will_throw_an_error)
 {
    std::string raw_text_source = "This is some text ( that has a missing) closing (paren.";
 
@@ -521,8 +523,8 @@ throw_an_error)
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, parse_into_chunks__when_nested_parens_are_present__will_\
-throw_an_error)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   parse_into_chunks__when_nested_parens_are_present__will_throw_an_error)
 {
    std::string raw_text_source = "This is some text ( that has nested ( parens ) ).";
 
@@ -535,8 +537,8 @@ throw_an_error)
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, parse_into_chunks__when_a_closing_paren_is_present_before_\
-an_opening_paren__will_throw_an_error)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   parse_into_chunks__when_a_closing_paren_is_present_before_an_opening_paren__will_throw_an_error)
 {
    std::string raw_text_source = "This is some text ) that has incorrect ( parens ) ).";
 
