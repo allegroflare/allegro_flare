@@ -935,81 +935,24 @@ void Layout::set_text_data_require_present(std::map<std::string, std::string> te
 AllegroFlare::Layouts::Elements::Text* Layout::find_first_text_slot_or_throw(std::string name)
 {
    // TODO: Test this
+
+   // Attempt to find the named text_slot at the global level
    auto it = text_slots.find(name);
    bool text_slot_found_at_global_level = (it != text_slots.end());
-
    if (text_slot_found_at_global_level)
    {
       return &it->second;
    }
 
+   // Attempt to find the named text_slot in any of the layers
+   for (auto &layer : layers)
+   {
+      auto it = layer.text_slots.find(name);
+      if (it == layer.text_slots.end()) continue;
+      return &it->second;
+   }
 
-
-   // TODO: This method will not throw an error if an 
-   //if (layers.size() >= 1)
-   //{
-      //const std::string &slot_identifier = name; //text_datum.first;
-      //const std::string &text_value = value; //text_datum.second;
-
-      //AllegroFlare::Layouts::Elements::Text *found_slot = nullptr;
-
-      //for (auto &layer : layers)
-      //{
-      //for (auto &text_datum : text_data)
-      //{
-         // HERE
-         //if (layer.text_data.
-      //}
-      //if (layer.text_data.exists()
-      //- name: text_data
-        //type: std::map<std::string, std::string>
-        //default_argument: '{}'
-      //}
-
-      for (auto &layer : layers)
-      {
-         auto it = layer.text_slots.find(name);
-         if (it == layer.text_slots.end()) continue;
-
-         //if (found_slot != nullptr)
-         //{
-            //return found_slot;
-            //throw std::runtime_error(
-               //"assign_text_data_to_layers: duplicate text slot identifier found: \"" + slot_identifier + "\""
-            //);
-            //AllegroFlare::Logger::throw_error(
-               //THIS_CLASS_AND_METHOD_NAME,
-               //"assign_text_data_to_layers: duplicate text slot identifier found: \"" + slot_identifier + "\""
-            //);
-         //}
-
-         return &it->second;
-         //found_slot = &it->second;
-         //layer.text_data[slot_identifier] = value; // TODO: Is it OK to assume this slot is and should exist?
-         //throw std::runtime_error("asdfadsfa");
-         //text_data
-         //it->second
-      }
-
-      //if (found_slot != nullptr)
-      //{
-         //return found_slot;
-         //AllegroFlare::Logger::throw_error(
-            //THIS_CLASS_AND_METHOD_NAME,
-            //"assign_text_data_to_layers: no text slot found for identifier: \"" + slot_identifier + "\""
-         //);
-         //throw std::runtime_error(
-            //"assign_text_data_to_layers: no text slot found for identifier: \"" + slot_identifier + "\""
-         //);
-      //}
-
-      //return found_slot;
-   //}
-
-   //for (auto &text_slot : text_slots)
-   //{
-   //}
-
+   // Throw if nothing was found
    AllegroFlare::Logger::throw_error(
       "AllegroFlare::Layouts::Layout::set_text_data_field",
       "The text slot \"" + name + "\" is not present on the layout (either in within a layer or globally)."
