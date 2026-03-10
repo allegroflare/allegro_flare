@@ -152,6 +152,7 @@
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogBoxes/Interparsable",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions",
     "AllegroFlare/Elements/ImageLayer",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBox",
@@ -469,6 +470,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NinePatch",
@@ -613,6 +615,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
@@ -761,6 +764,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
@@ -875,6 +879,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/FUI/PanningGrid",
     "AllegroFlare/Elements/HealthBars/Basic",
     "AllegroFlare/Elements/HealthBars/Classic",
@@ -958,6 +963,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/CharacterFeatureRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
@@ -1108,6 +1114,7 @@
     "AllegroFlare/Elements/DialogBoxes/Base",
     "AllegroFlare/Elements/DialogBoxes/Basic",
     "AllegroFlare/Elements/DialogBoxes/Interparsable",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions",
     "AllegroFlare/Elements/DialogBoxes/Wait",
     "AllegroFlare/Elements/DialogBoxes/YouGotAnItem",
     "AllegroFlare/Elements/DialogBoxes/YouGotEvidence",
@@ -1171,6 +1178,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
@@ -1441,6 +1449,7 @@
     "AllegroFlare/Elements/DialogBoxes/CharacterFeature",
     "AllegroFlare/Elements/DialogBoxes/Choice",
     "AllegroFlare/Elements/DialogBoxes/Interparsable",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions",
     "AllegroFlare/Elements/DialogBoxes/Intertitle",
     "AllegroFlare/Elements/DialogBoxes/TextMessages",
     "AllegroFlare/Elements/DialogBoxes/Wait",
@@ -1644,6 +1653,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -1800,6 +1810,7 @@
     "AllegroFlare/Elements/AchievementsList",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/TextMessages",
     "AllegroFlare/Elements/FUI/PanningGrid",
@@ -2147,6 +2158,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
@@ -2177,6 +2189,7 @@
     "AllegroFlare/Elements/ChapterSelect/Carousel",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/MultiList",
     "AllegroFlare/Elements/WorldMapViewer",
@@ -2340,6 +2353,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/SyncOracle"
   ],
   "al_color_html": [
@@ -2350,6 +2364,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer",
@@ -2366,6 +2381,7 @@
     "AllegroFlare/Elements/DialogBoxRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/LevelSelect",
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/TextMessageBubble"
@@ -2376,6 +2392,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotAnItemRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/YouGotEvidenceRenderer",
     "AllegroFlare/Elements/ListBoxRenderer"
@@ -2407,17 +2424,20 @@
   "AllegroFlare/Elements/DialogButton": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer"
   ],
   "AllegroFlare/Elements/ListBoxRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxNameTag": [
     "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer",
     "AllegroFlare/Elements/DialogBoxRenderers/ChoiceRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer"
   ],
   "AllegroFlare/Interpolators": [
     "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer",
@@ -2436,12 +2456,18 @@
   ],
   "AllegroFlare/TextFormatters/Basic": [
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/TextFormatters/Basic"
   ],
   "std/sin": [
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions": [
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",
