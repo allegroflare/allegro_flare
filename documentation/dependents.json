@@ -1736,8 +1736,7 @@
   ],
   "AllegroFlare/Elements/DialogBoxStyles": [
     "AllegroFlare/DialogSystem/DialogSystem",
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer"
+    "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/DialogSystem/Scenes/Base": [
     "AllegroFlare/DialogSystem/SceneIndex",
