@@ -1606,6 +1606,7 @@
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/Interparsable",
+    "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/Nodes/RawScriptLine",
     "AllegroFlare/DialogTree/Nodes/Wait",
@@ -1755,6 +1756,7 @@
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
     "AllegroFlare/DialogTree/Nodes/Interparsable",
+    "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
@@ -1763,11 +1765,13 @@
   ],
   "AllegroFlare/BitFlags": [
     "AllegroFlare/DialogTree/Nodes/Interparsable",
+    "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Logger/throw_error": [
     "AllegroFlare/DialogTree/Nodes/Interparsable",
+    "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"
   ],
   "std/make_pair": [

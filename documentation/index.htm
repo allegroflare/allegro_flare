@@ -127,6 +127,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ExitDialog.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ExitDialog.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/ExitProgram.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/ExitProgram.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/Interparsable.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Interparsable.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/InterparsableWithOptions.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/InterparsableWithOptions.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/MultipageWithOptions.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/RawScriptLine.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/RawScriptLine.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/DialogTree/Nodes/Wait.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Wait.q.yml</a></li>
@@ -5706,6 +5707,83 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/DialogTree/Nodes/Interparsable.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/Interparsable.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["Note that options are present in this class but they are not used at all (yet) beyond being present as data members on the class. Adding support for them would be a nice completion of the dialog system!"]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">speaker</td>
+  <td class="property">std::string</td>
+</tr>
+<tr>
+  <td class="property">pages</td>
+  <td class="property">std::vector&lt;std::string&gt;</td>
+</tr>
+<tr>
+  <td class="property">options</td>
+  <td class="property">std::vector&lt;std::tuple&lt;std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags&lt;uint32_t&gt;&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">TYPE</td>
+  <td class="property">char*</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">std::tuple&lt;std::string, AllegroFlare::DialogTree::NodeOptions::Base*, AllegroFlare::BitFlags&lt;uint32_t&gt;&gt;</td>
+  <td class="method"><b>get_option_num</b>(int option_num=0)</td>
+</tr>
+<tr>
+  <td class="method">std::vector&lt;std::string&gt;</td>
+  <td class="method"><b>build_options_as_text</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>num_pages</b>()</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>num_options</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>has_options</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>has_no_options</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>option_is_selectable</b>(int option_num=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>infer_cursor_position_on_spawn</b>()</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::BitFlags&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/BitFlags.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::NodeOptions::Base&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/NodeOptions/Base.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger::throw_error&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/DialogTree/Nodes/InterparsableWithOptions.q.yml">quintessence/AllegroFlare/DialogTree/Nodes/InterparsableWithOptions.q.yml</h3>
     <h3>Overview</h3>
     <p>{"notes"=>["Note that options are present in this class but they are not used at all (yet) beyond being present as data members on the class. Adding support for them would be a nice completion of the dialog system!"]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
@@ -54895,6 +54973,7 @@ table td
     "AllegroFlare/DialogTree/Nodes/ExitDialog",
     "AllegroFlare/DialogTree/Nodes/ExitProgram",
     "AllegroFlare/DialogTree/Nodes/Interparsable",
+    "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/Nodes/RawScriptLine",
     "AllegroFlare/DialogTree/Nodes/Wait",
@@ -55044,6 +55123,7 @@ table td
     "AllegroFlare/DialogTree/NodeOptions/ExitDialog",
     "AllegroFlare/DialogTree/NodeOptions/GoToNode",
     "AllegroFlare/DialogTree/Nodes/Interparsable",
+    "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
@@ -55052,11 +55132,13 @@ table td
   ],
   "AllegroFlare/BitFlags": [
     "AllegroFlare/DialogTree/Nodes/Interparsable",
+    "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions",
     "AllegroFlare/DialogTree/YAMLLoader"
   ],
   "AllegroFlare/Logger/throw_error": [
     "AllegroFlare/DialogTree/Nodes/Interparsable",
+    "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions",
     "AllegroFlare/DialogTree/Nodes/MultipageWithOptions"
   ],
   "std/make_pair": [

@@ -1,0 +1,472 @@
+parent_classes:
+
+
+  - class: AllegroFlare::Elements::DialogBoxes::Base
+    scope: public
+    init_with: AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::TYPE
+
+
+properties:
+
+
+  - name: pages
+    type: std::vector<std::string>
+    init_with: '{}'
+    constructor_arg: true
+    getter: true
+
+  - name: speaking_character
+    type: std::string
+    init_with: '""'
+    getter: true
+    setter: true
+
+  - name: current_page_num
+    type: int
+    init_with: -1
+    getter: true
+
+  - name: current_page_chunks
+    type: std::vector<std::pair<bool, std::string>>
+    init_with: '{}'
+    getter: true
+
+  - name: on_operational_chunk_func
+    type: std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_operational_chunk_func_user_data
+    type: void*
+    init_with: nullptr
+    getter: true
+    setter: true
+
+  - name: num_revealed_printable_characters
+    type: int
+    init_with: 9999
+    getter: true
+
+  - name: current_chunk_index
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: current_char_index
+    type: int
+    init_with: 0
+    getter: true
+
+  - name: finished_at
+    type: float
+    init_with: 0
+    getter: true
+
+  - name: page_finished
+    type: bool
+    init_with: false
+    getter: true
+
+  - name: page_finished_at
+    type: float
+    init_with: 0.0f
+    getter: true
+
+  - name: TYPE
+    type: char*
+    init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"'
+    static: true
+    constexpr: true
+
+
+documentation:
+
+
+  - notes:
+    - raw_text_source is the page text in its entirety including any formatting data
+    - when a page contains only operational chunks, it will be processed and automatically advanced to the next page
+
+  - todos:
+    - When a dialog is *only* operational chunks (in one page or across several pages), consider a proceedure to not
+      spawn a dialog at all.
+    - Consider addin a user-provided "parse_into_chunks" method
+
+
+methods:
+
+
+  - name: parse_into_chunks
+    type: std::vector<std::pair<bool, std::string>>
+    static: true
+    parameters:
+      - name: raw_text_source
+        type: std::string
+        default_argument: '"[unset-raw_text_source]"'
+    body: |
+      std::vector<std::pair<bool, std::string>> parsed_chunks;
+      bool in_parens = false;
+      std::string current_chunk;
+      int open_paren_count = 0;
+
+      for (size_t i=0; i<raw_text_source.size(); ++i)
+      {
+         char ch = raw_text_source[i];
+
+         if (ch == '(')
+         {
+            if (in_parens)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::parse_into_chunks",
+                  "Nested parentheses were found in the text \"" + raw_text_source + "\". Nested parens are not "
+                     "supported."
+               );
+            }
+
+            // If entering parentheses, save current chunk if it exists
+            if (!current_chunk.empty())
+            {
+               parsed_chunks.emplace_back(in_parens, current_chunk);
+               current_chunk.clear();
+            }
+            in_parens = true;
+            open_paren_count++;
+         }
+         else if (ch == ')')
+         {
+            if (!in_parens)
+            {
+               AllegroFlare::Logger::throw_error(
+                  "AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::parse_into_chunks",
+                  "There was an open paren that does not have a matching closing paren in the text \""
+                     + raw_text_source + "\""
+               );
+            }
+
+            // If leaving parentheses, save current chunk
+            if (!current_chunk.empty())
+            {
+               parsed_chunks.emplace_back(in_parens, current_chunk);
+               current_chunk.clear();
+            }
+            in_parens = false;
+            open_paren_count--;
+         }
+         else
+         {
+            // Add character to the current chunk
+            current_chunk += ch;
+         }
+      }
+
+      // Add any remaining chunk
+      if (!current_chunk.empty())
+      {
+         parsed_chunks.emplace_back(in_parens, current_chunk);
+      }
+
+      // Check for unmatched opening parenthesis
+      if (open_paren_count != 0)
+      {
+         AllegroFlare::Logger::throw_error(
+            "AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::parse_into_chunks",
+            "Unmatched opening parenthesis found in text \"" + raw_text_source + "\""
+         );
+      }
+
+      return parsed_chunks;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: collate_printable_text_only
+    type: std::string
+    static: true
+    parameters:
+      - name: raw_text_source
+        type: std::string
+        default_argument: '"[unset-raw_text_source]"'
+    body: |
+      std::vector<std::pair<bool, std::string>> chunks = parse_into_chunks(raw_text_source);
+      std::stringstream result;
+      for (auto &chunk : chunks)
+      {
+         bool is_printable_text = !chunk.first;
+         if (is_printable_text) result << chunk.second;
+      }
+      return result.str();
+    body_dependency_symbols:
+      - std::stringstream
+
+
+  - name: start
+    virtual: true
+    override: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Not implemented"
+      );
+      //reset();
+      //created_at = al_get_time();
+      // TODO: Implement this, considering its relationship to "created_at"
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: has_speaking_character
+    type: bool
+    body: |
+      return (!speaking_character.empty());
+
+
+  - name: update_page_playback
+    body: |
+      if (current_chunk_index >= current_page_chunks.size()) return; // Playback is finished
+
+      //auto &chunk = current_page_chunks[current_chunk_index];
+      //bool is_printable_text = !chunk.first;
+      //std::string &chunk_content = chunk.second;
+      ////auto &char_index = num_revealed_printable_characters;
+
+      bool need_to_repeat_update_after_operational_chunk = false;
+      // TODO: Add max_loops and throw
+
+      do
+      {
+         auto &chunk = current_page_chunks[current_chunk_index];
+         bool is_printable_text = !chunk.first;
+         std::string &chunk_content = chunk.second;
+
+         need_to_repeat_update_after_operational_chunk = false;
+         if (is_printable_text)
+         {
+            if (current_char_index < chunk_content.size())
+            {
+               //std::cout << chunk_content[char_index];
+               current_char_index++;
+               num_revealed_printable_characters++;
+            }
+            else
+            {
+               // Move to the next chunk once the current one is fully revealed
+               current_chunk_index++;
+               current_char_index = 0;
+            }
+         }
+         else
+         {
+            if (on_operational_chunk_func)
+            {
+               on_operational_chunk_func(chunk_content, this, on_operational_chunk_func_user_data);
+            }
+            current_chunk_index++;
+            current_char_index = 0;
+            need_to_repeat_update_after_operational_chunk = true;
+         }
+      }
+      while (need_to_repeat_update_after_operational_chunk);
+
+      // TODO: Check if this is in the right spot
+      if (current_chunk_index >= current_page_chunks.size())
+      {
+         page_finished = true;
+         page_finished_at = al_get_time();
+      }
+
+      return;
+
+
+  - name: current_page_contains_only_operational_text
+    type: bool
+    body: |
+      for (auto &chunk : current_page_chunks)
+      {
+         bool is_printable_text = !chunk.first;
+         if (is_printable_text) return false;
+      }
+      return true;
+
+
+  - name: update
+    override: true
+    virtual: true
+    body: |
+      if (get_finished()) return;
+      if (!page_finished)
+      {
+         update_page_playback(); // TODO: Ensure this will play all operational chunks in sequence
+         if (current_page_contains_only_operational_text())
+         {
+            advance();
+         }
+      }
+      if (!page_finished && all_characters_are_revealed())
+      {
+         page_finished = true;
+         page_finished_at = al_get_time();
+      }
+      return;
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: advance
+    virtual: true
+    override: true
+    body: |
+      if (get_finished()) return;
+      if (!page_finished) reveal_all_characters();
+      else next_page();
+      return;
+
+
+  - name: set_pages
+    parameters:
+      - name: pages
+        type: std::vector<std::string>
+        default_argument: '{}'
+    body: |
+      this->pages = pages;
+      reset();
+      return;
+
+
+  - name: reset
+    body: |
+      current_page_num = 0;
+      set_finished(false);
+      finished_at = 0;
+      reset_current_page_counters();
+      // TODO: Test this
+      if (!pages.empty()) current_page_chunks = parse_into_chunks(pages[current_page_num]);
+      return;
+
+
+  - name: get_current_page_text_with_formatting
+    type: std::string
+    body: |
+      if (!current_page_is_valid()) return "[null]";
+      return pages[current_page_num];
+
+
+  - name: get_current_page_num_printable_chars
+    type: int
+    body: |
+      if (!current_page_is_valid()) return 0;
+      return pages[current_page_num].size(); // TODO: have this calculated from text chunks
+
+
+  - name: next_page
+    type: bool
+    guards: [ al_is_system_installed() ]
+    body: |
+      bool continue_advancing_to_subsequent_next_page = false;
+
+      do {
+         continue_advancing_to_subsequent_next_page = false;
+
+         //if (at_last_page()) return false;
+         if (get_finished()) return false;
+
+         current_page_num++;
+         reset_current_page_counters();
+
+         if (current_page_num >= num_pages())
+         {
+            set_finished(true);
+            finished_at = al_get_time();
+            current_page_num = -1;
+            current_page_chunks = {}; // TODO: Test this
+         }
+         else
+         {
+            // TODO: Test this
+            current_page_chunks = parse_into_chunks(pages[current_page_num]);
+            if (current_page_contains_only_operational_text())
+            {
+               update_page_playback(); // TODO: Ensure this will play all operational chunks in sequence
+               continue_advancing_to_subsequent_next_page = true;
+            }
+         }
+      } while (continue_advancing_to_subsequent_next_page);
+
+      return true;
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: reset_current_page_counters
+    body: |
+      page_finished = false;
+      page_finished_at = 0;
+      num_revealed_printable_characters = 0;
+      current_chunk_index = 0;
+      current_char_index = 0;
+      current_page_chunks = {};
+      return;
+
+
+  - name: num_pages
+    type: int
+    body: |
+      return pages.size();
+
+
+  - name: has_no_pages
+    type: bool
+    body: |
+      return pages.empty();
+
+
+  - name: at_last_page
+    type: bool
+    body: |
+      return (current_page_num == (num_pages() - 1));
+
+
+  - name: current_page_is_valid
+    private: true
+    type: bool
+    body: |
+      if (pages.empty()) return false;
+      if (current_page_num < 0) return false;
+      if (current_page_num >= pages.size()) return false;
+      return true;
+
+
+  - name: reveal_all_characters
+    guards: [ al_is_system_installed() ]
+    body: |
+      num_revealed_printable_characters = 9999;
+      // TODO: Go through all command-like chunks
+      current_chunk_index = 9999; // TODO: Ensure this is correct and will not cause overflow
+      current_char_index = 9999; // TODO: Ensure this is correct and will not cause overflow
+      page_finished = true;
+      page_finished_at = al_get_time();
+    body_dependency_symbols:
+      - al_get_time
+
+
+  - name: all_characters_are_revealed
+    type: bool
+    body: |
+      if (!current_page_is_valid()) return true;
+      return num_revealed_printable_characters >= get_current_page_num_printable_chars();
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Elements::DialogBoxes::Base
+    headers: [ AllegroFlare/Elements/DialogBoxes/Base.hpp ]
+  - symbol: al_get_time
+    headers: [ allegro5/allegro.h ]
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions
+    headers: [ AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp ]
+
+
