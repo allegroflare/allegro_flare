@@ -134,6 +134,7 @@ operational_text__will_automatically_advance_to_the_page_after)
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    ASSERT_EQ(0, dialog_box.get_current_page_num());
    dialog_box.update();
@@ -153,8 +154,8 @@ operational_text__will_automatically_advance_to_the_page_after)
       "This is the text to page 3.\nPage 3 has two lines.",
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
-
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    ASSERT_EQ(0, dialog_box.get_current_page_num());
    dialog_box.next_page();
@@ -173,8 +174,8 @@ operational_text__will_mark_the_dialog_as_finished_and_set_the_finished_at_time)
       "(only_operational_text_on_this_last_page)",
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
-
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    ASSERT_EQ(0, dialog_box.get_current_page_num());
    dialog_box.next_page();
@@ -234,6 +235,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, next_page__
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    dialog_box.next_page();
 
@@ -251,6 +253,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, update__wil
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    EXPECT_EQ(0, dialog_box.get_num_revealed_printable_characters());
    dialog_box.update();
@@ -260,7 +263,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, update__wil
 
 
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
-   update__when_operational_chunks_are_passed_during_text_reveal__will_call_the_the_callback_with_the_\
+   update__when_operational_chunks_are_passed_during_text_reveal__will_call_the_callback_with_the_\
 expected_data)
 {
    // TODO: Expand this test and/or make it more robust and comprehensive
@@ -277,6 +280,7 @@ expected_data)
    });
    dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    EXPECT_EQ(0, num_calls);
    for (int i=0; i<pages[0].size(); i++)
@@ -306,6 +310,7 @@ will_work_without_failure)
    });
    dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    EXPECT_EQ(0, num_calls);
    for (int i=0; i<pages[0].size(); i++)
@@ -335,6 +340,7 @@ of_characters_revealed_not_including_operational_text)
    });
    dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    EXPECT_EQ(0, num_calls);
    for (int i=0; i<20; i++)
@@ -368,6 +374,7 @@ the_number_of_characters_revealed_not_including_operational_text)
    });
    dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    EXPECT_EQ(0, num_calls);
    for (int i=0; i<20; i++)
@@ -405,6 +412,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, reset__will
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    for (unsigned i=0; i<30; i++) dialog_box.update();
    EXPECT_NE(0, dialog_box.get_num_revealed_printable_characters());
@@ -418,8 +426,10 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, reset__will
 TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, reset__will_set_finished_at_to_0)
 {
    al_init();
-   std::vector<std::string> pages = { "This is text who's characters will reveal over time.", };
-   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box(pages);
+   std::vector<std::string> pages = { "This is text whos characters will reveal over time.", };
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box();
+   dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    for (unsigned i=0; i<30; i++) dialog_box.update();
    //EXPECT_NE(0, dialog_box.get_finished_at());
@@ -440,6 +450,7 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
    };
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
    dialog_box.set_pages(pages);
+   dialog_box.initialize();
 
    dialog_box.reveal_all_characters();
    EXPECT_NE(0, dialog_box.get_num_revealed_printable_characters());

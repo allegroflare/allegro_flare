@@ -3,6 +3,8 @@
 
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp>
+#include <AllegroFlare/Elements/ListBox.hpp>
+#include <AllegroFlare/InitializedAndDestroyed.hpp>
 #include <functional>
 #include <string>
 #include <utility>
@@ -15,7 +17,7 @@ namespace AllegroFlare
    {
       namespace DialogBoxes
       {
-         class InterparsableWithOptions : public AllegroFlare::Elements::DialogBoxes::Base
+         class InterparsableWithOptions : public AllegroFlare::Elements::DialogBoxes::Base, public AllegroFlare::InitializedAndDestroyed
          {
          public:
             static constexpr char* TYPE = (char*)"AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions";
@@ -23,6 +25,8 @@ namespace AllegroFlare
          private:
             std::vector<std::string> pages;
             std::string speaking_character;
+            std::vector<std::pair<std::string, std::string>> options;
+            AllegroFlare::Elements::ListBox breakout_list_box;
             int current_page_num;
             std::vector<std::pair<bool, std::string>> current_page_chunks;
             std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func;
@@ -33,13 +37,16 @@ namespace AllegroFlare
             float finished_at;
             bool page_finished;
             float page_finished_at;
+            bool breakout_list_box_active;
+            bool cursor_active;
             bool current_page_is_valid();
+            bool has_valid_cursor_position();
 
          protected:
 
 
          public:
-            InterparsableWithOptions(std::vector<std::string> pages={});
+            InterparsableWithOptions(std::vector<std::string> pages={}, std::vector<std::pair<std::string, std::string>> options={});
             virtual ~InterparsableWithOptions();
 
             void set_speaking_character(std::string speaking_character);
@@ -57,6 +64,10 @@ namespace AllegroFlare
             float get_finished_at() const;
             bool get_page_finished() const;
             float get_page_finished_at() const;
+            bool get_breakout_list_box_active() const;
+            bool get_cursor_active() const;
+            virtual void on_initialize() override;
+            void set_options(std::vector<std::pair<std::string, std::string>> options={});
             static std::vector<std::pair<bool, std::string>> parse_into_chunks(std::string raw_text_source="[unset-raw_text_source]");
             static std::string collate_printable_text_only(std::string raw_text_source="[unset-raw_text_source]");
             virtual void start() override;
@@ -76,6 +87,12 @@ namespace AllegroFlare
             bool at_last_page();
             void reveal_all_characters();
             bool all_characters_are_revealed();
+            std::string get_current_selection_text();
+            std::string get_current_selection_value();
+            virtual bool move_cursor_position_down() override;
+            virtual bool move_cursor_position_up() override;
+            void set_cursor_position(int cursor_position=0);
+            int get_cursor_position();
          };
       }
    }

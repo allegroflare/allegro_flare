@@ -17,10 +17,13 @@ namespace DialogBoxes
 {
 
 
-InterparsableWithOptions::InterparsableWithOptions(std::vector<std::string> pages)
+InterparsableWithOptions::InterparsableWithOptions(std::vector<std::string> pages, std::vector<std::pair<std::string, std::string>> options)
    : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::TYPE)
+   , AllegroFlare::InitializedAndDestroyed("AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions")
    , pages(pages)
    , speaking_character("")
+   , options(options)
+   , breakout_list_box()
    , current_page_num(-1)
    , current_page_chunks({})
    , on_operational_chunk_func({})
@@ -31,6 +34,8 @@ InterparsableWithOptions::InterparsableWithOptions(std::vector<std::string> page
    , finished_at(0)
    , page_finished(false)
    , page_finished_at(0.0f)
+   , breakout_list_box_active(false)
+   , cursor_active(false)
 {
 }
 
@@ -129,6 +134,51 @@ float InterparsableWithOptions::get_page_finished_at() const
    return page_finished_at;
 }
 
+
+bool InterparsableWithOptions::get_breakout_list_box_active() const
+{
+   return breakout_list_box_active;
+}
+
+
+bool InterparsableWithOptions::get_cursor_active() const
+{
+   return cursor_active;
+}
+
+
+void InterparsableWithOptions::on_initialize()
+{
+   if (options.empty())
+   {
+      // TODO: Consider what behavior is expected here when there are no options. Maybe throw in the mean time
+   }
+   else
+   {
+      // Initialize the advancing_text element
+      //advancing_text.set_text(prompt);
+      //advancing_text.set_text(prompt);
+      //advancing_text.start(); // TODO: Consider moving this to "start()", Consider removing al_is_system_installed()
+
+      // Initialize the breakout_list_box element
+      breakout_list_box.set_items(options);
+      breakout_list_box.set_wrap_at_edges(true);
+   }
+   return;
+}
+
+void InterparsableWithOptions::set_options(std::vector<std::pair<std::string, std::string>> options)
+{
+   if (!((!is_initialized_and_not_destroyed())))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::set_options]: error: guard \"(!is_initialized_and_not_destroyed())\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::set_options]: error: guard \"(!is_initialized_and_not_destroyed())\" not met");
+   }
+   this->options = options;
+   return;
+}
 
 std::vector<std::pair<bool, std::string>> InterparsableWithOptions::parse_into_chunks(std::string raw_text_source)
 {
@@ -237,6 +287,13 @@ bool InterparsableWithOptions::has_speaking_character()
 
 void InterparsableWithOptions::update_page_playback()
 {
+   if (!(is_initialized_and_not_destroyed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::update_page_playback]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::update_page_playback]: error: guard \"is_initialized_and_not_destroyed()\" not met");
+   }
    if (current_chunk_index >= current_page_chunks.size()) return; // Playback is finished
 
    //auto &chunk = current_page_chunks[current_chunk_index];
@@ -361,13 +418,6 @@ int InterparsableWithOptions::get_current_page_num_printable_chars()
 
 bool InterparsableWithOptions::next_page()
 {
-   if (!(al_is_system_installed()))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::next_page]: error: guard \"al_is_system_installed()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::next_page]: error: guard \"al_is_system_installed()\" not met");
-   }
    bool continue_advancing_to_subsequent_next_page = false;
 
    do {
@@ -456,6 +506,88 @@ bool InterparsableWithOptions::all_characters_are_revealed()
 {
    if (!current_page_is_valid()) return true;
    return num_revealed_printable_characters >= get_current_page_num_printable_chars();
+}
+
+std::string InterparsableWithOptions::get_current_selection_text()
+{
+   if (!(is_initialized_and_not_destroyed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::get_current_selection_text]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::get_current_selection_text]: error: guard \"is_initialized_and_not_destroyed()\" not met");
+   }
+   if (!has_valid_cursor_position()) return "";
+   return breakout_list_box.get_currently_selected_item_label();
+}
+
+std::string InterparsableWithOptions::get_current_selection_value()
+{
+   if (!(is_initialized_and_not_destroyed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::get_current_selection_value]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::get_current_selection_value]: error: guard \"is_initialized_and_not_destroyed()\" not met");
+   }
+   if (!has_valid_cursor_position()) return "";
+   return breakout_list_box.get_currently_selected_item_value();
+}
+
+bool InterparsableWithOptions::move_cursor_position_down()
+{
+   if (!(is_initialized_and_not_destroyed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::move_cursor_position_down]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::move_cursor_position_down]: error: guard \"is_initialized_and_not_destroyed()\" not met");
+   }
+   if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
+   // TODO: Consider if empty items in breakout_list_box should result in a return false
+   breakout_list_box.move_cursor_down();
+   return true;
+}
+
+bool InterparsableWithOptions::move_cursor_position_up()
+{
+   if (!(is_initialized_and_not_destroyed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::move_cursor_position_up]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::move_cursor_position_up]: error: guard \"is_initialized_and_not_destroyed()\" not met");
+   }
+   if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
+   // TODO: Consider if empty items in breakout_list_box should result in a return false
+   breakout_list_box.move_cursor_up();
+   return true;
+}
+
+bool InterparsableWithOptions::has_valid_cursor_position()
+{
+   // TODO: Test this case with the usage of "breakout_list_box_active"
+   return breakout_list_box_active && breakout_list_box.has_valid_currently_selected_item();
+}
+
+void InterparsableWithOptions::set_cursor_position(int cursor_position)
+{
+   if (!(is_initialized_and_not_destroyed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::set_cursor_position]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::set_cursor_position]: error: guard \"is_initialized_and_not_destroyed()\" not met");
+   }
+   // TODO: Modify this method so that an "start_cursor_position" could be provided
+   // TODO: Test this method
+   breakout_list_box.set_cursor_position(cursor_position);
+   return;
+}
+
+int InterparsableWithOptions::get_cursor_position()
+{
+   return breakout_list_box.get_cursor_position();
 }
 
 

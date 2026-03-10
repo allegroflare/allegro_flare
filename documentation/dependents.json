@@ -2496,7 +2496,11 @@
     "AllegroFlare/Elements/DialogBoxes/Choice"
   ],
   "AllegroFlare/Elements/ListBox": [
-    "AllegroFlare/Elements/DialogBoxes/Choice"
+    "AllegroFlare/Elements/DialogBoxes/Choice",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
+  ],
+  "AllegroFlare/InitializedAndDestroyed": [
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogRoll",

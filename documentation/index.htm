@@ -11499,6 +11499,14 @@ table td
   <td class="property">std::string</td>
 </tr>
 <tr>
+  <td class="property">options</td>
+  <td class="property">std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;</td>
+</tr>
+<tr>
+  <td class="property">breakout_list_box</td>
+  <td class="property">AllegroFlare::Elements::ListBox</td>
+</tr>
+<tr>
   <td class="property">current_page_num</td>
   <td class="property">int</td>
 </tr>
@@ -11539,12 +11547,28 @@ table td
   <td class="property">float</td>
 </tr>
 <tr>
+  <td class="property">breakout_list_box_active</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
+  <td class="property">cursor_active</td>
+  <td class="property">bool</td>
+</tr>
+<tr>
   <td class="property">TYPE</td>
   <td class="property">char*</td>
 </tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_initialize</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_options</b>(std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={})</td>
+</tr>
 <tr>
   <td class="method">std::vector&lt;std::pair&lt;bool, std::string&gt;&gt;</td>
   <td class="method"><b>parse_into_chunks</b>(std::string raw_text_source=&quot;[unset-raw_text_source]&quot;)</td>
@@ -11625,6 +11649,34 @@ table td
   <td class="method">bool</td>
   <td class="method"><b>all_characters_are_revealed</b>()</td>
 </tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_current_selection_text</b>()</td>
+</tr>
+<tr>
+  <td class="method">std::string</td>
+  <td class="method"><b>get_current_selection_value</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>move_cursor_position_down</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>move_cursor_position_up</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">bool</td>
+  <td class="private_method"><b>has_valid_cursor_position</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_cursor_position</b>(int cursor_position=0)</td>
+</tr>
+<tr>
+  <td class="method">int</td>
+  <td class="method"><b>get_cursor_position</b>()</td>
+</tr>
     </table>
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
@@ -11639,6 +11691,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::ListBox&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/ListBox.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InitializedAndDestroyed&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InitializedAndDestroyed.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -56271,7 +56329,11 @@ table td
     "AllegroFlare/Elements/DialogBoxes/Choice"
   ],
   "AllegroFlare/Elements/ListBox": [
-    "AllegroFlare/Elements/DialogBoxes/Choice"
+    "AllegroFlare/Elements/DialogBoxes/Choice",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
+  ],
+  "AllegroFlare/InitializedAndDestroyed": [
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogRoll",

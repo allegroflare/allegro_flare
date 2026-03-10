@@ -5,6 +5,10 @@ parent_classes:
     scope: public
     init_with: AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::TYPE
 
+  - class: AllegroFlare::InitializedAndDestroyed
+    scope: public
+    init_with: '"AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions"'
+
 
 properties:
 
@@ -20,6 +24,17 @@ properties:
     init_with: '""'
     getter: true
     setter: true
+
+  - name: options
+    type: std::vector<std::pair<std::string, std::string>>
+    init_with: '{}'
+    constructor_arg: true
+    setter: explicit
+
+  - name: breakout_list_box
+    type: AllegroFlare::Elements::ListBox
+    init_with: ''
+    getter: false
 
   - name: current_page_num
     type: int
@@ -73,6 +88,18 @@ properties:
     init_with: 0.0f
     getter: true
 
+  - name: breakout_list_box_active
+    type: bool
+    init_with: false
+    setter: false
+    getter: true
+
+  - name: cursor_active
+    type: bool
+    init_with: false
+    setter: false
+    getter: true
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"'
@@ -94,6 +121,39 @@ documentation:
 
 
 methods:
+
+
+  - name: on_initialize
+    virtual: true
+    override: true
+    body: |
+      if (options.empty())
+      {
+         // TODO: Consider what behavior is expected here when there are no options. Maybe throw in the mean time
+      }
+      else
+      {
+         // Initialize the advancing_text element
+         //advancing_text.set_text(prompt);
+         //advancing_text.set_text(prompt);
+         //advancing_text.start(); // TODO: Consider moving this to "start()", Consider removing al_is_system_installed()
+
+         // Initialize the breakout_list_box element
+         breakout_list_box.set_items(options);
+         breakout_list_box.set_wrap_at_edges(true);
+      }
+      return;
+
+
+  - name: set_options
+    parameters:
+      - name: options
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
+    guards: [ (!is_initialized_and_not_destroyed()) ]
+    body: |
+      this->options = options;
+      return;
 
 
   - name: parse_into_chunks
@@ -223,6 +283,7 @@ methods:
 
 
   - name: update_page_playback
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       if (current_chunk_index >= current_page_chunks.size()) return; // Playback is finished
 
@@ -361,7 +422,7 @@ methods:
 
   - name: next_page
     type: bool
-    guards: [ al_is_system_installed() ]
+    xguards: [ al_is_system_installed() ]
     body: |
       bool continue_advancing_to_subsequent_next_page = false;
 
@@ -457,6 +518,79 @@ methods:
       return num_revealed_printable_characters >= get_current_page_num_printable_chars();
 
 
+
+# Related to Options
+
+
+  - name: get_current_selection_text
+    type: std::string
+    guards: [ is_initialized_and_not_destroyed() ]
+    body: |
+      if (!has_valid_cursor_position()) return "";
+      return breakout_list_box.get_currently_selected_item_label();
+
+
+  - name: get_current_selection_value
+    type: std::string
+    guards: [ is_initialized_and_not_destroyed() ]
+    body: |
+      if (!has_valid_cursor_position()) return "";
+      return breakout_list_box.get_currently_selected_item_value();
+
+
+  - name: move_cursor_position_down
+    virtual: true
+    override: true
+    type: bool
+    guards: [ is_initialized_and_not_destroyed() ]
+    body: |
+      if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
+      // TODO: Consider if empty items in breakout_list_box should result in a return false
+      breakout_list_box.move_cursor_down();
+      return true;
+
+
+  - name: move_cursor_position_up
+    virtual: true
+    override: true
+    type: bool
+    guards: [ is_initialized_and_not_destroyed() ]
+    body: |
+      if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
+      // TODO: Consider if empty items in breakout_list_box should result in a return false
+      breakout_list_box.move_cursor_up();
+      return true;
+
+
+  - name: has_valid_cursor_position
+    private: true
+    type: bool
+    body: |
+      // TODO: Test this case with the usage of "breakout_list_box_active"
+      return breakout_list_box_active && breakout_list_box.has_valid_currently_selected_item();
+
+
+  - name: set_cursor_position
+    parameters:
+      - name: cursor_position
+        type: int
+        default_argument: 0
+    guards: [ is_initialized_and_not_destroyed() ]
+    body: |
+      // TODO: Modify this method so that an "start_cursor_position" could be provided
+      // TODO: Test this method
+      breakout_list_box.set_cursor_position(cursor_position);
+      return;
+
+
+  - name: get_cursor_position
+    type: int
+    body: |
+      return breakout_list_box.get_cursor_position();
+
+
+
+
 dependencies:
 
 
@@ -468,5 +602,9 @@ dependencies:
     headers: [ AllegroFlare/Logger.hpp ]
   - symbol: AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions
     headers: [ AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp ]
+  - symbol: AllegroFlare::Elements::ListBox
+    headers: [ AllegroFlare/Elements/ListBox.hpp ]
+  - symbol: AllegroFlare::InitializedAndDestroyed
+    headers: [ AllegroFlare/InitializedAndDestroyed.hpp ]
 
 
