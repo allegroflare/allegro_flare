@@ -2406,6 +2406,11 @@
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
+  "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions": [
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
+  ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
@@ -2419,6 +2424,9 @@
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer": [
+    "AllegroFlare/Elements/DialogBoxRenderer"
+  ],
+  "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
   ],
   "AllegroFlare/Elements/DialogButton": [
@@ -2465,10 +2473,6 @@
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
     "AllegroFlare/PlayerInputControllers/Generic",
     "AllegroFlare/Prototypes/MeshFPS/Screen"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions": [
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
-    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
   ],
   "AllegroFlare/Elements/StoryboardPages/Base": [
     "AllegroFlare/Elements/DialogBoxRenderers/IntertitleRenderer",

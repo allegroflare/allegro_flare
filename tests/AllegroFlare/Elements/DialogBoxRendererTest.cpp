@@ -32,6 +32,7 @@
 #include <AllegroFlare/Elements/DialogBoxes/TextMessages.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Intertitle.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp>
 
 
 class AllegroFlare_Elements_DialogBoxRendererTest : public ::testing::Test {};
@@ -608,6 +609,37 @@ TEST_F(AllegroFlare_Elements_DialogBoxRendererTestWithAllegroRenderingFixture,
             &get_font_bin_ref(),
             &get_bitmap_bin_ref(),
             &interparsable
+         );
+      dialog_box_renderer.render();
+      al_flip_display();
+      std::this_thread::sleep_for(std::chrono::milliseconds(16));
+   }
+}
+
+
+TEST_F(AllegroFlare_Elements_DialogBoxRendererTestWithAllegroRenderingFixture,
+   FOCUS__CAPTURE__render__draws_a_dialog_box_of_type_InterparsableWithOptions)
+{
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
+   dialog_box.set_speaking_character("Penelope");
+   dialog_box.set_pages({
+      //"At the tail end of his final year at university, we meet our protagonist.",
+      "At the tail end of his (em)final year at university(/em), we meet our protagonist.",
+      "He is in his dorm room diligently studying."
+   });
+   dialog_box.initialize();
+   //interparsable.start(); // TODO: Consider a "middle-of-life" age or alternative to manual time
+   for (int i=0; i<90; i++)
+   {
+      // Update
+      dialog_box.update(); // NOTE: To reveal characters
+
+      // Render
+      clear();
+      AllegroFlare::Elements::DialogBoxRenderer dialog_box_renderer(
+            &get_font_bin_ref(),
+            &get_bitmap_bin_ref(),
+            &dialog_box
          );
       dialog_box_renderer.render();
       al_flip_display();
