@@ -165,6 +165,7 @@ namespace AllegroFlare
          void activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* dialog_node=nullptr);
          void activate_dialog_node_by_name(std::string dialog_node_name="[unset-dialog_node_name]");
          void advance_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, int cursor_position=0);
+         void advance_InterparsableWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::InterparsableWithOptions* node=nullptr, int cursor_position=0);
          void dialog_advance();
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_interparsable_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={}, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr);
