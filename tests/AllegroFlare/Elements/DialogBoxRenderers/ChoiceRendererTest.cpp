@@ -33,7 +33,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererTest,
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
-   CAPTURE__render__renders_the_elements)
+   CAPTURE__render__renders_the_elements) // TODO: I don't think this test does what I think it does
 {
    std::string choice_box_prompt = "Are you making progress?";
    std::vector<std::pair<std::string, std::string>> choice_options = {

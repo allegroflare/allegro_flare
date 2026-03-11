@@ -17,12 +17,12 @@ namespace DialogBoxes
 {
 
 
-InterparsableWithOptions::InterparsableWithOptions(std::vector<std::string> pages, std::vector<std::pair<std::string, std::string>> options)
+InterparsableWithOptions::InterparsableWithOptions()
    : AllegroFlare::Elements::DialogBoxes::Base(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::TYPE)
    , AllegroFlare::InitializedAndDestroyed("AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions")
-   , pages(pages)
+   , pages({})
    , speaking_character("")
-   , options(options)
+   , options({})
    , breakout_list_box()
    , current_page_num(-1)
    , current_page_chunks({})
@@ -367,10 +367,10 @@ void InterparsableWithOptions::update_page_playback()
    }
 
    // TODO: Check if this is in the right spot
-   if (all_characters_are_revealed() && at_last_page())
-   {
-      reveal_breakout_list_box();
-   }
+   //if (all_characters_are_revealed() && at_last_page())
+   //{
+      //reveal_breakout_list_box();
+   //}
    return;
 }
 
@@ -395,17 +395,23 @@ void InterparsableWithOptions::update()
       {
          advance();
       }
-   }
 
-   if (!page_finished && all_characters_are_revealed())
-   {
-      page_finished = true;
-      page_finished_at = al_get_time();
-      if (at_last_page())
+      if (page_finished && at_last_page())
       {
          reveal_breakout_list_box();
       }
    }
+
+   //if (!page_finished && all_characters_are_revealed())
+   //{
+      //page_finished = true;
+      //page_finished_at = al_get_time();
+   //if (
+      //if (at_last_page())
+      //{
+         //reveal_breakout_list_box();
+      //}
+   //}
 
    return;
 }
@@ -461,7 +467,18 @@ std::string InterparsableWithOptions::get_current_page_text_with_formatting()
 int InterparsableWithOptions::get_current_page_num_printable_chars()
 {
    if (!current_page_is_valid()) return 0;
-   return pages[current_page_num].size(); // TODO: have this calculated from text chunks
+   //return pages[current_page_num].size(); // TODO: have this calculated from text chunks
+   return collate_printable_text_only(pages[current_page_num]).size();
+}
+
+std::vector<std::string> InterparsableWithOptions::get_options_labels()
+{
+   std::vector<std::string> result;
+   for (auto &item : options)
+   {
+      result.push_back(item.first);
+   }
+   return result;
 }
 
 bool InterparsableWithOptions::next_page()
@@ -550,7 +567,13 @@ void InterparsableWithOptions::reveal_all_characters()
    page_finished_at = al_get_time();
 }
 
-bool InterparsableWithOptions::all_characters_are_revealed()
+bool InterparsableWithOptions::xx__all_characters_are_revealed()
+{
+   if (!current_page_is_valid()) return true;
+   return num_revealed_printable_characters >= get_current_page_num_printable_chars();
+}
+
+bool InterparsableWithOptions::xx__all_characters_are_revealed_and_chunks_processed()
 {
    if (!current_page_is_valid()) return true;
    return num_revealed_printable_characters >= get_current_page_num_printable_chars();

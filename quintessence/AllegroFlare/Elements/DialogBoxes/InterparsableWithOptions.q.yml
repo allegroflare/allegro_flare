@@ -16,7 +16,8 @@ properties:
   - name: pages
     type: std::vector<std::string>
     init_with: '{}'
-    constructor_arg: true
+# TODO: Consider removing constructor_arg
+    xx__constructor_arg: true
     getter: true
 
   - name: speaking_character
@@ -28,7 +29,8 @@ properties:
   - name: options
     type: std::vector<std::pair<std::string, std::string>>
     init_with: '{}'
-    constructor_arg: true
+# TODO: Consider removing constructor_arg
+    xx__constructor_arg: true
     setter: explicit
 
   - name: breakout_list_box
@@ -360,10 +362,10 @@ methods:
       }
 
       // TODO: Check if this is in the right spot
-      if (all_characters_are_revealed() && at_last_page())
-      {
-         reveal_breakout_list_box();
-      }
+      //if (all_characters_are_revealed() && at_last_page())
+      //{
+         //reveal_breakout_list_box();
+      //}
       return;
 
 
@@ -391,17 +393,23 @@ methods:
          {
             advance();
          }
-      }
 
-      if (!page_finished && all_characters_are_revealed())
-      {
-         page_finished = true;
-         page_finished_at = al_get_time();
-         if (at_last_page())
+         if (page_finished && at_last_page())
          {
             reveal_breakout_list_box();
          }
       }
+
+      //if (!page_finished && all_characters_are_revealed())
+      //{
+         //page_finished = true;
+         //page_finished_at = al_get_time();
+      //if (
+         //if (at_last_page())
+         //{
+            //reveal_breakout_list_box();
+         //}
+      //}
 
       return;
     body_dependency_symbols:
@@ -467,7 +475,19 @@ methods:
     type: int
     body: |
       if (!current_page_is_valid()) return 0;
-      return pages[current_page_num].size(); // TODO: have this calculated from text chunks
+      //return pages[current_page_num].size(); // TODO: have this calculated from text chunks
+      return collate_printable_text_only(pages[current_page_num]).size();
+
+
+  - name: get_options_labels
+    type: std::vector<std::string>
+    body: |
+      std::vector<std::string> result;
+      for (auto &item : options)
+      {
+         result.push_back(item.first);
+      }
+      return result;
 
 
   - name: next_page
@@ -561,12 +581,18 @@ methods:
       - al_get_time
 
 
-  - name: all_characters_are_revealed
+  - name: xx__all_characters_are_revealed
     type: bool
     body: |
       if (!current_page_is_valid()) return true;
       return num_revealed_printable_characters >= get_current_page_num_printable_chars();
 
+
+  - name: xx__all_characters_are_revealed_and_chunks_processed
+    type: bool
+    body: |
+      if (!current_page_is_valid()) return true;
+      return num_revealed_printable_characters >= get_current_page_num_printable_chars();
 
 
 # Related to Options

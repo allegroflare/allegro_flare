@@ -10368,24 +10368,12 @@ table td
   <td class="method"><b>draw_speaking_character_name</b>()</td>
 </tr>
 <tr>
-  <td class="method">std::vector&lt;std::string&gt;</td>
-  <td class="method"><b>split_to_words</b>(std::string text=&quot;[unset-text]&quot;)</td>
-</tr>
-<tr>
-  <td class="method">void</td>
-  <td class="method"><b>cb</b>(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr)</td>
-</tr>
-<tr>
-  <td class="method">void</td>
-  <td class="method"><b>draw_styled_revealed_text_with_formatting__deprecated</b>(float max_width=1, std::string text_with_formatting=&quot;[unset-text_with_formatting]&quot;, int num_revealed_characters=999)</td>
-</tr>
-<tr>
-  <td class="private_method">std::string</td>
-  <td class="private_method"><b>concat_text</b>(std::string source_text=&quot;&quot;, int length=0)</td>
-</tr>
-<tr>
   <td class="private_method">std::vector&lt;std::string&gt;</td>
   <td class="private_method"><b>obtain_choice_dialog_box_option_labels</b>()</td>
+</tr>
+<tr>
+  <td class="private_method">int</td>
+  <td class="private_method"><b>xxx__obtain_choice_dialog_box_cursor_position</b>()</td>
 </tr>
 <tr>
   <td class="private_method">int</td>
@@ -11653,6 +11641,10 @@ table td
   <td class="method"><b>get_current_page_num_printable_chars</b>()</td>
 </tr>
 <tr>
+  <td class="method">std::vector&lt;std::string&gt;</td>
+  <td class="method"><b>get_options_labels</b>()</td>
+</tr>
+<tr>
   <td class="method">bool</td>
   <td class="method"><b>next_page</b>()</td>
 </tr>
@@ -11682,7 +11674,11 @@ table td
 </tr>
 <tr>
   <td class="method">bool</td>
-  <td class="method"><b>all_characters_are_revealed</b>()</td>
+  <td class="method"><b>xx__all_characters_are_revealed</b>()</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>xx__all_characters_are_revealed_and_chunks_processed</b>()</td>
 </tr>
 <tr>
   <td class="method">std::string</td>

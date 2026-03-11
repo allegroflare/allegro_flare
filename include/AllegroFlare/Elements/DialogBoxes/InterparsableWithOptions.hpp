@@ -47,7 +47,7 @@ namespace AllegroFlare
 
 
          public:
-            InterparsableWithOptions(std::vector<std::string> pages={}, std::vector<std::pair<std::string, std::string>> options={});
+            InterparsableWithOptions();
             virtual ~InterparsableWithOptions();
 
             void set_speaking_character(std::string speaking_character);
@@ -82,13 +82,15 @@ namespace AllegroFlare
             void reset();
             std::string get_current_page_text_with_formatting();
             int get_current_page_num_printable_chars();
+            std::vector<std::string> get_options_labels();
             bool next_page();
             void reset_current_page_counters();
             int num_pages();
             bool has_no_pages();
             bool at_last_page();
             void reveal_all_characters();
-            bool all_characters_are_revealed();
+            bool xx__all_characters_are_revealed();
+            bool xx__all_characters_are_revealed_and_chunks_processed();
             std::string get_current_selection_text();
             std::string get_current_selection_value();
             virtual bool move_cursor_position_down() override;
