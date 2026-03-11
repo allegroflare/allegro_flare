@@ -27,9 +27,8 @@ namespace DialogBoxRenderers
 {
 
 
-InterparsableWithOptionsRenderer::InterparsableWithOptionsRenderer(AllegroFlare::FontBin* font_bin, std::string current_page_text_with_formatting, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age, bool showing_speaking_character_name, std::string speaking_character_name)
+InterparsableWithOptionsRenderer::InterparsableWithOptionsRenderer(AllegroFlare::FontBin* font_bin, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box, float width, float height, std::string font_name, int font_size, float text_padding_x, float text_padding_y, int num_revealed_characters, bool is_finished, bool page_is_finished, float page_finished_at, bool at_last_page, float age, bool showing_speaking_character_name, std::string speaking_character_name)
    : font_bin(font_bin)
-   , current_page_text_with_formatting(current_page_text_with_formatting)
    , choice_dialog_box(choice_dialog_box)
    , selection_cursor_box(selection_cursor_box)
    , width(width)
@@ -62,12 +61,6 @@ InterparsableWithOptionsRenderer::~InterparsableWithOptionsRenderer()
 void InterparsableWithOptionsRenderer::set_font_bin(AllegroFlare::FontBin* font_bin)
 {
    this->font_bin = font_bin;
-}
-
-
-void InterparsableWithOptionsRenderer::set_current_page_text_with_formatting(std::string current_page_text_with_formatting)
-{
-   this->current_page_text_with_formatting = current_page_text_with_formatting;
 }
 
 
@@ -194,12 +187,6 @@ void InterparsableWithOptionsRenderer::set_speaking_character_name(std::string s
 AllegroFlare::FontBin* InterparsableWithOptionsRenderer::get_font_bin() const
 {
    return font_bin;
-}
-
-
-std::string InterparsableWithOptionsRenderer::get_current_page_text_with_formatting() const
-{
-   return current_page_text_with_formatting;
 }
 
 

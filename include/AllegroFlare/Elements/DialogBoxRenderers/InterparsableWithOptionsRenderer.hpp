@@ -29,7 +29,6 @@ namespace AllegroFlare
 
          private:
             AllegroFlare::FontBin* font_bin;
-            std::string current_page_text_with_formatting;
             AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box;
             AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box;
             float width;
@@ -64,11 +63,10 @@ namespace AllegroFlare
 
 
          public:
-            InterparsableWithOptionsRenderer(AllegroFlare::FontBin* font_bin=nullptr, std::string current_page_text_with_formatting="[unset-current_page_text_with_formatting]", AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box=nullptr, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, float width=(1920/2.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f, bool showing_speaking_character_name=false, std::string speaking_character_name="");
+            InterparsableWithOptionsRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box=nullptr, AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, float width=(1920/2.0f), float height=(1080/5.0f), std::string font_name=DEFAULT_FONT_NAME, int font_size=DEFAULT_FONT_SIZE, float text_padding_x=52.0f, float text_padding_y=40.0f, int num_revealed_characters=999, bool is_finished=false, bool page_is_finished=false, float page_finished_at=0.0f, bool at_last_page=false, float age=999.0f, bool showing_speaking_character_name=false, std::string speaking_character_name="");
             ~InterparsableWithOptionsRenderer();
 
             void set_font_bin(AllegroFlare::FontBin* font_bin);
-            void set_current_page_text_with_formatting(std::string current_page_text_with_formatting);
             void set_choice_dialog_box(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* choice_dialog_box);
             void set_selection_cursor_box(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box);
             void set_width(float width);
@@ -90,7 +88,6 @@ namespace AllegroFlare
             void set_showing_speaking_character_name(bool showing_speaking_character_name);
             void set_speaking_character_name(std::string speaking_character_name);
             AllegroFlare::FontBin* get_font_bin() const;
-            std::string get_current_page_text_with_formatting() const;
             AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* get_choice_dialog_box() const;
             AllegroFlare::Elements::SelectionCursorBox* get_selection_cursor_box() const;
             float get_width() const;

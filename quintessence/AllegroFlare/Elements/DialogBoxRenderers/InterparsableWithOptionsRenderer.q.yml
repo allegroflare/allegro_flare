@@ -8,13 +8,6 @@ properties:
     getter: true
     setter: true
 
-  - name: current_page_text_with_formatting
-    type: std::string
-    init_with: '"[unset-current_page_text_with_formatting]"'
-    constructor_arg: true
-    getter: true
-    setter: true
-
 # TODO: Rename this to "interparsable_with_options_dialog_box"
   - name: choice_dialog_box
     xx_type: AllegroFlare::Elements::DialogBoxes::Choice*

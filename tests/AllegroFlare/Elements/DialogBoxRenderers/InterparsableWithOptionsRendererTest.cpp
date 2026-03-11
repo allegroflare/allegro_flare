@@ -52,6 +52,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 }
 
 
+
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__when_the_dialog_box_is_finished__renders_special_empty_text)
 {
@@ -73,6 +74,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 }
 
 
+
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__draws_multiline_dialog)
 {
@@ -88,6 +90,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
    //std::string page_text =
       //"This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer dialog_box_renderer(&font_bin);
+   dialog_box.reveal_all_characters();
    dialog_box_renderer.set_choice_dialog_box(&dialog_box);
    //dialog_box_renderer.set_current_page_text_with_formatting(page_text);
 
@@ -102,6 +105,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 }
 
 
+
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__on_a_text_page_that_has_formatting_and_operational_tags_in_it__will_not_display_tags)
 {
@@ -113,6 +117,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
          "formatting codes (bold)will(/bold) be removed when rendered."
       }
    );
+
+   dialog_box.reveal_all_characters();
 
    //std::string page_text =
       //"This is dialog text that has (italic)some(/italic) formatting inside the source text. However, the "
@@ -132,6 +138,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 }
 
 
+
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__will_show_a_reveal_animation_respecting_age)
 {
@@ -145,6 +152,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
       }
    );
 
+   //dialog_box.reveal_all_characters();
    //std::string page_text =
       //"This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer dialog_box_renderer(&font_bin);
@@ -154,8 +162,10 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
 
    float started_at = al_get_time();
-   for (int passes=0; passes<30; passes++)
+   for (int passes=0; passes<40; passes++)
    {
+      dialog_box.update();
+
       float age = al_get_time() - started_at;
       dialog_box_renderer.set_age(age);
 
@@ -169,6 +179,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
       sleep_for_frame();
    }
 }
+
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
@@ -217,6 +228,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 }
 
 
+
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__with_text_formatting_tags_using_the_default_syntax__will_render_the_formatted_text)
 {
@@ -228,6 +240,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
          "Some (em)specially formated text(/em) dialog text that (em)has formatted text(/em)."
       }
    );
+   //dialog_box.reveal_all_characters();
 
    //std::string page_text = "Some test (em)dialog text(/em) that will reveal characters sequentially when rendering.";
 
@@ -284,8 +297,13 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
      { "I think so?", "GOTO C" },
    };
    //AllegroFlare::Elements::DialogBoxes::Choice choice_dialog_box(choice_box_prompt, choice_options);
-   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions choice_dialog_box = build_dialog_box();
-   choice_dialog_box.set_pages({ choice_box_prompt });
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions choice_dialog_box = build_dialog_box(
+      "Dudly",
+      { choice_box_prompt },
+      choice_options
+   );
+   choice_dialog_box.reveal_all_characters();
+   //choice_dialog_box.set_pages({ choice_box_prompt });
    //choice_dialog_box.set_speaker("Dr. Alice");
    
    choice_dialog_box.move_cursor_position_down();
@@ -293,7 +311,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer choice_renderer(
    //AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer(
       &get_font_bin_ref(),
-      "[dummy-placeholder-for-current_page_text_with_formatting-which-should-not-be-used]",
       &choice_dialog_box
    );
 
@@ -307,6 +324,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 
    SUCCEED();
 }
+
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
@@ -358,7 +376,6 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
       //AllegroFlare::Elements::DialogBoxRenderers::ChoiceRenderer choice_renderer(
          &get_font_bin_ref(),
          //choice_box_prompt,
-         "[dummy-placeholder-for-current_page_text_with_formatting-which-should-not-be-used]",
          //&get_bitmap_bin_ref(),
          &choice_dialog_box
       );
@@ -385,6 +402,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 
    SUCCEED();
 }
+
 
 
 /*
@@ -482,6 +500,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderi
 
    SUCCEED();
 }
+
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_ChoiceRendererWithAllegroRenderingFixtureTest,
