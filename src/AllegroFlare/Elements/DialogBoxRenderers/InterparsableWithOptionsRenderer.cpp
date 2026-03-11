@@ -359,7 +359,10 @@ void InterparsableWithOptionsRenderer::render_text()
    AllegroFlare::TextFormatters::Basic basic_text_formatter(font_bin);
    //basic_text_formatter.set_text(current_page_text_with_formatting);
    basic_text_formatter.set_text(choice_dialog_box->get_current_page_text_with_formatting());
-   basic_text_formatter.set_num_revealed_characters(num_revealed_characters); // HERE?
+            //current_char_index++;
+            //num_revealed_printable_characters++;
+   //basic_text_formatter.set_num_revealed_characters(num_revealed_characters); // HERE?
+   basic_text_formatter.set_num_revealed_characters(choice_dialog_box->get_num_revealed_printable_characters());
    basic_text_formatter.set_max_text_box_width(text_box_max_width);
    basic_text_formatter.set_font_name(font_name);
    basic_text_formatter.set_font_size(font_size);

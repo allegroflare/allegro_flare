@@ -53,7 +53,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__render__when_the_dialog_box_is_finished__renders_special_empty_text)
+   CAPTURE__render__when_the_dialog_box_is_finished__renders_special_empty_text)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box();
@@ -74,7 +74,7 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__render__draws_multiline_dialog)
+   CAPTURE__render__draws_multiline_dialog)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
    AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box(
@@ -103,17 +103,23 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 
 
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
-   FOCUS__CAPTURE__render__on_a_text_page_that_has_formatting_and_operational_tags_in_it__will_not_display_tags)
+   CAPTURE__render__on_a_text_page_that_has_formatting_and_operational_tags_in_it__will_not_display_tags)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box();
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box(
+      "Dolphie",
+      {
+         "This is dialog text that has (italic)some(/italic) formatting inside the source text. However, the "
+         "formatting codes (bold)will(/bold) be removed when rendered."
+      }
+   );
 
-   std::string page_text =
-      "This is dialog text that has (italic)some(/italic) formatting inside the source text. However, the "
-      "formatting codes (bold)will(/bold) be removed when rendered.";
+   //std::string page_text =
+      //"This is dialog text that has (italic)some(/italic) formatting inside the source text. However, the "
+      //"formatting codes (bold)will(/bold) be removed when rendered.";
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer dialog_box_renderer(&font_bin);
    dialog_box_renderer.set_choice_dialog_box(&dialog_box);
-   dialog_box_renderer.set_current_page_text_with_formatting(page_text);
+   //dialog_box_renderer.set_current_page_text_with_formatting(page_text);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
 
@@ -129,14 +135,21 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
 TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRendererWithAllegroRenderingFixtureTest,
    CAPTURE__render__will_show_a_reveal_animation_respecting_age)
 {
-   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box();
+   // NOTE: This test demonstrates the reveal animation of the renderer, not the character advancing features
 
-   std::string page_text =
-      "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
+   AllegroFlare::FontBin &font_bin = get_font_bin_ref();
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box(
+      "Phillip",
+      {
+         "This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines."
+      }
+   );
+
+   //std::string page_text =
+      //"This is some dialog test text. In this case, there's a lot of text that will need to fit on multiple lines.";
    AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer dialog_box_renderer(&font_bin);
    dialog_box_renderer.set_choice_dialog_box(&dialog_box);
-   dialog_box_renderer.set_current_page_text_with_formatting(page_text);
+   //dialog_box_renderer.set_current_page_text_with_formatting(page_text);
 
    AllegroFlare::Placement2D place{ 1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height() };
 
@@ -162,20 +175,30 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
    CAPTURE__render__will_propertly_render_num_revealed_characters)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box();
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box(
+      "Buford",
+      {
+         "Some test dialog text that will reveal characters sequentially when rendering."
+      }
+   );
 
-   std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
+   //std::string page_text = "Some test dialog text that will reveal characters sequentially when rendering.";
+   dialog_box.reset(); // TODO: Is this necessary?
 
-   int num_revealed_characters = 0;
-   for (unsigned i=0; i<page_text.size(); i++)
+   //int num_revealed_characters = 0;
+   int steps = 100;
+   for (int i=0; i<steps; i++)
+   //for (unsigned i=0; i<steps--; i++)
+   //for (unsigned i=0; i<page_text.size(); i++)
    {
-      num_revealed_characters++;
+      dialog_box.update();
+      //num_revealed_characters++;
 
       AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer dialog_box_renderer(&font_bin);
       dialog_box_renderer.set_choice_dialog_box(&dialog_box);
-      dialog_box_renderer.set_current_page_text_with_formatting(page_text);
-      dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
-      if (num_revealed_characters >= page_text.size()) dialog_box_renderer.set_page_is_finished(true);
+      //dialog_box_renderer.set_current_page_text_with_formatting(page_text);
+      //dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
+      //if (num_revealed_characters >= page_text.size()) dialog_box_renderer.set_page_is_finished(true);
 
       AllegroFlare::Placement2D place{
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
@@ -187,8 +210,8 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
       dialog_box_renderer.render();
       place.restore_transform();
 
-      //al_flip_display();
-      //std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
+      al_flip_display();
+      std::this_thread::sleep_for(std::chrono::microseconds(10000)); // add sleep for more obvious visual delay
    }
    al_flip_display();
 }
@@ -198,26 +221,35 @@ TEST_F(AllegroFlare_Elements_DialogBoxRenderers_InterparsableWithOptionsRenderer
    CAPTURE__render__with_text_formatting_tags_using_the_default_syntax__will_render_the_formatted_text)
 {
    AllegroFlare::FontBin &font_bin = get_font_bin_ref();
-   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box();
+   //AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box();
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box = build_dialog_box(
+      "Bill",
+      {
+         "Some (em)specially formated text(/em) dialog text that (em)has formatted text(/em)."
+      }
+   );
 
-   std::string page_text = "Some test (em)dialog text(/em) that will reveal characters sequentially when rendering.";
+   //std::string page_text = "Some test (em)dialog text(/em) that will reveal characters sequentially when rendering.";
 
-   int num_revealed_characters = 0;
+   //int num_revealed_characters = 0;
    float time_start = al_get_time();
-   for (unsigned i=0; i<page_text.size(); i++)
+   int steps = 100;
+   for (int i=0; i<steps; i++)
+   //for (unsigned i=0; i<page_text.size(); i++)
    {
-      num_revealed_characters++;
+      //num_revealed_characters++;
+      dialog_box.update();
 
       float age = al_get_time() - time_start;
       
       AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer dialog_box_renderer(&font_bin);
-      dialog_box_renderer.set_speaking_character_name("Princess");
-      dialog_box_renderer.set_showing_speaking_character_name(true);
+      //dialog_box_renderer.set_speaking_character_name("Princess");
+      //dialog_box_renderer.set_showing_speaking_character_name(true);
       dialog_box_renderer.set_choice_dialog_box(&dialog_box);
-      dialog_box_renderer.set_current_page_text_with_formatting(page_text);
+      //dialog_box_renderer.set_current_page_text_with_formatting(page_text);
       dialog_box_renderer.set_age(age);
-      dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
-      if (num_revealed_characters >= page_text.size()) dialog_box_renderer.set_page_is_finished(true);
+      //dialog_box_renderer.set_num_revealed_characters(num_revealed_characters);
+      //if (num_revealed_characters >= page_text.size()) dialog_box_renderer.set_page_is_finished(true);
 
       AllegroFlare::Placement2D place{
          1920/2, 1080/2, dialog_box_renderer.get_width(), dialog_box_renderer.get_height()
