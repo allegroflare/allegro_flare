@@ -33,6 +33,7 @@
 #include <AllegroFlare/DisplaySettingsInterfaces/Live.hpp>
 #include <AllegroFlare/AssetStudio/DatabaseCSVLoader.hpp>
 #include <AllegroFlare/SystemInfo.hpp>
+#include <AllegroFlare/Elements/JoystickAxisWatcher.hpp>
 
 
 
@@ -2642,8 +2643,22 @@ void Full::handle_joystick_button_up_event(ALLEGRO_EVENT *this_event)
 
 void Full::handle_joystick_axis_event(ALLEGRO_EVENT *this_event)
 {
+   static AllegroFlare::Elements::JoystickAxisWatcher joystick_axis_watcher;
+
+   // TODO: Improve this design so it's not so local
+   // TODO: Redundant assignment of this function at every joystick event
+   joystick_axis_watcher.set_on_move_cursor_up([this](){
+      if (dialog_system.get_switched_in()) dialog_system.move_dialog_cursor_position_up();
+   });
+   joystick_axis_watcher.set_on_move_cursor_down([this](){
+      if (dialog_system.get_switched_in()) dialog_system.move_dialog_cursor_position_down();
+   });
+
+   joystick_axis_watcher.joy_axis_func(this_event);
+
    if (dialog_system.get_switched_in())
    {
+      //joystick_axis_watcher.joy_axis_func(this_event);
       // HERE:
       // TODO: Handle input case with dialog when it is "switched in"
       // TODO: Add this branching for each input event case

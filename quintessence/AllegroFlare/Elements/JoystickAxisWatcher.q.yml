@@ -1,0 +1,108 @@
+properties:
+
+
+  - name: axis_x
+    type: float
+    init_with: 0
+
+  - name: axis_y
+    type: float
+    init_with: 0
+
+  - name: min_stick_break_threshold
+    type: float
+    init_with: DEFAULT_MIN_STICK_BREAK_THRESHOLD
+
+  - name: on_move_cursor_up
+    type: std::function<void()>
+    init_with: '{}'
+    setter: true
+
+  - name: on_move_cursor_down
+    type: std::function<void()>
+    init_with: '{}'
+    setter: true
+
+  - name: DEFAULT_MIN_STICK_BREAK_THRESHOLD
+    const: true
+    constexpr: true
+    static: true
+    type: float
+    init_with: 0.4f
+
+
+documentation:
+
+
+  - notes:
+     - This class is a bit scrappy, not necessarily ideal architecture. For it to be useful, you create a static
+       instance at your location.
+     - This class doesn't properly handle multiple simultanious joysticks.
+
+
+methods:
+
+
+  - name: joy_axis_func
+    parameters:
+      - name: ev
+        type: ALLEGRO_EVENT*
+        default_argument: nullptr
+    guards: [ ev, (ev->type == ALLEGRO_EVENT_JOYSTICK_AXIS) ]
+    body: |
+      //static float axis_x = 0;
+      //static float axis_y = 0;
+
+      int stick = ev->joystick.stick;
+      int axis = ev->joystick.axis;
+      float pos = ev->joystick.pos;
+
+      //float min_stick_break_threshold = 0.4;
+
+      switch (stick)
+      {
+         case 0: { // The primary joystick, on the left
+           if (axis == 0) // horizontal axis
+           {
+              //if (axis_x < min_stick_break_threshold && pos >= min_stick_break_threshold) 
+                  //level_select_element.move_cursor_right();
+              //if (axis_x > -min_stick_break_threshold && pos <= -min_stick_break_threshold) 
+                  //level_select_element.move_cursor_left();
+              axis_x = pos;
+           }
+           else if (axis == 1) // vertical axis
+           {
+              if (axis_y < min_stick_break_threshold && pos >= min_stick_break_threshold)
+              {
+                 //move_cursor_down();
+                 if (on_move_cursor_down) on_move_cursor_down();
+                  //level_select_element.move_cursor_down();
+              }
+              if (axis_y > -min_stick_break_threshold && pos <= -min_stick_break_threshold)
+              {
+                 //move_cursor_up();
+                 if (on_move_cursor_up) on_move_cursor_up();
+                 //level_select_element.move_cursor_up();
+              }
+
+              axis_y = pos;
+           }
+         } break;
+
+         case 1: { // The secondary joystick, on the right
+         } break;
+
+         case 2: { // The hat, on the left
+         } break;
+      }
+
+      return;
+
+
+dependencies:
+
+
+  - symbol: ALLEGRO_EVENT
+    headers: [ allegro5/allegro.h ]
+
+
