@@ -28,6 +28,7 @@
 #include <functional>
 #include <string>
 #include <tuple>
+#include <utility>
 #include <vector>
 
 
@@ -167,7 +168,7 @@ namespace AllegroFlare
          void dialog_advance();
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_interparsable_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={}, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr);
-         void spawn_interparsable_with_options_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={}, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr);
+         void spawn_interparsable_with_options_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={}, std::vector<std::pair<std::string, std::string>> options={}, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr);
          void spawn_intertitle_dialog(std::string text="[unset-text]");
          void spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
          void spawn_wait_dialog(float duration_seconds=1.0f);

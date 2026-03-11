@@ -481,6 +481,88 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   FOCUS__activate_InterparsableWithOptions_dialog_node__will_activate_a_dialog_node_of_interparsable_type)
+{
+   AllegroFlare::DialogTree::Nodes::InterparsableWithOptions node(
+      "JONAH",
+      {
+         "This is (emphasis)page 1(/emphasis).",
+         "This is page 2.", // NOTE: Support for multiple pages is broken for some downstream compatibility reason
+                            // TODO: Restore support and figure out what the fix needs to be fixed downstream
+      },
+      {}
+      //{
+         //{ "Goto another node", new AllegroFlare::DialogTree::NodeOptions::GoToNode("unused-test-node-name"), 0 },
+         //{ "Exit", new AllegroFlare::DialogTree::NodeOptions::ExitDialog(), 0 },
+      //}
+   );
+   dialog_system.activate_InterparsableWithOptions_dialog_node(&node);
+
+   // Test consequence of activation
+   EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
+   // TODO: Consider testing additional consequence (not related to the dialog box which is actually in the next text)
+}
+
+
+TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
+   FOCUS__activate_InterparsableWithOptions_dialog_node__will_spawn_a_dialog_box_of_interparsable_type_with_the_expected_values)
+{
+   AllegroFlare::DialogTree::Nodes::InterparsableWithOptions node(
+      "JONAH",
+      {
+         "This is (emphasis)page 1(/emphasis).",
+         "This is page 2.",
+      },
+      {}
+      //{
+         //{ "Goto another node", new AllegroFlare::DialogTree::NodeOptions::GoToNode("unused-test-node-name"), 0 },
+         //{ "Exit", new AllegroFlare::DialogTree::NodeOptions::ExitDialog(), 0 },
+      //}
+   );
+   dialog_system.activate_InterparsableWithOptions_dialog_node(&node);
+
+   // TODO: Test consequence of activation
+   //EXPECT_EQ(&node, dialog_system.get_active_dialog_node());
+   AllegroFlare::Elements::DialogBoxes::Base *active_dialog_box = dialog_system.get_active_dialog_box();
+   EXPECT_NE(nullptr, active_dialog_box);
+   ASSERT_EQ(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::TYPE, active_dialog_box->get_type());
+   auto as = static_cast<AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*>(active_dialog_box);
+   // TODO: Figure out how to test assignment of callback
+   //EXPECT_EQ(
+      //AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver::
+         //interparsable_on_operational_chunk_func,
+      //as->get_on_operational_chunk_func()
+   //); // HERE
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharacterDialogDriver,
    activate_Wait_dialog_node__will_spawn_a_wait_dialog_with_the_expected_data)
 {

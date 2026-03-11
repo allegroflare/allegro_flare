@@ -761,10 +761,18 @@ void DialogSystem::activate_InterparsableWithOptions_dialog_node(AllegroFlare::D
    active_dialog_node = node;
    std::string speaker = node->get_speaker();
    std::vector<std::string> node_pages = node->get_pages();
+   std::vector<std::pair<std::string, std::string>> options;
+
+   // I think (based on looking at other code), that we'll need to just assemble a little simple list of options here
+   for (auto &option : node->get_options())
+   {
+      std::string label = std::get<0>(option);
+      options.push_back({ label, label });
+   }
    spawn_interparsable_with_options_dialog(
       speaker,
       node_pages,
-      // TODO: Include options
+      options,
       interparsable_with_options_on_operational_chunk_func,
       interparsable_with_options_on_operational_chunk_func_user_data
    );
@@ -1335,7 +1343,7 @@ void DialogSystem::spawn_interparsable_dialog(std::string speaking_character, st
    return;
 }
 
-void DialogSystem::spawn_interparsable_with_options_dialog(std::string speaking_character, std::vector<std::string> pages, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func, void* on_operational_chunk_func_user_data)
+void DialogSystem::spawn_interparsable_with_options_dialog(std::string speaking_character, std::vector<std::string> pages, std::vector<std::pair<std::string, std::string>> options, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func, void* on_operational_chunk_func_user_data)
 {
    switch_in_if_not();
 
@@ -1346,8 +1354,8 @@ void DialogSystem::spawn_interparsable_with_options_dialog(std::string speaking_
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    active_dialog_box = dialog_box_factory.create_interparsable_with_options_dialog(
       speaking_character,
-      //speaking_character,
       pages,
+      options,
       on_operational_chunk_func,
       on_operational_chunk_func_user_data
    );

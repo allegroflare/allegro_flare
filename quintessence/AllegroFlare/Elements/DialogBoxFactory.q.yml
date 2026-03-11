@@ -127,6 +127,9 @@ functions:
       - name: pages
         type: std::vector<std::string>
         default_argument: '{}'
+      - name: options
+        type: std::vector<std::pair<std::string, std::string>>
+        default_argument: '{}'
       - name: interparsable_on_operational_chunk_func
         type: std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)>
         default_argument: '{}'
@@ -143,11 +146,13 @@ functions:
          interparsable_dialog_box->set_speaking_character(speaking_character);
       }
       interparsable_dialog_box->set_pages(pages);
+      interparsable_dialog_box->set_options(options);
       interparsable_dialog_box->set_created_at(al_get_time());
       interparsable_dialog_box->set_on_operational_chunk_func(interparsable_on_operational_chunk_func);
       interparsable_dialog_box->set_on_operational_chunk_func_user_data(
             interparsable_on_operational_chunk_func_user_data
          );
+      interparsable_dialog_box->initialize();
       return interparsable_dialog_box;
     body_dependency_symbols:
       - al_get_time
