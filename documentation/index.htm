@@ -4179,6 +4179,14 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">interparsable_with_options_on_operational_chunk_func</td>
+  <td class="property">std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">interparsable_with_options_on_operational_chunk_func_user_data</td>
+  <td class="property">void*</td>
+</tr>
+<tr>
   <td class="property">on_before_activating_dialog_node_by_name_callback_func</td>
   <td class="property">std::function&lt;void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)&gt;</td>
 </tr>
@@ -4371,6 +4379,10 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
+  <td class="method"><b>activate_InterparsableWithOptions_dialog_node</b>(AllegroFlare::DialogTree::Nodes::InterparsableWithOptions* node=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
   <td class="method"><b>activate_MultipageWithOptions_dialog_node</b>(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, std::string node_identifier=&quot;[unset-node_identifier-for-MultipageWithOptions]&quot;)</td>
 </tr>
 <tr>
@@ -4400,6 +4412,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>spawn_interparsable_dialog</b>(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={}, std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)&gt; on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>spawn_interparsable_with_options_dialog</b>(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={}, std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)&gt; on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -4616,6 +4632,12 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Interparsable&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Interparsable.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DialogTree::Nodes::InterparsableWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DialogTree/Nodes/InterparsableWithOptions.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
@@ -8802,6 +8824,10 @@ table td
   <td class="method"><b>create_interparsable_dialog</b>(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={}, std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)&gt; interparsable_on_operational_chunk_func={}, void* interparsable_on_operational_chunk_func_user_data=nullptr)</td>
 </tr>
 <tr>
+  <td class="method">AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*</td>
+  <td class="method"><b>create_interparsable_with_options_dialog</b>(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={}, std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)&gt; interparsable_on_operational_chunk_func={}, void* interparsable_on_operational_chunk_func_user_data=nullptr)</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::Elements::DialogBoxes::Intertitle*</td>
   <td class="method"><b>create_intertitle_dialog</b>(std::string text=&quot;[unset-text]&quot;)</td>
 </tr>
@@ -8868,6 +8894,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::Intertitle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/Intertitle.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55608,6 +55637,16 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
     "AllegroFlare/Elements/DialogBoxes/Interparsable"
   ],
+  "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
+  ],
   "AllegroFlare/DialogSystem/DialogSystem/SetDialogNodeBankWhileActiveBehavior": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
@@ -56271,11 +56310,6 @@ table td
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
-    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"

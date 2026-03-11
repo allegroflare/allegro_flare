@@ -568,7 +568,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithDialogSystemWithBasicCharac
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   // NOTE: Disabled for more rapid development testing, this test takes too long in rapid cycles
    CAPTURE__render__when_a_dialog_box_is_open__will_work_as_expected)
 {
    AllegroFlare::EventEmitter event_emitter;
@@ -613,7 +612,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   // NOTE: Disabled for more rapid development testing, this test takes too long in rapid cycles
    CAPTURE__load_dialog_node_bank_from_file__will_not_blow_up)
 {
    std::string dialog_filename = get_fixtures_path() + "/dialogs/linear_dialog.yml";
@@ -661,7 +659,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   // NOTE: Disabled for more rapid development testing, this test takes too long in rapid cycles
    CAPTURE__load_dialog_node_bank_from_file__with_a_branching_dialog_that_includes_choices__will_not_blow_up)
 {
    std::string dialog_filename = get_fixtures_path() + "/dialogs/branching_dialog.yml";
@@ -758,7 +755,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   // NOTE: Disabled for more rapid development testing, this test takes too long in rapid cycles
    TIMED_INTERACTIVE__without_a_character_roster__will_work_as_expected)
 {
    // setup system
@@ -887,7 +883,6 @@ TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
 
 
 TEST_F(AllegroFlare_DialogSystem_DialogSystemTestWithAllegroRenderingFixture,
-   // NOTE: Disabled for more rapid development testing, this test takes too long in rapid cycles
    TIMED_INTERACTIVE__when_a_character_roster_is_present__and_an_active_character_staging_layout__will_work_as_expected)
 {
    // setup system

@@ -11,6 +11,7 @@
 #include <AllegroFlare/DialogTree/Nodes/ExitDialog.hpp>
 #include <AllegroFlare/DialogTree/Nodes/ExitProgram.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Interparsable.hpp>
+#include <AllegroFlare/DialogTree/Nodes/InterparsableWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/MultipageWithOptions.hpp>
 #include <AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
@@ -18,6 +19,7 @@
 #include <AllegroFlare/Elements/DialogBoxStyles.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
+#include <AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/EventEmitter.hpp>
 #include <AllegroFlare/FontBin.hpp>
@@ -65,6 +67,8 @@ namespace AllegroFlare
          AllegroFlare::Elements::DialogBoxes::Base* active_dialog_box;
          std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> interparsable_on_operational_chunk_func;
          void* interparsable_on_operational_chunk_func_user_data;
+         std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> interparsable_with_options_on_operational_chunk_func;
+         void* interparsable_with_options_on_operational_chunk_func_user_data;
          std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> on_before_activating_dialog_node_by_name_callback_func;
          void* on_before_activating_dialog_node_by_name_callback_func_user_data;
          AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior set_dialog_node_bank_while_active_behavior;
@@ -92,6 +96,8 @@ namespace AllegroFlare
 
          void set_interparsable_on_operational_chunk_func(std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> interparsable_on_operational_chunk_func);
          void set_interparsable_on_operational_chunk_func_user_data(void* interparsable_on_operational_chunk_func_user_data);
+         void set_interparsable_with_options_on_operational_chunk_func(std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> interparsable_with_options_on_operational_chunk_func);
+         void set_interparsable_with_options_on_operational_chunk_func_user_data(void* interparsable_with_options_on_operational_chunk_func_user_data);
          void set_on_before_activating_dialog_node_by_name_callback_func(std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> on_before_activating_dialog_node_by_name_callback_func);
          void set_on_before_activating_dialog_node_by_name_callback_func_user_data(void* on_before_activating_dialog_node_by_name_callback_func_user_data);
          void set_set_dialog_node_bank_while_active_behavior(AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior set_dialog_node_bank_while_active_behavior);
@@ -112,6 +118,8 @@ namespace AllegroFlare
          AllegroFlare::Elements::DialogBoxes::Base* get_active_dialog_box() const;
          std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> get_interparsable_on_operational_chunk_func() const;
          void* get_interparsable_on_operational_chunk_func_user_data() const;
+         std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> get_interparsable_with_options_on_operational_chunk_func() const;
+         void* get_interparsable_with_options_on_operational_chunk_func_user_data() const;
          std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, AllegroFlare::DialogTree::Nodes::Base*, void*)> get_on_before_activating_dialog_node_by_name_callback_func() const;
          void* get_on_before_activating_dialog_node_by_name_callback_func_user_data() const;
          AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior get_set_dialog_node_bank_while_active_behavior() const;
@@ -151,6 +159,7 @@ namespace AllegroFlare
          void activate_ExitProgram_dialog_node(AllegroFlare::DialogTree::Nodes::ExitProgram* node=nullptr);
          void activate_YouGotAnItemDialog_dialog_node(AllegroFlare::DialogTree::Nodes::YouGotAnItemDialog* node=nullptr);
          void activate_Interparsable_dialog_node(AllegroFlare::DialogTree::Nodes::Interparsable* node=nullptr);
+         void activate_InterparsableWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::InterparsableWithOptions* node=nullptr);
          void activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node=nullptr, std::string node_identifier="[unset-node_identifier-for-MultipageWithOptions]");
          void activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* dialog_node=nullptr);
          void activate_dialog_node_by_name(std::string dialog_node_name="[unset-dialog_node_name]");
@@ -158,6 +167,7 @@ namespace AllegroFlare
          void dialog_advance();
          void spawn_basic_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={});
          void spawn_interparsable_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={}, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsable*, void*)> on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr);
+         void spawn_interparsable_with_options_dialog(std::string speaking_character="[unset-speaking_character]", std::vector<std::string> pages={}, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr);
          void spawn_intertitle_dialog(std::string text="[unset-text]");
          void spawn_text_messages_dialog(std::vector<std::tuple<std::string, std::string, float>> messages={});
          void spawn_wait_dialog(float duration_seconds=1.0f);

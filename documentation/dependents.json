@@ -1742,6 +1742,16 @@
     "AllegroFlare/Elements/DialogBoxRenderers/InterparsableRenderer",
     "AllegroFlare/Elements/DialogBoxes/Interparsable"
   ],
+  "AllegroFlare/DialogTree/Nodes/InterparsableWithOptions": [
+    "AllegroFlare/DialogSystem/DialogSystem"
+  ],
+  "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions": [
+    "AllegroFlare/DialogSystem/DialogSystem",
+    "AllegroFlare/Elements/DialogBoxFactory",
+    "AllegroFlare/Elements/DialogBoxRenderer",
+    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
+  ],
   "AllegroFlare/DialogSystem/DialogSystem/SetDialogNodeBankWhileActiveBehavior": [
     "AllegroFlare/DialogSystem/DialogSystem"
   ],
@@ -2405,11 +2415,6 @@
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/BasicRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"
-  ],
-  "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions": [
-    "AllegroFlare/Elements/DialogBoxRenderer",
-    "AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer",
-    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
   ],
   "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer": [
     "AllegroFlare/Elements/DialogBoxRenderer"

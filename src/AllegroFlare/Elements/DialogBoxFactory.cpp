@@ -134,6 +134,31 @@ AllegroFlare::Elements::DialogBoxes::Interparsable* DialogBoxFactory::create_int
    return interparsable_dialog_box;
 }
 
+AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* DialogBoxFactory::create_interparsable_with_options_dialog(std::string speaking_character, std::vector<std::string> pages, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> interparsable_on_operational_chunk_func, void* interparsable_on_operational_chunk_func_user_data)
+{
+   if (!(al_is_system_installed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::DialogBoxFactory::create_interparsable_with_options_dialog]: error: guard \"al_is_system_installed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::DialogBoxFactory::create_interparsable_with_options_dialog]: error: guard \"al_is_system_installed()\" not met");
+   }
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* interparsable_dialog_box =
+      new AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions();
+   // TODO: Trim speaking character first before checking if empty
+   if (!speaking_character.empty())
+   {
+      interparsable_dialog_box->set_speaking_character(speaking_character);
+   }
+   interparsable_dialog_box->set_pages(pages);
+   interparsable_dialog_box->set_created_at(al_get_time());
+   interparsable_dialog_box->set_on_operational_chunk_func(interparsable_on_operational_chunk_func);
+   interparsable_dialog_box->set_on_operational_chunk_func_user_data(
+         interparsable_on_operational_chunk_func_user_data
+      );
+   return interparsable_dialog_box;
+}
+
 AllegroFlare::Elements::DialogBoxes::Intertitle* DialogBoxFactory::create_intertitle_dialog(std::string text)
 {
    if (!(al_is_system_installed()))

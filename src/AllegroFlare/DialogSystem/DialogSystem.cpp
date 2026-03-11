@@ -49,6 +49,8 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , active_dialog_box(nullptr)
    , interparsable_on_operational_chunk_func({})
    , interparsable_on_operational_chunk_func_user_data(nullptr)
+   , interparsable_with_options_on_operational_chunk_func({})
+   , interparsable_with_options_on_operational_chunk_func_user_data(nullptr)
    , on_before_activating_dialog_node_by_name_callback_func({})
    , on_before_activating_dialog_node_by_name_callback_func_user_data(nullptr)
    , set_dialog_node_bank_while_active_behavior(SetDialogNodeBankWhileActiveBehavior::RESPAWN_IF_PRESENT)
@@ -83,6 +85,18 @@ void DialogSystem::set_interparsable_on_operational_chunk_func(std::function<voi
 void DialogSystem::set_interparsable_on_operational_chunk_func_user_data(void* interparsable_on_operational_chunk_func_user_data)
 {
    this->interparsable_on_operational_chunk_func_user_data = interparsable_on_operational_chunk_func_user_data;
+}
+
+
+void DialogSystem::set_interparsable_with_options_on_operational_chunk_func(std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> interparsable_with_options_on_operational_chunk_func)
+{
+   this->interparsable_with_options_on_operational_chunk_func = interparsable_with_options_on_operational_chunk_func;
+}
+
+
+void DialogSystem::set_interparsable_with_options_on_operational_chunk_func_user_data(void* interparsable_with_options_on_operational_chunk_func_user_data)
+{
+   this->interparsable_with_options_on_operational_chunk_func_user_data = interparsable_with_options_on_operational_chunk_func_user_data;
 }
 
 
@@ -203,6 +217,18 @@ std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsab
 void* DialogSystem::get_interparsable_on_operational_chunk_func_user_data() const
 {
    return interparsable_on_operational_chunk_func_user_data;
+}
+
+
+std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> DialogSystem::get_interparsable_with_options_on_operational_chunk_func() const
+{
+   return interparsable_with_options_on_operational_chunk_func;
+}
+
+
+void* DialogSystem::get_interparsable_with_options_on_operational_chunk_func_user_data() const
+{
+   return interparsable_with_options_on_operational_chunk_func_user_data;
 }
 
 
@@ -723,6 +749,28 @@ void DialogSystem::activate_Interparsable_dialog_node(AllegroFlare::DialogTree::
    return;
 }
 
+void DialogSystem::activate_InterparsableWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::InterparsableWithOptions* node)
+{
+   if (!(node))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::DialogSystem::DialogSystem::activate_InterparsableWithOptions_dialog_node]: error: guard \"node\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::DialogSystem::DialogSystem::activate_InterparsableWithOptions_dialog_node]: error: guard \"node\" not met");
+   }
+   active_dialog_node = node;
+   std::string speaker = node->get_speaker();
+   std::vector<std::string> node_pages = node->get_pages();
+   spawn_interparsable_with_options_dialog(
+      speaker,
+      node_pages,
+      // TODO: Include options
+      interparsable_with_options_on_operational_chunk_func,
+      interparsable_with_options_on_operational_chunk_func_user_data
+   );
+   return;
+}
+
 void DialogSystem::activate_MultipageWithOptions_dialog_node(AllegroFlare::DialogTree::Nodes::MultipageWithOptions* node, std::string node_identifier)
 {
    if (!(node))
@@ -836,6 +884,12 @@ void DialogSystem::activate_dialog_node(AllegroFlare::DialogTree::Nodes::Base* d
       AllegroFlare::DialogTree::Nodes::Interparsable *as =
          static_cast<AllegroFlare::DialogTree::Nodes::Interparsable*>(dialog_node);
       activate_Interparsable_dialog_node(as);
+   }
+   else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::InterparsableWithOptions::TYPE))
+   {
+      AllegroFlare::DialogTree::Nodes::InterparsableWithOptions *as =
+         static_cast<AllegroFlare::DialogTree::Nodes::InterparsableWithOptions*>(dialog_node);
+      activate_InterparsableWithOptions_dialog_node(as);
    }
    else if (dialog_node->is_type(AllegroFlare::DialogTree::Nodes::MultipageWithOptions::TYPE))
    {
@@ -1057,6 +1111,31 @@ void DialogSystem::dialog_advance()
          }
       }
    }
+   else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::InterparsableWithOptions::TYPE))
+   {
+      // TODO: Handle option logic
+      shutdown(); // TODO: Verify if this is a correct complete action for this event
+
+      //if (!active_dialog_box->is_type(AllegroFlare::Elements::DialogBoxes::Interparsable::TYPE))
+      //{
+         //throw std::runtime_error(
+            //"DialogSystem::dialog_advance: error: Expecting active_dialog_box "
+               //"to be of type \"AllegroFlare::Elements::DialogBoxes::Interparsable::TYPE\", but it is of type \""
+               //+ active_dialog_box->get_type() + "\""
+         //);
+      //}
+      //else
+      //{
+         //AllegroFlare::Elements::DialogBoxes::Interparsable *as = 
+            //static_cast<AllegroFlare::Elements::DialogBoxes::Interparsable*>(active_dialog_box);
+
+         ////int current_dialog_selection_choice = as->get_cursor_position();
+         //advance_Interparsable_dialog_node(as);
+      //}
+      //AllegroFlare::DialogTree::Nodes::Wait *as =
+         //static_cast<AllegroFlare::DialogTree::Nodes::Wait*>(active_dialog_node);
+      //activate_dialog_node_by_name(as->get_next_node_identifier());
+   }
    else if (active_dialog_node->is_type(AllegroFlare::DialogTree::Nodes::Interparsable::TYPE))
    {
       shutdown(); // TODO: Verify if this is a correct complete action for this event
@@ -1240,6 +1319,32 @@ void DialogSystem::spawn_interparsable_dialog(std::string speaking_character, st
 
    AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
    active_dialog_box = dialog_box_factory.create_interparsable_dialog(
+      speaking_character,
+      //speaking_character,
+      pages,
+      on_operational_chunk_func,
+      on_operational_chunk_func_user_data
+   );
+
+   // TODO: Address when and where a switch_in should occur
+   //bool a_new_dialog_was_created_and_dialog_system_is_now_active = !a_dialog_existed_before;
+   //if (a_new_dialog_was_created_and_dialog_system_is_now_active)
+   //{
+      //switch_in();
+   //}
+   return;
+}
+
+void DialogSystem::spawn_interparsable_with_options_dialog(std::string speaking_character, std::vector<std::string> pages, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func, void* on_operational_chunk_func_user_data)
+{
+   switch_in_if_not();
+
+   bool a_dialog_existed_before = a_dialog_is_active();
+   if (active_dialog_box) delete active_dialog_box; // TODO: address concern that this could clobber an active dialog
+                                                    // And/or address concerns that derived dialog be deleted proper
+
+   AllegroFlare::Elements::DialogBoxFactory dialog_box_factory;
+   active_dialog_box = dialog_box_factory.create_interparsable_with_options_dialog(
       speaking_character,
       //speaking_character,
       pages,
