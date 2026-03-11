@@ -590,7 +590,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
          game_session.start_session();
 
          // Start the intro storyboard
-         // HERE: Inspect the intro storyboard and see if it should be skipped.
+         // TODO: Inspect the intro storyboard and see if it should be skipped.
          emit_route_event(EVENT_ACTIVATE_NEW_GAME_INTRO_STORYBOARD_SCREEN);
       }},
       { EVENT_CONTINUE_FROM_LAST_SAVE, [this](){
@@ -925,6 +925,7 @@ void Standard::on_route_event(uint32_t route_event, AllegroFlare::RouteEventData
       { EVENT_ACTIVATE_LEVEL_SELECT_SCREEN, [this](){
          // TODO: Consider a special case here to "skip" directly to next step if the level select screen is empty
          // or auto-advances. I think this most likely will be a callback with a value returned.
+         // HERE
          activate_screen(LEVEL_SELECT_SCREEN_IDENTIFIER);
       }},
       { EVENT_ACTIVATE_GAME_OVER_SCREEN, [this](){

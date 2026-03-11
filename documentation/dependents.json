@@ -1379,6 +1379,7 @@
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxes/Intertitle",
+    "AllegroFlare/Elements/JoystickAxisWatcher",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/LoadASavedGame/Screen",

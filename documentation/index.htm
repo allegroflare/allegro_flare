@@ -203,6 +203,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml">quintessence/AllegroFlare/Elements/InputDeviceConfigurationList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/InputDevicesList.q.yml">quintessence/AllegroFlare/Elements/InputDevicesList.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/Inventory.q.yml">quintessence/AllegroFlare/Elements/Inventory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/JoystickAxisWatcher.q.yml">quintessence/AllegroFlare/Elements/JoystickAxisWatcher.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/LevelSelect.q.yml">quintessence/AllegroFlare/Elements/LevelSelect.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/LevelSelectItemBoxRenderParams.q.yml">quintessence/AllegroFlare/Elements/LevelSelectItemBoxRenderParams.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/ListBox.q.yml">quintessence/AllegroFlare/Elements/ListBox.q.yml</a></li>
@@ -13987,6 +13988,54 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::unique&quot;, &quot;headers&quot;=&gt;[&quot;algorithm&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/JoystickAxisWatcher.q.yml">quintessence/AllegroFlare/Elements/JoystickAxisWatcher.q.yml</h3>
+    <h3>Overview</h3>
+    <p>{"notes"=>["This class is a bit scrappy, not necessarily ideal architecture. For it to be useful, you create a static instance at your location.", "This class doesn't properly handle multiple simultanious joysticks."]}</p>    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">axis_x</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">axis_y</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">min_stick_break_threshold</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">on_move_cursor_up</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_move_cursor_down</td>
+  <td class="property">std::function&lt;void()&gt;</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_MIN_STICK_BREAK_THRESHOLD</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>joy_axis_func</b>(ALLEGRO_EVENT* ev=nullptr)</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_EVENT&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55278,6 +55327,7 @@ table td
     "AllegroFlare/DialogSystemDrivers/BasicCharacterDialogDriver",
     "AllegroFlare/Elements/ChapterSelect/Screen",
     "AllegroFlare/Elements/DialogBoxes/Intertitle",
+    "AllegroFlare/Elements/JoystickAxisWatcher",
     "AllegroFlare/Elements/StoryboardPages/AdvancingText",
     "AllegroFlare/Integrations/CameraProjectionChanges",
     "AllegroFlare/LoadASavedGame/Screen",
