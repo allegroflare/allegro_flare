@@ -158,6 +158,9 @@ void CollisionMesh::load(AllegroFlare::Model3D* model)
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Physics::CollisionMesh::load]: error: guard \"model\" not met");
    }
+   // NOTE: This method does not clear any existing faces. This is preferred behavior, because the user may wish
+   // to load multiple models to create a combined collision mesh.
+
    // TODO: Note that model can change after loading, consider addressing this design flaw.
    auto m = model; // TODO: update this variable in the code below
 

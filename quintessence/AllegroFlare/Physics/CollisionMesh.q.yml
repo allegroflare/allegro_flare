@@ -122,6 +122,9 @@ methods:
         default_argument: nullptr
     guards: [ model ]
     body: |
+      // NOTE: This method does not clear any existing faces. This is preferred behavior, because the user may wish
+      // to load multiple models to create a combined collision mesh.
+
       // TODO: Note that model can change after loading, consider addressing this design flaw.
       auto m = model; // TODO: update this variable in the code below
 

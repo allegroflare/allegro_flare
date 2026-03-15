@@ -12,8 +12,14 @@ namespace AllegroFlare
    public:
       float x, y;
 
-      Vec2D(float x=0.0, float y=0.0);
-      Vec2D(const std::pair<float, float>& p);
+      constexpr Vec2D(float x=0.0, float y=0.0)
+         : x(x)
+         , y(y)
+      {}
+      constexpr Vec2D(const std::pair<float, float>& p)
+          : x(p.first)
+          , y(p.second)
+      {}
 
       // returns the polar coordinates of an angle (in radians?) and magnitude
       static Vec2D polar_coords(float angle, float magnitude);

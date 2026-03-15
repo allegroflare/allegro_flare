@@ -12,11 +12,12 @@
 
 namespace AllegroFlare
 {
-   Vec3D::Vec3D(float x, float y, float z)
-      : x( x )
-      , y( y )
-      , z( z )
-   {}
+   // NOTE: This is now a constexpr constructor, defined in the header
+   //Vec3D::Vec3D(float x, float y, float z)
+      //: x( x )
+      //, y( y )
+      //, z( z )
+   //{}
 
 
 

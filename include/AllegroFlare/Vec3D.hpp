@@ -11,7 +11,12 @@ namespace AllegroFlare
    public:
       float x, y, z;
 
-      Vec3D(float x=0.0, float y=0.0, float z=0.0);
+      //Vec3D(float x=0.0, float y=0.0, float z=0.0);
+      constexpr Vec3D(float x=0.0f, float y=0.0f, float z=0.0f)
+         : x(x)
+         , y(y)
+         , z(z)
+      {}
 
       // return the magnitude, or length, of the vector
       float get_magnitude() const;

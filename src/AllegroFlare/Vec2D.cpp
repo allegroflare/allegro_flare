@@ -10,17 +10,19 @@
 
 namespace AllegroFlare
 {
-   Vec2D::Vec2D(float x, float y)
-      : x(x)
-      , y(y)
-   {}
+   // NOTE: This constructor is now constexpr
+   //Vec2D::Vec2D(float x, float y)
+      //: x(x)
+      //, y(y)
+   //{}
 
 
 
-    Vec2D::Vec2D(const std::pair<float, float>& p)
-        : x(p.first)
-        , y(p.second)
-    {}
+   // NOTE: This constructor is now constexpr
+   //Vec2D::Vec2D(const std::pair<float, float>& p)
+       //: x(p.first)
+       //, y(p.second)
+   //{}
 
 
 
