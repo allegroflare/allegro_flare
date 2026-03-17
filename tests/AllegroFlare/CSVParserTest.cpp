@@ -59,7 +59,7 @@ TEST_F(AllegroFlare_CSVParserTest, parse_row__will_trim_leading_and_ending_white
 TEST_F(AllegroFlare_CSVParserTest,
    parse_row__will_account_for_quoted_tokens_and_escaped_quotes_within_quoted_tokens)
 {
-   GTEST_SKIP() << "This feature needs to be implemented";
+   //GTEST_SKIP() << "This feature needs to be implemented";
    // TODO: Enable quotes within quoted string tokens
    AllegroFlare::CSVParser csv_parser;
    std::string line = "John,Doe,\"123, Main St\",\"This is a \"\"quoted\"\" string\",42";
@@ -342,6 +342,30 @@ TEST_F(AllegroFlare_CSVParserTestWithLoadedFixture, extract_rows_by_keys__will_r
    // Confirm the extracted rows are the expected ones
    EXPECT_EQ("Travel Agency", extracted_rows[0]["Card, Location, Event"]);
    EXPECT_EQ("Become a Member", extracted_rows[112]["Card, Location, Event"]);
+}
+
+
+TEST_F(AllegroFlare_CSVParserTest, parse__with_multiline_fields__will_parse_the_content_correctly)
+{
+   std::string raw_csv_content =
+      "Name,LastName,Address\n"
+      "John,Doe,\"123\nMain St\"\n"
+      "Jane,Dall,\"321\nHappyberry Ave\"\n"
+      ;
+
+   AllegroFlare::CSVParser csv_parser(raw_csv_content);
+   csv_parser.parse();
+   std::vector<std::vector<std::string>> actual_parsed_content = csv_parser.get_parsed_content();
+
+   ASSERT_EQ(3, actual_parsed_content.size());
+
+   std::vector<std::vector<std::string>> expected_parsed_content = {
+      { "Name", "LastName", "Address" },
+      { "John", "Doe", "123\nMain St" },
+      { "Jane", "Dall", "321\nHappyberry Ave" },
+   };
+
+   EXPECT_EQ(expected_parsed_content, actual_parsed_content);
 }
 
 

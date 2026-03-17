@@ -130,29 +130,74 @@ void CSVParser::parse()
       throw std::runtime_error("[AllegroFlare::CSVParser::parse]: error: guard \"(!parsed)\" not met");
    }
    parsed_content.clear();
-   std::stringstream ss;
-   ss.str(raw_csv_content);
-   int line_num = 0;
-   std::string line;
+   ParseState state = ParseState::NORMAL;
+   std::string token;
+   std::vector<std::string> row;
    int num_columns = -1;
-   while (std::getline(ss, line))
+
+   for (int i=0; i<raw_csv_content.size(); i++)
    {
-      std::vector<std::string> parsed_row = parse_row(line);
-      if (num_columns == -1) num_columns = parsed_row.size();
-      if (parsed_row.size() != num_columns)
+      char ch = raw_csv_content[i];
+
+      switch (state)
       {
-         // TODO: Test this throw
+         case ParseState::NORMAL: {
+            if (ch == '"') {
+               state = ParseState::INSIDE_QUOTES;
+            } else if (ch == ',') {
+               row.push_back(AllegroFlare::php::trim(token));
+               token.clear();
+            } else if (ch == '\n') {
+               row.push_back(AllegroFlare::php::trim(token));
+               token.clear();
+               if (num_columns == -1) num_columns = row.size();
+               if (row.size() != num_columns)
+               {
+                  std::stringstream error_message;
+                  error_message << "The number of columns must be the same on all rows. "
+                                << "The first row contained \"" << num_columns << "\", However the row \""
+                                << (parsed_content.size() + 1) << "\" containes \"" << row.size() << "\" columns.";
+                  AllegroFlare::Logger::throw_error("AllegroFlare::CSVParser", error_message.str());
+               }
+               parsed_content.push_back(row);
+               row.clear();
+            } else if (ch == '\r') {
+               // Ignore \r
+            } else {
+               token += ch;
+            }
+         } break;
+
+         case ParseState::INSIDE_QUOTES: {
+            if (ch == '"') {
+               if (i+1 < raw_csv_content.size() && raw_csv_content[i+1] == '"') {
+                  token += '"';
+                  i++;
+               } else {
+                  state = ParseState::NORMAL;
+               }
+            } else {
+               token += ch;
+            }
+         } break;
+      }
+   }
+
+   if (!row.empty() || !token.empty())
+   {
+      row.push_back(AllegroFlare::php::trim(token));
+      if (num_columns == -1) num_columns = row.size();
+      if (row.size() != num_columns)
+      {
          std::stringstream error_message;
-         error_message
-               << "The number of columns must be the same on all rows. "
-               << "The first row contained \"" << num_columns << "\", However the row \""
-               << (line_num+1) << "\" containes \"" << parsed_row.size() << "\" columns.";
+         error_message << "The number of columns must be the same on all rows. "
+                       << "The first row contained \"" << num_columns << "\", However the row \""
+                       << (parsed_content.size() + 1) << "\" containes \"" << row.size() << "\" columns.";
          AllegroFlare::Logger::throw_error("AllegroFlare::CSVParser", error_message.str());
       }
-
-      parsed_content.push_back(parsed_row);
-      line_num++;
+      parsed_content.push_back(row);
    }
+
    parsed = true;
    loaded = true;
    column_headers_assembled = false;
@@ -165,8 +210,9 @@ std::vector<std::string> CSVParser::parse_row(std::string line)
    std::string token;
    std::vector<std::string> tokens;
 
-   for (char ch : line)
+   for (int i=0; i<line.size(); i++)
    {
+      char ch = line[i];
       switch (state)
       {
          case ParseState::NORMAL: {
@@ -184,7 +230,12 @@ std::vector<std::string> CSVParser::parse_row(std::string line)
 
          case ParseState::INSIDE_QUOTES: {
             if (ch == '"') {
-               state = ParseState::NORMAL;
+               if (i+1 < line.size() && line[i+1] == '"') {
+                  token += '"';
+                  i++;
+               } else {
+                  state = ParseState::NORMAL;
+               }
             } else {
                token += ch;
             }
@@ -334,6 +385,62 @@ std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_key(s
    }
 
    return result;
+}
+
+std::map<std::string, std::string> CSVParser::extract_first_row_by_key_or_throw(std::string key, std::string value)
+{
+   if (!(loaded))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::CSVParser::extract_first_row_by_key_or_throw]: error: guard \"loaded\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::CSVParser::extract_first_row_by_key_or_throw]: error: guard \"loaded\" not met");
+   }
+   if (!(column_headers_assembled))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::CSVParser::extract_first_row_by_key_or_throw]: error: guard \"column_headers_assembled\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::CSVParser::extract_first_row_by_key_or_throw]: error: guard \"column_headers_assembled\" not met");
+   }
+   // TODO: Test this
+   AllegroFlare::CSVParser &parser = *this;
+
+   std::vector<std::map<std::string, std::string>> result;
+   int key_column_num = get_column_header_column_num_or_throw(key);
+   std::cout << " Looking for column num " << key_column_num << std::endl;
+   std::vector<std::vector<std::string>> parsed_content = parser.get_parsed_content();
+
+   for (int row_num=num_header_rows; row_num<parsed_content.size(); row_num++)
+   {
+      std::string column_value = parsed_content[row_num][key_column_num];
+      bool row_is_a_match = (parsed_content[row_num][key_column_num] == value);
+
+      if (!row_is_a_match)
+      {
+         continue;
+      }
+      else // Row is a match
+      {
+         std::map<std::string, std::string> this_row_mapped;
+         for (int column_num=0; column_num<parser.num_columns(); column_num++)
+         {
+            for (auto &column_header : column_headers)
+            {
+               // TODO: Confimrm
+               this_row_mapped[column_header.first] = parsed_content[row_num][column_header.second];
+            }
+         }
+         return this_row_mapped;
+         //result.push_back(this_row_mapped);
+      }
+   }
+
+   AllegroFlare::Logger::throw_error(
+      THIS_CLASS_AND_METHOD_NAME,
+      "Could not find row matching { key: \"" + key + "\", value: \"" + value + "\" }"
+   );
+   return {};
 }
 
 std::vector<std::map<std::string, std::string>> CSVParser::extract_rows_by_keys(std::string key1, std::string value1, std::string key2, std::string value2)
