@@ -26,9 +26,11 @@ namespace AllegroFlare
 
    public:
       Sound(ALLEGRO_SAMPLE *sample=nullptr);
+      ~Sound();
       //Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice);
 
       void initialize();
+      void destroy();
 
       Sound &play();
       Sound &stop();

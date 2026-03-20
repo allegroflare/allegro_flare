@@ -6,6 +6,7 @@
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Errors.hpp>
 #include <sstream>
+#include <AllegroFlare/Logger.hpp>
 
 
 
@@ -24,6 +25,19 @@ Sound::Sound(ALLEGRO_SAMPLE *sample)
    , initialized(false)
 {
    //initialize();
+}
+
+
+
+Sound::~Sound()
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::warn_from(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Yikes! This instance is being destructed without having been destroyed."
+      );
+   }
 }
 
 
@@ -93,6 +107,21 @@ void Sound::initialize()
    //al_attach_mixer_to_voice(mixer, voice);
    
    initialized = true;
+}
+
+
+void Sound::destroy()
+{
+   if (!initialized) throw std::runtime_error("Sound::initialize: error: cannot call initialize more than once");
+
+   // Detach the sample instance from the mixer
+   al_detach_sample_instance(sample_instance);
+
+   // Destroy the sample
+   al_destroy_sample_instance(sample_instance);
+   sample_instance = nullptr;
+
+   initialized = false;
 }
 
 

@@ -42,6 +42,31 @@ TEST(AllegroFlare_SoundTest, AUDIBLE__play__will_play_the_sound)
 
    al_rest(2);
 
+   sound.destroy();
+
+   al_destroy_sample(sample);
+   al_uninstall_audio();
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_SoundTest, when_initialized_but_not_destroyed__will_output_a_warning)
+{
+   al_init();
+   al_install_audio();
+   al_init_acodec_addon();
+   al_reserve_samples(32); // used to implicitly create the default mixer and default voice
+
+   ALLEGRO_SAMPLE *sample = al_load_sample("./tests/fixtures/samples/music_tracks/music-01.ogg");
+   ASSERT_NE(nullptr, sample);
+
+   AllegroFlare::Sound *sound = new AllegroFlare::Sound(sample);
+   sound->initialize();
+
+   { // TODO: Find a way to validate the cout - create and destroy explicitly 
+      delete sound;
+   }
+
    al_destroy_sample(sample);
    al_uninstall_audio();
    al_uninstall_system();
