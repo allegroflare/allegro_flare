@@ -319,6 +319,28 @@ void AudioController::play_sound_effect(std::string identifier)
    return;
 }
 
+void AudioController::stop_sound_effect(std::string identifier)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AudioController::stop_sound_effect]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AudioController::stop_sound_effect]: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this
+   Sound *sound = find_sound_effect_sound_object_by_identifier(identifier);
+   AudioRepositoryElement element = find_sound_effect_element_by_identifier(identifier);
+   if (sound)
+   {
+      if (sound->is_playing())
+      {
+         sound->stop();
+      }
+   }
+   return;
+}
+
 void AudioController::play_music_track(std::string identifier)
 {
    if (!(initialized))
