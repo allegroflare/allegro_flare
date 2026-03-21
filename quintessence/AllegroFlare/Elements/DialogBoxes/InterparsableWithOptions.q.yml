@@ -571,14 +571,24 @@ methods:
   - name: reveal_all_characters
     guards: [ al_is_system_installed() ]
     body: |
-      num_revealed_printable_characters = 9999;
-      // TODO: Go through all command-like chunks
-      current_chunk_index = 9999; // TODO: Ensure this is correct and will not cause overflow
-      current_char_index = 9999; // TODO: Ensure this is correct and will not cause overflow
-      page_finished = true;
-      page_finished_at = al_get_time();
-    body_dependency_symbols:
-      - al_get_time
+      static int MAX_LOOPS = 9999;
+      int num_loops = 0;
+
+      while (true)
+      {
+         update_page_playback();
+         if (page_finished) break;
+
+         num_loops++;
+         if (num_loops >= MAX_LOOPS)
+         {
+            AllegroFlare::Logger::throw_error(
+               THIS_CLASS_AND_METHOD_NAME,
+               "Number of loops exceeded max loops."
+            );
+         }
+      }
+      return;
 
 
   - name: xx__all_characters_are_revealed

@@ -245,7 +245,8 @@ TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, next_page__
 }
 
 
-TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest, update__will_increment_the_num_revealed_printable_characters)
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   update__will_increment_the_num_revealed_printable_characters)
 {
    al_init();
    std::vector<std::string> pages = {
@@ -317,6 +318,33 @@ will_work_without_failure)
    {
       dialog_box.update();
    }
+   EXPECT_EQ(3, num_calls);
+   al_uninstall_system();
+}
+
+
+TEST(AllegroFlare_Elements_DialogBoxes_InterparsableWithOptionsTest,
+   reveal_all_characters__when_operational_chunks_are_in_the_text__will_send_callbacks_for_all_the_\
+operational_chunks)
+{
+   // TODO: Expand this test and/or make it more robust and comprehensive
+   int num_calls = 0;
+   al_init();
+   std::vector<std::string> pages = {
+      "This is text that (emphasis)ends(/emphasis) in operational text.(play_chime_sound)",
+   };
+   AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions dialog_box;
+   dialog_box.set_on_operational_chunk_func([](
+         std::string text, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* dialog_box, void* user_data
+      ){
+      (*(int*)user_data)++;
+   });
+   dialog_box.set_on_operational_chunk_func_user_data(&num_calls);
+   dialog_box.set_pages(pages);
+   dialog_box.initialize();
+
+   EXPECT_EQ(0, num_calls);
+   dialog_box.reveal_all_characters();
    EXPECT_EQ(3, num_calls);
    al_uninstall_system();
 }

@@ -559,12 +559,24 @@ void InterparsableWithOptions::reveal_all_characters()
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions::reveal_all_characters]: error: guard \"al_is_system_installed()\" not met");
    }
-   num_revealed_printable_characters = 9999;
-   // TODO: Go through all command-like chunks
-   current_chunk_index = 9999; // TODO: Ensure this is correct and will not cause overflow
-   current_char_index = 9999; // TODO: Ensure this is correct and will not cause overflow
-   page_finished = true;
-   page_finished_at = al_get_time();
+   static int MAX_LOOPS = 9999;
+   int num_loops = 0;
+
+   while (true)
+   {
+      update_page_playback();
+      if (page_finished) break;
+
+      num_loops++;
+      if (num_loops >= MAX_LOOPS)
+      {
+         AllegroFlare::Logger::throw_error(
+            THIS_CLASS_AND_METHOD_NAME,
+            "Number of loops exceeded max loops."
+         );
+      }
+   }
+   return;
 }
 
 bool InterparsableWithOptions::xx__all_characters_are_revealed()
