@@ -4204,6 +4204,18 @@ table td
   <td class="property">void*</td>
 </tr>
 <tr>
+  <td class="property">interparsable_with_options_on_reveal_breakout_list_box</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">interparsable_with_options_on_breakout_list_box_cursor_move</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">interparsable_with_options_on_breakout_list_box_cursor_choose</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt;</td>
+</tr>
+<tr>
   <td class="property">set_dialog_node_bank_while_active_behavior</td>
   <td class="property">AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior</td>
 </tr>
@@ -4428,7 +4440,7 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>spawn_interparsable_with_options_dialog</b>(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={}, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={}, std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)&gt; on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr)</td>
+  <td class="method"><b>spawn_interparsable_with_options_dialog</b>(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={}, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={}, std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)&gt; on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr, std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt; on_reveal_breakout_list_box={}, std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt; on_breakout_list_box_cursor_move={}, std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt; on_breakout_list_box_cursor_choose={})</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -8838,7 +8850,7 @@ table td
 </tr>
 <tr>
   <td class="method">AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*</td>
-  <td class="method"><b>create_interparsable_with_options_dialog</b>(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={}, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={}, std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)&gt; interparsable_on_operational_chunk_func={}, void* interparsable_on_operational_chunk_func_user_data=nullptr)</td>
+  <td class="method"><b>create_interparsable_with_options_dialog</b>(std::string speaking_character=&quot;[unset-speaking_character]&quot;, std::vector&lt;std::string&gt; pages={}, std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; options={}, std::function&lt;void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)&gt; on_operational_chunk_func={}, void* on_operational_chunk_func_user_data=nullptr, std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt; on_reveal_breakout_list_box={}, std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt; on_breakout_list_box_cursor_move={}, std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt; on_breakout_list_box_cursor_choose={})</td>
 </tr>
 <tr>
   <td class="method">AllegroFlare::Elements::DialogBoxes::Intertitle*</td>
@@ -11580,6 +11592,18 @@ table td
 <tr>
   <td class="property">on_operational_chunk_func_user_data</td>
   <td class="property">void*</td>
+</tr>
+<tr>
+  <td class="property">on_reveal_breakout_list_box</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_breakout_list_box_cursor_move</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt;</td>
+</tr>
+<tr>
+  <td class="property">on_breakout_list_box_cursor_choose</td>
+  <td class="property">std::function&lt;void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)&gt;</td>
 </tr>
 <tr>
   <td class="property">num_revealed_printable_characters</td>

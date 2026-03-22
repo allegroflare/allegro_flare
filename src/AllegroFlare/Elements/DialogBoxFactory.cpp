@@ -134,7 +134,7 @@ AllegroFlare::Elements::DialogBoxes::Interparsable* DialogBoxFactory::create_int
    return interparsable_dialog_box;
 }
 
-AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* DialogBoxFactory::create_interparsable_with_options_dialog(std::string speaking_character, std::vector<std::string> pages, std::vector<std::pair<std::string, std::string>> options, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> interparsable_on_operational_chunk_func, void* interparsable_on_operational_chunk_func_user_data)
+AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* DialogBoxFactory::create_interparsable_with_options_dialog(std::string speaking_character, std::vector<std::string> pages, std::vector<std::pair<std::string, std::string>> options, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func, void* on_operational_chunk_func_user_data, std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_reveal_breakout_list_box, std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_move, std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_choose)
 {
    if (!(al_is_system_installed()))
    {
@@ -153,10 +153,11 @@ AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* DialogBoxFactory:
    interparsable_dialog_box->set_pages(pages);
    interparsable_dialog_box->set_options(options);
    interparsable_dialog_box->set_created_at(al_get_time());
-   interparsable_dialog_box->set_on_operational_chunk_func(interparsable_on_operational_chunk_func);
-   interparsable_dialog_box->set_on_operational_chunk_func_user_data(
-         interparsable_on_operational_chunk_func_user_data
-      );
+   interparsable_dialog_box->set_on_operational_chunk_func(on_operational_chunk_func);
+   interparsable_dialog_box->set_on_operational_chunk_func_user_data(on_operational_chunk_func_user_data);
+   interparsable_dialog_box->set_on_reveal_breakout_list_box(on_reveal_breakout_list_box);
+   interparsable_dialog_box->set_on_breakout_list_box_cursor_move(on_breakout_list_box_cursor_move);
+   interparsable_dialog_box->set_on_breakout_list_box_cursor_choose(on_breakout_list_box_cursor_choose);
    interparsable_dialog_box->initialize();
    return interparsable_dialog_box;
 }

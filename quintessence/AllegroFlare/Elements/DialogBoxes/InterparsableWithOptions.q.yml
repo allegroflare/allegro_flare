@@ -60,6 +60,31 @@ properties:
     getter: true
     setter: true
 
+  - name: on_reveal_breakout_list_box
+    type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_breakout_list_box_cursor_move
+    type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: on_breakout_list_box_cursor_choose
+    type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+# TODO: Add this
+#  - name: on_breakout_list_box_cursor_choose_disabled_item
+#    type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+#    init_with: '{}'
+#    getter: true
+#    setter: true
+
   - name: num_revealed_printable_characters
     type: int
     init_with: 9999
@@ -288,6 +313,7 @@ methods:
          breakout_list_box_active = true;
          cursor_active = true; // For now, using this "cursor_active" mechanism.  Might consider using a different
                                // mechanism that sends info to an injected cursor
+         if (on_reveal_breakout_list_box) on_reveal_breakout_list_box(this);
       }
       return;
 
@@ -424,8 +450,11 @@ methods:
 
       if (breakout_list_box_active)
       {
+         // TODO: Advance on a disabled item, though?
          set_finished(true); // TODO: Look into if this is needed here or where it should be placed
-         // TODO: Consider playing a tone
+
+         // Play a tone
+         if (on_breakout_list_box_cursor_choose) on_breakout_list_box_cursor_choose(this);
       }
       else if (!page_finished)
       {
@@ -633,6 +662,7 @@ methods:
       if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
       // TODO: Consider if empty items in breakout_list_box should result in a return false
       breakout_list_box.move_cursor_down();
+      if (on_breakout_list_box_cursor_move) on_breakout_list_box_cursor_move(this);
       return true;
 
 
@@ -645,6 +675,7 @@ methods:
       if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
       // TODO: Consider if empty items in breakout_list_box should result in a return false
       breakout_list_box.move_cursor_up();
+      if (on_breakout_list_box_cursor_move) on_breakout_list_box_cursor_move(this);
       return true;
 
 

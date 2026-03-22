@@ -31,6 +31,9 @@ namespace AllegroFlare
             std::vector<std::pair<bool, std::string>> current_page_chunks;
             std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func;
             void* on_operational_chunk_func_user_data;
+            std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_reveal_breakout_list_box;
+            std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_move;
+            std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_choose;
             int num_revealed_printable_characters;
             int current_chunk_index;
             int current_char_index;
@@ -53,12 +56,18 @@ namespace AllegroFlare
             void set_speaking_character(std::string speaking_character);
             void set_on_operational_chunk_func(std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func);
             void set_on_operational_chunk_func_user_data(void* on_operational_chunk_func_user_data);
+            void set_on_reveal_breakout_list_box(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_reveal_breakout_list_box);
+            void set_on_breakout_list_box_cursor_move(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_move);
+            void set_on_breakout_list_box_cursor_choose(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_choose);
             std::vector<std::string> get_pages() const;
             std::string get_speaking_character() const;
             int get_current_page_num() const;
             std::vector<std::pair<bool, std::string>> get_current_page_chunks() const;
             std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> get_on_operational_chunk_func() const;
             void* get_on_operational_chunk_func_user_data() const;
+            std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> get_on_reveal_breakout_list_box() const;
+            std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> get_on_breakout_list_box_cursor_move() const;
+            std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> get_on_breakout_list_box_cursor_choose() const;
             int get_num_revealed_printable_characters() const;
             int get_current_chunk_index() const;
             int get_current_char_index() const;

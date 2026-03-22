@@ -28,6 +28,9 @@ InterparsableWithOptions::InterparsableWithOptions()
    , current_page_chunks({})
    , on_operational_chunk_func({})
    , on_operational_chunk_func_user_data(nullptr)
+   , on_reveal_breakout_list_box({})
+   , on_breakout_list_box_cursor_move({})
+   , on_breakout_list_box_cursor_choose({})
    , num_revealed_printable_characters(9999)
    , current_chunk_index(0)
    , current_char_index(0)
@@ -60,6 +63,24 @@ void InterparsableWithOptions::set_on_operational_chunk_func(std::function<void(
 void InterparsableWithOptions::set_on_operational_chunk_func_user_data(void* on_operational_chunk_func_user_data)
 {
    this->on_operational_chunk_func_user_data = on_operational_chunk_func_user_data;
+}
+
+
+void InterparsableWithOptions::set_on_reveal_breakout_list_box(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_reveal_breakout_list_box)
+{
+   this->on_reveal_breakout_list_box = on_reveal_breakout_list_box;
+}
+
+
+void InterparsableWithOptions::set_on_breakout_list_box_cursor_move(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_move)
+{
+   this->on_breakout_list_box_cursor_move = on_breakout_list_box_cursor_move;
+}
+
+
+void InterparsableWithOptions::set_on_breakout_list_box_cursor_choose(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_choose)
+{
+   this->on_breakout_list_box_cursor_choose = on_breakout_list_box_cursor_choose;
 }
 
 
@@ -96,6 +117,24 @@ std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::Interparsab
 void* InterparsableWithOptions::get_on_operational_chunk_func_user_data() const
 {
    return on_operational_chunk_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> InterparsableWithOptions::get_on_reveal_breakout_list_box() const
+{
+   return on_reveal_breakout_list_box;
+}
+
+
+std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> InterparsableWithOptions::get_on_breakout_list_box_cursor_move() const
+{
+   return on_breakout_list_box_cursor_move;
+}
+
+
+std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> InterparsableWithOptions::get_on_breakout_list_box_cursor_choose() const
+{
+   return on_breakout_list_box_cursor_choose;
 }
 
 
@@ -289,6 +328,7 @@ void InterparsableWithOptions::reveal_breakout_list_box()
       breakout_list_box_active = true;
       cursor_active = true; // For now, using this "cursor_active" mechanism.  Might consider using a different
                             // mechanism that sends info to an injected cursor
+      if (on_reveal_breakout_list_box) on_reveal_breakout_list_box(this);
    }
    return;
 }
@@ -422,8 +462,11 @@ void InterparsableWithOptions::advance()
 
    if (breakout_list_box_active)
    {
+      // TODO: Advance on a disabled item, though?
       set_finished(true); // TODO: Look into if this is needed here or where it should be placed
-      // TODO: Consider playing a tone
+
+      // Play a tone
+      if (on_breakout_list_box_cursor_choose) on_breakout_list_box_cursor_choose(this);
    }
    else if (!page_finished)
    {
@@ -629,6 +672,7 @@ bool InterparsableWithOptions::move_cursor_position_down()
    if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
    // TODO: Consider if empty items in breakout_list_box should result in a return false
    breakout_list_box.move_cursor_down();
+   if (on_breakout_list_box_cursor_move) on_breakout_list_box_cursor_move(this);
    return true;
 }
 
@@ -644,6 +688,7 @@ bool InterparsableWithOptions::move_cursor_position_up()
    if (!breakout_list_box_active) return false; // TODO: Test this case, does not move when list box is inactive
    // TODO: Consider if empty items in breakout_list_box should result in a return false
    breakout_list_box.move_cursor_up();
+   if (on_breakout_list_box_cursor_move) on_breakout_list_box_cursor_move(this);
    return true;
 }
 

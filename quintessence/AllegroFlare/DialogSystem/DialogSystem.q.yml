@@ -82,6 +82,24 @@ properties:
     getter: true
     setter: true
 
+  - name: interparsable_with_options_on_reveal_breakout_list_box
+    type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: interparsable_with_options_on_breakout_list_box_cursor_move
+    type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
+  - name: interparsable_with_options_on_breakout_list_box_cursor_choose
+    type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+    init_with: '{}'
+    getter: true
+    setter: true
+
   - name: set_dialog_node_bank_while_active_behavior
     type: AllegroFlare::DialogSystem::DialogSystem::SetDialogNodeBankWhileActiveBehavior
     init_with: SetDialogNodeBankWhileActiveBehavior::RESPAWN_IF_PRESENT
@@ -643,7 +661,10 @@ methods:
          node_pages,
          options,
          interparsable_with_options_on_operational_chunk_func,
-         interparsable_with_options_on_operational_chunk_func_user_data
+         interparsable_with_options_on_operational_chunk_func_user_data,
+         interparsable_with_options_on_reveal_breakout_list_box,
+         interparsable_with_options_on_breakout_list_box_cursor_move,
+         interparsable_with_options_on_breakout_list_box_cursor_choose
       );
       return;
 
@@ -1340,6 +1361,15 @@ methods:
       - name: on_operational_chunk_func_user_data
         type: void*
         default_argument: nullptr
+      - name: on_reveal_breakout_list_box
+        type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+        default_argument: '{}'
+      - name: on_breakout_list_box_cursor_move
+        type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+        default_argument: '{}'
+      - name: on_breakout_list_box_cursor_choose
+        type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+        default_argument: '{}'
     body: |
       switch_in_if_not();
 
@@ -1353,7 +1383,10 @@ methods:
          pages,
          options,
          on_operational_chunk_func,
-         on_operational_chunk_func_user_data
+         on_operational_chunk_func_user_data,
+         on_reveal_breakout_list_box,
+         on_breakout_list_box_cursor_move,
+         on_breakout_list_box_cursor_choose
       );
 
       // TODO: Address when and where a switch_in should occur

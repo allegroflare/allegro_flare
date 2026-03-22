@@ -130,12 +130,21 @@ functions:
       - name: options
         type: std::vector<std::pair<std::string, std::string>>
         default_argument: '{}'
-      - name: interparsable_on_operational_chunk_func
+      - name: on_operational_chunk_func
         type: std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)>
         default_argument: '{}'
-      - name: interparsable_on_operational_chunk_func_user_data
+      - name: on_operational_chunk_func_user_data
         type: void*
         default_argument: nullptr
+      - name: on_reveal_breakout_list_box
+        type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+        default_argument: '{}'
+      - name: on_breakout_list_box_cursor_move
+        type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+        default_argument: '{}'
+      - name: on_breakout_list_box_cursor_choose
+        type: std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)>
+        default_argument: '{}'
     guards: [ al_is_system_installed() ]
     body: |
       AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* interparsable_dialog_box =
@@ -148,10 +157,11 @@ functions:
       interparsable_dialog_box->set_pages(pages);
       interparsable_dialog_box->set_options(options);
       interparsable_dialog_box->set_created_at(al_get_time());
-      interparsable_dialog_box->set_on_operational_chunk_func(interparsable_on_operational_chunk_func);
-      interparsable_dialog_box->set_on_operational_chunk_func_user_data(
-            interparsable_on_operational_chunk_func_user_data
-         );
+      interparsable_dialog_box->set_on_operational_chunk_func(on_operational_chunk_func);
+      interparsable_dialog_box->set_on_operational_chunk_func_user_data(on_operational_chunk_func_user_data);
+      interparsable_dialog_box->set_on_reveal_breakout_list_box(on_reveal_breakout_list_box);
+      interparsable_dialog_box->set_on_breakout_list_box_cursor_move(on_breakout_list_box_cursor_move);
+      interparsable_dialog_box->set_on_breakout_list_box_cursor_choose(on_breakout_list_box_cursor_choose);
       interparsable_dialog_box->initialize();
       return interparsable_dialog_box;
     body_dependency_symbols:

@@ -53,6 +53,9 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , interparsable_with_options_on_operational_chunk_func_user_data(nullptr)
    , on_before_activating_dialog_node_by_name_callback_func({})
    , on_before_activating_dialog_node_by_name_callback_func_user_data(nullptr)
+   , interparsable_with_options_on_reveal_breakout_list_box({})
+   , interparsable_with_options_on_breakout_list_box_cursor_move({})
+   , interparsable_with_options_on_breakout_list_box_cursor_choose({})
    , set_dialog_node_bank_while_active_behavior(SetDialogNodeBankWhileActiveBehavior::RESPAWN_IF_PRESENT)
    , driver(nullptr)
    , switched_in(false)
@@ -109,6 +112,24 @@ void DialogSystem::set_on_before_activating_dialog_node_by_name_callback_func(st
 void DialogSystem::set_on_before_activating_dialog_node_by_name_callback_func_user_data(void* on_before_activating_dialog_node_by_name_callback_func_user_data)
 {
    this->on_before_activating_dialog_node_by_name_callback_func_user_data = on_before_activating_dialog_node_by_name_callback_func_user_data;
+}
+
+
+void DialogSystem::set_interparsable_with_options_on_reveal_breakout_list_box(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> interparsable_with_options_on_reveal_breakout_list_box)
+{
+   this->interparsable_with_options_on_reveal_breakout_list_box = interparsable_with_options_on_reveal_breakout_list_box;
+}
+
+
+void DialogSystem::set_interparsable_with_options_on_breakout_list_box_cursor_move(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> interparsable_with_options_on_breakout_list_box_cursor_move)
+{
+   this->interparsable_with_options_on_breakout_list_box_cursor_move = interparsable_with_options_on_breakout_list_box_cursor_move;
+}
+
+
+void DialogSystem::set_interparsable_with_options_on_breakout_list_box_cursor_choose(std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> interparsable_with_options_on_breakout_list_box_cursor_choose)
+{
+   this->interparsable_with_options_on_breakout_list_box_cursor_choose = interparsable_with_options_on_breakout_list_box_cursor_choose;
 }
 
 
@@ -241,6 +262,24 @@ std::function<void(AllegroFlare::DialogSystem::DialogSystem*, std::string, Alleg
 void* DialogSystem::get_on_before_activating_dialog_node_by_name_callback_func_user_data() const
 {
    return on_before_activating_dialog_node_by_name_callback_func_user_data;
+}
+
+
+std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> DialogSystem::get_interparsable_with_options_on_reveal_breakout_list_box() const
+{
+   return interparsable_with_options_on_reveal_breakout_list_box;
+}
+
+
+std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> DialogSystem::get_interparsable_with_options_on_breakout_list_box_cursor_move() const
+{
+   return interparsable_with_options_on_breakout_list_box_cursor_move;
+}
+
+
+std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> DialogSystem::get_interparsable_with_options_on_breakout_list_box_cursor_choose() const
+{
+   return interparsable_with_options_on_breakout_list_box_cursor_choose;
 }
 
 
@@ -774,7 +813,10 @@ void DialogSystem::activate_InterparsableWithOptions_dialog_node(AllegroFlare::D
       node_pages,
       options,
       interparsable_with_options_on_operational_chunk_func,
-      interparsable_with_options_on_operational_chunk_func_user_data
+      interparsable_with_options_on_operational_chunk_func_user_data,
+      interparsable_with_options_on_reveal_breakout_list_box,
+      interparsable_with_options_on_breakout_list_box_cursor_move,
+      interparsable_with_options_on_breakout_list_box_cursor_choose
    );
    return;
 }
@@ -1460,7 +1502,7 @@ void DialogSystem::spawn_interparsable_dialog(std::string speaking_character, st
    return;
 }
 
-void DialogSystem::spawn_interparsable_with_options_dialog(std::string speaking_character, std::vector<std::string> pages, std::vector<std::pair<std::string, std::string>> options, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func, void* on_operational_chunk_func_user_data)
+void DialogSystem::spawn_interparsable_with_options_dialog(std::string speaking_character, std::vector<std::string> pages, std::vector<std::pair<std::string, std::string>> options, std::function<void(std::string, AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*, void*)> on_operational_chunk_func, void* on_operational_chunk_func_user_data, std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_reveal_breakout_list_box, std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_move, std::function<void(AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions*)> on_breakout_list_box_cursor_choose)
 {
    switch_in_if_not();
 
@@ -1474,7 +1516,10 @@ void DialogSystem::spawn_interparsable_with_options_dialog(std::string speaking_
       pages,
       options,
       on_operational_chunk_func,
-      on_operational_chunk_func_user_data
+      on_operational_chunk_func_user_data,
+      on_reveal_breakout_list_box,
+      on_breakout_list_box_cursor_move,
+      on_breakout_list_box_cursor_choose
    );
 
    // TODO: Address when and where a switch_in should occur
