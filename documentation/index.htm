@@ -3108,6 +3108,10 @@ table td
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
+  <td class="method">AllegroFlare::DeploymentEnvironment</td>
+  <td class="method"><b>build_test_environment</b>()</td>
+</tr>
+<tr>
   <td class="method">void</td>
   <td class="method"><b>set_environment</b>(std::string environment=ENVIRONMENT_UNDEF)</td>
 </tr>
@@ -3170,6 +3174,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;std::filesystem&quot;, &quot;headers&quot;=&gt;[&quot;filesystem&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::DeploymentEnvironment&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/DeploymentEnvironment.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55257,6 +55264,11 @@ table td
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
   ],
+  "AllegroFlare/DeploymentEnvironment": [
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/DesignSystems/DesignPillar": [
     "AllegroFlare/DesignSystems/DesignFocus",
     "AllegroFlare/DesignSystems/DesignPillar",
@@ -58645,10 +58657,6 @@ table td
   "AllegroFlare/Profiler": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/TileMaps/TileMesh"
-  ],
-  "AllegroFlare/DeploymentEnvironment": [
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/Testing/TestNameInference": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",

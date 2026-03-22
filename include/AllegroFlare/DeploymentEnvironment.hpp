@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/DeploymentEnvironment.hpp>
 #include <string>
 
 
@@ -30,6 +31,7 @@ namespace AllegroFlare
       std::string get_environment() const;
       std::string get_current_working_directory_before_setup() const;
       bool get_working_directory_has_been_setup() const;
+      static AllegroFlare::DeploymentEnvironment build_test_environment();
       void set_environment(std::string environment=ENVIRONMENT_UNDEF);
       bool is_undefined() const;
       bool is_production() const;

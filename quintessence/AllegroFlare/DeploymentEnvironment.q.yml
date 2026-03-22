@@ -52,6 +52,14 @@ properties:
 methods:
 
 
+  - name: build_test_environment
+    static: true
+    type: AllegroFlare::DeploymentEnvironment
+    body: |
+      // TODO: Test this
+      return AllegroFlare::DeploymentEnvironment(ENVIRONMENT_TEST);
+
+
   - name: set_environment
     parameters:
       - name: environment
@@ -252,5 +260,7 @@ dependencies:
     headers: [ allegro5/allegro.h ]
   - symbol: std::filesystem
     headers: [ filesystem ]
+  - symbol: AllegroFlare::DeploymentEnvironment
+    headers: [ AllegroFlare/DeploymentEnvironment.hpp ]
 
 

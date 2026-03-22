@@ -47,7 +47,7 @@ functions:
       col.b = (c2.b - c1.b) * scale + c1.b;
       col.a = (c2.a - c1.a) * scale + c1.a;
       return col;
-   
+
 
 dependencies:
 

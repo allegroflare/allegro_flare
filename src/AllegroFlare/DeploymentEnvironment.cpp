@@ -46,6 +46,12 @@ bool DeploymentEnvironment::get_working_directory_has_been_setup() const
 }
 
 
+AllegroFlare::DeploymentEnvironment DeploymentEnvironment::build_test_environment()
+{
+   // TODO: Test this
+   return AllegroFlare::DeploymentEnvironment(ENVIRONMENT_TEST);
+}
+
 void DeploymentEnvironment::set_environment(std::string environment)
 {
    if (!(_is_valid(environment)))

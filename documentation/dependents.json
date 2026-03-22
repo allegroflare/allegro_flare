@@ -1285,6 +1285,11 @@
   "ALLEGRO_PATH": [
     "AllegroFlare/DeploymentEnvironment"
   ],
+  "AllegroFlare/DeploymentEnvironment": [
+    "AllegroFlare/DeploymentEnvironment",
+    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
+    "AllegroFlare/Testing/WithAllegroRenderingFixture"
+  ],
   "AllegroFlare/DesignSystems/DesignPillar": [
     "AllegroFlare/DesignSystems/DesignFocus",
     "AllegroFlare/DesignSystems/DesignPillar",
@@ -4673,10 +4678,6 @@
   "AllegroFlare/Profiler": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
     "AllegroFlare/TileMaps/TileMesh"
-  ],
-  "AllegroFlare/DeploymentEnvironment": [
-    "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
-    "AllegroFlare/Testing/WithAllegroRenderingFixture"
   ],
   "AllegroFlare/Testing/TestNameInference": [
     "AllegroFlare/Testing/WithAllegroFlareFrameworksFullFixture",
