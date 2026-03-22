@@ -78,9 +78,7 @@ TitledMenuScreen::TitledMenuScreen(std::string data_folder_path, std::size_t sur
    , menu_item_vertical_spacing_font_line_height_multiplier(1.75f)
    , menu_item_vertical_spacing_integerize_positions(true)
    , cursor_position(0)
-   , menu_move_sound_effect_identifier("menu_move")
    , menu_move_sound_effect_enabled(true)
-   , menu_choose_option_sound_effect_identifier("menu_select")
    , menu_choose_option_sound_effect_enabled(true)
    , menu_option_chosen_to_activation_delay(1.0)
    , reveal_duration(1.0)
@@ -405,21 +403,9 @@ void TitledMenuScreen::set_menu_item_vertical_spacing_integerize_positions(bool 
 }
 
 
-void TitledMenuScreen::set_menu_move_sound_effect_identifier(std::string menu_move_sound_effect_identifier)
-{
-   this->menu_move_sound_effect_identifier = menu_move_sound_effect_identifier;
-}
-
-
 void TitledMenuScreen::set_menu_move_sound_effect_enabled(bool menu_move_sound_effect_enabled)
 {
    this->menu_move_sound_effect_enabled = menu_move_sound_effect_enabled;
-}
-
-
-void TitledMenuScreen::set_menu_choose_option_sound_effect_identifier(std::string menu_choose_option_sound_effect_identifier)
-{
-   this->menu_choose_option_sound_effect_identifier = menu_choose_option_sound_effect_identifier;
 }
 
 
@@ -735,21 +721,9 @@ int TitledMenuScreen::get_cursor_position() const
 }
 
 
-std::string TitledMenuScreen::get_menu_move_sound_effect_identifier() const
-{
-   return menu_move_sound_effect_identifier;
-}
-
-
 bool TitledMenuScreen::get_menu_move_sound_effect_enabled() const
 {
    return menu_move_sound_effect_enabled;
-}
-
-
-std::string TitledMenuScreen::get_menu_choose_option_sound_effect_identifier() const
-{
-   return menu_choose_option_sound_effect_identifier;
 }
 
 

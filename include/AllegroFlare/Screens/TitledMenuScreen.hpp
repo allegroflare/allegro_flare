@@ -103,9 +103,7 @@ namespace AllegroFlare
          float menu_item_vertical_spacing_font_line_height_multiplier;
          bool menu_item_vertical_spacing_integerize_positions;
          int cursor_position;
-         std::string menu_move_sound_effect_identifier;
          bool menu_move_sound_effect_enabled;
-         std::string menu_choose_option_sound_effect_identifier;
          bool menu_choose_option_sound_effect_enabled;
          double menu_option_chosen_to_activation_delay;
          double reveal_duration;
@@ -191,9 +189,7 @@ namespace AllegroFlare
          void set_menu_item_vertical_spacing_distance(float menu_item_vertical_spacing_distance);
          void set_menu_item_vertical_spacing_font_line_height_multiplier(float menu_item_vertical_spacing_font_line_height_multiplier);
          void set_menu_item_vertical_spacing_integerize_positions(bool menu_item_vertical_spacing_integerize_positions);
-         void set_menu_move_sound_effect_identifier(std::string menu_move_sound_effect_identifier);
          void set_menu_move_sound_effect_enabled(bool menu_move_sound_effect_enabled);
-         void set_menu_choose_option_sound_effect_identifier(std::string menu_choose_option_sound_effect_identifier);
          void set_menu_choose_option_sound_effect_enabled(bool menu_choose_option_sound_effect_enabled);
          void set_menu_option_chosen_to_activation_delay(double menu_option_chosen_to_activation_delay);
          void set_upcase_menu_items(bool upcase_menu_items);
@@ -246,9 +242,7 @@ namespace AllegroFlare
          float get_menu_item_vertical_spacing_font_line_height_multiplier() const;
          bool get_menu_item_vertical_spacing_integerize_positions() const;
          int get_cursor_position() const;
-         std::string get_menu_move_sound_effect_identifier() const;
          bool get_menu_move_sound_effect_enabled() const;
-         std::string get_menu_choose_option_sound_effect_identifier() const;
          bool get_menu_choose_option_sound_effect_enabled() const;
          double get_menu_option_chosen_to_activation_delay() const;
          double get_reveal_duration() const;
