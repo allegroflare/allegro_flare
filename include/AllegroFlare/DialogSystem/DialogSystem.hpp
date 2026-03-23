@@ -16,6 +16,7 @@
 #include <AllegroFlare/DialogTree/Nodes/RawScriptLine.hpp>
 #include <AllegroFlare/DialogTree/Nodes/Wait.hpp>
 #include <AllegroFlare/DialogTree/Nodes/YouGotAnItemDialog.hpp>
+#include <AllegroFlare/Elements/DialogBoxRenderer.hpp>
 #include <AllegroFlare/Elements/DialogBoxStyles.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Base.hpp>
 #include <AllegroFlare/Elements/DialogBoxes/Interparsable.hpp>
@@ -48,6 +49,7 @@ namespace AllegroFlare
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR = ALLEGRO_COLOR{0, 0, 0, 0.7};
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
+         static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_TEXT_EMPHASIS_COLOR = AllegroFlare::Elements::DialogBoxRenderer::DEFAULT_STANDARD_DIALOG_BOX_TEXT_EMPHASIS_COLOR;
          static constexpr ALLEGRO_COLOR DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
 
       private:
@@ -86,6 +88,7 @@ namespace AllegroFlare
          float standard_dialog_box_height;
          ALLEGRO_COLOR standard_dialog_box_frame_color;
          ALLEGRO_COLOR standard_dialog_box_text_color;
+         ALLEGRO_COLOR standard_dialog_box_text_emphasis_color;
          ALLEGRO_COLOR standard_dialog_box_background_color;
          ALLEGRO_COLOR standard_dialog_box_label_color;
          bool initialized;
@@ -116,6 +119,7 @@ namespace AllegroFlare
          void set_standard_dialog_box_height(float standard_dialog_box_height);
          void set_standard_dialog_box_frame_color(ALLEGRO_COLOR standard_dialog_box_frame_color);
          void set_standard_dialog_box_text_color(ALLEGRO_COLOR standard_dialog_box_text_color);
+         void set_standard_dialog_box_text_emphasis_color(ALLEGRO_COLOR standard_dialog_box_text_emphasis_color);
          void set_standard_dialog_box_background_color(ALLEGRO_COLOR standard_dialog_box_background_color);
          void set_standard_dialog_box_label_color(ALLEGRO_COLOR standard_dialog_box_label_color);
          AllegroFlare::EventEmitter* get_event_emitter() const;
@@ -143,6 +147,7 @@ namespace AllegroFlare
          float get_standard_dialog_box_height() const;
          ALLEGRO_COLOR get_standard_dialog_box_frame_color() const;
          ALLEGRO_COLOR get_standard_dialog_box_text_color() const;
+         ALLEGRO_COLOR get_standard_dialog_box_text_emphasis_color() const;
          ALLEGRO_COLOR get_standard_dialog_box_background_color() const;
          ALLEGRO_COLOR get_standard_dialog_box_label_color() const;
          bool get_initialized() const;

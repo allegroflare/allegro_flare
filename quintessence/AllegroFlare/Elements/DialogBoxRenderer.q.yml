@@ -71,6 +71,12 @@ properties:
     getter: true
     setter: true
 
+  - name: standard_dialog_box_text_emphasis_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR
+    getter: true
+    setter: true
+
   - name: standard_dialog_box_background_color
     type: ALLEGRO_COLOR
     init_with: DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR
@@ -130,7 +136,7 @@ properties:
     constexpr: true
     const: true
     static: true
-    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    init_with: AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::DEFAULT_TEXT_COLOR
 
   - name: DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR
     type: ALLEGRO_COLOR
@@ -139,6 +145,12 @@ properties:
     static: true
     init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
 
+  - name: DEFAULT_STANDARD_DIALOG_BOX_TEXT_EMPHASIS_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer::DEFAULT_TEXT_EMPHASIS_COLOR
 
 
 methods:
@@ -149,7 +161,9 @@ methods:
       - name: _ignore
         type: int
         default_argument: AllegroFlare::Elements::DialogBoxStyles::DEFAULT_FONT_SIZE
-        default_argument_dependency_symbols: [ 'AllegroFlare::Elements::DialogBoxStyles' ]
+        default_argument_dependency_symbols:
+          - AllegroFlare::Elements::DialogBoxStyles
+          - AllegroFlare::Elements::DialogBoxRenderers::InterparsableWithOptionsRenderer
     body: |
       return;
     body_dependency_symbols:
@@ -239,6 +253,7 @@ methods:
          dialog_box_renderer.set_height(standard_dialog_box_height);
          dialog_box_renderer.set_border_color(standard_dialog_box_frame_color);
          dialog_box_renderer.set_text_color(standard_dialog_box_text_color);
+         dialog_box_renderer.set_text_emphasis_color(standard_dialog_box_text_emphasis_color);
          dialog_box_renderer.set_background_color(standard_dialog_box_background_color);
          dialog_box_renderer.set_label_color(standard_dialog_box_label_color);
          //dialog_box_renderer.set_num_revealed_characters(as->get_num_revealed_printable_characters());

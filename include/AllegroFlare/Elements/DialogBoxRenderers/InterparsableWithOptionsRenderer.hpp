@@ -5,6 +5,7 @@
 #include <AllegroFlare/Elements/ListBoxRenderer.hpp>
 #include <AllegroFlare/Elements/SelectionCursorBox.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/TextFormatters/Basic.hpp>
 #include <allegro5/allegro.h>
 #include <string>
 #include <tuple>
@@ -24,8 +25,9 @@ namespace AllegroFlare
             static constexpr int DEFAULT_FONT_SIZE = -36;
             static constexpr ALLEGRO_COLOR DEFAULT_BORDER_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
             static constexpr ALLEGRO_COLOR DEFAULT_BACKGROUND_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
-            static constexpr ALLEGRO_COLOR DEFAULT_TEXT_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
+            static constexpr ALLEGRO_COLOR DEFAULT_TEXT_COLOR = AllegroFlare::TextFormatters::Basic::DEFAULT_TEXT_COLOR;
             static constexpr ALLEGRO_COLOR DEFAULT_LABEL_COLOR = ALLEGRO_COLOR{0, 0, 0, 1};
+            static constexpr ALLEGRO_COLOR DEFAULT_TEXT_EMPHASIS_COLOR = AllegroFlare::TextFormatters::Basic::DEFAULT_TEXT_EMPHASIS_COLOR;
 
          private:
             AllegroFlare::FontBin* font_bin;
@@ -39,6 +41,7 @@ namespace AllegroFlare
             ALLEGRO_COLOR text_color;
             ALLEGRO_COLOR background_color;
             ALLEGRO_COLOR label_color;
+            ALLEGRO_COLOR text_emphasis_color;
             float text_padding_x;
             float text_padding_y;
             int num_revealed_characters;
@@ -78,6 +81,7 @@ namespace AllegroFlare
             void set_text_color(ALLEGRO_COLOR text_color);
             void set_background_color(ALLEGRO_COLOR background_color);
             void set_label_color(ALLEGRO_COLOR label_color);
+            void set_text_emphasis_color(ALLEGRO_COLOR text_emphasis_color);
             void set_text_padding_x(float text_padding_x);
             void set_text_padding_y(float text_padding_y);
             void set_num_revealed_characters(int num_revealed_characters);
@@ -100,6 +104,7 @@ namespace AllegroFlare
             ALLEGRO_COLOR get_text_color() const;
             ALLEGRO_COLOR get_background_color() const;
             ALLEGRO_COLOR get_label_color() const;
+            ALLEGRO_COLOR get_text_emphasis_color() const;
             float get_text_padding_x() const;
             float get_text_padding_y() const;
             int get_num_revealed_characters() const;
@@ -111,6 +116,7 @@ namespace AllegroFlare
             bool get_showing_speaking_character_name() const;
             std::string get_speaking_character_name() const;
             bool get_hide_name_tag_if_empty() const;
+            void deps(int _ignore=0);
             void draw_rudimentary_triangle(float x=0.0f, float y=0.0f, float w=16.0f, float h=16.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float opacity=1.0f);
             void render();
             static void helper__set_selection_cursor_box_dimensions_to(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::tuple<float, float, float, float> dimensions={});

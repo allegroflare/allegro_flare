@@ -39,6 +39,7 @@ InterparsableWithOptionsRenderer::InterparsableWithOptionsRenderer(AllegroFlare:
    , text_color(DEFAULT_TEXT_COLOR)
    , background_color(DEFAULT_BACKGROUND_COLOR)
    , label_color(DEFAULT_LABEL_COLOR)
+   , text_emphasis_color(DEFAULT_TEXT_EMPHASIS_COLOR)
    , text_padding_x(text_padding_x)
    , text_padding_y(text_padding_y)
    , num_revealed_characters(num_revealed_characters)
@@ -122,6 +123,12 @@ void InterparsableWithOptionsRenderer::set_background_color(ALLEGRO_COLOR backgr
 void InterparsableWithOptionsRenderer::set_label_color(ALLEGRO_COLOR label_color)
 {
    this->label_color = label_color;
+}
+
+
+void InterparsableWithOptionsRenderer::set_text_emphasis_color(ALLEGRO_COLOR text_emphasis_color)
+{
+   this->text_emphasis_color = text_emphasis_color;
 }
 
 
@@ -257,6 +264,12 @@ ALLEGRO_COLOR InterparsableWithOptionsRenderer::get_label_color() const
 }
 
 
+ALLEGRO_COLOR InterparsableWithOptionsRenderer::get_text_emphasis_color() const
+{
+   return text_emphasis_color;
+}
+
+
 float InterparsableWithOptionsRenderer::get_text_padding_x() const
 {
    return text_padding_x;
@@ -323,6 +336,11 @@ bool InterparsableWithOptionsRenderer::get_hide_name_tag_if_empty() const
 }
 
 
+void InterparsableWithOptionsRenderer::deps(int _ignore)
+{
+   return;
+}
+
 void InterparsableWithOptionsRenderer::render_frame(float opacity)
 {
    //float normalized_age = std::max(std::min(1.0f, age), 0.0f);
@@ -367,6 +385,8 @@ void InterparsableWithOptionsRenderer::render_text()
    basic_text_formatter.set_font_name(font_name);
    basic_text_formatter.set_font_size(font_size);
    basic_text_formatter.set_on_operational_chunk_func__default_text_color(text_color); // NOTE: A little sloppy
+   basic_text_formatter.set_on_operational_chunk_func__default_text_emphasis_color(text_emphasis_color);
+
    basic_text_formatter.set_x(text_padding_x);
    basic_text_formatter.set_y(text_padding_y); // TODO: Include a "y_offset_nudge"
    basic_text_formatter.set_line_height_strategy_to_natural_line_height_with_offset(5.0f); // TODO: Consider this as

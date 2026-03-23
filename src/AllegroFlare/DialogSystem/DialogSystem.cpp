@@ -67,6 +67,7 @@ DialogSystem::DialogSystem(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::Fo
    , standard_dialog_box_height(DEFAULT_STANDARD_DIALOG_BOX_HEIGHT)
    , standard_dialog_box_frame_color(DEFAULT_STANDARD_DIALOG_BOX_FRAME_COLOR)
    , standard_dialog_box_text_color(DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR)
+   , standard_dialog_box_text_emphasis_color(DEFAULT_STANDARD_DIALOG_BOX_TEXT_EMPHASIS_COLOR)
    , standard_dialog_box_background_color(DEFAULT_STANDARD_DIALOG_BOX_BACKGROUND_COLOR)
    , standard_dialog_box_label_color(DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR)
    , initialized(false)
@@ -184,6 +185,12 @@ void DialogSystem::set_standard_dialog_box_frame_color(ALLEGRO_COLOR standard_di
 void DialogSystem::set_standard_dialog_box_text_color(ALLEGRO_COLOR standard_dialog_box_text_color)
 {
    this->standard_dialog_box_text_color = standard_dialog_box_text_color;
+}
+
+
+void DialogSystem::set_standard_dialog_box_text_emphasis_color(ALLEGRO_COLOR standard_dialog_box_text_emphasis_color)
+{
+   this->standard_dialog_box_text_emphasis_color = standard_dialog_box_text_emphasis_color;
 }
 
 
@@ -346,6 +353,12 @@ ALLEGRO_COLOR DialogSystem::get_standard_dialog_box_frame_color() const
 ALLEGRO_COLOR DialogSystem::get_standard_dialog_box_text_color() const
 {
    return standard_dialog_box_text_color;
+}
+
+
+ALLEGRO_COLOR DialogSystem::get_standard_dialog_box_text_emphasis_color() const
+{
+   return standard_dialog_box_text_emphasis_color;
 }
 
 
@@ -1789,6 +1802,7 @@ void DialogSystem::render()
       dialog_box_renderer.set_standard_dialog_box_height(standard_dialog_box_height);
       dialog_box_renderer.set_standard_dialog_box_frame_color(standard_dialog_box_frame_color);
       dialog_box_renderer.set_standard_dialog_box_text_color(standard_dialog_box_text_color);
+      dialog_box_renderer.set_standard_dialog_box_text_emphasis_color(standard_dialog_box_text_emphasis_color);
       dialog_box_renderer.set_standard_dialog_box_background_color(standard_dialog_box_background_color);
       dialog_box_renderer.set_standard_dialog_box_label_color(standard_dialog_box_label_color);
       dialog_box_renderer.render();

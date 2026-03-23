@@ -17,10 +17,10 @@ namespace TextFormatters
 {
 
 
-ALLEGRO_COLOR Basic::on_operational_chunk_func__default_text_color = ALLEGRO_COLOR{1, 1, 1, 1};
+ALLEGRO_COLOR Basic::on_operational_chunk_func__default_text_color = DEFAULT_TEXT_COLOR;
 
 
-ALLEGRO_COLOR Basic::on_operational_chunk_func__default_text_emphasis_color = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+ALLEGRO_COLOR Basic::on_operational_chunk_func__default_text_emphasis_color = DEFAULT_TEXT_EMPHASIS_COLOR;
 
 
 std::set<int> Basic::_line_break_indices = {};
@@ -41,7 +41,7 @@ Basic::Basic(AllegroFlare::FontBin* font_bin, std::string text)
    , line_height_strategy(AllegroFlare::TextFormatters::Basic::LineHeightStrategy::FONT_NATURAL_LINE_HEIGHT)
    , line_height_offset(0.0f)
    , line_height_fixed_value(20.0f)
-   , render_state__text_color(ALLEGRO_COLOR{1, 1, 1, 1})
+   , render_state__text_color(DEFAULT_TEXT_COLOR)
 {
 }
 
@@ -229,6 +229,13 @@ void Basic::set_on_operational_chunk_func__default_text_color(ALLEGRO_COLOR on_o
 {
    AllegroFlare::TextFormatters::Basic::on_operational_chunk_func__default_text_color =
       on_operational_chunk_func__default_text_color;
+   return;
+}
+
+void Basic::set_on_operational_chunk_func__default_text_emphasis_color(ALLEGRO_COLOR on_operational_chunk_func__default_text_emphasis_color)
+{
+   AllegroFlare::TextFormatters::Basic::on_operational_chunk_func__default_text_emphasis_color =
+      on_operational_chunk_func__default_text_emphasis_color;
    return;
 }
 

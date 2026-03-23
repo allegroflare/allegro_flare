@@ -88,24 +88,38 @@ properties:
 
   - name: render_state__text_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    init_with: DEFAULT_TEXT_COLOR
     getter: true
     setter: true
 
   - name: on_operational_chunk_func__default_text_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+    init_with: DEFAULT_TEXT_COLOR
     static: true
 
   - name: on_operational_chunk_func__default_text_emphasis_color
     type: ALLEGRO_COLOR
-    init_with: ALLEGRO_COLOR{0.95, 0.57, 0.2, 1}
+    init_with: DEFAULT_TEXT_EMPHASIS_COLOR
     static: true
 
   - name: _line_break_indices
     static: true
     type: std::set<int>
     init_with: '{}'
+
+  - name: DEFAULT_TEXT_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: ALLEGRO_COLOR{1, 1, 1, 1}
+
+  - name: DEFAULT_TEXT_EMPHASIS_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: ALLEGRO_COLOR{0.95, 0.57, 0.2, 1}
 
 
 enums:
@@ -130,13 +144,26 @@ methods:
 
 
   - name: set_on_operational_chunk_func__default_text_color
+    static: true
     parameters:
       - name: on_operational_chunk_func__default_text_color 
         type: ALLEGRO_COLOR
-        default_argument: ALLEGRO_COLOR{1, 1, 1, 1}
+        default_argument: DEFAULT_TEXT_COLOR
     body: |
       AllegroFlare::TextFormatters::Basic::on_operational_chunk_func__default_text_color =
          on_operational_chunk_func__default_text_color;
+      return;
+
+
+  - name: set_on_operational_chunk_func__default_text_emphasis_color
+    static: true
+    parameters:
+      - name: on_operational_chunk_func__default_text_emphasis_color 
+        type: ALLEGRO_COLOR
+        default_argument: DEFAULT_TEXT_EMPHASIS_COLOR
+    body: |
+      AllegroFlare::TextFormatters::Basic::on_operational_chunk_func__default_text_emphasis_color =
+         on_operational_chunk_func__default_text_emphasis_color;
       return;
 
 

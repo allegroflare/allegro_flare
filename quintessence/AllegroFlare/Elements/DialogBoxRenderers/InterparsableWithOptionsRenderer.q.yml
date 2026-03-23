@@ -76,6 +76,12 @@ properties:
     getter: true
     setter: true
 
+  - name: text_emphasis_color
+    type: ALLEGRO_COLOR
+    init_with: DEFAULT_TEXT_EMPHASIS_COLOR
+    getter: true
+    setter: true
+
   - name: text_padding_x
     type: float
     init_with: 52.0f
@@ -185,7 +191,7 @@ properties:
     constexpr: true
     const: true
     static: true
-    init_with: 'ALLEGRO_COLOR{1, 1, 1, 1}'
+    init_with: AllegroFlare::TextFormatters::Basic::DEFAULT_TEXT_COLOR
 
   - name: DEFAULT_LABEL_COLOR
     type: ALLEGRO_COLOR
@@ -194,8 +200,34 @@ properties:
     static: true
     init_with: 'ALLEGRO_COLOR{0, 0, 0, 1}'
 
+  - name: DEFAULT_TEXT_EMPHASIS_COLOR
+    type: ALLEGRO_COLOR
+    constexpr: true
+    const: true
+    static: true
+    init_with: AllegroFlare::TextFormatters::Basic::DEFAULT_TEXT_EMPHASIS_COLOR
+
+
+documentation:
+
+
+  - todos:
+      - Review inclusion of "text_emphasis_color", consider removing it since it's part of a rendering strategy
+        which is not owned by any other part of the system.  Would have to inject in a rendering strategy for the
+        renderer (something like DialogBox::TextRenderStrategy?).
+
 
 methods:
+
+
+  - name: deps
+    parameters:
+      - name: _ignore
+        type: int
+        default_argument: 0
+        default_argument_dependency_symbols: [ 'AllegroFlare::TextFormatters::Basic' ]
+    body: |
+      return;
 
 
   - name: render_frame
@@ -244,6 +276,8 @@ methods:
       basic_text_formatter.set_font_name(font_name);
       basic_text_formatter.set_font_size(font_size);
       basic_text_formatter.set_on_operational_chunk_func__default_text_color(text_color); // NOTE: A little sloppy
+      basic_text_formatter.set_on_operational_chunk_func__default_text_emphasis_color(text_emphasis_color);
+
       basic_text_formatter.set_x(text_padding_x);
       basic_text_formatter.set_y(text_padding_y); // TODO: Include a "y_offset_nudge"
       basic_text_formatter.set_line_height_strategy_to_natural_line_height_with_offset(5.0f); // TODO: Consider this as

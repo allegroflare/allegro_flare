@@ -18,6 +18,10 @@ namespace AllegroFlare
    {
       class Basic
       {
+      public:
+         static constexpr ALLEGRO_COLOR DEFAULT_TEXT_COLOR = ALLEGRO_COLOR{1, 1, 1, 1};
+         static constexpr ALLEGRO_COLOR DEFAULT_TEXT_EMPHASIS_COLOR = ALLEGRO_COLOR{0.95, 0.57, 0.2, 1};
+
       private:
          enum class LineHeightStrategy
          {
@@ -82,7 +86,8 @@ namespace AllegroFlare
          float get_line_height_offset() const;
          float get_line_height_fixed_value() const;
          ALLEGRO_COLOR get_render_state__text_color() const;
-         void set_on_operational_chunk_func__default_text_color(ALLEGRO_COLOR on_operational_chunk_func__default_text_color=ALLEGRO_COLOR{1, 1, 1, 1});
+         static void set_on_operational_chunk_func__default_text_color(ALLEGRO_COLOR on_operational_chunk_func__default_text_color=DEFAULT_TEXT_COLOR);
+         static void set_on_operational_chunk_func__default_text_emphasis_color(ALLEGRO_COLOR on_operational_chunk_func__default_text_emphasis_color=DEFAULT_TEXT_EMPHASIS_COLOR);
          void set_line_height_strategy_to_natural_line_height();
          void set_line_height_strategy_to_natural_line_height_with_offset(float line_height_offset=0.0f);
          void set_line_height_strategy_to_fixed_height(float line_height_fixed_value=20.0f);

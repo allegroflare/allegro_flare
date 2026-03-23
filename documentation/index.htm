@@ -4274,6 +4274,10 @@ table td
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
+  <td class="property">standard_dialog_box_text_emphasis_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">standard_dialog_box_background_color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
@@ -4319,6 +4323,10 @@ table td
 </tr>
 <tr>
   <td class="property">DEFAULT_STANDARD_DIALOG_BOX_TEXT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_TEXT_EMPHASIS_COLOR</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
@@ -9191,6 +9199,10 @@ table td
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
+  <td class="property">standard_dialog_box_text_emphasis_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
   <td class="property">standard_dialog_box_background_color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
@@ -9228,6 +9240,10 @@ table td
 </tr>
 <tr>
   <td class="property">DEFAULT_STANDARD_DIALOG_BOX_LABEL_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_STANDARD_DIALOG_BOX_TEXT_EMPHASIS_COLOR</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
     </table>
@@ -10271,8 +10287,8 @@ table td
 <ul>
   <div class="component">
     <h3 id="quintessence/AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer.q.yml">quintessence/AllegroFlare/Elements/DialogBoxRenderers/InterparsableWithOptionsRenderer.q.yml</h3>
-    <p>(This component does not include supplementary documentation)</p>
-    <h3>Properties</h3>
+    <h3>Overview</h3>
+    <p>{"todos"=>["Review inclusion of \"text_emphasis_color\", consider removing it since it's part of a rendering strategy which is not owned by any other part of the system.  Would have to inject in a rendering strategy for the renderer (something like DialogBox::TextRenderStrategy?)."]}</p>    <h3>Properties</h3>
 <div class="property-box properties">     <table>
 <tr>
   <td class="property">font_bin</td>
@@ -10316,6 +10332,10 @@ table td
 </tr>
 <tr>
   <td class="property">label_color</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">text_emphasis_color</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
 <tr>
@@ -10386,9 +10406,17 @@ table td
   <td class="property">DEFAULT_LABEL_COLOR</td>
   <td class="property">ALLEGRO_COLOR</td>
 </tr>
+<tr>
+  <td class="property">DEFAULT_TEXT_EMPHASIS_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>deps</b>(int _ignore=0)</td>
+</tr>
 <tr>
   <td class="private_method">void</td>
   <td class="private_method"><b>render_frame</b>(float opacity=1.0f)</td>
@@ -47412,12 +47440,24 @@ table td
   <td class="property">_line_break_indices</td>
   <td class="property">std::set&lt;int&gt;</td>
 </tr>
+<tr>
+  <td class="property">DEFAULT_TEXT_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
+<tr>
+  <td class="property">DEFAULT_TEXT_EMPHASIS_COLOR</td>
+  <td class="property">ALLEGRO_COLOR</td>
+</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>set_on_operational_chunk_func__default_text_color</b>(ALLEGRO_COLOR on_operational_chunk_func__default_text_color=ALLEGRO_COLOR{1, 1, 1, 1})</td>
+  <td class="method"><b>set_on_operational_chunk_func__default_text_color</b>(ALLEGRO_COLOR on_operational_chunk_func__default_text_color=DEFAULT_TEXT_COLOR)</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>set_on_operational_chunk_func__default_text_emphasis_color</b>(ALLEGRO_COLOR on_operational_chunk_func__default_text_emphasis_color=DEFAULT_TEXT_EMPHASIS_COLOR)</td>
 </tr>
 <tr>
   <td class="method">void</td>
