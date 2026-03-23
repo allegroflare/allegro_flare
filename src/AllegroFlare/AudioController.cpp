@@ -129,6 +129,8 @@ void AudioController::add_and_load_sound_effect_elements(std::map<std::string, A
       auto &identifier = sound_effect_element_to_add.first;
       auto &element = sound_effect_element_to_add.second;
 
+      bool destroy_and_destruct_existing_sound = false;
+
       // Check if it already exists
       if (sound_effect_element_exists(identifier))
       {
@@ -164,18 +166,30 @@ void AudioController::add_and_load_sound_effect_elements(std::map<std::string, A
                      "\"record_exists_behavior\" argument is set to "
                      "\"RecordExistsBehavior::OVERWRITE_WITH_WARNING\"."
                );
+               destroy_and_destruct_existing_sound = true;
             } break;
 
             case RecordExistsBehavior::OVERWRITE_WITHOUT_WARNING: {
-               // Do nothing
+               destroy_and_destruct_existing_sound = true;
             } break;
          }
       }
 
-      // Otherwise, append it (or overwrite it)
+      // Destroy, destruct, and delete existing Sound
+      // TODO: Test this
+      if (destroy_and_destruct_existing_sound)
+      {
+         this->sound_effects[identifier]->stop();    // Stop the sound if it is playing
+         this->sound_effects[identifier]->destroy(); // Destroy the Sound
+         delete this->sound_effects[identifier];     // Delete the Sound
+         this->sound_effects.erase(identifier);      // Remove the sound element from the list of loaded sounds
+      }
+
+      // Add the element
       this->sound_effect_elements[identifier] = element;
    }
 
+   // Load up the effects
    load_sound_effects();
    return;
 }
@@ -280,9 +294,10 @@ void AudioController::destruct_all_sound_effects()
    for (auto &sound_effect : sound_effects)
    {
       AllegroFlare::Logger::info_from(
-         "AllegroFlare::AudioController::destruct_all_sound_effects",
-         "Destructing sound_effect with identifier \"" + sound_effect.first + "\"."
+         THIS_CLASS_AND_METHOD_NAME,
+         "Destroying and destructing sound_effect with identifier \"" + sound_effect.first + "\"."
       );
+      sound_effect.second->destroy();
       delete sound_effect.second;
    }
    sound_effects.clear(); // TODO: Please review if destruct_all_sound_effects should include clearing
@@ -295,9 +310,10 @@ void AudioController::destruct_all_music_tracks()
    for (auto &music_track : music_tracks)
    {
       AllegroFlare::Logger::info_from(
-         "AllegroFlare::AudioController::destruct_all_music_tracks",
-         "Destructing music_track with identifier \"" + music_track.first + "\"."
+         THIS_CLASS_AND_METHOD_NAME,
+         "Destroying and destructing music_track with identifier \"" + music_track.first + "\"."
       );
+      music_track.second->destroy();
       delete music_track.second;
    }
    music_tracks.clear(); // TODO: Please review if destruct_all_music_tracks should include clearing

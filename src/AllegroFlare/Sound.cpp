@@ -112,7 +112,7 @@ void Sound::initialize()
 
 void Sound::destroy()
 {
-   if (!initialized) throw std::runtime_error("Sound::initialize: error: cannot call initialize more than once");
+   if (!initialized) throw std::runtime_error("Sound::initialize: error: cannot destroy if not initialized.");
 
    // Detach the sample instance from the mixer
    al_detach_sample_instance(sample_instance);
