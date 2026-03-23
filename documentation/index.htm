@@ -1495,14 +1495,6 @@ table td
   <td class="property">initialized</td>
   <td class="property">bool</td>
 </tr>
-<tr>
-  <td class="property">music_tracks_loaded</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
-  <td class="property">sound_effects_loaded</td>
-  <td class="property">bool</td>
-</tr>
     </table>
 </div>    <h3>Methods</h3>
 <div class="property-box methods">     <table>
@@ -1513,6 +1505,10 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>set_and_load_sound_effect_elements</b>(std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt; sound_effect_elements={})</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>add_and_load_sound_effect_elements</b>(std::map&lt;std::string, AllegroFlare::AudioRepositoryElement&gt; sound_effect_elements_to_add={}, AllegroFlare::AudioController::RecordExistsBehavior record_exists_behavior=AllegroFlare::AudioController::RecordExistsBehavior::THROW)</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -1569,6 +1565,14 @@ table td
 <tr>
   <td class="method">void</td>
   <td class="method"><b>play_music_track</b>(std::string identifier=&quot;a-music-track-identifier-that-is-not-set&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">bool</td>
+  <td class="private_method"><b>sound_effect_exists</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
+</tr>
+<tr>
+  <td class="private_method">bool</td>
+  <td class="private_method"><b>music_track_exists</b>(std::string identifier=&quot;[unset-identifier]&quot;)</td>
 </tr>
 <tr>
   <td class="private_method">bool</td>
@@ -1636,6 +1640,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Logger&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Logger.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::AudioController::RecordExistsBehavior&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/AudioController.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -54414,6 +54421,9 @@ table td
     "AllegroFlare/Prototypes/MindDive/Hypersync",
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
+  ],
+  "AllegroFlare/AudioController/RecordExistsBehavior": [
+    "AllegroFlare/AudioController"
   ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AudioProcessing/AudioDataBlock",

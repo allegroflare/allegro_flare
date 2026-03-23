@@ -59,15 +59,19 @@ properties:
     getter: true
     init_with: false
 
-  - name: music_tracks_loaded
-    type: bool
-    getter: true
-    init_with: false
 
-  - name: sound_effects_loaded
-    type: bool
-    getter: true
-    init_with: false
+enums:
+
+
+  - name: RecordExistsBehavior
+    scope: public
+    enumerators:
+      - UNDEF
+      - OVERWRITE_WITHOUT_WARNING
+      - OVERWRITE_WITH_WARNING
+      - SKIP_WITHOUT_WARNING
+      - SKIP_WITH_WARNING
+      - THROW
 
 
 methods:
@@ -116,6 +120,74 @@ methods:
       return;
 
 
+  - name: add_and_load_sound_effect_elements
+    parameters:
+      - name: sound_effect_elements_to_add
+        type: std::map<std::string, AllegroFlare::AudioRepositoryElement>
+        default_argument: '{}'
+      - name: record_exists_behavior
+        type: AllegroFlare::AudioController::RecordExistsBehavior
+        default_argument: AllegroFlare::AudioController::RecordExistsBehavior::THROW
+    guards: [ initialized ]
+    body: |
+      // TODO: Test this whole method and the different arguments
+
+      for (auto &sound_effect_element_to_add : sound_effect_elements_to_add)
+      {
+         auto &identifier = sound_effect_element_to_add.first;
+         auto &element = sound_effect_element_to_add.second;
+
+         // Check if it already exists
+         if (sound_effect_element_exists(identifier))
+         {
+            switch (record_exists_behavior)
+            {
+               case RecordExistsBehavior::THROW: {
+                  AllegroFlare::Logger::throw_error(
+                     THIS_CLASS_AND_METHOD_NAME,
+                     "When loading sound_effect with identifier \"" + identifier + "\", an element with this "
+                        "identifier already exists. This error message is presented because the "
+                        "\"record_exists_behavior\" argument is set to \"RecordExistsBehavior::THROW\"."
+                  );
+               } break;
+ 
+               case RecordExistsBehavior::SKIP_WITHOUT_WARNING: {
+                  continue;
+               } break;
+
+               case RecordExistsBehavior::SKIP_WITH_WARNING: {
+                  AllegroFlare::Logger::throw_error(
+                     THIS_CLASS_AND_METHOD_NAME,
+                     "When loading sound_effect with identifier \"" + identifier + "\", an element with this "
+                        "identifier already exists. This error message is presented because the "
+                        "\"record_exists_behavior\" argument is set to \"RecordExistsBehavior::SKIP_WITH_WARNING\"."
+                  );
+               } break;
+
+               case RecordExistsBehavior::OVERWRITE_WITH_WARNING: {
+                  AllegroFlare::Logger::warn_from(
+                     THIS_CLASS_AND_METHOD_NAME,
+                     "When loading sound_effect with identifier \"" + identifier + "\", an element with this "
+                        "identifier already exists. This error message is presented because the "
+                        "\"record_exists_behavior\" argument is set to "
+                        "\"RecordExistsBehavior::OVERWRITE_WITH_WARNING\"."
+                  );
+               } break;
+
+               case RecordExistsBehavior::OVERWRITE_WITHOUT_WARNING: {
+                  // Do nothing
+               } break;
+            }
+         }
+
+         // Otherwise, append it (or overwrite it)
+         this->sound_effect_elements[identifier] = element;
+      }
+
+      load_sound_effects();
+      return;
+
+
   - name: set_and_load_music_track_elements
     guards: [ initialized ]
     parameters:
@@ -136,6 +208,10 @@ methods:
       for (auto &sound_effect_element : sound_effect_elements)
       {
          std::string identifier = sound_effect_element.first;
+
+         // If a sound effect already exists with this identifier, skip
+         if (sound_effect_exists(identifier)) continue;
+
          std::string filename = sound_effect_element.second.get_filename();
          bool loop = sound_effect_element.second.get_loop();
          float volume = sound_effect_element.second.get_volume();
@@ -166,6 +242,10 @@ methods:
       for (auto &music_track_element : music_track_elements)
       {
          std::string identifier = music_track_element.first;
+
+         // If a music track already exists with this identifier, skip
+         if (music_track_exists(identifier)) continue;
+
          std::string filename = music_track_element.second.get_filename();
          bool loop = music_track_element.second.get_loop();
          float volume = music_track_element.second.get_volume();
@@ -356,6 +436,28 @@ methods:
       return;
 
 
+  - name: sound_effect_exists
+    private: true
+    type: bool
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      return (sound_effects.count(identifier) > 0);
+
+
+  - name: music_track_exists
+    private: true
+    type: bool
+    parameters:
+      - name: identifier
+        type: std::string
+        default_argument: '"[unset-identifier]"'
+    body: |
+      return (music_tracks.count(identifier) > 0);
+
+
   - name: sound_effect_element_exists
     private: true
     type: bool
@@ -511,5 +613,7 @@ dependencies:
     headers: [ AllegroFlare/Sound.hpp ]
   - symbol: AllegroFlare::Logger
     headers: [ AllegroFlare/Logger.hpp ]
+  - symbol: AllegroFlare::AudioController::RecordExistsBehavior
+    headers: [ AllegroFlare/AudioController.hpp ]
 
 

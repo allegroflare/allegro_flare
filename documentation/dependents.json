@@ -436,6 +436,9 @@
     "AllegroFlare/Prototypes/MindDive/MindDive",
     "AllegroFlare/Prototypes/TileDrive/TileDrive"
   ],
+  "AllegroFlare/AudioController/RecordExistsBehavior": [
+    "AllegroFlare/AudioController"
+  ],
   "ALLEGRO_MIXER": [
     "AllegroFlare/AudioProcessing/AudioDataBlock",
     "AllegroFlare/AudioProcessing/AudioMixer",

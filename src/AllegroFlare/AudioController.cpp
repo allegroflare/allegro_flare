@@ -27,8 +27,6 @@ AudioController::AudioController(AllegroFlare::SampleBin* sample_bin, std::map<s
    , global_volume(1.0f)
    , output_loading_debug_to_cout(false)
    , initialized(false)
-   , music_tracks_loaded(false)
-   , sound_effects_loaded(false)
 {
 }
 
@@ -41,18 +39,6 @@ AudioController::~AudioController()
 bool AudioController::get_initialized() const
 {
    return initialized;
-}
-
-
-bool AudioController::get_music_tracks_loaded() const
-{
-   return music_tracks_loaded;
-}
-
-
-bool AudioController::get_sound_effects_loaded() const
-{
-   return sound_effects_loaded;
 }
 
 
@@ -127,6 +113,73 @@ void AudioController::set_and_load_sound_effect_elements(std::map<std::string, A
    return;
 }
 
+void AudioController::add_and_load_sound_effect_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements_to_add, AllegroFlare::AudioController::RecordExistsBehavior record_exists_behavior)
+{
+   if (!(initialized))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::AudioController::add_and_load_sound_effect_elements]: error: guard \"initialized\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::AudioController::add_and_load_sound_effect_elements]: error: guard \"initialized\" not met");
+   }
+   // TODO: Test this whole method and the different arguments
+
+   for (auto &sound_effect_element_to_add : sound_effect_elements_to_add)
+   {
+      auto &identifier = sound_effect_element_to_add.first;
+      auto &element = sound_effect_element_to_add.second;
+
+      // Check if it already exists
+      if (sound_effect_element_exists(identifier))
+      {
+         switch (record_exists_behavior)
+         {
+            case RecordExistsBehavior::THROW: {
+               AllegroFlare::Logger::throw_error(
+                  THIS_CLASS_AND_METHOD_NAME,
+                  "When loading sound_effect with identifier \"" + identifier + "\", an element with this "
+                     "identifier already exists. This error message is presented because the "
+                     "\"record_exists_behavior\" argument is set to \"RecordExistsBehavior::THROW\"."
+               );
+            } break;
+
+            case RecordExistsBehavior::SKIP_WITHOUT_WARNING: {
+               continue;
+            } break;
+
+            case RecordExistsBehavior::SKIP_WITH_WARNING: {
+               AllegroFlare::Logger::throw_error(
+                  THIS_CLASS_AND_METHOD_NAME,
+                  "When loading sound_effect with identifier \"" + identifier + "\", an element with this "
+                     "identifier already exists. This error message is presented because the "
+                     "\"record_exists_behavior\" argument is set to \"RecordExistsBehavior::SKIP_WITH_WARNING\"."
+               );
+            } break;
+
+            case RecordExistsBehavior::OVERWRITE_WITH_WARNING: {
+               AllegroFlare::Logger::warn_from(
+                  THIS_CLASS_AND_METHOD_NAME,
+                  "When loading sound_effect with identifier \"" + identifier + "\", an element with this "
+                     "identifier already exists. This error message is presented because the "
+                     "\"record_exists_behavior\" argument is set to "
+                     "\"RecordExistsBehavior::OVERWRITE_WITH_WARNING\"."
+               );
+            } break;
+
+            case RecordExistsBehavior::OVERWRITE_WITHOUT_WARNING: {
+               // Do nothing
+            } break;
+         }
+      }
+
+      // Otherwise, append it (or overwrite it)
+      this->sound_effect_elements[identifier] = element;
+   }
+
+   load_sound_effects();
+   return;
+}
+
 void AudioController::set_and_load_music_track_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements)
 {
    if (!(initialized))
@@ -148,6 +201,10 @@ void AudioController::load_sound_effects()
    for (auto &sound_effect_element : sound_effect_elements)
    {
       std::string identifier = sound_effect_element.first;
+
+      // If a sound effect already exists with this identifier, skip
+      if (sound_effect_exists(identifier)) continue;
+
       std::string filename = sound_effect_element.second.get_filename();
       bool loop = sound_effect_element.second.get_loop();
       float volume = sound_effect_element.second.get_volume();
@@ -177,6 +234,10 @@ void AudioController::load_music_tracks()
    for (auto &music_track_element : music_track_elements)
    {
       std::string identifier = music_track_element.first;
+
+      // If a music track already exists with this identifier, skip
+      if (music_track_exists(identifier)) continue;
+
       std::string filename = music_track_element.second.get_filename();
       bool loop = music_track_element.second.get_loop();
       float volume = music_track_element.second.get_volume();
@@ -374,6 +435,16 @@ void AudioController::play_music_track(std::string identifier)
       }
    }
    return;
+}
+
+bool AudioController::sound_effect_exists(std::string identifier)
+{
+   return (sound_effects.count(identifier) > 0);
+}
+
+bool AudioController::music_track_exists(std::string identifier)
+{
+   return (music_tracks.count(identifier) > 0);
 }
 
 bool AudioController::sound_effect_element_exists(std::string identifier)

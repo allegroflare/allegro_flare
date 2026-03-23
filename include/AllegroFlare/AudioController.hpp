@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/AudioController.hpp>
 #include <AllegroFlare/AudioRepositoryElement.hpp>
 #include <AllegroFlare/SampleBin.hpp>
 #include <AllegroFlare/Sound.hpp>
@@ -12,6 +13,17 @@ namespace AllegroFlare
 {
    class AudioController
    {
+   public:
+
+      enum RecordExistsBehavior
+      {
+         UNDEF = 0,
+         OVERWRITE_WITHOUT_WARNING,
+         OVERWRITE_WITH_WARNING,
+         SKIP_WITHOUT_WARNING,
+         SKIP_WITH_WARNING,
+         THROW,
+      };
    private:
       AllegroFlare::SampleBin* sample_bin;
       std::string sound_effects_identifier_prefix;
@@ -24,14 +36,14 @@ namespace AllegroFlare
       float global_volume;
       bool output_loading_debug_to_cout;
       bool initialized;
-      bool music_tracks_loaded;
-      bool sound_effects_loaded;
       void load_sound_effects();
       void load_music_tracks();
       void destruct_all();
       void destruct_all_sound_effects();
       void destruct_all_music_tracks();
       void stop_all_sound_effects();
+      bool sound_effect_exists(std::string identifier="[unset-identifier]");
+      bool music_track_exists(std::string identifier="[unset-identifier]");
       bool sound_effect_element_exists(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       AllegroFlare::Sound* find_sound_effect_sound_object_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
       AllegroFlare::AudioRepositoryElement find_sound_effect_element_by_identifier(std::string identifier="a-sound-effect-identifier-that-is-not-set");
@@ -47,10 +59,9 @@ namespace AllegroFlare
       ~AudioController();
 
       bool get_initialized() const;
-      bool get_music_tracks_loaded() const;
-      bool get_sound_effects_loaded() const;
       void initialize();
       void set_and_load_sound_effect_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements={});
+      void add_and_load_sound_effect_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> sound_effect_elements_to_add={}, AllegroFlare::AudioController::RecordExistsBehavior record_exists_behavior=AllegroFlare::AudioController::RecordExistsBehavior::THROW);
       void set_and_load_music_track_elements(std::map<std::string, AllegroFlare::AudioRepositoryElement> music_track_elements={});
       void destruct();
       void stop_all();
