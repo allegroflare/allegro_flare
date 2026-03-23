@@ -146,6 +146,12 @@ properties:
     getter: true
     setter: true
 
+  - name: hide_name_tag_if_empty
+    type: bool
+    init_with: true
+    getter: true
+    setter: true
+
   - name: DEFAULT_FONT_NAME
     type: char*
     constexpr: true
@@ -575,8 +581,10 @@ methods:
       std::string speaking_character_name = choice_dialog_box->get_speaking_character();
       //if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
 
-
       if (!showing_speaking_character_name) return;
+
+      if (hide_name_tag_if_empty && speaking_character_name.empty()) return;
+
        
       int width = 220; // TODO: Make the width vary based on the length of the speaking character
       int height = 46;

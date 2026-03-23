@@ -49,6 +49,7 @@ InterparsableWithOptionsRenderer::InterparsableWithOptionsRenderer(AllegroFlare:
    , age(age)
    , showing_speaking_character_name(showing_speaking_character_name)
    , speaking_character_name(speaking_character_name)
+   , hide_name_tag_if_empty(true)
 {
 }
 
@@ -184,6 +185,12 @@ void InterparsableWithOptionsRenderer::set_speaking_character_name(std::string s
 }
 
 
+void InterparsableWithOptionsRenderer::set_hide_name_tag_if_empty(bool hide_name_tag_if_empty)
+{
+   this->hide_name_tag_if_empty = hide_name_tag_if_empty;
+}
+
+
 AllegroFlare::FontBin* InterparsableWithOptionsRenderer::get_font_bin() const
 {
    return font_bin;
@@ -307,6 +314,12 @@ bool InterparsableWithOptionsRenderer::get_showing_speaking_character_name() con
 std::string InterparsableWithOptionsRenderer::get_speaking_character_name() const
 {
    return speaking_character_name;
+}
+
+
+bool InterparsableWithOptionsRenderer::get_hide_name_tag_if_empty() const
+{
+   return hide_name_tag_if_empty;
 }
 
 
@@ -689,8 +702,10 @@ void InterparsableWithOptionsRenderer::draw_speaking_character_name()
    std::string speaking_character_name = choice_dialog_box->get_speaking_character();
    //if (showing_speaking_character_name && (!speaking_character_name.empty())) // TODO: Test this condition
 
-
    if (!showing_speaking_character_name) return;
+
+   if (hide_name_tag_if_empty && speaking_character_name.empty()) return;
+
     
    int width = 220; // TODO: Make the width vary based on the length of the speaking character
    int height = 46;

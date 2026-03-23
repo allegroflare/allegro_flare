@@ -49,6 +49,7 @@ namespace AllegroFlare
             float age;
             bool showing_speaking_character_name;
             std::string speaking_character_name;
+            bool hide_name_tag_if_empty;
             void render_frame(float opacity=1.0f);
             void render_text();
             void render_speaking_character_name_tag();
@@ -87,6 +88,7 @@ namespace AllegroFlare
             void set_age(float age);
             void set_showing_speaking_character_name(bool showing_speaking_character_name);
             void set_speaking_character_name(std::string speaking_character_name);
+            void set_hide_name_tag_if_empty(bool hide_name_tag_if_empty);
             AllegroFlare::FontBin* get_font_bin() const;
             AllegroFlare::Elements::DialogBoxes::InterparsableWithOptions* get_choice_dialog_box() const;
             AllegroFlare::Elements::SelectionCursorBox* get_selection_cursor_box() const;
@@ -108,6 +110,7 @@ namespace AllegroFlare
             float get_age() const;
             bool get_showing_speaking_character_name() const;
             std::string get_speaking_character_name() const;
+            bool get_hide_name_tag_if_empty() const;
             void draw_rudimentary_triangle(float x=0.0f, float y=0.0f, float w=16.0f, float h=16.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float opacity=1.0f);
             void render();
             static void helper__set_selection_cursor_box_dimensions_to(AllegroFlare::Elements::SelectionCursorBox* selection_cursor_box=nullptr, std::tuple<float, float, float, float> dimensions={});
