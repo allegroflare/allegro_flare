@@ -17,6 +17,30 @@ properties:
 methods:
 
 
+  - name: load
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "This method must be overridden in the derived class."
+      );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
+  - name: unload
+    virtual: true
+    body: |
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "This method must be overridden in the derived class."
+      );
+      return;
+    body_dependency_symbols:
+      - AllegroFlare::Logger
+
+
   - name: is_type
     type: bool
     parameters:
@@ -25,5 +49,12 @@ methods:
         default_argument: '""'
     body: |
       return (possible_type == get_type());
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Logger
+    headers: [ AllegroFlare/Logger.hpp ]
 
 

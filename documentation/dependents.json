@@ -173,6 +173,7 @@
     "AllegroFlare/Layouts/Polygons",
     "AllegroFlare/Layouts/Text",
     "AllegroFlare/Layouts/TileMeshWithText",
+    "AllegroFlare/Levels/Base",
     "AllegroFlare/LoadASavedGame/Screen",
     "AllegroFlare/Logger",
     "AllegroFlare/MultitextureModel3DObjLoader",

@@ -21,9 +21,11 @@ namespace AllegroFlare
 
       public:
          Base(std::string type=AllegroFlare::Levels::Base::TYPE);
-         ~Base();
+         virtual ~Base();
 
          std::string get_type() const;
+         virtual void load();
+         virtual void unload();
          bool is_type(std::string possible_type="");
       };
    }
