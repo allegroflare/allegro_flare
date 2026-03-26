@@ -60,7 +60,11 @@ void Sound::validate_initialized(std::string function_name)
    {
       std::stringstream error_message;
       error_message << "Sound::" << function_name << ": error: you must initialize Sound before calling this function.";
-      throw std::runtime_error(error_message.str());
+      //throw std::runtime_error(error_message.str());
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         error_message.str()
+      );
    }
 }
 
@@ -68,7 +72,13 @@ void Sound::validate_initialized(std::string function_name)
 
 void Sound::initialize()
 {
-   if (initialized) throw std::runtime_error("Sound::initialize: error: cannot call initialize more than once");
+   if (initialized)
+   { // throw std::runtime_error("Sound::initialize: error: cannot call initialize more than once");
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Sound::initialize: error: cannot call initialize more than once"
+      );
+   }
 
    //mixer = al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
    //voice = al_create_voice(41000, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
@@ -77,8 +87,14 @@ void Sound::initialize()
 
    if (!sample)
    {
-      AllegroFlare::Errors::throw_error("AllegroFlare::Sound::initialize",
-                                        "Could not create sample instance because ALLEGRO_SAMPLE is nullptr.");
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         //"Sound::initialize: error: cannot call initialize more than once"
+         "Could not create sample instance because ALLEGRO_SAMPLE is nullptr."
+      );
+      //AllegroFlare::Errors::throw_error(
+         //"AllegroFlare::Sound::initialize",
+                                        //"Could not create sample instance because ALLEGRO_SAMPLE is nullptr.");
       //std::cout << "[AllegroFlare::Sound::Sound] error: could not create sample instance because sample "
                 //<< "is a nullptr." << std::endl;
    }
@@ -112,7 +128,17 @@ void Sound::initialize()
 
 void Sound::destroy()
 {
-   if (!initialized) throw std::runtime_error("Sound::initialize: error: cannot destroy if not initialized.");
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         //"Sound::initialize: error: cannot call initialize more than once"
+         //"Could not create sample instance because ALLEGRO_SAMPLE is nullptr."
+         "Cannot destroy if not initialized"
+      );
+   }
+
+//throw std::runtime_error("Sound::initialize: error: cannot destroy if not initialized.");
 
    // Detach the sample instance from the mixer
    al_detach_sample_instance(sample_instance);
