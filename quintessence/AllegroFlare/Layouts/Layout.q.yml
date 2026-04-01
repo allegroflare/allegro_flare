@@ -3,7 +3,7 @@ parent_classes:
 
   - class: AllegroFlare::InitializedAndDestroyed
     scope: public
-    init_with: ''
+    init_with: '"AllegroFlare::Layouts::Layout"'
 
 
 properties:

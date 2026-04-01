@@ -29,7 +29,7 @@ int Layout::_multiline_text_line_number = 0;
 
 
 Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string tmj_filename, std::string prim_mesh_atlas_filename, AllegroFlare::TileMaps::PrimMeshAtlas prim_mesh_atlas, AllegroFlare::TileMaps::TileMesh tile_mesh, std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots)
-   : AllegroFlare::InitializedAndDestroyed()
+   : AllegroFlare::InitializedAndDestroyed("AllegroFlare::Layouts::Layout")
    , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , tmj_filename(tmj_filename)
