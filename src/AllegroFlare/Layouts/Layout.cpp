@@ -29,7 +29,8 @@ int Layout::_multiline_text_line_number = 0;
 
 
 Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_bin, std::string tmj_filename, std::string prim_mesh_atlas_filename, AllegroFlare::TileMaps::PrimMeshAtlas prim_mesh_atlas, AllegroFlare::TileMaps::TileMesh tile_mesh, std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots)
-   : bitmap_bin(bitmap_bin)
+   : AllegroFlare::InitializedAndDestroyed()
+   , bitmap_bin(bitmap_bin)
    , font_bin(font_bin)
    , tmj_filename(tmj_filename)
    , layout_width(0.0f)
@@ -64,7 +65,6 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , loading_into__origin_x(nullptr)
    , loading_into__origin_y(nullptr)
    , loading_into__opacity(nullptr)
-   , initialized(false)
 {
 }
 
@@ -208,82 +208,74 @@ std::function<void()> Layout::get_after_text_slot_render() const
 }
 
 
-bool Layout::get_initialized() const
-{
-   return initialized;
-}
-
-
 float Layout::get_layout_width()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::get_layout_width]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::get_layout_width]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_layout_width]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_layout_width]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    return layout_width;
 }
 
 float Layout::get_layout_height()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::get_layout_height]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::get_layout_height]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_layout_height]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_layout_height]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    return layout_height;
 }
 
 std::vector<AllegroFlare::Layouts::Layer> Layout::get_layers()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::get_layers]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::get_layers]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_layers]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_layers]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    return layers;
 }
 
 std::size_t Layout::num_layers()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::num_layers]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::num_layers]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::num_layers]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::num_layers]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    return layers.size();
 }
 
-void Layout::initialize()
+void Layout::on_destroy()
 {
-   if (!((!initialized)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::initialize]: error: guard \"(!initialized)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::initialize]: error: guard \"(!initialized)\" not met");
-   }
+   return;
+}
+
+void Layout::on_initialize()
+{
    if (!(bitmap_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::initialize]: error: guard \"bitmap_bin\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::on_initialize]: error: guard \"bitmap_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::initialize]: error: guard \"bitmap_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::on_initialize]: error: guard \"bitmap_bin\" not met");
    }
    if (!(font_bin))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::initialize]: error: guard \"font_bin\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::on_initialize]: error: guard \"font_bin\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::initialize]: error: guard \"font_bin\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::on_initialize]: error: guard \"font_bin\" not met");
    }
    AllegroFlare::Tiled::TMJDataLoader tmj_data_loader(tmj_filename);
    tmj_data_loader.load();
@@ -388,7 +380,7 @@ void Layout::initialize()
    });
 
 
-   initialized = true;
+   //initialized = true;
    return;
 }
 
@@ -829,12 +821,12 @@ void Layout::set_text_data(std::map<std::string, std::string> text_data)
 
 void Layout::set_text_data_require_all(std::map<std::string, std::string> text_data)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_require_all]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_require_all]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_require_all]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_require_all]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    if (!(compare_maps(this->text_data, text_data).first))
    {
@@ -851,12 +843,12 @@ void Layout::set_text_data_require_all(std::map<std::string, std::string> text_d
 
 void Layout::set_text_data_through_layers_require_all(std::map<std::string, std::string> text_data)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_through_layers_require_all]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_through_layers_require_all]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_through_layers_require_all]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_through_layers_require_all]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    //std::set<std::string> found;
 
@@ -904,12 +896,12 @@ void Layout::set_text_data_through_layers_require_all(std::map<std::string, std:
 
 void Layout::set_text_data_require_present(std::map<std::string, std::string> text_data)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_require_present]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_require_present]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_require_present]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_require_present]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    std::pair<bool, std::pair<std::vector<std::string>, std::vector<std::string>>> missing_values =
       compare_maps(
@@ -974,12 +966,12 @@ void Layout::set_first_found_text_slot_color(std::string name, ALLEGRO_COLOR col
 
 void Layout::set_text_data_field(std::string name, std::string value)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_field]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::set_text_data_field]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_field]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::set_text_data_field]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    if (layers.size() >= 1)
    {
@@ -1052,24 +1044,24 @@ void Layout::set_text_data_field(std::string name, std::string value)
 
 bool Layout::text_data_field_exists(std::string name)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::text_data_field_exists]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::text_data_field_exists]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::text_data_field_exists]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::text_data_field_exists]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    return text_data.find(name) != text_data.end();
 }
 
 std::string Layout::get_text_data_field_value(std::string name)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::get_text_data_field_value]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::get_text_data_field_value]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_text_data_field_value]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::get_text_data_field_value]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    if (!(text_data_field_exists(name)))
    {
@@ -1112,12 +1104,12 @@ std::tuple<bool, bool, bool, bool, int> Layout::extract_tmj_tile_flip_properties
 
 AllegroFlare::Layouts::Layer* Layout::find_layer_by_name(std::string name)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::find_layer_by_name]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::find_layer_by_name]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::find_layer_by_name]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::find_layer_by_name]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    // TODO: Test this
    for (auto &layer : layers)
@@ -1129,12 +1121,12 @@ AllegroFlare::Layouts::Layer* Layout::find_layer_by_name(std::string name)
 
 void Layout::render_layer_by_name(std::string name, bool suppress_callbacks)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render_layer_by_name]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::render_layer_by_name]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_layer_by_name]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_layer_by_name]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    AllegroFlare::Layouts::Layer* layer = find_layer_by_name(name);
    if (!layer)
@@ -1150,12 +1142,12 @@ void Layout::render_layer_by_name(std::string name, bool suppress_callbacks)
 
 void Layout::render_layer(AllegroFlare::Layouts::Layer* layer, bool suppress_callbacks)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render_layer]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::render_layer]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_layer]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_layer]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    if (!(layer))
    {
@@ -1187,12 +1179,12 @@ void Layout::render_layer(AllegroFlare::Layouts::Layer* layer, bool suppress_cal
 
 void Layout::render()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::render]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    // Render the global objects and tilelayers
    {
@@ -1242,12 +1234,12 @@ void Layout::render()
 
 void Layout::render_polygons(AllegroFlare::Layouts::Layer* layer)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render_polygons]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::render_polygons]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_polygons]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_polygons]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    // NOTE: Currently there is no draw order option.  Objects are rendered in groups by object types. Feel free
    // to change this so a drawing order can be added.
@@ -1275,12 +1267,12 @@ void Layout::render_polygons(AllegroFlare::Layouts::Layer* layer)
 
 void Layout::render_text_slots(AllegroFlare::Layouts::Layer* layer)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render_text_slots]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::render_text_slots]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_text_slots]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_text_slots]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    auto &text_slots_to_use = layer ? layer->text_slots : text_slots;
    auto &text_data_to_use = layer ? layer->text_data : text_data;
@@ -1353,12 +1345,12 @@ void Layout::render_text_slots(AllegroFlare::Layouts::Layer* layer)
 
 void Layout::render_text_debug()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render_text_debug]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::render_text_debug]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_text_debug]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_text_debug]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    for (auto &text_slot_ : text_slots)
    {
@@ -1385,12 +1377,12 @@ void Layout::render_text_debug()
 
 void Layout::render_debug()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::render_debug]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::render_debug]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_debug]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::render_debug]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    // TODO: Add some debug text render for the tile mesh
    //if (tile_mesh_is_present) tile_mesh.render();
@@ -1633,12 +1625,12 @@ std::string Layout::collect_polygon_names()
 
 ALLEGRO_FONT* Layout::obtain_font(int font_size)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::obtain_font]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::obtain_font]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::obtain_font]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::obtain_font]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    //return font_bin->auto_get("Inter-Medium.ttf -14");
    std::stringstream result;
@@ -1649,12 +1641,12 @@ ALLEGRO_FONT* Layout::obtain_font(int font_size)
 
 ALLEGRO_FONT* Layout::obtain_custom_font(std::string font_family, int font_size)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::Layouts::Layout::obtain_custom_font]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::Layouts::Layout::obtain_custom_font]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::Layouts::Layout::obtain_custom_font]: error: guard \"initialized\" not met");
+      throw std::runtime_error("[AllegroFlare::Layouts::Layout::obtain_custom_font]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    //return font_bin->auto_get("Inter-Medium.ttf -14");
    std::stringstream result;

@@ -1,3 +1,11 @@
+parent_classes:
+
+
+  - class: AllegroFlare::InitializedAndDestroyed
+    scope: public
+    init_with: ''
+
+
 properties:
 
 
@@ -194,11 +202,6 @@ properties:
     init_with: nullptr
     scope: private
 
-  - name: initialized
-    type: bool
-    init_with: false
-    getter: true
-
   - name: DEFAULT_PRIM_MESH_ATLAS_FILENAME
     type: char*
     init_with: '(char*)"ascii_glyphs_12x16-07.png"'
@@ -224,31 +227,39 @@ methods:
 
   - name: get_layout_width
     type: float
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: return layout_width;
 
 
   - name: get_layout_height
     type: float
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: return layout_height;
 
 
   - name: get_layers
     type: std::vector<AllegroFlare::Layouts::Layer>
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: return layers;
 
 
   - name: num_layers
     type: std::size_t
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: return layers.size();
 
 
-  - name: initialize
+  - name: on_destroy
+    virtual: true
+    override: true
+    body: |
+      return;
+
+
+  - name: on_initialize
+    virtual: true
+    override: true
     guards:
-      - (!initialized)
       - bitmap_bin
       - font_bin
     body: |
@@ -355,7 +366,7 @@ methods:
       });
 
    
-      initialized = true;
+      //initialized = true;
       return;
     body_dependency_symbols:
       - AllegroFlare::Tiled::TMJDataLoader
@@ -844,7 +855,7 @@ methods:
         type: std::map<std::string, std::string>
         default_argument: '{}'
     guards:
-      - initialized
+      - is_initialized_and_not_destroyed()
       - compare_maps(this->text_data, text_data).first
     body: |
       // TODO: Consider allowing setting text data before initialize, and having the template also valdate at
@@ -859,7 +870,7 @@ methods:
         type: std::map<std::string, std::string>
         default_argument: '{}'
     guards:
-      - initialized
+      - is_initialized_and_not_destroyed()
     body: |
       //std::set<std::string> found;
 
@@ -910,7 +921,7 @@ methods:
       - name: text_data
         type: std::map<std::string, std::string>
         default_argument: '{}'
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       std::pair<bool, std::pair<std::vector<std::string>, std::vector<std::string>>> missing_values =
          compare_maps(
@@ -993,7 +1004,7 @@ methods:
       - name: value
         type: std::string
         default_argument: '"[unset-value]"'
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       if (layers.size() >= 1)
       {
@@ -1070,7 +1081,7 @@ methods:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       return text_data.find(name) != text_data.end();
 
@@ -1081,7 +1092,9 @@ methods:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
-    guards: [ initialized, text_data_field_exists(name) ]
+    guards:
+      - is_initialized_and_not_destroyed()
+      - text_data_field_exists(name)
     body: |
       return text_data[name];
 
@@ -1140,7 +1153,7 @@ methods:
       - name: name
         type: std::string
         default_argument: '"[unset-name]"'
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       // TODO: Test this
       for (auto &layer : layers)
@@ -1158,7 +1171,7 @@ methods:
       - name: suppress_callbacks
         type: bool
         default_argument: true
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       AllegroFlare::Layouts::Layer* layer = find_layer_by_name(name);
       if (!layer)
@@ -1180,7 +1193,7 @@ methods:
       - name: suppress_callbacks
         type: bool
         default_argument: true
-    guards: [ initialized, layer ]
+    guards: [ is_initialized_and_not_destroyed(), layer ]
     body: |
       // TODO: Test suppress callbacks feature
       // TODO: include "offset"
@@ -1205,7 +1218,7 @@ methods:
 
   - name: render
     type: void
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       // Render the global objects and tilelayers
       {
@@ -1262,7 +1275,7 @@ methods:
       - name: layer
         type: AllegroFlare::Layouts::Layer*
         default_argument: nullptr
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       // NOTE: Currently there is no draw order option.  Objects are rendered in groups by object types. Feel free
       // to change this so a drawing order can be added.
@@ -1293,7 +1306,7 @@ methods:
       - name: layer
         type: AllegroFlare::Layouts::Layer*
         default_argument: nullptr
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       auto &text_slots_to_use = layer ? layer->text_slots : text_slots;
       auto &text_data_to_use = layer ? layer->text_data : text_data;
@@ -1370,7 +1383,7 @@ methods:
 
   - name: render_text_debug
     type: void
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       for (auto &text_slot_ : text_slots)
       {
@@ -1401,7 +1414,7 @@ methods:
 
   - name: render_debug
     type: void
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       // TODO: Add some debug text render for the tile mesh
       //if (tile_mesh_is_present) tile_mesh.render();
@@ -1712,7 +1725,7 @@ methods:
       - name: font_size
         type: int
         default_argument: -18
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       //return font_bin->auto_get("Inter-Medium.ttf -14");
       std::stringstream result;
@@ -1731,7 +1744,7 @@ methods:
       - name: font_size
         type: int
         default_argument: -18
-    guards: [ initialized ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       //return font_bin->auto_get("Inter-Medium.ttf -14");
       std::stringstream result;
@@ -1800,5 +1813,7 @@ dependencies:
     headers: [ AllegroFlare/Layouts/Layer.hpp ]
   - symbol: AllegroFlare::Tiled::TMJGroup
     headers: [ AllegroFlare/Tiled/TMJGroup.hpp ]
+  - symbol: AllegroFlare::InitializedAndDestroyed
+    headers: [ AllegroFlare/InitializedAndDestroyed.hpp ]
 
 

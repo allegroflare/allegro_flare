@@ -23529,10 +23529,6 @@ table td
   <td class="property">float*</td>
 </tr>
 <tr>
-  <td class="property">initialized</td>
-  <td class="property">bool</td>
-</tr>
-<tr>
   <td class="property">DEFAULT_PRIM_MESH_ATLAS_FILENAME</td>
   <td class="property">char*</td>
 </tr>
@@ -23557,7 +23553,11 @@ table td
 </tr>
 <tr>
   <td class="method">void</td>
-  <td class="method"><b>initialize</b>()</td>
+  <td class="method"><b>on_destroy</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>on_initialize</b>()</td>
 </tr>
 <tr>
   <td class="method">void</td>
@@ -23809,6 +23809,9 @@ table td
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Tiled::TMJGroup&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Tiled/TMJGroup.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::InitializedAndDestroyed&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/InitializedAndDestroyed.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -56575,7 +56578,8 @@ table td
     "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
   ],
   "AllegroFlare/InitializedAndDestroyed": [
-    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions"
+    "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions",
+    "AllegroFlare/Layouts/Layout"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogRoll",

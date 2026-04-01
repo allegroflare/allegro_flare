@@ -3,6 +3,7 @@
 
 #include <AllegroFlare/BitmapBin.hpp>
 #include <AllegroFlare/FontBin.hpp>
+#include <AllegroFlare/InitializedAndDestroyed.hpp>
 #include <AllegroFlare/Layouts/Elements/CursorDestination.hpp>
 #include <AllegroFlare/Layouts/Elements/Frame.hpp>
 #include <AllegroFlare/Layouts/Elements/Polygon.hpp>
@@ -29,7 +30,7 @@ namespace AllegroFlare
 {
    namespace Layouts
    {
-      class Layout
+      class Layout : public AllegroFlare::InitializedAndDestroyed
       {
       public:
          static constexpr char* DEFAULT_PRIM_MESH_ATLAS_FILENAME = (char*)"ascii_glyphs_12x16-07.png";
@@ -71,7 +72,6 @@ namespace AllegroFlare
          float* loading_into__origin_x;
          float* loading_into__origin_y;
          float* loading_into__opacity;
-         bool initialized;
          ALLEGRO_FONT* obtain_font(int font_size=-18);
          ALLEGRO_FONT* obtain_custom_font(std::string font_family="[unset-font_family]", int font_size=-18);
 
@@ -80,7 +80,7 @@ namespace AllegroFlare
 
       public:
          Layout(AllegroFlare::BitmapBin* bitmap_bin=nullptr, AllegroFlare::FontBin* font_bin=nullptr, std::string tmj_filename="[unset-tmj_filename]", std::string prim_mesh_atlas_filename=DEFAULT_PRIM_MESH_ATLAS_FILENAME, AllegroFlare::TileMaps::PrimMeshAtlas prim_mesh_atlas={}, AllegroFlare::TileMaps::TileMesh tile_mesh={}, std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots={});
-         ~Layout();
+         virtual ~Layout();
 
          void set_bitmap_bin(AllegroFlare::BitmapBin* bitmap_bin);
          void set_font_bin(AllegroFlare::FontBin* font_bin);
@@ -103,12 +103,12 @@ namespace AllegroFlare
          std::function<void(AllegroFlare::Layouts::Layer*)> get_after_layer_render() const;
          std::function<void(AllegroFlare::Layouts::Layer*, const std::string*, AllegroFlare::Layouts::Elements::Text*, const std::string*)> get_before_text_slot_render() const;
          std::function<void()> get_after_text_slot_render() const;
-         bool get_initialized() const;
          float get_layout_width();
          float get_layout_height();
          std::vector<AllegroFlare::Layouts::Layer> get_layers();
          std::size_t num_layers();
-         void initialize();
+         virtual void on_destroy() override;
+         virtual void on_initialize() override;
          void load_into_object(AllegroFlare::Tiled::TMJObject* object=nullptr);
          void load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_loader_ptr=nullptr);
          float get_effective_width();

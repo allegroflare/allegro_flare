@@ -249,7 +249,7 @@ TEST_F(AllegroFlare_Layouts_LayoutTest, initialize__without_a_bitmap_bin__raises
    al_init_font_addon();
    AllegroFlare::Layouts::Layout layout;
    std::string expected_error_message =
-      "[AllegroFlare::Layouts::Layout::initialize]: error: guard \"bitmap_bin\" not met";
+      "[AllegroFlare::Layouts::Layout::on_initialize]: error: guard \"bitmap_bin\" not met";
    EXPECT_THROW_WITH_MESSAGE(layout.initialize(), std::runtime_error, expected_error_message);
    al_shutdown_font_addon();
    al_shutdown_primitives_addon();
