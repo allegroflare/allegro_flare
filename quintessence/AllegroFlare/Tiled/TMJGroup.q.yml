@@ -21,6 +21,11 @@ properties:
     init_with: 0.0f
     exposed: true
 
+  - name: opacity
+    type: float
+    init_with: 1.0f
+    exposed: true
+
   - name: num_rows
     type: int
     init_with: -1

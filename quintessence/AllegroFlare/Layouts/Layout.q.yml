@@ -189,6 +189,11 @@ properties:
     init_with: nullptr
     scope: private
 
+  - name: loading_into__opacity
+    type: float*
+    init_with: nullptr
+    scope: private
+
   - name: initialized
     type: bool
     init_with: false
@@ -281,6 +286,7 @@ methods:
       loading_into__offset_y = nullptr;
       loading_into__origin_x = nullptr;
       loading_into__origin_y = nullptr;
+      loading_into__opacity = nullptr;
 
 
       // Load the objects (if they are at the top level)
@@ -336,6 +342,7 @@ methods:
          loading_into__offset_y = &layer.offset_y;
          loading_into__origin_x = &layer.origin_x;
          loading_into__origin_y = &layer.origin_y;
+         loading_into__opacity = &layer.opacity;
 
          // Load into the objects
          current_group->for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
@@ -490,10 +497,11 @@ methods:
 
       if (current_group)
       {
-         // TODO: Test that name is loaded
+         // TODO: Test that name is loaded, as well as other properties
          *loading_into__name = current_group->name;
          *loading_into__offset_x = current_group->offset_x;
          *loading_into__offset_y = current_group->offset_y;
+         *loading_into__opacity = current_group->opacity;
       }
 
 

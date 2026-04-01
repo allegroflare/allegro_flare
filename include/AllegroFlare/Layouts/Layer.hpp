@@ -27,6 +27,7 @@ namespace AllegroFlare
          float offset_y;
          float origin_x;
          float origin_y;
+         float opacity;
          bool tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh tile_mesh;
          std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots;

@@ -24,6 +24,7 @@ namespace AllegroFlare
          std::string name;
          float offset_x;
          float offset_y;
+         float opacity;
          int num_rows;
          int num_columns;
          std::map<std::string, std::vector<int>> tilelayers_tile_data;

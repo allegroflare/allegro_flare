@@ -63,6 +63,7 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , loading_into__offset_y(nullptr)
    , loading_into__origin_x(nullptr)
    , loading_into__origin_y(nullptr)
+   , loading_into__opacity(nullptr)
    , initialized(false)
 {
 }
@@ -318,6 +319,7 @@ void Layout::initialize()
    loading_into__offset_y = nullptr;
    loading_into__origin_x = nullptr;
    loading_into__origin_y = nullptr;
+   loading_into__opacity = nullptr;
 
 
    // Load the objects (if they are at the top level)
@@ -373,6 +375,7 @@ void Layout::initialize()
       loading_into__offset_y = &layer.offset_y;
       loading_into__origin_x = &layer.origin_x;
       loading_into__origin_y = &layer.origin_y;
+      loading_into__opacity = &layer.opacity;
 
       // Load into the objects
       current_group->for_each_object([this](AllegroFlare::Tiled::TMJObject* object, void *user_data){
@@ -521,10 +524,11 @@ void Layout::load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_lo
 
    if (current_group)
    {
-      // TODO: Test that name is loaded
+      // TODO: Test that name is loaded, as well as other properties
       *loading_into__name = current_group->name;
       *loading_into__offset_x = current_group->offset_x;
       *loading_into__offset_y = current_group->offset_y;
+      *loading_into__opacity = current_group->opacity;
    }
 
 

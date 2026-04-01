@@ -26,6 +26,11 @@ properties:
     init_with: 0.0f
     exposed: true
 
+  - name: opacity
+    type: float
+    init_with: 1.0f
+    exposed: true
+
   - name: tile_mesh_is_present
     type: bool
     init_with: false
