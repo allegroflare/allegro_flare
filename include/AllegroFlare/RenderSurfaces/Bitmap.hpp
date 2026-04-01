@@ -17,6 +17,7 @@ namespace AllegroFlare
          static constexpr char* TYPE = (char*)"AllegroFlare/RenderSurfaces/Bitmap";
 
       private:
+         ALLEGRO_BITMAP* previous_target;
          ALLEGRO_BITMAP* surface;
          ALLEGRO_COLOR clear_color;
          ALLEGRO_STATE previous_state;
@@ -29,6 +30,7 @@ namespace AllegroFlare
          bool mipmapping;
          bool no_preserve_texture;
          bool initialized;
+         bool destroyed;
          bool config_has_changed;
          void setup_surface();
 
@@ -51,6 +53,7 @@ namespace AllegroFlare
          );
 
          void initialize();
+         void destroy();
          void recreate_surface();
 
          virtual bool set_as_target() override; // TODO: Consider removing this

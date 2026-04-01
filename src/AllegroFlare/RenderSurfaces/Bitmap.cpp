@@ -16,6 +16,7 @@ namespace RenderSurfaces
 
 Bitmap::Bitmap() //int surface_width, int surface_height, int multisamples, int depth)
    : AllegroFlare::RenderSurfaces::Base(AllegroFlare::RenderSurfaces::Bitmap::TYPE)
+   , previous_target(nullptr)
    , surface(nullptr)
    , clear_color(AllegroFlare::Color::Eigengrau)
    , surface_width(1920)
@@ -28,6 +29,7 @@ Bitmap::Bitmap() //int surface_width, int surface_height, int multisamples, int 
    , no_preserve_texture(false)
    //, config_has_changed(false)
    , initialized(false)
+   , destroyed(false)
    , config_has_changed(false)
 {
 }
@@ -35,6 +37,13 @@ Bitmap::Bitmap() //int surface_width, int surface_height, int multisamples, int 
 
 Bitmap::~Bitmap()
 {
+   if (initialized && !destroyed)
+   {
+      AllegroFlare::Logger::warn_from(
+         THIS_CLASS_AND_METHOD_NAME,
+         "This object was created but not destroyed. This will result in dangling pointers and leaky data."
+      );
+   }
 }
 
 
@@ -133,8 +142,30 @@ static void add_or_remove_flag(bool is_true, int flag, int *flags)
 }
 
 
+void Bitmap::destroy()
+{
+   if (!initialized)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Cannot destroy when not initialized.");
+   }
+
+   if (!surface)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Expecting a surface, but it was not present.");
+   }
+
+   al_destroy_bitmap(surface);
+   surface = nullptr;
+   destroyed = true;
+}
+
+
 void Bitmap::initialize()
 {
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(THIS_CLASS_AND_METHOD_NAME, "Cannot call initialize while initialized.");
+   }
    // TODO: add guard for duplicate initialization
    // TODO: eventually remove this flag
    //ignore_dep_error_NOTE_please_faze_out = true;
@@ -246,17 +277,55 @@ bool Bitmap::set_as_target()
 {
    if (!initialized)
    {
+      // TODO: Use proper Logger
       throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: not initialized");
       return false;
    }
    if (config_has_changed)
    {
+      // TODO: Use proper Logger
       throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::set_as_target: error: config has changed");
       return false;
    }
 
+   //int previous_flags = al_get_new_bitmap_flags();
+   //al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
+   //al_store_state(&previous_state, ALLEGRO_STATE_TARGET_BITMAP);
+   if (previous_target)
+   {
+      // TODO: Throw
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Cannot set target, a previous target is already in use, meaning this method has been called more than once "
+            "wihout restoring a previous target."
+      );
+   }
+   previous_target = al_get_target_bitmap();
    al_set_target_bitmap(surface);
+   //al_restore_state(&previous_state);
    return true;
+}
+
+
+void Bitmap::restore_previous_target()
+{
+   if (!initialized)
+   {
+      // TODO: Use proper Logger
+      throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::restore_previous_target: error: not initialized");
+      //return false;
+   }
+   if (config_has_changed)
+   {
+      // TODO: Use proper Logger
+      throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::restore_previous_target: error: config has changed");
+      //return false;
+   }
+
+   //al_set_target_bitmap(surface);
+   //al_restore_state(&previous_state);
+   //al_restore_state(&previous_state);
+   //return true;
 }
 
 
