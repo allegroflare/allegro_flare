@@ -283,7 +283,7 @@ functions:
 
       AllegroFlare::TileMaps::PrimMeshAtlas *created_tile_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
       ALLEGRO_BITMAP *tile_map_bitmap = bitmap_bin->operator[](tile_atlas_bitmap_identifier);
-      created_tile_atlas->set_bitmap_filename(tile_atlas_bitmap_identifier);
+      created_tile_atlas->set_source_bitmap_filename(tile_atlas_bitmap_identifier);
 
       bool scaled_and_extruded = true;
       if (scaled_and_extruded)

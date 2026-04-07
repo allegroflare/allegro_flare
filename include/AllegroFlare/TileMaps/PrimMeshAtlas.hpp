@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <AllegroFlare/InitializedAndDestroyed.hpp>
 #include <AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.hpp>
 #include <allegro5/allegro.h>
 #include <string>
@@ -11,39 +12,38 @@ namespace AllegroFlare
 {
    namespace TileMaps
    {
-      class PrimMeshAtlas
+      class PrimMeshAtlas : public AllegroFlare::InitializedAndDestroyed
       {
       private:
+         ALLEGRO_BITMAP* source_bitmap;
+         std::string source_bitmap_filename;
          ALLEGRO_BITMAP* bitmap;
-         std::string bitmap_filename;
          int tile_width;
          int tile_height;
          int tile_spacing;
          std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> tile_index;
-         bool initialized;
-         bool destroyed;
 
       protected:
 
 
       public:
          PrimMeshAtlas();
-         ~PrimMeshAtlas();
+         virtual ~PrimMeshAtlas();
 
-         void set_bitmap_filename(std::string bitmap_filename);
+         void set_source_bitmap(ALLEGRO_BITMAP* source_bitmap);
+         void set_source_bitmap_filename(std::string source_bitmap_filename);
          void set_tile_width(int tile_width);
          void set_tile_height(int tile_height);
          void set_tile_spacing(int tile_spacing);
-         std::string get_bitmap_filename() const;
+         std::string get_source_bitmap_filename() const;
          int get_tile_width() const;
          int get_tile_height() const;
          int get_tile_spacing() const;
          std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> get_tile_index() const;
-         bool get_initialized() const;
-         bool get_destroyed() const;
          std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &get_tile_index_ref();
          ALLEGRO_BITMAP* get_bitmap();
-         void destroy();
+         virtual void on_destroy() override;
+         virtual void on_initialize() override;
          void duplicate_bitmap_and_load(ALLEGRO_BITMAP* source_bitmap=nullptr, int tile_width=16, int tile_height=16, int tile_spacing=0);
          int get_tile_index_size();
          int get_bitmap_width();

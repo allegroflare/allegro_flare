@@ -12,7 +12,7 @@ TEST(Wicked_LevelLoaderTest, can_be_created_without_blowing_up)
 TEST(Wicked_LevelLoaderTest, to_json__will_serialize_a_tileo_atlas_as_expected)
 {
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-   atlas.set_bitmap_filename("some-atlas-bitmap.png");
+   atlas.set_source_bitmap_filename("some-atlas-bitmap.png");
 
    nlohmann::json j = atlas;
 
@@ -52,7 +52,7 @@ R"({
 TEST(Wicked_LevelLoaderTest, to_json__with_an_atlas_present__will_serialize_a_tileo_mesh_as_expected)
 {
    AllegroFlare::TileMaps::PrimMeshAtlas atlas;
-   atlas.set_bitmap_filename("some-atlas-bitmap.png");
+   atlas.set_source_bitmap_filename("some-atlas-bitmap.png");
    AllegroFlare::TileMaps::PrimMesh mesh(&atlas);
 
    nlohmann::json j = mesh;
@@ -89,7 +89,7 @@ R"({
 
    parsed_json.at("atlas").get_to(atlas);
 
-   EXPECT_EQ("some-atlas-bitmap.png", atlas.get_bitmap_filename());
+   EXPECT_EQ("some-atlas-bitmap.png", atlas.get_bitmap_source_filename());
    EXPECT_EQ(6, atlas.get_tile_width());
    EXPECT_EQ(9, atlas.get_tile_height());
    EXPECT_EQ(2, atlas.get_tile_spacing());

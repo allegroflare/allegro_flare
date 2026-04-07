@@ -294,10 +294,11 @@ bool Bitmap::set_as_target()
    if (previous_target)
    {
       // TODO: Throw
-      AllegroFlare::Logger::throw_error(
+      AllegroFlare::Logger::warn_from_once(
          THIS_CLASS_AND_METHOD_NAME,
-         "Cannot set target, a previous target is already in use, meaning this method has been called more than once "
-            "wihout restoring a previous target."
+         "A previous target is already in use, meaning this method has been called more than once "
+            "wihout restoring a previous target. If this is expected behavior, consider implementing a feature to "
+            "disable this warning."
       );
    }
    previous_target = al_get_target_bitmap();
@@ -321,11 +322,16 @@ void Bitmap::restore_previous_target()
       throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::restore_previous_target: error: config has changed");
       //return false;
    }
+   if (!previous_target)
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Cannot restore target because the current previous_target is nullptr."
+      );
+   }
 
-   //al_set_target_bitmap(surface);
-   //al_restore_state(&previous_state);
-   //al_restore_state(&previous_state);
-   //return true;
+   al_set_target_bitmap(previous_target);
+   previous_target = nullptr;
 }
 
 

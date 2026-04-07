@@ -15,35 +15,34 @@ namespace TileMaps
 
 
 PrimMeshAtlas::PrimMeshAtlas()
-   : bitmap(nullptr)
-   , bitmap_filename("[unset-bitmap_filename]")
+   : AllegroFlare::InitializedAndDestroyed("AllegroFlare::Layouts::Layout")
+   , source_bitmap(nullptr)
+   , source_bitmap_filename("[unset-source_bitmap_filename]")
+   , bitmap(nullptr)
    , tile_width(1)
    , tile_height(1)
    , tile_spacing(0)
    , tile_index()
-   , initialized(false)
-   , destroyed(false)
 {
 }
 
 
 PrimMeshAtlas::~PrimMeshAtlas()
 {
-   if (initialized && !destroyed)
-   {
-      AllegroFlare::Logger::warn_from(
-         "AllegroFlare::TileMaps::PrimMeshAtlas::~destroy",
-         "The class was initialized but not destroyed. This likely means that a dangling pointer was left, "
-            "please review."
-      );
-   }
-   return;
 }
 
 
-void PrimMeshAtlas::set_bitmap_filename(std::string bitmap_filename)
+void PrimMeshAtlas::set_source_bitmap(ALLEGRO_BITMAP* source_bitmap)
 {
-   this->bitmap_filename = bitmap_filename;
+   if (get_initialized()) throw std::runtime_error("[PrimMeshAtlas::set_source_bitmap]: error: guard \"get_initialized()\" not met.");
+   this->source_bitmap = source_bitmap;
+}
+
+
+void PrimMeshAtlas::set_source_bitmap_filename(std::string source_bitmap_filename)
+{
+   if (get_initialized()) throw std::runtime_error("[PrimMeshAtlas::set_source_bitmap_filename]: error: guard \"get_initialized()\" not met.");
+   this->source_bitmap_filename = source_bitmap_filename;
 }
 
 
@@ -68,9 +67,9 @@ void PrimMeshAtlas::set_tile_spacing(int tile_spacing)
 }
 
 
-std::string PrimMeshAtlas::get_bitmap_filename() const
+std::string PrimMeshAtlas::get_source_bitmap_filename() const
 {
-   return bitmap_filename;
+   return source_bitmap_filename;
 }
 
 
@@ -98,18 +97,6 @@ std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> PrimMeshAtlas::get
 }
 
 
-bool PrimMeshAtlas::get_initialized() const
-{
-   return initialized;
-}
-
-
-bool PrimMeshAtlas::get_destroyed() const
-{
-   return destroyed;
-}
-
-
 std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &PrimMeshAtlas::get_tile_index_ref()
 {
    return tile_index;
@@ -118,39 +105,18 @@ std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &PrimMeshAtlas::ge
 
 ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap]: error: guard \"initialized\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    return bitmap;
 }
 
-void PrimMeshAtlas::destroy()
+void PrimMeshAtlas::on_destroy()
 {
-   if (!(initialized))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::destroy]: error: guard \"initialized\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::destroy]: error: guard \"initialized\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::destroy]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::destroy]: error: guard \"(!destroyed)\" not met");
-   }
    // TODO: Review elements are properly destroyed
    // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead
    //AllegroFlare::Logger::warn_from(
@@ -159,29 +125,58 @@ void PrimMeshAtlas::destroy()
          //"destruction mechanism has not yet been properly implemented. Please review."
    //);
 
+   // Destroy all the created sub-bitmaps
    for (unsigned i=0; i<tile_index.size(); i++) al_destroy_bitmap(tile_index[i].get_sub_bitmap());
+
+   // Destroy our internal bitmap
    if (bitmap) al_destroy_bitmap(bitmap);
    bitmap = nullptr;
+
+   // Clear our tile index
    tile_index.clear();
-   destroyed = true;
+
+   return;
+}
+
+void PrimMeshAtlas::on_initialize()
+{
+   bitmap = al_clone_bitmap(source_bitmap);
+
+   int tile_step_x = tile_width + (tile_spacing*2);
+   int tile_step_y = tile_height + (tile_spacing*2);
+
+   int num_columns = al_get_bitmap_width(bitmap) / tile_step_x;
+   int num_rows = al_get_bitmap_height(bitmap) / tile_step_y;
+   tile_index.resize(num_columns * num_rows);
+
+   // TODO: add one empty spot for "0"
+
+   for (unsigned index_num=0; index_num<tile_index.size(); index_num++)
+   {
+      int x1 = (index_num % num_columns) * tile_step_x + tile_spacing;
+      int y1 = (index_num / num_columns) * tile_step_y + tile_spacing;
+      int x2 = x1 + tile_width;
+      int y2 = y1 + tile_height;
+
+      tile_index[index_num].set_index_num(index_num);
+      tile_index[index_num].set_bitmap_source(nullptr);
+      tile_index[index_num].set_sub_bitmap(al_create_sub_bitmap(bitmap, x1, y1, x2-x1, y2-y1));
+      tile_index[index_num].set_u1(x1);
+      tile_index[index_num].set_v1(y1);
+      tile_index[index_num].set_u2(x2);
+      tile_index[index_num].set_v2(y2);
+   }
    return;
 }
 
 void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP* source_bitmap, int tile_width, int tile_height, int tile_spacing)
 {
-   if (!((!initialized)))
+   if (!((!get_initialized())))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!initialized)\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!get_initialized())\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!initialized)\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!get_initialized())\" not met");
    }
    if (!(source_bitmap))
    {
@@ -197,20 +192,20 @@ void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP* source_bitmap, int
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
       throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::duplicate_bitmap_and_load]: error: guard \"(!al_is_sub_bitmap(source_bitmap))\" not met");
    }
-   // TODO: Add test on the guard that this cannot be a sub-bitmap
+   AllegroFlare::Logger::warn_from(
+      THIS_CLASS_AND_METHOD_NAME,
+      "Use of this method for construction is discouraged. Instead, fill the params on this class then use "
+         "the initialize() method."
+   );
 
    this->tile_width = tile_width;
    this->tile_height = tile_height;
    this->tile_spacing = tile_spacing;
+   this->source_bitmap = source_bitmap;
 
-   //if (!source_bitmap)
-   //{
-      //std::cout << "[PrimMeshAtlas::load()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
-   //}
+   initialize();
 
-   // clear the existing contents of this tile atlas (if any)
-   //clear();
-
+   /*
    bitmap = al_clone_bitmap(source_bitmap);
 
    int tile_step_x = tile_width + (tile_spacing*2);
@@ -239,24 +234,18 @@ void PrimMeshAtlas::duplicate_bitmap_and_load(ALLEGRO_BITMAP* source_bitmap, int
    }
 
    initialized = true;
+   */
    return;
 }
 
 int PrimMeshAtlas::get_tile_index_size()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_index_size]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_index_size]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_index_size]: error: guard \"initialized\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_index_size]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_index_size]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_index_size]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    return tile_index.size();
    return 0;
@@ -264,19 +253,12 @@ int PrimMeshAtlas::get_tile_index_size()
 
 int PrimMeshAtlas::get_bitmap_width()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_width]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_width]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_width]: error: guard \"initialized\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_width]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_width]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_width]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    if (!bitmap) return 0; // TODO: Consider throwing here instead
    return al_get_bitmap_width(bitmap);
@@ -284,19 +266,12 @@ int PrimMeshAtlas::get_bitmap_width()
 
 int PrimMeshAtlas::get_bitmap_height()
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_height]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_height]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_height]: error: guard \"initialized\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_height]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_height]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_bitmap_height]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    if (!bitmap) return 0; // TODO: Consider throwing here instead
    return al_get_bitmap_height(bitmap);
@@ -304,19 +279,12 @@ int PrimMeshAtlas::get_bitmap_height()
 
 bool PrimMeshAtlas::get_tile_uv(int index_num, int* u1, int* v1, int* u2, int* v2)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"initialized\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    // TODO: Investigate why there are two "get_tile_uv" methods, with int and float argument variants. Remove the
    // incorrect one if that's the case.
@@ -332,19 +300,12 @@ bool PrimMeshAtlas::get_tile_uv(int index_num, int* u1, int* v1, int* u2, int* v
 
 bool PrimMeshAtlas::get_tile_uv(int index_num, float* u1, float* v1, float* u2, float* v2)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"initialized\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_uv]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    // TODO: Investigate why there are two "get_tile_uv" methods, with int and float argument variants. Remove the
    // incorrect one if that's the case.
@@ -361,19 +322,12 @@ bool PrimMeshAtlas::get_tile_uv(int index_num, float* u1, float* v1, float* u2, 
 
 ALLEGRO_BITMAP* PrimMeshAtlas::get_tile_sub_bitmap(int index_num)
 {
-   if (!(initialized))
+   if (!(is_initialized_and_not_destroyed()))
    {
       std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"initialized\" not met.";
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
       std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"initialized\" not met");
-   }
-   if (!((!destroyed)))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"(!destroyed)\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"(!destroyed)\" not met");
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"is_initialized_and_not_destroyed()\" not met");
    }
    if (index_num < 0 || index_num >= (int)tile_index.size()) return nullptr;
    return tile_index[index_num].get_sub_bitmap();

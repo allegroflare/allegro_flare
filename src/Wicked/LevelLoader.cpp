@@ -97,7 +97,7 @@ namespace AllegroFlare::TileMaps
    void to_json(nlohmann::json& j, const AllegroFlare::TileMaps::PrimMeshAtlas& atlas)
    {
       j = nlohmann::json{
-         { "bitmap_filename", atlas.get_bitmap_filename() },
+         { "bitmap_filename", atlas.get_source_bitmap_filename() },
          { "tile_width", atlas.get_tile_width() },
          { "tile_height", atlas.get_tile_height() },
          { "tile_spacing", atlas.get_tile_spacing() },
@@ -122,7 +122,7 @@ namespace AllegroFlare::TileMaps
       j.at("tile_height").get_to(tile_height);
       j.at("tile_spacing").get_to(tile_spacing);
 
-      atlas.set_bitmap_filename(bitmap_filename);
+      atlas.set_source_bitmap_filename(bitmap_filename);
       atlas.set_tile_width(tile_width);
       atlas.set_tile_height(tile_height);
       atlas.set_tile_spacing(tile_spacing);

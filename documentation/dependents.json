@@ -2521,7 +2521,8 @@
   ],
   "AllegroFlare/InitializedAndDestroyed": [
     "AllegroFlare/Elements/DialogBoxes/InterparsableWithOptions",
-    "AllegroFlare/Layouts/Layout"
+    "AllegroFlare/Layouts/Layout",
+    "AllegroFlare/TileMaps/PrimMeshAtlas"
   ],
   "std/vector<std/pair<std/string, std/string>>": [
     "AllegroFlare/Elements/DialogRoll",

@@ -557,7 +557,7 @@ void Layout::load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_lo
          // TODO: Audit this to be sure the bitmaps are created and destroyed as expected
          std::string tileset_filename = prim_mesh_atlas_filename;
          ALLEGRO_BITMAP *atlas_bitmap = bitmap_bin->auto_get(tileset_filename);
-         prim_mesh_atlas.set_bitmap_filename(tileset_filename);
+         prim_mesh_atlas.set_source_bitmap_filename(tileset_filename);
          // - Scale and extrude the atlas
          int tile_atlas_tile_width = 12;
          int tile_atlas_tile_height = 16;

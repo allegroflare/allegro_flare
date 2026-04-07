@@ -168,7 +168,7 @@ bool TMJMeshLoader::load()
 
    AllegroFlare::TileMaps::PrimMeshAtlas *created_tile_atlas = new AllegroFlare::TileMaps::PrimMeshAtlas;
    ALLEGRO_BITMAP *tile_map_bitmap = bitmap_bin->operator[](BITMAP_ATLAS_FILENAME);
-   created_tile_atlas->set_bitmap_filename(BITMAP_ATLAS_FILENAME);
+   created_tile_atlas->set_source_bitmap_filename(BITMAP_ATLAS_FILENAME);
 
    bool scaled_and_extruded = true;
    if (scaled_and_extruded)

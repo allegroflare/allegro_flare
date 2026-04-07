@@ -1,16 +1,29 @@
+parent_classes:
+
+
+  - class: AllegroFlare::InitializedAndDestroyed
+    scope: public
+    init_with: '"AllegroFlare::Layouts::Layout"'
+
+
 properties:
 
+
+  - name: source_bitmap
+    type: ALLEGRO_BITMAP*
+    init_with: nullptr
+    setter: before_initialized
+
+  - name: source_bitmap_filename
+    type: std::string
+    init_with: '"[unset-source_bitmap_filename]"'
+    setter: before_initialized
+    getter: true
 
   - name: bitmap
     type: ALLEGRO_BITMAP*
     init_with: nullptr
     getter: explicit
-
-  - name: bitmap_filename
-    type: std::string
-    init_with: '"[unset-bitmap_filename]"'
-    getter: true
-    setter: true
 
   - name: tile_width
     type: int
@@ -37,18 +50,6 @@ properties:
     getter_ref: true
     setter: false
 
-  - name: initialized
-    type: bool
-    init_with: false
-    getter: true
-    setter: false
-
-  - name: destroyed
-    type: bool
-    init_with: false
-    getter: true
-    setter: false
-
 
 documentation:
 
@@ -62,30 +63,16 @@ documentation:
 methods:
 
 
-  - name: ~destroy
-    body: |
-      if (initialized && !destroyed)
-      {
-         AllegroFlare::Logger::warn_from(
-            "AllegroFlare::TileMaps::PrimMeshAtlas::~destroy",
-            "The class was initialized but not destroyed. This likely means that a dangling pointer was left, "
-               "please review."
-         );
-      }
-      return;
-    body_dependency_symbols:
-      - AllegroFlare::Logger
-
-
   - name: get_bitmap
     type: ALLEGRO_BITMAP*
-    guards: [ initialized, (!destroyed) ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       return bitmap;
 
 
-  - name: destroy
-    guards: [ initialized, (!destroyed) ]
+  - name: on_destroy
+    virtual: true
+    override: true
     body: |
       // TODO: Review elements are properly destroyed
       // TODO: Consider re-evaluating this warning, consider initialization scheduling on this class instead
@@ -95,15 +82,53 @@ methods:
             //"destruction mechanism has not yet been properly implemented. Please review."
       //);
 
+      // Destroy all the created sub-bitmaps
       for (unsigned i=0; i<tile_index.size(); i++) al_destroy_bitmap(tile_index[i].get_sub_bitmap());
+
+      // Destroy our internal bitmap
       if (bitmap) al_destroy_bitmap(bitmap);
       bitmap = nullptr;
+
+      // Clear our tile index
       tile_index.clear();
-      destroyed = true;
+
       return;
     body_dependency_symbols:
       - AllegroFlare::Logger
       - std::cout
+
+
+  - name: on_initialize
+    virtual: true
+    override: true
+    body: |
+      bitmap = al_clone_bitmap(source_bitmap);
+
+      int tile_step_x = tile_width + (tile_spacing*2);
+      int tile_step_y = tile_height + (tile_spacing*2);
+
+      int num_columns = al_get_bitmap_width(bitmap) / tile_step_x;
+      int num_rows = al_get_bitmap_height(bitmap) / tile_step_y;
+      tile_index.resize(num_columns * num_rows);
+
+      // TODO: add one empty spot for "0"
+
+      for (unsigned index_num=0; index_num<tile_index.size(); index_num++)
+      {
+         int x1 = (index_num % num_columns) * tile_step_x + tile_spacing;
+         int y1 = (index_num / num_columns) * tile_step_y + tile_spacing;
+         int x2 = x1 + tile_width;
+         int y2 = y1 + tile_height;
+
+         tile_index[index_num].set_index_num(index_num);
+         tile_index[index_num].set_bitmap_source(nullptr);
+         tile_index[index_num].set_sub_bitmap(al_create_sub_bitmap(bitmap, x1, y1, x2-x1, y2-y1));
+         tile_index[index_num].set_u1(x1);
+         tile_index[index_num].set_v1(y1);
+         tile_index[index_num].set_u2(x2);
+         tile_index[index_num].set_v2(y2);
+      }
+      return;
 
 
   - name: duplicate_bitmap_and_load
@@ -120,22 +145,25 @@ methods:
       - name: tile_spacing
         type: int
         default_argument: 0
-    guards: [ (!initialized), (!destroyed), source_bitmap, (!al_is_sub_bitmap(source_bitmap)) ]
+    guards:
+      - (!get_initialized())
+      - source_bitmap
+      - (!al_is_sub_bitmap(source_bitmap))
     body: |
-      // TODO: Add test on the guard that this cannot be a sub-bitmap
+      AllegroFlare::Logger::warn_from(
+         THIS_CLASS_AND_METHOD_NAME,
+         "Use of this method for construction is discouraged. Instead, fill the params on this class then use "
+            "the initialize() method."
+      );
 
       this->tile_width = tile_width;
       this->tile_height = tile_height;
       this->tile_spacing = tile_spacing;
+      this->source_bitmap = source_bitmap;
 
-      //if (!source_bitmap)
-      //{
-         //std::cout << "[PrimMeshAtlas::load()] ERROR: the ALLEGRO_BITMAP provided is NULL" << std::endl;
-      //}
+      initialize();
 
-      // clear the existing contents of this tile atlas (if any)
-      //clear();
-
+      /*
       bitmap = al_clone_bitmap(source_bitmap);
 
       int tile_step_x = tile_width + (tile_spacing*2);
@@ -164,12 +192,13 @@ methods:
       }
 
       initialized = true;
+      */
       return;
 
 
   - name: get_tile_index_size
     type: int
-    guards: [ initialized, (!destroyed) ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       return tile_index.size();
       return 0;
@@ -177,7 +206,7 @@ methods:
 
   - name: get_bitmap_width
     type: int
-    guards: [ initialized, (!destroyed) ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       if (!bitmap) return 0; // TODO: Consider throwing here instead
       return al_get_bitmap_width(bitmap);
@@ -185,7 +214,7 @@ methods:
 
   - name: get_bitmap_height
     type: int
-    guards: [ initialized, (!destroyed) ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       if (!bitmap) return 0; // TODO: Consider throwing here instead
       return al_get_bitmap_height(bitmap);
@@ -209,7 +238,7 @@ methods:
       - name: v2
         type: int*
         default_argument: nullptr
-    guards: [ initialized, (!destroyed) ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       // TODO: Investigate why there are two "get_tile_uv" methods, with int and float argument variants. Remove the
       // incorrect one if that's the case.
@@ -241,7 +270,7 @@ methods:
       - name: v2
         type: float*
         default_argument: nullptr
-    guards: [ initialized, (!destroyed) ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       // TODO: Investigate why there are two "get_tile_uv" methods, with int and float argument variants. Remove the
       // incorrect one if that's the case.
@@ -262,7 +291,7 @@ methods:
       - name: index_num
         type: int
         default_argument: 0
-    guards: [ initialized, (!destroyed) ]
+    guards: [ is_initialized_and_not_destroyed() ]
     body: |
       if (index_num < 0 || index_num >= (int)tile_index.size()) return nullptr;
       return tile_index[index_num].get_sub_bitmap();
@@ -272,6 +301,8 @@ methods:
 dependencies:
 
 
+  - symbol: AllegroFlare::InitializedAndDestroyed
+    headers: [ AllegroFlare/InitializedAndDestroyed.hpp ]
   - symbol: AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord
     headers: [ AllegroFlare/TileMaps/PrimMeshAtlasIndexRecord.hpp ]
   - symbol: ALLEGRO_BITMAP
