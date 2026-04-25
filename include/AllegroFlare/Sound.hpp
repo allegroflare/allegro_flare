@@ -29,7 +29,10 @@ namespace AllegroFlare
       ~Sound();
       //Sound(ALLEGRO_SAMPLE *sample, ALLEGRO_VOICE *voice);
 
-      void initialize();
+      void set_mixer(ALLEGRO_MIXER *mixer);
+      ALLEGRO_MIXER *get_mixer();
+
+      void initialize(); // if mixer is a nullptr (is by default), then the mixer will use the default allegro mixer
       void destroy();
 
       Sound &play();

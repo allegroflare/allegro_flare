@@ -70,6 +70,28 @@ void Sound::validate_initialized(std::string function_name)
 
 
 
+void Sound::set_mixer(ALLEGRO_MIXER *mixer)
+{
+   if (initialized)
+   {
+      AllegroFlare::Logger::throw_error(
+         THIS_CLASS_AND_METHOD_NAME,
+         "You cannot set the mexer after the sound has been initialized."
+      );
+   }
+
+   this->mixer = mixer;
+}
+
+
+
+ALLEGRO_MIXER *Sound::get_mixer()
+{
+   return this->mixer;
+}
+
+
+
 void Sound::initialize()
 {
    if (initialized)
@@ -82,7 +104,10 @@ void Sound::initialize()
 
    //mixer = al_create_mixer(41000, ALLEGRO_AUDIO_DEPTH_FLOAT32, ALLEGRO_CHANNEL_CONF_2);
    //voice = al_create_voice(41000, ALLEGRO_AUDIO_DEPTH_INT16, ALLEGRO_CHANNEL_CONF_2);
-   mixer = al_get_default_mixer();
+   if (mixer == nullptr)
+   {
+      mixer = al_get_default_mixer();
+   }
    //voice = al_get_default_voice();
 
    if (!sample)
