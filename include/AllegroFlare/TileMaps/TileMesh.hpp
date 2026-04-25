@@ -41,8 +41,12 @@ namespace AllegroFlare
          bool yz_swapped;
          bool initialized;
          std::unordered_set<int> assemble_vertices_to_remove_from_removed_tiles();
+         int remove_vertices_from_index_vertices(std::vector<int> vertices_to_remove={});
+         std::vector<int> vertex_indices_for_tile_xy(int tile_x=0, int tile_y=0);
          void h_flip_vertices(int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr);
          void v_flip_vertices(int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr);
+         void set_tile_uv(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0, bool diagonal_flip=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f});
+         void create_vertex_buffer();
 
       protected:
 
@@ -75,8 +79,6 @@ namespace AllegroFlare
          void set_tile_ids(std::vector<int> tile_ids={});
          void remove_tile_xy_from_index(int tile_x=0, int tile_y=0);
          void refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
-         int remove_vertices_from_index_vertices(std::vector<int> vertices_to_remove={});
-         std::vector<int> vertex_indices_for_tile_xy(int tile_x=0, int tile_y=0);
          void destroy();
          void disable_holding_vertex_buffer_update_until_refresh();
          std::size_t get_vertex_buffer_size();
@@ -86,9 +88,7 @@ namespace AllegroFlare
          bool set_tile_id(int tile_x=0, int tile_y=0, int tile_id=0, bool flip_h=false, bool flip_v=false, bool flip_d=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f});
          int get_tile_id(int tile_x=0, int tile_y=0);
          std::tuple<bool, bool, bool> get_tile_flip(int tile_x=0, int tile_y=0);
-         void set_tile_uv(int tile_x=0, int tile_y=0, int u1=0, int v1=0, int u2=0, int v2=0, bool diagonal_flip=false, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f});
          void set_tile_color(int tile_x=0, int tile_y=0, ALLEGRO_COLOR color=ALLEGRO_COLOR{1.0f, 1.0f, 1.0f, 1.0f});
-         void create_vertex_buffer();
          void refresh_vertex_buffer();
          void refresh_index_buffer();
          int infer_num_vertices();

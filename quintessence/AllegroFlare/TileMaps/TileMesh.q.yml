@@ -281,6 +281,7 @@ methods:
 
 
   - name: remove_vertices_from_index_vertices
+    private: true
     type: int
     parameters:
       - name: vertices_to_remove
@@ -309,6 +310,7 @@ methods:
 
 
   - name: vertex_indices_for_tile_xy
+    private: true
     type: std::vector<int>
     parameters:
       - name: tile_x
@@ -664,6 +666,7 @@ methods:
 
 
   - name: set_tile_uv
+    private: true
     parameters:
       - name: tile_x
         type: int
@@ -805,6 +808,7 @@ methods:
 
 
   - name: create_vertex_buffer
+    private: true
     body: |
       if (!vertex_buffer)
       {

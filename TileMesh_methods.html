@@ -58,6 +58,7 @@
             margin-bottom: 40px;
         }
         .toc h2 { margin-top: 0; font-size: 1.2em; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; }
+        .toc h3 { font-size: 0.9em; margin: 15px 0 10px 0; text-transform: uppercase; letter-spacing: 0.05em; color: var(--guard-text); border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
         .toc ul { list-style: none; padding: 0; margin: 0; column-count: 2; }
         @media (max-width: 800px) { .toc ul { column-count: 1; } }
         .toc li { margin-bottom: 5px; break-inside: avoid-column; }
@@ -84,16 +85,14 @@
 
     <nav class="toc">
         <h2>Methods List</h2>
+        
+        <h3>Public Methods</h3>
         <ul>
             <li><a href="#initialize">initialize</a></li>
             <li><a href="#set_num_rows">set_num_rows</a></li>
             <li><a href="#set_num_columns">set_num_columns</a></li>
             <li><a href="#set_tile_ids">set_tile_ids</a></li>
             <li><a href="#remove_tile_xy_from_index">remove_tile_xy_from_index</a></li>
-            <li><a href="#assemble_vertices_to_remove_from_removed_tiles">assemble_vertices_to_remove_from_removed_tiles</a></li>
-            <li><a href="#refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer">refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer</a></li>
-            <li><a href="#remove_vertices_from_index_vertices">remove_vertices_from_index_vertices</a></li>
-            <li><a href="#vertex_indices_for_tile_xy">vertex_indices_for_tile_xy</a></li>
             <li><a href="#destroy">destroy</a></li>
             <li><a href="#disable_holding_vertex_buffer_update_until_refresh">disable_holding_vertex_buffer_update_until_refresh</a></li>
             <li><a href="#get_vertex_buffer_size">get_vertex_buffer_size</a></li>
@@ -103,11 +102,7 @@
             <li><a href="#set_tile_id">set_tile_id</a></li>
             <li><a href="#get_tile_id">get_tile_id</a></li>
             <li><a href="#get_tile_flip">get_tile_flip</a></li>
-            <li><a href="#h_flip_vertices">h_flip_vertices</a></li>
-            <li><a href="#v_flip_vertices">v_flip_vertices</a></li>
-            <li><a href="#set_tile_uv">set_tile_uv</a></li>
             <li><a href="#set_tile_color">set_tile_color</a></li>
-            <li><a href="#create_vertex_buffer">create_vertex_buffer</a></li>
             <li><a href="#refresh_vertex_buffer">refresh_vertex_buffer</a></li>
             <li><a href="#refresh_index_buffer">refresh_index_buffer</a></li>
             <li><a href="#infer_num_vertices">infer_num_vertices</a></li>
@@ -119,6 +114,18 @@
             <li><a href="#get_real_height">get_real_height</a></li>
             <li><a href="#swap_yz">swap_yz</a></li>
             <li><a href="#create_duplicate">create_duplicate</a></li>
+        </ul>
+
+        <h3>Private Methods</h3>
+        <ul>
+            <li><a href="#assemble_vertices_to_remove_from_removed_tiles">assemble_vertices_to_remove_from_removed_tiles</a></li>
+            <li><a href="#refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer">refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer</a></li>
+            <li><a href="#remove_vertices_from_index_vertices">remove_vertices_from_index_vertices</a></li>
+            <li><a href="#vertex_indices_for_tile_xy">vertex_indices_for_tile_xy</a></li>
+            <li><a href="#create_vertex_buffer">create_vertex_buffer</a></li>
+            <li><a href="#set_tile_uv">set_tile_uv</a></li>
+            <li><a href="#h_flip_vertices">h_flip_vertices</a></li>
+            <li><a href="#v_flip_vertices">v_flip_vertices</a></li>
         </ul>
     </nav>
 
@@ -213,6 +220,7 @@
     <div class="method" id="remove_vertices_from_index_vertices">
         <div class="method-header">
             <span class="method-name">remove_vertices_from_index_vertices</span>
+            <span class="tag tag-private">private</span>
         </div>
         <pre class="method-signature">int remove_vertices_from_index_vertices(std::vector&lt;int&gt; vertices_to_remove = {})</pre>
         <div class="method-content">
@@ -224,6 +232,7 @@
     <div class="method" id="vertex_indices_for_tile_xy">
         <div class="method-header">
             <span class="method-name">vertex_indices_for_tile_xy</span>
+            <span class="tag tag-private">private</span>
         </div>
         <pre class="method-signature">std::vector&lt;int&gt; vertex_indices_for_tile_xy(int tile_x = 0, int tile_y = 0)</pre>
         <div class="method-content">
@@ -366,6 +375,7 @@
     <div class="method" id="set_tile_uv">
         <div class="method-header">
             <span class="method-name">set_tile_uv</span>
+            <span class="tag tag-private">private</span>
         </div>
         <pre class="method-signature">void set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2, bool diagonal_flip, ALLEGRO_COLOR color)</pre>
         <div class="method-content">
@@ -388,6 +398,7 @@
     <div class="method" id="create_vertex_buffer">
         <div class="method-header">
             <span class="method-name">create_vertex_buffer</span>
+            <span class="tag tag-private">private</span>
         </div>
         <pre class="method-signature">void create_vertex_buffer()</pre>
         <div class="method-content">

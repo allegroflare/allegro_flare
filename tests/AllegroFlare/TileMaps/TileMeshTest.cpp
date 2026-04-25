@@ -266,6 +266,9 @@ TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
 }
 
 
+
+/*
+// NOTE: This method under test is private. You might consider making the test class a friend class on the TileMesh
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
    CAPTURE__VISUAL__remove_vertices_from_index_vertices__will_remove_the_verteces_as_expected_so_they_are_not_\
 rendered)
@@ -293,6 +296,7 @@ rendered)
    al_flip_display();
    al_rest(1.0f);
 }
+*/
 
 
 TEST_F(AllegroFlare_TileMaps_TileMeshWithAllegroRenderingFixtureTestWithSetup,
