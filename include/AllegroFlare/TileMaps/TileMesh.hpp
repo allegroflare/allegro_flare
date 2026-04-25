@@ -40,6 +40,7 @@ namespace AllegroFlare
          bool index_buffer_is_dirty;
          bool yz_swapped;
          bool initialized;
+         std::unordered_set<int> assemble_vertices_to_remove_from_removed_tiles();
          void h_flip_vertices(int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr);
          void v_flip_vertices(int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr);
 
@@ -73,7 +74,6 @@ namespace AllegroFlare
          void set_num_columns(int num_columns=0);
          void set_tile_ids(std::vector<int> tile_ids={});
          void remove_tile_xy_from_index(int tile_x=0, int tile_y=0);
-         std::unordered_set<int> assemble_vertices_to_remove_from_removed_tiles();
          void refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
          int remove_vertices_from_index_vertices(std::vector<int> vertices_to_remove={});
          std::vector<int> vertex_indices_for_tile_xy(int tile_x=0, int tile_y=0);

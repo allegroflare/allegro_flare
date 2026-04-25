@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllegroFlare::TileMaps::TileMesh Methods Documentation</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --header-bg: #f6f8fa;
+            --border-color: #dddddd;
+            --method-name-color: #005cc5;
+            --signature-bg: #f1f1f1;
+            --toc-bg: #f9f9f9;
+            --link-color: #0366d6;
+            --tag-private-bg: #ffdce0;
+            --tag-private-text: #cb2431;
+            --guard-text: #666666;
+            --hr-color: #eeeeee;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0d1117;
+                --text-color: #c9d1d9;
+                --header-bg: #161b22;
+                --border-color: #30363d;
+                --method-name-color: #58a6ff;
+                --signature-bg: #0d1117;
+                --toc-bg: #161b22;
+                --link-color: #58a6ff;
+                --tag-private-bg: #442326;
+                --tag-private-text: #ff7b72;
+                --guard-text: #8b949e;
+                --hr-color: #30363d;
+            }
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text-color); 
+            background-color: var(--bg-color);
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1 { border-bottom: 2px solid var(--hr-color); padding-bottom: 10px; }
+        
+        .toc {
+            background-color: var(--toc-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+        .toc h2 { margin-top: 0; font-size: 1.2em; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; }
+        .toc ul { list-style: none; padding: 0; margin: 0; column-count: 2; }
+        @media (max-width: 800px) { .toc ul { column-count: 1; } }
+        .toc li { margin-bottom: 5px; break-inside: avoid-column; }
+        .toc a { color: var(--link-color); text-decoration: none; font-family: monospace; font-size: 0.85em; }
+        .toc a:hover { text-decoration: underline; }
+
+        .method { margin-bottom: 30px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+        .method-header { background-color: var(--header-bg); padding: 10px 15px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; }
+        .method-name { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-weight: bold; font-size: 1.1em; color: var(--method-name-color); }
+        .method-signature { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.9em; background-color: var(--signature-bg); padding: 10px; margin: 0; border-bottom: 1px solid var(--border-color); overflow-x: auto; color: var(--text-color); }
+        .method-content { padding: 15px; }
+        .method-description { margin-top: 0; }
+        .guards { font-size: 0.85em; color: var(--guard-text); margin-top: 10px; }
+        .guards ul { margin: 5px 0; padding-left: 20px; }
+        .tag { display: inline-block; padding: 2px 6px; font-size: 0.75em; font-weight: bold; border-radius: 3px; text-transform: uppercase; }
+        .tag-private { background-color: var(--tag-private-bg); color: var(--tag-private-text); }
+        
+        code { font-family: monospace; background-color: var(--signature-bg); padding: 2px 4px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>AllegroFlare::TileMaps::TileMesh Methods</h1>
+    <p>This class is the evolutionary replacement for <code>TileMaps/PrimMesh</code>. It utilizes <code>vertex_buffer</code> and includes features for postponing <code>vertex_buffer</code> refreshes for better performance.</p>
+
+    <nav class="toc">
+        <h2>Methods List</h2>
+        <ul>
+            <li><a href="#initialize">initialize</a></li>
+            <li><a href="#set_num_rows">set_num_rows</a></li>
+            <li><a href="#set_num_columns">set_num_columns</a></li>
+            <li><a href="#set_tile_ids">set_tile_ids</a></li>
+            <li><a href="#remove_tile_xy_from_index">remove_tile_xy_from_index</a></li>
+            <li><a href="#assemble_vertices_to_remove_from_removed_tiles">assemble_vertices_to_remove_from_removed_tiles</a></li>
+            <li><a href="#refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer">refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer</a></li>
+            <li><a href="#remove_vertices_from_index_vertices">remove_vertices_from_index_vertices</a></li>
+            <li><a href="#vertex_indices_for_tile_xy">vertex_indices_for_tile_xy</a></li>
+            <li><a href="#destroy">destroy</a></li>
+            <li><a href="#disable_holding_vertex_buffer_update_until_refresh">disable_holding_vertex_buffer_update_until_refresh</a></li>
+            <li><a href="#get_vertex_buffer_size">get_vertex_buffer_size</a></li>
+            <li><a href="#get_index_buffer_size">get_index_buffer_size</a></li>
+            <li><a href="#resize">resize</a></li>
+            <li><a href="#render">render</a></li>
+            <li><a href="#set_tile_id">set_tile_id</a></li>
+            <li><a href="#get_tile_id">get_tile_id</a></li>
+            <li><a href="#get_tile_flip">get_tile_flip</a></li>
+            <li><a href="#h_flip_vertices">h_flip_vertices</a></li>
+            <li><a href="#v_flip_vertices">v_flip_vertices</a></li>
+            <li><a href="#set_tile_uv">set_tile_uv</a></li>
+            <li><a href="#set_tile_color">set_tile_color</a></li>
+            <li><a href="#create_vertex_buffer">create_vertex_buffer</a></li>
+            <li><a href="#refresh_vertex_buffer">refresh_vertex_buffer</a></li>
+            <li><a href="#refresh_index_buffer">refresh_index_buffer</a></li>
+            <li><a href="#infer_num_vertices">infer_num_vertices</a></li>
+            <li><a href="#infer_num_tiles">infer_num_tiles</a></li>
+            <li><a href="#rescale_tile_dimensions_to">rescale_tile_dimensions_to</a></li>
+            <li><a href="#set_tile_width">set_tile_width</a></li>
+            <li><a href="#set_tile_height">set_tile_height</a></li>
+            <li><a href="#get_real_width">get_real_width</a></li>
+            <li><a href="#get_real_height">get_real_height</a></li>
+            <li><a href="#swap_yz">swap_yz</a></li>
+            <li><a href="#create_duplicate">create_duplicate</a></li>
+        </ul>
+    </nav>
+
+    <!-- initialize -->
+    <div class="method" id="initialize">
+        <div class="method-header">
+            <span class="method-name">initialize</span>
+        </div>
+        <pre class="method-signature">void initialize()</pre>
+        <div class="method-content">
+            <p class="method-description">Initializes the mesh, sets the internal initialized state to true, and performs the initial resize based on the current column and row counts.</p>
+            <div class="guards">
+                <strong>Guards:</strong>
+                <ul>
+                    <li>Object must not already be initialized.</li>
+                    <li>Allegro system must be installed.</li>
+                    <li>Allegro primitives addon must be initialized.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- set_num_rows -->
+    <div class="method" id="set_num_rows">
+        <div class="method-header">
+            <span class="method-name">set_num_rows</span>
+        </div>
+        <pre class="method-signature">void set_num_rows(int num_rows = 0)</pre>
+        <div class="method-content">
+            <p class="method-description">Sets the number of rows in the tile mesh. If the mesh is already initialized, it triggers a <code>resize</code>.</p>
+        </div>
+    </div>
+
+    <!-- set_num_columns -->
+    <div class="method" id="set_num_columns">
+        <div class="method-header">
+            <span class="method-name">set_num_columns</span>
+        </div>
+        <pre class="method-signature">void set_num_columns(int num_columns = 0)</pre>
+        <div class="method-content">
+            <p class="method-description">Sets the number of columns in the tile mesh. If the mesh is already initialized, it triggers a <code>resize</code>.</p>
+        </div>
+    </div>
+
+    <!-- set_tile_ids -->
+    <div class="method" id="set_tile_ids">
+        <div class="method-header">
+            <span class="method-name">set_tile_ids</span>
+        </div>
+        <pre class="method-signature">void set_tile_ids(std::vector&lt;int&gt; tile_ids = {})</pre>
+        <div class="method-content">
+            <p class="method-description">Batch sets the tile IDs for the entire mesh. Note: This method currently does not account for flipped tiles. It marks the vertex buffer as dirty if updates are being held, otherwise it refreshes it immediately.</p>
+        </div>
+    </div>
+
+    <!-- remove_tile_xy_from_index -->
+    <div class="method" id="remove_tile_xy_from_index">
+        <div class="method-header">
+            <span class="method-name">remove_tile_xy_from_index</span>
+        </div>
+        <pre class="method-signature">void remove_tile_xy_from_index(int tile_x = 0, int tile_y = 0)</pre>
+        <div class="method-content">
+            <p class="method-description">Marks a specific tile to be removed from the rendering index. Effectively "hides" the tile from being drawn.</p>
+        </div>
+    </div>
+
+    <!-- assemble_vertices_to_remove_from_removed_tiles -->
+    <div class="method" id="assemble_vertices_to_remove_from_removed_tiles">
+        <div class="method-header">
+            <span class="method-name">assemble_vertices_to_remove_from_removed_tiles</span>
+            <span class="tag tag-private">private</span>
+        </div>
+        <pre class="method-signature">std::unordered_set&lt;int&gt; assemble_vertices_to_remove_from_removed_tiles()</pre>
+        <div class="method-content">
+            <p class="method-description">Internal helper that collects all vertex indices associated with tiles that have been marked as "removed".</p>
+        </div>
+    </div>
+
+    <!-- refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer -->
+    <div class="method" id="refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer">
+        <div class="method-header">
+            <span class="method-name">refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer</span>
+            <span class="tag tag-private">private</span>
+        </div>
+        <pre class="method-signature">void refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer()</pre>
+        <div class="method-content">
+            <p class="method-description">Rebuilds the index vertices by excluding those belonging to "removed" tiles, then updates the hardware index buffer.</p>
+        </div>
+    </div>
+
+    <!-- remove_vertices_from_index_vertices -->
+    <div class="method" id="remove_vertices_from_index_vertices">
+        <div class="method-header">
+            <span class="method-name">remove_vertices_from_index_vertices</span>
+        </div>
+        <pre class="method-signature">int remove_vertices_from_index_vertices(std::vector&lt;int&gt; vertices_to_remove = {})</pre>
+        <div class="method-content">
+            <p class="method-description">Removes specific vertices from the index list and triggers an index buffer refresh.</p>
+        </div>
+    </div>
+
+    <!-- vertex_indices_for_tile_xy -->
+    <div class="method" id="vertex_indices_for_tile_xy">
+        <div class="method-header">
+            <span class="method-name">vertex_indices_for_tile_xy</span>
+        </div>
+        <pre class="method-signature">std::vector&lt;int&gt; vertex_indices_for_tile_xy(int tile_x = 0, int tile_y = 0)</pre>
+        <div class="method-content">
+            <p class="method-description">Returns the 6 vertex indices used to render the tile at the specified (x, y) coordinate.</p>
+        </div>
+    </div>
+
+    <!-- destroy -->
+    <div class="method" id="destroy">
+        <div class="method-header">
+            <span class="method-name">destroy</span>
+        </div>
+        <pre class="method-signature">void destroy()</pre>
+        <div class="method-content">
+            <p class="method-description">Properly destroys the Allegro vertex and index buffers and nullifies their pointers.</p>
+        </div>
+    </div>
+
+    <!-- disable_holding_vertex_buffer_update_until_refresh -->
+    <div class="method" id="disable_holding_vertex_buffer_update_until_refresh">
+        <div class="method-header">
+            <span class="method-name">disable_holding_vertex_buffer_update_until_refresh</span>
+        </div>
+        <pre class="method-signature">void disable_holding_vertex_buffer_update_until_refresh()</pre>
+        <div class="method-content">
+            <p class="method-description">Sets the mesh to update the vertex buffer immediately whenever a tile changes, rather than waiting for an explicit refresh.</p>
+        </div>
+    </div>
+
+    <!-- get_vertex_buffer_size -->
+    <div class="method" id="get_vertex_buffer_size">
+        <div class="method-header">
+            <span class="method-name">get_vertex_buffer_size</span>
+        </div>
+        <pre class="method-signature">std::size_t get_vertex_buffer_size()</pre>
+        <div class="method-content">
+            <p class="method-description">Returns the number of vertices currently stored in the hardware vertex buffer.</p>
+        </div>
+    </div>
+
+    <!-- get_index_buffer_size -->
+    <div class="method" id="get_index_buffer_size">
+        <div class="method-header">
+            <span class="method-name">get_index_buffer_size</span>
+        </div>
+        <pre class="method-signature">std::size_t get_index_buffer_size()</pre>
+        <div class="method-content">
+            <p class="method-description">Returns the number of indices currently stored in the hardware index buffer.</p>
+        </div>
+    </div>
+
+    <!-- resize -->
+    <div class="method" id="resize">
+        <div class="method-header">
+            <span class="method-name">resize</span>
+        </div>
+        <pre class="method-signature">void resize(int num_columns = 0, int num_rows = 0)</pre>
+        <div class="method-content">
+            <p class="method-description">Resizes the mesh to the specified dimensions, clearing all current tile data and recreating the vertex/index buffers.</p>
+        </div>
+    </div>
+
+    <!-- render -->
+    <div class="method" id="render">
+        <div class="method-header">
+            <span class="method-name">render</span>
+        </div>
+        <pre class="method-signature">void render(bool draw_outline = false)</pre>
+        <div class="method-content">
+            <p class="method-description">Draws the tile mesh using indexed buffer rendering. Can optionally draw a magenta outline around the entire mesh boundary.</p>
+            <div class="guards">
+                <strong>Guards:</strong>
+                <ul>
+                    <li>Mesh must be initialized.</li>
+                    <li>Atlas must be set.</li>
+                    <li>Buffers must not be dirty.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- set_tile_id -->
+    <div class="method" id="set_tile_id">
+        <div class="method-header">
+            <span class="method-name">set_tile_id</span>
+        </div>
+        <pre class="method-signature">bool set_tile_id(int tile_x, int tile_y, int tile_id, bool flip_h = false, bool flip_v = false, bool flip_d = false, ALLEGRO_COLOR color = WHITE)</pre>
+        <div class="method-content">
+            <p class="method-description">Sets the ID and transformation (flipping) for a specific tile at (x, y). Returns true if successful. Handles UV coordinate calculation and flipping logic.</p>
+        </div>
+    </div>
+
+    <!-- get_tile_id -->
+    <div class="method" id="get_tile_id">
+        <div class="method-header">
+            <span class="method-name">get_tile_id</span>
+        </div>
+        <pre class="method-signature">int get_tile_id(int tile_x = 0, int tile_y = 0)</pre>
+        <div class="method-content">
+            <p class="method-description">Returns the tile ID at the specified (x, y) coordinate. Returns 0 for out-of-bounds coordinates.</p>
+        </div>
+    </div>
+
+    <!-- get_tile_flip -->
+    <div class="method" id="get_tile_flip">
+        <div class="method-header">
+            <span class="method-name">get_tile_flip</span>
+        </div>
+        <pre class="method-signature">std::tuple&lt;bool, bool, bool&gt; get_tile_flip(int tile_x = 0, int tile_y = 0)</pre>
+        <div class="method-content">
+            <p class="method-description">Returns a tuple containing the horizontal, vertical, and diagonal flip states for the tile at (x, y).</p>
+        </div>
+    </div>
+
+    <!-- h_flip_vertices -->
+    <div class="method" id="h_flip_vertices">
+        <div class="method-header">
+            <span class="method-name">h_flip_vertices</span>
+            <span class="tag tag-private">private</span>
+        </div>
+        <pre class="method-signature">void h_flip_vertices(int* u1, int* v1, int* u2, int* v2)</pre>
+        <div class="method-content">
+            <p class="method-description">Internal helper that swaps U coordinates to achieve a horizontal flip.</p>
+        </div>
+    </div>
+
+    <!-- v_flip_vertices -->
+    <div class="method" id="v_flip_vertices">
+        <div class="method-header">
+            <span class="method-name">v_flip_vertices</span>
+            <span class="tag tag-private">private</span>
+        </div>
+        <pre class="method-signature">void v_flip_vertices(int* u1, int* v1, int* u2, int* v2)</pre>
+        <div class="method-content">
+            <p class="method-description">Internal helper that swaps V coordinates to achieve a vertical flip.</p>
+        </div>
+    </div>
+
+    <!-- set_tile_uv -->
+    <div class="method" id="set_tile_uv">
+        <div class="method-header">
+            <span class="method-name">set_tile_uv</span>
+        </div>
+        <pre class="method-signature">void set_tile_uv(int tile_x, int tile_y, int u1, int v1, int u2, int v2, bool diagonal_flip, ALLEGRO_COLOR color)</pre>
+        <div class="method-content">
+            <p class="method-description">Directly sets the UV coordinates and color for the vertices of a specific tile. Handles the vertex weaving order required for Allegro primitives.</p>
+        </div>
+    </div>
+
+    <!-- set_tile_color -->
+    <div class="method" id="set_tile_color">
+        <div class="method-header">
+            <span class="method-name">set_tile_color</span>
+        </div>
+        <pre class="method-signature">void set_tile_color(int tile_x, int tile_y, ALLEGRO_COLOR color)</pre>
+        <div class="method-content">
+            <p class="method-description">Updates only the vertex colors for the specified tile.</p>
+        </div>
+    </div>
+
+    <!-- create_vertex_buffer -->
+    <div class="method" id="create_vertex_buffer">
+        <div class="method-header">
+            <span class="method-name">create_vertex_buffer</span>
+        </div>
+        <pre class="method-signature">void create_vertex_buffer()</pre>
+        <div class="method-content">
+            <p class="method-description">Allocates the hardware vertex buffer if it doesn't already exist.</p>
+        </div>
+    </div>
+
+    <!-- refresh_vertex_buffer -->
+    <div class="method" id="refresh_vertex_buffer">
+        <div class="method-header">
+            <span class="method-name">refresh_vertex_buffer</span>
+        </div>
+        <pre class="method-signature">void refresh_vertex_buffer()</pre>
+        <div class="method-content">
+            <p class="method-description">Locks the vertex buffer and copies the current local <code>vertices</code> data into it.</p>
+        </div>
+    </div>
+
+    <!-- refresh_index_buffer -->
+    <div class="method" id="refresh_index_buffer">
+        <div class="method-header">
+            <span class="method-name">refresh_index_buffer</span>
+        </div>
+        <pre class="method-signature">void refresh_index_buffer()</pre>
+        <div class="method-content">
+            <p class="method-description">Recreates the hardware index buffer from the current <code>index_vertices</code> list.</p>
+        </div>
+    </div>
+
+    <!-- infer_num_vertices -->
+    <div class="method" id="infer_num_vertices">
+        <div class="method-header">
+            <span class="method-name">infer_num_vertices</span>
+        </div>
+        <pre class="method-signature">int infer_num_vertices()</pre>
+        <div class="method-content">
+            <p class="method-description">Calculates the total number of vertices (columns * rows * 6).</p>
+        </div>
+    </div>
+
+    <!-- infer_num_tiles -->
+    <div class="method" id="infer_num_tiles">
+        <div class="method-header">
+            <span class="method-name">infer_num_tiles</span>
+        </div>
+        <pre class="method-signature">int infer_num_tiles()</pre>
+        <div class="method-content">
+            <p class="method-description">Calculates the total number of tiles (columns * rows).</p>
+        </div>
+    </div>
+
+    <!-- rescale_tile_dimensions_to -->
+    <div class="method" id="rescale_tile_dimensions_to">
+        <div class="method-header">
+            <span class="method-name">rescale_tile_dimensions_to</span>
+        </div>
+        <pre class="method-signature">void rescale_tile_dimensions_to(int new_tile_width, int new_tile_height)</pre>
+        <div class="method-content">
+            <p class="method-description">Updates the physical size of the tiles by scaling all vertex coordinates. This maintains the mesh layout but changes its display size.</p>
+        </div>
+    </div>
+
+    <!-- set_tile_width -->
+    <div class="method" id="set_tile_width">
+        <div class="method-header">
+            <span class="method-name">set_tile_width</span>
+        </div>
+        <pre class="method-signature">void set_tile_width(int new_tile_width)</pre>
+        <div class="method-content">
+            <p class="method-description">Sets the tile width. If initialized, it triggers a rescale of existing vertices.</p>
+        </div>
+    </div>
+
+    <!-- set_tile_height -->
+    <div class="method" id="set_tile_height">
+        <div class="method-header">
+            <span class="method-name">set_tile_height</span>
+        </div>
+        <pre class="method-signature">void set_tile_height(int new_tile_height)</pre>
+        <div class="method-content">
+            <p class="method-description">Sets the tile height. If initialized, it triggers a rescale of existing vertices.</p>
+        </div>
+    </div>
+
+    <!-- get_real_width -->
+    <div class="method" id="get_real_width">
+        <div class="method-header">
+            <span class="method-name">get_real_width</span>
+        </div>
+        <pre class="method-signature">int get_real_width()</pre>
+        <div class="method-content">
+            <p class="method-description">Returns the total width of the mesh in pixels (columns * tile_width).</p>
+        </div>
+    </div>
+
+    <!-- get_real_height -->
+    <div class="method" id="get_real_height">
+        <div class="method-header">
+            <span class="method-name">get_real_height</span>
+        </div>
+        <pre class="method-signature">int get_real_height()</pre>
+        <div class="method-content">
+            <p class="method-description">Returns the total height of the mesh in pixels (rows * tile_height).</p>
+        </div>
+    </div>
+
+    <!-- swap_yz -->
+    <div class="method" id="swap_yz">
+        <div class="method-header">
+            <span class="method-name">swap_yz</span>
+        </div>
+        <pre class="method-signature">void swap_yz()</pre>
+        <div class="method-content">
+            <p class="method-description">Swaps the Y and Z coordinates of all vertices in the mesh. Useful for changing the orientation from top-down to a 3D-oriented plane.</p>
+        </div>
+    </div>
+
+    <!-- create_duplicate -->
+    <div class="method" id="create_duplicate">
+        <div class="method-header">
+            <span class="method-name">create_duplicate</span>
+        </div>
+        <pre class="method-signature">AllegroFlare::TileMaps::TileMesh* create_duplicate()</pre>
+        <div class="method-content">
+            <p class="method-description">Creates a deep copy of the TileMesh, including new hardware buffers populated with the current state.</p>
+        </div>
+    </div>
+
+</body>
+</html>

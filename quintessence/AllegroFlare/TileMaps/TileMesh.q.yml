@@ -214,6 +214,7 @@ methods:
 
 
   - name: assemble_vertices_to_remove_from_removed_tiles
+    private: true
     type: std::unordered_set<int>
     body: |
       std::unordered_set<int> result;
