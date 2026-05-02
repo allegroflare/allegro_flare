@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <AllegroFlare/Shaders/FlatColor.hpp>
+#include <allegro5/allegro_color.h>
 
 #include <AllegroFlare/Testing/WithAllegroRenderingFixture.hpp>
 
@@ -40,6 +41,28 @@ TEST_F(AllegroFlare_Shaders_FlatColorWithAllegroRenderingFixtureTest, activate__
    flat_color.initialize();
    flat_color.activate();
 }
+
+
+TEST_F(AllegroFlare_Shaders_FlatColorWithAllegroRenderingFixtureTest, CAPTURE__VISUAL__will_apply_opacity)
+{
+   AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
+   AllegroFlare::Shaders::FlatColor flat_color;
+   flat_color.initialize();
+
+   clear();
+
+   {
+      flat_color.activate();
+      flat_color.set_color(al_color_name("orange"));
+      flat_color.set_color_intensity(0.5);
+      flat_color.set_color_opacity(0.5);
+      al_draw_bitmap(bitmap_bin["cat_for_color_testing.jpg"], 400, 200, 0);
+   }
+
+   al_flip_display();
+   al_rest(1);
+}
+ 
 
 
 // TODO: Add a render test with a bitmap render subject

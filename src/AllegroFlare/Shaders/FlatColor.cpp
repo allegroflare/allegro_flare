@@ -17,6 +17,7 @@ FlatColor::FlatColor()
    : AllegroFlare::Shaders::Base(AllegroFlare::Shaders::FlatColor::TYPE, obtain_vertex_source(), obtain_fragment_source())
    , color(ALLEGRO_COLOR{1, 1, 1, 1})
    , color_intensity(1.0f)
+   , color_opacity(1.0f)
    , initialized(false)
 {
 }
@@ -36,6 +37,12 @@ ALLEGRO_COLOR FlatColor::get_color() const
 float FlatColor::get_color_intensity() const
 {
    return color_intensity;
+}
+
+
+float FlatColor::get_color_opacity() const
+{
+   return color_opacity;
 }
 
 
@@ -59,6 +66,13 @@ void FlatColor::set_color_intensity(float color_intensity)
    return;
 }
 
+void FlatColor::set_color_opacity(float color_opacity)
+{
+   this->color_opacity = color_opacity;
+   if (is_active()) set_float("color_opacity", color_opacity);
+   return;
+}
+
 void FlatColor::activate()
 {
    if (!(initialized))
@@ -77,6 +91,7 @@ void FlatColor::set_values_to_activated_shader()
 {
    set_vec3("color", color.r, color.g, color.b);
    set_float("color_intensity", color_intensity);
+   set_float("color_opacity", color_opacity);
    return;
 }
 
@@ -124,16 +139,20 @@ std::string FlatColor::obtain_fragment_source()
 
      uniform vec3 color;
      uniform float color_intensity;
+     uniform float color_opacity;
 
 
      vec4 color_it_plz(vec4 tmp)
      {
-        float inverse_color_intensity = 1.0 - color_intensity;
-        tmp.r = (tmp.r * inverse_color_intensity + color.r * color_intensity) * tmp.a;
-        tmp.g = (tmp.g * inverse_color_intensity + color.g * color_intensity) * tmp.a;
-        tmp.b = (tmp.b * inverse_color_intensity + color.b * color_intensity) * tmp.a;
-        tmp.a = tmp.a;
-        return tmp;
+       float inverse_color_intensity = 1.0 - color_intensity;
+
+       tmp.r = (tmp.r * inverse_color_intensity + color.r * color_intensity) * tmp.a;
+       tmp.g = (tmp.g * inverse_color_intensity + color.g * color_intensity) * tmp.a;
+       tmp.b = (tmp.b * inverse_color_intensity + color.b * color_intensity) * tmp.a;
+
+       tmp.a = tmp.a * color_opacity;
+
+       return tmp;
      }
 
      void main()

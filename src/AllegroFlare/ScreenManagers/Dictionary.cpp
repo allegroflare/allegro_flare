@@ -204,24 +204,33 @@ bool Dictionary::add(std::string name, Screens::Base *screen)
 
 bool Dictionary::remove(Screens::Base *screen)
 {
-   if (!exists(screen))
+   for (auto it = screens.begin(); it != screens.end(); ++it)
    {
+      if (it->second.screen == screen)
+      {
+         screens.erase(it);
+         return true;
+      }
+   }
+
+   //if (!exists(screen))
+   //{
       std::stringstream ss;
       ss << "[ScreenManagers::Dictionary::remove(*screen)] warning: No screens found with the pointer value \""
          << screen << "\"." << std::endl;
       return false;
-   }
-   else
-   {
-      throw std::runtime_error("[Dictionary::remove]: critical error: This feature is currently not implemented. "
-                               "If you need it, it wouldn't be hard to implement. There's already code that does "
-                               "all the work it just needs to be assembled. Note that removing the object does not "
-                               "destroy it."
-                               );
-      return true;
-   }
+   //}
+   //else
+   //{
+      //throw std::runtime_error("[Dictionary::remove]: critical error: This feature is currently not implemented. "
+                               //"If you need it, it wouldn't be hard to implement. There's already code that does "
+                               //"all the work it just needs to be assembled. Note that removing the object does not "
+                               //"destroy it."
+                               //);
+      //return true;
+   //}
 
-   return true;
+   return false;
 }
 
 

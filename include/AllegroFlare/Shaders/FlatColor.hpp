@@ -18,6 +18,7 @@ namespace AllegroFlare
       private:
          ALLEGRO_COLOR color;
          float color_intensity;
+         float color_opacity;
          bool initialized;
          void set_values_to_activated_shader();
          static std::string obtain_vertex_source();
@@ -32,9 +33,11 @@ namespace AllegroFlare
 
          ALLEGRO_COLOR get_color() const;
          float get_color_intensity() const;
+         float get_color_opacity() const;
          void initialize();
          void set_color(ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1});
          void set_color_intensity(float color_intensity=1.0f);
+         void set_color_opacity(float color_opacity=1.0f);
          void activate();
       };
    }

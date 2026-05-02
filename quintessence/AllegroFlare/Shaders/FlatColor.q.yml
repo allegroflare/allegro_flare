@@ -21,6 +21,12 @@ properties:
     getter: true
     setter: explicit
 
+  - name: color_opacity
+    type: float
+    init_with: 1.0f
+    getter: true
+    setter: explicit
+
   - name: TYPE
     type: char*
     init_with: '(char*)"AllegroFlare/Shaders/FlatColor"'
@@ -64,6 +70,17 @@ methods:
       return;
 
 
+  - name: set_color_opacity
+    parameters:
+      - name: color_opacity
+        type: float
+        default_argument: 1.0f
+    body: |
+      this->color_opacity = color_opacity;
+      if (is_active()) set_float("color_opacity", color_opacity);
+      return;
+
+
   - name: activate
     type: void
     guards: [ initialized ]
@@ -78,6 +95,7 @@ methods:
     body: |
       set_vec3("color", color.r, color.g, color.b);
       set_float("color_intensity", color_intensity);
+      set_float("color_opacity", color_opacity);
       return;
     body_dependency_symbols:
       - std::cout
@@ -133,16 +151,20 @@ methods:
 
         uniform vec3 color;
         uniform float color_intensity;
+        uniform float color_opacity;
 
 
         vec4 color_it_plz(vec4 tmp)
         {
-           float inverse_color_intensity = 1.0 - color_intensity;
-           tmp.r = (tmp.r * inverse_color_intensity + color.r * color_intensity) * tmp.a;
-           tmp.g = (tmp.g * inverse_color_intensity + color.g * color_intensity) * tmp.a;
-           tmp.b = (tmp.b * inverse_color_intensity + color.b * color_intensity) * tmp.a;
-           tmp.a = tmp.a;
-           return tmp;
+          float inverse_color_intensity = 1.0 - color_intensity;
+
+          tmp.r = (tmp.r * inverse_color_intensity + color.r * color_intensity) * tmp.a;
+          tmp.g = (tmp.g * inverse_color_intensity + color.g * color_intensity) * tmp.a;
+          tmp.b = (tmp.b * inverse_color_intensity + color.b * color_intensity) * tmp.a;
+
+          tmp.a = tmp.a * color_opacity;
+
+          return tmp;
         }
 
         void main()
