@@ -43,7 +43,8 @@ TEST_F(AllegroFlare_Shaders_FlatColorWithAllegroRenderingFixtureTest, activate__
 }
 
 
-TEST_F(AllegroFlare_Shaders_FlatColorWithAllegroRenderingFixtureTest, CAPTURE__VISUAL__will_apply_opacity)
+TEST_F(AllegroFlare_Shaders_FlatColorWithAllegroRenderingFixtureTest,
+   CAPTURE__VISUAL__will_apply_opacity_after_color_and_intensity)
 {
    AllegroFlare::BitmapBin &bitmap_bin = get_bitmap_bin_ref();
    AllegroFlare::Shaders::FlatColor flat_color;

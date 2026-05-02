@@ -156,16 +156,19 @@ methods:
 
         vec4 color_it_plz(vec4 tmp)
         {
-          float inverse_color_intensity = 1.0 - color_intensity;
+           float inverse_color_intensity = 1.0 - color_intensity;
 
-          tmp.r = (tmp.r * inverse_color_intensity + color.r * color_intensity) * tmp.a;
-          tmp.g = (tmp.g * inverse_color_intensity + color.g * color_intensity) * tmp.a;
-          tmp.b = (tmp.b * inverse_color_intensity + color.b * color_intensity) * tmp.a;
+           tmp.r = tmp.r * inverse_color_intensity + color.r * color_intensity;
+           tmp.g = tmp.g * inverse_color_intensity + color.g * color_intensity;
+           tmp.b = tmp.b * inverse_color_intensity + color.b * color_intensity;
 
-          tmp.a = tmp.a * color_opacity;
+           tmp.a = tmp.a * color_opacity;
 
-          return tmp;
+           tmp.rgb *= tmp.a;
+
+           return tmp;
         }
+
 
         void main()
         {
