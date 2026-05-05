@@ -41,6 +41,7 @@ namespace AllegroFlare
          int get_tile_spacing() const;
          std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> get_tile_index() const;
          std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &get_tile_index_ref();
+         ALLEGRO_BITMAP* get_tile_sub_bitmap(int index_num=0);
          ALLEGRO_BITMAP* get_bitmap();
          virtual void on_destroy() override;
          virtual void on_initialize() override;
@@ -50,7 +51,6 @@ namespace AllegroFlare
          int get_bitmap_height();
          bool get_tile_uv(int index_num=0, int* u1=nullptr, int* v1=nullptr, int* u2=nullptr, int* v2=nullptr);
          bool get_tile_uv(int index_num=0, float* u1=nullptr, float* v1=nullptr, float* u2=nullptr, float* v2=nullptr);
-         ALLEGRO_BITMAP* get_tile_sub_bitmap(int index_num=0);
       };
    }
 }

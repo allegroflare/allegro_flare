@@ -63,6 +63,19 @@ documentation:
 methods:
 
 
+  - name: get_tile_sub_bitmap
+    type: ALLEGRO_BITMAP*
+    parameters:
+      - name: index_num
+        type: int
+        default_argument: 0
+    guards: [ is_initialized_and_not_destroyed() ]
+    body: |
+      if (index_num < 0 || index_num >= (int)tile_index.size()) return nullptr;
+      return tile_index[index_num].get_sub_bitmap();
+      return nullptr;
+
+
   - name: get_bitmap
     type: ALLEGRO_BITMAP*
     guards: [ is_initialized_and_not_destroyed() ]
@@ -283,19 +296,6 @@ methods:
 
       return true;
       return false;
-
-
-  - name: get_tile_sub_bitmap
-    type: ALLEGRO_BITMAP*
-    parameters:
-      - name: index_num
-        type: int
-        default_argument: 0
-    guards: [ is_initialized_and_not_destroyed() ]
-    body: |
-      if (index_num < 0 || index_num >= (int)tile_index.size()) return nullptr;
-      return tile_index[index_num].get_sub_bitmap();
-      return nullptr;
 
 
 dependencies:

@@ -43,6 +43,24 @@ properties:
     constructor_arg: true
     setter: before_initialized
 
+  - name: tile_atlas_tile_width
+    type: int
+    init_with: 12
+    getter: true
+    setter: before_initialized
+
+  - name: tile_atlas_tile_height
+    type: int
+    init_with: 16
+    getter: true
+    setter: before_initialized
+
+  - name: font_size_multiplier
+    type: float
+    init_with: 1.0
+    getter: true
+    setter: before_initialized
+
   - name: prim_mesh_atlas
     type: AllegroFlare::TileMaps::PrimMeshAtlas
     init_with: '{}'
@@ -551,8 +569,8 @@ methods:
             ALLEGRO_BITMAP *atlas_bitmap = bitmap_bin->auto_get(tileset_filename);
             prim_mesh_atlas.set_source_bitmap_filename(tileset_filename);
             // - Scale and extrude the atlas
-            int tile_atlas_tile_width = 12;
-            int tile_atlas_tile_height = 16;
+            //int tile_atlas_tile_width = 14;
+            //int tile_atlas_tile_height = 16;
             int tile_scale = 3;
             ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
                AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(
@@ -658,7 +676,10 @@ methods:
             }
          }
 
-         loading_into__tile_mesh->rescale_tile_dimensions_to(12 * scale, 16 * scale);
+         loading_into__tile_mesh->rescale_tile_dimensions_to(
+            tile_atlas_tile_width * scale,
+            tile_atlas_tile_height * scale
+         );
          loading_into__tile_mesh->refresh_vertex_buffer();
          loading_into__tile_mesh->refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
 
@@ -1325,7 +1346,7 @@ methods:
          float align_x = text_slot.align_x;
          float align_y = text_slot.align_y;
          std::string &font_family = text_slot.font_family;
-         int font_size = text_slot.font_size;
+         int font_size = text_slot.font_size * font_size_multiplier;
          ALLEGRO_COLOR &color = text_slot.color;
 
          // TODO: Confirm exists
@@ -1578,22 +1599,55 @@ methods:
       - name: font_family
         type: std::string
         default_argument: '"[unset-font_family]"'
+      - name: bold
+        type: bool
+        default_argument: false
     body: |
-      std::map<std::string, std::string> font_family_to_font_identifier_map = {
-         { "Azeret Mono", "AzeretMono-Regular.ttf" },
-         { "Michroma",    "Michroma-Regular.ttf" },
-         { "Orbitron",    "Orbitron-Medium.ttf" },
-         { "Oswald",      "Oswald-Medium.ttf" },
-         { "Exan",        "Exan-Regular.ttf" },
+      struct FontData
+      {
+         std::string identifier_regular;
+         std::string identifier_bold;
+      };
+
+      std::map<std::string, FontData> font_family_to_font_identifier_map = {
+         { "Azeret Mono",         { "AzeretMono-Regular.ttf", "" } },
+         { "Michroma",            { "Michroma-Regular.ttf", "" } },
+         { "Orbitron",            { "Orbitron-Medium.ttf", "" } },
+         { "Oswald",              { "Oswald-Medium.ttf", "" } },
+         { "Exan",                { "Exan-Regular.ttf", "" } },
+         { "D-DIN Condensed",     { "D-DINCondensed.otf", "D-DINCondensed-Bold.otf" } },
+         { "Font Awesome 7 Free", { "Font Awesome 7 Free-Solid-900.otf", "" } },
       };
 
       if (font_family_to_font_identifier_map.find(font_family) == font_family_to_font_identifier_map.end())
       {
          // Font not found, return default
          //return "Orbitron-Medium.ttf";
+         AllegroFlare::Logger::warn_from_once(
+            THIS_CLASS_AND_METHOD_NAME,
+            "There is no listing for the font_family (\"" + font_family + "\"). Using the default_font_identifier \""
+               + default_font_identifier + "\"."
+         );
          return default_font_identifier;
       }
-      return font_family_to_font_identifier_map[font_family];
+
+      FontData &font_data = font_family_to_font_identifier_map[font_family];
+
+      if (bold) 
+      {
+         if (font_data.identifier_bold.empty())
+         {
+            AllegroFlare::Logger::warn_from_once(
+               THIS_CLASS_AND_METHOD_NAME,
+               "A bold variant of this font_family (\"" + font_family + "\") is not provided in the list in this "
+                  "method. Falling back on the \"regular\" typeface for this font."
+            );
+            return font_data.identifier_regular;
+         }
+         return font_data.identifier_bold;
+      }
+
+      return font_data.identifier_regular;
 
 
   - name: draw_container_frame

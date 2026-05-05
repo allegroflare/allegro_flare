@@ -1,0 +1,102 @@
+properties:
+
+
+  - name: x1
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: y1
+    type: float
+    init_with: 0.0f
+    exposed: true
+
+  - name: x2
+    type: float
+    init_with: 1.0f
+    exposed: true
+
+  - name: y2
+    type: float
+    init_with: 1.0f
+    exposed: true
+
+
+methods:
+
+
+  - name: w
+    type: float
+    body: |
+      return x2-x1;
+
+
+  - name: h
+    type: float
+    body: |
+      return y2-y1;
+
+
+  - name: scale
+    parameters:
+      - name: scale_x
+        type: float
+        default_argument: 1.0f
+      - name: scale_y
+        type: float
+        default_argument: 1.0f
+    body: |
+      x1 *= scale_x;
+      y1 *= scale_y;
+      x2 *= scale_x;
+      y2 *= scale_y;
+      return;
+
+
+  - name: build_xywh
+    type: AllegroFlare::Elements::Rectangle
+    parameters:
+      - name: x
+        type: float
+        default_argument: 0.0f
+      - name: y
+        type: float
+        default_argument: 0.0f
+      - name: w
+        type: float
+        default_argument: 0.0f
+      - name: h
+        type: float
+        default_argument: 0.0f
+    body: |
+      AllegroFlare::Elements::Rectangle result;
+      result.x1 = x;
+      result.y1 = y;
+      result.x2 = w - x;
+      result.y2 = h - y;
+      return result;
+
+
+  - name: collides
+    type: bool
+    parameters:
+      - name: point
+        type: AllegroFlare::Vec2D
+        default_argument: "{}"
+    body: |
+      if (point.x > x2) return false;
+      if (point.x < x1) return false;
+      if (point.y > y2) return false;
+      if (point.y < y1) return false;
+      return true;
+
+
+dependencies:
+
+
+  - symbol: AllegroFlare::Vec2D
+    headers: [ AllegroFlare/Vec2D.hpp ]
+  - symbol: AllegroFlare::Elements::Rectangle
+    headers: [ AllegroFlare/Elements/Rectangle.hpp ]
+
+

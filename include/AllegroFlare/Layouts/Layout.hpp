@@ -42,6 +42,9 @@ namespace AllegroFlare
          float layout_width;
          float layout_height;
          std::string prim_mesh_atlas_filename;
+         int tile_atlas_tile_width;
+         int tile_atlas_tile_height;
+         float font_size_multiplier;
          AllegroFlare::TileMaps::PrimMeshAtlas prim_mesh_atlas;
          bool tile_mesh_is_present;
          AllegroFlare::TileMaps::TileMesh tile_mesh;
@@ -86,6 +89,9 @@ namespace AllegroFlare
          void set_font_bin(AllegroFlare::FontBin* font_bin);
          void set_tmj_filename(std::string tmj_filename);
          void set_prim_mesh_atlas_filename(std::string prim_mesh_atlas_filename);
+         void set_tile_atlas_tile_width(int tile_atlas_tile_width);
+         void set_tile_atlas_tile_height(int tile_atlas_tile_height);
+         void set_font_size_multiplier(float font_size_multiplier);
          void set_prim_mesh_atlas(AllegroFlare::TileMaps::PrimMeshAtlas prim_mesh_atlas);
          void set_tile_mesh(AllegroFlare::TileMaps::TileMesh tile_mesh);
          void set_text_slots(std::map<std::string, AllegroFlare::Layouts::Elements::Text> text_slots);
@@ -95,6 +101,9 @@ namespace AllegroFlare
          void set_after_layer_render(std::function<void(AllegroFlare::Layouts::Layer*)> after_layer_render);
          void set_before_text_slot_render(std::function<void(AllegroFlare::Layouts::Layer*, const std::string*, AllegroFlare::Layouts::Elements::Text*, const std::string*)> before_text_slot_render);
          void set_after_text_slot_render(std::function<void()> after_text_slot_render);
+         int get_tile_atlas_tile_width() const;
+         int get_tile_atlas_tile_height() const;
+         float get_font_size_multiplier() const;
          bool get_tile_mesh_is_present() const;
          std::map<std::string, std::string> get_text_data() const;
          int get_scale() const;
@@ -143,7 +152,7 @@ namespace AllegroFlare
          void render_cursor_destinations_debug(float line_thickness=2.0);
          void render_frames_debug(float line_thickness=2.0);
          std::pair<bool, std::pair<std::vector<std::string>, std::vector<std::string>>> compare_maps(std::map<std::string, std::string> map1={}, std::map<std::string, std::string> map2={});
-         std::string lookup_font_identifier_by_family(std::string font_family="[unset-font_family]");
+         std::string lookup_font_identifier_by_family(std::string font_family="[unset-font_family]", bool bold=false);
          void draw_container_frame(float x=0.0f, float y=0.0f, float x2=0.0f, float y2=0.0f, ALLEGRO_COLOR color=ALLEGRO_COLOR{1, 1, 1, 1}, float line_thickness=0.0f);
          static bool multiline_text_draw_callback(int line_num=0, const char* line=nullptr, int size=0, void* extra=nullptr);
          int count_num_lines_will_render(ALLEGRO_FONT* font=nullptr, float max_width=0.0f, std::string* text=nullptr);

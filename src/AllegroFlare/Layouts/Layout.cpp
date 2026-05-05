@@ -36,6 +36,9 @@ Layout::Layout(AllegroFlare::BitmapBin* bitmap_bin, AllegroFlare::FontBin* font_
    , layout_width(0.0f)
    , layout_height(0.0f)
    , prim_mesh_atlas_filename(prim_mesh_atlas_filename)
+   , tile_atlas_tile_width(12)
+   , tile_atlas_tile_height(16)
+   , font_size_multiplier(1.0)
    , prim_mesh_atlas(prim_mesh_atlas)
    , tile_mesh_is_present(false)
    , tile_mesh(tile_mesh)
@@ -102,6 +105,27 @@ void Layout::set_prim_mesh_atlas_filename(std::string prim_mesh_atlas_filename)
 }
 
 
+void Layout::set_tile_atlas_tile_width(int tile_atlas_tile_width)
+{
+   if (get_initialized()) throw std::runtime_error("[Layout::set_tile_atlas_tile_width]: error: guard \"get_initialized()\" not met.");
+   this->tile_atlas_tile_width = tile_atlas_tile_width;
+}
+
+
+void Layout::set_tile_atlas_tile_height(int tile_atlas_tile_height)
+{
+   if (get_initialized()) throw std::runtime_error("[Layout::set_tile_atlas_tile_height]: error: guard \"get_initialized()\" not met.");
+   this->tile_atlas_tile_height = tile_atlas_tile_height;
+}
+
+
+void Layout::set_font_size_multiplier(float font_size_multiplier)
+{
+   if (get_initialized()) throw std::runtime_error("[Layout::set_font_size_multiplier]: error: guard \"get_initialized()\" not met.");
+   this->font_size_multiplier = font_size_multiplier;
+}
+
+
 void Layout::set_prim_mesh_atlas(AllegroFlare::TileMaps::PrimMeshAtlas prim_mesh_atlas)
 {
    if (get_initialized()) throw std::runtime_error("[Layout::set_prim_mesh_atlas]: error: guard \"get_initialized()\" not met.");
@@ -157,6 +181,24 @@ void Layout::set_before_text_slot_render(std::function<void(AllegroFlare::Layout
 void Layout::set_after_text_slot_render(std::function<void()> after_text_slot_render)
 {
    this->after_text_slot_render = after_text_slot_render;
+}
+
+
+int Layout::get_tile_atlas_tile_width() const
+{
+   return tile_atlas_tile_width;
+}
+
+
+int Layout::get_tile_atlas_tile_height() const
+{
+   return tile_atlas_tile_height;
+}
+
+
+float Layout::get_font_size_multiplier() const
+{
+   return font_size_multiplier;
 }
 
 
@@ -559,8 +601,8 @@ void Layout::load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_lo
          ALLEGRO_BITMAP *atlas_bitmap = bitmap_bin->auto_get(tileset_filename);
          prim_mesh_atlas.set_source_bitmap_filename(tileset_filename);
          // - Scale and extrude the atlas
-         int tile_atlas_tile_width = 12;
-         int tile_atlas_tile_height = 16;
+         //int tile_atlas_tile_width = 14;
+         //int tile_atlas_tile_height = 16;
          int tile_scale = 3;
          ALLEGRO_BITMAP *scaled_extruded_tile_map_bitmap =
             AllegroFlare::TileMaps::TileAtlasBuilder::create_scaled_and_extruded(
@@ -666,7 +708,10 @@ void Layout::load_into_tilelayer(AllegroFlare::Tiled::TMJDataLoader* tmj_data_lo
          }
       }
 
-      loading_into__tile_mesh->rescale_tile_dimensions_to(12 * scale, 16 * scale);
+      loading_into__tile_mesh->rescale_tile_dimensions_to(
+         tile_atlas_tile_width * scale,
+         tile_atlas_tile_height * scale
+      );
       loading_into__tile_mesh->refresh_vertex_buffer();
       loading_into__tile_mesh->refresh_index_vertices_from_removed_tiles_and_refresh_index_buffer();
 
@@ -1291,7 +1336,7 @@ void Layout::render_text_slots(AllegroFlare::Layouts::Layer* layer)
       float align_x = text_slot.align_x;
       float align_y = text_slot.align_y;
       std::string &font_family = text_slot.font_family;
-      int font_size = text_slot.font_size;
+      int font_size = text_slot.font_size * font_size_multiplier;
       ALLEGRO_COLOR &color = text_slot.color;
 
       // TODO: Confirm exists
@@ -1525,23 +1570,53 @@ std::pair<bool, std::pair<std::vector<std::string>, std::vector<std::string>>> L
    //return (missing_in_map1.empty() && missing_in_map2.empty();
 }
 
-std::string Layout::lookup_font_identifier_by_family(std::string font_family)
+std::string Layout::lookup_font_identifier_by_family(std::string font_family, bool bold)
 {
-   std::map<std::string, std::string> font_family_to_font_identifier_map = {
-      { "Azeret Mono", "AzeretMono-Regular.ttf" },
-      { "Michroma",    "Michroma-Regular.ttf" },
-      { "Orbitron",    "Orbitron-Medium.ttf" },
-      { "Oswald",      "Oswald-Medium.ttf" },
-      { "Exan",        "Exan-Regular.ttf" },
+   struct FontData
+   {
+      std::string identifier_regular;
+      std::string identifier_bold;
+   };
+
+   std::map<std::string, FontData> font_family_to_font_identifier_map = {
+      { "Azeret Mono",         { "AzeretMono-Regular.ttf", "" } },
+      { "Michroma",            { "Michroma-Regular.ttf", "" } },
+      { "Orbitron",            { "Orbitron-Medium.ttf", "" } },
+      { "Oswald",              { "Oswald-Medium.ttf", "" } },
+      { "Exan",                { "Exan-Regular.ttf", "" } },
+      { "D-DIN Condensed",     { "D-DINCondensed.otf", "D-DINCondensed-Bold.otf" } },
+      { "Font Awesome 7 Free", { "Font Awesome 7 Free-Solid-900.otf", "" } },
    };
 
    if (font_family_to_font_identifier_map.find(font_family) == font_family_to_font_identifier_map.end())
    {
       // Font not found, return default
       //return "Orbitron-Medium.ttf";
+      AllegroFlare::Logger::warn_from_once(
+         THIS_CLASS_AND_METHOD_NAME,
+         "There is no listing for the font_family (\"" + font_family + "\"). Using the default_font_identifier \""
+            + default_font_identifier + "\"."
+      );
       return default_font_identifier;
    }
-   return font_family_to_font_identifier_map[font_family];
+
+   FontData &font_data = font_family_to_font_identifier_map[font_family];
+
+   if (bold) 
+   {
+      if (font_data.identifier_bold.empty())
+      {
+         AllegroFlare::Logger::warn_from_once(
+            THIS_CLASS_AND_METHOD_NAME,
+            "A bold variant of this font_family (\"" + font_family + "\") is not provided in the list in this "
+               "method. Falling back on the \"regular\" typeface for this font."
+         );
+         return font_data.identifier_regular;
+      }
+      return font_data.identifier_bold;
+   }
+
+   return font_data.identifier_regular;
 }
 
 void Layout::draw_container_frame(float x, float y, float x2, float y2, ALLEGRO_COLOR color, float line_thickness)

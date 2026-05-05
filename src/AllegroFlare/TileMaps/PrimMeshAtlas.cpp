@@ -103,6 +103,20 @@ std::vector<AllegroFlare::TileMaps::PrimMeshAtlasIndexRecord> &PrimMeshAtlas::ge
 }
 
 
+ALLEGRO_BITMAP* PrimMeshAtlas::get_tile_sub_bitmap(int index_num)
+{
+   if (!(is_initialized_and_not_destroyed()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"is_initialized_and_not_destroyed()\" not met");
+   }
+   if (index_num < 0 || index_num >= (int)tile_index.size()) return nullptr;
+   return tile_index[index_num].get_sub_bitmap();
+   return nullptr;
+}
+
 ALLEGRO_BITMAP* PrimMeshAtlas::get_bitmap()
 {
    if (!(is_initialized_and_not_destroyed()))
@@ -318,20 +332,6 @@ bool PrimMeshAtlas::get_tile_uv(int index_num, float* u1, float* v1, float* u2, 
 
    return true;
    return false;
-}
-
-ALLEGRO_BITMAP* PrimMeshAtlas::get_tile_sub_bitmap(int index_num)
-{
-   if (!(is_initialized_and_not_destroyed()))
-   {
-      std::stringstream error_message;
-      error_message << "[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"is_initialized_and_not_destroyed()\" not met.";
-      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
-      throw std::runtime_error("[AllegroFlare::TileMaps::PrimMeshAtlas::get_tile_sub_bitmap]: error: guard \"is_initialized_and_not_destroyed()\" not met");
-   }
-   if (index_num < 0 || index_num >= (int)tile_index.size()) return nullptr;
-   return tile_index[index_num].get_sub_bitmap();
-   return nullptr;
 }
 
 
