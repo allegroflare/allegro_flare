@@ -1015,6 +1015,7 @@
     "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/Rectangle",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/UI/IntSpinner",
@@ -2767,6 +2768,9 @@
   "AllegroFlare/Elements/PlayingCards/Deck": [
     "AllegroFlare/Elements/PlayingCards/DeckFactory",
     "AllegroFlare/Prototypes/Solitare/Solitare"
+  ],
+  "AllegroFlare/Elements/Rectangle": [
+    "AllegroFlare/Elements/Rectangle"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",

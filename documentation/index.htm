@@ -222,6 +222,7 @@ table td
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Card.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/Deck.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml">quintessence/AllegroFlare/Elements/PlayingCards/DeckFactory.q.yml</a></li>
+  <li><a href="#quintessence/AllegroFlare/Elements/Rectangle.q.yml">quintessence/AllegroFlare/Elements/Rectangle.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/RollingCredits.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/RollingCredits.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionFactory.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionFactory.q.yml</a></li>
   <li><a href="#quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.q.yml">quintessence/AllegroFlare/Elements/RollingCredits/SectionRenderers/Base.q.yml</a></li>
@@ -15793,6 +15794,65 @@ table td
 <div class="property-box dependencies">     <table>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::PlayingCards::Deck&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/PlayingCards/Deck.hpp&quot;]}</td>
+</tr>
+    </table>
+</div>  </div>
+</ul>
+<br><br><br>
+<br><br><br>
+<ul>
+  <div class="component">
+    <h3 id="quintessence/AllegroFlare/Elements/Rectangle.q.yml">quintessence/AllegroFlare/Elements/Rectangle.q.yml</h3>
+    <p>(This component does not include supplementary documentation)</p>
+    <h3>Properties</h3>
+<div class="property-box properties">     <table>
+<tr>
+  <td class="property">x1</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y1</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">x2</td>
+  <td class="property">float</td>
+</tr>
+<tr>
+  <td class="property">y2</td>
+  <td class="property">float</td>
+</tr>
+    </table>
+</div>    <h3>Methods</h3>
+<div class="property-box methods">     <table>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>w</b>()</td>
+</tr>
+<tr>
+  <td class="method">float</td>
+  <td class="method"><b>h</b>()</td>
+</tr>
+<tr>
+  <td class="method">void</td>
+  <td class="method"><b>scale</b>(float scale_x=1.0f, float scale_y=1.0f)</td>
+</tr>
+<tr>
+  <td class="method">AllegroFlare::Elements::Rectangle</td>
+  <td class="method"><b>build_xywh</b>(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f)</td>
+</tr>
+<tr>
+  <td class="method">bool</td>
+  <td class="method"><b>collides</b>(AllegroFlare::Vec2D point={})</td>
+</tr>
+    </table>
+</div>    <h3>Dependencies</h3>
+<div class="property-box dependencies">     <table>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Rectangle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Rectangle.hpp&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55092,6 +55152,7 @@ table td
     "AllegroFlare/Elements/DialogBoxRenderers/ChapterTitleRenderer",
     "AllegroFlare/Elements/InputDeviceConfigurationList",
     "AllegroFlare/Elements/InputDevicesList",
+    "AllegroFlare/Elements/Rectangle",
     "AllegroFlare/Elements/Score",
     "AllegroFlare/Elements/SelectionCursorBox",
     "AllegroFlare/Elements/UI/IntSpinner",
@@ -56844,6 +56905,9 @@ table td
   "AllegroFlare/Elements/PlayingCards/Deck": [
     "AllegroFlare/Elements/PlayingCards/DeckFactory",
     "AllegroFlare/Prototypes/Solitare/Solitare"
+  ],
+  "AllegroFlare/Elements/Rectangle": [
+    "AllegroFlare/Elements/Rectangle"
   ],
   "AllegroFlare/Elements/RollingCredits/Sections/Base": [
     "AllegroFlare/Elements/RollingCredits/RollingCredits",

@@ -49,8 +49,8 @@ AllegroFlare::Elements::Rectangle Rectangle::build_xywh(float x, float y, float 
    AllegroFlare::Elements::Rectangle result;
    result.x1 = x;
    result.y1 = y;
-   result.x2 = w - x;
-   result.y2 = h - y;
+   result.x2 = x + w;
+   result.y2 = y + h;
    return result;
 }
 
