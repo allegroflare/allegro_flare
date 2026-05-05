@@ -15838,6 +15838,10 @@ table td
   <td class="method"><b>scale</b>(float scale_x=1.0f, float scale_y=1.0f)</td>
 </tr>
 <tr>
+  <td class="method">void</td>
+  <td class="method"><b>draw</b>(ALLEGRO_COLOR color=ALLEGRO_COLOR{0.9961, 0.3451, 0.3412, 1.0}, float line_thickness=1.0f)</td>
+</tr>
+<tr>
   <td class="method">AllegroFlare::Elements::Rectangle</td>
   <td class="method"><b>build_xywh</b>(float x=0.0f, float y=0.0f, float w=0.0f, float h=0.0f)</td>
 </tr>
@@ -15849,10 +15853,16 @@ table td
 </div>    <h3>Dependencies</h3>
 <div class="property-box dependencies">     <table>
 <tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;ALLEGRO_COLOR&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro.h&quot;]}</td>
+</tr>
+<tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Vec2D&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Vec2D.hpp&quot;]}</td>
 </tr>
 <tr>
   <td class="dependency">{&quot;symbol&quot;=&gt;&quot;AllegroFlare::Elements::Rectangle&quot;, &quot;headers&quot;=&gt;[&quot;AllegroFlare/Elements/Rectangle.hpp&quot;]}</td>
+</tr>
+<tr>
+  <td class="dependency">{&quot;symbol&quot;=&gt;&quot;al_is_primitives_addon_initialized&quot;, &quot;headers&quot;=&gt;[&quot;allegro5/allegro_primitives.h&quot;]}</td>
 </tr>
     </table>
 </div>  </div>
@@ -55028,6 +55038,7 @@ table td
     "AllegroFlare/Elements/ListBoxRenderer",
     "AllegroFlare/Elements/NinePatch",
     "AllegroFlare/Elements/NotificationRenderer",
+    "AllegroFlare/Elements/Rectangle",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Multicolumn",
     "AllegroFlare/Elements/Scrollbar",
     "AllegroFlare/Elements/WorldMapViewer",
@@ -55340,6 +55351,7 @@ table td
     "AllegroFlare/Elements/NotificationRenderers/AchievementUnlocked",
     "AllegroFlare/Elements/NotificationRenderers/JoystickConnected",
     "AllegroFlare/Elements/NotificationRenderers/JoystickDisconnected",
+    "AllegroFlare/Elements/Rectangle",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/ColumnWithLabels",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/Header",
     "AllegroFlare/Elements/RollingCredits/SectionRenderers/LegalText",

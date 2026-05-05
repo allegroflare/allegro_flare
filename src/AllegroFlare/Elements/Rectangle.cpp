@@ -2,7 +2,10 @@
 
 #include <AllegroFlare/Elements/Rectangle.hpp>
 
-
+#include <allegro5/allegro_primitives.h>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 
 namespace AllegroFlare
@@ -41,6 +44,19 @@ void Rectangle::scale(float scale_x, float scale_y)
    y1 *= scale_y;
    x2 *= scale_x;
    y2 *= scale_y;
+   return;
+}
+
+void Rectangle::draw(ALLEGRO_COLOR color, float line_thickness)
+{
+   if (!(al_is_primitives_addon_initialized()))
+   {
+      std::stringstream error_message;
+      error_message << "[AllegroFlare::Elements::Rectangle::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met.";
+      std::cerr << "\033[1;31m" << error_message.str() << " An exception will be thrown to halt the program.\033[0m" << std::endl;
+      throw std::runtime_error("[AllegroFlare::Elements::Rectangle::draw]: error: guard \"al_is_primitives_addon_initialized()\" not met");
+   }
+   al_draw_rectangle(x1, y1, x2, y2, color, line_thickness);
    return;
 }
 

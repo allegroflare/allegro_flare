@@ -53,6 +53,22 @@ methods:
       return;
 
 
+  - name: draw
+    parameters:
+      - name: color
+        type: ALLEGRO_COLOR
+        default_argument: 'ALLEGRO_COLOR{0.9961, 0.3451, 0.3412, 1.0}'
+      - name: line_thickness
+        type: float
+        default_argument: 1.0f
+    guards: [ al_is_primitives_addon_initialized() ]
+    body: |
+      al_draw_rectangle(x1, y1, x2, y2, color, line_thickness);
+      return;
+    body_dependency_symbols:
+      - al_is_primitives_addon_initialized
+
+
   - name: build_xywh
     type: AllegroFlare::Elements::Rectangle
     parameters:
@@ -94,9 +110,13 @@ methods:
 dependencies:
 
 
+  - symbol: ALLEGRO_COLOR
+    headers: [ allegro5/allegro.h ]
   - symbol: AllegroFlare::Vec2D
     headers: [ AllegroFlare/Vec2D.hpp ]
   - symbol: AllegroFlare::Elements::Rectangle
     headers: [ AllegroFlare/Elements/Rectangle.hpp ]
+  - symbol: al_is_primitives_addon_initialized
+    headers: [ allegro5/allegro_primitives.h ]
 
 
