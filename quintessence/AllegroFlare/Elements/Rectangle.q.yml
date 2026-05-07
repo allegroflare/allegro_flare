@@ -94,6 +94,31 @@ methods:
       return result;
 
 
+  - name: build_x1y1x2y2
+    static: true
+    type: AllegroFlare::Elements::Rectangle
+    parameters:
+      - name: x1
+        type: float
+        default_argument: 0.0f
+      - name: y1
+        type: float
+        default_argument: 0.0f
+      - name: x2
+        type: float
+        default_argument: 0.0f
+      - name: y2
+        type: float
+        default_argument: 0.0f
+    body: |
+      AllegroFlare::Elements::Rectangle result;
+      result.x1 = x1;
+      result.y1 = y1;
+      result.x2 = x2;
+      result.y2 = y2;
+      return result;
+
+
   - name: collides
     type: bool
     parameters:

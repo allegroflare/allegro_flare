@@ -70,6 +70,16 @@ AllegroFlare::Elements::Rectangle Rectangle::build_xywh(float x, float y, float 
    return result;
 }
 
+AllegroFlare::Elements::Rectangle Rectangle::build_x1y1x2y2(float x1, float y1, float x2, float y2)
+{
+   AllegroFlare::Elements::Rectangle result;
+   result.x1 = x1;
+   result.y1 = y1;
+   result.x2 = x2;
+   result.y2 = y2;
+   return result;
+}
+
 bool Rectangle::collides(AllegroFlare::Vec2D point)
 {
    if (point.x > x2) return false;
