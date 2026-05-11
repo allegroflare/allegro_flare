@@ -289,14 +289,12 @@ std::string Logger::build_unhandled_case_message(std::string unhandled_case)
    return result.str();
 }
 
-void Logger::throw_missing_file_error(std::string from, std::string filename, std::string filetype)
+void Logger::throw_missing_file_error(std::string from, std::string filename, std::string filetype__DEPRECATED)
 {
    std::stringstream error_message;
    std::string current_path = std::filesystem::current_path().string();
-
-   error_message << "The expected " << filetype << " file does not exist. "
-                 << "Looking for \"" << filename << "\" from the current path "
-                 << "\"" << current_path << "\".";
+   error_message << "The expected file \"" << filename << "\" does not exist. "
+                 << "Looking from the current path \"" << current_path << "\".";
    throw_error(from, error_message.str());
    return;
 }
