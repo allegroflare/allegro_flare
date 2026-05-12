@@ -1,6 +1,7 @@
 
 
 #include <AllegroFlare/Testing/Comparison/ALLEGRO_COLOR.hpp>
+#include <tuple>
 
 
 bool operator==(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
@@ -16,6 +17,13 @@ bool operator==(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
 bool operator!=(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
 {
    return !(color == other_color);
+}
+
+
+bool operator<(const ALLEGRO_COLOR& color, const ALLEGRO_COLOR& other_color)
+{
+   return std::tie(color.r, color.g, color.b, color.a)
+        < std::tie(other_color.r, other_color.g, other_color.b, other_color.a);
 }
 
 

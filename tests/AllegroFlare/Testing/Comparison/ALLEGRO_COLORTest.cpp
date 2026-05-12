@@ -37,3 +37,62 @@ TEST(AllegroFlare_Testing_Comparison_ALLEGRO_COLORTest,
 }
 
 
+
+// Gemini:
+
+
+TEST(AllegroFlare_Testing_Comparison_ALLEGRO_COLORTest,
+   less_than_operator__returns_true_when_r_is_less)
+{
+   ALLEGRO_COLOR a{0.1, 0.5, 0.5, 0.5};
+   ALLEGRO_COLOR b{0.2, 0.0, 0.0, 0.0};
+
+   EXPECT_TRUE(a < b);
+   EXPECT_FALSE(b < a);
+}
+
+
+TEST(AllegroFlare_Testing_Comparison_ALLEGRO_COLORTest,
+   less_than_operator__falls_back_to_g_when_r_is_equal)
+{
+   ALLEGRO_COLOR a{0.5, 0.1, 0.5, 0.5};
+   ALLEGRO_COLOR b{0.5, 0.2, 0.0, 0.0};
+
+   EXPECT_TRUE(a < b);
+   EXPECT_FALSE(b < a);
+}
+
+
+TEST(AllegroFlare_Testing_Comparison_ALLEGRO_COLORTest,
+   less_than_operator__falls_back_to_b_when_r_and_g_are_equal)
+{
+   ALLEGRO_COLOR a{0.5, 0.5, 0.1, 0.5};
+   ALLEGRO_COLOR b{0.5, 0.5, 0.2, 0.0};
+
+   EXPECT_TRUE(a < b);
+   EXPECT_FALSE(b < a);
+}
+
+
+TEST(AllegroFlare_Testing_Comparison_ALLEGRO_COLORTest,
+   less_than_operator__falls_back_to_a_when_rgb_are_equal)
+{
+   ALLEGRO_COLOR a{0.5, 0.5, 0.5, 0.1};
+   ALLEGRO_COLOR b{0.5, 0.5, 0.5, 0.2};
+
+   EXPECT_TRUE(a < b);
+   EXPECT_FALSE(b < a);
+}
+
+
+TEST(AllegroFlare_Testing_Comparison_ALLEGRO_COLORTest,
+   less_than_operator__returns_false_when_all_components_are_equal)
+{
+   ALLEGRO_COLOR a{0.5, 0.5, 0.5, 0.5};
+   ALLEGRO_COLOR b{0.5, 0.5, 0.5, 0.5};
+
+   EXPECT_FALSE(a < b);
+   EXPECT_FALSE(b < a);
+}
+
+
