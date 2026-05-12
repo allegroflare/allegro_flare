@@ -83,6 +83,7 @@ namespace AllegroFlare
          bool test_name_indicates_it_wants_a_screenshot();
          void clear_display();
          void clear();
+         void clear_with_color(ALLEGRO_COLOR clear_color=CLEAR_COLOR_EIGENGRAU);
          void clear_dark();
          void clear_neutral();
          void clear_light();

@@ -517,6 +517,13 @@ void WithAllegroRenderingFixture::clear()
    return;
 }
 
+void WithAllegroRenderingFixture::clear_with_color(ALLEGRO_COLOR clear_color)
+{
+   al_clear_depth_buffer(1);
+   al_clear_to_color(clear_color);
+   return;
+}
+
 void WithAllegroRenderingFixture::clear_dark()
 {
    al_clear_depth_buffer(1);

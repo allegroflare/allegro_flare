@@ -559,6 +559,19 @@ methods:
       - ALLEGRO_COLOR
 
 
+  - name: clear_with_color
+    parameters:
+      - name: clear_color
+        type: ALLEGRO_COLOR
+        default_argument: CLEAR_COLOR_EIGENGRAU
+    body: |
+      al_clear_depth_buffer(1);
+      al_clear_to_color(clear_color);
+      return;
+    body_dependency_symbols:
+      - ALLEGRO_COLOR
+
+
   - name: clear_dark
     body: |
       al_clear_depth_buffer(1);
