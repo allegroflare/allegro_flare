@@ -30,7 +30,7 @@ namespace AllegroFlare
 
 
          public:
-            YouGotAnItemRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string item_name="[a-name-that-has-not-been-set]", std::string item_bitmap_identifier="[an-bitmap-identifier-that-nas-not-been-set]", float age=0, float width=600, float height=460);
+            YouGotAnItemRenderer(AllegroFlare::FontBin* font_bin=nullptr, AllegroFlare::BitmapBin* bitmap_bin=nullptr, std::string item_name="[a-name-that-has-not-been-set]", std::string item_bitmap_identifier="[an-bitmap-identifier-that-nas-not-been-set]", float age=0, float width=700, float height=460);
             ~YouGotAnItemRenderer();
 
             std::string get_item_name() const;

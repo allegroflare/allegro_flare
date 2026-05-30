@@ -38,6 +38,7 @@ namespace AllegroFlare
          float get_h() const;
          float get_velocity_x() const;
          float get_velocity_y() const;
+         AllegroFlare::Vec2D get_center();
          float get_left_edge();
          float get_right_edge();
          float get_top_edge();
@@ -48,6 +49,8 @@ namespace AllegroFlare
          void set_bottom_edge(float y=0.0f);
          bool collides(AllegroFlare::Physics::AABB2D* other=nullptr, AllegroFlare::Vec2D self_offset=AllegroFlare::Vec2D(), AllegroFlare::Vec2D other_offset=AllegroFlare::Vec2D());
          bool collides_with_point(AllegroFlare::Vec2D position={});
+         float distance_to_center(AllegroFlare::Vec2D position={});
+         float fast_distance_to_center(AllegroFlare::Vec2D position={});
       };
    }
 }

@@ -101,6 +101,11 @@ float AABB2D::get_velocity_y() const
 }
 
 
+AllegroFlare::Vec2D AABB2D::get_center()
+{
+   return {x + w/2, y + h/2};
+}
+
 float AABB2D::get_left_edge()
 {
    return x;
@@ -182,6 +187,18 @@ bool AABB2D::collides_with_point(AllegroFlare::Vec2D position)
       a_min.y <= position.y &&
       a_max.y >= position.y
    );
+}
+
+float AABB2D::distance_to_center(AllegroFlare::Vec2D position)
+{
+   // TODO: Test this
+   return get_center().distance(position);
+}
+
+float AABB2D::fast_distance_to_center(AllegroFlare::Vec2D position)
+{
+   // TODO: Test this
+   return get_center().fast_distance_better(position);
 }
 
 

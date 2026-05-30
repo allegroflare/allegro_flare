@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <sstream>
+#include <algorithm>
 
 
 
@@ -177,6 +178,65 @@ namespace AllegroFlare
        y /= p.second;
        return *this;
    }
+
+
+
+
+float Vec2D::distance(const Vec2D &other)
+{
+   float dx = other.x - x;
+   float dy = other.y - y;
+   return std::sqrt(dx*dx + dy*dy);
+}
+
+
+
+
+float Vec2D::manhattan_distance(const Vec2D &other)
+{
+   float dx = std::fabs(other.x - x);
+   float dy = std::fabs(other.y - y);
+   return dx + dy;
+}
+
+
+
+float Vec2D::fast_distance(const Vec2D &other)
+{
+   float dx = std::fabs(other.x - x);
+   float dy = std::fabs(other.y - y);
+
+   float max_val = std::max(dx, dy);
+   float min_val = std::min(dx, dy);
+
+   return max_val + 0.41421356f * min_val;
+}
+
+
+
+float Vec2D::fast_distance_better(const Vec2D &other)
+{
+   float dx = std::fabs(other.x - x);
+   float dy = std::fabs(other.y - y);
+
+   float max_val = std::max(dx, dy);
+   float min_val = std::min(dx, dy);
+
+   return max_val + 0.375f * min_val;
+}
+
+
+
+float Vec2D::fast_distance_best(const Vec2D &other)
+{
+   float dx = std::fabs(other.x - x);
+   float dy = std::fabs(other.y - y);
+
+   float max_val = std::max(dx, dy);
+   float min_val = std::min(dx, dy);
+
+   return 0.96043387f * max_val + 0.39782473f * min_val;
+}
 
 
 

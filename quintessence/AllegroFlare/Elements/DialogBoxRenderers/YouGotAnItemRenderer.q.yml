@@ -31,7 +31,7 @@ properties:
 
   - name: width
     type: float
-    init_with: 600
+    init_with: 700
     constructor_arg: true
 
   - name: height

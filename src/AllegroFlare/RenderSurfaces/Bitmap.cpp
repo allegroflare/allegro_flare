@@ -25,7 +25,7 @@ Bitmap::Bitmap() //int surface_width, int surface_height, int multisamples, int 
    , depth(0)
    , min_linear(false)
    , mag_linear(false)
-   , mipmapping(true) // TODO: Consider making this false by default
+   , mipmapping(false) // TODO: This is now false by default, a recent change. Be aware of it in legacy systems.
    , no_preserve_texture(false)
    //, config_has_changed(false)
    , initialized(false)
@@ -195,7 +195,7 @@ void Bitmap::setup_surface()
 
 
    // Set the flags
-   int flags = al_get_new_bitmap_flags();
+   int flags = 0;
    add_or_remove_flag(min_linear, ALLEGRO_MIN_LINEAR, &flags);
    add_or_remove_flag(mag_linear, ALLEGRO_MAG_LINEAR, &flags);
    add_or_remove_flag(mag_linear, ALLEGRO_MAG_LINEAR, &flags);
@@ -373,9 +373,18 @@ void Bitmap::clear_surface()
    }
    //if (!initialized) throw std::runtime_error("AllegroFlare::RenderSurface::Bitmap::get_surface_bitmap: error: not setup");
 
+   ALLEGRO_BITMAP *previous_surface = nullptr;
+   if (surface != al_get_target_bitmap())
+   {
+      previous_surface = al_get_target_bitmap();
+      al_set_target_bitmap(surface);
+   }
+
    al_clear_to_color(clear_color);
    al_clear_depth_buffer(1); // This clears on the display, but not necessarily the bitmap?
                              // TODO: Ask if bitmaps can have their depth buffer cleared
+
+   if (previous_surface) al_set_target_bitmap(previous_surface);
 }
 
 

@@ -50,6 +50,13 @@ namespace AllegroFlare
       Vec2D& operator*=(const std::pair<float, float>& p); // Component-wise multiplication
       Vec2D& operator/=(const std::pair<float, float>& p); // Component-wise division
 
+      // Some distance calculations
+      float distance(const Vec2D &other); // Uses exact distance calculation with sqrt
+      float manhattan_distance(const Vec2D &other); // Uses manhattan distance
+      float fast_distance(const Vec2D &other); // Max relative error 8.2%, Typical is 2-4%
+      float fast_distance_better(const Vec2D &other); // Max margin of error 3.96%
+      float fast_distance_best(const Vec2D &other); // Max relative error 0.6%
+
       // returns the vector formatted as a string
       std::string get_string() const;
    };
